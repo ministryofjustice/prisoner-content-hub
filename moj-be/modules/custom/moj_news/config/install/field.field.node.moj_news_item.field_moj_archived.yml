@@ -1,0 +1,23 @@
+uuid: 71b61d67-0d89-428a-8775-4357547b3d98
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_archived
+    - node.type.moj_news_item
+id: node.moj_news_item.field_moj_archived
+field_name: field_moj_archived
+entity_type: node
+bundle: moj_news_item
+label: Archived
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'True'
+  off_label: 'False'
+field_type: boolean

@@ -1,0 +1,28 @@
+uuid: 7e0c4a5f-ac3f-4011-9c00-cf0b0732b339
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_video
+    - node.type.moj_video_item
+  module:
+    - video
+_core:
+  default_config_hash: pygZ5fKZHW7qM8jWI_XoMKLDE6MIOMMGggBZeYBPJQA
+id: node.moj_video_item.field_moj_video
+field_name: field_moj_video
+entity_type: node
+bundle: moj_video_item
+label: Video
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_extensions: ''
+  file_directory: 'videos/[date:custom:Y]-[date:custom:m]'
+  max_filesize: ''
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: video

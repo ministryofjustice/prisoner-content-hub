@@ -1,0 +1,30 @@
+uuid: 49e862e1-24f3-4d78-85f1-5cc4ffbbb109
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_tags
+    - node.type.moj_faq_item
+    # - taxonomy.vocabulary.tags
+_core:
+  default_config_hash: f3i7jmTj1RI9os65Fs8stsscObQxq8Ot19tXg5OxE4k
+id: node.moj_faq_item.field_moj_tags
+field_name: field_moj_tags
+entity_type: node
+bundle: moj_faq_item
+label: Tags
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      tags: tags
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * @file
+ * Exposes global functionality for video.js fields.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\file\Entity\File;
+use Drupal\field\FieldStorageConfigInterface;
+use Drupal\field\FieldConfigInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function videojs_theme() {
+  return array(
+    'videojs' => array(
+      'variables' => array('items' => NULL, 'player_attributes' => NULL)
+    ),
+    'videojs_audio' => array(
+      'variables' => array('items' => NULL, 'player_attributes' => NULL)
+    ),
+  );
+}
+
+/**
+ * Return the version of Video.js installed.
+ *
+ * @param $path
+ *   The path to check for a Video.js installation. This can be a local path
+ *   like sites/all/libraries/video-js or a remote path like
+ *   http://mycdn.com/videojs. Do not add a trailing slash.
+ *   Defaults to videojs_directory when using the local file path location
+ *   or whatever location the Libraries API determines.
+ *
+ * @return
+ *   The version found or NULL if no version found.
+ */
+function videojs_get_version($path = NULL) {
+  $version = NULL;
+  $config = \Drupal::config('videojs.settings');
+
+  if (!isset($path)) {
+    $path = $config->get('videojs_directory');
+  };
+
+  // When admins specify a protocol-relative URL, add http because file_get_contents doesn't understand it.
+  if (strncmp('//', $path, 2) === 0) {
+    $path = 'http:' . $path;
+  }
+
+  // Don't use file_exists() because it doesn't work with URLs.
+  // Now admins can also refer to directories like http://mycdn.com/videojs.
+  $contents = @file_get_contents($path . '/video.js', FALSE, NULL, 0, 400);
+  if (!empty($contents)) {
+    $matches = array();
+    if (preg_match('/([\d.]{3,})/i', $contents, $matches)) {
+      $version = $matches[1];
+    }
+  }
+  return $version;
+}

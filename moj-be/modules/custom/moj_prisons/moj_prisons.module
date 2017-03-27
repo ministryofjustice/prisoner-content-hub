@@ -1,0 +1,420 @@
+<?php
+
+/**
+ * @file
+ * The core module that manages Prison entities within the system.
+ */
+
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\moj_prisons\Entity\Prison;
+use Drupal\node\Entity\NodeType;
+use Drupal\node\NodeInterface;
+use Drupal\user\Entity\User;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Hides the `field_related_prisons` field from the user form unless the acting
+ * user has the correct permissions.
+ */
+function moj_prisons_form_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $current_user = \Drupal::currentUser();
+  $current_path = \Drupal::service('path.current')->getPath();
+
+  $form['#validate'][] = 'moj_prisons_form_user_form_validate';
+
+  // Only show the `field_related_prisons` if the user has the correct permission.
+  if ($current_user->hasPermission('administer prison users')
+      || $current_user->hasPermission('administer my prison users')) {
+    $matches = array();
+    if (preg_match('/\/user\/(\d+)\/edit/', $current_path, $matches) > 0) {
+      $user_id = $matches[1];
+      $user = User::load($user_id);
+
+      // If a prisoner is being edited, then limit the related prisons field to a single value.
+      if ($user->hasRole('prisoner')) {
+        $form['field_related_prisons']['widget']['#cardinality'] = 1;
+        unset($form['field_related_prisons']['widget'][1]);
+        unset($form['field_related_prisons']['widget']['add_more']);
+      }
+    }
+  } else {
+    $form['field_related_prisons']['#type'] = 'hidden';
+  }
+}
+
+/**
+ * Custom validation function for the user edit form.
+ *
+ * Ensures only a single related prison can be selected for a user with the
+ * `prisoner` role.
+ */
+function moj_prisons_form_user_form_validate($form, $form_state) {
+  $current_user = \Drupal::currentUser();
+  $current_path = \Drupal::service('path.current')->getPath();
+
+  $matches = array();
+  $limit_prisons = FALSE;
+
+  if (preg_match('/\/user\/(\d+)\/edit/', $current_path, $matches) > 0) {
+    $user_id = $matches[1];
+    $user = User::load($user_id);
+
+    // If a prisoner is being edited, then limit the related prisons field to a single value.
+    $limit_prisons = $user->hasRole('prisoner');
+  }
+
+  $limit_prisons = $limit_prisons || _moj_prisons_prisoner_role_selected($form_state);
+
+  $related_prisons = $form_state->getValue('field_related_prisons');
+
+  $filtered_prisons = array();
+  foreach ($related_prisons as $key => $prison) {
+    if (is_numeric($key) && $prison['target_id'] != NULL) {
+      array_push($filtered_prisons, $prison['target_id']);
+    };
+  }
+
+  if ($limit_prisons) {
+    if (count($filtered_prisons) > 1) {
+      $form_state->setErrorByName('field_related_prisons', t('A prisoner can only be related to a single prison.'));
+    }
+  }
+
+  $user_prisons = _moj_prisons_get_user_related_prison_ids($current_user);
+  if (!$current_user->hasPermission('administer prison users')) {
+    // Remove editing User's prisons from the selected prisons.
+    $filtered_prisons = array_diff($filtered_prisons, $user_prisons);
+    if (count($filtered_prisons)) {
+      $form_state->setErrorByName('field_related_prisons', t('You are not able to associate the user with the selected prisons.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_views_post_execute().
+ *
+ * Removes any prisons the user does not have access to from the related prison
+ * entities view.
+ */
+function moj_prisons_views_post_execute(ViewExecutable $view) {
+  if ($view->id() == 'related_prisons') {
+    $current_user = \Drupal::currentUser()->getAccount();
+
+    if (!$current_user->hasPermission('administer prison users')) {
+      $related_prison_ids = _moj_prisons_get_user_related_prison_ids($current_user);
+      _moj_prisons_filter_related_prisons_view_result($view->result, $related_prison_ids);
+    }
+  }
+}
+
+/**
+ * Returns an array of IDs of prisons related to a given user.
+ *
+ * @param $account  The Account for which related prison IDs should be returned.
+ * @return Array    An array of prison IDs for which the account is related.
+ */
+function _moj_prisons_get_user_related_prison_ids(AccountInterface $account) {
+  $user = User::load($account->id());
+  $field_related_prisons = $user->field_related_prisons->getValue();
+  $related_prison_ids = array_map(function($related) { return $related['target_id']; }, $field_related_prisons);
+
+  return $related_prison_ids;
+}
+
+/**
+ * Filters a related prisons view's results so that only specified prisons
+ * are retained.
+ *
+ * @param $results              The view's results (post-execute).
+ * @param $related_prison_ids   The list of prison IDs to filter the view's results to.
+ */
+function _moj_prisons_filter_related_prisons_view_result(Array &$results, Array $related_prison_ids) {
+  foreach ($results as $key => $result) {
+    $prison = $result->_entity;
+
+    if (!in_array($prison->id(), $related_prison_ids)) {
+      unset($results[$key]);
+    }
+  }
+}
+
+/**
+ * Checks the submitted form to see if the `Prisoner` role has been selected.
+ *
+ * @param $form_state   The state of the submitted form.
+ * @return              TRUE if the `Prisoner` role is selected.
+ */
+function _moj_prisons_prisoner_role_selected(FormStateInterface $form_state) {
+  $roles = $form_state->getValue('roles');
+
+  return $roles != NULL && in_array('prisoner', $roles);
+}
+
+/**
+ * Implements hook_entity_field_access().
+ *
+ * Only show the "Related prisons" field if the user has the correct permissions.
+ */
+function moj_prisons_entity_field_access($operation, FieldDefinitionInterface $field_definition, AccountInterface $account, FieldItemListInterface $items = NULL) {
+  if ($field_definition->getName() !== 'field_is_global_content') {
+    return AccessResult::neutral();
+  }
+
+  if ($account->hasPermission('manage global prison content')) {
+    return AccessResult::neutral();
+  } else {
+    return AccessResult::forbidden();
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Adds the user's related prisons to the form when creating new content.
+ *
+ * @param $form
+ * @param FormStateInterface $form_state
+ * @param $form_id
+ */
+function moj_prisons_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $create_form_ids = array(
+    'node_moj_news_item_form',
+    'node_moj_radio_item_form',
+    'node_moj_video_item_form',
+  );
+
+  $all_form_ids = array(
+    'node_moj_news_item_form',
+    'node_moj_news_item_edit_form',
+    'node_moj_radio_item_form',
+    'node_moj_radio_item_edit_form',
+    'node_moj_video_item_form',
+    'node_moj_video_item_edit_form',
+  );
+
+  // Always add validation for unauthorized prisons
+  if (in_array($form_id, $all_form_ids)) {
+    $form['#validate'][] = '_moj_content_item_validate';
+  }
+
+  // Pre-populate the related prisons fields when creating content
+  if (in_array($form_id, $create_form_ids)) {
+    $current_user = \Drupal::currentUser();
+
+    // Only pre-populate the field if they don't have global privileges
+    if (!$current_user->hasPermission('manage global prison content')) {
+      $prison_ids = _moj_prisons_get_user_related_prison_ids($current_user);
+      $prisons = Prison::loadMultiple($prison_ids);
+
+      $first = array_shift($prisons);
+      $form['field_related_prisons']['widget'][0]['target_id']['#default_value'] = $first;
+
+      foreach ($prisons as $idx => $prison) {
+        $form['field_related_prisons']['widget'][$idx + 1] = $form['field_related_prisons']['widget'][0];
+        $form['field_related_prisons']['widget'][$idx + 1]['target_id']['#default_value'] = $prison;
+      }
+    }
+  }
+}
+
+/**
+ * Form validation for content types related to prisons.
+ *
+ * @param $form
+ * @param $form_state
+ */
+function _moj_content_item_validate($form, $form_state) {
+  $current_user = \Drupal::currentUser();
+
+  // Only perform validation if user does not have global content privileges
+  if (!$current_user->hasPermission('manage global prison content')) {
+    $users_prisons = _moj_prisons_get_user_related_prison_ids($current_user);
+
+    $submitted_prisons = array();
+    foreach ($form_state->getValue('field_related_prisons') as $key => $value) {
+      if (is_numeric($key) && $value['target_id'] !== NULL) {
+        array_push($submitted_prisons, $value['target_id']);
+      };
+    }
+
+    $unrelated_prisons = array_diff($submitted_prisons, $users_prisons);
+
+    if (count($unrelated_prisons)) {
+      $form_state->setErrorByName('field_related_prisons', t('You are not authorized to associate content with these prisons.'));
+    }
+  }
+}
+
+/**
+ * Implements hook_node_access().
+ *
+ * Prevent local admins from editing global content unless their prison is related to the node.
+ */
+function moj_prisons_node_access(\Drupal\node\NodeInterface $node, $op, \Drupal\Core\Session\AccountInterface $account) {
+  $moj_nodes = array(
+      'moj_radio_item',
+      'moj_video_item',
+      'moj_pdf_item',
+      'moj_video_collection',
+      'moj_faq_item',
+      'moj_news_item',
+  );
+
+  $node_type = $node->getType();
+
+  if ($op != 'view') {
+    // If it's a content type managed per-prison
+    if (in_array($node_type, $moj_nodes)) {
+      // Flagged as global content
+      if ($node->field_is_global_content) {
+        $is_global = $node->field_is_global_content->getValue();
+
+        if ($is_global[0]['value']) {
+          $node_related_prisons = $node->field_related_prisons->getValue();
+
+          $related_prisons = _moj_prisons_get_user_related_prison_ids($account);
+
+          // Allowed to edit if it's related prison matches the user's prisons
+          foreach ($node_related_prisons as $related_prison) {
+            if ($related_prison['target_id'] && in_array($related_prison['target_id'], $related_prisons)) {
+              return AccessResult::allowed();
+            }
+          }
+
+          // Global admins can edit regardless
+          return AccessResult::forbiddenIf(!$account->hasPermission('manage global prison content'));
+        }
+      }
+    }
+  }
+
+  return AccessResult::neutral();
+}
+
+/**
+ * Implements hook_node_grants().
+ *
+ * Grant access to local prison content based on the user's related prisons.
+ *
+ * @param AccountInterface $account
+ * @param $op
+ * @return array
+ */
+function moj_prisons_node_grants(AccountInterface $account, $op) {
+  $grants = array();
+  $moj_nodes = array(
+    'moj_radio_item',
+    'moj_video_item',
+    'moj_pdf_item',
+    'moj_video_collection',
+    'moj_faq_item',
+    'moj_news_item',
+  );
+
+  $related_prisons = _moj_prisons_get_user_related_prison_ids($account);
+
+  foreach (NodeType::loadMultiple() as $type) {
+    $node_type = $type->id();
+
+    if (in_array($node_type, $moj_nodes)) {
+      $grants[$node_type . '_view'] = $related_prisons;
+      $grants[$node_type . '_view'][] = 99999; // Allow viewing of global content
+
+      if ($account->hasPermission('edit any ' . $node_type .' content')) {
+        $grants[$node_type . '_edit'] = $related_prisons;
+      } else {
+        $grants[$node_type . '_edit'] = array(0);
+      }
+
+      if ($account->hasPermission('delete any ' . $node_type . ' content')) {
+        $grants[$node_type . '_delete'] = $related_prisons;
+      } else {
+        $grants[$node_type . '_delete'] = array(0);
+      }
+    }
+  }
+
+  return $grants;
+}
+
+/**
+ * Implements hook_node_access_records().
+ *
+ * Set node access records to grant access to content based on related prison field.
+ *
+ * @param NodeInterface $node
+ * @return array
+ */
+function moj_prisons_node_access_records(NodeInterface $node) {
+  $grants = array();
+  $node_type = $node->getType();
+  $moj_nodes = array(
+      'moj_radio_item',
+      'moj_video_item',
+      'moj_pdf_item',
+      'moj_video_collection',
+      'moj_faq_item',
+      'moj_news_item',
+  );
+
+  if (in_array($node_type, $moj_nodes) && $node->field_related_prisons !== NULL) {
+    $related_prisons = $node->field_related_prisons->getValue();
+
+    // Grant access to globally flagged content
+    if ($node->field_is_global_content) {
+      $is_global = $node->field_is_global_content->getValue();
+
+      if ($is_global[0]['value'] && $node->isPublished()) {
+        $grants[] = array(
+            'realm' => $node_type . '_view',
+            'gid' => 99999,
+            'grant_view' => 1,
+            'grant_update' => 0,
+            'grant_delete' => 0,
+            'lang_code' => 'ca'
+        );
+      }
+    }
+
+    foreach($related_prisons as $prison) {
+      $prison_id = intval($prison['target_id']);
+
+      if ($node->isPublished()) {
+        $grants[] = array(
+            'realm' => $node_type . '_view',
+            'gid' => $prison_id,
+            'grant_view' => 1,
+            'grant_update' => 0,
+            'grant_delete' => 0,
+            'lang_code' => 'ca'
+        );
+      }
+
+      $grants[] = array(
+          'realm' => $node_type . '_edit',
+          'gid' => $prison_id,
+          'grant_view' => 1,
+          'grant_update' => 1,
+          'grant_delete' => 0,
+          'lang_code' => 'ca'
+      );
+
+      $grants[] = array(
+          'realm' => $node_type . '_delete',
+          'gid' => $prison_id,
+          'grant_view' => 1,
+          'grant_update' => 0,
+          'grant_delete' => 1,
+          'lang_code' => 'ca'
+      );
+    }
+  }
+
+  return $grants;
+}

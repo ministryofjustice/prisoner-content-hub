@@ -1,0 +1,108 @@
+<?php
+
+use Drupal\user\Entity\Role;
+
+/**
+ * Create Local content manager role and assign permissions
+ */
+function moj_update_8011()
+{
+
+	//Do not create content manager role if it already exists
+	if (!Role::load('moj_local_content_manager'))
+	{
+		$role = Role::create(
+				array(
+					'id' => 'moj_local_content_manager',
+					'label' => 'Local Content Manager'
+				)
+		);
+
+		//Create role
+		$role->save();
+
+		$permissions = array(
+			'access content overview',
+			'create moj_news_item content',
+			'delete any moj_news_item content',
+			'delete own moj_news_item content',
+			'edit any moj_news_item content',
+			'edit own moj_news_item content',
+			'create moj_pdf_item content',
+			'delete any moj_pdf_item content',
+			'delete own moj_pdf_item content',
+			'edit any moj_pdf_item content',
+			'edit own moj_pdf_item content',
+			'create moj_radio_item content',
+			'delete any moj_radio_item content',
+			'delete own moj_radio_item content',
+			'edit any moj_radio_item content',
+			'edit own moj_radio_item content',
+			'create moj_video_item content',
+			'delete any moj_video_item content',
+			'delete own moj_video_item content',
+			'edit any moj_video_item content',
+			'edit own moj_video_item content',
+			'delete terms in moj_pdf_categories',
+			'edit terms in moj_pdf_categories',
+			'delete terms in moj_radio_categories',
+			'edit terms in moj_radio_categories',
+			'delete terms in moj_video_categories',
+			'edit terms in moj_video_categories',
+			'access toolbar',
+			'access administration pages',
+			'access site in maintenance mode',
+			'view the administration theme',
+			'administer taxonomy',
+		);
+
+		//Grant permissions to new role
+		user_role_grant_permissions($role->id(), $permissions);
+	}
+}
+
+/**
+ * Adding new 'Prison Officer' role
+ */
+function moj_update_8012() {
+	// Do not create content manager role if it already exists
+	if (!Role::load('moj_prison_officer')) {
+		$role = Role::create([
+			'id' => 'moj_prison_officer',
+			'label' => 'Prison officer'
+		]);
+
+		// Create role
+		$role->save();
+
+		$permissions = array(
+			'access administration pages',
+			'access site in maintenance mode',
+			'view the administration theme',
+			'access toolbar',
+			'administer users',
+			'administer permissions',
+		);
+
+		// Grant permissions to new role
+		user_role_grant_permissions($role->id(), $permissions);
+	}
+}
+
+/**
+ * Assign permissons to anonymous user role
+ */
+function moj_update_8024() {
+
+	//Do not create anonymous if it already exists
+	$role = Role::load('anonymous');
+
+	$permissions = array(
+		'view videos',
+		'view radio shows',
+		'view pdfs',
+	);
+
+	//Grant permissions to new role
+	user_role_grant_permissions($role->id(), $permissions);
+}

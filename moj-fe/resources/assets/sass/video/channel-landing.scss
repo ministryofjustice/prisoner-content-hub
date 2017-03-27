@@ -1,0 +1,20 @@
+#channel-landing-page {
+    &.video-player-wrap {
+        margin-top: 25px;
+    }
+    h2 {
+        text-align: center;
+    }
+    #back-to-landing {
+        left: 10px;
+    }
+    h3 {
+        margin-top: 0px;
+    }
+}
+
+.channel-landing-tabs {
+    a {
+        width: auto;
+    }
+}

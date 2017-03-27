@@ -1,0 +1,17 @@
+uuid: 3e5acff5-110a-47f0-a8dd-9344cea8802e
+langcode: en
+status: true
+dependencies:
+  module:
+    - contact_storage
+third_party_settings:
+  contact_storage:
+    redirect_uri: ''
+    submit_text: 'Send message'
+    show_preview: true
+id: web_application_feedback
+label: 'Feedback Form'
+recipients:
+  - '''webmaster@example.com'''
+reply: ''
+weight: 0

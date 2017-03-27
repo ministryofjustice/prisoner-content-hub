@@ -1,0 +1,226 @@
+<?php
+
+use Drupal\image\Entity\ImageStyle;
+
+/**
+ * Implements hook_install()
+ */
+function moj_video_item_install() {
+	// Ensure the translation fields are created in the database.
+	\Drupal::service('entity.definition_update_manager')->applyUpdates();
+}
+
+/**
+ * Adding the 'Landing page thumb' image style.
+ */
+function moj_video_item_update_8009() {
+	if (ImageStyle::load("moj_landing_page_thumb") == null) {
+		$style_name = "moj_landing_page_thumb";
+		$style_label = "Landing Page Thumb";
+
+		$effect = array(
+			'id' => 'image_scale_and_crop',
+			'data' => array(
+				'width' => 560,
+				'height' => 320,
+				'upscale' => TRUE,
+			),
+			'weight' => 0,
+		);
+
+		$style = ImageStyle::create(array('name' => $style_name, 'label' => $style_label));
+		$style->addImageEffect($effect);
+		$style->save();
+	}
+}
+
+/**
+ * Hiding the duration field from video items.
+ */
+function moj_video_item_update_8010() {
+	entity_get_form_display('node', 'moj_video_item', 'default')
+		->removeComponent('field_moj_duration')
+		->save();
+}
+
+
+/**
+* Page exists checkbox, channel video, more information and thumbnail taxonomy term fields update
+*/
+function moj_video_item_update_8011(){
+	\Drupal\field\Entity\FieldStorageConfig::create(array(
+      'field_name' => 'field_landing_page_exists',
+      'entity_type' => 'taxonomy_term',
+      'type' => 'boolean',
+      'settings' => array(
+        'on_label' => 'on',
+        'off_label' => 'off',
+      ),
+
+    ))->save();
+
+	\Drupal\field\Entity\FieldConfig::create(array(
+      'field_name' => 'field_landing_page_exists',
+      'entity_type' => 'taxonomy_term',
+      'bundle' => 'moj_video_categories',
+	  'label' => 'Landing page exists',
+	  'required' => FALSE,
+    ))->save();
+
+
+	\Drupal\field\Entity\FieldStorageConfig::create(array(
+      'field_name' => 'field_channel_landing_page_video',
+      'entity_type' => 'taxonomy_term',
+      'type' => 'video',
+      'settings' => array(
+		  'default_video' => array(
+			'uuid' => 'null',
+        	'data' => 'null',
+			),
+	  'target_type' => 'file',
+	  'display_field' => 'false',
+	  'display_default' => 'false',
+	  'uri_scheme' => FALSE,
+      ),
+
+    ))->save();
+
+	\Drupal\field\Entity\FieldConfig::create(array(
+      'field_name' => 'field_channel_landing_page_video',
+      'entity_type' => 'taxonomy_term',
+      'bundle' => 'moj_video_categories',
+	  'label' => 'Channel landing page video',
+	  'description' => 'Introduction video for the channel landing page.',
+	  'required' => FALSE,
+    ))->save();
+
+
+	\Drupal\field\Entity\FieldStorageConfig::create(array(
+      'field_name' => 'field_info',
+      'entity_type' => 'taxonomy_term',
+      'type' => 'text_long',
+      'settings' => array(),
+
+    ))->save();
+
+	\Drupal\field\Entity\FieldConfig::create(array(
+      'field_name' => 'field_info',
+      'entity_type' => 'taxonomy_term',
+      'bundle' => 'moj_video_categories',
+	  'label' => 'More information',
+	  'required' => FALSE,
+    ))->save();
+
+	\Drupal\field\Entity\FieldStorageConfig::create(array(
+      'field_name' => 'field_video_channel_thumbnail',
+      'entity_type' => 'taxonomy_term',
+      'type' => 'image',
+      'settings' => array(
+		  'uri_scheme' => 'public',
+		  'default_image' => array(
+			'uuid' => '',
+        	'alt' => '',
+			'title' => '',
+			'width' => 'null',
+			'height' => 'null',
+			),
+	  'target_type' => 'file',
+	  'display_field' => 'true',
+	  'display_default' => 'false',
+      ),
+
+    ))->save();
+
+	\Drupal\field\Entity\FieldConfig::create(array(
+      'field_name' => 'field_video_channel_thumbnail',
+      'entity_type' => 'taxonomy_term',
+      'bundle' => 'moj_video_categories',
+	  'label' => 'Thumbnail for the channel video',
+	  'description' => 'Thumbnail image for the channel video.',
+	  'required' => FALSE,
+    ))->save();
+}
+
+/**
+* Fields set to display on Video taxonomy form
+*/
+function moj_video_item_update_8022(){
+	 entity_get_form_display('taxonomy_term', 'moj_video_categories', 'default')
+	 	 ->setComponent('field_landing_page_exists', array(
+		 'weight' => 3
+	))->save();
+
+	 entity_get_form_display('taxonomy_term', 'moj_video_categories', 'default')
+	 	->setComponent('field_info', array(
+		 'weight' => 4
+	))->save();
+
+	entity_get_form_display('taxonomy_term', 'moj_video_categories', 'default')
+	 	->setComponent('field_channel_landing_page_video', array(
+		 'weight' => 5
+	))->save();
+
+	 entity_get_form_display('taxonomy_term', 'moj_video_categories', 'default')
+	 	->setComponent('field_video_channel_thumbnail', array(
+		 'weight' => 6
+	))->save();
+}
+
+/**
+* Fields set to display on Video taxonomy form
+*/
+function moj_video_item_update_8023(){
+
+	entity_get_form_display('taxonomy_term', 'moj_video_categories', 'default')
+	 	->setComponent('field_channel_landing_page_video', array(
+		 'weight' => 5,
+		 'type' => 'video_upload',
+	))->save();
+}
+
+
+/**
+* Add left and right tab fields to video taxonomy term
+*/
+function moj_video_item_update_8027(){
+
+    // \Drupal\field\Entity\FieldStorageConfig::create(array(
+    //   'field_name' => 'field_moj_left_tab_text',
+    //   'entity_type' => 'taxonomy_term',
+    //   'type' => 'string',
+    // ))->save();
+		//
+    // \Drupal\field\Entity\FieldConfig::create(array(
+    //   'field_name' => 'field_moj_left_tab_text',
+    //   'entity_type' => 'taxonomy_term',
+    //   'bundle' => 'moj_video_categories',
+	  // 'label' => 'Left Tab Text',
+	  // 'required' => FALSE,
+    // ))->save();
+		//
+    // \Drupal\field\Entity\FieldStorageConfig::create(array(
+    //   'field_name' => 'field_moj_right_tab_text',
+    //   'entity_type' => 'taxonomy_term',
+    //   'type' => 'string',
+    // ))->save();
+		//
+    // \Drupal\field\Entity\FieldConfig::create(array(
+    //   'field_name' => 'field_moj_right_tab_text',
+    //   'entity_type' => 'taxonomy_term',
+    //   'bundle' => 'moj_video_categories',
+	  // 'label' => 'Right Tab Text',
+	  // 'required' => FALSE,
+    // ))->save();
+
+    entity_get_form_display('taxonomy_term', 'moj_video_categories', 'default')
+            ->setComponent('field_moj_left_tab_text', array(
+             'weight' => 11
+    ))->save();
+
+     entity_get_form_display('taxonomy_term', 'moj_video_categories', 'default')
+            ->setComponent('field_moj_right_tab_text', array(
+             'weight' => 12
+    ))->save();
+
+
+}

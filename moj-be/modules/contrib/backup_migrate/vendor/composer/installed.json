@@ -1,0 +1,99 @@
+[
+    {
+        "name": "psr/log",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-fig/log.git",
+            "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-fig/log/zipball/d8e60a5619fff77f9669da8997697443ef1a1d7e",
+            "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2016-01-06 21:40:42",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Psr\\Log\\": "Psr/Log/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
+            }
+        ],
+        "description": "Common interface for logging libraries",
+        "homepage": "https://github.com/php-fig/log",
+        "keywords": [
+            "log",
+            "psr",
+            "psr-3"
+        ]
+    },
+    {
+        "name": "backupmigrate/core",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/backupmigrate/backup_migrate_core.git",
+            "reference": "c027281c5de06af92520764a302a02a8d60949f4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/backupmigrate/backup_migrate_core/zipball/c027281c5de06af92520764a302a02a8d60949f4",
+            "reference": "c027281c5de06af92520764a302a02a8d60949f4",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0",
+            "psr/log": "dev-master"
+        },
+        "require-dev": {
+            "mikey179/vfsstream": "1.*",
+            "phpunit/dbunit": "~1.4",
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2016-03-17 03:54:58",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "BackupMigrate\\Core\\": "src"
+            }
+        },
+        "autoload-dev": {
+            "psr-4": {
+                "BackupMigrate\\Core\\Tests\\": "tests"
+            }
+        },
+        "authors": [
+            {
+                "name": "Ronan Dowling"
+            }
+        ],
+        "description": "Backup and Migrate",
+        "support": {
+            "source": "https://github.com/backupmigrate/backup_migrate_core/tree/master",
+            "issues": "https://github.com/backupmigrate/backup_migrate_core/issues"
+        }
+    }
+]

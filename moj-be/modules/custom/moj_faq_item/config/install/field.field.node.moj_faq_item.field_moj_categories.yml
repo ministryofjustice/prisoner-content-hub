@@ -1,0 +1,30 @@
+uuid: d143cf3b-6b5a-4fb9-856f-eec3335bf1c4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_categories
+    - node.type.moj_faq_item
+    - taxonomy.vocabulary.moj_faq_categories
+_core:
+  default_config_hash: b5JAGCHQ-9czXnO04sjXrJIFcfQRm7ycwlRW876cvSI
+id: node.moj_faq_item.field_moj_categories
+field_name: field_moj_categories
+entity_type: node
+bundle: moj_faq_item
+label: Categories
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      moj_faq_categories: moj_faq_categories
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

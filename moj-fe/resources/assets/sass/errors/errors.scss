@@ -1,0 +1,45 @@
+$error-title-color: #a6a6a6;
+$error-text-color: #444444;
+$error-button-color: #efefef;
+
+.error-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -143px;
+    margin-left: -175px;
+
+    p {
+        width: 358px;
+    }
+
+    .content {
+        text-align: center;
+        display: inline-block;
+
+        .title {
+            font-size: 167px;
+            color: $error-title-color;
+            display: inline;
+        }
+
+        .error {
+            font-weight: bold;
+            font-size: 25px;
+            margin-bottom: 22px;
+            margin-top: 35px;
+        }
+
+        #back {
+            display: inline-block;
+            border: 1px solid $error-text-color;
+            padding: 10px 23px;
+            background: $error-button-color;
+            color: $error-text-color;
+            text-decoration: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 13px;
+        }
+    }
+}

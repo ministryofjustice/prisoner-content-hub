@@ -1,0 +1,23 @@
+uuid: 2018762c-d3a8-4eeb-94d6-bc6a38cc95bb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_archived
+    - node.type.moj_pdf_item
+id: node.moj_pdf_item.field_moj_archived
+field_name: field_moj_archived
+entity_type: node
+bundle: moj_pdf_item
+label: Archived
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'True'
+  off_label: 'False'
+field_type: boolean

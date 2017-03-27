@@ -1,0 +1,30 @@
+uuid: c68f0ba2-4186-4e19-a085-9fcde938d639
+langcode: en
+status: true
+dependencies:
+  module:
+    - file
+    - image
+    - taxonomy
+id: taxonomy_term.field_radio_category_profile
+field_name: field_radio_category_profile
+entity_type: taxonomy_term
+type: image
+settings:
+  uri_scheme: public
+  default_image:
+    uuid: cc0d3d41-c732-4d0f-9b16-2cc602972fd7
+    alt: ''
+    title: ''
+    width: 118
+    height: 118
+  target_type: file
+  display_field: false
+  display_default: false
+module: image
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,56 @@
+uuid: cbcc1068-a47a-4abd-a1d3-7849ddfd4cc5
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.web_application_feedback
+    - field.field.contact_message.web_application_feedback.field_list1
+    - field.field.contact_message.web_application_feedback.field_prison
+  module:
+    - options
+id: contact_message.web_application_feedback.default
+targetEntityType: contact_message
+bundle: web_application_feedback
+mode: default
+content:
+  field_list1:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+  field_prison:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  mail:
+    weight: -2
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+  message:
+    type: string
+    weight: 0
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  name:
+    weight: -3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  subject:
+    weight: -1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+hidden: {  }

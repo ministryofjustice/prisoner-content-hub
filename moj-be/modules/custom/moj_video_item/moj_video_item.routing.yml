@@ -1,0 +1,35 @@
+moj_video_item.recent:
+  path: '/api/video/recent'
+  defaults:
+    _controller: '\Drupal\moj_video_item\Controller\VideoApiController::getRecentVideos'
+    _title: 'Recent Video'
+  requirements:
+    _permission: 'view videos'
+
+moj_video_item.video:
+  path: '/api/video/{nid}'
+  defaults:
+    _controller: '\Drupal\moj_video_item\Controller\VideoApiController::showVideo'
+  requirements:
+    _permission: 'view videos'
+
+moj_video_item.landing_page:
+  path: '/api/video/landing'
+  defaults:
+    _controller: '\Drupal\moj_video_item\Controller\VideoApiController::landingPage'
+  requirements:
+    _permission: 'view videos'
+
+moj_video_item.episodes:
+  path: '/api/video/episodes/{nid}'
+  defaults:
+    _controller: '\Drupal\moj_video_item\Controller\VideoApiController::episodesList'
+  requirements:
+    _permission: 'view videos'
+    
+moj_video_item.channel_landing_page:
+  path: '/api/video/channel/{tid}'
+  defaults:
+    _controller: '\Drupal\moj_video_item\Controller\VideoApiController::channelLandingPage'
+  requirements:
+    _permission: 'view videos'

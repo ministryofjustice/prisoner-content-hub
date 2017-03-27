@@ -1,0 +1,36 @@
+uuid: d122345f-8b11-4bdf-80bf-54edd8c29f42
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_hub_allowed_users
+    - node.type.moj_hub_item
+id: node.moj_hub_item.field_moj_hub_allowed_users
+field_name: field_moj_hub_allowed_users
+entity_type: node
+bundle: moj_hub_item
+label: 'Allowed users'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: false
+    filter:
+      type: role
+      role:
+        prisoner: prisoner
+        local_administrator: '0'
+        administrator: '0'
+        moj_view_video: '0'
+        moj_view_pdf: '0'
+        moj_view_radio: '0'
+        moj_local_content_manager: '0'
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

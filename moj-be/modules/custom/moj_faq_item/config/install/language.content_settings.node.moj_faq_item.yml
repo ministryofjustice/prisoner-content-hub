@@ -1,0 +1,16 @@
+uuid: e59125ec-37b7-47a6-92b3-b1557274beb3
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.moj_faq_item
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: node.moj_faq_item
+target_entity_type_id: node
+target_bundle: moj_faq_item
+default_langcode: site_default
+language_alterable: true

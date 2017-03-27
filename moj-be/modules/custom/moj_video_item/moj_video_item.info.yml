@@ -1,0 +1,11 @@
+name: MoJ Video Content Type
+description: Handles the creation of Video Item content type
+package: MoJ Self Service
+dependencies:
+  - video
+  - videojs
+  - moj_radio_item
+  - content_translation
+  - language
+type: module
+core: 8.x

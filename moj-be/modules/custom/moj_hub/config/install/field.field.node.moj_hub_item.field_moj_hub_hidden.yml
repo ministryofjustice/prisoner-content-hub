@@ -1,0 +1,23 @@
+uuid: 54b76cfb-6b7b-49bc-be0d-d91ae86d5866
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_hub_hidden
+    - node.type.moj_hub_item
+id: node.moj_hub_item.field_moj_hub_hidden
+field_name: field_moj_hub_hidden
+entity_type: node
+bundle: moj_hub_item
+label: 'Hidden by default'
+description: 'If the item is listed as hidden then the allowed prisons/users fields must be used to enable access.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: Hidden
+  off_label: Visible
+field_type: boolean

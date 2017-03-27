@@ -1,0 +1,4 @@
+administer rest resources:
+  title: 'Administer rest resources'
+  description: 'Configure rest resources.'
+  restrict access: TRUE

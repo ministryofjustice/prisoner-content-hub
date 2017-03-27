@@ -1,0 +1,19 @@
+uuid: 364e94da-be96-4b28-92b1-d14c7cd2c81e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_moj_right_tab_text
+    - taxonomy.vocabulary.moj_video_categories
+id: taxonomy_term.moj_video_categories.field_moj_right_tab_text
+field_name: field_moj_right_tab_text
+entity_type: taxonomy_term
+bundle: moj_video_categories
+label: 'Right Tab Text'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

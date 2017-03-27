@@ -1,0 +1,4 @@
+moj.admin_config_moj:
+  title: 'Ministry of Justice'
+  parent: system.admin_config
+  route_name: moj.admin_config_moj

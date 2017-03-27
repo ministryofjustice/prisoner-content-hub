@@ -1,0 +1,58 @@
+uuid: 5341244d-9620-40c9-9575-d316402e2ec1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.moj_pdf_item.field_moj_categories
+    - field.field.node.moj_pdf_item.field_moj_description
+    - field.field.node.moj_pdf_item.field_moj_pdf
+    - field.field.node.moj_pdf_item.field_moj_tags
+    - field.field.node.moj_pdf_item.field_moj_thumbnail_image
+    - node.type.moj_pdf_item
+  module:
+    - file
+    - image
+    - text
+    - user
+id: node.moj_pdf_item.default
+targetEntityType: node
+bundle: moj_pdf_item
+mode: default
+content:
+  field_moj_categories:
+    weight: 104
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_moj_description:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+  field_moj_pdf:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: file_default
+  field_moj_tags:
+    weight: 105
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+  field_moj_thumbnail_image:
+    weight: 106
+    label: above
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+  links:
+    weight: 100
+hidden: {  }

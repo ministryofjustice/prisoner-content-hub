@@ -1,0 +1,9 @@
+uuid: 98659ecb-a96a-460a-90c1-623ebee877e6
+langcode: en
+status: true
+dependencies: {  }
+name: 'FAQ Categories'
+vid: moj_faq_categories
+description: ''
+hierarchy: 0
+weight: 0

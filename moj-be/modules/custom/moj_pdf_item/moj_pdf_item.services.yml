@@ -1,0 +1,23 @@
+services:
+    moj_pdf_item.encoder.json:
+        class: 'Symfony\Component\Serializer\Encoder\JsonEncoder'
+    
+    moj_pdf_item.link.normalizer.link:
+        class: Drupal\moj_pdf_item\Normalizer\PdfTermNormalizer
+    moj_pdf_item.link.serializer.default:
+        class: 'Symfony\Component\Serializer\Serializer'
+        arguments:
+            0:
+                - '@moj_pdf_item.link.normalizer.link'                    
+            1:
+                - '@moj_pdf_item.encoder.json'
+    
+    moj_pdf_item.normalizer.link:
+        class: Drupal\moj_pdf_item\Normalizer\PdfNormalizer
+    moj_pdf_item.serializer.default:
+        class: 'Symfony\Component\Serializer\Serializer'
+        arguments:
+            0:
+                - '@moj_pdf_item.normalizer.link'                    
+            1:
+                - '@moj_pdf_item.encoder.json'

@@ -1,0 +1,11 @@
+moj_hub.hubLink:
+  path: '/api/hub/{parent}'
+  defaults:
+    _controller: '\Drupal\moj_hub\Controller\HubApiController::getHubLinks'
+    parent: NULL
+  options:
+    parameters:
+      parent:
+        type: entity:node
+  requirements:
+    _permission: 'access content'

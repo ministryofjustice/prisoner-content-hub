@@ -1,0 +1,44 @@
+<?php
+
+use Mhor\MediaInfo\MediaInfo;
+
+function moj_radio_item_entity_presave(\Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->bundle() == "moj_radio_item") {
+
+    $file_entity = $entity->field_moj_audio->entity;
+
+    if (!$file_entity) {
+      return;
+    }
+
+    $radio_url = $file_entity->getFileUri();
+    $radio_path = \Drupal::service('file_system')->realpath($radio_url);
+
+    try {
+      $mediaInfo = new MediaInfo();
+
+      if ($mediaInfo) {
+          $mediaInfoContainer = $mediaInfo->getInfo($radio_path);
+
+          $radios = $mediaInfoContainer->getAudios();
+
+          foreach ($radios as $radio) {
+            $radioDuration = $radio->get('duration')->getMilliseconds();
+          }
+
+          $hours = floor($radioDuration / 3600000);
+          $minutes = floor($radioDuration / 60000) % 60;
+          $seconds = floor($radioDuration / 1000) % 60;
+
+          $fieldDuration = $hours ? $hours . ':' : '';
+          $fieldDuration .= ($hours ? str_pad($minutes, 2, "0", STR_PAD_LEFT) : $minutes) . ":";
+          $fieldDuration .= str_pad($seconds, 2, "0", STR_PAD_LEFT);
+
+          $entity->set("field_moj_duration", $fieldDuration);
+      }
+
+    } catch (Exception $e) {
+      drupal_set_message("Unable to retrieve radio duration", "warning");
+    }
+  }
+}

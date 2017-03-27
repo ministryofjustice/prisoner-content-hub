@@ -1,0 +1,23 @@
+uuid: b0106e1e-aa26-41e3-bc1d-5853fcb5b958
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_archived
+    - node.type.moj_faq_item
+id: node.moj_faq_item.field_moj_archived
+field_name: field_moj_archived
+entity_type: node
+bundle: moj_faq_item
+label: Archived
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'True'
+  off_label: 'False'
+field_type: boolean

@@ -1,0 +1,71 @@
+uuid: 1084ae4a-1b09-4414-8399-33d05319a4ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.moj_pdf_categories.field_moj_back_link_url
+    - field.field.taxonomy_term.moj_pdf_categories.field_moj_pdf_additional_desc
+    - field.field.taxonomy_term.moj_pdf_categories.field_pdf_category_banner
+    - image.style.thumbnail
+    - taxonomy.vocabulary.moj_pdf_categories
+  module:
+    - image
+    - path
+    - text
+_core:
+  default_config_hash: QknA7YukQrqKC4a6Dg52nb398V8nGIP7Ie3kLvCKB2g
+id: taxonomy_term.moj_pdf_categories.default
+targetEntityType: taxonomy_term
+bundle: moj_pdf_categories
+mode: default
+content:
+  description:
+    type: text_textarea
+    weight: 1
+    settings:
+      placeholder: ''
+      rows: 5
+    third_party_settings: {  }
+  field_moj_back_link_url:
+    weight: 7
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_moj_pdf_additional_desc:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+  field_pdf_category_banner:
+    weight: 6
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  langcode:
+    type: language_select
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    settings: {  }
+    third_party_settings: {  }
+  translation:
+    weight: 4
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

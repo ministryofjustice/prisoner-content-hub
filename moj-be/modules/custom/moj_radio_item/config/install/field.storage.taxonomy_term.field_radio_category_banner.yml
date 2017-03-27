@@ -1,0 +1,30 @@
+uuid: 75841390-de86-4eca-a90d-23e701204a6d
+langcode: en
+status: true
+dependencies:
+  module:
+    - file
+    - image
+    - taxonomy
+id: taxonomy_term.field_radio_category_banner
+field_name: field_radio_category_banner
+entity_type: taxonomy_term
+type: image
+settings:
+  uri_scheme: public
+  default_image:
+    uuid: b44e0d23-8a6f-4595-862a-58bd2a07457a
+    alt: ''
+    title: ''
+    width: 1071
+    height: 274
+  target_type: file
+  display_field: false
+  display_default: false
+module: image
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

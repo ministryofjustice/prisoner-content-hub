@@ -1,0 +1,9 @@
+uuid: bbcab862-1c54-4bba-b822-1aa1f22c29d8
+langcode: en
+status: true
+dependencies: {  }
+name: 'Video categories'
+vid: moj_video_categories
+description: ''
+hierarchy: 0
+weight: 0

@@ -1,0 +1,44 @@
+<?php
+
+use Mhor\MediaInfo\MediaInfo;
+
+function moj_video_item_entity_presave(\Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->bundle() == "moj_video_item") {
+
+    $file_entity = $entity->field_moj_video->entity;
+
+    if (!$file_entity) {
+      return;
+    }
+
+    $video_url = $file_entity->getFileUri();
+    $video_path = \Drupal::service('file_system')->realpath($video_url);
+
+    try {
+      $mediaInfo = new MediaInfo();
+
+      if ($mediaInfo) {
+          $mediaInfoContainer = $mediaInfo->getInfo($video_path);
+
+          $videos = $mediaInfoContainer->getVideos();
+
+          foreach ($videos as $video) {
+            $videoDuration = $video->get('duration')->getMilliseconds();
+          }
+
+          $hours = floor($videoDuration / 3600000);
+          $minutes = floor($videoDuration / 60000) % 60;
+          $seconds = floor($videoDuration / 1000) % 60;
+
+          $fieldDuration = $hours ? $hours . ':' : '';
+          $fieldDuration .= ($hours ? str_pad($minutes, 2, "0", STR_PAD_LEFT) : $minutes) . ":";
+          $fieldDuration .= str_pad($seconds, 2, "0", STR_PAD_LEFT);
+
+          $entity->set("field_moj_duration", $fieldDuration);
+      }
+      
+    } catch (Exception $e) {
+      drupal_set_message("Unable to retrieve video duration", "warning");
+    }
+  }
+}

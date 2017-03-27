@@ -1,0 +1,30 @@
+uuid: 820907ca-0627-431f-92d2-67e5de8dd1bc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_tags
+    - node.type.moj_pdf_item
+    # - taxonomy.vocabulary.tags
+_core:
+  default_config_hash: EUwtNYNrKlHt1sIwW8h6frSDr374s0Xoephb9rV1NuA
+id: node.moj_pdf_item.field_moj_tags
+field_name: field_moj_tags
+entity_type: node
+bundle: moj_pdf_item
+label: Tags
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      tags: tags
+    sort:
+      field: _none
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

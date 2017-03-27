@@ -1,0 +1,23 @@
+uuid: d078520f-d82a-4059-b923-3441d24d136c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_archived
+    - node.type.moj_video_item
+id: node.moj_video_item.field_moj_archived
+field_name: field_moj_archived
+entity_type: node
+bundle: moj_video_item
+label: Archived
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'True'
+  off_label: 'False'
+field_type: boolean

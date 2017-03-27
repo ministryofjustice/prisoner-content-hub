@@ -1,0 +1,19 @@
+uuid: 6fcea397-23a8-4db1-9341-dc10467288d2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_hub_link
+    - node.type.moj_hub_item
+id: node.moj_hub_item.field_moj_hub_link
+field_name: field_moj_hub_link
+entity_type: node
+bundle: moj_hub_item
+label: 'Hub link'
+description: 'The URL of the page or website the Hub Item should link to.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

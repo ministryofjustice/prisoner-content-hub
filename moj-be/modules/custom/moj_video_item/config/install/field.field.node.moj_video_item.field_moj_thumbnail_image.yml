@@ -1,0 +1,40 @@
+uuid: d41fecd5-4c08-4c34-9b22-347db7ff2db6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_thumbnail_image
+    - node.type.moj_video_item
+  module:
+    - image
+_core:
+  default_config_hash: 3-5lFCGag8MAZfmDK7piSir4KN-KxGJKUgGUjhcBPtM
+id: node.moj_video_item.field_moj_thumbnail_image
+field_name: field_moj_thumbnail_image
+entity_type: node
+bundle: moj_video_item
+label: 'Thumbnail image'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

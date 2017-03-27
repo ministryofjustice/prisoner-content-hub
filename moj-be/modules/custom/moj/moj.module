@@ -1,0 +1,409 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\moj_prisons\Entity\Prison;
+use Drupal\node\Entity\Node;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\user\Entity\User;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Prevents Prison Officers from modifying user roles that are not related to
+ * content visibility.
+ */
+function moj_form_user_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $current_user = \Drupal::currentUser();
+  $current_path = \Drupal::service('path.current')->getPath();
+
+  $form['#validate'][] = 'moj_form_user_form_validate';
+
+  // If the user is a Prison Officer, disable non-content roles
+  $user_roles = $current_user->getRoles();
+  if (in_array('moj_prison_officer', $user_roles) &&
+      !in_array('administrator', $user_roles)) {
+    $roles = $form['account']['roles'];
+    $role_ids = array_keys($roles['#options']);
+    $non_content_roles = array_filter($role_ids, function ($id) {
+      return 0 !== strpos($id, 'moj_view_');
+    });
+
+    $form['#attached']['library'][] = 'moj/user-form';
+
+    foreach ($non_content_roles as $role) {
+      $form['account']['roles'][$role]['#default_value'] = in_array($role, $roles['#default_value']);
+      $form['account']['roles'][$role]['#disabled'] = true;
+    }
+  }
+}
+
+/**
+ * Custom validation function for the user edit form.
+ *
+ * Ensures a Prison Officer is only modifying user roles concerned with
+ * content visibility.
+ */
+function moj_form_user_form_validate($form, $form_state) {
+  $current_user = \Drupal::currentUser();
+  $current_user_roles = $current_user->getRoles();
+
+  // If the user is a Prison Officer they can only change content-related roles
+  $limit_user_roles = in_array('moj_prison_officer', $current_user_roles) && 
+    !in_array('administrator', $current_user_roles);
+
+  if ($limit_user_roles) {
+    $selected_roles = $form_state->getValue('roles');
+    $default_values = $form['account']['roles']['#default_value'];
+    $altered_roles = array_diff($selected_roles, $default_values) +
+                     array_diff($default_values, $selected_roles);
+
+    $non_content_altered_roles = array_filter($altered_roles, function ($role) {
+      return 0 !== strpos($role, 'moj_view_');
+    });
+
+    if (count($non_content_altered_roles)) {
+      $form_state->setErrorByName('roles', t('You may only alter content-related roles.'));
+      \Drupal::logger('moj')->notice('Prison Officer attempted to change non-content-related roles');
+    }
+  }
+}
+
+function moj_form_contact_message_web_application_feedback_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $current_user = \Drupal::currentUser()->getAccount();
+
+  $prisonId = _moj_get_user_related_prison_ids($current_user);
+
+  if (count($prisonId) > 0) {
+    $prison = Prison::load($prisonId[0]);
+
+    $form['field_prison']['widget'][0]['value']['#default_value'] = $prison->getName();
+    $form['field_prison']['widget'][0]['value']['#type'] = 'hidden';
+  }
+}
+
+function _moj_get_user_related_prison_ids(AccountInterface $account) {
+  $user = User::load($account->id());
+  $field_related_prisons = $user->field_related_prisons->getValue();
+  $related_prison_ids = array_map(function($related) { return $related['target_id']; }, $field_related_prisons);
+  return $related_prison_ids;
+}
+
+function moj_create_placeholder_content() {
+  drupal_set_message(t('Creating placeholder content.'));
+
+  $prisons = Prison::loadMultiple();
+
+  $prison1 = _moj_create_prison('PR1', 'Prison 1');
+  $prison2 = _moj_create_prison('PR2', 'Prison 2');
+  $prison3 = _moj_create_prison('PR3', 'Prison 3');
+
+  $category1 = _moj_create_video_category('Way2Learn', NULL);
+  $category2 = _moj_create_video_category('Minute Maths', $category1);
+  $category3 = _moj_create_video_category('Programme 2', $category1);
+
+  $video1 = _moj_create_video('Episode 1: Area - The Space Inside a Shape', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vel viverra lectus. Sed eu elit tellus. Vestibulum in lacinia massa. Nullam augue sem, placerat in convallis non, placerat at tellus. Donec placerat sed lectus a ullamcorper. Mauris iaculis nunc vitae sodales auctor. Aenean laoreet efficitur lectus fringilla blandit. Pellentesque sodales ante vel ligula pharetra hendrerit. Maecenas sollicitudin semper ipsum, et tempor mauris pharetra quis.', 1, array($prison1), 'placeholder.mp4', 'minute-maths-video.jpg', $category2);
+  $video2 = _moj_create_video('Episode 2: Addition - A Guide to Basic Addition', 'Aenean massa est, finibus ut lobortis nec, tempus nec lorem. Integer consectetur augue eu fermentum fringilla. Quisque condimentum orci sit amet sem cursus vestibulum. Nullam nec enim tellus. Praesent efficitur purus tempor, maximus est vitae, maximus eros. Aliquam pharetra et magna faucibus accumsan. Interdum et malesuada fames ac ante ipsum primis in faucibus.', 1, array($prison2), 'placeholder.mp4', 'minute-maths-video.jpg', $category2);
+  $video3 = _moj_create_video('Episode 3: Fractions - Basic Fraction Equations', 'Donec urna lorem, tempor et sem sed, aliquet pharetra sapien. Suspendisse rhoncus metus quis nisl consequat dignissim. Donec faucibus posuere libero, vel dictum massa rhoncus et. Praesent tincidunt ex ut varius elementum.', 1, array($prison2), 'placeholder.mp4', 'minute-maths-video.jpg', $category2);
+  $video4 = _moj_create_video('Episode 4: Decimals - A Guide to Decimal Places', 'Donec finibus magna eu ornare laoreet. Vestibulum vel odio vel leo convallis fermentum ac et justo. Vivamus condimentum elit eu orci aliquam, non dignissim felis accumsan. Integer accumsan enim consequat, condimentum elit convallis, placerat lectus.', 1, array($prison2), 'placeholder.mp4', 'minute-maths-video.jpg', $category2);
+
+  $video5 = _moj_create_video('Episode 1: Programme 2', 'Cras vel rhoncus arcu. Cras nibh neque, rhoncus vel mi et, gravida mollis sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc cursus, sapien non dignissim fermentum, sem nunc ornare est, vestibulum interdum urna arcu nec diam. Ut tincidunt a nunc dictum sagittis.', 1, array($prison2), 'placeholder.mp4', 'job-smart-video.jpg', $category3);
+  $video6 = _moj_create_video('Episode 2: Programme 2', 'Integer mattis enim non vulputate pulvinar. Integer consequat justo fringilla urna varius, nec dictum lorem vehicula. Nullam mattis nec lacus ut tempus. Nunc eu ante lobortis, gravida massa venenatis, egestas sem. Nunc ac eros ante. Quisque non sagittis dolor. Quisque euismod.', 1, array($prison2), 'placeholder.mp4', 'job-smart-video.jpg', $category3);
+  $video7 = _moj_create_video('Episode 3: Programme 2', 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam orci nisl, sollicitudin nec dui eu, tincidunt consequat diam. Mauris vel nisl volutpat quam malesuada pharetra. Nulla mauris tortor, aliquet in massa eu, tincidunt egestas diam.', 1, array($prison2), 'placeholder.mp4', 'job-smart-video.jpg', $category3);
+  $video8 = _moj_create_video('Episode 4: Programme 2', 'Mauris et quam sem. Quisque sit amet tellus auctor, feugiat orci ut, finibus turpis. Mauris consequat augue eget purus lacinia, eu convallis dui malesuada. Nunc malesuada, orci eu maximus lacinia, nisi tellus tempus ipsum, id condimentum lacus lorem in libero.', 1, array($prison2), 'placeholder.mp4', 'job-smart-video.jpg', $category3);
+
+  $pdfCategory1 = _moj_create_pdf_category('National Extension College', 'NEC seeks to widen learning opportunities for learners who want flexible delivery of excellent and innovative courses.');
+  $pdfCategory2 = _moj_create_pdf_category('Art & Literature', NULL, $pdfCategory1);
+  $pdfCategory3 = _moj_create_pdf_category('Business & Economics', NULL, $pdfCategory1);
+  $pdfCategory4 = _moj_create_pdf_category('Counselling & Psychology', NULL, $pdfCategory1);
+
+  $pdf1 = _moj_create_pdf('Accounting A Level', 'Accounting A Level prospectus.', 1, array($prison1), 'dummyPDF.pdf', $pdfCategory3);
+  $pdf2 = _moj_create_pdf('Advanced Bookkeeping', 'Accounting A Level prospectus.', 1, array($prison1), 'dummyPDF.pdf', $pdfCategory3);
+  $pdf3 = _moj_create_pdf('Business Gold Star A Level', 'Accounting A Level prospectus.', 1, array($prison1), 'dummyPDF.pdf', $pdfCategory2);
+  $pdf4 = _moj_create_pdf('Business Studies GCSE', 'Accounting A Level prospectus.', 1, array($prison1), 'dummyPDF.pdf', $pdfCategory2);
+  $pdf5 = _moj_create_pdf('Economics Gold Star A Level', 'Accounting A Level prospectus.', 1, array($prison1), 'dummyPDF.pdf', $pdfCategory4);
+
+  $hub1 = _moj_create_hub_link('Video', '/video', 0, 'video-thumb.png', NULL);
+  $hub2 = _moj_create_hub_link('Radio', '/radio', 0, 'radio-thumb.png', NULL);
+  $hub3 = _moj_create_hub_link('Education', NULL, 1, 'education-thumb.png', NULL);
+  $hub4 = _moj_create_hub_link('News', NULL, 1, 'news-thumb.png', NULL);
+
+  $hub5 = _moj_create_hub_link('Minute Maths', "/video/" . $video1->id(), 0, 'minute-maths-thumb.png', $hub3);
+  $hub6 = _moj_create_hub_link('Job Smart', "/video/" . $video5->id(), 0, 'job-smart-thumb.png', $hub3);
+  $hub7 = _moj_create_hub_link('GCSE Bitesize', 'http://www.bbc.co.uk/schools/gcsebitesize/', 0, 'bitesize-thumb.png', $hub3);
+  $hub8 = _moj_create_hub_link('NEC', '/education/' . $pdfCategory1->id(), 0, 'educational-courses-thumb.png', $hub3);
+
+  $hub9 = _moj_create_hub_link('Inside Time', 'http://www.insidetime.org/', 0, 'inside-time-thumb.png', $hub4);
+  $hub10 = _moj_create_hub_link('BBC News', 'http://www.bbc.co.uk/news', 0, 'bbc-news-thumb.png', $hub4);
+}
+
+/**
+ * Creates or load a prison with the given code and name.
+ * @param $code The prison code to create or load.
+ * @param $name The name of the prison to create or load.
+ * @return Drupal\moj_prisons\Entity\Prison
+ */
+function _moj_create_prison($code, $name) {
+  $query = \Drupal::entityQuery('prison')
+    ->condition('code', $code);
+
+  $prison_ids = $query->execute();
+
+  if (!count($prison_ids)) {
+    $prison = Prison::create(['code' => $code, 'name' => $name]);
+    $prison->save();
+
+    drupal_set_message(t('Creating prison: ' . $name));
+
+    return $prison;
+  } else {
+    $prison = Prison::load(array_shift($prison_ids));
+
+    drupal_set_message(t('Loading prison: ' . $name));
+
+    return $prison;
+  }
+}
+
+function _moj_create_video_category($name, $parent) {
+  $query = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', 'moj_video_categories')
+    ->condition('name', $name);
+
+  $tids = $query->execute();
+
+  if (!count($tids)) {
+    $parent_params = array();
+
+    if ($parent) {
+      $parent_params = [
+        'target_id' => $parent->id()
+      ];
+    }
+
+    $term = Term::create([
+      'name' => $name,
+      'parent' => $parent_params,
+      'vid' => 'moj_video_categories'
+    ]);
+
+    $term->save();
+
+    drupal_set_message(t('Creating video category: ' . $name));
+
+    return $term;
+  } else {
+    $term = Term::load(array_shift($tids));
+
+    drupal_set_message(t('Loading video category: ' . $name));
+
+    return $term;
+  }
+}
+
+function _moj_create_video($title, $description, $is_global, $related_prisons, $video_file, $thumbnail_image, $category) {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'moj_video_item')
+    ->condition('title', $title);
+
+  $nids = $query->execute();
+
+  if (!count($nids)) {
+    $path = drupal_get_path('module', 'moj');
+    $data = file_get_contents($path . '/content/video/' . $video_file);
+    $file = file_save_data($data, 'public://' . $video_file, FILE_EXISTS_REPLACE);
+
+    $categories = array();
+    if ($category) {
+      $categories = [
+        [ 'target_id' => $category->id() ]
+      ];
+    }
+
+    $thumbnail = array();
+    if ($thumbnail_image) {
+      $thumb_data = file_get_contents($path . '/content/image/' . $thumbnail_image);
+      $thumb_file = file_save_data($thumb_data, 'public://' . $thumbnail_image, FILE_EXISTS_REPLACE);
+
+      $thumbnail = [
+        'target_id' => $thumb_file->id(),
+        'alt' => $title
+      ];
+    }
+
+    $node = Node::create([
+      'type' => 'moj_video_item',
+      'title' => $title,
+      'field_moj_description' => [
+        'value' => $description,
+        'format' => 'full_html',
+      ],
+      'field_moj_video' => [
+        'target_id' => $file->id(),
+      ],
+      'field_moj_thumbnail_image' => $thumbnail,
+      'field_is_global_content' => $is_global,
+      'field_related_prisons' => $related_prisons,
+      'field_moj_categories' => $categories,
+    ]);
+
+    $node->save();
+
+    drupal_set_message(t('Creating video: ' . $title));
+
+    return $node;
+  } else {
+    $node = Node::load(array_shift($nids));
+
+    drupal_set_message(t('Loading video item: ' . $title));
+
+    return $node;
+  }
+}
+
+function _moj_create_hub_link($name, $link_url, $is_folder, $image_file, $parent = NULL) {
+  $query = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', 'moj_hub_links')
+    ->condition('name', $name);
+
+  $tids = $query->execute();
+
+  if (!count($tids)) {
+    $parent_params = array();
+    $thumbnail_image = array();
+
+    if ($image_file) {
+      $path = drupal_get_path('module', 'moj');
+      $data = file_get_contents($path . '/content/image/' . $image_file);
+      $file = file_save_data($data, 'public://' . $image_file, FILE_EXISTS_REPLACE);
+
+      $thumbnail_image = [
+        'target_id' => $file->id(),
+        'alt' => $name,
+      ];
+    }
+
+    if ($parent) {
+      $parent_params = [
+        'target_id' => $parent->id()
+      ];
+    }
+
+    $term = Term::create([
+      'name' => $name,
+      'parent' => $parent_params,
+      'field_moj_hub_folder' => $is_folder,
+      'field_moj_hub_url' => $link_url,
+      'field_moj_hub_thumbnail' => $thumbnail_image,
+      'vid' => 'moj_hub_links'
+    ]);
+
+    $term->save();
+
+    drupal_set_message(t('Creating hub link: ' . $name));
+
+    return $term;
+  } else {
+    $term = Term::load(array_shift($tids));
+
+    drupal_set_message(t('Loading hub link: ' . $name));
+
+    return $term;
+  }
+}
+
+function _moj_create_pdf_category($name, $description, $parent) {
+  $query = \Drupal::entityQuery('taxonomy_term')
+    ->condition('vid', 'moj_pdf_categories')
+    ->condition('name', $name);
+
+  $tids = $query->execute();
+
+  if (!count($tids)) {
+    $parent_params = array();
+
+    if ($parent) {
+      $parent_params = [
+        'target_id' => $parent->id()
+      ];
+    }
+
+    $term = Term::create([
+      'name' => $name,
+      'parent' => $parent_params,
+      'vid' => 'moj_pdf_categories',
+      'field_moj_pdf_cat_description' => $description
+    ]);
+
+    $term->save();
+
+    drupal_set_message(t('Creating pdf category: ' . $name));
+
+    return $term;
+  } else {
+    $term = Term::load(array_shift($tids));
+
+    drupal_set_message(t('Loading pdf category: ' . $name));
+
+    return $term;
+  }
+}
+
+function _moj_create_pdf($title, $description, $is_global, $related_prisons, $pdf_file, $category) {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'moj_pdf_item')
+    ->condition('title', $title);
+
+  $nids = $query->execute();
+
+  if (!count($nids)) {
+    $path = drupal_get_path('module', 'moj');
+    $data = file_get_contents($path . '/content/pdf/' . $pdf_file);
+    $file = file_save_data($data, 'public://' . $pdf_file, FILE_EXISTS_REPLACE);
+
+    $categories = array();
+    if ($category) {
+      $categories = [
+        [ 'target_id' => $category->id() ]
+      ];
+    }
+
+    $node = Node::create([
+      'type' => 'moj_pdf_item',
+      'title' => $title,
+      'field_moj_description' => [
+        'value' => $description,
+        'format' => 'full_html',
+      ],
+      'field_moj_pdf' => [
+        'target_id' => $file->id(),
+      ],
+      'field_is_global_content' => $is_global,
+      'field_related_prisons' => $related_prisons,
+      'field_moj_categories' => $categories,
+    ]);
+
+    $node->save();
+
+    drupal_set_message(t('Creating PDF: ' . $title));
+
+    return $node;
+  } else {
+    $node = Node::load(array_shift($nids));
+
+    drupal_set_message(t('Loading PDF item: ' . $title));
+
+    return $node;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+function moj_user_insert($entity) {	
+  // Add the default content permission roles to new users.
+  $entity->addRole('moj_view_pdf');
+  $entity->addRole('moj_view_video');
+  $entity->addRole('moj_view_radio');
+  $entity->save();
+}

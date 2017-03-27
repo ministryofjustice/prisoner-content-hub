@@ -1,0 +1,38 @@
+uuid: c58ae6de-411b-4df3-82fb-5b3f858c2e70
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_radio_category_banner
+    - taxonomy.vocabulary.moj_radio_categories
+  module:
+    - image
+id: taxonomy_term.moj_radio_categories.field_radio_category_banner
+field_name: field_radio_category_banner
+entity_type: taxonomy_term
+bundle: moj_radio_categories
+label: 'Radio category banner'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: ''
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: false
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

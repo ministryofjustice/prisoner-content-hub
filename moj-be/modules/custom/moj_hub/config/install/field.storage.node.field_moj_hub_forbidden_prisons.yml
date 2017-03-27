@@ -1,0 +1,20 @@
+uuid: df7ba0b2-4f5f-41f1-a469-c781c829b0bf
+langcode: en
+status: true
+dependencies:
+  module:
+    - moj_prisons
+    - node
+id: node.field_moj_hub_forbidden_prisons
+field_name: field_moj_hub_forbidden_prisons
+entity_type: node
+type: entity_reference
+settings:
+  target_type: prison
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

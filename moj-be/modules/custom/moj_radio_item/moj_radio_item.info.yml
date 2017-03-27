@@ -1,0 +1,14 @@
+name: MoJ Radio Content Type
+description: Handles the creation of Radio Item content type
+package: MoJ Self Service
+dependencies:
+    - content_translation
+    - language
+    - file
+    - image
+    - path
+    - text
+    - moj
+    - moj_prisons
+type: module
+core: 8.x

@@ -1,0 +1,20 @@
+moj_radio_item.show:
+  path: '/api/radio/show/{nid}'
+  defaults:
+    _controller: '\Drupal\moj_radio_item\Controller\RadioApiController::show'    
+  requirements:
+    _permission: 'view radio shows'
+    
+moj_radio_item.shows:
+  path: '/api/radio/shows/{nid}'
+  defaults:
+    _controller: '\Drupal\moj_radio_item\Controller\RadioApiController::channelRadioShows'    
+  requirements:
+    _permission: 'view radio shows'
+
+moj_radio_item.landing_page:
+  path: '/api/radio/landing'
+  defaults:
+    _controller: '\Drupal\moj_radio_item\Controller\RadioApiController::landingPage'
+  requirements:
+    _permission: 'view radio shows'

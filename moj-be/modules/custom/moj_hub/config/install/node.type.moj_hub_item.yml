@@ -1,0 +1,16 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: 'Hub Item'
+type: moj_hub_item
+description: 'Use <em>hub items</em> for links within the hub pages.'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: false

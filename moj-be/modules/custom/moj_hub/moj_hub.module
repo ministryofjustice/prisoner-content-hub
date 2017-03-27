@@ -1,0 +1,47 @@
+<?php
+
+use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Session\AccountInterface;
+use Drupal\node\NodeInterface;
+
+function moj_hub_node_access(NodeInterface $node, $op, AccountInterface $account) {
+  if ($node->bundle() == 'moj_hub_item' && $op == 'view') {
+    $user_id = $account->id();
+
+    // Return any user-related visibility
+    $forbidden_users = array_map(_moj_hub_get_related_id, $node->get('field_moj_hub_forbidden_users')->getValue());
+    $allowed_users = array_map(_moj_hub_get_related_id, $node->get('field_moj_hub_allowed_users')->getValue());
+    if (in_array($user_id, $forbidden_users)) {
+      return AccessResult::forbidden();
+    }
+
+    if (in_array($user_id, $allowed_users)) {
+      return AccessResult::allowed();
+    }
+
+    // Return any prison-related visibility
+    $user_prisons = _moj_prisons_get_user_related_prison_ids($account);
+    $forbidden_prisons = array_map(_moj_hub_get_related_id, $node->get('field_moj_hub_forbidden_prisons')->getValue());
+    $allowed_prisons = array_map(_moj_hub_get_related_id, $node->get('field_moj_hub_allowed_prisons')->getValue());
+
+    if (!empty(array_intersect($forbidden_prisons, $user_prisons))) {
+      return AccessResult::forbidden();
+    }
+
+    if (!empty(array_intersect($allowed_prisons, $user_prisons))) {
+      return AccessResult::allowed();
+    }
+
+    // Return the item's default visibility'
+    $hidden = $node->get('field_moj_hub_hidden')->getValue();
+    if ($hidden && $hidden[0]['value'] == 1) {
+      return AccessResult::forbidden();
+    }
+  }
+
+  return AccessResult::neutral();
+}
+
+function _moj_hub_get_related_id($item) {
+  return $item['target_id'];
+}

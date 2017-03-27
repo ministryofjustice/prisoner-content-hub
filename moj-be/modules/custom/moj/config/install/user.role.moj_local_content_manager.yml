@@ -1,0 +1,41 @@
+uuid: 4e2f32c9-e120-4471-9ec8-abe94afcb7a7
+langcode: en
+status: true
+dependencies: {  }
+id: moj_local_content_manager
+label: 'Local Content Manager'
+weight: 6
+is_admin: null
+permissions:
+  0: 'access content overview'
+  1: 'create moj_news_item content'
+  2: 'delete any moj_news_item content'
+  3: 'delete own moj_news_item content'
+  4: 'edit any moj_news_item content'
+  5: 'edit own moj_news_item content'
+  6: 'create moj_pdf_item content'
+  7: 'delete any moj_pdf_item content'
+  8: 'delete own moj_pdf_item content'
+  9: 'edit any moj_pdf_item content'
+  10: 'edit own moj_pdf_item content'
+  11: 'create moj_radio_item content'
+  12: 'delete any moj_radio_item content'
+  13: 'delete own moj_radio_item content'
+  14: 'edit any moj_radio_item content'
+  15: 'edit own moj_radio_item content'
+  16: 'create moj_video_item content'
+  17: 'delete any moj_video_item content'
+  18: 'delete own moj_video_item content'
+  19: 'edit any moj_video_item content'
+  20: 'edit own moj_video_item content'
+  21: 'delete terms in moj_pdf_categories'
+  22: 'edit terms in moj_pdf_categories'
+  23: 'delete terms in moj_radio_categories'
+  24: 'edit terms in moj_radio_categories'
+  25: 'delete terms in moj_video_categories'
+  26: 'edit terms in moj_video_categories'
+  28: 'access toolbar'
+  29: 'access administration pages'
+  30: 'access site in maintenance mode'
+  31: 'view the administration theme'
+  32: 'administer taxonomy'

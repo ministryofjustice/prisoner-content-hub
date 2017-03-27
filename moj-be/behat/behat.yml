@@ -1,0 +1,29 @@
+default:
+  suites:
+    default:
+      contexts:
+        - FeatureContext
+        - Drupal\DrupalExtension\Context\DrupalContext
+        - Drupal\DrupalExtension\Context\MinkContext
+  extensions:
+    Bex\Behat\ScreenshotExtension:
+      image_drivers:
+        local:
+          screenshot_directory: /var/www/public/behat/images
+          clear_screenshot_directory: true  # Enable removing all images before each test run. It is false by default.
+    Behat\MinkExtension:
+      goutte: ~
+      javascript_session: selenium2
+      files_path: "/opt/tests/files/"
+      selenium2:
+        wd_host: http://10.0.2.2:4444/wd/hub
+      base_url: http://192.168.33.10
+    Drupal\DrupalExtension:
+      blackbox: ~
+      api_driver: 'drupal'
+      drush:
+        alias: 'local.hub'
+      drupal:
+        drupal_root: '/var/www/public'
+      region_map:
+        footer: "#footer"

@@ -1,0 +1,28 @@
+add prison entities:
+  title: 'Create new Prison entities'
+
+administer prison entities:
+  title: 'Administer Prison entities'
+  description: 'Allow to access the administration form to configure Prison entities.'
+  restrict access: true
+
+delete prison entities:
+  title: 'Delete Prison entities'
+
+edit prison entities:
+  title: 'Edit Prison entities'
+
+view published prison entities:
+  title: 'View published Prison entities'
+
+view unpublished prison entities:
+  title: 'View unpublished Prison entities'
+
+administer prison users:
+  title: 'Administer users associated with Prisons'
+
+administer my prison users:
+  title: 'Administer users associated with my Prisons'
+
+manage global prison content:
+  title: 'Manage global prison content'

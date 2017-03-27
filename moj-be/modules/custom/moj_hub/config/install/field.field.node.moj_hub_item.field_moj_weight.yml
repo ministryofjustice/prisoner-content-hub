@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_weight
+    - node.type.moj_hub_item
+id: node.moj_hub_item.field_moj_weight
+field_name: field_moj_weight
+entity_type: node
+bundle: moj_hub_item
+label: Weight
+description: 'Hub items are ordered by weight when displayed within the application.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,5 @@
+entity.prison.add_form:
+  route_name: entity.prison.add_form
+  title: 'Add Prison'
+  appears_on:
+    - entity.prison.collection

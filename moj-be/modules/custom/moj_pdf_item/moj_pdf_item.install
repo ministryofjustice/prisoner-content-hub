@@ -1,0 +1,54 @@
+<?php
+
+/**
+ * Implements hook_install()
+ */
+function moj_pdf_item_install()
+{
+	// Ensure the translation fields are created in the database.
+	\Drupal::service('entity.definition_update_manager')->applyUpdates();
+}
+
+
+/**
+ * Add PDF banner field to the PDF taxonomy 
+ */
+function moj_pdf_item_update_8010() {
+	\Drupal\field\Entity\FieldStorageConfig::create(array(
+			'field_name' => 'field_pdf_category_banner',
+			'entity_type' => 'taxonomy_term',
+			'type' => 'image',
+			'settings' => array(
+				'uri_scheme' => 'public',
+				'default_image' => array(
+					'uuid' => '',
+					'alt' => '',
+					'title' => '',
+					'width' => null,
+					'height' => null,
+				),
+				'target_type' => file,
+				'display_field' => false,
+				'display_default' => false,
+			),
+		))->save();
+
+	\Drupal\field\Entity\FieldConfig::create(array(
+			'field_name' => 'field_pdf_category_banner',
+			'entity_type' => 'taxonomy_term',
+			'bundle' => 'moj_pdf_categories',
+			'label' => 'PDF category banner',
+			'required' => FALSE,
+		))->save();
+}
+
+/**
+ * Set PDF banner field to display on form 
+ */
+function moj_pdf_item_update_8025(){    
+	entity_get_form_display('taxonomy_term', 'moj_pdf_categories', 'default')
+		->setComponent('field_pdf_category_banner', array(
+			'weight' => 3
+		))->save();
+}
+	

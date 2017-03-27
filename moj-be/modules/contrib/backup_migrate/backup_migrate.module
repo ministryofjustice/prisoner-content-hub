@@ -1,0 +1,175 @@
+<?php
+use BackupMigrate\Core\Config\Config;
+use BackupMigrate\Core\Main\BackupMigrateInterface;
+use Drupal\backup_migrate\Entity\Destination;
+use Drupal\backup_migrate\Entity\Schedule;
+use Drupal\backup_migrate\Entity\Source;
+
+require __DIR__.'/vendor/autoload.php';
+
+define('BACKP_MIGRATE_MODULE_VERSION', '8.x-4.x-dev');
+
+
+/**
+ * Back up a source to 1 or more destinations.
+ *
+ * @param string $source_id
+ * @param string|array $destination_id
+ * @param array $config
+ */
+function backup_migrate_perform_backup($source_id, $destination_id, $config = []) {
+  try {
+    // Retrieve the service
+    $bam = backup_migrate_get_service_object($config);
+
+    // Run the backup.
+    $bam->backup($source_id, $destination_id);
+    drupal_set_message('Backup Complete.');
+  }
+  catch (Exception $e) {
+    drupal_set_message($e->getMessage(), 'error');
+  }
+}
+
+
+/**
+ * Restore a source from a destination and file id
+ *
+ * @param string $source_id
+ * @param string|array $destination_id
+ * @param string|null $file_id
+ * @param array $config
+ * @parem string $file_id
+ */
+function backup_migrate_perform_restore($source_id, $destination_id, $file_id = NULL, $config = []) {
+  try {
+    // Retrieve the service
+    $bam = backup_migrate_get_service_object($config);
+
+    // Run the backup.
+    $bam->restore($source_id, $destination_id, $file_id);
+    drupal_set_message('Restore Complete.');
+  }
+  catch (Exception $e) {
+    drupal_set_message($e->getMessage(), 'error');
+    return;
+  }
+}
+
+/**
+ * Get a BackupMigrate service object.
+ *
+ * @param array $config_array
+ *  An array of configuration arrays, keyed by plugin id.
+ * @param array $options
+ *  A keyed array of options.
+ * @return \BackupMigrate\Core\Main\BackupMigrate
+ */
+function backup_migrate_get_service_object($config_array = [], $options = []) {
+  static $bam = NULL;
+
+  // If the static cached object has not been loaded.
+  if ($bam === NULL) {
+    // Create the service object.
+    $bam = new \BackupMigrate\Core\Main\BackupMigrate();
+
+    // Allow other modules to alter the object
+    \Drupal::moduleHandler()->alter('backup_migrate_service_object', $bam, $options);
+  }
+
+  // Set the configuration overrides if any were passed in.
+  if ($config_array) {
+    $bam->setConfig(new Config($config_array));
+  }
+
+  return $bam;
+}
+
+/**
+ * Implements hook_backup_migrate_service_object_alter().
+ *
+ * Add the core Backup and Migrate plugins to the service object.
+ *
+ * @param \BackupMigrate\Core\Main\BackupMigrateInterface $bam
+ * @param array $options
+ */
+function backup_migrate_backup_migrate_service_object_alter(BackupMigrateInterface &$bam, $options = []) {
+  $sources = $bam->sources();
+  $destinations = $bam->destinations();
+  $plugins = $bam->plugins();
+
+  $services = $bam->services();
+
+  // Add a temp file manager which can access the drupal temp directory.
+  $services->add('TempFileAdapter',
+    new \BackupMigrate\Drupal\File\DrupalTempFileAdapter(\Drupal::service('file_system'), 'temporary://', 'bam')
+  );
+
+  $services->add('TempFileManager',
+    new \BackupMigrate\Core\File\TempFileManager($services->get('TempFileAdapter'))
+  );
+
+  // Add a logger which prints everything to the browser.
+  $services->add('Logger',
+    new \BackupMigrate\Drupal\Environment\DrupalSetMessageLogger()
+  );
+
+  $services->add('ArchiveReader', new \BackupMigrate\Core\Service\TarArchiveReader());
+  $services->add('ArchiveWriter', new \BackupMigrate\Core\Service\TarArchiveWriter());
+
+  // If this is a nobrowser op (cron) then do not add the browser plugins.
+  // TODO: Make this better.
+  if (empty($options['nobrowser'])) {
+    // Add a download destination.
+    $destinations->add('download', new \BackupMigrate\Drupal\Destination\DrupalBrowserDownloadDestination(new Config(['name' => t('Download')])));
+
+    // Add an upload destination
+    $destinations->add('upload', new \BackupMigrate\Drupal\Destination\DrupalBrowserUploadDestination(new Config(['name' => t('Upload')])));
+
+    // Add a debug destination.
+    $destinations->add('debug', new \BackupMigrate\Core\Destination\DebugDestination(new Config(['name' => t('Debug'), 'format' => 'html'])));
+  }
+  
+  // Add a file naming filter.
+  $plugins->add('namer', new \BackupMigrate\Core\Filter\FileNamer());
+
+  // Add a compression filter.
+  $plugins->add('compressor', new \BackupMigrate\Core\Filter\CompressionFilter());
+
+  // Add the Drupal utilities filter.
+  $plugins->add('utils', new \BackupMigrate\Drupal\Filter\DrupalUtils());
+
+  // Add a file metadata filter.
+  $plugins->add('metadata', new \BackupMigrate\Core\Filter\MetadataWriter(
+    new Config([
+      'generator' => 'Backup and Migrate for Drupal (https://www.drupal.org/project/backup_migrate)',
+      'generatorurl' => 'https://www.drupal.org/project/backup_migrate',
+      'generatorversion' => BACKP_MIGRATE_MODULE_VERSION
+    ])
+  ));
+
+  // Add the custom configured sources
+  foreach (Source::loadMultiple() as $source) {
+    $source->getPlugin()->alterBackupMigrate($bam, $source->get('id'), $options);
+  }
+
+  // Add the custom configured destination
+  foreach (Destination::loadMultiple() as $destination) {
+    $destination->getPlugin()->alterBackupMigrate($bam, $destination->get('id'), $options);
+  }
+}
+
+/**
+ * Implements hook_cron().
+ *
+ * Runs all of the enabled schedules if they are due to be run..
+ */
+function backup_migrate_cron() {
+  $bam = backup_migrate_get_service_object([], ['nobrowser' => TRUE]);
+
+  $schedules = Schedule::loadMultiple();
+  foreach ($schedules as $schedule) {
+    $schedule->run($bam);
+  }
+}
+

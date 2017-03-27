@@ -1,0 +1,10 @@
+uuid: 4e5aa0bb-031d-4e30-9c62-fd45b500a287
+langcode: en
+status: true
+dependencies: {  }
+id: moj_view_radio
+label: 'View radio'
+weight: 5
+is_admin: null
+permissions:
+  - 'view radio shows'

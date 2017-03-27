@@ -1,0 +1,7 @@
+name: Ministry of Justice
+type: module
+description: "Provides general functionality and features for MoJ modules"
+package: Ministry of Justice
+dependencies:
+  - contact_storage
+core: '8.x'

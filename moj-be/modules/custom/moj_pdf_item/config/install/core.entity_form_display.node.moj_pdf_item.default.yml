@@ -1,0 +1,111 @@
+uuid: f514b06b-ebba-463c-94c3-4d0607fc8eae
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.moj_pdf_item.field_is_global_content
+    - field.field.node.moj_pdf_item.field_moj_categories
+    - field.field.node.moj_pdf_item.field_moj_description
+    - field.field.node.moj_pdf_item.field_moj_pdf
+    - field.field.node.moj_pdf_item.field_moj_tags
+    - field.field.node.moj_pdf_item.field_moj_thumbnail_image
+    - field.field.node.moj_pdf_item.field_related_prisons
+    - image.style.thumbnail
+    - node.type.moj_pdf_item
+  module:
+    - file
+    - image
+    - path
+    - text
+_core:
+  default_config_hash: G4wYQ2XLWpCbYlajEfiylBhvHUMEIP1rWMP1xpNiSfw
+id: node.moj_pdf_item.default
+targetEntityType: node
+bundle: moj_pdf_item
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  field_is_global_content:
+    weight: 38
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_moj_categories:
+    weight: 34
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_moj_description:
+    weight: 33
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea_with_summary
+  field_moj_pdf:
+    weight: 32
+    settings:
+      progress_indicator: throbber
+    third_party_settings: {  }
+    type: file_generic
+  field_moj_tags:
+    weight: 35
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_moj_thumbnail_image:
+    weight: 36
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_related_prisons:
+    weight: 37
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  path:
+    type: path
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 15
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 16
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

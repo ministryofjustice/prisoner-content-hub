@@ -1,0 +1,73 @@
+body {
+  font-size: 16px;
+  line-height: 24px;
+  color: $colour-ink;
+}
+
+h1 {
+  font-size: 40px;
+  line-height: 42px;
+  color: #444444;
+  font-weight: normal;
+
+  .dark & {
+    color: #ffffff;
+  }
+}
+
+h2 {
+  font-size: 30px;
+  line-height: 36px;
+  color: #444444;
+  font-weight: normal;
+
+  .dark & {
+    color: #ffffff;
+  }
+}
+
+h3 {
+  font-size: 20px;
+  line-height: 27px;
+  color: #444444;
+  font-weight: normal;
+
+  .dark & {
+    color: #ffffff;
+  }
+}
+
+h4 {
+  font-size: 24px;
+  line-height: 28px;
+  color: $colour-ink;
+  font-weight: bold;
+
+  .dark & {
+    color: #ffffff;
+  }
+}
+
+h5 {
+  font-size: 18px;
+  line-height: 24px;
+  color: $colour-ink;
+  font-weight: 700;
+
+  .dark & {
+    color: #ffffff;
+  }
+}
+
+h6 {
+  font-size: 14px;
+  line-height: 20px;
+  color: #0e1a35;
+  font-weight: 700;
+
+  .dark & {
+    color: #ffffff;
+  }
+}
+
+$semi-bold: 400;

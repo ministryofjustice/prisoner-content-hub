@@ -1,0 +1,48 @@
+<?php
+/**
+ * @file
+ * Hook implementations for REST UI module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function restui_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'restui.edit':
+      return '<p>' . t('Here you can restrict which HTTP methods should this resource support. And within each method, the available serialization formats and authentication providers.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function restui_theme() {
+  return array(
+    // list resources.
+    'restui_resource_info' => array(
+      'variables' => array('resource' => array()),
+      'template' => 'restui-resource-info',
+    ),
+  );
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ *
+ * Sets defaults for authentication and formats per HTTP method.
+ */
+function restui_preprocess_restui_resource_info(&$variables) {
+  $formats = \Drupal::getContainer()->getParameter('serializer.formats');
+  $authentication_providers = array_keys(\Drupal::service('authentication_collector')->getSortedProviders());
+  foreach ($variables['resource'] as $method => $properties) {
+    if (empty($properties['supported_formats'])) {
+      $variables['resource'][$method]['supported_formats'] = $formats;
+    }
+    if (empty($properties['supported_auth'])) {
+      $variables['resource'][$method]['supported_auth'] = $authentication_providers;
+    }
+  }
+}

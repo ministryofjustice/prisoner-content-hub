@@ -1,0 +1,13 @@
+moj_pdf_item.landingPage:
+  path: '/api/pdf/course/{tid}'
+  defaults:
+    _controller: '\Drupal\moj_pdf_item\Controller\PdfApiController::landingPage'
+  requirements:
+    _permission: 'view pdfs'   
+
+moj_pdf_item.detailPage:
+  path: '/api/pdf/course/pdfs/{tid}'
+  defaults:
+    _controller: '\Drupal\moj_pdf_item\Controller\PdfApiController::detailPage'
+  requirements:
+    _permission: 'view pdfs'

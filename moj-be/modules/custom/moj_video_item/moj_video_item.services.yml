@@ -1,0 +1,12 @@
+services:
+    moj_video_item.encoder.json:
+        class: 'Symfony\Component\Serializer\Encoder\JsonEncoder'
+    moj_video_item.normalizer.video:
+        class: Drupal\moj_video_item\Normalizer\VideoNormalizer
+    moj_video_item.serializer.default:
+        class: 'Symfony\Component\Serializer\Serializer'
+        arguments:
+            0:
+                - '@moj_video_item.normalizer.video'                    
+            1:
+                - '@moj_video_item.encoder.json'

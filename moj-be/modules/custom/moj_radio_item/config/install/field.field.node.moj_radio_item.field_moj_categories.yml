@@ -1,0 +1,29 @@
+uuid: d9b3f4dd-a559-4861-bd00-c9114a69e930
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_categories
+    - node.type.moj_radio_item
+    - taxonomy.vocabulary.moj_radio_categories
+_core:
+  default_config_hash: O_2zHz5Acx9fEPzyTpJvW3ta1rgBgy4hOKfxaOUfKPA
+id: node.moj_radio_item.field_moj_categories
+field_name: field_moj_categories
+entity_type: node
+bundle: moj_radio_item
+label: Categories
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      moj_radio_categories: moj_radio_categories
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

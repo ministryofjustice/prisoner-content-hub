@@ -1,0 +1,48 @@
+<?php
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
+
+/**
+ * Adding the `weight` field to the `moj_hub_item` content type.
+ */
+function moj_hub_update_8001() {
+  $node_type = 'moj_hub_item';
+  $field_name = 'field_moj_weight';
+  $field_label = 'Weight';
+
+  $field_storage = FieldStorageConfig::loadByName('node', $field_name);
+  if (empty($field_storage)) {
+    drupal_set_message("Creating field storage");
+
+    $field_storage = FieldStorageConfig::create([
+      'field_name' => $field_name,
+      'entity_type' => 'node',
+      'type' => 'integer',
+    ]);
+
+    $field_storage->save();
+  }
+
+  $field = FieldConfig::loadByName('node', $node_type, $field_name);
+  if (empty($field)) {
+    drupal_set_message("Attaching field to node type");
+
+    // Attache the field to the node type
+    $field = FieldConfig::create([
+      'field_storage' => $field_storage,
+      'bundle' => $node_type,
+      'label' => $field_label,
+      'description' => t('Hub items are ordered by weight when displayed within the application.')
+    ]);
+    $field->save();
+
+    // Make the field visible and give it a weight
+    entity_get_form_display('node', $node_type, 'default')
+      ->setComponent($field_name, array(
+        'type' => 'text_textfield',
+        'weight' => 4
+      ))
+      ->save();
+  }
+}

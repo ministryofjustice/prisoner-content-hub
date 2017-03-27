@@ -1,0 +1,16 @@
+uuid: 9951a247-93f6-4b17-a58b-3a394052b1e3
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.moj_radio_item
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: node.moj_radio_item
+target_entity_type_id: node
+target_bundle: moj_radio_item
+default_langcode: site_default
+language_alterable: true

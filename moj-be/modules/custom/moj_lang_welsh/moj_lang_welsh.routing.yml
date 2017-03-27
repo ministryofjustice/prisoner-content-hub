@@ -1,0 +1,7 @@
+moj_lang_welsh_testing:
+  path: 'testing/welsh'
+  defaults:
+    _controller: '\Drupal\moj_lang_welsh\Controller\WelshTranslationsController::devPage'
+    _title: 'Welsh Development Testing Page'
+  requirements:
+    _permission: 'access content'

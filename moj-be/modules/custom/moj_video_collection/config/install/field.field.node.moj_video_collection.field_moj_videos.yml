@@ -1,0 +1,26 @@
+uuid: 1bfa5d12-ebae-4df5-8626-450b339742fb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_videos
+    - node.type.moj_video_collection
+    - node.type.moj_video_item
+id: node.moj_video_collection.field_moj_videos
+field_name: field_moj_videos
+entity_type: node
+bundle: moj_video_collection
+label: Videos
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      moj_video_item: moj_video_item
+    sort:
+      field: _none
+field_type: entity_reference

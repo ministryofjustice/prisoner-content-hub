@@ -1,0 +1,25 @@
+uuid: 882291d3-904c-4c7e-976e-2849ab6bb07b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_related_prisons
+    - node.type.moj_video_item
+id: node.moj_video_item.field_related_prisons
+field_name: field_related_prisons
+entity_type: node
+bundle: moj_video_item
+label: 'Related Prisons'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: related_prisons
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

@@ -1,0 +1,13 @@
+# Prison menu items definition
+entity.prison.collection:
+  title: 'Prison list'
+  route_name: entity.prison.collection
+  description: 'List Prison entities'
+  parent: system.admin_structure
+  weight: 100
+
+prison.admin.structure.settings:
+  title: Prison settings
+  description: 'Configure Prison entities'
+  route_name: prison.settings
+  parent: moj.admin_config_moj

@@ -1,0 +1,27 @@
+uuid: 6785c4e3-6471-4bb8-817c-f5b1577a342f
+langcode: en
+status: true
+dependencies:
+  module:
+    - file
+    - taxonomy
+    - video
+id: taxonomy_term.field_channel_landing_page_video
+field_name: field_channel_landing_page_video
+entity_type: taxonomy_term
+type: video
+settings:
+  default_video:
+    uuid: null
+    data: null
+  target_type: file
+  display_field: false
+  display_default: false
+  uri_scheme: public
+module: video
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

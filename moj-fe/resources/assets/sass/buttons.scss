@@ -1,0 +1,20 @@
+.btn {
+    color: $colour-ink;
+    font-size: 14px;
+    font-weight: $semi-bold;
+    text-decoration: none;
+    border: 1px solid $colour-pastel-blue;
+    padding: 0.5em 1.5em;
+    border-radius: 2em;    
+    &:focus,
+    &:hover {
+      background: $colour-green;
+      border-color: $colour-green;
+    }
+
+    &:active {
+      background: $colour-pastel-blue;
+      border-color: $colour-pastel-blue;
+    }
+}  
+

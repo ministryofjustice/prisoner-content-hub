@@ -1,0 +1,7 @@
+## Customize the test machine
+machine:
+
+  # Version of PHP to use
+  php:
+    version: 5.4.5
+

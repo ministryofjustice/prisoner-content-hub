@@ -1,0 +1,21 @@
+uuid: cd42ccc0-fc6f-49c5-823a-de57edbbeae5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_moj_back_link_url
+    - taxonomy.vocabulary.moj_pdf_categories
+id: taxonomy_term.moj_pdf_categories.field_moj_back_link_url
+field_name: field_moj_back_link_url
+entity_type: taxonomy_term
+bundle: moj_pdf_categories
+label: 'Back link URL'
+description: 'The path to the Education Sub-hub page'
+required: false
+translatable: false
+default_value:
+  -
+    value: /
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,30 @@
+uuid: d833f672-4ac5-4509-aef0-40ad53bc8d85
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_categories
+    - node.type.moj_pdf_item
+    - taxonomy.vocabulary.moj_pdf_categories
+_core:
+  default_config_hash: sxG_RnhVtVGGZqtAr89rqURiC6ryhygtVITIFlk89B4
+id: node.moj_pdf_item.field_moj_categories
+field_name: field_moj_categories
+entity_type: node
+bundle: moj_pdf_item
+label: Categories
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      moj_pdf_categories: moj_pdf_categories
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

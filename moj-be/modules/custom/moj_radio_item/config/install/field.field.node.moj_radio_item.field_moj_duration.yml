@@ -1,0 +1,19 @@
+uuid: 1c0a5de2-c7af-436e-82c8-74524463389d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_duration
+    - node.type.moj_radio_item
+id: node.moj_radio_item.field_moj_duration
+field_name: field_moj_duration
+entity_type: node
+bundle: moj_radio_item
+label: Duration
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

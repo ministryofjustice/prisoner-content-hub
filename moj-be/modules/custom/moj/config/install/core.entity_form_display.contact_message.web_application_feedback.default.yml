@@ -1,0 +1,43 @@
+uuid: 1f88ec60-7e9e-4328-a176-3b9e211c7a0c
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.web_application_feedback
+    - field.field.contact_message.web_application_feedback.field_list1
+    - field.field.contact_message.web_application_feedback.field_prison
+id: contact_message.web_application_feedback.default
+targetEntityType: contact_message
+bundle: web_application_feedback
+mode: default
+content:
+  field_list1:
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+  field_prison:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  message:
+    type: string_textarea
+    weight: 2
+    settings:
+      rows: 12
+      placeholder: ''
+    third_party_settings: {  }
+  subject:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  copy: true
+  mail: true
+  name: true

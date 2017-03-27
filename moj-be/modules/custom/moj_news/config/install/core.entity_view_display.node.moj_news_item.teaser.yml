@@ -1,0 +1,27 @@
+uuid: 1acac79f-eec8-43d8-8d33-df59dffd50a0
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.moj_news_item.body
+    - node.type.moj_news_item
+  module:
+    - text
+    - user
+id: node.moj_news_item.teaser
+targetEntityType: node
+bundle: moj_news_item
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+  links:
+    weight: 100
+hidden:
+  langcode: true

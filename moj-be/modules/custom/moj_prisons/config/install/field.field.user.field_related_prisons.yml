@@ -1,0 +1,26 @@
+uuid: f5f56645-11a0-49cf-ae1a-2c072e2a541a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_related_prisons
+  module:
+    - user
+id: user.user.field_related_prisons
+field_name: field_related_prisons
+entity_type: user
+bundle: user
+label: 'Related prisons'
+description: 'The prisons the user is associated with. This controls access to content on a per-prison basis.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: related_prisons
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

@@ -1,0 +1,16 @@
+/vendor
+/node_modules
+/public/storage
+/public/build
+/public/css
+Homestead.yaml
+Homestead.json
+.env
+.vagrant
+*.swp
+.idea/
+nbproject
+/nbproject/private/
+/nbproject
+*DS_Store
+nb-configuration.xml

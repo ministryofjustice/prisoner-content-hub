@@ -1,0 +1,53 @@
+<?php
+
+use Drupal\field\Entity\FieldConfig;
+use Drupal\image\Entity\ImageStyle;
+
+/**
+ * Implements hook_install()
+ */
+function moj_radio_item_install()
+{
+	// Ensure the translation fields are created in the database.
+	\Drupal::service('entity.definition_update_manager')->applyUpdates();
+}
+
+/**
+ * Hiding the duration field from video items.
+ */
+function moj_radio_item_update_8001() {
+	entity_get_form_display('node', 'moj_radio_item', 'default')
+		->removeComponent('field_moj_duration')
+		->save();
+}
+
+/**
+ * Adding the 'Radio Category Banner' image style.
+ */
+function moj_radio_item_update_8002() {
+	if (ImageStyle::load("moj_radio_category_banner") == null) {
+		$style_name = "moj_radio_category_banner";
+		$style_label = "Radio Category Banner";
+
+		$effect = array(
+			'id' => 'image_scale_and_crop',
+			'data' => array(
+				'width' => 1366,
+				'height' => 833,
+				'upscale' => TRUE,
+			),
+			'weight' => 0,
+		);
+
+		$style = ImageStyle::create(array('name' => $style_name, 'label' => $style_label));
+		$style->addImageEffect($effect);
+		$style->save();
+	}
+}
+
+/*
+ * Make radio item description field non required
+ */
+function moj_radio_item_update_8036(){    
+	FieldConfig::loadByName('node', 'moj_radio_item', 'field_moj_description')->setRequired(FALSE)->save();
+}

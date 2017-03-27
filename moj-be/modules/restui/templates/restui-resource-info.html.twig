@@ -1,0 +1,16 @@
+{#
+/**
+ * @file
+ * Default theme implementation for basic administrative info about a REST resource.
+ *
+ * Available variables:
+ * - resource: array REST resource config.
+ *
+ * @ingroup themeable
+ */
+#}
+{% for method, properties in resource %}
+  <p>{{ method }}</br>
+  authentication: {{ properties.supported_auth|join(', ') }}</br>
+  formats: {{ properties.supported_formats|join(', ') }}</p>
+{% endfor %}

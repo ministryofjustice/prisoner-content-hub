@@ -1,0 +1,7 @@
+; Example Make file to demonstrate how to automatically fetch Video.js Player.
+; See http://davehall.com.au/blog/dave/2011/05/17/drush-make-and-module-dependencies#comment-2261
+; as to why this file ends with .example rather than .make.
+
+libraries[video-js][download][type] = get
+libraries[video-js][download][url] = https://github.com/videojs/video.js/releases/download/v5.5.3/video-js-5.5.3.zip
+libraries[video-js][directory_name] = "video-js"

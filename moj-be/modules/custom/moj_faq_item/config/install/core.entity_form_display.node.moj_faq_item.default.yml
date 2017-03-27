@@ -1,0 +1,76 @@
+uuid: 4a3cfb32-9bfc-443a-95bc-b8fc47a3f735
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.moj_faq_item.field_moj_categories
+    - field.field.node.moj_faq_item.field_moj_description
+    - field.field.node.moj_faq_item.field_moj_tags
+    - node.type.moj_faq_item
+  module:
+    - path
+    - text
+id: node.moj_faq_item.default
+targetEntityType: node
+bundle: moj_faq_item
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+  field_moj_categories:
+    weight: 34
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
+  field_moj_description:
+    weight: 31
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea_with_summary
+  field_moj_tags:
+    weight: 33
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  path:
+    type: path
+    weight: 30
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 15
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 16
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

@@ -1,0 +1,25 @@
+{
+  "name": "backupmigrate/drupal",
+  "description": "Backup and Migrate Drupal Module",
+  "autoload": {
+    "psr-4": {
+      "BackupMigrate\\Drupal\\": "src"
+    }
+  },
+  "authors": [
+    {
+      "name": "Ronan Dowling"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/backupmigrate/backup_migrate_core"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "backupmigrate/core": "dev-master",
+    "psr/log": "dev-master"
+  }
+}

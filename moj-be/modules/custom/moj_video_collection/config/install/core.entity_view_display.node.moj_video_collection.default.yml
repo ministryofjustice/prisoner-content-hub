@@ -1,0 +1,31 @@
+uuid: 36deb8ae-7b32-43d1-aaa2-994188a7db75
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.moj_video_collection.body
+    - field.field.node.moj_video_collection.field_moj_thumbnail_image
+    - field.field.node.moj_video_collection.field_moj_videos
+    - node.type.moj_video_collection
+  module:
+    - user
+id: node.moj_video_collection.default
+targetEntityType: node
+bundle: moj_video_collection
+mode: default
+content:
+  field_moj_videos:
+    type: entity_reference_entity_view
+    weight: 2
+    label: hidden
+    settings:
+      view_mode: moj_card
+      link: false
+    third_party_settings: {  }
+  links:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  body: true
+  field_moj_thumbnail_image: true

@@ -1,0 +1,9 @@
+name: MoJ FAQ Content Type
+description: Handles the creation of FAQ Item content type
+package: MoJ Self Service
+dependencies:
+    - moj_radio_item
+    - content_translation
+    - language
+type: module
+core: 8.x

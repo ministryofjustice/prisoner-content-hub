@@ -1,0 +1,24 @@
+uuid: b67c3b4f-64c5-49d4-9900-0bec5722d0c9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_description
+    - node.type.moj_radio_item
+  module:
+    - text
+_core:
+  default_config_hash: Gg2hp-k3s0rvE9G8of_rDhAROCx2VkT-Uryx9eBRWiY
+id: node.moj_radio_item.field_moj_description
+field_name: field_moj_description
+entity_type: node
+bundle: moj_radio_item
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

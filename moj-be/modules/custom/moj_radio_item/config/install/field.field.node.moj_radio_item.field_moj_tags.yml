@@ -1,0 +1,29 @@
+uuid: 3fbb0d26-0168-482e-b500-dfdb3262fa92
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_tags
+    - node.type.moj_radio_item
+    # - taxonomy.vocabulary.tags
+_core:
+  default_config_hash: FzBO7UFZ-4fHS22kLxPKRV0ClXAx27Tml72diSK3AVk
+id: node.moj_radio_item.field_moj_tags
+field_name: field_moj_tags
+entity_type: node
+bundle: moj_radio_item
+label: Tags
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      tags: tags
+    sort:
+      field: _none
+    auto_create: true
+field_type: entity_reference

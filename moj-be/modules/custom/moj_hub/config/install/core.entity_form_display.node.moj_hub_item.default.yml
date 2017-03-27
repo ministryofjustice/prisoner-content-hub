@@ -1,0 +1,136 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.moj_hub_item.field_moj_hub_allowed_prisons
+    - field.field.node.moj_hub_item.field_moj_hub_allowed_users
+    - field.field.node.moj_hub_item.field_moj_hub_forbidden_prisons
+    - field.field.node.moj_hub_item.field_moj_hub_forbidden_users
+    - field.field.node.moj_hub_item.field_moj_hub_hidden
+    - field.field.node.moj_hub_item.field_moj_hub_link
+    - field.field.node.moj_hub_item.field_moj_hub_parent
+    - field.field.node.moj_hub_item.field_moj_hub_thumbnail
+    - field.field.node.moj_hub_item.field_moj_weight
+    - image.style.thumbnail
+    - node.type.moj_hub_item
+  module:
+    - image
+    - path
+    - text
+id: node.moj_hub_item.default
+targetEntityType: node
+bundle: moj_hub_item
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 11
+    settings: {  }
+    third_party_settings: {  }
+  field_moj_hub_allowed_prisons:
+    weight: 6
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_moj_hub_allowed_users:
+    weight: 8
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_moj_hub_forbidden_prisons:
+    weight: 7
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_moj_hub_forbidden_users:
+    weight: 9
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_moj_hub_hidden:
+    weight: 5
+    settings:
+      display_label: false
+    third_party_settings: {  }
+    type: boolean_checkbox
+  field_moj_hub_link:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+  field_moj_hub_parent:
+    weight: 4
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+  field_moj_hub_thumbnail:
+    weight: 2
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+  field_moj_weight:
+    type: text_textfield
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 1
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 14
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 12
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 13
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  translation:
+    weight: 10
+  uid:
+    type: entity_reference_autocomplete
+    weight: 10
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }
