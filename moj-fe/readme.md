@@ -3,3 +3,7 @@
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)..
+
+## Vagrant
+
+The Vagrant box included in this directory is not currently working as planned. WIP.
