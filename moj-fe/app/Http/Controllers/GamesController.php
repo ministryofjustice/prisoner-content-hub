@@ -10,4 +10,9 @@ class GamesController extends Controller {
 
     return view('games.landingPage');
   }
+
+    function showGamesChess() {
+
+        return view('games.chess');
+    }
 }
