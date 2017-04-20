@@ -13,7 +13,22 @@ var elixir = require('laravel-elixir');
 
 require('laravel-elixir-spritesmith');
 
-elixir(function (mix) {   
+elixir( function (mix) {
+
+    mix.copy(
+        'node_modules/chessboardjs/www/js/chessboard.js',
+        'public/js'
+    ).copy(
+        'node_modules/chessboardjs/www/css/chessboard.css',
+        'public/css'
+    ).copy(
+        'node_modules/chess.js/chess.js',
+        'public/js'
+    ).copy(
+        'node_modules/stockfish/src/stockfish.js',
+        'public/js'
+    );
+
     mix.sass([
         'app.scss',
         'global.scss'

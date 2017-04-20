@@ -28,7 +28,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
 
     /* Games Section */
 
-    Route::get('/games', ['as' => 'games.landing', 'uses' => 'GamesController@showGamesLandingPage']);
     Route::get('/games/chess', ['as' => 'games.chess', 'uses' => 'GamesController@showGamesChess']);
 
 });

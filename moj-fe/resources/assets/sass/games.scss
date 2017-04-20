@@ -1,0 +1,33 @@
+
+/* Chess */
+
+.moves {
+  background: #eee;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  display: block;
+  box-sizing: border-box;
+  h3,p {
+    display: block;
+    margin: 10px;
+  }
+}
+
+/* board */
+.board-b72b1 {
+  border: 2px solid #666600 !important;
+}
+
+/* square */
+
+/* white square */
+.white-1e1d7 {
+  background-color: #ffffcc !important;
+  color: #b58863;
+}
+
+/* black square */
+.black-3c85d {
+  background-color: #ffcc33 !important;
+  color: #f0d9b5;
+}
