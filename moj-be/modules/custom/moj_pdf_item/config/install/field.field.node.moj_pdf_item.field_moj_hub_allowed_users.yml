@@ -1,0 +1,28 @@
+uuid: 558f1a60-af89-430f-8d0a-92a46e45aa1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_hub_allowed_users
+    - node.type.moj_pdf_item
+id: node.moj_pdf_item.field_moj_hub_allowed_users
+field_name: field_moj_hub_allowed_users
+entity_type: node
+bundle: moj_pdf_item
+label: 'Allowed users'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: true
+    filter:
+      type: _none
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

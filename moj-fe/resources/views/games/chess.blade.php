@@ -1,6 +1,6 @@
 @extends('layouts.chess')
 
-@section('title', 'Education')
+@section('title', 'Games: Chess')
 
 @section('top_content')
 
@@ -29,7 +29,7 @@
             <div class="education-header">
                 <div class="row">
                     <div class="col-xs-12">
-                       Games description
+                       A chess game powered by the Stockfish strong open source chess engine.
                     </div>
                 </div>
             </div>
@@ -42,16 +42,19 @@
 
     <div class="container games-container">
         <div class="row">
-            <div class="col-md-5 col-xs-12">
-                <span class="h3" id="time1">0:05:00</span>
+            <div class="col-md-6 col-xs-12">
+                {{--<span class="h3" id="time1">0:05:00</span>--}}
                 <div id="board" style="width: 100%;"></div>
-                <span class="h3" id="time2">0:05:00</span>
+                {{--<span class="h3" id="time2">0:05:00</span>--}}
+
+                <pre id=engineStatus></pre>
+
                 <div class="moves">
                     <h3>Moves:</h3>
                     <p id="pgn"></p>
                 </div>
             </div>
-            <div class="col-md-5 col-xs-12">
+            <div class="col-md-4 col-xs-12">
 
 
                 <form class="form-horizontal">
@@ -63,20 +66,20 @@
                         {{--</div>--}}
                     {{--</div>--}}
 
-                    <div class="form-group">
-                        <label for="timeBase" class="control-label">Base time (min)</label>
-                        <input type="number" class="form-control" id="timeBase" value="5">
-                    </div>
-                    <div class="form-group">
-                        <label for="timeInc" class="control-label">Increment (sec)</label>
-                        <input type="number" class="form-control" id="timeInc" value="2">
-                    </div>
+                    {{--<div class="form-group">--}}
+                        {{--<label for="timeBase" class="control-label">Time allowed to make your move (min)</label>--}}
+                        {{--<input type="number" class="form-control" id="timeBase" value="5">--}}
+                    {{--</div>--}}
+                    {{--<div class="form-group">--}}
+                        {{--<label for="timeInc" class="control-label">Increment (sec)</label>--}}
+                        {{--<input type="number" class="form-control" id="timeInc" value="2">--}}
+                    {{--</div>--}}
                     <div class="form-group">
                         <label for="skillLevel" class="control-label">Skill Level (0-20)</label>
                         <input type="number" class="form-control" id="skillLevel" value="10">
                     </div>
                     <div class="form-group">
-                        <label for="color" class="control-label">Promote to</label>
+                        <label for="color" class="control-label">Pawns get promoted to</label>
                         <select id=promote>
                             <option value=q selected>Queen</option>
                             <option value=r>Rook</option>
@@ -91,6 +94,8 @@
                         {{--<input type="checkbox" class="form-control" id="showScore" checked>--}}
                     {{--</div>--}}
                     <div class="form-group">
+                        <hidden type="number" class="form-control" id="timeInc" value="2">
+                        <hidden type="number" class="form-control" id="timeBase" value="5">
                         <button type="button" class="btn btn-primary" onclick="newGame()">New Game</button>
                     </div>
 

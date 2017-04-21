@@ -1,0 +1,22 @@
+uuid: cb10a240-a957-41d2-8c00-bc54652e076c
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+_core:
+  default_config_hash: O3ng0ZfViKhcpTxy3qvq6QpT5c1TqaMQCdQy2T3npXA
+id: node.field_moj_categories
+field_name: field_moj_categories
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

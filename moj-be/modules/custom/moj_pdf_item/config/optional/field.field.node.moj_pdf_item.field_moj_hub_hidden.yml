@@ -1,0 +1,23 @@
+uuid: 9c3ec5c8-12eb-407c-bdf7-be6a22439ea7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_hub_hidden
+    - node.type.moj_pdf_item
+id: node.moj_pdf_item.field_moj_hub_hidden
+field_name: field_moj_hub_hidden
+entity_type: node
+bundle: moj_pdf_item
+label: 'Hidden by default'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

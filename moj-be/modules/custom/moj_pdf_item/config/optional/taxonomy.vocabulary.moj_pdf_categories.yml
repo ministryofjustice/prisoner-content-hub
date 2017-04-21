@@ -1,0 +1,11 @@
+uuid: 8cbe9e40-35d3-4aa0-ae7d-de08f5b32d3e
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: TWo9deCbdjhXuPVfvmppBBAbxi2JllLTiQyKaRHKJxE
+name: 'PDF Categories'
+vid: moj_pdf_categories
+description: ''
+hierarchy: 0
+weight: 0

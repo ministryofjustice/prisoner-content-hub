@@ -1,0 +1,22 @@
+uuid: 7e498481-4bc8-464f-8f08-fbad531339da
+langcode: en
+status: true
+dependencies:
+  module:
+    - moj_prisons
+    - node
+_core:
+  default_config_hash: Vu75ikqzZ1SbNCjTk6TZVS6eng_4N99kNmFtK4xY6lg
+id: node.field_moj_hub_allowed_prisons
+field_name: field_moj_hub_allowed_prisons
+entity_type: node
+type: entity_reference
+settings:
+  target_type: prison
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

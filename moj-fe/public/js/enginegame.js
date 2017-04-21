@@ -18,9 +18,8 @@ function engineGame(options) {
     // only pick up pieces for White
     var onDragStart = function(source, piece, position, orientation)
     {
-        var re = playerColor == 'white' ? /^b/ : /^w/
-            if (game.game_over() ||
-                piece.search(re) !== -1) {
+        var re = playerColor === 'white' ? /^b/ : /^w/;
+            if (game.game_over() || piece.search(re) !== -1) {
                 return false;
             }
     };
@@ -39,7 +38,7 @@ function engineGame(options) {
 
     function uciCmd(cmd, which)
     {
-        console.log("UCI: " + cmd);
+        // console.log("UCI: " + cmd);
         
         (which || engine).postMessage(cmd);
     }
@@ -71,7 +70,8 @@ function engineGame(options) {
     function displayClock(color, t)
     {
         var isRunning = false;
-        if(time.startTime > 0 && color == time.clockColor) {
+        if(time.startTime > 0 && color === time.clockColor) {
+
             t = Math.max(0, t + time.startTime - Date.now());
             isRunning = true;
         }
@@ -82,8 +82,12 @@ function engineGame(options) {
         var hours = Math.floor(min / 60);
         min -= hours * 60;
         var display = hours + ':' + ('0' + min).slice(-2) + ':' + ('0' + sec).slice(-2);
+        if(display === '0:00:00') {
+            game.reset();
+            announced_game_over = true;
+        }
         if(isRunning) {
-            display += sec & 1 ? ' <--' : ' <-';
+            display += sec & 1 ? ' ..' : ' ..';
         }
         $(id).text(display);
     }
@@ -121,6 +125,7 @@ function engineGame(options) {
 
     function startClock()
     {
+
         if(game.turn() == 'w') {
             time.wtime += time.winc;
             time.clockColor = 'white';
@@ -171,19 +176,19 @@ function engineGame(options) {
             }
         }
     }
-    
+
     evaler.onmessage = function(event)
     {
         var line;
-        
+
         if (event && typeof event === "object") {
             line = event.data;
         } else {
             line = event;
         }
-        
+
         console.log("evaler: " + line);
-        
+
         /// Ignore some output.
         if (line === "uciok" || line === "readyok" || line.substr(0, 11) === "option name") {
             return;
@@ -199,13 +204,13 @@ function engineGame(options) {
     engine.onmessage = function(event)
     {
         var line;
-        
+
         if (event && typeof event === "object") {
             line = event.data;
         } else {
             line = event;
         }
-        console.log("Reply: " + line)
+        // console.log("Reply: " + line)
         if(line == 'uciok') {
             engineStatus.engineLoaded = true;
         } else if(line == 'readyok') {
@@ -217,14 +222,14 @@ function engineGame(options) {
                 isEngineRunning = false;
                 game.move({from: match[1], to: match[2], promotion: match[3]});
                 prepareMove();
-                uciCmd("eval", evaler)
+              //  uciCmd("eval", evaler)
                 // evaluation_el.textContent = "";
                 //uciCmd("eval");
             /// Is it sending feedback?
             } else if(match = line.match(/^info .*\bdepth (\d+) .*\bnps (\d+)/)) {
                 engineStatus.search = 'Depth: ' + match[1] + ' Nps: ' + match[2];
             }
-            
+
             /// Is it sending feed back with a score?
             if(match = line.match(/^info .*\bscore (\w+) (-?\d+)/)) {
                 var score = parseInt(match[2]) * (game.turn() == 'w' ? 1 : -1);
@@ -235,7 +240,7 @@ function engineGame(options) {
                 } else if(match[1] == 'mate') {
                     engineStatus.score = 'Mate in ' + Math.abs(score);
                 }
-                
+
                 /// Is the score bounded?
                 if(match = line.match(/\b(upper|lower)bound\b/)) {
                     engineStatus.score = ((match[1] == 'upper') == (game.turn() == 'w') ? '<= ' : '>= ') + engineStatus.score

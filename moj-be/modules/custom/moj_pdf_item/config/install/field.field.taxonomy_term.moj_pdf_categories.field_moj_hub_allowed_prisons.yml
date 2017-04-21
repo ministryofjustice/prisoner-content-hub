@@ -1,0 +1,25 @@
+uuid: 27bab771-70ff-4236-82b2-0cdf4c51153c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_moj_hub_allowed_prisons
+    - taxonomy.vocabulary.moj_pdf_categories
+id: taxonomy_term.moj_pdf_categories.field_moj_hub_allowed_prisons
+field_name: field_moj_hub_allowed_prisons
+entity_type: taxonomy_term
+bundle: moj_pdf_categories
+label: 'Allowed prisons'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:prison'
+  handler_settings:
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

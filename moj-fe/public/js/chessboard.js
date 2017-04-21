@@ -12,6 +12,7 @@
 // Chess Util Functions
 //------------------------------------------------------------------------------
 var COLUMNS = 'abcdefgh'.split('');
+var module = {};
 
 function validMove(move) {
   // move should be a string
@@ -35,6 +36,7 @@ function validPieceCode(code) {
 }
 
 // TODO: this whole function could probably be replaced with a single regex
+
 function validFen(fen) {
   if (typeof fen !== 'string') return false;
 
