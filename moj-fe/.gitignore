@@ -14,3 +14,5 @@ nbproject
 /nbproject
 *DS_Store
 nb-configuration.xml
+.idea
+.idea/**

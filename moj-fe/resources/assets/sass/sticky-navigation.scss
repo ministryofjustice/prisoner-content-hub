@@ -42,6 +42,13 @@
                 color: #F5A623;
             }
         }
+        &.game-yellow {
+            a:hover {
+                padding: 32px 100px;
+                border-bottom: solid 3px $colour-game-yellow;
+                color: $colour-game-yellow;
+            }
+        }
         &.purple {
             a:hover {
                 padding: 32px 100px;

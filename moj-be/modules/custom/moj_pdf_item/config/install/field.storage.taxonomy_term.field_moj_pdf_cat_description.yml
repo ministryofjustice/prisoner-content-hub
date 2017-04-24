@@ -1,0 +1,23 @@
+uuid: e3a92413-9a7d-4436-a742-96796d262bdb
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+_core:
+  default_config_hash: CFj_ruiFLX0ExUq86rGLTGLYsL4wmWimtqbp7WL3llQ
+id: taxonomy_term.field_moj_pdf_cat_description
+field_name: field_moj_pdf_cat_description
+entity_type: taxonomy_term
+type: string
+settings:
+  max_length: 255
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

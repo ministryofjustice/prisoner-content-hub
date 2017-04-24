@@ -1,0 +1,29 @@
+uuid: c68c3192-6b38-452c-a2f9-d38ca8c8cb9d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_pdf
+    - node.type.moj_pdf_item
+  module:
+    - file
+_core:
+  default_config_hash: vZ123I_anlvBBs4dx0qWV8ARHG_-iHm8ypuFP7MMbR4
+id: node.moj_pdf_item.field_moj_pdf
+field_name: field_moj_pdf
+entity_type: node
+bundle: moj_pdf_item
+label: PDF
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: pdf
+  max_filesize: ''
+  description_field: false
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: file

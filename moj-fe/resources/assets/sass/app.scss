@@ -25,6 +25,9 @@
 @import "errors/errors";
 @import "sticky-navigation";
 @import "footer";
+@import "forms";
+@import "games";
+
 
 html {
     min-height: 100%;
@@ -83,6 +86,10 @@ body {
     background-color: $colour-purple;
     margin-bottom: 50px;
   }
+    &.games {
+        background-color: $colour-game-yellow;
+        margin-bottom: 50px;
+    }
 }
 
 #page-icon {

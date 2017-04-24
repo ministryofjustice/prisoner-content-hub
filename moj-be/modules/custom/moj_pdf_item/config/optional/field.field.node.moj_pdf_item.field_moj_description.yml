@@ -1,0 +1,24 @@
+uuid: 4dc5e58b-1aa9-4b8f-a841-7c562751f690
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_moj_description
+    - node.type.moj_pdf_item
+  module:
+    - text
+_core:
+  default_config_hash: 3t5tOt8R-g3xNu7GLgaQkHoPiJgJ1evzt6urlLg2EGk
+id: node.moj_pdf_item.field_moj_description
+field_name: field_moj_description
+entity_type: node
+bundle: moj_pdf_item
+label: Description
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary

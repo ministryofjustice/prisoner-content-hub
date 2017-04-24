@@ -9,5 +9,10 @@
     "gulp": "^3.9.1",
     "laravel-elixir": "^5.0.0",
     "laravel-elixir-spritesmith": "^0.4.0"
+  },
+  "dependencies": {
+    "chess.js": "^0.10.2",
+    "chessboardjs": "0.0.1",
+    "json3": "^3.3.2"
   }
 }

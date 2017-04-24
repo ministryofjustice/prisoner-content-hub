@@ -1,0 +1,28 @@
+uuid: cfd86308-cd26-4e53-a064-542200a7acfc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_moj_hub_forbidden_users
+    - taxonomy.vocabulary.moj_pdf_categories
+id: taxonomy_term.moj_pdf_categories.field_moj_hub_forbidden_users
+field_name: field_moj_hub_forbidden_users
+entity_type: taxonomy_term
+bundle: moj_pdf_categories
+label: 'Forbidden users'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: true
+    filter:
+      type: _none
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

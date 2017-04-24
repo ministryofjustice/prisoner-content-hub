@@ -1,0 +1,22 @@
+uuid: fb868696-b3f3-4fdd-a6a3-8e04444b59b7
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - user
+_core:
+  default_config_hash: db9Yi6V-5hcMdX-zhdRIqVNUZDcJze2OiR55LMmDLEk
+id: node.field_moj_hub_forbidden_users
+field_name: field_moj_hub_forbidden_users
+entity_type: node
+type: entity_reference
+settings:
+  target_type: user
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

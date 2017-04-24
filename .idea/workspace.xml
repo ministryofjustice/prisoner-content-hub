@@ -1,0 +1,1468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4b3420a2-1609-4fbc-a2ed-8148b954821f" name="Default" comment="HUB-298: Added game landing page route">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/digital-hub.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/install/field.field.node.moj_pdf_item.field_moj_hub_allowed_prisons.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/install/field.field.node.moj_pdf_item.field_moj_hub_allowed_users.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/install/field.field.node.moj_pdf_item.field_moj_hub_forbidden_prisons.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/install/field.field.node.moj_pdf_item.field_moj_hub_forbidden_users.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/install/field.field.node.moj_pdf_item.field_moj_hub_hidden.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/install/field.field.taxonomy_term.moj_pdf_categories.field_moj_hub_allowed_prisons.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/install/field.field.taxonomy_term.moj_pdf_categories.field_moj_hub_allowed_user.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/install/field.field.taxonomy_term.moj_pdf_categories.field_moj_hub_forbidden_prisons.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/install/field.field.taxonomy_term.moj_pdf_categories.field_moj_hub_forbidden_users.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/install/field.field.taxonomy_term.moj_pdf_categories.field_moj_hub_hidden.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/install/field.field.taxonomy_term.moj_pdf_categories.field_moj_pdf_cat_description.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/install/field.storage.taxonomy_term.field_moj_pdf_cat_description.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/core.entity_form_display.node.moj_pdf_item.default.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/core.entity_view_display.node.moj_pdf_item.default.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.field.node.moj_pdf_item.field_is_global_content.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.field.node.moj_pdf_item.field_moj_categories.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.field.node.moj_pdf_item.field_moj_description.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.field.node.moj_pdf_item.field_moj_hub_allowed_prisons.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.field.node.moj_pdf_item.field_moj_hub_allowed_users.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.field.node.moj_pdf_item.field_moj_hub_forbidden_prisons.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.field.node.moj_pdf_item.field_moj_hub_forbidden_users.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.field.node.moj_pdf_item.field_moj_hub_hidden.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.field.node.moj_pdf_item.field_moj_pdf.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.field.node.moj_pdf_item.field_moj_tags.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.field.node.moj_pdf_item.field_moj_thumbnail_image.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.field.node.moj_pdf_item.field_related_prisons.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.storage.node.field_is_global_content.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.storage.node.field_moj_categories.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.storage.node.field_moj_description.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.storage.node.field_moj_hub_allowed_prisons.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.storage.node.field_moj_hub_allowed_users.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.storage.node.field_moj_hub_forbidden_prisons.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.storage.node.field_moj_hub_forbidden_users.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.storage.node.field_moj_hub_hidden.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.storage.node.field_moj_pdf.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.storage.node.field_moj_tags.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.storage.node.field_moj_thumbnail_image.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/field.storage.node.field_related_prisons.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/image.style.thumbnail.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/node.type.moj_pdf_item.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/taxonomy.vocabulary.moj_pdf_categories.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-be/modules/custom/moj_pdf_item/config/optional/taxonomy.vocabulary.tags.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moj-fe/public/js/chessboard.js" afterPath="$PROJECT_DIR$/moj-fe/public/js/chessboard.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moj-fe/public/js/enginegame.js" afterPath="$PROJECT_DIR$/moj-fe/public/js/enginegame.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moj-fe/resources/assets/sass/games.scss" afterPath="$PROJECT_DIR$/moj-fe/resources/assets/sass/games.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moj-fe/resources/views/games/chess.blade.php" afterPath="$PROJECT_DIR$/moj-fe/resources/views/games/chess.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moj-fe/resources/views/layouts/chess.blade.php" afterPath="$PROJECT_DIR$/moj-fe/resources/views/layouts/chess.blade.php" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" phpInterpreterId="7e74023f-37ef-450b-b5c1-4aae3ab3c834">
+    <pharConfigPath>$PROJECT_DIR$/../moj-be/composer.json</pharConfigPath>
+    <pharPath>/usr/local/bin/composer</pharPath>
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FileEditorManager">
+    <splitter split-orientation="horizontal" split-proportion="0.7646638">
+      <split-first>
+        <leaf>
+          <file leaf-file-name="chess.blade.php" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/moj-fe/resources/views/games/chess.blade.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="465">
+                  <caret line="31" column="62" lean-forward="false" selection-start-line="31" selection-start-column="62" selection-end-line="31" selection-end-column="62" />
+                  <folding>
+                    <element signature="e#1420#1440#0#HTML" expanded="true" />
+                    <marker date="1492769309000" expanded="true" signature="9:24" ph="..." />
+                    <marker date="1492769309000" expanded="true" signature="36:59" ph="..." />
+                    <marker date="1492769309000" expanded="true" signature="71:84" ph="..." />
+                    <marker date="1492769309000" expanded="true" signature="395:422" ph="..." />
+                    <marker date="1492769309000" expanded="true" signature="1194:1203" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="chess.blade.php" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/moj-fe/resources/views/layouts/chess.blade.php">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="226">
+                  <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
+                  <folding>
+                    <marker date="1492697164000" expanded="true" signature="30:71" ph="..." />
+                    <marker date="1492697164000" expanded="true" signature="1010:1017" ph="..." />
+                    <marker date="1492697164000" expanded="true" signature="1065:1088" ph="..." />
+                    <marker date="1492697164000" expanded="true" signature="1681:1718" ph="..." />
+                    <marker date="1492697164000" expanded="true" signature="1813:1821" ph="..." />
+                    <marker date="1492697164000" expanded="true" signature="1854:1867" ph="..." />
+                    <marker date="1492697164000" expanded="true" signature="1934:1943" ph="..." />
+                    <marker date="1492697164000" expanded="true" signature="2153:2178" ph="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="enginegame.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/moj-fe/public/js/enginegame.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="442">
+                  <caret line="250" column="6" lean-forward="false" selection-start-line="179" selection-start-column="3" selection-end-line="250" selection-end-column="6" />
+                  <folding>
+                    <element signature="e#763#807#0" expanded="false" />
+                    <element signature="e#1123#1318#0" expanded="false" />
+                    <element signature="e#1158#1189#0" expanded="false" />
+                    <element signature="e#1229#1312#0" expanded="false" />
+                    <element signature="n#!!block;n#uciCmd#0;n#!!block;n#engineGame#0" expanded="false" />
+                    <element signature="n#!!block;n#displayStatus#0;n#!!block;n#engineGame#0" expanded="false" />
+                    <element signature="e#1717#1764#0" expanded="false" />
+                    <element signature="e#1800#1846#0" expanded="false" />
+                    <element signature="e#1852#1895#0" expanded="false" />
+                    <element signature="e#1937#2179#0" expanded="false" />
+                    <element signature="e#2042#2169#0" expanded="false" />
+                    <element signature="n#!!block;n#displayClock#0;n#!!block;n#engineGame#0" expanded="false" />
+                    <element signature="e#2361#2465#0" expanded="false" />
+                    <element signature="e#2823#2900#0" expanded="false" />
+                    <element signature="e#2923#2982#0" expanded="false" />
+                    <element signature="n#!!block;n#updateClock#0;n#!!block;n#engineGame#0" expanded="false" />
+                    <element signature="n#!!block;n#clockTick#0;n#!!block;n#engineGame#0" expanded="false" />
+                    <element signature="n#!!block;n#stopClock#0;n#!!block;n#engineGame#0" expanded="false" />
+                    <element signature="e#3488#3576#0" expanded="false" />
+                    <element signature="e#3608#3917#0" expanded="false" />
+                    <element signature="e#3743#3822#0" expanded="false" />
+                    <element signature="e#3828#3907#0" expanded="false" />
+                    <element signature="n#!!block;n#startClock#0;n#!!block;n#engineGame#0" expanded="false" />
+                    <element signature="e#3989#4076#0" expanded="false" />
+                    <element signature="e#4082#4169#0" expanded="false" />
+                    <element signature="n#!!block;n#get_moves#0;n#!!block;n#engineGame#0" expanded="false" />
+                    <element signature="e#4404#4539#0" expanded="false" />
+                    <element signature="n#!!block;n#prepareMove#0;n#!!block;n#engineGame#0" expanded="false" />
+                    <element signature="e#4816#5623#0" expanded="false" />
+                    <element signature="e#4854#5494#0" expanded="false" />
+                    <element signature="e#5142#5336#0" expanded="false" />
+                    <element signature="e#5342#5440#0" expanded="false" />
+                    <element signature="e#5568#5613#0" expanded="false" />
+                    <element signature="e#6240#8099#0" expanded="false" />
+                    <element signature="e#8148#8443#0" expanded="false" />
+                    <element signature="e#8215#8340#0" expanded="false" />
+                    <element signature="e#8450#8499#0" expanded="false" />
+                    <element signature="e#8583#8626#0" expanded="false" />
+                    <element signature="e#8989#9273#0" expanded="false" />
+                    <element signature="e#9371#9459#0" expanded="false" />
+                    <element signature="e#9500#10744#0" expanded="false" />
+                    <element signature="e#9628#9670#0" expanded="false" />
+                    <element signature="e#9699#9742#0" expanded="false" />
+                    <element signature="e#9877#9926#0" expanded="false" />
+                    <element signature="e#9948#9997#0" expanded="false" />
+                    <element signature="e#10019#10068#0" expanded="false" />
+                    <element signature="e#10074#10165#0" expanded="false" />
+                    <element signature="e#10269#10377#0" expanded="false" />
+                    <element signature="e#10787#10905#0" expanded="false" />
+                    <element signature="e#10941#10989#0" expanded="false" />
+                    <element signature="e#11025#11073#0" expanded="false" />
+                    <element signature="e#11115#11191#0" expanded="false" />
+                    <element signature="e#11236#11315#0" expanded="false" />
+                    <element signature="e#11357#11430#0" expanded="false" />
+                    <element signature="e#11458#11717#0" expanded="false" />
+                    <element signature="e#11744#11988#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="SCSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>left_tab_label</find>
+      <find>E</find>
+      <find>Epi</find>
+      <find>Epis</find>
+      <find>Episo</find>
+      <find>Episod</find>
+      <find>Episode</find>
+      <find>Episodes</find>
+      <find>p</find>
+      <find>pu</find>
+      <find>pur</find>
+      <find>purpl</find>
+      <find>purple</find>
+      <find>education</find>
+      <find>education-header</find>
+      <find>evaluation_el</find>
+      <find>color</find>
+      <find>displayClock</find>
+      <find>module</find>
+      <find>announced_game_over</find>
+      <find>timeInc</find>
+    </findStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/moj-fe/resources/assets</dir>
+      <dir>$PROJECT_DIR$/moj-fe/resources/assets/sass</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="HUB-268" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/moj-be/modules/custom/moj_video_item/composer.json" />
+        <option value="$PROJECT_DIR$/moj-be/Vagrantfile" />
+        <option value="$PROJECT_DIR$/moj-be/composer.json" />
+        <option value="$PROJECT_DIR$/moj-be/modules/custom/moj_video_item/src/Controller/VideoApiController.php" />
+        <option value="$PROJECT_DIR$/moj-fe/resources/views/video/channelLandingPage.blade.php" />
+        <option value="$PROJECT_DIR$/moj-fe/resources/views/video/detail.blade.php" />
+        <option value="$PROJECT_DIR$/moj-fe/info.php" />
+        <option value="$PROJECT_DIR$/moj-be/index.php" />
+        <option value="$PROJECT_DIR$/moj-fe/app/Http/Controllers/GamesController.php" />
+        <option value="$PROJECT_DIR$/moj-fe/resources/views/games/landingPage.blade.php" />
+        <option value="$PROJECT_DIR$/moj-fe/resources/assets/sass/colours.scss" />
+        <option value="$PROJECT_DIR$/moj-fe/.gitignore" />
+        <option value="$PROJECT_DIR$/moj-fe/resources/assets/sass/sticky-navigation.scss" />
+        <option value="$PROJECT_DIR$/moj-fe/resources/assets/sass/games/games.scss" />
+        <option value="$PROJECT_DIR$/moj-fe/package.json" />
+        <option value="$PROJECT_DIR$/moj-fe/app/Http/routes.php" />
+        <option value="$PROJECT_DIR$/moj-fe/gulpfile.js" />
+        <option value="$PROJECT_DIR$/moj-fe/public/js/games.js" />
+        <option value="$PROJECT_DIR$/moj-fe/resources/assets/sass/global.scss" />
+        <option value="$PROJECT_DIR$/moj-fe/resources/assets/sass/app.scss" />
+        <option value="$PROJECT_DIR$/moj-fe/resources/assets/sass/footer.scss" />
+        <option value="$PROJECT_DIR$/moj-fe/resources/assets/sass/forms.scss" />
+        <option value="$PROJECT_DIR$/moj-fe/resources/assets/sass/games.scss" />
+        <option value="$PROJECT_DIR$/moj-fe/public/js/chessboard.js" />
+        <option value="$PROJECT_DIR$/moj-fe/resources/views/layouts/chess.blade.php" />
+        <option value="$PROJECT_DIR$/moj-fe/public/js/enginegame.js" />
+        <option value="$PROJECT_DIR$/moj-fe/resources/views/games/chess.blade.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <gulpfiles>
+      <GulpfileState>
+        <gulpfile-path>$PROJECT_DIR$/moj-fe/gulpfile.js</gulpfile-path>
+        <tasks>
+          <GulpTaskState>
+            <task-name>default</task-name>
+          </GulpTaskState>
+          <GulpTaskState>
+            <task-name>tdd</task-name>
+          </GulpTaskState>
+          <GulpTaskState>
+            <task-name>watch</task-name>
+          </GulpTaskState>
+          <GulpTaskState>
+            <task-name>copy</task-name>
+          </GulpTaskState>
+          <GulpTaskState>
+            <task-name>sass</task-name>
+          </GulpTaskState>
+          <GulpTaskState>
+            <task-name>version</task-name>
+          </GulpTaskState>
+          <GulpTaskState>
+            <task-name>sprite</task-name>
+          </GulpTaskState>
+        </tasks>
+      </GulpfileState>
+    </gulpfiles>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/moj-fe/node_modules" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true">
+    <include_path>
+      <path value="$PROJECT_DIR$/../moj-be/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/masterminds/html5" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/polyfill-apcu" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/debug" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/dependency-injection" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/composer" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/polyfill-php54" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/browser-kit" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/polyfill-php55" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/polyfill-iconv" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/validator" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/serializer" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/dom-crawler" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/wikimedia/composer-merge-plugin" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/asm89/stack-cors" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/class-loader" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/psr-http-message-bridge" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/behat/mink-goutte-driver" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/fabpot/goutte" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/stack/builder" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/jcalderonzumba/gastonjs" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony-cmf/routing" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/easyrdf/easyrdf" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/behat/mink" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/behat/mink-browserkit-driver" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/jcalderonzumba/mink-phantomjs-driver" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/mhor/php-mediainfo" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/zendframework/zend-escaper" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/zendframework/zend-feed" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/phpunit/phpunit-mock-objects" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/zendframework/zend-stdlib" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/mikey179/vfsStream" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/zendframework/zend-diactoros" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/../moj-be/vendor/ircmaxell/password-compat" />
+    </include_path>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="digital-hub" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="digital-hub" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="digital-hub" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="digital-hub" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="moj-be" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.behat" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FullScreen" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
+    <property name="list.type.of.created.stylesheet" value="SCSS" />
+    <property name="js.buildTools.gulp.gulp_package_dir" value="$PROJECT_DIR$/moj-fe/node_modules/gulp" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/moj-be" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/moj-fe/resources/views/layouts" />
+      <recent name="$PROJECT_DIR$/moj-fe/resources/views/games" />
+      <recent name="$PROJECT_DIR$/moj-fe/app/Http/Controllers" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="false" name="watch" type="js.build_tools.gulp" factoryName="Gulp.js" temporary="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile>$PROJECT_DIR$/moj-fe/gulpfile.js</gulpfile>
+      <tasks>
+        <task>watch</task>
+      </tasks>
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="CodeceptionConfigurationType" factoryName="Codeception">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpSpecConfigurationType" factoryName="PHPSpec">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Gulp.js.watch" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Gulp.js.watch" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SshConsoleOptionsProvider">
+    <option name="myEncoding" value="UTF-8" />
+    <option name="myConnectionType" value="CURRENT_VAGRANT" />
+    <option name="myConnectionId" value="" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4b3420a2-1609-4fbc-a2ed-8148b954821f" name="Default" comment="" />
+      <created>1491911144440</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1491911144440</updated>
+      <workItem from="1491911145830" duration="9835000" />
+      <workItem from="1492087792805" duration="630000" />
+      <workItem from="1492496348573" duration="1015000" />
+      <workItem from="1492501687883" duration="37783000" />
+    </task>
+    <task id="LOCAL-00001" summary="HUB-288: Updated composer.json to include mhor lib">
+      <created>1491911262479</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1491911262479</updated>
+    </task>
+    <task id="LOCAL-00002" summary="HUB-277: Updated video, hub, pdf and radio API controllers to receive prison ID as a GET var">
+      <created>1491917154592</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1491917154592</updated>
+    </task>
+    <task id="LOCAL-00003" summary="HUB-268: Added functionality to add multiple ip addresses to prioson entities, no work needed to update API endpoint controller">
+      <created>1491917662899</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1491917662899</updated>
+    </task>
+    <task id="LOCAL-00004" summary="BUG FIX: missing comma added back in.">
+      <created>1491920079566</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1491920079566</updated>
+    </task>
+    <task id="LOCAL-00005" summary="TEST: Testing deployemnt only made a small text change to a comment.">
+      <created>1491990140474</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1491990140474</updated>
+    </task>
+    <task id="LOCAL-00006" summary="HUB-298: Added games controller.">
+      <created>1492501621689</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1492501621689</updated>
+    </task>
+    <task id="LOCAL-00007" summary="HUB-298: Added game landing page and chess template">
+      <created>1492509878576</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1492509878576</updated>
+    </task>
+    <task id="LOCAL-00008" summary="HUB-295: Chess game in beta, ready for user testing.">
+      <created>1492685541149</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1492685541149</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="49263000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <layout>
+      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25825346" sideWeight="0.25247526" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15164521" sideWeight="0.74752474" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4009901" sideWeight="0.50692225" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970297" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4009901" sideWeight="0.49307775" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973376" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970297" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4009901" sideWeight="0.50692225" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4009901" sideWeight="0.49307775" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970297" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25825346" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973376" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="HUB-288: Updated composer.json to include mhor lib" />
+    <MESSAGE value="HUB-277: Updated video, hub, pdf and radio API controllers to receive prison ID as a GET var" />
+    <MESSAGE value="HUB-268: Added functionality to add multiple ip addresses to prioson entities, no work needed to update API endpoint controller" />
+    <MESSAGE value="BUG FIX: missing comma added back in." />
+    <MESSAGE value="TEST: Testing deployemnt only made a small text change to a comment." />
+    <MESSAGE value="HUB-298: Added games controller." />
+    <MESSAGE value="HUB-298: Added game landing page and chess template" />
+    <MESSAGE value="HUB-295: Chess game in beta, ready for user testing." />
+    <option name="LAST_COMMIT_MESSAGE" value="HUB-295: Chess game in beta, ready for user testing." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/moj-fe/app/Http/Controllers/VideosController.php</url>
+          <line>4</line>
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/moj-be/modules/custom/moj_video_item/src/Controller/VideoApiController.php</url>
+          <line>315</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="10" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/moj-fe/app/Models/Video.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1442">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-be/modules/custom/moj_video_item/src/Normalizer/VideoNormalizer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/views/video/channelLandingPage.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-be/modules/custom/moj_video_item/src/Controller/VideoApiController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1200">
+          <caret line="333" column="35" lean-forward="false" selection-start-line="333" selection-start-column="21" selection-end-line="333" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-be/modules/custom/moj_video_item/moj_video_item.routing.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="34" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/app/Repositories/VideosRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1004">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/views/video/detail.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="73" column="19" lean-forward="true" selection-start-line="73" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-be/info.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-be/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="41" lean-forward="false" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-be/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="67" lean-forward="false" selection-start-line="7" selection-start-column="67" selection-end-line="7" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/views/pdf/landingPage.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/assets/sass/hub/hub.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="8" lean-forward="true" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/views/games/landingPage.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="51" lean-forward="false" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/assets/sass/sticky-navigation.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="44" column="21" lean-forward="false" selection-start-line="44" selection-start-column="10" selection-end-line="44" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/assets/sass/pdf/pdf.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/public/css/sprite.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="77" column="1" lean-forward="true" selection-start-line="77" selection-start-column="1" selection-end-line="77" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/assets/sass/games/games.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/assets/sass/colours.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/app/Http/Controllers/NewsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/app/Http/Controllers/VideosController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="21" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/app/Http/Controllers/RadiosController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/app/Http/Controllers/PdfsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/app/Http/Controllers/GamesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/app/Helpers/PdfBackLink.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/app/Helpers/HubBackLink.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/phpunit.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/npm-debug.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/views/layouts/master.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+          <folding>
+            <marker date="1491911124000" expanded="true" signature="30:71" ph="..." />
+            <marker date="1491911124000" expanded="true" signature="773:780" ph="..." />
+            <marker date="1491911124000" expanded="true" signature="828:851" ph="..." />
+            <marker date="1491911124000" expanded="true" signature="1367:1404" ph="..." />
+            <marker date="1491911124000" expanded="true" signature="1499:1507" ph="..." />
+            <marker date="1491911124000" expanded="true" signature="1540:1553" ph="..." />
+            <marker date="1491911124000" expanded="true" signature="1620:1629" ph="..." />
+            <marker date="1491911124000" expanded="true" signature="1839:1864" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/assets/sass/buttons.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/public/js/news.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/app/Http/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/public/js/games.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="60" lean-forward="false" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/assets/sass/global.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/assets/sass/typography.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/assets/sass/forms.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/assets/sass/app.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="7" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/public/img/select-arrow.svg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="67" lean-forward="true" selection-start-line="0" selection-start-column="67" selection-end-line="0" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/public/img/sprite.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/public/css/chessboard.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="556">
+          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="54" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/public/js/chessboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="1705" column="0" lean-forward="true" selection-start-line="1705" selection-start-column="0" selection-end-line="1705" selection-end-column="0" />
+          <folding>
+            <element signature="e#185#265#0" expanded="false" />
+            <element signature="n#!!block;n#validMove#0" expanded="false" />
+            <element signature="n#!!block;n#validSquare#0" expanded="false" />
+            <element signature="n#!!block;n#validPieceCode#0" expanded="false" />
+            <element signature="n#!!block;n#validFen#0" expanded="false" />
+            <element signature="e#1135#1187#0" expanded="false" />
+            <element signature="e#1457#1605#0" expanded="false" />
+            <element signature="e#1574#1601#0" expanded="false" />
+            <element signature="n#!!block;n#validPositionObject#0" expanded="false" />
+            <element signature="e#1728#1880#0" expanded="false" />
+            <element signature="e#1849#1876#0" expanded="false" />
+            <element signature="n#!!block;n#fenToPieceCode#0" expanded="false" />
+            <element signature="e#2028#2071#0" expanded="false" />
+            <element signature="n#!!block;n#pieceCodeToFen#0" expanded="false" />
+            <element signature="e#2276#2314#0" expanded="false" />
+            <element signature="e#2367#2407#0" expanded="false" />
+            <element signature="n#!!block;n#fenToObj#0" expanded="false" />
+            <element signature="e#2509#2532#0" expanded="false" />
+            <element signature="e#2536#2588#0" expanded="false" />
+            <element signature="e#2777#3286#0" expanded="false" />
+            <element signature="e#2930#3263#0" expanded="false" />
+            <element signature="e#3005#3097#0" expanded="false" />
+            <element signature="e#3124#3257#0" expanded="false" />
+            <element signature="e#3310#3342#0" expanded="false" />
+            <element signature="n#!!block;n#objToFen#0" expanded="false" />
+            <element signature="e#3468#3491#0" expanded="false" />
+            <element signature="e#3562#3901#0" expanded="false" />
+            <element signature="e#3596#3834#0" expanded="false" />
+            <element signature="e#3712#3765#0" expanded="false" />
+            <element signature="e#3799#3828#0" expanded="false" />
+            <element signature="e#3853#3878#0" expanded="false" />
+            <element signature="e#3905#3936#0" expanded="false" />
+            <element signature="e#4291#43873#0" expanded="false" />
+            <element signature="e#4312#4392#0" expanded="false" />
+            <element signature="e#4628#4704#0" expanded="false" />
+            <element signature="e#4776#5265#0" expanded="false" />
+            <element signature="e#5268#5348#0" expanded="false" />
+            <element signature="e#5610#5690#0" expanded="false" />
+            <element signature="e#6085#6165#0" expanded="false" />
+            <element signature="e#6315#6466#0" expanded="false" />
+            <element signature="e#6394#6462#0" expanded="false" />
+            <element signature="e#6493#6540#0" expanded="false" />
+            <element signature="e#6572#6721#0" expanded="false" />
+            <element signature="e#6615#6718#0" expanded="false" />
+            <element signature="e#6805#7111#0" expanded="false" />
+            <element signature="e#7113#7193#0" expanded="false" />
+            <element signature="e#7330#8061#0" expanded="false" />
+            <element signature="e#7456#7473#0" expanded="false" />
+            <element signature="e#7673#7781#0" expanded="false" />
+            <element signature="e#7734#7765#0" expanded="false" />
+            <element signature="e#7835#7951#0" expanded="false" />
+            <element signature="e#7850#7906#0" expanded="false" />
+            <element signature="e#8018#8059#0" expanded="false" />
+            <element signature="e#8106#9890#0" expanded="false" />
+            <element signature="e#8216#8810#0" expanded="false" />
+            <element signature="e#8273#8448#0" expanded="false" />
+            <element signature="e#8576#8753#0" expanded="false" />
+            <element signature="e#8814#8875#0" expanded="false" />
+            <element signature="e#8944#9207#0" expanded="false" />
+            <element signature="e#9019#9203#0" expanded="false" />
+            <element signature="e#9339#9484#0" expanded="false" />
+            <element signature="e#9651#9872#0" expanded="false" />
+            <element signature="e#9928#10098#0" expanded="false" />
+            <element signature="e#9974#9996#0" expanded="false" />
+            <element signature="e#10049#10072#0" expanded="false" />
+            <element signature="e#10165#12449#0" expanded="false" />
+            <element signature="e#10235#10279#0" expanded="false" />
+            <element signature="e#10247#10274#0" expanded="false" />
+            <element signature="e#10354#10390#0" expanded="false" />
+            <element signature="e#10505#10539#0" expanded="false" />
+            <element signature="e#10607#10639#0" expanded="false" />
+            <element signature="e#10721#10761#0" expanded="false" />
+            <element signature="e#10833#10867#0" expanded="false" />
+            <element signature="e#10955#10986#0" expanded="false" />
+            <element signature="e#11168#11235#0" expanded="false" />
+            <element signature="e#11364#11396#0" expanded="false" />
+            <element signature="e#11498#11528#0" expanded="false" />
+            <element signature="e#11638#11671#0" expanded="false" />
+            <element signature="e#11773#11802#0" expanded="false" />
+            <element signature="e#11906#11937#0" expanded="false" />
+            <element signature="e#12019#12431#0" expanded="false" />
+            <element signature="e#12055#12113#0" expanded="false" />
+            <element signature="e#12161#12217#0" expanded="false" />
+            <element signature="e#12276#12332#0" expanded="false" />
+            <element signature="e#12343#12427#0" expanded="false" />
+            <element signature="e#12451#12531#0" expanded="false" />
+            <element signature="e#12626#12687#0" expanded="false" />
+            <element signature="e#12947#13275#0" expanded="false" />
+            <element signature="e#13093#13112#0" expanded="false" />
+            <element signature="e#13222#13245#0" expanded="false" />
+            <element signature="e#13334#13850#0" expanded="false" />
+            <element signature="e#13405#13540#0" expanded="false" />
+            <element signature="e#13440#13536#0" expanded="false" />
+            <element signature="e#13637#13848#0" expanded="false" />
+            <element signature="e#13852#13932#0" expanded="false" />
+            <element signature="e#14065#14475#0" expanded="false" />
+            <element signature="e#14153#14250#0" expanded="false" />
+            <element signature="e#14336#14436#0" expanded="false" />
+            <element signature="e#14477#14761#0" expanded="false" />
+            <element signature="e#14796#16312#0" expanded="false" />
+            <element signature="e#14829#14861#0" expanded="false" />
+            <element signature="e#14998#15037#0" expanded="false" />
+            <element signature="e#15098#16294#0" expanded="false" />
+            <element signature="e#15177#16077#0" expanded="false" />
+            <element signature="e#15535#15963#0" expanded="false" />
+            <element signature="e#15669#15788#0" expanded="false" />
+            <element signature="e#15839#15955#0" expanded="false" />
+            <element signature="e#16240#16260#0" expanded="false" />
+            <element signature="e#16270#16290#0" expanded="false" />
+            <element signature="e#16347#16654#0" expanded="false" />
+            <element signature="e#16393#16432#0" expanded="false" />
+            <element signature="e#16476#16535#0" expanded="false" />
+            <element signature="e#16695#17092#0" expanded="false" />
+            <element signature="e#16793#16830#0" expanded="false" />
+            <element signature="e#17022#17056#0" expanded="false" />
+            <element signature="e#17127#17421#0" expanded="false" />
+            <element signature="e#17207#17263#0" expanded="false" />
+            <element signature="e#17324#17403#0" expanded="false" />
+            <element signature="e#17423#17503#0" expanded="false" />
+            <element signature="e#17661#18878#0" expanded="false" />
+            <element signature="e#17928#17983#0" expanded="false" />
+            <element signature="e#18178#18291#0" expanded="false" />
+            <element signature="e#18433#18700#0" expanded="false" />
+            <element signature="e#18669#18696#0" expanded="false" />
+            <element signature="e#18765#18822#0" expanded="false" />
+            <element signature="e#18940#19905#0" expanded="false" />
+            <element signature="e#19273#19370#0" expanded="false" />
+            <element signature="e#19419#19735#0" expanded="false" />
+            <element signature="e#19704#19731#0" expanded="false" />
+            <element signature="e#19800#19857#0" expanded="false" />
+            <element signature="e#19982#21276#0" expanded="false" />
+            <element signature="e#20006#20023#0" expanded="false" />
+            <element signature="e#20101#20476#0" expanded="false" />
+            <element signature="e#20408#20472#0" expanded="false" />
+            <element signature="e#20515#21274#0" expanded="false" />
+            <element signature="e#20569#20682#0" expanded="false" />
+            <element signature="e#20778#20949#0" expanded="false" />
+            <element signature="e#21046#21121#0" expanded="false" />
+            <element signature="e#21173#21270#0" expanded="false" />
+            <element signature="e#21354#21676#0" expanded="false" />
+            <element signature="e#21759#22368#0" expanded="false" />
+            <element signature="e#21851#22107#0" expanded="false" />
+            <element signature="e#21885#22103#0" expanded="false" />
+            <element signature="e#22023#22095#0" expanded="false" />
+            <element signature="e#22161#22202#0" expanded="false" />
+            <element signature="e#22303#22346#0" expanded="false" />
+            <element signature="e#22370#22424#0" expanded="false" />
+            <element signature="e#22538#22903#0" expanded="false" />
+            <element signature="e#22753#22884#0" expanded="false" />
+            <element signature="e#22857#22880#0" expanded="false" />
+            <element signature="e#22905#22976#0" expanded="false" />
+            <element signature="e#23039#24480#0" expanded="false" />
+            <element signature="e#23245#23418#0" expanded="false" />
+            <element signature="e#23363#23414#0" expanded="false" />
+            <element signature="e#23478#23855#0" expanded="false" />
+            <element signature="e#23623#23851#0" expanded="false" />
+            <element signature="e#23647#23755#0" expanded="false" />
+            <element signature="e#23903#24067#0" expanded="false" />
+            <element signature="e#23977#24041#0" expanded="false" />
+            <element signature="e#24119#24456#0" expanded="false" />
+            <element signature="e#24177#24240#0" expanded="false" />
+            <element signature="e#24363#24429#0" expanded="false" />
+            <element signature="e#24482#24562#0" expanded="false" />
+            <element signature="e#24692#24955#0" expanded="false" />
+            <element signature="e#24812#24953#0" expanded="false" />
+            <element signature="e#24978#25390#0" expanded="false" />
+            <element signature="e#25087#25388#0" expanded="false" />
+            <element signature="e#25130#25252#0" expanded="false" />
+            <element signature="e#25262#25384#0" expanded="false" />
+            <element signature="e#25392#25453#0" expanded="false" />
+            <element signature="e#25534#25893#0" expanded="false" />
+            <element signature="e#25593#25871#0" expanded="false" />
+            <element signature="e#25933#26368#0" expanded="false" />
+            <element signature="e#26277#26316#0" expanded="false" />
+            <element signature="e#26398#26688#0" expanded="false" />
+            <element signature="e#26436#26664#0" expanded="false" />
+            <element signature="e#26637#26660#0" expanded="false" />
+            <element signature="e#26775#26971#0" expanded="false" />
+            <element signature="e#26837#26969#0" expanded="false" />
+            <element signature="e#27007#27100#0" expanded="false" />
+            <element signature="e#27134#28029#0" expanded="false" />
+            <element signature="e#27221#27263#0" expanded="false" />
+            <element signature="e#27340#27686#0" expanded="false" />
+            <element signature="e#27556#27682#0" expanded="false" />
+            <element signature="e#27867#27928#0" expanded="false" />
+            <element signature="e#28060#28414#0" expanded="false" />
+            <element signature="e#28458#29336#0" expanded="false" />
+            <element signature="e#28836#29121#0" expanded="false" />
+            <element signature="e#29044#29117#0" expanded="false" />
+            <element signature="e#29178#29235#0" expanded="false" />
+            <element signature="e#29387#30453#0" expanded="false" />
+            <element signature="e#29391#29431#0" expanded="false" />
+            <element signature="e#29645#29662#0" expanded="false" />
+            <element signature="e#29854#29900#0" expanded="false" />
+            <element signature="e#29908#29950#0" expanded="false" />
+            <element signature="e#30126#30248#0" expanded="false" />
+            <element signature="e#30278#30451#0" expanded="false" />
+            <element signature="e#30489#31401#0" expanded="false" />
+            <element signature="e#30561#30630#0" expanded="false" />
+            <element signature="e#30885#30978#0" expanded="false" />
+            <element signature="e#31051#31120#0" expanded="false" />
+            <element signature="e#31186#31343#0" expanded="false" />
+            <element signature="e#31439#33341#0" expanded="false" />
+            <element signature="e#31571#31601#0" expanded="false" />
+            <element signature="e#31665#31692#0" expanded="false" />
+            <element signature="e#31856#33125#0" expanded="false" />
+            <element signature="e#31913#31975#0" expanded="false" />
+            <element signature="e#32240#32328#0" expanded="false" />
+            <element signature="e#32476#32572#0" expanded="false" />
+            <element signature="e#32732#32856#0" expanded="false" />
+            <element signature="e#33091#33121#0" expanded="false" />
+            <element signature="e#33168#33201#0" expanded="false" />
+            <element signature="e#33233#33263#0" expanded="false" />
+            <element signature="e#33294#33339#0" expanded="false" />
+            <element signature="e#33343#33423#0" expanded="false" />
+            <element signature="e#33581#33621#0" expanded="false" />
+            <element signature="e#33687#33812#0" expanded="false" />
+            <element signature="e#33882#33918#0" expanded="false" />
+            <element signature="e#33966#34006#0" expanded="false" />
+            <element signature="e#34009#34087#0" expanded="false" />
+            <element signature="e#34129#34962#0" expanded="false" />
+            <element signature="e#34352#34738#0" expanded="false" />
+            <element signature="e#34442#34493#0" expanded="false" />
+            <element signature="e#34567#34666#0" expanded="false" />
+            <element signature="e#35000#35530#0" expanded="false" />
+            <element signature="e#35082#35119#0" expanded="false" />
+            <element signature="e#35190#35275#0" expanded="false" />
+            <element signature="e#35321#35456#0" expanded="false" />
+            <element signature="e#35584#36700#0" expanded="false" />
+            <element signature="e#35663#35707#0" expanded="false" />
+            <element signature="e#35806#35850#0" expanded="false" />
+            <element signature="e#35921#35951#0" expanded="false" />
+            <element signature="e#36047#36093#0" expanded="false" />
+            <element signature="e#36166#36206#0" expanded="false" />
+            <element signature="e#36284#36376#0" expanded="false" />
+            <element signature="e#36407#36604#0" expanded="false" />
+            <element signature="e#36632#36698#0" expanded="false" />
+            <element signature="e#36730#37189#0" expanded="false" />
+            <element signature="e#36924#36977#0" expanded="false" />
+            <element signature="e#37031#37149#0" expanded="false" />
+            <element signature="e#37259#37304#0" expanded="false" />
+            <element signature="e#37307#37387#0" expanded="false" />
+            <element signature="e#37513#37571#0" expanded="false" />
+            <element signature="e#37646#37745#0" expanded="false" />
+            <element signature="e#37771#37796#0" expanded="false" />
+            <element signature="e#37826#38168#0" expanded="false" />
+            <element signature="e#38074#38091#0" expanded="false" />
+            <element signature="e#38199#38604#0" expanded="false" />
+            <element signature="e#38447#38464#0" expanded="false" />
+            <element signature="e#38638#38827#0" expanded="false" />
+            <element signature="e#38862#39114#0" expanded="false" />
+            <element signature="e#39144#39276#0" expanded="false" />
+            <element signature="e#39306#39564#0" expanded="false" />
+            <element signature="e#39592#39786#0" expanded="false" />
+            <element signature="e#39815#40077#0" expanded="false" />
+            <element signature="e#40108#40828#0" expanded="false" />
+            <element signature="e#40112#40164#0" expanded="false" />
+            <element signature="e#40661#40704#0" expanded="false" />
+            <element signature="e#40859#41576#0" expanded="false" />
+            <element signature="e#40863#40915#0" expanded="false" />
+            <element signature="e#41410#41453#0" expanded="false" />
+            <element signature="e#41578#41658#0" expanded="false" />
+            <element signature="e#41780#42964#0" expanded="false" />
+            <element signature="e#42227#42297#0" expanded="false" />
+            <element signature="e#42352#42547#0" expanded="false" />
+            <element signature="e#42555#42644#0" expanded="false" />
+            <element signature="e#42701#42962#0" expanded="false" />
+            <element signature="e#42985#43687#0" expanded="false" />
+            <element signature="e#43226#43371#0" expanded="false" />
+            <element signature="e#43705#43806#0" expanded="false" />
+            <marker date="1492695331000" expanded="false" signature="15342:15401" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/assets/sass/games.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="12" lean-forward="true" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/assets/sass/forms.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="18" lean-forward="true" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/assets/sass/footer.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/views/layouts/chess.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="226">
+          <caret line="41" column="14" lean-forward="false" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
+          <folding>
+            <marker date="1492697164000" expanded="true" signature="30:71" ph="..." />
+            <marker date="1492697164000" expanded="true" signature="1010:1017" ph="..." />
+            <marker date="1492697164000" expanded="true" signature="1065:1088" ph="..." />
+            <marker date="1492697164000" expanded="true" signature="1681:1718" ph="..." />
+            <marker date="1492697164000" expanded="true" signature="1813:1821" ph="..." />
+            <marker date="1492697164000" expanded="true" signature="1854:1867" ph="..." />
+            <marker date="1492697164000" expanded="true" signature="1934:1943" ph="..." />
+            <marker date="1492697164000" expanded="true" signature="2153:2178" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/public/js/enginegame.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="250" column="6" lean-forward="false" selection-start-line="179" selection-start-column="3" selection-end-line="250" selection-end-column="6" />
+          <folding>
+            <element signature="e#763#807#0" expanded="false" />
+            <element signature="e#1123#1318#0" expanded="false" />
+            <element signature="e#1158#1189#0" expanded="false" />
+            <element signature="e#1229#1312#0" expanded="false" />
+            <element signature="n#!!block;n#uciCmd#0;n#!!block;n#engineGame#0" expanded="false" />
+            <element signature="n#!!block;n#displayStatus#0;n#!!block;n#engineGame#0" expanded="false" />
+            <element signature="e#1717#1764#0" expanded="false" />
+            <element signature="e#1800#1846#0" expanded="false" />
+            <element signature="e#1852#1895#0" expanded="false" />
+            <element signature="e#1937#2179#0" expanded="false" />
+            <element signature="e#2042#2169#0" expanded="false" />
+            <element signature="n#!!block;n#displayClock#0;n#!!block;n#engineGame#0" expanded="false" />
+            <element signature="e#2361#2465#0" expanded="false" />
+            <element signature="e#2823#2900#0" expanded="false" />
+            <element signature="e#2923#2982#0" expanded="false" />
+            <element signature="n#!!block;n#updateClock#0;n#!!block;n#engineGame#0" expanded="false" />
+            <element signature="n#!!block;n#clockTick#0;n#!!block;n#engineGame#0" expanded="false" />
+            <element signature="n#!!block;n#stopClock#0;n#!!block;n#engineGame#0" expanded="false" />
+            <element signature="e#3488#3576#0" expanded="false" />
+            <element signature="e#3608#3917#0" expanded="false" />
+            <element signature="e#3743#3822#0" expanded="false" />
+            <element signature="e#3828#3907#0" expanded="false" />
+            <element signature="n#!!block;n#startClock#0;n#!!block;n#engineGame#0" expanded="false" />
+            <element signature="e#3989#4076#0" expanded="false" />
+            <element signature="e#4082#4169#0" expanded="false" />
+            <element signature="n#!!block;n#get_moves#0;n#!!block;n#engineGame#0" expanded="false" />
+            <element signature="e#4404#4539#0" expanded="false" />
+            <element signature="n#!!block;n#prepareMove#0;n#!!block;n#engineGame#0" expanded="false" />
+            <element signature="e#4816#5623#0" expanded="false" />
+            <element signature="e#4854#5494#0" expanded="false" />
+            <element signature="e#5142#5336#0" expanded="false" />
+            <element signature="e#5342#5440#0" expanded="false" />
+            <element signature="e#5568#5613#0" expanded="false" />
+            <element signature="e#6240#8099#0" expanded="false" />
+            <element signature="e#8148#8443#0" expanded="false" />
+            <element signature="e#8215#8340#0" expanded="false" />
+            <element signature="e#8450#8499#0" expanded="false" />
+            <element signature="e#8583#8626#0" expanded="false" />
+            <element signature="e#8989#9273#0" expanded="false" />
+            <element signature="e#9371#9459#0" expanded="false" />
+            <element signature="e#9500#10744#0" expanded="false" />
+            <element signature="e#9628#9670#0" expanded="false" />
+            <element signature="e#9699#9742#0" expanded="false" />
+            <element signature="e#9877#9926#0" expanded="false" />
+            <element signature="e#9948#9997#0" expanded="false" />
+            <element signature="e#10019#10068#0" expanded="false" />
+            <element signature="e#10074#10165#0" expanded="false" />
+            <element signature="e#10269#10377#0" expanded="false" />
+            <element signature="e#10787#10905#0" expanded="false" />
+            <element signature="e#10941#10989#0" expanded="false" />
+            <element signature="e#11025#11073#0" expanded="false" />
+            <element signature="e#11115#11191#0" expanded="false" />
+            <element signature="e#11236#11315#0" expanded="false" />
+            <element signature="e#11357#11430#0" expanded="false" />
+            <element signature="e#11458#11717#0" expanded="false" />
+            <element signature="e#11744#11988#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/moj-fe/resources/views/games/chess.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="62" lean-forward="false" selection-start-line="31" selection-start-column="62" selection-end-line="31" selection-end-column="62" />
+          <folding>
+            <element signature="e#1420#1440#0#HTML" expanded="true" />
+            <marker date="1492769309000" expanded="true" signature="9:24" ph="..." />
+            <marker date="1492769309000" expanded="true" signature="36:59" ph="..." />
+            <marker date="1492769309000" expanded="true" signature="71:84" ph="..." />
+            <marker date="1492769309000" expanded="true" signature="395:422" ph="..." />
+            <marker date="1492769309000" expanded="true" signature="1194:1203" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

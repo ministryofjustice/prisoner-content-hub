@@ -1,0 +1,22 @@
+uuid: cb5d757b-0616-4eba-8c17-6df78b119d25
+langcode: en
+status: true
+dependencies:
+  module:
+    - moj_prisons
+    - node
+_core:
+  default_config_hash: lpvoHLAjwdXNcEj_Lt8Su5hP1Mc2nC_e5QEtARq0q6E
+id: node.field_related_prisons
+field_name: field_related_prisons
+entity_type: node
+type: entity_reference
+settings:
+  target_type: prison
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
