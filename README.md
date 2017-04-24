@@ -20,6 +20,10 @@ structure of the dump so it can be checked in.
 The dump should end in .sql and be in a directory called db_dump in the root
 of this repo.
 
+You will also need recent builds of the containers in your local registry as
+these are not published yet. Instructions on building containers are in each
+subdirectory of this repo. 
+
 Then run
 
     docker-compose up
