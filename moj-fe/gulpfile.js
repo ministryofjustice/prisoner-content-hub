@@ -27,6 +27,9 @@ elixir( function (mix) {
     ).copy(
         'node_modules/stockfish/src/stockfish.js',
         'public/js'
+    ).copy(
+        'node_modules/epub.js/build/epub.js',
+        'public/js'
     );
 
     mix.sass([
