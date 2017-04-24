@@ -3,8 +3,23 @@ Digital Hub backend
 
 This is the digital hub backend that uses Drupal
 
+Makefile
+--------
+
+To build the container
+
+    make build
+
+To clean up the repo
+
+    make clean
+
 Docker
 ------
+
+To run the Hub backend run the following
+
+    docker run --name hub-be moj-hub-be
 
 To run the Hub database run the following
 
