@@ -27,5 +27,5 @@ services:
                 environment:
                         HUB_DB_ENV_MYSQL_DATABASE: hubdb
                         HUB_DB_ENV_MYSQL_USER: hubdb_user
-                        HUB_DB_ENV_MYSQL_PASSWORD: password
+                        HUB_DB_ENV_MYSQL_PASSWORD: hubdb_pass
                         HUB_DB_PORT_3306_TCP_ADDR: hub-db
