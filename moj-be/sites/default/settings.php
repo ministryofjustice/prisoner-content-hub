@@ -48,7 +48,7 @@ $settings['file_scan_ignore_directories'] = [
 
 $databases['default']['default'] = array (
   'database' => getenv('HUB_DB_ENV_MYSQL_DATABASE', true),
-  'username' => getenv('HUB_DB_ENV_MYSQL_USER', true),'root',
+  'username' => getenv('HUB_DB_ENV_MYSQL_USER', true),
   'password' => getenv('HUB_DB_ENV_MYSQL_PASSWORD', true),
   'prefix' => '',
   'host' => getenv('HUB_DB_PORT_3306_TCP_ADDR', true),
@@ -57,4 +57,4 @@ $databases['default']['default'] = array (
   'driver' => 'mysql',
 );
 $settings['install_profile'] = 'standard';
-$config_directories['sync'] = 'sites/default/files/config_hiCPrEmil_qKiitQisXUTzuqIRyQ3XD22dkInQgVVs0y0f2CqkOyIZnMr-TN6SHtQFIiGBpNYw/sync';
+$config_directories['sync'] = 'sites/default/files/config/sync';
