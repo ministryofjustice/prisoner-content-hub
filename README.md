@@ -27,3 +27,11 @@ subdirectory of this repo.
 Then run
 
     docker-compose up
+
+Dev version
+-----------
+
+To use the dev version of docker compose all of the above instructions apply
+but you need to change the command to the following.
+
+    docker-compose -f docker-compose-dev.yml up

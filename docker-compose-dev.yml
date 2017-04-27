@@ -1,0 +1,35 @@
+version: "2"
+
+services:
+        hub-db:
+                image: mariadb
+                environment:
+                        MYSQL_ROOT_PASSWORD: password
+                        MYSQL_DATABASE: hubdb
+                        MYSQL_USER: hubdb_user
+                        MYSQL_PASSWORD: hubdb_pass
+                volumes:
+                        - ./db_dump:/docker-entrypoint-initdb.d
+
+        hub-fe:
+                image: moj-hub-fe
+                depends_on: 
+                        - hub-be
+                environment:
+                        API_URI: http://hub-be/
+                ports:
+                        - 8181:80
+                volumes:
+                        - ./moj-fe/:/var/www/hub/
+
+        hub-be:
+                image: moj-hub-be
+                depends_on: 
+                        - hub-db
+                environment:
+                        HUB_DB_ENV_MYSQL_DATABASE: hubdb
+                        HUB_DB_ENV_MYSQL_USER: hubdb_user
+                        HUB_DB_ENV_MYSQL_PASSWORD: hubdb_pass
+                        HUB_DB_PORT_3306_TCP_ADDR: hub-db
+                volumes:
+                        - ./moj-be/:/var/www/html/
