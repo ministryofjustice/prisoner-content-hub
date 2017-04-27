@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Facades\Pdfs;
 use App\Http\Controllers\Controller;
 use App\Helpers\PdfBackLink;
+use Illuminate\Http\Request;
+
 //use App\Models\Video;
 //use App\User;
 
@@ -30,4 +32,11 @@ class PdfsController extends Controller {
       'backlink' => $backlink
     ]);
   }
+
+    function epub(Request $request) {
+        $pdf = $request->input('pdf');
+        return view('pdf.epub', [
+            'pdf' => $pdf
+        ]);
+    }
 }

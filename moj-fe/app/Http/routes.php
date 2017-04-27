@@ -25,8 +25,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
 
     Route::get('/education/{tid}', ['as' => 'pdf.landing', 'uses' => 'PdfsController@showPdfLandingPage']);
     Route::get('/education/course/{tid}', ['as' => 'pdf.detail', 'uses' => 'PdfsController@show']);
-
-    /* Games Section */
+    Route::get('/epub', ['as' => 'pdf.epub', 'uses' => 'PdfsController@epub']);
 
     Route::get('/games/chess', ['as' => 'games.chess', 'uses' => 'GamesController@showGamesChess']);
 

@@ -32,7 +32,7 @@ function engineGame(options) {
         
         if (game.game_over()) {
             announced_game_over = true;
-            alert("Game Over");
+            alert("Check Mate, Game Over!");
         }
     }, 1000);
 
