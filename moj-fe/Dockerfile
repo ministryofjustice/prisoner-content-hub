@@ -1,6 +1,8 @@
 FROM php:5-apache
 #Apache configuraton
 RUN a2enmod rewrite
+RUN a2enmod proxy
+RUN a2enmod proxy_http
 RUN rm -f /etc/apache2/sites-enabled/*
 COPY ./apache/* /etc/apache2/sites-enabled/
 #Copy the app and set permissions
