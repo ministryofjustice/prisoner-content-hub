@@ -33,3 +33,5 @@ services:
                         HUB_DB_PORT_3306_TCP_ADDR: hub-db
                 volumes:
                         - ./moj-be/:/var/www/html/
+                ports:
+                        - 8182:80
