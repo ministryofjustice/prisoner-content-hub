@@ -10,6 +10,8 @@ services:
                         MYSQL_PASSWORD: hubdb_pass
                 volumes:
                         - ./db_dump:/docker-entrypoint-initdb.d
+                ports:
+                        - 3306:3306
 
         hub-fe:
                 image: moj-hub-fe
