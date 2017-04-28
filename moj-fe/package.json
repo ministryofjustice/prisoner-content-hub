@@ -13,6 +13,7 @@
   "dependencies": {
     "chess.js": "^0.10.2",
     "chessboardjs": "0.0.1",
-    "json3": "^3.3.2"
+    "json3": "^3.3.2",
+    "stockfish": "^6.0.5"
   }
 }
