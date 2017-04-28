@@ -14,7 +14,7 @@ services:
                         - 3306:3306
 
         hub-fe:
-                image: moj-hub-fe
+                image: mojdigitalstudio/digital-hub-fe
                 depends_on: 
                         - hub-be
                 environment:
@@ -25,7 +25,7 @@ services:
                         - ./moj-fe/:/var/www/hub/
 
         hub-be:
-                image: moj-hub-be
+                image: mojdigitalstudio/digital-hub-be
                 depends_on: 
                         - hub-db
                 environment:

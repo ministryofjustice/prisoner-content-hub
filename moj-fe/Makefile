@@ -7,7 +7,7 @@ build-deps:
 	composer run-script post-create-project-cmd
 
 build: build-deps
-	docker build -t moj-hub-fe .
+	docker build -t mojdigitalstudio/digital-hub-fe .
 
 clean:
 	rm -rf node_modules
