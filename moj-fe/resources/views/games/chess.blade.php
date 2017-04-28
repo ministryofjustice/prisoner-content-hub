@@ -17,7 +17,7 @@
                 <div class="navigation-title game-yellow">
                     <a href="#">
                         <span class="icon icon-icon-games" aria-hidden="true"></span>
-                        Chess 
+                        Chess
                     </a>
                 </div>
             </div>
