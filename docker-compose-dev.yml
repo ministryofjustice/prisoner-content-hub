@@ -33,6 +33,7 @@ services:
                         HUB_DB_ENV_MYSQL_USER: hubdb_user
                         HUB_DB_ENV_MYSQL_PASSWORD: hubdb_pass
                         HUB_DB_PORT_3306_TCP_ADDR: hub-db
+                        HUB_EXT_FILE_URL: http://localhost:8181/sites/default/files
                 volumes:
                         - ./moj-be/:/var/www/html/
                 ports:

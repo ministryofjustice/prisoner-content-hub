@@ -27,6 +27,19 @@ $settings['hash_salt'] = 'TDVdRVDjXzm2ASUFPQ2rVUys-wiXvnYar9n2CWrQXefT1Hc3pLOhDC
 $settings['update_free_access'] = FALSE;
 
 /**
+ * Public file base URL:
+ *
+ * An alternative base URL to be used for serving public files. This must
+ * include any leading directory path.
+ *
+ * A different value from the domain used by Drupal to be used for accessing
+ * public files. This can be used for a simple CDN integration, or to improve
+ * security by serving user-uploaded files from a different domain or subdomain
+ * pointing to the same server. Do not include a trailing slash.
+ */
+$settings['file_public_base_url'] = getenv('HUB_EXT_FILE_URL', true);
+
+/**
  * Load services definition file.
  */
 $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
