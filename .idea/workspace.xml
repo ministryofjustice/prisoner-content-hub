@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b3420a2-1609-4fbc-a2ed-8148b954821f" name="Default" comment="HUB-298: Added game landing page route">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/blade.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-fe/public/js/epub.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-fe/resources/views/layouts/epub.blade.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/moj-fe/resources/views/pdf/epub.blade.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/moj-fe/readme.md" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/digital-hub.iml" afterPath="$PROJECT_DIR$/.idea/digital-hub.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moj-fe/app/Http/Controllers/PdfsController.php" afterPath="$PROJECT_DIR$/moj-fe/app/Http/Controllers/PdfsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moj-fe/app/Http/routes.php" afterPath="$PROJECT_DIR$/moj-fe/app/Http/routes.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moj-fe/public/js/chessboard.js" afterPath="$PROJECT_DIR$/moj-fe/public/js/chessboard.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/moj-fe/public/js/enginegame.js" afterPath="$PROJECT_DIR$/moj-fe/public/js/enginegame.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,7 +18,28 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/moj-fe/app/Http/routes.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="29" column="100" lean-forward="true" selection-start-line="29" selection-start-column="100" selection-end-line="29" selection-end-column="100" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -108,6 +120,7 @@
         <option value="$PROJECT_DIR$/moj-fe/app/Http/Controllers/PdfsController.php" />
         <option value="$PROJECT_DIR$/moj-fe/resources/views/pdf/epub.blade.php" />
         <option value="$PROJECT_DIR$/moj-fe/resources/views/layouts/epub.blade.php" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -256,11 +269,11 @@
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="digital-hub" />
+              <option name="myItemId" value="hub" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="digital-hub" />
+              <option name="myItemId" value="hub" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -277,6 +290,7 @@
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="$PROJECT_DIR$/moj-fe/node_modules/gulp" />
     <property name="FullScreen" value="true" />
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -420,6 +434,7 @@
       <workItem from="1493132616563" duration="548000" />
       <workItem from="1493195012886" duration="1255000" />
       <workItem from="1493198292995" duration="4409000" />
+      <workItem from="1493901217229" duration="256000" />
     </task>
     <task id="LOCAL-00001" summary="HUB-288: Updated composer.json to include mhor lib">
       <created>1491911262479</created>
@@ -481,15 +496,16 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60528000" />
+    <option name="totallyTimeSpent" value="60784000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25825346" sideWeight="0.25247526" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2742279" sideWeight="0.74752474" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2768903" sideWeight="0.74752474" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4009901" sideWeight="0.50692225" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4009901" sideWeight="0.50692225" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4009901" sideWeight="0.49307775" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970297" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -562,13 +578,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/moj-be/info.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/moj-be/composer.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -862,7 +871,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -870,7 +878,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
           <caret line="29" column="5" lean-forward="false" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -888,14 +895,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
           <caret line="31" column="33" lean-forward="false" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
-          <folding>
-            <marker date="1493212424000" expanded="true" signature="9:23" ph="..." />
-            <marker date="1493212424000" expanded="true" signature="35:57" ph="..." />
-            <marker date="1493212424000" expanded="true" signature="69:82" ph="..." />
-            <marker date="1493212424000" expanded="true" signature="362:389" ph="..." />
-            <marker date="1493212424000" expanded="true" signature="864:870" ph="..." />
-            <marker date="1493212424000" expanded="true" signature="990:999" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -903,25 +902,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="556">
           <caret line="38" column="24" lean-forward="true" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
-          <folding>
-            <marker date="1493212787000" expanded="true" signature="30:71" ph="..." />
-            <marker date="1493212787000" expanded="true" signature="863:870" ph="..." />
-            <marker date="1493212787000" expanded="true" signature="918:941" ph="..." />
-            <marker date="1493212787000" expanded="true" signature="1216:1251" ph="..." />
-            <marker date="1493212787000" expanded="true" signature="1534:1571" ph="..." />
-            <marker date="1493212787000" expanded="true" signature="1666:1674" ph="..." />
-            <marker date="1493212787000" expanded="true" signature="1707:1720" ph="..." />
-            <marker date="1493212787000" expanded="true" signature="1787:1796" ph="..." />
-            <marker date="1493212787000" expanded="true" signature="2006:2031" ph="..." />
-            <marker date="1493212787000" expanded="true" signature="2116:2122" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/moj-fe/app/Http/routes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="27" column="21" lean-forward="true" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
+        <state relative-caret-position="300">
+          <caret line="29" column="100" lean-forward="true" selection-start-line="29" selection-start-column="100" selection-end-line="29" selection-end-column="100" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
