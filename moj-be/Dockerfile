@@ -1,4 +1,7 @@
 FROM php:5-apache
-#RUN apt-get -y install mysql-client
+RUN apt-get update && apt-get install libpng-dev -y
 RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install gd
+RUN rm -f /etc/apache2/sites-enabled/*
+COPY ./apache/* /etc/apache2/sites-enabled/
 COPY . /var/www/html/

@@ -10,6 +10,8 @@ services:
                         MYSQL_PASSWORD: hubdb_pass
                 volumes:
                         - ./db_dump:/docker-entrypoint-initdb.d
+                ports:
+                        - 3306:3306
 
         hub-fe:
                 image: mojdigitalstudio/digital-hub-fe
@@ -19,6 +21,8 @@ services:
                         API_URI: http://hub-be/
                 ports:
                         - 8181:80
+                volumes:
+                        - ./moj-fe/:/var/www/hub/
 
         hub-be:
                 image: mojdigitalstudio/digital-hub-be
@@ -29,5 +33,11 @@ services:
                         HUB_DB_ENV_MYSQL_USER: hubdb_user
                         HUB_DB_ENV_MYSQL_PASSWORD: hubdb_pass
                         HUB_DB_PORT_3306_TCP_ADDR: hub-db
+                        HUB_EXT_FILE_URL: http://localhost:8181/sites/default/files
+                        PHP_MEMORY_LIMIT: 256M 
+                        PHP_UPLOAD_MAX_FILE_SIZE: 256M
+                        PHP_POST_MAX_SIZE: 256M
+                volumes:
+                        - ./moj-be/:/var/www/html/
                 ports:
                         - 8182:80
