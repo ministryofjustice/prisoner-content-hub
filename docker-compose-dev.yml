@@ -34,6 +34,9 @@ services:
                         HUB_DB_ENV_MYSQL_PASSWORD: hubdb_pass
                         HUB_DB_PORT_3306_TCP_ADDR: hub-db
                         HUB_EXT_FILE_URL: http://localhost:8181/sites/default/files
+                        PHP_MEMORY_LIMIT: 256M 
+                        PHP_UPLOAD_MAX_FILE_SIZE: 256M
+                        PHP_POST_MAX_SIZE: 256M
                 volumes:
                         - ./moj-be/:/var/www/html/
                 ports:
