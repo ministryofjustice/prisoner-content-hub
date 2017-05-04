@@ -115,3 +115,16 @@
   -moz-box-shadow: inset 0 0 3px 3px #3399cc !important;
   box-shadow: inset 0 0 3px 3px #3399cc !important;
 }
+
+/* Help box */
+
+.info {
+  margin: 1em 0;
+  padding: 1em 1em 2em 1em;
+  border: 1px solid #ccc;
+  background: #fff;
+
+  &.help {
+
+  }
+}

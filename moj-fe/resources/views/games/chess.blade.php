@@ -101,6 +101,11 @@
 
 
                 </form>
+                <div class="info help">
+                    <h3>Help</h3>
+                    <p>If you need some help with the rules or how to play Chess you can use the link below</p>
+                    <a href="/epub?pdf=/sites/default/files/2017-05/pg33870-images.epub" target="_blank" class="btn">Help wih Chess</a>
+                </div>
                 <!--
                 <h5>Evaluation</h5>
                 <pre id=evaluation></pre>
