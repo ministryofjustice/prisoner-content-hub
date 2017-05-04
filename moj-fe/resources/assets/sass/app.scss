@@ -18,6 +18,7 @@
 @import "video-js";
 @import "hub/hub";
 @import "pdf/pdf";
+@import "pdf/epub";
 @import "news/news";
 @import "radio/radio-landing";
 @import "radio/radio-detail";
@@ -26,7 +27,7 @@
 @import "sticky-navigation";
 @import "footer";
 @import "forms";
-@import "games";
+@import "games/games";
 
 
 html {
@@ -44,6 +45,9 @@ body {
     background: $colour-light-grey;
     font-family: "Open Sans", sans-serif;   
     margin-bottom: 60px;
+    &.epub {
+        background: #fff;
+    }
 }
 
 .icon {

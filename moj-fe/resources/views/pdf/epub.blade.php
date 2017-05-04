@@ -4,48 +4,12 @@
 
 @section('top_content')
 
-<div class="top-navigation">
-    <div class="row">
-        <div class="col-xs-12">
-            <a href="#" class="back-to-hub">
-                <span class="icon icon-icon-hub" aria-hidden="true"></span>
-                <div class="back-to-the-hub-text">
-                    {{ trans('navigation.title') }}
-                </div>
-            </a>
 
-            <div class="navigation-title purple">
-                <a href="#">
-                    <span class="icon icon-icon-education" aria-hidden="true"></span>
-                    Title
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="header-nav-wrap education" ">
-    <div class="container" id="header">
-        <div class="row">
-            <div class="col-xs-12">
-                <p>{{ $pdf }}</p>
-                <div id="area"></div>
-            </div>
-        </div>
-    </div>
-</div>
 
 @endsection
 
 @section('content')
-
-<div class="container education-container">
-    <div class="row">
-        <div class="col-xs-8 col-xs-offset-2">
-
-        </div>
-    </div>
-</div>
-
+        <a href="#" id="prev" class="control left">Prev</a>
+        <div id="area" class="area"></div>
+        <a href="#" id="next" class="control right">Next</a>
 @endsection

@@ -1,0 +1,26 @@
+/* Epub */
+
+.main {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  .area {
+    width: 80%;
+    height: 80%;
+    margin: 5% auto;
+    max-width: 1250px;
+  }
+  .control {
+    position: absolute;
+    top: 50%;
+    &.left {
+      left: 20px;
+    }
+    &.right {
+      right: 20px;
+    }
+  }
+}
+
+

@@ -11,6 +11,7 @@
         <script src="/js/bootstrap.js" type="text/javascript"></script>
         <!-- chess -->
         <script src="/js/epub.js" type="text/javascript"></script>
+        <script src="/js/zip.min.js" type="text/javascript"></script>
 
         @if (Request::is('/') || Request::is('hub/*'))
         <title>Digital Hub</title>
@@ -25,7 +26,7 @@
         {!! App\Helpers\Piwik::trackingCode() !!}
     </head>
 
-    <body>
+    <body class="epub">
         @if ( Route::currentRouteName() == 'hub.sub' || Route::currentRouteName() == 'hub.landing' )
             <div class="top-navigation hub-top-navigation">
          <div class="row">
@@ -41,7 +42,7 @@
 
         @yield('top_content')
 
-        <div id="content" class="container">
+        <div class="main">
             @yield('content')
         </div>
 
@@ -52,8 +53,21 @@
         </footer>
         @endif
         <script>
-            var book = ePub('{!! $pdf !!}');
-            book.renderTo("area");
+
+            (function ($) {
+                $(function () {
+                    var book = ePub('{!! $pdf !!}');
+                    book.renderTo("area");
+                    $("#prev").on("click", function (e) {
+                        e.preventDefault();
+                        book.prevPage();
+                    });
+                    $("#next").on("click", function (e) {
+                        e.preventDefault();
+                        book.nextPage();
+                    });
+                });
+            }(jQuery));
         </script>
     </body>
 </html>
