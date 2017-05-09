@@ -13,3 +13,5 @@ clean:
 	rm -rf node_modules
 	rm -rf vendor
 
+push:
+	docker push mojdigitalstudio/digital-hub-fe

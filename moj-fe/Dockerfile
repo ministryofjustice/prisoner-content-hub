@@ -1,4 +1,4 @@
-FROM php:5-apache
+FROM php:7-apache
 #Apache configuraton
 RUN a2enmod rewrite
 RUN a2enmod proxy

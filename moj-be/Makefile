@@ -6,3 +6,6 @@ build: build-deps
 
 clean:
 	rm -rf vendor
+
+push:
+	docker push mojdigitalstudio/digital-hub-be
