@@ -13,10 +13,14 @@ services:
                 ports:
                         - 3306:3306
 
+        hub-memcache:
+                image: memcached
+
         hub-fe:
                 image: mojdigitalstudio/digital-hub-fe
                 depends_on: 
                         - hub-be
+                        - hub-memcache
                 environment:
                         API_URI: http://hub-be/
                 ports:
