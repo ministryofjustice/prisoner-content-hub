@@ -6,7 +6,7 @@ RUN a2enmod proxy_http
 RUN rm -f /etc/apache2/sites-enabled/*
 COPY ./apache/* /etc/apache2/sites-enabled/
 #PHP configuration
-RUN apt-get update && apt-get upgrade -y && apt-get install libpng-dev libmemcached-dev zlib1g-dev mysql-client -y
+RUN apt-get update && apt-get upgrade -y && apt-get install libpng-dev libmemcached-dev zlib1g-dev -y
 RUN pecl install memcached
 RUN docker-php-ext-enable memcached
 #Copy the app and set permissions
