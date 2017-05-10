@@ -130,14 +130,18 @@ class DirectoryDestination extends DestinationBase implements ListableDestinatio
   /**
    * {@inheritdoc}
    */
-  public function _allFiles() {
-    // Get the entire list of filenames.
+  public function listFiles($count = 100, $start = 0) {
+    $dir = $this->confGet('directory');
+    $out = array();
+
+    // Get the entire list of filenames
     $files = $this->_getAllFileNames();
 
-    // Make a file reference object for each file.
-    $out = [];
-    foreach ($files as $file) {
-      $out[$file] = new ReadableStreamBackupFile($this->_idToPath($file));
+    // Limit to only the items specified.
+    for ($i = $start; $i < min($start + $count, count($files)); $i++) {
+      $file = $files[$i];
+      $filepath = $dir . '/' . $file;
+      $out[$file] = new ReadableStreamBackupFile($filepath);
     }
 
     return $out;
@@ -148,8 +152,7 @@ class DirectoryDestination extends DestinationBase implements ListableDestinatio
    * @return int The number of files in the destination.
    */
   public function countFiles() {
-    // @TODO: Find a better way to do this.
-    $files = $this->listFiles(10000);
+    $files = $this->_getAllFileNames();
     return count($files);
   }
 
@@ -196,7 +199,7 @@ class DirectoryDestination extends DestinationBase implements ListableDestinatio
       while (FALSE !== ($file = readdir($handle))) {
         $filepath = $dir . '/' . $file;
         // Don't show hidden, unreadable or metadata files
-        if (substr($file, 0, 1) !== '.' && is_readable($filepath)) {
+        if (substr($file, 0, 1) !== '.' && is_readable($filepath) && substr($file, strlen($file) - 5) !== '.info') {
           $files[] = $file;
         }
       }

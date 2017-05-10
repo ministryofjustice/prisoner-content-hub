@@ -6,8 +6,8 @@ type: module
 
 #configure: -- pending new D8 routing format -- as per https://www.drupal.org/node/2118147 -- admin/config/system/backup_migrate
 
-# Information added by Drupal.org packaging script on 2016-05-09
-version: '8.x-4.0-alpha1'
+# Information added by Drupal.org packaging script on 2017-04-04
+version: '8.x-4.0-alpha2'
 core: '8.x'
 project: 'backup_migrate'
-datestamp: 1462818552
+datestamp: 1491331088

@@ -6,7 +6,6 @@
 namespace BackupMigrate\Core\Destination;
 
 
-use BackupMigrate\Core\File\ReadableStreamBackupFile;
 use BackupMigrate\Core\Plugin\FileProcessorTrait;
 use BackupMigrate\Core\File\BackupFileInterface;
 
@@ -60,32 +59,6 @@ trait SidecarMetadataDestinationTrait {
     $this->_deleteFile($id);
     $this->_deleteFile($id . '.info');
   }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function listFiles($count = 100, $start = 0) {
-
-    // Get the full list list of files.
-    $files = $this->_allFiles();
-
-    // Filter out metadata files.
-    $filtered = [];
-    foreach ($files as $i => $file) {
-      if ($file->getExtLast() !== 'info') {
-        $filtered[] = $files[$i];
-      }
-    }
-
-    // Limit to only the items specified.
-    $out = [];
-    for ($i = $start; $i < min($start + $count, count($filtered)); $i++) {
-      $out[$i] = $this->loadFileMetadata($filtered[$i]);
-    }
-
-    return $out;
-  }
-
 
   /**
    * Parse an INI file's contents.

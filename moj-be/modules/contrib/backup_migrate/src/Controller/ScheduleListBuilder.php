@@ -10,6 +10,7 @@ namespace Drupal\backup_migrate\Controller;
 use Drupal\backup_migrate\Entity\Schedule;
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
+use Exception;
 
 /**
  * Provides a listing of Schedule entities.
@@ -30,8 +31,16 @@ class ScheduleListBuilder extends ConfigEntityListBuilder {
 
   /**
    * {@inheritdoc}
+   *
+   * ScheduleListBuilder save implementation requires instance of Schedule
+   * Signature enforced by EntityListBuilder
+   *
+   * @throw InvalidArgumentException
    */
-  public function buildRow(Schedule $entity) {
+  public function buildRow(EntityInterface $entity) {
+    if (!$entity instanceof Schedule) {
+      throw new Exception();
+    }
     $row['label'] = $entity->label();
     $row['enabled'] = $entity->get('enabled') ? $this->t('Yes') : $this->t('No');
     $row['period'] = $entity->getPeriodFormatted();

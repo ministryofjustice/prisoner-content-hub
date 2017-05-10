@@ -6,18 +6,18 @@
         "source": {
             "type": "git",
             "url": "https://github.com/php-fig/log.git",
-            "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e"
+            "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/php-fig/log/zipball/d8e60a5619fff77f9669da8997697443ef1a1d7e",
-            "reference": "d8e60a5619fff77f9669da8997697443ef1a1d7e",
+            "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+            "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2016-01-06 21:40:42",
+        "time": "2016-10-10T12:19:37+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -55,12 +55,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/backupmigrate/backup_migrate_core.git",
-            "reference": "c027281c5de06af92520764a302a02a8d60949f4"
+            "reference": "c8083db3f992a48fbbfff232cce1de0f682919d8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/backupmigrate/backup_migrate_core/zipball/c027281c5de06af92520764a302a02a8d60949f4",
-            "reference": "c027281c5de06af92520764a302a02a8d60949f4",
+            "url": "https://api.github.com/repos/backupmigrate/backup_migrate_core/zipball/c8083db3f992a48fbbfff232cce1de0f682919d8",
+            "reference": "c8083db3f992a48fbbfff232cce1de0f682919d8",
             "shasum": ""
         },
         "require": {
@@ -72,7 +72,7 @@
             "phpunit/dbunit": "~1.4",
             "phpunit/phpunit": "~4.0"
         },
-        "time": "2016-03-17 03:54:58",
+        "time": "2016-12-31T20:25:55+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {
