@@ -7,6 +7,7 @@
  */
 function migration_test_uninstall()
 {
+    Drupal::configFactory()->getEditable('migrate_plus.migration.photo')->delete();
     Drupal::configFactory()->getEditable('migrate_plus.migration.hub_node')->delete();
     drupal_set_message(t('migrate_plus.migration.hub_node settings removed'), 'status', TRUE);
 }

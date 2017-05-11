@@ -5,7 +5,7 @@ migration_groups:
 source:
   plugin: csv
   # Full path to the file.
-  path: '/content/test.csv'
+  path: './modules/migrations/migration_test/content/test.csv'
   # Column delimiter. Comma (,) by default.
   delimiter: ','
   # Field enclosure. Double quotation marks (") by default.
@@ -23,36 +23,40 @@ source:
   column_names:
     0:
       id: Identifier
-    0:
-      title: Title
     1:
-      language: Language
+      title: Title
     2:
-      hub_link: Hub link
+      language: Language
     3:
-      parent_link: Parent link
+      hub_link: Hub link
     4:
-      weight: Weight
+      parent_link: Parent link
     5:
-      hidden: Hidden
+      weight: Weight
     6:
-      allowed_prisons: Allowed prisons
+      hidden: Hidden
     7:
-      allowed_users: Allowed users
+      allowed_prisons: Allowed prisons
     8:
-      forbidden_prisons: Forbidden prisons
+      allowed_users: Allowed users
     9:
-      forbidden_users: Forbidden users
+       forbidden_prisons: Forbidden prisons
     10:
+      forbidden_users: Forbidden users
+    11:
       thumbnail: Thumbnail
 process:
-  title: title
-  body: body
   type:
     plugin: default_value
     default_value: moj_hub_item
+  title: title
   field_moj_weight: weight
-  field_moj_hub_thumbnail: thumbnail
+  field_moj_hub_thumbnail:
+    -
+      plugin: migration
+      migration: photo
+      source: photo
+      no_stub: true
   field_moj_hub_parent: parent_link
   field_moj_hub_link: hub_link
   field_moj_hub_hidden: hidden
@@ -63,3 +67,6 @@ process:
 
 destination:
   plugin: entity:node
+migration_dependencies:
+  optional:
+    - photo
