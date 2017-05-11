@@ -45,3 +45,19 @@ services:
                         - ./moj-be/:/var/www/html/
                 ports:
                         - 8182:80
+
+        hub-drush:
+                image: drupaldocker/drush
+                depends_on:
+                        - hub-be
+                        - hub-db
+                environment:
+                        HUB_DB_ENV_MYSQL_DATABASE: hubdb
+                        HUB_DB_ENV_MYSQL_USER: hubdb_user
+                        HUB_DB_ENV_MYSQL_PASSWORD: hubdb_pass
+                        HUB_DB_PORT_3306_TCP_ADDR: hub-db
+                volumes:
+                        - ./moj-be/:/var/www/html/
+                entrypoint:
+                        - drush
+                        - '--root=/var/www/html/'
