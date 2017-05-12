@@ -21,7 +21,7 @@ services:
                 environment:
                         API_URI: http://hub-be/
                 ports:
-                        - 8181:80
+                        - 80:80
 
         hub-be:
                 image: mojdigitalstudio/digital-hub-be
