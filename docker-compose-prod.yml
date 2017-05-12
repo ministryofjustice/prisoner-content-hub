@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 
 services:
         hub-db:
@@ -10,6 +10,9 @@ services:
                         MYSQL_PASSWORD: hubdb_pass
                 volumes:
                         - ./db_dump:/docker-entrypoint-initdb.d
+
+        hub-memcache:
+                image: memcached
 
         hub-fe:
                 image: mojdigitalstudio/digital-hub-fe
