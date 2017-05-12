@@ -6,6 +6,7 @@
 
 
 namespace BackupMigrate\Drupal\Filter;
+use BackupMigrate\Core\Exception\BackupMigrateException;
 use BackupMigrate\Core\File\BackupFileReadableInterface;
 use BackupMigrate\Core\Plugin\PluginBase;
 use BackupMigrate\Core\Config\Config;
@@ -92,6 +93,21 @@ class DrupalUtils extends PluginBase {
     if ($this->maintenance_mode) {
       \Drupal::state()->set('system.maintenance_mode', FALSE);
     }
+  }
+
+  /**
+   * Ensure, that the restore file does not exceed the server's upload_limit.
+   *
+   * @param BackupFileReadableInterface $file
+   *
+   * @return BackupFileReadableInterface
+   */
+  public function beforeRestore(BackupFileReadableInterface $file) {
+    if ($file->getMeta('filesize') > file_upload_max_size()) {
+      throw new BackupMigrateException('The input file exceeds the servers upload_max_filesize or post_max_size limit.', array('!id' =>  $file->getMeta('id')));
+    }
+
+    return $file;
   }
 
 }

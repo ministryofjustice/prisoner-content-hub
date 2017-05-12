@@ -99,7 +99,7 @@ function webprofiler_requirements($phase) {
       $requirements['d3js']['severity'] = REQUIREMENT_WARNING;
       $requirements['d3js']['description'] = [
         '#prefix' => ' ',
-        '#markup' => t('Webprofiler module requires D3.js library to properly render data. See README.md file to learn how to download it.'),
+        '#markup' => t('Webprofiler module requires D3.js library to properly render data. Composer based install recommended, see README.md file for instructions.'),
       ];
     }
 
@@ -113,7 +113,7 @@ function webprofiler_requirements($phase) {
       $requirements['highlightjs']['severity'] = REQUIREMENT_WARNING;
       $requirements['highlightjs']['description'] = [
         '#prefix' => ' ',
-        '#markup' => t('Webprofiler module requires highlight.js library to syntax highlight collected queries. See README.md file to learn how to download it.'),
+        '#markup' => t('Webprofiler module requires highlight.js library to syntax highlight collected queries. Composer based install recommended, see README.md file for instructions.'),
       ];
     }
   }

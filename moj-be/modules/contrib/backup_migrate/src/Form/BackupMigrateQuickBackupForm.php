@@ -81,7 +81,7 @@ class BackupMigrateQuickBackupForm extends FormBase {
     $config = [];
 
     // Load the settings profile if one is selected.
-    if ($values['settings_profile_id']) {
+    if (!empty($values['settings_profile_id'])) {
       $config = SettingsProfile::load($values['settings_profile_id'])->get('config');
     }
 

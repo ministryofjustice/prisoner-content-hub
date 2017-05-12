@@ -40,10 +40,8 @@ class BackupMigrateRestoreForm extends FormBase {
 
     $form['source_id'] = DrupalConfigHelper::getPluginSelector(
       $bam->sources(), $this->t('Restore To'));
-
-
-    $conf_schema = $bam->plugins()->map('configSchema', array('operation' => 'restore'));
-    $form += DrupalConfigHelper::buildFormFromSchema($conf_schema, $bam->plugins()->config());
+    
+    $form += DrupalConfigHelper::buildAllPluginsForm($bam->plugins(), 'restore');
 
     $form['quickbackup']['submit'] = array(
       '#type' => 'submit',

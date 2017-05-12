@@ -93,7 +93,7 @@ class DevelMailLog implements MailInterface, ContainerFactoryPluginInterface {
     $filename = $this->replacePlaceholders($pattern, $message);
     $output = $this->composeMessage($message);
 
-    return file_put_contents($directory . '/' . $filename, $output);
+    return (bool) file_put_contents($directory . '/' . $filename, $output);
   }
 
   /**
