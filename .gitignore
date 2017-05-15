@@ -1,3 +1,4 @@
 db_dump/
 .idea/**
 .idea
+.DS_Store
