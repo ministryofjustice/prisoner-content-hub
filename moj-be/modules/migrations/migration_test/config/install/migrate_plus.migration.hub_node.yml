@@ -1,11 +1,13 @@
 id: hub_node
-label: Import hub items
-migration_groups:
-  - test_group
+label: Import test hub items.
+migration_group: test_group
+migration_tags:
+  - CSV
+# Source.
 source:
   plugin: csv
   # Full path to the file.
-  path: './modules/migrations/migration_test/content/test.csv'
+  path: './import/csv/test-hub.csv'
   # Column delimiter. Comma (,) by default.
   delimiter: ','
   # Field enclosure. Double quotation marks (") by default.
@@ -44,19 +46,17 @@ source:
     10:
       forbidden_users: Forbidden users
     11:
-      thumbnail: Thumbnail
+      image_file: Image file
 process:
   type:
     plugin: default_value
     default_value: moj_hub_item
   title: title
   field_moj_weight: weight
-  field_moj_hub_thumbnail:
-    -
-      plugin: migration
-      migration: photo
-      source: photo
-      no_stub: true
+  field_moj_hub_thumbnail/target_id:
+    plugin: migration
+    migration: hub_image
+    source: image_file
   field_moj_hub_parent: parent_link
   field_moj_hub_link: hub_link
   field_moj_hub_hidden: hidden
