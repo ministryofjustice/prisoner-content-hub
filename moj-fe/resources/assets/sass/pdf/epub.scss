@@ -14,7 +14,15 @@
   }
   .control {
     position: absolute;
+    color: $colour-green;
     top: 50%;
+    color: #fff;
+    background: $colour-green;
+    border: 1px solid $colour-green;
+    &:hover {
+      background: #fff;
+      color: $colour-green;
+    }
     &.left {
       left: 20px;
     }
@@ -24,8 +32,16 @@
   }
   .home {
     margin: 5% auto;
-    bottom: -10px;
+    bottom: -30px;
     position: absolute;
+    color: #fff;
+    background: $colour-green;
+    border: 1px solid $colour-green;
+    &:hover {
+      background: #fff;
+      color: $colour-green;
+    }
+
   }
 }
 

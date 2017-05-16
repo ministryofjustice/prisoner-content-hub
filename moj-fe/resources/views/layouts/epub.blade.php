@@ -46,18 +46,13 @@
             @yield('content')
         </div>
 
-        @if ( Route::currentRouteName() == 'hub.sub' || Route::currentRouteName() == 'hub.landing' )
-        @else
-        <footer class="footer">
-            &copy <?php echo date("Y"); ?> {{ trans('footer.message') }}
-        </footer>
-        @endif
+
         <script>
 
             (function ($) {
                 $(function () {
                     var book = ePub('{!! $pdf !!}');
-                    book.renderTo("area");
+                    rendered = book.renderTo("area");
                     $("#prev").on("click", function (e) {
                         e.preventDefault();
                         book.prevPage();
@@ -65,6 +60,17 @@
                     $("#next").on("click", function (e) {
                         e.preventDefault();
                         book.nextPage();
+                    });
+                    $("#home").on("click", function (e) {
+                        e.preventDefault();
+                        console.log();
+                        book.goto(book.spine[0].href);
+                    });
+                    rendered.then(function(){
+                        var currentLocation = book.getCurrentLocationCfi();
+                        var currentPage = book.pagination.pageFromCfi(currentLocation);
+                        currentPage.value = currentPage;
+                        console.log(currentPage);
                     });
                 });
             }(jQuery));
