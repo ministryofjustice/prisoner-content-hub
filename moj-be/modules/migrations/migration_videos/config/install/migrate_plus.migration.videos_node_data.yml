@@ -1,0 +1,55 @@
+id: videos_node_data
+label: Import video content.
+migration_group: video_group
+migration_tags:
+  - CSV
+# Source.
+source:
+  plugin: csv
+  path: './import/csv/video.csv'
+  delimiter: ','
+  enclosure: '"'
+  header_row_count: 1
+  keys:
+    - id
+  column_names:
+    0:
+      id: Id
+    1:
+      title: Title
+    2:
+      description: Description
+    3:
+      categories: Categories
+    4:
+      thumbnail: Thumbnail
+    5:
+      video: Video
+    6:
+      language: Language
+    7:
+      author: Author
+# Process.
+process:
+  type:
+    plugin: default_value
+    default_value: moj_video_item
+  title: title
+  field_moj_thumbnail_image/target_id:
+    plugin: migration
+    migration: videos_image
+    source: thumbnail
+  field_moj_categories: parent_link
+  field_moj_description: hub_link
+  field_moj_video/target_id:
+    plugin: migration
+    migration: videos_video
+    source: video
+# Destination.
+destination:
+  plugin: entity:node
+# Dependencies.
+migration_dependencies:
+  optional:
+    - videos_video
+    - videos_image
