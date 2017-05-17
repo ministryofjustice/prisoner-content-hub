@@ -2,3 +2,4 @@ db_dump/
 .idea/**
 .idea
 .DS_Store
+modules/contrib/backup_migrate/vendor/psr/

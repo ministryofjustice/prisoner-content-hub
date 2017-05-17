@@ -21,6 +21,7 @@
 #sites/*/services*.yml
 
 # Ignore paths that contain user-generated content.
+!sites/default/files/2017-05/pg33870-images.epub
 sites/*/files
 sites/*/private
 
