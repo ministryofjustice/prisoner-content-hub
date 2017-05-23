@@ -1,0 +1,23 @@
+id: videos_cats
+label: Tags associated to academic programs.
+migration_group: video_group
+migration_tags:
+  - tags
+# Source.
+source:
+  plugin: csv
+  path: './import/csv/video.tags.csv'
+  header_row_count: 1
+  keys:
+    - Title
+  fields:
+    Title: The tag.
+# Destination.
+destination:
+  plugin: 'entity:taxonomy_term'
+  # Vocabulary for the terms.
+  default_bundle: moj_video_categories
+# Mappings.
+process:
+  name: Title
+# Dependencies.

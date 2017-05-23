@@ -39,12 +39,19 @@ process:
     plugin: migration
     migration: videos_image
     source: thumbnail
-  field_moj_categories: parent_link
+  field_moj_categories:
+    -
+      plugin: explode
+      delimiter: ', '
+      source: categories
+    -
+      plugin: migration
+      migration: video_cats
   field_moj_description: hub_link
   field_moj_video/target_id:
     plugin: migration
     migration: videos_video
-    source: video
+    source: videowtach
 # Destination.
 destination:
   plugin: entity:node
@@ -53,3 +60,6 @@ migration_dependencies:
   optional:
     - videos_video
     - videos_image
+    - videos_cats
+    - videos_categories
+    - videos_tags

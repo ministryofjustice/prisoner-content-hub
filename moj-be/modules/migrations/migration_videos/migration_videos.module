@@ -10,5 +10,8 @@ function migration_videos_uninstall()
     Drupal::configFactory()->getEditable('migrate_plus.migration.videos_video')->delete();
     Drupal::configFactory()->getEditable('migrate_plus.migration.videos_image')->delete();
     Drupal::configFactory()->getEditable('migrate_plus.migration.videos_node_data')->delete();
+    Drupal::configFactory()->getEditable('migrate_plus.migration.videos_cats')->delete();
+    Drupal::configFactory()->getEditable('migrate_plus.migration.videos_categories')->delete();
+    Drupal::configFactory()->getEditable('migrate_plus.migration.videos_tags')->delete();
     drupal_set_message(t('Video migration settings removed'), 'status', TRUE);
 }
