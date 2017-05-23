@@ -2,14 +2,12 @@ version: "3"
 
 services:
         hub-db:
-                image: mariadb
+                image: mojdigitalstudio/digital-hub-db
                 environment:
                         MYSQL_ROOT_PASSWORD: password
                         MYSQL_DATABASE: hubdb
                         MYSQL_USER: hubdb_user
                         MYSQL_PASSWORD: hubdb_pass
-                volumes:
-                        - ./db_dump:/docker-entrypoint-initdb.d
 
         hub-memcache:
                 image: memcached
@@ -32,5 +30,9 @@ services:
                         HUB_DB_ENV_MYSQL_USER: hubdb_user
                         HUB_DB_ENV_MYSQL_PASSWORD: hubdb_pass
                         HUB_DB_PORT_3306_TCP_ADDR: hub-db
+                        HUB_EXT_FILE_URL: /sites/default/files
+                        PHP_MEMORY_LIMIT: 256M
+                        PHP_UPLOAD_MAX_FILE_SIZE: 256M
+                        PHP_POST_MAX_SIZE: 256M
                 ports:
                         - 8182:80
