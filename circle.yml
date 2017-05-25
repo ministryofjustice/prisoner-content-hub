@@ -1,4 +1,6 @@
 machine:
+  node:
+  php:
   services:
     - docker
 
