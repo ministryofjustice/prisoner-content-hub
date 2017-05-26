@@ -2,6 +2,7 @@
 build-deps:
 	npm install
 	npm run prod
+	npm run snyk-protect
 	composer install
 	composer run-script post-root-package-install
 	composer run-script post-create-project-cmd
