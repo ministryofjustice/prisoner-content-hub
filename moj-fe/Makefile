@@ -1,6 +1,7 @@
 
 build-deps:
 	npm install
+	npm install -g gulp
 	gulp
 	composer install
 	composer run-script post-root-package-install
