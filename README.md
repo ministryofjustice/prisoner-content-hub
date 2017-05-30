@@ -3,35 +3,59 @@ Digital Hub for Prisons
 
 This repo contains two directories.
 
-moj-be/ - Backend CMS based on Drupal
-moj-fe/ - Frontend based on Laravel
+    moj-be/ - Backend CMS based on Drupal
+    moj-fe/ - Frontend based on Laravel
 
-Together these make the Digital Hub service for prisons.
+Together these make the Digital Hub for prisons service.
 
-Docker Compose
---------------
+Run a local version of the Digital Hub
+--------------------------------------
 
-The Docker compose file in this repo should provide a fully working system.
+To run a local version of the Digital Hub you will require Docker installed and if you are using macOS we recommend Docker Edge.
 
-To use this you will need a development database dump which you can get from
-Rob Lazzurs or Steve Wilson. This will be fixed shortly to remove data from the
-structure of the dump so it can be checked in.
+The Docker Compose file in this repo should provide a fully working system.
 
-The dump should end in .sql and be in a directory called db_dump in the root
-of this repo.
+The base containers are now published in our Docker Hub organisation here https://hub.docker.com/u/mojdigitalstudio/. If you wish to see a working version run
 
-You will also need recent builds of the containers in your local registry as
-these are not published yet. Instructions on building containers are in each
-subdirectory of this repo. 
+     docker-compose up
 
-Then run
+You can then visit the local version on http://localhost:8181 and the Drupal backend on http://localhost:8182
 
-    docker-compose up
+Edit code and provide new features
+----------------------------------
 
-Dev version
------------
+If you wish to work on the Digital Hub to provide more content types or features pull requests are welcome.
 
-To use the dev version of docker compose all of the above instructions apply
-but you need to change the command to the following.
+To build either the Laravel frontend container or Drupal backend container change into the relevant directory and run
 
-    docker-compose -f docker-compose-dev.yml up
+    make build
+
+### Drush
+
+Drush is provided in a Docker container as part of the Docker Compose configuration. To run Drush
+
+    docker-compose run hub-drush
+
+For example if you wanted to run the clear cache command
+
+    docker-compose run hub-drush cc
+
+or reset the admin password for Drupal
+
+    docker-compose run hub-drush upwd --password="newpassword" "admin"
+
+### Drupal CLI
+
+The new Drupal CLI is also provided as a Docker container as part of the Docker Compose configuration. To run the Drupal CLI
+
+    docker-compose run hub-drupal
+
+
+Run a live version of the Digital Hub
+-------------------------------------
+
+We have separated out the Docker Compose file for running a live version of the Digital Hub for now.
+
+To run this version run the following command
+
+    docker-compose -f docker-compose-prod.yml up

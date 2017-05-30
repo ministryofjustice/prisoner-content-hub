@@ -1,0 +1,11 @@
+machine:
+  node:
+  php:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - cd moj-be && make build
+    - cd moj-fe && make build
+
