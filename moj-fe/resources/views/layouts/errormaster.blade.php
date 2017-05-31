@@ -44,7 +44,7 @@
         @if ( Route::currentRouteName() == 'hub.sub' || Route::currentRouteName() == 'hub.landing' )
         @else
         <footer class="footer">
-            &copy <?php echo date("Y"); ?> {{ trans('footer.message') }}
+            &copy; <?php echo date("Y"); ?> {{ trans('footer.message') }}
         </footer>
         @endif
     </body>
