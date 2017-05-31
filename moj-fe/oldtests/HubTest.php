@@ -11,7 +11,7 @@ class HubTest extends TestCase
 	protected $hubLandingPageMockData = '[{
 		"tid": 7,
 		"name": "Video",
-		"thumbnail": "http://192.168.33.9/sites/default/files/2016-07/hubthumb_2.png",
+		"thumbnail": "http://localhost:8181/sites/default/files/2016-07/hubthumb_2.png",
 		"url": "/video",
 		"folder": false,
 		"parent": ""
@@ -19,7 +19,7 @@ class HubTest extends TestCase
 		 {
 		"tid": 6,
 		"name": "Radio",
-		"thumbnail": "http://192.168.33.9/sites/default/files/2016-07/hubthumb_1.png",
+		"thumbnail": "http://localhost:8181/sites/default/files/2016-07/hubthumb_1.png",
 		"url": "/radio",
 		"folder": false,
 		"parent": ""
@@ -27,7 +27,7 @@ class HubTest extends TestCase
 		 {
 		"tid": 8,
 		"name": "Education",
-		 "thumbnail": "http://192.168.33.9/sites/default/files/2016-07/folderthumb_2.png",
+		 "thumbnail": "http://localhost:8181/sites/default/files/2016-07/folderthumb_2.png",
 		 "url": null,
 		 "folder": true,
 		 "parent": ""
@@ -35,7 +35,7 @@ class HubTest extends TestCase
 		 {
 		"tid": 9,
 		"name": "Local News",
-		 "thumbnail": "http://192.168.33.9/sites/default/files/2016-07/folderthumb_3.png",
+		 "thumbnail": "http://localhost:8181/sites/default/files/2016-07/folderthumb_3.png",
 		 "url": "null",
 		 "folder": true,
 		 "parent": ""
@@ -45,7 +45,7 @@ class HubTest extends TestCase
 		{
 	    "tid": 10,
 		"name": "Minute Maths",
-		"thumbnail": "http://192.168.33.9/sites/default/files/2016-07/mathsthumb.jpg",
+		"thumbnail": "http://localhost:8181/sites/default/files/2016-07/mathsthumb.jpg",
 		"url": "/video/195",
 		"folder": false,
 		"parent": "Education"
@@ -53,7 +53,7 @@ class HubTest extends TestCase
 		{
 		"tid": "11",
 		"name": "BBC Bitesize",
-		"thumbnail": "http://192.168.33.9/sites/default/files/2016-07/bitesize.png",
+		"thumbnail": "http://localhost:8181/sites/default/files/2016-07/bitesize.png",
 		"url": "http://www.bbc.co.uk/education",
 		"folder": false,
 		"parent": "Education"
@@ -74,7 +74,7 @@ class HubTest extends TestCase
 		);
 
 		$this->mockVideo = new Video(
-			1, "Episode 1: Area - The Space inside a shape", "Lorem ipsum dolor sit amet conestur adoijvcsa elit. Sed commdoino or ojoasd ds. Donec porta lcudaj funsaoir congie. Sed adjnai sfshgdfhfd hfhrthgd iuy dhgd daf .", "http://192.168.33.9/sites/default/files/videos/2016-07/SampleVideo_1280x720_2mb_2.mp4", "http://placehold.it/300x300", "1:20", $category, $tags, "Way2Learn"
+			1, "Episode 1: Area - The Space inside a shape", "Lorem ipsum dolor sit amet conestur adoijvcsa elit. Sed commdoino or ojoasd ds. Donec porta lcudaj funsaoir congie. Sed adjnai sfshgdfhfd hfhrthgd iuy dhgd daf .", "http://localhost:8181/sites/default/files/videos/2016-07/SampleVideo_1280x720_2mb_2.mp4", "http://placehold.it/300x300", "1:20", $category, $tags, "Way2Learn"
 		);
 	}
 
@@ -108,10 +108,10 @@ class HubTest extends TestCase
 			->andReturn(json_decode($this->hubLandingPageMockData));
 
 		$this->visit('/')
-			->seeInElement('a', '<img src="http://192.168.33.9/sites/default/files/2016-07/hubthumb_2.png" alt="">')
-			->seeInElement('a', '<img src="http://192.168.33.9/sites/default/files/2016-07/hubthumb_1.png" alt="">')
-			->seeInElement('a', '<img src="http://192.168.33.9/sites/default/files/2016-07/folderthumb_2.png" alt="">')
-			->seeInElement('a', '<img src="http://192.168.33.9/sites/default/files/2016-07/folderthumb_3.png" alt="">');
+			->seeInElement('a', '<img src="http://localhost:8181/sites/default/files/2016-07/hubthumb_2.png" alt="">')
+			->seeInElement('a', '<img src="http://localhost:8181/sites/default/files/2016-07/hubthumb_1.png" alt="">')
+			->seeInElement('a', '<img src="http://localhost:8181/sites/default/files/2016-07/folderthumb_2.png" alt="">')
+			->seeInElement('a', '<img src="http://localhost:8181/sites/default/files/2016-07/folderthumb_3.png" alt="">');
 	}
 
 	/**

@@ -106,8 +106,8 @@ class VideoPlayerTest extends TestCase
 
         $response = $this->call('GET', '/video/202');
         $this->assertEquals(404, $response->status());
-        $this->assertContains('Page 404 error.', $response->content());
-        $this->assertContains('Video not found', $response->content());
+        $this->assertContains('Digital Hub - 404 Error', $response->content());
+        $this->assertContains('Page not found', $response->content());
     }
 
     public function testMockVideoPlayerRelatedEpisodes()

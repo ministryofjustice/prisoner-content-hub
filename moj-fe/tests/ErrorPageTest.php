@@ -34,8 +34,8 @@ class ErrorPageTest extends TestCase
 
         $response = $this->call('GET', '/video/12345');
         $this->assertEquals(404, $response->status());
-        $this->assertContains('Page 404 error.', $response->content());
-        $this->assertContains('There is no video with this ID.', $response->content());
+        $this->assertContains('Digital Hub - 404 Error', $response->content());
+        $this->assertContains('The page you are looking for cannot be found.', $response->content());
     }
 
     /**
@@ -50,8 +50,8 @@ class ErrorPageTest extends TestCase
         
         $response = $this->call('GET', '/video/12345');
         $this->assertEquals(403, $response->status());
-        $this->assertContains('Page 403 error.', $response->content());
-        $this->assertContains('You do not have permission to view this video.', $response->content());
+        $this->assertContains('Digital Hub - 403 Error', $response->content());
+        $this->assertContains('Sorry, but you are not authorised to access this page.', $response->content());
     }
 
     /**
@@ -66,7 +66,7 @@ class ErrorPageTest extends TestCase
         
         $response = $this->call('GET', '/video/12345');
         $this->assertEquals(500, $response->status());
-        $this->assertContains('Page 500 error.', $response->content());
-        $this->assertContains('Internal server error.', $response->content());
+        $this->assertContains('Digital Hub - 500 Error', $response->content());
+        $this->assertContains('Sorry, something went wrong. Please try back later.', $response->content());
     }
 }
