@@ -29,6 +29,8 @@ source:
       language: Language
     7:
       author: Author
+    8:
+      parent: Parent
 # Process.
 process:
   type:
@@ -39,7 +41,18 @@ process:
     plugin: migration
     migration: videos_image
     source: thumbnail
-  field_moj_categories/target_id: categories
+  # field_moj_categories/target_id: categories
+  field_moj_categories:
+    -
+      plugin: entity_generate
+      source: categories
+      value_key: name
+      bundle_key: vid
+      bundle: moj_video_categories
+      entity_type: taxonomy_term
+      ignore_case: true
+      default_values:
+          parent: '33'
   field_moj_description: hub_link
   field_moj_video/target_id:
     plugin: migration
