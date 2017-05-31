@@ -12,11 +12,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
                     </div>
                 </div>
             </div>

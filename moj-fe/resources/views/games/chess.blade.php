@@ -29,7 +29,6 @@
             <div class="education-header">
                 <div class="row">
                     <div class="col-xs-12">
-                       A chess game powered by the Stockfish strong open source chess engine.
                     </div>
                 </div>
             </div>
