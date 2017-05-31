@@ -1,0 +1,37 @@
+id: videos_cats
+label: Tags associated to video items.
+migration_group: video_group
+migration_tags:
+  - tags
+# Source.
+source:
+  plugin: csv
+  path: './import/csv/video.tags.csv'
+  header_row_count: 1
+  delimiter: ','
+  enclosure: '"'
+  keys:
+      - name
+  column_names:
+    0:
+      uuid: UUID
+    1:
+      vid: VID
+    2:
+      name: Name
+    3:
+      description: Description
+    4:
+      parent: Parent
+# Destination.
+destination:
+  plugin: 'entity:taxonomy_term'
+  default_bundle: moj_video_categories
+# Mappings.
+process:
+  name: name
+  description: description
+  vid:
+    plugin: default_value
+    default_value: moj_video_categories
+  parent: parent
