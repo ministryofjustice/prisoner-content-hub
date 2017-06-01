@@ -16,3 +16,6 @@ clean:
 
 push:
 	docker push mojdigitalstudio/digital-hub-fe
+
+test:
+	composer exec -v phpunit

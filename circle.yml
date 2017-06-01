@@ -9,3 +9,12 @@ dependencies:
     - cd moj-be && make build
     - cd moj-fe && make build
 
+test:
+    pre:
+        - cd moj-fe && make test
+
+deployment:
+    production:
+        branch: master
+        commands:
+            - echo "Deploy to production now"
