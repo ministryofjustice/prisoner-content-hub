@@ -28,6 +28,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
     Route::get('/epub', ['as' => 'pdf.epub', 'uses' => 'PdfsController@epub']);
 
     Route::get('/games/chess', ['as' => 'games.chess', 'uses' => 'GamesController@showGamesChess']);
+    Route::get('/games/sudoku', ['as' => 'games.sudoku', 'uses' => 'GamesController@showGamesSudoku']);
 
 });
 
