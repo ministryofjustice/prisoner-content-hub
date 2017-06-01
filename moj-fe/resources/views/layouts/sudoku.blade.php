@@ -21,7 +21,6 @@
         <link href="{{ elixir('css/app.css') }}" rel="stylesheet" type="text/css" />
         <link href="/js/bxslider/jquery.bxslider.css" rel="stylesheet" />
         <link href="/css/sprite.css" rel="stylesheet" type="text/css" />
-        <link href="/css/sudokuJS.css" rel="stylesheet" type="text/css" />
         {!! App\Helpers\Piwik::trackingCode() !!}
     </head>
 
@@ -54,10 +53,7 @@
         <script>
             var mySudokuJS = $("#sudoku").sudokuJS({
                 difficulty: "Easy",
-            });
-            $("#sudoku").sudokuJS({
-                board: board
-                ,boardFinishedFn: function(data){
+                boardFinishedFn: function(data){
                     alert("board was finished!");
                 }
             });
