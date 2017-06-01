@@ -15,4 +15,8 @@ class GamesController extends Controller {
 
         return view('games.chess');
     }
+    function showGamesSudoku() {
+
+        return view('games.sudoku');
+    }
 }
