@@ -12,6 +12,7 @@ dependencies:
 test:
     pre:
         - cd moj-fe && make test
+        - cd moj-be && make test
 
 deployment:
     production:
