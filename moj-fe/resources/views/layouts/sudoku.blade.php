@@ -55,6 +55,12 @@
             var mySudokuJS = $("#sudoku").sudokuJS({
                 difficulty: "Easy",
             });
+            $("#sudoku").sudokuJS({
+                board: board
+                ,boardFinishedFn: function(data){
+                    alert("board was finished!");
+                }
+            });
         </script>
     </body>
 </html>
