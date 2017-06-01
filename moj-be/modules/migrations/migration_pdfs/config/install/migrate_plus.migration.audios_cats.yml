@@ -1,0 +1,47 @@
+id: audios_cats
+label: Tags associated to academic programs.
+migration_group: audio_group
+migration_tags:
+  - tags
+# Source.
+source:
+  plugin: csv
+  path: './import/csv/audio.tags.csv'
+  header_row_count: 1
+  delimiter: ','
+  enclosure: '"'
+  keys:
+      - uuid
+  column_names:
+    0:
+      uuid: UUID
+    1:
+      vid: VID
+    2:
+      name: Name
+    3:
+      description: Description
+    4:
+      parent: Parent
+    5:
+      thumbnail: Thumbnail
+# Destination.
+destination:
+  plugin: 'entity:taxonomy_term'
+  default_bundle: moj_radio_categories
+# Mappings.
+process:
+  name: name
+  description: description
+  vid:
+    plugin: default_value
+    default_value: moj_radio_categories
+  parent: parent
+  field_radio_category_banner/target_id:
+    plugin: migration
+    migration: audios_cat_image
+    source: thumbnail
+  field_radio_category_profile/target_id:
+    plugin: migration
+    migration: audios_cat_image
+    source: thumbnail
