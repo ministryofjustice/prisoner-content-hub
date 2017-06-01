@@ -9,7 +9,7 @@ use App\Models\Radio;
 
 class RadioLandingPageTest extends TestCase
 {
-    protected $landingPageMockData = '[{"title":"Porridge","tid":"37","episode_nid":"34","description":"\u003Cp\u003EThe worlds first national breakfast show made by and for prisoners. Includes the quiz, 7:40 Shout Out and the Work Out Song..\u003C\/p\u003E\r\n","thumbnail":"http:\/\/192.168.33.9\/sites\/default\/files\/2016-08\/porridge_1.png"},{"title":"Monday Special","tid":"38","episode_nid":"36","description":"\u003Cp\u003EStart the week by listening to our presenters on the Monday Special show airing every Monday giving you updates on the week ahead.\u003C\/p\u003E\r\n","thumbnail":"http:\/\/192.168.33.9\/sites\/default\/files\/2016-08\/Monday%20Special_0.png"},{"title":"Hot 20","tid":"39","episode_nid":null,"description":"\u003Cp\u003EKeep up to date with the most popular music around and listen to our Hot 20 tracks.\u003C\/p\u003E\r\n","thumbnail":"http:\/\/192.168.33.9\/sites\/default\/files\/2016-08\/Hot%2020.png"},{"title":"Past Present \u0026 Future","tid":"40","episode_nid":null,"description":null,"thumbnail":"http:\/\/192.168.33.9\/sites\/default\/files\/2016-08\/Past%20Present%20and%20Future.png"},{"title":"The Request Show","tid":"41","episode_nid":null,"description":"\u003Cp\u003ESend us your song requests and we will play them on the radio.\u0026nbsp;\u003C\/p\u003E\r\n","thumbnail":"http:\/\/192.168.33.9\/sites\/default\/files\/2016-08\/The%20Request%20Show.png"},{"title":"The Selector","tid":"42","episode_nid":null,"description":null,"thumbnail":"http:\/\/192.168.33.9\/sites\/default\/files\/2016-08\/The%20Selector.png"}]';
+    protected $landingPageMockData = '[{"title":"Porridge","tid":"37","episode_nid":"34","description":"\u003Cp\u003EThe worlds first national breakfast show made by and for prisoners. Includes the quiz, 7:40 Shout Out and the Work Out Song..\u003C\/p\u003E\r\n","thumbnail":"http:\/\/localhost:8181\/sites\/default\/files\/2016-08\/porridge_1.png"},{"title":"Monday Special","tid":"38","episode_nid":"36","description":"\u003Cp\u003EStart the week by listening to our presenters on the Monday Special show airing every Monday giving you updates on the week ahead.\u003C\/p\u003E\r\n","thumbnail":"http:\/\/localhost:8181\/sites\/default\/files\/2016-08\/Monday%20Special_0.png"},{"title":"Hot 20","tid":"39","episode_nid":null,"description":"\u003Cp\u003EKeep up to date with the most popular music around and listen to our Hot 20 tracks.\u003C\/p\u003E\r\n","thumbnail":"http:\/\/localhost:8181\/sites\/default\/files\/2016-08\/Hot%2020.png"},{"title":"Past Present \u0026 Future","tid":"40","episode_nid":null,"description":null,"thumbnail":"http:\/\/localhost:8181\/sites\/default\/files\/2016-08\/Past%20Present%20and%20Future.png"},{"title":"The Request Show","tid":"41","episode_nid":null,"description":"\u003Cp\u003ESend us your song requests and we will play them on the radio.\u0026nbsp;\u003C\/p\u003E\r\n","thumbnail":"http:\/\/localhost:8181\/sites\/default\/files\/2016-08\/The%20Request%20Show.png"},{"title":"The Selector","tid":"42","episode_nid":null,"description":null,"thumbnail":"http:\/\/localhost:8181\/sites\/default\/files\/2016-08\/The%20Selector.png"}]';
 
     /**
      * Tests that programme titles are displayed within H6 tags.
@@ -51,12 +51,12 @@ class RadioLandingPageTest extends TestCase
           ->andReturn(json_decode($this->landingPageMockData));
 
         $this->visit('/radio')
-            ->see('http://192.168.33.9/sites/default/files/2016-08/porridge_1.png')
-            ->see('http://192.168.33.9/sites/default/files/2016-08/Monday%20Special_0.png')
-            ->see('http://192.168.33.9/sites/default/files/2016-08/Hot%2020.png')
-            ->see('http://192.168.33.9/sites/default/files/2016-08/Past%20Present%20and%20Future.png')
-            ->see('http://192.168.33.9/sites/default/files/2016-08/The%20Request%20Show.png')
-            ->see('http://192.168.33.9/sites/default/files/2016-08/The%20Selector.png');
+            ->see('http://localhost:8181/sites/default/files/2016-08/porridge_1.png')
+            ->see('http://localhost:8181/sites/default/files/2016-08/Monday%20Special_0.png')
+            ->see('http://localhost:8181/sites/default/files/2016-08/Hot%2020.png')
+            ->see('http://localhost:8181/sites/default/files/2016-08/Past%20Present%20and%20Future.png')
+            ->see('http://localhost:8181/sites/default/files/2016-08/The%20Request%20Show.png')
+            ->see('http://localhost:8181/sites/default/files/2016-08/The%20Selector.png');
     }
 
     public function testRadioHeader()
@@ -66,10 +66,8 @@ class RadioLandingPageTest extends TestCase
           ->andReturn(json_decode($this->landingPageMockData));
 
         $this->visit('/radio')
-            ->seeInElement('h2', "Radio")
-            ->see('/img/icon-radio.png')
-            ->seeInElement('p', 'Welcome to the radio section. Please select a radio programme below to start listening to your favorite show. Our programmes will be updated on a regular basis.')
-            ->see('Send us your song requests and we will play them on the radio.');
+            ->seeInElement('title', "Digital Hub - Radio")
+            ->see('icon-icon-hub');
     }
 
     public function testRadioThumbNailLinks()

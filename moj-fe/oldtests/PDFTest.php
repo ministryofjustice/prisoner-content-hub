@@ -53,14 +53,14 @@ class PdfLandingPageTest extends TestCase
 				"title": "How to read",
 				"nid": "199",
 				"description": "<p>This is a test pdf description.</p>\r\n",
-				"pdf_url": "http://192.168.33.9/sites/default/files/2016-08/dummyPDF1467882498.pdf",
-				"thumbnail": "http://192.168.33.9/sites/default/files/2016-08/thumb_0.png"
+				"pdf_url": "http://localhost:8181/sites/default/files/2016-08/dummyPDF1467882498.pdf",
+				"thumbnail": "http://localhost:8181/sites/default/files/2016-08/thumb_0.png"
 			},
 			"200": {
 				"title": "How to read good",
 				"nid": "200",
 				"description": "<p>Description</p>\r\n",
-				"pdf_url": "http://192.168.33.9/sites/default/files/2016-08/dummyPDF_0.pdf",
+				"pdf_url": "http://localhost:8181/sites/default/files/2016-08/dummyPDF_0.pdf",
 				"thumbnail": ""
 			}
 		}

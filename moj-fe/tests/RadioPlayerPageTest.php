@@ -17,7 +17,7 @@ class RadioPlayerPageTest extends TestCase
 "description": "<p>Description - Porridge: Friday 12th May.</p>\r\n",
 "duration": "2:08",
 "date": "1471947657",
-"radio_show_url": "http://192.168.33.9/sites/default/files/audio/2016-08/fire_bow_sound-mike-koenig_1.mp3",
+"radio_show_url": "http://localhost:8181/sites/default/files/audio/2016-08/fire_bow_sound-mike-koenig_1.mp3",
 "thumbnail": "",
 "added_today": true
 },
@@ -27,7 +27,7 @@ class RadioPlayerPageTest extends TestCase
 "description": "<p>Description - Porridge: Thursday 11th May.</p>\r\n",
 "duration": "1:30",
 "date": "1471947657",
-"radio_show_url": "http://192.168.33.9/sites/default/files/audio/2016-08/fire_bow_sound-mike-koenig_0.mp3",
+"radio_show_url": "http://localhost:8181/sites/default/files/audio/2016-08/fire_bow_sound-mike-koenig_0.mp3",
 "thumbnail": "",
 "added_today": false
 }
@@ -40,14 +40,14 @@ class RadioPlayerPageTest extends TestCase
 "description": "<p>Description - Porridge: Thursday 11th May.</p>\r\n",
 "duration": "1:30",
 "date": "1471947657",
-"radio_show_url": "http://192.168.33.9/sites/default/files/audio/2016-08/fire_bow_sound-mike-koenig_0.mp3",
+"radio_show_url": "http://localhost:8181/sites/default/files/audio/2016-08/fire_bow_sound-mike-koenig_0.mp3",
 "thumbnail": "",
 "added_today": false
 },
 "parent": {
 "channel_name": "Porridge",
 "channel_description": "<p>The worlds first national breakfast show made by and for prisoners. Includes the quiz, 7:40 Shout Out and the Work Out Song.</p>\r\n",
-"channel_banner": "http://192.168.33.9/sites/default/files/2016-09/img_porridge-light.png"
+"channel_banner": "http://localhost:8181/sites/default/files/2016-09/img_porridge-light.png"
 }
 }';
 
@@ -85,9 +85,8 @@ class RadioPlayerPageTest extends TestCase
 
     $this->visit('/radio/34')
       ->see('Porridge: Thursday 11th May')
-      ->see('Tuesday 23rd August')
       ->see('1:30')
-      ->seeElement('source', ['src' => 'http://192.168.33.9/sites/default/files/audio/2016-08/fire_bow_sound-mike-koenig_0.mp3']);
+      ->seeElement('source', ['src' => 'http://localhost:8181/sites/default/files/audio/2016-08/fire_bow_sound-mike-koenig_0.mp3']);
   }
 
   public function testRadioHeader()
@@ -103,8 +102,7 @@ class RadioPlayerPageTest extends TestCase
     ->andReturn(json_decode($this->playerPageMockEpisodeData));
 
       $this->visit('/radio/34')
-          ->seeInElement('h2', "Radio")
-          ->seeElement('.page-title a img', ['src' => '/img/icon-radio.png'])
+          ->seeInElement('title', "Digital Hub - Radio")
           ->seeInElement('h1', "Porridge")
           ->seeInElement('p', "The worlds first national breakfast show made by and for prisoners. Includes the quiz, 7:40 Shout Out and the Work Out Song.");
   }
@@ -122,8 +120,8 @@ class RadioPlayerPageTest extends TestCase
     ->andReturn(json_decode($this->playerPageMockEpisodeData));
 
       $this->visit('/radio/34')
-          ->seeInElement('li', 'http://192.168.33.9/sites/default/files/audio/2016-08/fire_bow_sound-mike-koenig_0.mp3')
-          ->seeInElement('li', 'http://192.168.33.9/sites/default/files/audio/2016-08/fire_bow_sound-mike-koenig_1.mp3');
+          ->seeInElement('li', 'http://localhost:8181/sites/default/files/audio/2016-08/fire_bow_sound-mike-koenig_0.mp3')
+          ->seeInElement('li', 'http://localhost:8181/sites/default/files/audio/2016-08/fire_bow_sound-mike-koenig_1.mp3');
   }
 
   /**
@@ -138,8 +136,8 @@ class RadioPlayerPageTest extends TestCase
 
       $response = $this->call('GET', '/radio/345');
       $this->assertEquals(404, $response->status());
-      $this->assertContains('Page 404 error.', $response->content());
-      $this->assertContains('Radio not found', $response->content());
+      $this->assertContains('Digital Hub - 404 Error', $response->content());
+      $this->assertContains('The page you are looking for cannot be found.', $response->content());
   }
 
   /**
