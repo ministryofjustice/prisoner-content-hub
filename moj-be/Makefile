@@ -9,3 +9,6 @@ clean:
 
 push:
 	docker push mojdigitalstudio/digital-hub-be
+
+test:
+	cd core && ../vendor/bin/phpunit --testsuite=unit && cd ..
