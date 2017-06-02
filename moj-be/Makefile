@@ -8,6 +8,7 @@ clean:
 	rm -rf vendor
 
 push:
+	docker login -u $DOCKER_HUB_USER -p $DOCKER_HUB_PASS
 	docker push mojdigitalstudio/digital-hub-be
 
 test:

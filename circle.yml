@@ -6,8 +6,8 @@ machine:
 
 dependencies:
   override:
-    - cd moj-be && make build
-    - cd moj-fe && make build
+    - cd moj-be && make build && make push
+    - cd moj-fe && make build && make push
 
 test:
     pre:
