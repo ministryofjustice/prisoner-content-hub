@@ -8,6 +8,10 @@ This repo contains two directories.
 
 Together these make the Digital Hub for prisons service.
 
+Build status
+
+[![CircleCI](https://circleci.com/gh/noms-digital-studio/digital-hub.svg?style=svg)](https://circleci.com/gh/noms-digital-studio/digital-hub)
+
 Run a local version of the Digital Hub
 --------------------------------------
 
