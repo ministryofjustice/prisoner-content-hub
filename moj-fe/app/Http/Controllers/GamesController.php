@@ -4,19 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
-class GamesController extends Controller {
+class GamesController extends Controller
+{
+	function showGamesLandingPage()
+	{
+		return view('games.landingPage');
+	}
 
-  function showGamesLandingPage() {
+	function showGamesChess()
+	{
+		return view('games.chess');
+	}
 
-    return view('games.landingPage');
-  }
+	function showGamesSudoku()
+	{
+		return view('games.sudoku');
+	}
 
-    function showGamesChess() {
-
-        return view('games.chess');
-    }
-    function showGamesSudoku() {
-
-        return view('games.sudoku');
-    }
+	function showGamesDraughts()
+	{
+		return view('games.draughts');
+	}
 }

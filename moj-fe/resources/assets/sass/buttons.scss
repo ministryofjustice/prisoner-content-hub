@@ -16,5 +16,62 @@
       background: $colour-pastel-blue;
       border-color: $colour-pastel-blue;
     }
-}  
+}
+
+.cta {
+
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin: 1em 0;
+
+  &.cta-success {
+
+    color: #3c763d;
+    border: 1px solid #3c763d;
+    background: #dff0d8;
+    &:hover {
+      color: #dff0d8;
+      border: 1px solid #3c763d;
+      background: #3c763d;
+    }
+
+  }
+
+  &.cta-info {
+
+    color: #31708f;
+    border: 1px solid #31708f;
+    background: #D9EDFE;
+    &:hover {
+      color: #D9EDFE;
+      border: 1px solid #31708f;
+      background: #31708f;
+    }
+  }
+
+  &.cta-warning {
+
+    color: #8a6d3b;
+    border: 1px solid #8a6d3b;
+    background: #fcf8e3;
+    &:hover {
+      color: #fcf8e3;
+      border: 1px solid #8a6d3b;
+      background: #8a6d3b;
+    }
+  }
+
+  &.cta-danger {
+
+    color: #BE4450;
+    border: 1px solid #BE4450;
+    background: #f2dede;
+    &:hover {
+      color: #f2dede;
+      border: 1px solid #BE4450;
+      background: #BE4450;
+    }
+  }
+}
 

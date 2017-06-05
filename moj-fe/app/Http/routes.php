@@ -11,8 +11,8 @@
   |
  */
 
-Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
-
+Route::group(['prefix' => LaravelLocalization::setLocale()], function()
+{
     Route::get('/', ['as' => 'hub.landing', 'uses' => 'HubLinksController@getItem']);
     Route::get('/hub/{id?}', ['as' => 'hub.sub', 'uses' => 'HubLinksController@getItem']);
 
@@ -29,7 +29,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function() {
 
     Route::get('/games/chess', ['as' => 'games.chess', 'uses' => 'GamesController@showGamesChess']);
     Route::get('/games/sudoku', ['as' => 'games.sudoku', 'uses' => 'GamesController@showGamesSudoku']);
-
+    Route::get('/games/draughts', ['as' => 'games.draughts', 'uses' => 'GamesController@showGamesDraughts']);
 });
-
 Route::get('/news', 'NewsController@showNewsLandingPage');

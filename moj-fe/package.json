@@ -12,8 +12,11 @@
     "laravel-elixir-spritesmith": "^0.4.0"
   },
   "dependencies": {
+    "checkers.js": "0.0.1",
     "chess.js": "^0.10.2",
     "chessboardjs": "0.0.1",
+    "draughts": "0.0.1",
+    "draughtsboard": "^0.1.1",
     "epub.js": "^0.2.15",
     "json3": "^3.3.2",
     "snyk": "^1.30.1"

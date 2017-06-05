@@ -33,6 +33,15 @@ elixir( function (mix) {
     ).copy(
         'node_modules/epubjs/build/libs/zip.min.js',
         'public/js'
+    ).copy(
+        'node_modules/draughts/draughts.js',
+        'public/js'
+    ).copy(
+        'node_modules/draughtsboard/draughtsboard.js',
+        'public/js'
+    ).copy(
+        'node_modules/draughtsboard/draughtsboard.css',
+        'public/css'
     );
 
     mix.sass([

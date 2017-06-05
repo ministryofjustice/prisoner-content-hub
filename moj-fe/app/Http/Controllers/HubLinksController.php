@@ -10,8 +10,8 @@ use App\Http\Controllers\Controller;
 
 class HubLinksController extends Controller
 {
-	function getItem(Request $request, $id = NULL) {
-
+	function getItem(Request $request, $id = NULL)
+	{
 		$page_data = HubLinks::getItem($id, $request->input('user_id'));
 		$path = LangSelectPath::getPath($request->path());
 		$backlink = HubBackLink::getBackLink();
