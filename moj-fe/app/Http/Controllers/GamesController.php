@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use /** @noinspection PhpUnusedAliasInspection */
+	App\Http\Controllers\Controller;
 
 class GamesController extends Controller
 {
