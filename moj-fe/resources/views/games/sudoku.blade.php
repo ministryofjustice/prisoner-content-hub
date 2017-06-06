@@ -47,8 +47,8 @@
             <div class="col-md-6 col-xs-12">
                 <div id="sudoku-alert" class="alert alert-success" role="alert">
                     <h3>Congratulations</h3>
-                    <p>You have completed the puzzle, would like to play again?</p>
-                    <p><a href="#"  class="new-game cta cta-success" title="Yes, start a new game">Yes, start a new game</a></p>
+                    <p>You have completed the puzzle, would you like to play again?</p>
+                    <!-- <p><a href="#"  class="new-game cta cta-success" title="Yes, start a new game">Yes, start a new game</a></p> -->
                 </div>
                 <p>Sudoku is a game that involves a grid of 81 squares, divided into nine blocks, each containing nine
                     squares.</p>
