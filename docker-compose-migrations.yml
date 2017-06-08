@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+        hub-video-import:
+                image: drupaldocker/drush
+                environment:
+                        HUB_DB_ENV_MYSQL_DATABASE: hubdb
+                        HUB_DB_ENV_MYSQL_USER: hubdb_user
+                        HUB_DB_ENV_MYSQL_PASSWORD: hubdb_pass
+                        HUB_DB_PORT_3306_TCP_ADDR: hub-db
+                volumes:
+                        - ./moj-be/:/var/www/html/
+                command: bash -c "drush --root=/var/www/html/ pmu migration_videos -y && drush --root=/var/www/html/ en migration_videos -y"
