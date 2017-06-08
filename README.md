@@ -1,16 +1,15 @@
 Digital Hub for Prisons
 =======================
 
+[![CircleCI](https://circleci.com/gh/noms-digital-studio/digital-hub.svg?style=svg)](https://circleci.com/gh/noms-digital-studio/digital-hub)
+
+
 This repo contains two directories.
 
     moj-be/ - Backend CMS based on Drupal
     moj-fe/ - Frontend based on Laravel
 
 Together these make the Digital Hub for prisons service.
-
-Build status
-
-[![CircleCI](https://circleci.com/gh/noms-digital-studio/digital-hub.svg?style=svg)](https://circleci.com/gh/noms-digital-studio/digital-hub)
 
 Run a local version of the Digital Hub
 --------------------------------------
@@ -29,6 +28,11 @@ Edit code and provide new features
 ----------------------------------
 
 If you wish to work on the Digital Hub to provide more content types or features pull requests are welcome.
+
+If you are on macOS and have Homebrew installed you will need to run the following
+
+    brew install homebrew/php/composer
+    brew install npm
 
 To build either the Laravel frontend container or Drupal backend container change into the relevant directory and run
 
