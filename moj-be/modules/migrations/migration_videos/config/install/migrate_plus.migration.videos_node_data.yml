@@ -63,7 +63,13 @@ destination:
   plugin: entity:node
 # Dependencies.
 migration_dependencies:
-  optional:
+  required:
     - videos_video
     - videos_image
-    - videos_cats
+    - videos_sub_cats
+dependencies:
+  enforced:
+    module:
+    - videos_video
+    - videos_image
+    - videos_sub_cats
