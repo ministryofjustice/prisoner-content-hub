@@ -16,7 +16,8 @@ test:
         - cd moj-be && make test
 
 deployment:
-    production:
+    development:
         branch: master
         commands:
-            - echo "Deploy to production now"
+            - ssh -p 50000 -l docker -fNL localhost:2374:/var/run/docker.sock ssh.dev.hub.service.hmpps.dsd.io
+            - DOCKER_HOST=localhost:2374 docker stack up -c docker-compose-prod.yml hub-dev
