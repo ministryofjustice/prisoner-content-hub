@@ -5,7 +5,7 @@
  * Date: 15/05/2017
  * Time: 14:29
  */
-function migration_audios_uninstall()
+function migration_pdfs_uninstall()
 {
     Drupal::configFactory()->getEditable('migrate_plus.migration.audios_audio')->delete();
     Drupal::configFactory()->getEditable('migrate_plus.migration.audios_cat_image')->delete();
