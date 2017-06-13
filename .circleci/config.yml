@@ -4,9 +4,7 @@ jobs:
     build:
         working_directory: ~/digital-hub
         docker:
-            - image: mojdigitalstudio/digital-hub-fe
-            - image: mojdigitalstudio/digital-hub-be
-            - image: mojdigitalstudio/digital-hub-db
+            - image: circleci/php:7-cli-node
         steps:
             - checkout
             - run:
