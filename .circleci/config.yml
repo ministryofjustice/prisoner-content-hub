@@ -6,6 +6,12 @@ jobs:
         docker:
             - image: notnoopci/php:7-zts-node-browsers
         steps:
+            - run:
+                name: Install Docker into the container
+                command: curl https://get.docker.com/ | sudo bash
+            - run:
+                name: Allow circleci user to run docker
+                command: sudo usermod -aG docker circleci
             - checkout
             - run:
                 name: Build frontend container
