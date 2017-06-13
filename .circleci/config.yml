@@ -1,24 +1,23 @@
 version: 2
 
-machine:
-  node:
-    version: 6.11.0
-  php:
-  services:
-    - docker
+jobs:
+    build:
+        docker:
+            - image: mojdigitalstudio/digital-hub-fe
+            - image: mojdigitalstudio/digital-hub-be
+            - image: mojdigitalstudio/digital-hub-db
+        steps:
+            - checkout
+            - run:
+                name: Run frontend tests
+                command: cd moj-fe && make test
+            - run:
+                name: Run Drupal backend tests
+                command: cd moj-be && make test
+            - run:
+                name: Build frontend container
+                command: cd moj-fe && make build && make push
+            - run:
+                name: Build backend container
+                command: cd moj-be && make build && make push
 
-dependencies:
-  override:
-    - cd moj-be && make build && make push
-    - cd moj-fe && make build && make push
-
-test:
-    pre:
-        - cd moj-fe && make test
-        - cd moj-be && make test
-
-deployment:
-    development:
-        branch: master
-        commands:
-            - echo "CircleCI needs updates" 
