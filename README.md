@@ -18,6 +18,11 @@ To run a local version of the Digital Hub you will require Docker installed and 
 
 The Docker Compose file in this repo should provide a fully working system.
 
+As the development version is designed to mount your local directory to allow live editing of the code you will need to install the dependencies. To do this run the following commands.
+
+    cd moj-fe && make build-deps && cd ..
+    cd moj-be && make build-deps && cd ..
+
 The base containers are now published in our Docker Hub organisation here https://hub.docker.com/u/mojdigitalstudio/. If you wish to see a working version run
 
      docker-compose up
