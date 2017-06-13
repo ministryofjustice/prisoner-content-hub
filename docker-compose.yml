@@ -2,14 +2,12 @@ version: "3"
 
 services:
         hub-db:
-                image: mariadb
+            image: mojdigitalstudio/digital-hub-db
                 environment:
                         MYSQL_ROOT_PASSWORD: password
                         MYSQL_DATABASE: hubdb
                         MYSQL_USER: hubdb_user
                         MYSQL_PASSWORD: hubdb_pass
-                volumes:
-                        - ./db_dump:/docker-entrypoint-initdb.d
                 ports:
                         - 3306:3306
 
