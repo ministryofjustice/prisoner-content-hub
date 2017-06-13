@@ -2,6 +2,7 @@ version: 2
 
 jobs:
     build:
+        working_directory: ~/digital-hub
         docker:
             - image: mojdigitalstudio/digital-hub-fe
             - image: mojdigitalstudio/digital-hub-be
