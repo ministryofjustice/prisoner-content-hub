@@ -2,7 +2,7 @@ version: "3"
 
 services:
         hub-db:
-            image: mojdigitalstudio/digital-hub-db
+                image: mojdigitalstudio/digital-hub-db
                 environment:
                         MYSQL_ROOT_PASSWORD: password
                         MYSQL_DATABASE: hubdb
