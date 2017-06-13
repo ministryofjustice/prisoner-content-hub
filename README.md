@@ -29,6 +29,10 @@ The base containers are now published in our Docker Hub organisation here https:
 
 You can then visit the local version on http://localhost:8181 and the Drupal backend on http://localhost:8182
 
+You will need to change the Drupal admin password to login which you can do with
+
+    docker-compose run hub-drush upwd --password="newpassword" "admin"
+
 Edit code and provide new features
 ----------------------------------
 
@@ -52,10 +56,6 @@ Drush is provided in a Docker container as part of the Docker Compose configurat
 For example if you wanted to run the clear cache command
 
     docker-compose run hub-drush cc
-
-or reset the admin password for Drupal
-
-    docker-compose run hub-drush upwd --password="newpassword" "admin"
 
 ### Drupal CLI
 
