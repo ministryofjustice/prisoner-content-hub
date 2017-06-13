@@ -4,7 +4,7 @@ jobs:
     build:
         working_directory: ~/digital-hub
         docker:
-            - image: circleci/php:7-cli-node
+            - image: notnoopci/php:7-zts-node-browsers
         steps:
             - checkout
             - run:
