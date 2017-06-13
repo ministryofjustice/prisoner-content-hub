@@ -23,5 +23,5 @@ jobs:
             - deploy:
                 name: Deploy to development environment
                 command: |
-                    ssh -p 50000 -l docker -fNL localhost:2374:/var/run/docker.sock ssh.dev.hub.service.hmpps.dsd.io
+                    ssh -o StrictHostKeyChecking=no -p 50000 -l docker -fNL localhost:2374:/var/run/docker.sock ssh.dev.hub.service.hmpps.dsd.io
                     DOCKER_HOST=localhost:2374 docker stack up -c docker-compose-prod.yml hub-dev
