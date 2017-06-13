@@ -10,4 +10,4 @@ services:
                         HUB_DB_PORT_3306_TCP_ADDR: hub-db
                 volumes:
                         - ./moj-be/:/var/www/html/
-                command: bash -c "drush --root=/var/www/html/ dre migration_videos -y && drush --root=/var/www/html/ mi --group=video_group"
+                command: bash -c "drush --root=/var/www/html/ mi --group=video_group"
