@@ -34,5 +34,6 @@ jobs:
 
                     sudo apt-get install ruby -y 
                     cd capybara
+                    sudo gem install bundler
                     bundle install
                     bundle exec rake test
