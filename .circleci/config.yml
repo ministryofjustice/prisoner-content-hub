@@ -23,16 +23,21 @@ jobs:
             - run:
                 name: Build DB container
                 command: cd db && make build && make push
-#            - deploy:
-#                name: Deploy to development environment
-#                command: |
-#                    ssh -o StrictHostKeyChecking=no -p 50000 -l docker -fNL /home/circleci/docker.sock:/var/run/docker.sock ssh.dev.hub.service.hmpps.dsd.io
-#                    DOCKER_HOST=unix:///home/circleci/docker.sock docker stack up -c docker-compose-prod.yml hub-dev
+            - deploy:
+                name: Deploy to development environment
+                command: |
+                    ssh -o StrictHostKeyChecking=no -p 50000 -l docker -fNL /home/circleci/docker.sock:/var/run/docker.sock ssh.dev.hub.service.hmpps.dsd.io
+                    DOCKER_TLS_VERIFY= DOCKER_HOST=unix:///home/circleci/docker.sock docker --tls=false stack up -c docker-compose-prod.yml hub-dev
             - run:
                 name: Test development frontend
                 command: |
-
-                    sudo apt-get install ruby -y 
+                    #hack until we get a better ruby version in the container
+                    sudo apt-get install ruby-build rbenv bison -y
+                    eval "$(rbenv init -)"
+                    rbenv install 2.2.0-dev
+                    rbenv global 2.2.0-dev
+                    gem install bundler
+                    rbenv rehash
                     cd capybara
                     sudo gem install bundler
                     bundle install
