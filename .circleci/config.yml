@@ -23,11 +23,11 @@ jobs:
             - run:
                 name: Build DB container
                 command: cd db && make build && make push
-#            - deploy:
-#                name: Deploy to development environment
-#                command: |
-#                    ssh -o StrictHostKeyChecking=no -p 50000 -l docker -fNL /home/circleci/docker.sock:/var/run/docker.sock ssh.dev.hub.service.hmpps.dsd.io
-#                    DOCKER_HOST=unix:///home/circleci/docker.sock docker --tls=false stack up -c docker-compose-prod.yml hub-dev
+            - deploy:
+                name: Deploy to development environment
+                command: |
+                    ssh -o StrictHostKeyChecking=no -p 50000 -l docker -fNL /home/circleci/docker.sock:/var/run/docker.sock ssh.dev.hub.service.hmpps.dsd.io
+                    DOCKER_TLS_VERIFY= DOCKER_HOST=unix:///home/circleci/docker.sock docker --tls=false stack up -c docker-compose-prod.yml hub-dev
             - run:
                 name: Test development frontend
                 command: |
