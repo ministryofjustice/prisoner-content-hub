@@ -42,6 +42,54 @@ elixir( function (mix) {
     ).copy(
         'node_modules/draughtsboard/draughtsboard.css',
         'public/css'
+    ).copy(
+        'node_modules/neontroids/sound-fx.js',
+        'public/js'
+    ).copy(
+        'node_modules/neontroids/keyboard-io.js',
+        'public/js'
+    ).copy(
+        'node_modules/neontroids/collisions.js',
+        'public/js'
+    ).copy(
+        'node_modules/neontroids/asteroids-sprites.js',
+        'public/js'
+    ).copy(
+        'node_modules/neontroids/asteroids-polygon.js',
+        'public/js'
+    ).copy(
+        'node_modules/neontroids/display-text.js',
+        'public/js'
+    ).copy(
+        'node_modules/neontroids/asteroids.js',
+        'public/js'
+    ).copy(
+        'node_modules/neontroids/res/explosion1.mp3',
+        'public/js/res'
+    ).copy(
+        'node_modules/neontroids/res/explosion2.mp3',
+        'public/js/res'
+    ).copy(
+        'node_modules/neontroids/res/explosion3.mp3',
+        'public/js/res'
+    ).copy(
+        'node_modules/neontroids/res/large-saucer.mp3',
+        'public/js/res'
+    ).copy(
+        'node_modules/neontroids/res/saucer-missile.mp3',
+        'public/js/res'
+    ).copy(
+        'node_modules/neontroids/res/ship-missile.mp3',
+        'public/js/res'
+    ).copy(
+        'node_modules/neontroids/res/small-saucer.mp3',
+        'public/js/res'
+    ).copy(
+        'node_modules/neontroids/res/thump-high.mp3',
+        'public/js/res'
+    ).copy(
+        'node_modules/neontroids/res/thump-low.mp3',
+        'public/js/res'
     );
 
     mix.sass([
