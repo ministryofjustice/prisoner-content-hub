@@ -19,6 +19,7 @@
     "draughtsboard": "^0.1.1",
     "epub.js": "^0.2.15",
     "json3": "^3.3.2",
+    "neontroids": "git+git@github.com:swilson-mojhub/neontroids.git#hub",
     "snyk": "^1.30.1"
   }
 }

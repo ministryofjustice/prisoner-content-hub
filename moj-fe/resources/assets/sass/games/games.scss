@@ -78,6 +78,22 @@
   }
 }
 
+/* Neontroids */
+
+html, body {
+  &.neontroids {
+
+    width: 100%;
+    height: 100%;
+    background-color: black !important;
+    margin-bottom:0 !important;
+  }
+}
+.canvas {
+  margin-top: 96px;
+}
+
+
 /* Chess */
 
 .moves {
