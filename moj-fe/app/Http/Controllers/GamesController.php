@@ -26,4 +26,9 @@ class GamesController extends Controller
 	{
 		return view('games.draughts');
 	}
+    function showGamesNeontroids()
+    {
+        return view('games.neontroids');
+    }
+
 }
