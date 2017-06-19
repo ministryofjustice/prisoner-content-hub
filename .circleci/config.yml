@@ -31,9 +31,6 @@ jobs:
             - run:
                 name: Test development frontend
                 command: |
-                    #hack until we get a better ruby version in the container
-                    sudo gem install bundler
                     cd capybara
-                    sudo gem install bundler
                     bundle install
                     bundle exec rake test
