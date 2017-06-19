@@ -29,8 +29,8 @@ source:
       language: Language
     7:
       author: Author
-    8:
-      parent: Parent
+    # 8:
+      # parent: Parent
 # Process.
 process:
   type:
@@ -68,8 +68,5 @@ migration_dependencies:
     - videos_image
     - videos_sub_cats
 dependencies:
-  enforced:
-    module:
-    - videos_video
-    - videos_image
-    - videos_sub_cats
+  required: {  }
+  optional: {  }
