@@ -48,6 +48,5 @@ migration_dependencies:
   required:
     - videos_cats
 dependencies:
-  enforced:
-    module:
-      - videos_cats
+  required: {  }
+  optional: {  }
