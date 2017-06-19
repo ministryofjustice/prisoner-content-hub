@@ -4,7 +4,7 @@ jobs:
     build:
         working_directory: ~/digital-hub
         docker:
-            - image: notnoopci/php:7-zts-node-browsers
+            - image: mojdigitalstudio/circleci-build-container
         steps:
             - checkout
             - setup_remote_docker
@@ -32,12 +32,7 @@ jobs:
                 name: Test development frontend
                 command: |
                     #hack until we get a better ruby version in the container
-                    sudo apt-get install ruby-build rbenv bison -y
-                    eval "$(rbenv init -)"
-                    rbenv install 2.2.0-dev
-                    rbenv global 2.2.0-dev
-                    gem install bundler
-                    rbenv rehash
+                    sudo gem install bundler
                     cd capybara
                     sudo gem install bundler
                     bundle install
