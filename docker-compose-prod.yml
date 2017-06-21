@@ -23,6 +23,11 @@ services:
                         API_URI: http://hub-be/
                 ports:
                         - 80:80
+                healthcheck:
+                        test: ["CMD", "curl", "-f", "http://localhost"]
+                        interval: 1m
+                        timeout: 30s
+                        retries: 3
 
         hub-be:
                 image: mojdigitalstudio/digital-hub-be
@@ -39,3 +44,8 @@ services:
                         PHP_POST_MAX_SIZE: 256M
                 ports:
                         - 8182:80
+                healthcheck:
+                        test: ["CMD", "curl", "-f", "http://localhost"]
+                        interval: 1m
+                        timeout: 30s
+                        retries: 3
