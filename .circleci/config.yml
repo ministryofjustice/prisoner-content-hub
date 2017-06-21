@@ -30,7 +30,7 @@ jobs:
                     DOCKER_TLS_VERIFY= DOCKER_HOST=unix:///home/circleci/docker.sock docker stack up -c docker-compose-prod.yml hub-dev
                     DOCKER_TLS_VERIFY= DOCKER_HOST=unix:///home/circleci/docker.sock docker service scale hub-dev_hub-be=3
                     DOCKER_TLS_VERIFY= DOCKER_HOST=unix:///home/circleci/docker.sock docker service scale hub-dev_hub-fe=3
-                    until docker ps | grep -m 2 "(healthy)"; do : ; done 
+                    until curl -f http://dev.hub.service.hmpps.dsd.io; do : ; done 
             - run:
                 name: Test development frontend
                 command: |
