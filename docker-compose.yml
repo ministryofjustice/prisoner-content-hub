@@ -25,6 +25,11 @@ services:
                         - 8181:80
                 volumes:
                         - ./moj-fe/:/var/www/hub/
+                healthcheck:
+                        test: ["CMD", "curl", "-f", "http://localhost"]
+                        interval: 15s
+                        timeout: 30s
+                        retries: 1
 
         hub-be:
                 image: mojdigitalstudio/digital-hub-be
@@ -43,6 +48,11 @@ services:
                         - ./moj-be/:/var/www/html/
                 ports:
                         - 8182:80
+                healthcheck:
+                        test: ["CMD", "curl", "-f", "http://localhost"]
+                        interval: 15s
+                        timeout: 30s
+                        retries: 1
 
         hub-drush:
                 image: drupaldocker/drush
