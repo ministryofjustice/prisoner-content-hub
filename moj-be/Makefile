@@ -13,3 +13,8 @@ push:
 
 test:
 	cd core && ../vendor/bin/phpunit --testsuite=unit && cd ..
+
+upgrade:
+	docker-compose run hub-drush pm-update
+	docker-compose run hub-drush updatedb
+	docker-compose run hub-drush cc
