@@ -5,7 +5,6 @@ jobs:
         working_directory: ~/digital-hub
         docker:
             - image: mojdigitalstudio/circleci-build-container
-        parallelism: 2
         steps:
             - checkout
             - setup_remote_docker
