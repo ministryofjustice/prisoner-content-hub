@@ -90,8 +90,13 @@ elixir( function (mix) {
     ).copy(
         'node_modules/neontroids/res/thump-low.mp3',
         'public/js/res'
+    ).copy(
+        'node_modules/jplayer/dist/jplayer/jquery.jplayer.min.js',
+        'public/js'
+    ).copy(
+        'node_modules/jplayer/dist/jplayer/jquery.jplayer.swf',
+        'public/js/res'
     );
-
     mix.sass([
         'app.scss',
         'global.scss'
