@@ -17,4 +17,4 @@ test:
 upgrade:
 	docker-compose run hub-drush pm-update
 	docker-compose run hub-drush updatedb
-	docker-compose run hub-drush cc
+	docker-compose run hub-drush cr
