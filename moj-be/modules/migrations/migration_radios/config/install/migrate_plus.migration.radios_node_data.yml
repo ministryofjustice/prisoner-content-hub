@@ -1,12 +1,12 @@
-id: audios_node_data
-label: Import audio content.
-migration_group: audio_group
+id: radios_node_data
+label: Import radio content.
+migration_group: radio_group
 migration_tags:
   - CSV
 # Source.
 source:
   plugin: csv
-  path: './import/csv/audio.csv'
+  path: './import/csv/radio.csv'
   delimiter: ','
   enclosure: '"'
   header_row_count: 1
@@ -18,12 +18,14 @@ source:
     1:
       title: Title
     2:
-      categories: Categories
+      description: Description
     3:
-      audio: Audio
+      categories: Categories
     4:
-      language: Language
+      radio: Radio
     5:
+      language: Language
+    6:
       author: Author
 # Process.
 process:
@@ -33,24 +35,25 @@ process:
   title: title
   field_moj_categories:
     -
-      plugin: explode
-      delimiter: ', '
+      plugin: entity_generate
       source: categories
-    -
-      plugin: migration
-      migration: audios_cats
+      value_key: name
+      bundle_key: vid
+      bundle: moj_radio_categories
+      entity_type: taxonomy_term
+      ignore_case: true
   field_moj_description: description
-  field_moj_audio/target_id:
+  field_moj_radio/target_id:
     plugin: migration
-    migration: audios_audio
-    source: audio
+    migration: radios_radio
+    source: radio
 # Destination.
 destination:
   plugin: entity:node
 # Dependencies.
 migration_dependencies:
   optional:
-    - audios_audio
-    - audios_image
-    - audios_cats
-    - audios_cat_image
+    - radios_radio
+    - radios_image
+    - radios_cats
+    - radios_cat_image

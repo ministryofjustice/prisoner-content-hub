@@ -1,21 +1,21 @@
-id: audios_cat_image
-label: Image associated to audio items.
-migration_group: audio_group
+id: radios_cat_image
+label: Image associated to radio items.
+migration_group: radio_group
 migration_tags:
   - file
   - image
 # Source.
 source:
   plugin: csv
-  path: './import/csv/audio.tags.csv'
+  path: './import/csv/radio.tags.csv'
   header_row_count: 1
   keys:
     - Thumbnail
   fields:
-    audio: Name of the image file associated audio data.
+    radio: Name of the image file associated radio data.
   constants:
     file_source_uri: './import/assets/'
-    file_dest_uri: 'public://audios/images'
+    file_dest_uri: 'public://radios/images'
 # Destination.
 destination:
   plugin: 'entity:file'
