@@ -43,7 +43,7 @@ process:
       entity_type: taxonomy_term
       ignore_case: true
   field_moj_description: description
-  field_moj_radio/target_id:
+  field_moj_audio/target_id:
     plugin: migration
     migration: radios_radio
     source: radio

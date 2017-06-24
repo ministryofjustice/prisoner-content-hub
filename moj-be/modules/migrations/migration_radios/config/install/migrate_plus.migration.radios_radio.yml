@@ -12,7 +12,7 @@ source:
   keys:
     - Radio
   fields:
-    radio: Name of the radio file associated radio data.
+    Radio: Name of the radio file associated radio data.
   constants:
     file_source_uri: './import/assets/'
     file_dest_uri: 'public://radios/radios'
