@@ -1,6 +1,6 @@
 type: module
-name: Migration Audio
-description: 'Import audio content.'
+name: Migration PDF
+description: 'Import pdf content.'
 package: Content Import
 # core: 8.x
 dependencies:
