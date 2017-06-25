@@ -1,21 +1,20 @@
-id: audios_cat_image
-label: Image associated to audio items.
-migration_group: audio_group
+id: pdfs_cat_image
+label: Import pdf cats images.
+migration_group: pdf_group
 migration_tags:
-  - file
-  - image
+  - CSV
 # Source.
 source:
   plugin: csv
-  path: './import/csv/audio.tags.csv'
+  path: './import/csv/pdf.tags.csv'
   header_row_count: 1
   keys:
-    - Thumbnail
+    - Banner
   fields:
-    audio: Name of the image file associated audio data.
+    Banner: Name of the image file associated pdf data.
   constants:
     file_source_uri: './import/assets/'
-    file_dest_uri: 'public://audios/images'
+    file_dest_uri: 'public://pdf/images'
 # Destination.
 destination:
   plugin: 'entity:file'
@@ -27,7 +26,7 @@ process:
       delimiter: /
       source:
         - constants/file_source_uri
-        - Thumbnail
+        - Banner
     -
       plugin: urlencode
   file_dest:
@@ -36,10 +35,10 @@ process:
       delimiter: /
       source:
         - constants/file_dest_uri
-        - Thumbnail
+        - Banner
     -
       plugin: urlencode
-  filename: Thumbnail
+  filename: Banner
   uri:
     plugin: file_copy
     source:

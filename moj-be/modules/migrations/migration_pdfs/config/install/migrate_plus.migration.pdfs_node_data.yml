@@ -1,0 +1,54 @@
+id: pdfs_node_data
+label: Import pdf content.
+migration_group: pdf_group
+migration_tags:
+  - CSV
+# Source.
+source:
+  plugin: csv
+  path: './import/csv/pdf.csv'
+  delimiter: ','
+  enclosure: '"'
+  header_row_count: 1
+  keys:
+    - id
+  column_names:
+    0:
+      id: Id
+    1:
+      title: Title
+    2:
+      description: Description
+    3:
+      categories: Categories
+    4:
+      file: File
+    5:
+      language: Language
+    6:
+      author: Author
+# Process.
+process:
+  type:
+    plugin: default_value
+    default_value: moj_pdf_item
+  title: title
+  field_moj_categories:
+    -
+    plugin: entity_generate
+    source: categories
+    value_key: name
+    bundle_key: vid
+    bundle: moj_pdf_categories
+    entity_type: taxonomy_term
+    ignore_case: true
+  field_moj_description: description
+  field_moj_pdf/target_id:
+    plugin: migration
+    migration: pdfs_file
+    source: file
+# Destination.
+destination:
+  plugin: entity:node
+# Dependencies.
+migration_dependencies:

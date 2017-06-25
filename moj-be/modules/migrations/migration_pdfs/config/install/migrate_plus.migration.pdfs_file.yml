@@ -1,21 +1,20 @@
-id: audios_audio
-label: Audio associated to audio items.
-migration_group: audio_group
+id: pdfs_file
+label: Import pdf files.
+migration_group: pdf_group
 migration_tags:
-  - file
-  - audio
+  - CSV
 # Source.
 source:
   plugin: csv
-  path: './import/csv/audio.csv'
+  path: './import/csv/pdf.csv'
   header_row_count: 1
   keys:
-    - Audio
+    - File
   fields:
-    Audio: Name of the audio file associated audio data.
+    File: Name of the file associated pdf data.
   constants:
     file_source_uri: './import/assets/'
-    file_dest_uri: 'public://audios/audios'
+    file_dest_uri: 'public://pdf/pdfs'
 # Destination.
 destination:
   plugin: 'entity:file'
@@ -27,7 +26,7 @@ process:
       delimiter: /
       source:
         - constants/file_source_uri
-        - Audio
+        - File
     -
       plugin: urlencode
   file_dest:
@@ -36,10 +35,10 @@ process:
       delimiter: /
       source:
         - constants/file_dest_uri
-        - Audio
+        - File
     -
       plugin: urlencode
-  filename: Audio
+  filename: File
   uri:
     plugin: file_copy
     source:
