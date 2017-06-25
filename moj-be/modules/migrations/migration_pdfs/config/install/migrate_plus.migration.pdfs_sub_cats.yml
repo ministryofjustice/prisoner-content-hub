@@ -31,4 +31,12 @@ process:
   vid:
     plugin: default_value
     default_value: moj_pdf_categories
-  parent: parent
+  parent:
+    -
+      plugin: entity_generate
+      source: parent
+      value_key: name
+      bundle_key: vid
+      bundle: moj_pdf_categories
+      entity_type: taxonomy_term
+      ignore_case: true
