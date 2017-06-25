@@ -1,21 +1,21 @@
-id: audios_audio
-label: Audio associated to audio items.
-migration_group: audio_group
+id: radios_radio
+label: radio associated to radio items.
+migration_group: radio_group
 migration_tags:
   - file
-  - audio
+  - radio
 # Source.
 source:
   plugin: csv
-  path: './import/csv/audio.csv'
+  path: './import/csv/radio.csv'
   header_row_count: 1
   keys:
-    - Audio
+    - Radio
   fields:
-    Audio: Name of the audio file associated audio data.
+    Radio: Name of the radio file associated radio data.
   constants:
     file_source_uri: './import/assets/'
-    file_dest_uri: 'public://audios/audios'
+    file_dest_uri: 'public://radios/radios'
 # Destination.
 destination:
   plugin: 'entity:file'
@@ -27,7 +27,7 @@ process:
       delimiter: /
       source:
         - constants/file_source_uri
-        - Audio
+        - Radio
     -
       plugin: urlencode
   file_dest:
@@ -36,10 +36,10 @@ process:
       delimiter: /
       source:
         - constants/file_dest_uri
-        - Audio
+        - Radio
     -
       plugin: urlencode
-  filename: Audio
+  filename: Radio
   uri:
     plugin: file_copy
     source:

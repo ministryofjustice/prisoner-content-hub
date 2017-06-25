@@ -1,0 +1,10 @@
+---
+
+- name: Install aptitude
+  apt: name=aptitude state=installed
+
+- name: Update all packages to the latest version
+  apt:
+    upgrade: yes
+    update_cache: yes
+

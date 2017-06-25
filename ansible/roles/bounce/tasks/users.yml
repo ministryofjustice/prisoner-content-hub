@@ -1,0 +1,27 @@
+---
+
+- name: Rob Lazzurs
+  user:
+    name=lazzurs
+    shell=/bin/bash
+
+- name: Rob Lazzurs key
+  authorized_key:
+      user: lazzurs
+      key: "{{ item }}"
+      state: present
+  with_file:
+      - "files/keys/{{ env }}/lazzurs.pub"
+
+- name: Sean Privett
+  user:
+    name=sean
+    shell=/bin/bash
+    
+- name: Sean Privett key
+  authorized_key:
+      user: sean
+      key: "{{ item }}"
+      state: present
+  with_file:
+      - "files/keys/{{ env }}/sean.pub"
