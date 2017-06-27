@@ -8,9 +8,16 @@ jobs:
         steps:
             - checkout
             - setup_remote_docker
+            - restore_cache:
+                key: moj-fe/node_modules-{{ checksum "moj-fe/package.json" }}
+                key: moj-fe/node_modules
             - run:
                 name: Build frontend container
                 command: cd moj-fe && make build && make push
+            - save_cache:
+                key: moj-fe/node_modules-{{ checksum "moj-fe/package.json" }}
+                paths:
+                    - ./moj-fe/node_modules
             - run:
                 name: Build backend container
                 command: cd moj-be && make build && make push
