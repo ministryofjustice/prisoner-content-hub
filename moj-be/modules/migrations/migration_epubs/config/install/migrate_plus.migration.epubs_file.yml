@@ -1,0 +1,50 @@
+id: epubs_file
+label: Import epub file items.
+migration_group: epub_group
+migration_tags:
+  - CSV
+# Source.
+source:
+  plugin: csv
+  path: './import/csv/epub.file.csv'
+  header_row_count: 1
+  keys:
+    - File
+  fields:
+    File: Name of the file associated pdf data.
+  constants:
+    file_source_uri: './import/assets/'
+    file_dest_uri: 'public://epubs/epub'
+# Destination.
+destination:
+  plugin: 'entity:file'
+# Mappings.
+process:
+  file_source:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/file_source_uri
+        - File
+    -
+      plugin: urlencode
+  file_dest:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/file_dest_uri
+        - File
+    -
+      plugin: urlencode
+  filename: File
+  uri:
+    plugin: file_copy
+    source:
+      - '@file_source'
+      - '@file_dest'
+# Dependencies.
+migration_dependencies:
+  required: {  }
+  optional: {  }
