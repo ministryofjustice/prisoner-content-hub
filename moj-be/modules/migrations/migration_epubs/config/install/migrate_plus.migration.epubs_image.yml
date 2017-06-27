@@ -1,21 +1,21 @@
-id: audios_cat_image
-label: Image associated to audio items.
-migration_group: audio_group
+id: epubs_image
+label: Import test epub items
+migration_group: epub_group
 migration_tags:
-  - file
-  - image
+  - CSV
 # Source.
 source:
   plugin: csv
-  path: './import/csv/audio.tags.csv'
+  # Full path to the file.
+  path: './import/csv/epub.csv'
   header_row_count: 1
   keys:
-    - Thumbnail
+    - Image file
   fields:
-    audio: Name of the image file associated audio data.
+    Image file: Name of the image file associated with the program.
   constants:
     file_source_uri: './import/assets/'
-    file_dest_uri: 'public://audios/images'
+    file_dest_uri: 'public://epubs'
 # Destination.
 destination:
   plugin: 'entity:file'
@@ -27,7 +27,7 @@ process:
       delimiter: /
       source:
         - constants/file_source_uri
-        - Thumbnail
+        - Image file
     -
       plugin: urlencode
   file_dest:
@@ -36,10 +36,11 @@ process:
       delimiter: /
       source:
         - constants/file_dest_uri
-        - Thumbnail
+        - Image file
     -
       plugin: urlencode
-  filename: Thumbnail
+
+  filename: Image file
   uri:
     plugin: file_copy
     source:
