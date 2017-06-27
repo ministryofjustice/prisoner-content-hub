@@ -1,12 +1,14 @@
 type: module
-name: Migration Audio
-description: 'Import audio content.'
+name: Migration Radio
+description: 'Import radio content.'
 package: Content Import
 # core: 8.x
 dependencies:
   - drupal:migrate
+  - drupal:migrate_tools
+  - drupal:migrate_source_csv
   - migrate_plus:migrate_plus
-
 # Information added by Drupal.org packaging script on 2017-04-25
 version: '8.x-1.0'
 core: '8.x'
+
