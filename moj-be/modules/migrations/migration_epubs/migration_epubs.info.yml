@@ -1,0 +1,12 @@
+type: module
+name: Migration ePubs
+description: 'Import ePub items.'
+package: Content Import
+# core: 8.x
+dependencies:
+  - drupal:migrate
+  - migrate_plus:migrate_plus
+
+# Information added by Drupal.org packaging script on 2017-04-25
+version: '8.x-1.0'
+core: '8.x'

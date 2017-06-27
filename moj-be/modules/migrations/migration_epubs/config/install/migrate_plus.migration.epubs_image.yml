@@ -1,20 +1,21 @@
-id: pdfs_file
-label: Import pdf files.
-migration_group: pdf_group
+id: epubs_image
+label: Import test epub items
+migration_group: epub_group
 migration_tags:
   - CSV
 # Source.
 source:
   plugin: csv
-  path: './import/csv/pdf.csv'
+  # Full path to the file.
+  path: './import/csv/epub.csv'
   header_row_count: 1
   keys:
-    - File
+    - Image file
   fields:
-    File: Name of the file associated pdf data.
+    Image file: Name of the image file associated with the program.
   constants:
     file_source_uri: './import/assets/'
-    file_dest_uri: 'public://pdf/pdfs'
+    file_dest_uri: 'public://epubs'
 # Destination.
 destination:
   plugin: 'entity:file'
@@ -26,7 +27,7 @@ process:
       delimiter: /
       source:
         - constants/file_source_uri
-        - File
+        - Image file
     -
       plugin: urlencode
   file_dest:
@@ -35,10 +36,11 @@ process:
       delimiter: /
       source:
         - constants/file_dest_uri
-        - File
+        - Image file
     -
       plugin: urlencode
-  filename: File
+
+  filename: Image file
   uri:
     plugin: file_copy
     source:
