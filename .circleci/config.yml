@@ -32,7 +32,7 @@ jobs:
                 name: Build backend container
                 command: cd moj-be && make build && make push
             - save_cache:
-                    key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
+                key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
                 paths:
                     - ./moj-be/vendor
             - run:
