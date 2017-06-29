@@ -22,7 +22,7 @@ jobs:
                 paths:
                     - ./moj-fe/node_modules
             - save_cache:
-                    key: moj-fe/vendor-{{ checksum "moj-fe/composer.json" }}
+                key: moj-fe/vendor-{{ checksum "moj-fe/composer.json" }}
                 paths:
                     - ./moj-fe/vendor
             - restore_cache:
