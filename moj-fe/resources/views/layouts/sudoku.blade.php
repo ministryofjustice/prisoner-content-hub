@@ -57,9 +57,9 @@
             $("#sudoku-alert").addClass("show");
         }
     });
-    window.setInterval(function(){
+    /*window.setInterval(function(){
         mySudokuJS.solveStep();
-    }, 100);
+    }, 100);*/
 
     $(".new-game").on("click", function() {
         $("#sudoku-alert").removeClass("show");
