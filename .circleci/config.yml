@@ -56,9 +56,16 @@ jobs:
                     docker service scale hub-dev_hub-be=3
                     docker service scale hub-dev_hub-fe=3
                     until curl -f http://dev.hub.service.hmpps.dsd.io; do : ; done 
+            - restore_cache:
+                key: capybara/vendor-{{ checksum "capybara/Gemfile"}}
+                key: capybara/vendor
             - deploy:
                 name: Test development frontend
                 command: |
                     cd capybara
                     bundle install
                     bundle exec rake test
+            - save_cache:
+                    key: capybara/vendor-{{ checksum "capybara/Gemfile"}}
+                    paths:
+                        - ./capybara/vendor
