@@ -7,7 +7,7 @@ jobs:
             - image: mojdigitalstudio/circleci-build-container
         steps:
             - checkout
-            - setup_remote_docker
+            - setup_remote_docker:
                 reusable: true
             - restore_cache:
                 key: moj-fe/node_modules-{{ checksum "moj-fe/package.json" }}
