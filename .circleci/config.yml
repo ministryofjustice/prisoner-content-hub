@@ -8,6 +8,7 @@ jobs:
         steps:
             - checkout
             - setup_remote_docker
+                reusable: true
             - restore_cache:
                 key: moj-fe/node_modules-{{ checksum "moj-fe/package.json" }}
                 key: moj-fe/node_modules
