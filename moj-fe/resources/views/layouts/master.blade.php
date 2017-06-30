@@ -28,7 +28,10 @@
                 <div class="container">
                 <div class="row">
                     <div class="col-xs-10 text-align-right">
-                        <a href="#" title="New content" id="new-content-trigger" class="cta cta-success notifaction-cta"><img src="img/star.svg" alt="New content icon" class="star-icon"> New Content</a>
+                        <a href="#" title="New content" id="new-content-trigger" class="cta cta-success notifaction-cta">
+                            <img src="/img/star.svg" alt="New content icon" class="star-icon">
+                            New Content
+                        </a>
                     </div>
                     <div class="col-xs-2">
                         @include('languageDropdown', ['path' => $path])
@@ -59,7 +62,7 @@
 
             <header>
                 <a href="#" class="close-notifaction" id="close-notifaction">
-                    <img src="img/close.svg" class="close-icon" alt="close button">
+                    <img src="/img/close.svg" class="close-icon" alt="close button">
                     Close
                 </a>
                 <h2>New Content</h2>
