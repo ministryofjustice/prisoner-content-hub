@@ -27,7 +27,7 @@
             <div class="top-navigation hub-top-navigation ">
                 <div class="container">
                 <div class="row">
-                    <div class="col-xs-10 text-align-right">
+                    <div class="col-xs-8 text-align-right">
                         @if($newcontent)
                         <a href="/new-content" title="New content" id="new-content-trigger" class="cta cta-success notifaction-cta">
                             <img src="/img/star.svg" alt="New content icon" class="star-icon">
@@ -36,8 +36,12 @@
                         @endif
                     </div>
                     <div class="col-xs-2">
+                        @include('searchBox', ['path' => $path])
+                    </div>
+                    <div class="col-xs-2">
                         @include('languageDropdown', ['path' => $path])
                     </div>
+
                 </div>
                 </div>
             </div>

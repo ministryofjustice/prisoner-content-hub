@@ -1,0 +1,29 @@
+/* Search Box */
+
+.searchBox {
+
+  display: table;
+  position: relative;
+  top: 17px;
+
+  input {
+
+    &.searchInput
+    {
+      display: inline-block;
+      width: 80%;
+      margin: 0;
+      float: left;
+
+    }
+  }
+
+  button {
+    display: inline-block;
+    width: 20%;
+    margin: 0;
+    float: left;
+    padding: 10px;
+    font-size: 16px;
+  }
+}
