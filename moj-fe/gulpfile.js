@@ -94,6 +94,18 @@ elixir( function (mix) {
         'node_modules/jplayer/dist/jplayer/jquery.jplayer.min.js',
         'public/js'
     ).copy(
+        'node_modules/jplayer/dist/jplayer/dist/skin/blue.monday/image/jplayer.blue.monday.jpg',
+        'public/image/'
+    ).copy(
+        'node_modules/jplayer/dist/jplayer/dist/skin/blue.monday/image/jplayer.blue.monday.seeking.gif',
+        'public/image/'
+    ).copy(
+        'node_modules/jplayer/dist/jplayer/dist/skin/blue.monday/image/jplayer.blue.monday.video.play.png',
+        'public/image/'
+    ).copy(
+        'node_modules/jplayer/dist/jplayer/dist/skin/blue.monday/css/jplayer.blue.monday.min.css',
+        'public/css/jplayer.css'
+    ).copy(
         'node_modules/jplayer/dist/jplayer/jquery.jplayer.swf',
         'public/js/res'
     );
