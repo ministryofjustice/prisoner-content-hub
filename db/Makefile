@@ -6,4 +6,4 @@ push:
 	docker push mojdigitalstudio/digital-hub-db
 
 update-dump:
-        mysqldump -uroot -ppassword hubdb dump/hub.sql
+	mysqldump -uroot -ppassword hubdb dump/hub.sql
