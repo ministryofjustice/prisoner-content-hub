@@ -5,8 +5,8 @@
     "license": "GPL-2.0+",
     "require": {
         "composer/installers": "^1.0.24",
-        "mhor/php-mediainfo": "^2.2",
-        "wikimedia/composer-merge-plugin": "~1.4"
+        "wikimedia/composer-merge-plugin": "~1.4",
+        "mhor/php-mediainfo": "^3.0"
     },
     "replace": {
         "drupal/core": "~8.3"
