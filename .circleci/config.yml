@@ -7,13 +7,35 @@ jobs:
             - image: mojdigitalstudio/circleci-build-container
         steps:
             - checkout
-            - setup_remote_docker
+            - setup_remote_docker:
+                reusable: true
+            - restore_cache:
+                key: moj-fe/node_modules-{{ checksum "moj-fe/package.json" }}
+                key: moj-fe/node_modules
+            - restore_cache:
+                key: moj-fe/vendor-{{ checksum "moj-fe/composer.json" }}
+                key: moj-fe/vendor
             - run:
                 name: Build frontend container
                 command: cd moj-fe && make build && make push
+            - save_cache:
+                key: moj-fe/node_modules-{{ checksum "moj-fe/package.json" }}
+                paths:
+                    - ./moj-fe/node_modules
+            - save_cache:
+                key: moj-fe/vendor-{{ checksum "moj-fe/composer.json" }}
+                paths:
+                    - ./moj-fe/vendor
+            - restore_cache:
+                key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
+                key: moj-be/vendor
             - run:
                 name: Build backend container
                 command: cd moj-be && make build && make push
+            - save_cache:
+                key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
+                paths:
+                    - ./moj-be/vendor
             - run:
                 name: Run frontend tests
                 command: cd moj-fe && make test
@@ -34,9 +56,16 @@ jobs:
                     docker service scale hub-dev_hub-be=3
                     docker service scale hub-dev_hub-fe=3
                     until curl -f http://dev.hub.service.hmpps.dsd.io; do : ; done 
+            - restore_cache:
+                key: capybara/vendor-{{ checksum "capybara/Gemfile"}}
+                key: capybara/vendor
             - deploy:
                 name: Test development frontend
                 command: |
                     cd capybara
                     bundle install
                     bundle exec rake test
+            - save_cache:
+                    key: capybara/vendor-{{ checksum "capybara/Gemfile"}}
+                    paths:
+                        - ./capybara/vendor
