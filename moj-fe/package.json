@@ -20,6 +20,7 @@
     "epub.js": "^0.2.15",
     "json3": "^3.3.2",
     "neontroids": "https://github.com/swilson-mojhub/neontroids.git#hub",
-    "snyk": "^1.30.1"
+    "snyk": "^1.30.1",
+    "jplayer": "2.9.2"
   }
 }
