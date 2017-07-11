@@ -1,1 +1,3 @@
 ssh_use_pam: true
+ssh_google_auth: true
+ssh_challengeresponseauthentication: true
