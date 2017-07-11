@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    /*
     $( '#new-content-trigger' ).click(function(e) {
         console.log('ello');
         e.preventDefault();
@@ -11,6 +11,7 @@ $(document).ready(function () {
         $( '#overlay' ).toggleClass('active');
         $( '#notifaction' ).toggleClass('active');
     });
+    */
 
 
     $('.bxslider').bxSlider();

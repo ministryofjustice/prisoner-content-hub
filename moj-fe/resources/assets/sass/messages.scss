@@ -70,37 +70,20 @@
 
 .notifaction {
 
-  display: block;
-  position: fixed;
-  z-index: 101;
-  right: -100%;
-  top: 0;
-  width: 40%;
-  height: 100%;
-  background: #fff;
-
-  /* Animations */
-  transition: right 0.5s ease;
-
-  &.active {
-    right: 0;
-  }
+  text-align: left;
 
   header {
 
-    background: #363;
-    // padding: 2em 1em;
+    padding: 2em 1em;
+    margin-bottom: 1em;
+    border-bottom: 1px solid #ccc;
 
-    display: table;
-    width: 100%;
 
     h2, P {
-      color: #fff;
       margin: 0;
     }
     h2 {
-
-      margin: 0.5em 0 0.1em 0;
+      margin: 0.5em 0 0em 0;
     }
 
     .close-notifaction {
@@ -126,23 +109,20 @@
   }
 
   h4, h3 {
-    margin-bottom: 0.250em;
+    margin-bottom: 1em;
   }
 
   p, li, h4 {
-    font-size: 0.850em;
+    font-size: 1.000em;
   }
 
-
-
-
   ul {
-    margin: 0;
+    margin: 0 0 1em 0;
     padding: 0;
 
 
     li {
-      margin: 0 0 0.325em 1.250em;
+      margin: 0 0 0.5em 1.250em;
       padding: 0;
     }
   }

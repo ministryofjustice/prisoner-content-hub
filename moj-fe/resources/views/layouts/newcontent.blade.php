@@ -23,25 +23,22 @@
     </head>
 
     <body>
-        @if ( Route::currentRouteName() == 'hub.sub' || Route::currentRouteName() == 'hub.landing' )
-            <div class="top-navigation hub-top-navigation ">
-                <div class="container">
-                <div class="row">
-                    <div class="col-xs-10 text-align-right">
-                        <a href="/new-content" title="New content" id="new-content-trigger" class="cta cta-success notifaction-cta">
-                            <img src="/img/star.svg" alt="New content icon" class="star-icon">
-                            New Content
-                        </a>
+    <div class="top-navigation new-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="/hub" class="back-to-hub">
+                    <span class="icon icon-icon-hub" aria-hidden="true"></span>
+                    <div class="back-to-the-hub-text">
+                        {{ trans('navigation.title') }}
                     </div>
-                    <div class="col-xs-2">
-                        @include('languageDropdown', ['path' => $path])
-                    </div>
-                </div>
+                </a>
+
+                <div class="navigation-title game-yellow">
+                    {{ trans('navigation.newcontenttitle') }}
                 </div>
             </div>
-        @else
-        @yield('header')
-        @endif
+        </div>
+    </div>
 
         @yield('top_content')
 

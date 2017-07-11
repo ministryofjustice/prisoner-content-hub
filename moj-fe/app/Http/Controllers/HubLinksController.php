@@ -36,4 +36,19 @@ class HubLinksController extends Controller
 
 		return view('hub.subHub', ['links' => $links]);
 	}
+
+	/* New content */
+
+    function getNewContent(Request $request, $id = NULL)
+    {
+        $page_data = HubLinks::getItem($id, $request->input('user_id'));
+        $path = LangSelectPath::getPath($request->path());
+        $backlink = HubBackLink::getBackLink();
+
+        return view('hub.newcontent', [
+            'page' => $page_data,
+            'path' => $path,
+            'backlink' => $backlink
+        ]);
+    }
 }
