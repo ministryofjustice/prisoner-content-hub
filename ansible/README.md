@@ -18,11 +18,17 @@ Setup
     bundle install
     bundle exec librarian-ansible install
 
+As the servers are using 2FA you will need to create a control connection before trying to run Ansible.
+
+As an example
+
+    ssh -M -S tmp/hub-bounce-dev hub-bounce-dev
+
 To run dev
 
-    ansible-playbook -i dev site.yml
+    ansible-playbook --ssh-common-args='-o ControlPath=~/tmp/hub-bounce-dev' -i dev site.yml
 
 Once you have verified dev is still working as expected run prod 
 
-    ansible-playbook -i prod site.yml
+    ansible-playbook --ssh-common-args='-o ControlPath=~/tmp/hub-bounce-dev' -i prod site.yml
 
