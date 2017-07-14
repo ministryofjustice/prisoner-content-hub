@@ -55,15 +55,8 @@
             &copy; <?php echo date("Y"); ?> {{ trans('footer.message') }}
         </footer>
         @endif
-
         <div id="overlay" class="overlay"></div>
-
-        <section id="notifaction" class="notifaction">
-
-
-
-        </section>
-
+        <section id="notifaction" class="notifaction"></section>
     </body>
 </html>
 

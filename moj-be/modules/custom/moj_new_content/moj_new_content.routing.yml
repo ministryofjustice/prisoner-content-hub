@@ -1,0 +1,6 @@
+moj_new_content.landingPage:
+  path: '/api/newcontent'
+  defaults:
+    _controller: '\Drupal\moj_new_content\Controller\NewContentController::landingPage'
+  requirements:
+    _permission: 'access content'

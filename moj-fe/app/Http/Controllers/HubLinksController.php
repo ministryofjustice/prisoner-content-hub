@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Facades\HubLinks;
+use App\Facades\NewContent;
 use App\Helpers\LangSelectPath;
 use App\Helpers\HubBackLink;
 use App\Http\Controllers\Controller;
@@ -41,7 +42,7 @@ class HubLinksController extends Controller
 
     function getNewContent(Request $request, $id = NULL)
     {
-        $page_data = HubLinks::getItem($id, $request->input('user_id'));
+        $page_data = NewContent::getItem($request->input('user_id'));
         $path = LangSelectPath::getPath($request->path());
         $backlink = HubBackLink::getBackLink();
 

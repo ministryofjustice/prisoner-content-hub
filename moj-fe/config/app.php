@@ -159,6 +159,7 @@ return [
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
 
         App\Providers\VideosRepositoryServiceProvider::class,
+        App\Providers\NewContentRepositoryServiceProvider::class,
 		App\Providers\HubLinksRepositoryServiceProvider::class,
 		App\Providers\PdfsRepositoryServiceProvider::class,
         App\Providers\NewsRepositoryServiceProvider::class,

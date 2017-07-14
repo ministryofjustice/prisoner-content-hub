@@ -7,6 +7,8 @@
 
 <div class="container notifaction">
     <div class="col-xs-12">
+
+
         <header>
             <h2>12th Spetember 2017</h2>
         </header>
@@ -14,11 +16,9 @@
         <section class="content books">
             <h3>Books</h3>
             <ul>
-                <li><a href="#" title="Hello world">Nisl dictumst augue pulvinar libero.</a></li>
-                <li><a href="#" title="Hello world">Quam senectus Praesent sit dignissim eu interdum</a></li>
-                <li><a href="#" title="Hello world">Tempor auctor mauris urna ipsum aenean in</a></li>
-                <li><a href="#" title="Hello world">Felis sociosqu praesent nascetur est habitasse</a></li>
-                <li><a href="#" title="Hello world">Rutrum feugiat parturient.</a></li>
+                @foreach($page->links as $link)
+                    <li><a href="{{ $link->pdf_url }}" title="{{ $link->title }}">{{ $link->title }}.</a></li>
+                @endforeach
             </ul>
         </section>
 
