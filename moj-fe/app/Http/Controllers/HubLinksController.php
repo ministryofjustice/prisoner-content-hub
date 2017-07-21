@@ -16,11 +16,13 @@ class HubLinksController extends Controller
 		$page_data = HubLinks::getItem($id, $request->input('user_id'));
 		$path = LangSelectPath::getPath($request->path());
 		$backlink = HubBackLink::getBackLink();
+		$new_content = HubLinks::checkNewContent($request->input('user_id'));
 
 		return view('hub.item', [
 			'page' => $page_data,
 			'path' => $path,
-			'backlink' => $backlink
+			'backlink' => $backlink,
+            'newcontent' => $new_content
 		]);
 	}
 

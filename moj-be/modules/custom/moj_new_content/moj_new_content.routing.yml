@@ -4,3 +4,10 @@ moj_new_content.landingPage:
     _controller: '\Drupal\moj_new_content\Controller\NewContentController::landingPage'
   requirements:
     _permission: 'access content'
+
+moj_new_content.testNewContent:
+  path: '/api/checknewcontent'
+  defaults:
+    _controller: '\Drupal\moj_new_content\Controller\NewContentController::testNewContent'
+  requirements:
+    _permission: 'access content'

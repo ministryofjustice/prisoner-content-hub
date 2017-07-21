@@ -37,4 +37,18 @@ class HubLinksRepository {
 
 		return json_decode($response->getBody());
 	}
+
+    public function checkNewContent($user_id = NULL) {
+        $url = $this->locale . '/api/checknewcontent';
+
+        $headers = [];
+
+        if ($user_id) {
+            $headers['custom-auth-id'] = $user_id;
+        }
+
+        $response	= $this->client->get($url, [ 'headers' => $headers ]);
+
+        return json_decode($response->getBody());
+    }
 }

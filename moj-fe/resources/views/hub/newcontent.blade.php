@@ -4,56 +4,57 @@
 
 @section('content')
 
+    <div class="container notifaction">
+        <div class="col-xs-12">
 
-<div class="container notifaction">
-    <div class="col-xs-12">
+            <header>
+                @if($page->todaysdate)
+                    <h2>{{ $page->todaysdate }}</h2>
+                @endif
+            </header>
 
+            @if(!$page->books && !$page->videos && !$page->audio)
+                <section class="content books">
+                    <h3>No new content has been added today</h3>
+                </section>
+            @endif
 
-        <header>
-            <h2>12th Spetember 2017</h2>
-        </header>
+            @if($page->books)
+                <section class="content books">
+                    <h3>Books</h3>
+                    <ul>
+                        @foreach($page->books as $books)
+                            <li><a href="/epub?pdf={{ $books->pdf_url }}" target="_blank"
+                                   title="{{ $books->title }}">{{ $books->title }}.</a></li>
+                        @endforeach
+                    </ul>
+                </section>
+            @endif
+            @if($page->videos)
+                <section class="content videos">
 
-        <section class="content books">
-            <h3>Books</h3>
-            <ul>
-                @foreach($page->links as $link)
-                    <li><a href="{{ $link->pdf_url }}" title="{{ $link->title }}">{{ $link->title }}.</a></li>
-                @endforeach
-            </ul>
-        </section>
+                    <h3>Videos</h3>
+                    @foreach($page->videos as $key => $value)
+                        <h4>{{ $key }}</h4>
+                        @foreach($value as $videos)
+                            <li>
+                                <a href="video/{{ $videos->nid }}" title="{{ $videos->title }}">{{ $videos->title }}
+                                    .</a>
+                            </li>
+                        @endforeach
+                    @endforeach
+                </section>
+            @endif
+            @if($page->audio)
+                <section class="content radio">
+                    <h3>Radio</h3>
 
-        <section class="content videos">
-            <h3>Videos</h3>
-            <h4>Timewise > Seeing How it is</h4>
-            <ul>
-                <li><a href="#" title="Hello world">Nisl dictumst augue pulvinar libero.</a></li>
-                <li><a href="#" title="Hello world">Quam senectus Praesent sit dignissim eu interdum</a></li>
-            </ul>
-            <h4>Timewise > Seeing How it is</h4>
-            <ul>
-                <li><a href="#" title="Hello world">Nisl dictumst augue pulvinar libero.</a></li>
-                <li><a href="#" title="Hello world">Quam senectus Praesent sit dignissim eu interdum</a></li>
-            </ul>
-            <h4>TED Talks > All the time</h4>
-            <ul>
-                <li><a href="#" title="Hello world">Nisl dictumst augue pulvinar libero.</a></li>
-                <li><a href="#" title="Hello world">Quam senectus Praesent sit dignissim eu interdum</a></li>
-            </ul>
-        </section>
+                    @foreach($page->audio as $audio)
+                        <li><a href="radio/{{ $audio->nid }}" title="{{ $audio->title }}">{{ $audio->title }}.</a></li>
+                    @endforeach
 
-        <section class="content radio">
-            <h3>Radio</h3>
-            <h4>Bob and Gone</h4>
-            <ul>
-                <li><a href="#" title="Hello world">Felis sociosqu praesent nascetur est habitasse</a></li>
-                <li><a href="#" title="Hello world">Rutrum feugiat parturient.</a></li>
-            </ul>
-            <h4>Radio 7</h4>
-            <ul>
-                <li><a href="#" title="Hello world">Nisl dictumst augue pulvinar libero.</a></li>
-                <li><a href="#" title="Hello world">Quam senectus Praesent sit dignissim eu interdum</a></li>
-            </ul>
-        </section>
+                </section>
+            @endif
+        </div>
     </div>
-</div>
 @endsection

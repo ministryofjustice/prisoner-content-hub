@@ -5,5 +5,5 @@ return [
     'back' => 'Back to :page',
     'video' => 'Video',
     'radio' => 'Radio',
-    'newcontenttitle' => 'Latest Content',
+    'newcontenttitle' => 'Added Today',
 ];
