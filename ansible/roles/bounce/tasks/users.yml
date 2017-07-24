@@ -24,6 +24,20 @@
   with_file:
       - "files/keys/{{ env }}/lazzurs.pub"
 
+- name: Glen Mailer
+  user:
+    name: glenmailer
+    shell: /bin/bash
+    groups: admin
+
+- name: Glen Mailer key
+  authorized_key:
+      user: glenmailer
+      key: "{{ item }}"
+      state: present
+  with_file:
+      - "files/keys/{{ env }}/glenmailer.pub"
+
 - name: Sean Privett
   user:
     name: sean
