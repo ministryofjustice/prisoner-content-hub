@@ -1,9 +1,20 @@
 ---
 
+- name: passwordless sudo for admin
+  copy:
+    dest: /etc/sudoers.d/admin
+    content: |
+      %admin ALL=(ALL) NOPASSWD: ALL
+    owner: root
+    group: root
+    mode: 0644
+    validate: 'visudo -cf %s'
+
 - name: Rob Lazzurs
   user:
-    name=lazzurs
-    shell=/bin/bash
+    name: lazzurs
+    shell: /bin/bash
+    groups: admin
 
 - name: Rob Lazzurs key
   authorized_key:
@@ -15,9 +26,9 @@
 
 - name: Sean Privett
   user:
-    name=sean
-    shell=/bin/bash
-    
+    name: sean
+    shell: /bin/bash
+
 - name: Sean Privett key
   authorized_key:
       user: sean
