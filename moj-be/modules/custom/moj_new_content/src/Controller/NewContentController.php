@@ -5,9 +5,6 @@ namespace Drupal\moj_new_content\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-/**
- * Controller routines for page example routes.
- */
 class NewContentController extends ControllerBase
 {
     /**
@@ -201,6 +198,5 @@ class NewContentController extends ControllerBase
         }
         return $result;
     }
-
 
 }
