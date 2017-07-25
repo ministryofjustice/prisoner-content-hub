@@ -16,7 +16,7 @@ class HubLinksRepository {
 	public function __construct() {
 		$this->client = new Client([
 			'base_uri' => config('app.api_uri'),
-			'timeout' => 60.0,
+			'timeout' => config('app.timeout'),
 		]);
 
 		$this->locale = \App::getLocale();
