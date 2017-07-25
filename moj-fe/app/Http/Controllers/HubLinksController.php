@@ -54,4 +54,20 @@ class HubLinksController extends Controller
             'backlink' => $backlink
         ]);
     }
+
+    /* Search content */
+
+	function searchContent(Request $request, $keywords = NULL)
+	{
+		$page_data = NewContent::getItem($request->input('user_id'));
+		$path = LangSelectPath::getPath($request->path());
+		$backlink = HubBackLink::getBackLink();
+
+		return view('hub.search', [
+			'page' => $page_data,
+			'path' => $path,
+			'backlink' => $backlink,
+			'keywords' => $keywords
+		]);
+	}
 }
