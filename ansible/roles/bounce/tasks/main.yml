@@ -1,6 +1,4 @@
 ---
 
-- name: Bounce role
-
-  include: packages.yml
-  include: users.yml
+- include: packages.yml
+- include: users.yml
