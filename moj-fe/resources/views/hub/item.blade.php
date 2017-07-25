@@ -18,9 +18,14 @@
       @else
         <img src="/img/icon-hub.png" alt="{{ $page->title }}">
         <h1>{{ trans('hub.title') }}</h1>
+
       @endif
     </div>
+      <div class="col-xs-12">
+          @include('searchBox', ['path' => $path])
+      </div>
   </div>
+
   <ul class="row row-centered hub-thumb">
       @foreach($page->links as $link)
       <li class="col-xs-2 col-centered">
