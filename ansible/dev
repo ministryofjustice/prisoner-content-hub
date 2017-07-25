@@ -1,2 +1,4 @@
 [bounce]
 dev.admin.hub.service.hmpps.dsd.io
+[jenkins]
+dev.jenkins.hub.service.hmpps.dsd.io
