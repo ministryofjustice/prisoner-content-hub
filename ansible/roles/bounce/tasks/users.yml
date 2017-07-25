@@ -50,3 +50,16 @@
       state: present
   with_file:
       - "files/keys/{{ env }}/sean.pub"
+
+- name: James Glossop
+  user:
+    name: jamesglossop
+    shell: /bin/bash
+
+- name: James Glossop key
+  authorized_key:
+      user: jamesglossop
+      key: "{{ item }}"
+      state: present
+  with_file:
+      - "files/keys/{{ env }}/jamesglossop.pub"

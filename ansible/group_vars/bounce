@@ -1,5 +1,6 @@
 ssh_use_pam: true
 ssh_google_auth: true
 ssh_challengeresponseauthentication: true
+ssh_allow_tcp_forwarding: true
 unattended_automatic_reboot: true
 unattended_ignore_apps_require_restart: true
