@@ -1,0 +1,6 @@
+moj_search.searchApiEndpoint:
+  path: '/api/search'
+  defaults:
+    _controller: '\Drupal\moj_search\Controller\SearchApiController::searchApiEndpoint'
+  requirements:
+    _permission: 'access content'
