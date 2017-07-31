@@ -160,10 +160,11 @@ return [
 
         App\Providers\VideosRepositoryServiceProvider::class,
         App\Providers\NewContentRepositoryServiceProvider::class,
-		App\Providers\HubLinksRepositoryServiceProvider::class,
-		App\Providers\PdfsRepositoryServiceProvider::class,
+				App\Providers\HubLinksRepositoryServiceProvider::class,
+				App\Providers\PdfsRepositoryServiceProvider::class,
         App\Providers\NewsRepositoryServiceProvider::class,
         App\Providers\RadiosRepositoryServiceProvider::class,
+				Collective\Html\HtmlServiceProvider::class,
     ],
 
     /*
@@ -214,6 +215,8 @@ return [
 		    'HubLinks' => App\Facades\HubLinks::class,
 		    'Pdfs' => App\Facades\Pdfs::class,
         'News' => App\Facades\News::class,
+				'Form' => Collective\Html\FormFacade::class,
+				'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 	/*
@@ -224,5 +227,7 @@ return [
     |
     */
     'api_uri' => env('API_URI', 'http://192.168.33.10/'),
+
+		'Form'=> 'Illuminate\Html\FormFacade'
 
 ];

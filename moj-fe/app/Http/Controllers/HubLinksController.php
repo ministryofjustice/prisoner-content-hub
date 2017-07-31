@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Facades\HubLinks;
 use App\Facades\NewContent;
 use App\Helpers\LangSelectPath;
@@ -11,63 +12,72 @@ use App\Http\Controllers\Controller;
 
 class HubLinksController extends Controller
 {
-	function getItem(Request $request, $id = NULL)
-	{
-		$page_data = HubLinks::getItem($id, $request->input('user_id'));
-		$path = LangSelectPath::getPath($request->path());
-		$backlink = HubBackLink::getBackLink();
-		$new_content = HubLinks::checkNewContent($request->input('user_id'));
 
-		return view('hub.item', [
-			'page' => $page_data,
-			'path' => $path,
-			'backlink' => $backlink,
-            'newcontent' => $new_content
-		]);
-	}
+    function getItem(Request $request, $id = null)
+    {
+        $page_data = HubLinks::getItem($id, $request->input('user_id'));
+        $path = LangSelectPath::getPath($request->path());
+        $backlink = HubBackLink::getBackLink();
+        $new_content = HubLinks::checkNewContent($request->input('user_id'));
 
-	function showHubPage()
-	{
-		$links = HubLinks::topLevelItems();
+        return view(
+          'hub.item',
+          [
+            'page' => $page_data,
+            'path' => $path,
+            'backlink' => $backlink,
+            'newcontent' => $new_content,
+          ]
+        );
+    }
 
-		return view('hub.hub', ['links' => $links]);
-	}
+    function showHubPage()
+    {
+        $links = HubLinks::topLevelItems();
 
-	function showHubSubPage($tid)
-	{
-		$links = HubLinks::subLevelItems($tid);
+        return view('hub.hub', ['links' => $links]);
+    }
 
-		return view('hub.subHub', ['links' => $links]);
-	}
+    function showHubSubPage($tid)
+    {
+        $links = HubLinks::subLevelItems($tid);
 
-	/* New content */
+        return view('hub.subHub', ['links' => $links]);
+    }
 
-    function getNewContent(Request $request, $id = NULL)
+    function getNewContent(Request $request, $id = null)
     {
         $page_data = NewContent::getItem($request->input('user_id'));
         $path = LangSelectPath::getPath($request->path());
         $backlink = HubBackLink::getBackLink();
 
-        return view('hub.newcontent', [
+        return view(
+          'hub.newcontent',
+          [
             'page' => $page_data,
             'path' => $path,
-            'backlink' => $backlink
-        ]);
+            'backlink' => $backlink,
+          ]
+        );
     }
 
-    /* Search content */
+    function searchContent(Request $request)
+    {
+        $page_data = NewContent::getItem($request->input('user_id'));
+        $path = LangSelectPath::getPath($request->path());
+        $backlink = HubBackLink::getBackLink();
 
-	function searchContent(Request $request, $keywords = NULL)
-	{
-		$page_data = NewContent::getItem($request->input('user_id'));
-		$path = LangSelectPath::getPath($request->path());
-		$backlink = HubBackLink::getBackLink();
+        $keywords = Input::get('q', '');
 
-		return view('hub.search', [
-			'page' => $page_data,
-			'path' => $path,
-			'backlink' => $backlink,
-			'keywords' => $keywords
-		]);
-	}
+        return view(
+          'hub.search',
+          [
+            'page' => $page_data,
+            'path' => $path,
+            'backlink' => $backlink,
+            'keywords' => $keywords,
+          ]
+        );
+    }
+
 }
