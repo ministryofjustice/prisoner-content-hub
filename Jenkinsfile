@@ -30,6 +30,15 @@ pipeline {
       }
     }
 
+    stage ('Deploy') {
+      when {
+        branch 'master'
+      } 
+      steps {
+        sh 'echo TODO'
+      }
+    }
+
   }
 
 }
