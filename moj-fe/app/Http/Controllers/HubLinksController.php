@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Facades\HubLinks;
+use App\Facades\Search;
 use App\Facades\NewContent;
 use App\Helpers\LangSelectPath;
 use App\Helpers\HubBackLink;
@@ -19,6 +20,7 @@ class HubLinksController extends Controller
         $path = LangSelectPath::getPath($request->path());
         $backlink = HubBackLink::getBackLink();
         $new_content = HubLinks::checkNewContent($request->input('user_id'));
+
 
         return view(
           'hub.item',
@@ -63,16 +65,15 @@ class HubLinksController extends Controller
 
     function searchContent(Request $request)
     {
-        $page_data = NewContent::getItem($request->input('user_id'));
+        $keywords = Input::get('q', '');
+        $results = Search::getResults($request->input('user_id'), $keywords);
         $path = LangSelectPath::getPath($request->path());
         $backlink = HubBackLink::getBackLink();
-
-        $keywords = Input::get('q', '');
 
         return view(
           'hub.search',
           [
-            'page' => $page_data,
+            'results' => $results,
             'path' => $path,
             'backlink' => $backlink,
             'keywords' => $keywords,

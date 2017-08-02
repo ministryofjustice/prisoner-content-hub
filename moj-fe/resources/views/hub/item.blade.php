@@ -21,9 +21,11 @@
 
       @endif
     </div>
+      @if (!$page->id)
       <div class="col-xs-12">
           @include('searchBox', ['path' => $path])
       </div>
+      @endif
   </div>
 
   <ul class="row row-centered hub-thumb">

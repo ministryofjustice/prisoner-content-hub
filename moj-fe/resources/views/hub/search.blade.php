@@ -6,23 +6,27 @@
 
     <div class="container notifaction">
         <div class="col-xs-12">
+            @include('searchBox', ['path' => $path])
+        </div>
+
+        <div class="col-xs-12">
 
             <header>
                 <h2>Search Results for: {{ $keywords }}</h2>
             </header>
 
-            @if(!$page->books)
+            @if(!$results)
                 <section class="content books">
                     <h3>No reults were found for: {{ $keywords }}</h3>
                 </section>
             @endif
-
-            @if($page->books)
+            @if($results)
                 <section class="content books">
                     <ul>
-                        @foreach($page->books as $books)
-                            <li><a href="/epub?pdf={{ $books->pdf_url }}" target="_blank"
-                                   title="{{ $books->title }}">{{ $books->title }}.</a></li>
+                        @foreach($results as $result)
+                            <li>
+                                <a href="{{ $result->link }}" title="{{ $result->title }}">{{ $result->title }}</a>
+                            </li>
                         @endforeach
                     </ul>
                 </section>

@@ -29,7 +29,7 @@ class SearchRepository
         }
     }
 
-    public function getItem($user_id = null, $q)
+    public function getResults($user_id = null, $q)
     {
         $url = $this->locale.'/api/search/?q=' . $q;
 
