@@ -3,10 +3,10 @@
     <head>
         <script src="/js/jquery-1.12.4.min.js"></script>
         <script src="/js/bxslider/jquery.bxslider.min.js"></script>
+        <script src="/js/video.min.js"></script>
         <script src="/js/global.js" type="text/javascript"></script>
         <script src="/js/news.js" type="text/javascript"></script>
         <script src="/js/video.js" type="text/javascript"></script>
-        <script src="/js/jquery.jplayer.min.js" type="text/javascript"></script>
         <script src="/js/jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="/js/bootstrap.js" type="text/javascript"></script>
 
@@ -19,32 +19,26 @@
         <link href="{{ elixir('css/app.css') }}" rel="stylesheet" type="text/css" />
         <link href="/js/bxslider/jquery.bxslider.css" rel="stylesheet" />
         <link href="/css/sprite.css" rel="stylesheet" type="text/css" />
-        <link href="/css/jplayer.css" rel="stylesheet" type="text/css">
         {!! App\Helpers\Piwik::trackingCode() !!}
     </head>
 
     <body>
-        @if ( Route::currentRouteName() == 'hub.sub' || Route::currentRouteName() == 'hub.landing' )
-            <div class="top-navigation hub-top-navigation ">
-                <div class="container">
-                <div class="row">
-                    <div class="col-xs-10 text-align-right">
-                        @if($newcontent)
-                        <a href="/new-content" title="New content" id="new-content-trigger" class="cta cta-success notifaction-cta">
-                            <img src="/img/star.svg" alt="New content icon" class="star-icon">
-                            New Content
-                        </a>
-                        @endif
+    <div class="top-navigation new-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="/hub" class="back-to-hub">
+                    <span class="icon icon-icon-hub" aria-hidden="true"></span>
+                    <div class="back-to-the-hub-text">
+                        {{ trans('navigation.title') }}
                     </div>
-                    <div class="col-xs-2">
-                        @include('languageDropdown', ['path' => $path])
-                    </div>
-                </div>
+                </a>
+
+                <div class="navigation-title game-yellow">
+                    {{ trans('navigation.newcontenttitle') }}
                 </div>
             </div>
-        @else
-        @yield('header')
-        @endif
+        </div>
+    </div>
 
         @yield('top_content')
 
@@ -58,8 +52,15 @@
             &copy; <?php echo date("Y"); ?> {{ trans('footer.message') }}
         </footer>
         @endif
+
         <div id="overlay" class="overlay"></div>
-        <section id="notifaction" class="notifaction"></section>
+
+        <section id="notifaction" class="notifaction">
+
+
+
+        </section>
+
     </body>
 </html>
 

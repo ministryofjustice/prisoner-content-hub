@@ -7,40 +7,38 @@ use App\Exceptions\VideoNotFoundException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
-class PdfsRepository
-{
-    protected $client;
-    protected $locale = '';
+class PdfsRepository {
 
-    public function __construct()
-    {
-        $this->client = new Client(array(
-            'base_uri' => config('app.api_uri'),
-            'timeout' => 60.0
-        ));
+	protected $client;
 
-        $this->locale = \App::getLocale();
-        if ($this->locale == 'en') {
-          $this->locale = '';
-        }
-    }
+	protected $locale = '';
 
-    public function landingPagePdfs($tid)
-    {
-        $response = $this->client->get($this->locale . '/api/pdf/course/' . $tid);
-        $responseTree = json_decode($response->getBody());
-		
-        return $responseTree;
+	public function __construct() {
+		$this->client = new Client([
+			'base_uri' => config('app.api_uri'),
+			'timeout' => config('app.timeout'),
+		]);
 
-    }
-	
-	public function show($tid)
-	{
-		$response = $this->client->get($this->locale . '/api/pdf/course/pdfs/' . $tid);
-        $responseTree = json_decode($response->getBody());
-		
-        return $responseTree;
+		$this->locale = \App::getLocale();
+		if ($this->locale == 'en') {
+			$this->locale = '';
+		}
 	}
-	
-	
+
+	public function landingPagePdfs($tid) {
+		$response = $this->client->get($this->locale . '/api/pdf/course/' . $tid);
+		$responseTree = json_decode($response->getBody());
+
+		return $responseTree;
+
+	}
+
+	public function show($tid) {
+		$response = $this->client->get($this->locale . '/api/pdf/course/pdfs/' . $tid);
+		$responseTree = json_decode($response->getBody());
+
+		return $responseTree;
+	}
+
+
 }

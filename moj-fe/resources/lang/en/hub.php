@@ -1,5 +1,5 @@
 <?php
 
 return [
-  'title' => 'Digital Hub',
+    'title' => 'Digital Hub'
 ];

@@ -1,4 +1,18 @@
 $(document).ready(function () {
+    /*
+    $( '#new-content-trigger' ).click(function(e) {
+        console.log('ello');
+        e.preventDefault();
+        $( '#overlay' ).toggleClass('active');
+        $( '#notifaction' ).toggleClass('active');
+    });
+    $( '#overlay, #close-notifaction' ).click(function(e) {
+        e.preventDefault();
+        $( '#overlay' ).toggleClass('active');
+        $( '#notifaction' ).toggleClass('active');
+    });
+    */
+
 
     $('.bxslider').bxSlider();
     $("#EpisodeLink").click(function (e) {
