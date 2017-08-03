@@ -41,4 +41,27 @@ pipeline {
 
   }
 
+  post {
+    always {
+      echo 'I have finished'
+    }
+    success {
+      echo 'I succeeded!'
+      slackSend channel:'#thehubsystems',
+        color: 'good',
+        message: 'Completed successfully.'
+
+    }
+    unstable {
+      echo 'I am unstable :/'
+    }
+    failure {
+      echo 'I failed :('
+    }
+    changed {
+      echo 'Things are different...'
+    }
+  }
+
+
 }
