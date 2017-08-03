@@ -16,7 +16,6 @@ pipeline {
     }
   
     stage ('Build') {
-      parallel {
         stage ('Build frontend') {
           steps {
             sh 'cd moj-fe && make build && make push'
@@ -32,7 +31,6 @@ pipeline {
             sh 'cd db && make build && make push'
           }
         }
-      }
     }
 
     stage ('Test') {
