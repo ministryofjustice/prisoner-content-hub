@@ -17,7 +17,7 @@ jobs:
                 key: moj-fe/vendor
             - run:
                 name: Build frontend container
-                command: cd moj-fe && make build && make push
+                command: cd moj-fe && make build
             - save_cache:
                 key: moj-fe/node_modules-{{ checksum "moj-fe/package.json" }}
                 paths:
@@ -31,7 +31,7 @@ jobs:
                 key: moj-be/vendor
             - run:
                 name: Build backend container
-                command: cd moj-be && make build && make push
+                command: cd moj-be && make build
             - save_cache:
                 key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
                 paths:
@@ -44,28 +44,5 @@ jobs:
                 command: cd moj-be && make test
             - run:
                 name: Build DB container
-                command: cd db && make build && make push
-            - deploy:
-                name: Deploy to development environment
-                environment:
-                    DOCKER_TLS_VERIFY:
-                    DOCKER_HOST: unix:///home/circleci/docker.sock
-                command: |
-                    ssh -o StrictHostKeyChecking=no -p 50000 -l docker -fNL /home/circleci/docker.sock:/var/run/docker.sock ssh.dev.hub.service.hmpps.dsd.io
-                    docker stack up -c docker-compose-prod.yml hub-dev
-                    docker service scale hub-dev_hub-be=3
-                    docker service scale hub-dev_hub-fe=3
-                    until curl -f http://dev.hub.service.hmpps.dsd.io; do : ; done 
-            - restore_cache:
-                key: capybara/vendor-{{ checksum "capybara/Gemfile"}}
-                key: capybara/vendor
-            - deploy:
-                name: Test development frontend
-                command: |
-                    cd capybara
-                    bundle install
-                    bundle exec rake test
-            - save_cache:
-                    key: capybara/vendor-{{ checksum "capybara/Gemfile"}}
-                    paths:
-                        - ./capybara/vendor
+                command: cd db && make build
+
