@@ -2,6 +2,7 @@ Digital Hub for Prisons
 =======================
 
 [![CircleCI](https://circleci.com/gh/noms-digital-studio/digital-hub.svg?style=svg)](https://circleci.com/gh/noms-digital-studio/digital-hub)
+[![Jenkins](https://img.shields.io/jenkins/s/https/dev.jenkins.hub.service.hmpps.dsd.io/jenkins/job/digital_hub/job/master.svg)]()
 
 
 This repo contains two directories.
