@@ -1,0 +1,19 @@
+#jenkins_plugins: ['github-oauth', 'blueocean']
+jenkins_http_port: 8080
+jenkins_url_prefix: '/jenkins'
+jenkins_init_changes:
+  - option: "JENKINS_ARGS"
+    value: "--prefix={{ jenkins_url_prefix }} --httpListenAddress=127.0.0.1"
+
+ssh_use_pam: true
+
+letsencrypt_email: noms-studio-webops@digital.justice.gov.uk 
+letsencrypt_webroot_path: /var/www/html
+
+nginx_upstreams:
+  - name: jenkins 
+    servers: {
+      "127.0.0.1:8080"
+    }
+
+php_enable_webserver: false

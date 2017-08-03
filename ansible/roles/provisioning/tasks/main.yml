@@ -1,0 +1,7 @@
+---
+
+- name: Remove provisioning user
+  user: 
+    name: provisioning
+    state: absent
+    remove: yes
