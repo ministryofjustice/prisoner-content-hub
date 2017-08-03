@@ -16,10 +16,22 @@ pipeline {
     }
   
     stage ('Build') {
-      steps {
-        sh 'cd moj-fe && make build && make push'
-        sh 'cd moj-be && make build && make push'
-        sh 'cd db && make build && make push'
+      parallel {
+        stage ('Build frontend') {
+          steps {
+            sh 'cd moj-fe && make build && make push'
+          }
+        }
+        stage ('Build backend') {
+          steps {
+            sh 'cd moj-be && make build && make push'
+          }
+        }
+        stage ('Build DB') {
+          steps {
+            sh 'cd db && make build && make push'
+          }
+        }
       }
     }
 
