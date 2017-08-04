@@ -1,0 +1,15 @@
+---
+
+- name: Deploy role user
+  user:
+    name: deploy
+    shell: /bin/bash
+    groups: docker
+
+- name: Deploy key
+  authorized_key:
+      user: deploy 
+      key: "{{ item }}"
+      state: present
+  with_file:
+      - "files/keys/{{ env }}/deploy.pub"

@@ -1,0 +1,11 @@
+ssh_use_pam: true
+
+letsencrypt_email: noms-studio-webops@digital.justice.gov.uk 
+letsencrypt_webroot_path: /var/www/html
+
+nginx_upstreams:
+  - name: hub-fe
+    servers: {
+      "127.0.0.1:8181"
+    }
+

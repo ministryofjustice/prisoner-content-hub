@@ -2,3 +2,4 @@
 
 - include: bounce.yml
 - include: jenkins.yml
+- include: hub.yml
