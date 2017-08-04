@@ -1,0 +1,16 @@
+services:
+    moj_search.encoder.json:
+        class: 'Symfony\Component\Serializer\Encoder\JsonEncoder'
+    
+    moj_search.normalizer.link:
+        class: Drupal\moj_search\Normalizer\ResultsNormalizer
+    moj_search.serializer.default:
+        class: 'Symfony\Component\Serializer\Serializer'
+        arguments:
+            0:
+                - '@moj_search.normalizer.link'                    
+            1:
+                - '@moj_search.encoder.json'
+
+    service_search.results_links_service:
+        class: Drupal\moj_search\ResultsLinksService

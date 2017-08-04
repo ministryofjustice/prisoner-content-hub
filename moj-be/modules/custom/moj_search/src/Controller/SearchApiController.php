@@ -7,15 +7,25 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
+use Symfony\Component\Serializer\Serializer;
 
 class SearchApiController extends ControllerBase
 {
+    protected $serializer;
 
-    private $requestStack;
+    protected $requestStack;
 
     protected $entityManager;
 
     protected $node_storage;
+
+    protected $results;
+
+    protected $SearchApiParseMode;
+
+    protected $keywords;
+
+    protected $setConjunction;
 
     /**
      * SearchApiController constructor.
@@ -23,11 +33,21 @@ class SearchApiController extends ControllerBase
      * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
      */
 
-    public function __construct(RequestStack $request_stack, EntityManagerInterface $entityManager)
-    {
+    public function __construct(
+      RequestStack $request_stack,
+      EntityManagerInterface $entityManager,
+      $SearchApiParseMode,
+      Serializer $serializer
+    ) {
+        $this->results = $results;
         $this->requestStack = $request_stack;
         $this->entityManager = $entityManager;
         $this->node_storage = $this->entityManager->getStorage('node');
+        $this->SearchApiParseMode = $SearchApiParseMode->createInstance('direct');
+        $this->setConjunct$this->SearchApiParseMode->setConjunction('OR');
+        $this->keywords = $this->requestStack->getCurrentRequest()->query->get('q');
+        $this->serializer = $serializer;
+
     }
 
     /**
@@ -38,7 +58,9 @@ class SearchApiController extends ControllerBase
     {
         return new static(
           $container->get('request_stack'),
-          $container->get('entity.manager')
+          $container->get('entity.manager'),
+          $container->get('plugin.manager.search_api.parse_mode'),
+          $container->get('moj_search.serializer.default')
         );
     }
 
@@ -50,11 +72,10 @@ class SearchApiController extends ControllerBase
 
     public function searchApiEndpoint()
     {
-        $results = $this->seachContent();
-        $nids = $this->parse_results($results);
+        $this->seachContent();
+        $nids = $this->parse_results();
         $nodes = self::loadNodes($nids);
         $items = $this->formatResults($nodes);
-
         return new JsonResponse($items); // TODO inject dependency
     }
 
@@ -64,38 +85,30 @@ class SearchApiController extends ControllerBase
      * @return \Drupal\search_api\Item\ItemInterface[]
      */
 
-    public function seachContent()
+    private function seachContent()
     {
-        $keywords = $this->requestStack->getCurrentRequest()->query->get('q');
         $index = \Drupal\search_api\Entity\Index::load('default_index');
         $query = $index->query();
-        $parse_mode = \Drupal::service('plugin.manager.search_api.parse_mode')
-          ->createInstance('direct');
-        $parse_mode->setConjunction('OR');
-        $query->setParseMode($parse_mode);
-        $query->keys($keywords);
-        $query->setFulltextFields(['title', 'name', 'body']);
-        $query->addCondition('status', 1);
-        $results = $query->execute();
 
-        return $results->getResultItems();
+        $query->setParseMode($this->SearchApiParseMode);
+        ->keys($this->keywords);
+        ->setFulltextFields(['title', 'name', 'body']);
+        ->addCondition('status', 1);
+        $this->results = $query->execute();
     }
 
-    public function parse_results(array $results)
+    private function parse_results()
     {
         $list = [];
-        foreach ($results AS $item) {
-            // The pattern is "entity:[entity_type]:[entity_id]:[language_code]".
-            // For example "entity:node/1:en".
+        foreach ($this->results->getResultItems() AS $item) {
             $data = explode(':', $item->getId());
             $data = explode('/', $data[1]);
             $list[] = $data[1];
         }
-
         return $list;
     }
 
-    protected static function loadNodes(array $nids)
+    private static function loadNodes(array $nids)
     {
         $node_storage = \Drupal::entityTypeManager()->getStorage(
           'node'
@@ -106,20 +119,20 @@ class SearchApiController extends ControllerBase
               return $item->access();
           }
         );
-
         return $items;
     }
 
-    public function formatResults(array $nodes)
+    private function formatResults(array $nodes)
     {
         $items = [];
-        if(!empty($nodes)) {
+        if (!empty($nodes)) {
             foreach ($nodes as $node) {
-                if($node->getType() !== 'moj_hub_item'){
-                $items[] = [
-                  'title' => $node->getTitle(),
-                  'link' => $this->generatelinks($node->getType(), $node->id()),
-                ];
+                if ($node->getType() !== 'moj_hub_item') {
+                    $items[] = $this->serializer->normalize(
+                      $node,
+                      'json',
+                      ['plugin_id' => 'entity']
+                    );
                 }
             }
             return $items;
@@ -128,36 +141,5 @@ class SearchApiController extends ControllerBase
         }
     }
 
-    public function generatelinks(string $type, int $nid)
-    {
-        switch ($type) {
-            case 'moj_video_item':
-                return '/video/' . $nid;
-                break;
-            case 'moj_radio_item':
-                return '/radio/' . $nid;
-                break;
-            case 'moj_pdf_item':
-                return $this->getpdflink($nid);
-                break;
-        }
-    }
 
-    public function getpdflink(int $nid)
-    {
-        $node = $this->node_storage->load($nid);
-        $filePath = file_create_url($node->get('field_moj_pdf')->entity->getFileUri());
-        return $this->checkFileType($filePath);
-    }
-
-    public function checkFileType(string $filePath)
-    {
-        if(substr($filePath, -4) == '.pdf') {
-            return $filePath;
-        }
-
-        if(substr($filePath, -5) == '.epub') {
-            return '/epub?pdf=' . $filePath;
-        }
-    }
 }
