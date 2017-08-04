@@ -17,9 +17,9 @@ pipeline {
   
     stage ('Build') {
       steps {
-        sh 'cd moj-fe && make build && make push'
-        sh 'cd moj-be && make build && make push'
-        sh 'cd db && make build && make push'
+        sh 'cd moj-fe && make build'
+        sh 'cd moj-be && make build'
+        sh 'cd db && make build'
       }
     }
 
@@ -35,7 +35,10 @@ pipeline {
         branch 'master'
       } 
       steps {
-        sh 'echo TODO'
+        sh 'cd moj-fe && make push'
+        sh 'cd moj-be && make push'
+        sh 'cd db && make push'
+        sh 'echo TODO env deploy and test'
       }
     }
 
@@ -46,17 +49,19 @@ pipeline {
       echo 'I have finished'
     }
     success {
-      echo 'I succeeded!'
+      echo 'Build is full of WIN!'
       slackSend channel:'#thehubsystems',
         color: 'good',
-        message: 'Completed successfully.'
-
+        message: 'Build is full of WIN!'
     }
     unstable {
       echo 'I am unstable :/'
     }
     failure {
-      echo 'I failed :('
+      echo 'Build is FAIL!'
+      slackSend channel:'#thehubsystems',
+        color: 'bad',
+        message: 'Build FAIL!'
     }
     changed {
       echo 'Things are different...'
