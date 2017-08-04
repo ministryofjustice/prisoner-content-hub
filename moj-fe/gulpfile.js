@@ -28,10 +28,10 @@ elixir( function (mix) {
         'node_modules/stockfish/src/stockfish.js',
         'public/js'
     ).copy(
-        'node_modules/epubjs/build/epub.js',
+        'node_modules/epub.js/build/epub.js',
         'public/js'
     ).copy(
-        'node_modules/epubjs/build/libs/zip.min.js',
+        'node_modules/epub.js/build/libs/zip.min.js',
         'public/js'
     ).copy(
         'node_modules/draughts/draughts.js',
