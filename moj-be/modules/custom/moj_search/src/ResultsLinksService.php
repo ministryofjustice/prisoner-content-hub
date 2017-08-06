@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityManagerInterface;
 
 class ResultsLinksService extends ControllerBase
 {
+
     protected $node_storage;
 
     protected $entityManager;
@@ -22,7 +23,9 @@ class ResultsLinksService extends ControllerBase
 
     public function __construct()
     {
-        $this->entityManager = $ResultsLinksService = \Drupal::service('entity.manager'); // TODO: Inject dependency
+        $this->entityManager = $ResultsLinksService = \Drupal::service(
+          'entity.manager'
+        ); // TODO: Inject dependency
         $this->node_storage = $this->entityManager->getStorage('node');
     }
 
@@ -44,21 +47,18 @@ class ResultsLinksService extends ControllerBase
     private function generatepdflink(int $nid)
     {
         $node = $this->node_storage->load($nid);
-        $this->entity = array(
+        $this->entity = [
           'mineType' => $node->get('field_moj_pdf')->entity->getMimeType(),
-          'filePath' => file_create_url($node->get('field_moj_pdf')->entity->getFileUri())
-        );
+          'filePath' => file_create_url(
+            $node->get('field_moj_pdf')->entity->getFileUri()
+          ),
+        ];
+
         return $this->checkFileIsPdfOrEpub();
     }
 
     private function checkFileIsPdfOrEpub()
     {
-        if ($this->entity['mineType'] == 'application/pdf') {
-            return $this->entity['filePath'];
-        }
-        if ($this->entity['mineType'] == "application/epub+zip") {
-            return '/epub?pdf=' . $this->entity['filePath'];
-        }
-        return $this->entity['filePath'];
+        return $this->entity['mineType'] == 'application/epub+zip' ? '/epub?pdf='.$this->entity['filePath'] : $this->entity['filePath'];
     }
 }
