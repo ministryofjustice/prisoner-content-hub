@@ -42,19 +42,19 @@ class ResultsLinksService extends ControllerBase
     private function generatepdflink(int $nid)
     {
         $node = $this->node_storage->load($nid);
+        $mineType = $node->get('field_moj_pdf')->entity->getMimeType();
         $filePath = file_create_url($node->get('field_moj_pdf')->entity->getFileUri());
-        return $this->checkFileIsPdfOrEpub($filePath);
+        return $this->checkFileIsPdfOrEpub($mineType, $filePath);
     }
 
-    private function checkFileIsPdfOrEpub(string $filePath)
+    private function checkFileIsPdfOrEpub($mineType, $filePath)
     {
-        if (substr($filePath, -4) == '.pdf') {
+        if ($mineType == 'application/pdf') {
             return $filePath;
         }
-        if (substr($filePath, -5) == '.epub') {
+        if ($mineType == "application/epub+zip") {
             return '/epub?pdf='.$filePath;
-        } else {
-            return $filePath;
         }
+        return $filePath;
     }
 }
