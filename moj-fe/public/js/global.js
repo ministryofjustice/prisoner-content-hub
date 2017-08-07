@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // Disable computer generate Sudku numbers
-    jQuery("#sudoku input[value]").filter(function() {
+    $("#sudoku input[value]").filter(function() {
         if(this.value !== ''){
             $(this).attr('disabled','disabled');
         }
