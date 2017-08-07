@@ -44,10 +44,9 @@ class SearchApiController extends ControllerBase
         $this->entityManager = $entityManager;
         $this->node_storage = $this->entityManager->getStorage('node');
         $this->SearchApiParseMode = $SearchApiParseMode->createInstance('direct');
-        $this->setConjunct$this->SearchApiParseMode->setConjunction('OR');
+        $this->setConjunction = $this->SearchApiParseMode->setConjunction('OR');
         $this->keywords = $this->requestStack->getCurrentRequest()->query->get('q');
         $this->serializer = $serializer;
-
     }
 
     /**
@@ -88,11 +87,10 @@ class SearchApiController extends ControllerBase
     private function seachContent()
     {
         $index = \Drupal\search_api\Entity\Index::load('default_index');
-        $query = $index->query();
-
-        $query->setParseMode($this->SearchApiParseMode);
-        ->keys($this->keywords);
-        ->setFulltextFields(['title', 'name', 'body']);
+        $query = $index->query()
+        ->setParseMode($this->SearchApiParseMode)
+        ->keys($this->keywords)
+        ->setFulltextFields(['title', 'name', 'body'])
         ->addCondition('status', 1);
         $this->results = $query->execute();
     }
@@ -110,9 +108,7 @@ class SearchApiController extends ControllerBase
 
     private static function loadNodes(array $nids)
     {
-        $node_storage = \Drupal::entityTypeManager()->getStorage(
-          'node'
-        );    // TODO: Inject dependency
+        $node_storage = \Drupal::entityTypeManager()->getStorage('node'); // TODO: Inject dependency
         $items = array_filter(
           $node_storage->loadMultiple($nids),
           function ($item) {

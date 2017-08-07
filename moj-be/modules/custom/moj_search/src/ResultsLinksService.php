@@ -53,7 +53,6 @@ class ResultsLinksService extends ControllerBase
             $node->get('field_moj_pdf')->entity->getFileUri()
           ),
         ];
-
         return $this->checkFileIsPdfOrEpub();
     }
 
