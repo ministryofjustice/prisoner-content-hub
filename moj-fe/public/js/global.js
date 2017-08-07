@@ -1,19 +1,23 @@
 $(document).ready(function () {
+    // Disable computer generate Sudku numbers
+    jQuery("#sudoku input[value]").filter(function() {
+        if($(this).value != ''){
+            $(this).attr('disabled','disabled');
+        }
+    });
     /*
-    $( '#new-content-trigger' ).click(function(e) {
-        console.log('ello');
-        e.preventDefault();
-        $( '#overlay' ).toggleClass('active');
-        $( '#notifaction' ).toggleClass('active');
-    });
-    $( '#overlay, #close-notifaction' ).click(function(e) {
-        e.preventDefault();
-        $( '#overlay' ).toggleClass('active');
-        $( '#notifaction' ).toggleClass('active');
-    });
-    */
-
-
+     $( '#new-content-trigger' ).click(function(e) {
+     console.log('ello');
+     e.preventDefault();
+     $( '#overlay' ).toggleClass('active');
+     $( '#notifaction' ).toggleClass('active');
+     });
+     $( '#overlay, #close-notifaction' ).click(function(e) {
+     e.preventDefault();
+     $( '#overlay' ).toggleClass('active');
+     $( '#notifaction' ).toggleClass('active');
+     });
+     */
     $('.bxslider').bxSlider();
     $("#EpisodeLink").click(function (e) {
         e.preventDefault();
@@ -32,7 +36,6 @@ $(document).ready(function () {
     if (!$("#AboutLink").hasClass("active")) {
         $("#AboutInfo").hide();
     }
-
 });
 
 (function ($) {
@@ -304,7 +307,7 @@ $(document).ready(function () {
             });
         }
 
-        if(location.pathname.split("/")[1] == 'cy') {
+        if (location.pathname.split("/")[1] == 'cy') {
             $('#dropdownMenu1').html("Welsh <span class='icon icon-dropdown'></span>");
         }
 
