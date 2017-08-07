@@ -3,9 +3,6 @@
 namespace Drupal\moj_search;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Entity\EntityManagerInterface;
-
 class ResultsLinksService extends ControllerBase
 {
 
@@ -29,6 +26,13 @@ class ResultsLinksService extends ControllerBase
         $this->node_storage = $this->entityManager->getStorage('node');
     }
 
+    /**
+     * @param string $type
+     * @param int $nid
+     *
+     * @return string
+     */
+
     public function generatelinks(string $type, int $nid)
     {
         switch ($type) {
@@ -43,6 +47,12 @@ class ResultsLinksService extends ControllerBase
                 break;
         }
     }
+
+    /**
+     * @param int $nid
+     *
+     * @return string
+     */
 
     private function generatepdflink(int $nid)
     {
