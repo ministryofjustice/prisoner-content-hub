@@ -33,17 +33,17 @@ class ResultsLinksService extends ControllerBase
      * @return string
      */
 
-    public function generatelinks(string $type, int $nid)
+    public function generatelinks($entity)
     {
-        switch ($type) {
+        switch ($entity->getType()) {
             case 'moj_video_item':
-                return '/video/'.$nid;
+                return '/video/'.$entity->id();
                 break;
             case 'moj_radio_item':
-                return '/radio/'.$nid;
+                return '/radio/'.$entity->id();
                 break;
             case 'moj_pdf_item':
-                return $this->generatepdflink($nid);
+                return $this->generatepdflink($entity);
                 break;
         }
     }
@@ -54,13 +54,12 @@ class ResultsLinksService extends ControllerBase
      * @return string
      */
 
-    private function generatepdflink(int $nid)
+    private function generatepdflink($entity)
     {
-        $node = $this->node_storage->load($nid);
         $this->entity = [
-          'mineType' => $node->get('field_moj_pdf')->entity->getMimeType(),
+          'mineType' => $entity->get('field_moj_pdf')->entity->getMimeType(),
           'filePath' => file_create_url(
-            $node->get('field_moj_pdf')->entity->getFileUri()
+            $entity->get('field_moj_pdf')->entity->getFileUri()
           ),
         ];
         return $this->checkFileIsPdfOrEpub();

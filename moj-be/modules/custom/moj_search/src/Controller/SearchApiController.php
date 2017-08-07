@@ -75,7 +75,6 @@ class SearchApiController extends ControllerBase
       $SearchApiParseMode,
       Serializer $serializer
     ) {
-        $this->results = $results;
         $this->requestStack = $request_stack;
         $this->entityManager = $entityManager;
         $this->nodeStorage = $this->entityManager->getStorage('node');
@@ -111,7 +110,7 @@ class SearchApiController extends ControllerBase
         $nids = $this->parseResults($results);
         $nodes = $this->loadNodes($nids);
         $items = $this->formatResults($nodes);
-        return new JsonResponse($items); // TODO inject dependency
+        return new JsonResponse($items);
     }
 
     /**

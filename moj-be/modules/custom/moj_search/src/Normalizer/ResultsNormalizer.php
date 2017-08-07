@@ -37,7 +37,7 @@ class ResultsNormalizer extends NormalizerBase
 
         return [
           'title' => $entity->getTitle(),
-          'link' => $ResultsLinksService->generatelinks($entity->getType(), $entity->id())
+          'link' => $ResultsLinksService->generatelinks($entity)
         ];
     }
 
