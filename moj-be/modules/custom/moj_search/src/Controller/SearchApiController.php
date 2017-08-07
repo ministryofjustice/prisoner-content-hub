@@ -11,19 +11,67 @@ use Symfony\Component\Serializer\Serializer;
 
 class SearchApiController extends ControllerBase
 {
+    /**
+     * Node serializer.
+     *
+     * @var \Symfony\Component\Serializer\Serializer
+     */
+
     protected $serializer;
+
+    /**
+     * http requestStack.
+     *
+     * @var \Symfony\Component\HttpFoundation\RequestStack
+     */
 
     protected $requestStack;
 
+    /**
+     * Entity Manager.
+     *
+     * @var \Drupal\Core\Entity\EntityManagerInterface
+     */
+
     protected $entityManager;
 
-    protected $node_storage;
+    /**
+     * Var to hold array of nodes.
+     *
+     * @var array()
+     */
+
+    protected $nodeStorage;
+
+    /**
+     * a variable to hold multidimensional array of information to be passed to endpoint.
+     *
+     * @var array()
+     */
 
     protected $results;
 
-    protected $SearchApiParseMode;
+    /**
+     * A string of keywords passed from GET.
+     *
+     * @var string
+     */
 
     protected $keywords;
+
+    /**
+     * A variable to hold parse mode object.
+     *
+     * @var object
+     */
+
+    protected $SearchApiParseMode;
+
+    /**
+     * A variable to hold the pase mode conjunction 'AND/OR'
+     *
+     * @var object
+     */
 
     protected $setConjunction;
 
@@ -31,6 +79,9 @@ class SearchApiController extends ControllerBase
      * SearchApiController constructor.
      *
      * @param \Symfony\Component\HttpFoundation\RequestStack $request_stack
+     * @param \Drupal\Core\Entity\EntityManagerInterface $entityManager
+     * @param $SearchApiParseMode
+     * @param \Symfony\Component\Serializer\Serializer $serializer
      */
 
     public function __construct(
@@ -42,8 +93,8 @@ class SearchApiController extends ControllerBase
         $this->results = $results;
         $this->requestStack = $request_stack;
         $this->entityManager = $entityManager;
-        $this->node_storage = $this->entityManager->getStorage('node');
-        $this->SearchApiParseMode = $SearchApiParseMode->createInstance('direct');
+        $this->nodeStorage = $this->entityManager->getStorage('node');
+        $this->SearchApiParseMode = $SearchApiParseMode->createInstance('direct'); // plugin.manager.search_api.parse_mode
         $this->setConjunction = $this->SearchApiParseMode->setConjunction('OR');
         $this->keywords = $this->requestStack->getCurrentRequest()->query->get('q');
         $this->serializer = $serializer;
@@ -72,8 +123,8 @@ class SearchApiController extends ControllerBase
     public function searchApiEndpoint()
     {
         $this->seachContent();
-        $nids = $this->parse_results();
-        $nodes = self::loadNodes($nids);
+        $nids = $this->parseResults();
+        $nodes = $this->loadNodes($nids);
         $items = $this->formatResults($nodes);
         return new JsonResponse($items); // TODO inject dependency
     }
@@ -95,7 +146,11 @@ class SearchApiController extends ControllerBase
         $this->results = $query->execute();
     }
 
-    private function parse_results()
+    /**
+     * @return array
+     */
+
+    private function parseResults()
     {
         $list = [];
         foreach ($this->results->getResultItems() AS $item) {
@@ -106,7 +161,13 @@ class SearchApiController extends ControllerBase
         return $list;
     }
 
-    private static function loadNodes(array $nids)
+    /**
+     * @param array $nids
+     *
+     * @return array
+     */
+
+    private function loadNodes(array $nids)
     {
         $node_storage = \Drupal::entityTypeManager()->getStorage('node'); // TODO: Inject dependency
         $items = array_filter(
@@ -117,6 +178,12 @@ class SearchApiController extends ControllerBase
         );
         return $items;
     }
+
+    /**
+     * @param array $nodes
+     *
+     * @return array|bool
+     */
 
     private function formatResults(array $nodes)
     {
@@ -136,6 +203,4 @@ class SearchApiController extends ControllerBase
             return false;
         }
     }
-
-
 }
