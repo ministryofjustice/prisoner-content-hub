@@ -43,21 +43,6 @@ class SearchApiController extends ControllerBase
 
     protected $nodeStorage;
 
-    /**
-     * a variable to hold multidimensional array of information to be passed to endpoint.
-     *
-     * @var array()
-     */
-
-    protected $results;
-
-    /**
-     * A string of keywords passed from GET.
-     *
-     * @var string
-     */
-
-    protected $keywords;
 
     /**
      * A variable to hold parse mode object.
@@ -96,7 +81,6 @@ class SearchApiController extends ControllerBase
         $this->nodeStorage = $this->entityManager->getStorage('node');
         $this->SearchApiParseMode = $SearchApiParseMode->createInstance('direct'); // plugin.manager.search_api.parse_mode
         $this->setConjunction = $this->SearchApiParseMode->setConjunction('OR');
-        $this->keywords = $this->requestStack->getCurrentRequest()->query->get('q');
         $this->serializer = $serializer;
     }
 
@@ -122,8 +106,9 @@ class SearchApiController extends ControllerBase
 
     public function searchApiEndpoint()
     {
-        $this->seachContent();
-        $nids = $this->parseResults();
+        $keywords = $this->requestStack->getCurrentRequest()->query->get('q');
+        $results = $this->seachContent($keywords);
+        $nids = $this->parseResults($results);
         $nodes = $this->loadNodes($nids);
         $items = $this->formatResults($nodes);
         return new JsonResponse($items); // TODO inject dependency
@@ -135,25 +120,25 @@ class SearchApiController extends ControllerBase
      * @return \Drupal\search_api\Item\ItemInterface[]
      */
 
-    private function seachContent()
+    private function seachContent($keywords)
     {
         $index = \Drupal\search_api\Entity\Index::load('default_index');
         $query = $index->query()
         ->setParseMode($this->SearchApiParseMode)
-        ->keys($this->keywords)
+        ->keys($keywords)
         ->setFulltextFields(['title', 'name', 'body'])
         ->addCondition('status', 1);
-        $this->results = $query->execute();
+        return $query->execute();
     }
 
     /**
      * @return array
      */
 
-    private function parseResults()
+    private function parseResults($results)
     {
         $list = [];
-        foreach ($this->results->getResultItems() AS $item) {
+        foreach ($results->getResultItems() AS $item) {
             $data = explode(':', $item->getId());
             $data = explode('/', $data[1]);
             $list[] = $data[1];
