@@ -1,7 +1,6 @@
 ssh_use_pam: true
 
-letsencrypt_email: noms-studio-webops@digital.justice.gov.uk 
-letsencrypt_webroot_path: /var/www/html
+upgrade_distpackages_reboot_kernel: true
 
 nginx_upstreams:
   - name: hub-fe
