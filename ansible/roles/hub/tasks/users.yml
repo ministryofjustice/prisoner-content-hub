@@ -1,5 +1,15 @@
 ---
 
+- name: passwordless sudo for admin
+  copy:
+    dest: /etc/sudoers.d/wheel
+    content: |
+      %wheel ALL=(ALL) NOPASSWD: ALL
+    owner: root
+    group: root
+    mode: 0640
+    validate: 'visudo -cf %s'
+
 - name: Rob Lazzurs
   user:
     name: lazzurs
