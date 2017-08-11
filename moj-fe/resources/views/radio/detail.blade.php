@@ -7,6 +7,7 @@
 @include('stickyNavigation', ['title' => trans('navigation.radio'), 'icon' => 'icon-icon-radio', 'titleLink' => action('RadiosController@showRadioLandingPage'), 'colour' => 'blue' ])
 
 <script src="/js/video.js" type="text/javascript"></script>
+<script src="/js/video.min.js" type="text/javascript"></script>
 
 <div class="radio-header" style="background-image: url({{ $radioShow->parent->channel_banner}})">
 	<a href="{{ action('RadiosController@showRadioLandingPage') }}" id="back-to-landing"><span class="arrow" aria-hidden="true"></span>{{ trans('radio.back') }}</a>
