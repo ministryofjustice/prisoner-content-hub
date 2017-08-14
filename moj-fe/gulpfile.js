@@ -28,10 +28,10 @@ elixir( function (mix) {
         'node_modules/stockfish/src/stockfish.js',
         'public/js'
     ).copy(
-        'node_modules/epubjs/build/epub.js',
+        'node_modules/epub.js/build/epub.js',
         'public/js'
     ).copy(
-        'node_modules/epubjs/build/libs/zip.min.js',
+        'node_modules/epub.js/build/libs/zip.min.js',
         'public/js'
     ).copy(
         'node_modules/draughts/draughts.js',
@@ -94,16 +94,16 @@ elixir( function (mix) {
         'node_modules/jplayer/dist/jplayer/jquery.jplayer.min.js',
         'public/js'
     ).copy(
-        'node_modules/jplayer/dist/jplayer/dist/skin/blue.monday/image/jplayer.blue.monday.jpg',
+        'node_modules/jplayer/dist/skin/blue.monday/image/jplayer.blue.monday.jpg',
         'public/image/'
     ).copy(
-        'node_modules/jplayer/dist/jplayer/dist/skin/blue.monday/image/jplayer.blue.monday.seeking.gif',
+        'node_modules/jplayer/dist/skin/blue.monday/image/jplayer.blue.monday.seeking.gif',
         'public/image/'
     ).copy(
-        'node_modules/jplayer/dist/jplayer/dist/skin/blue.monday/image/jplayer.blue.monday.video.play.png',
+        'node_modules/jplayer/dist/skin/blue.monday/image/jplayer.blue.monday.video.play.png',
         'public/image/'
     ).copy(
-        'node_modules/jplayer/dist/jplayer/dist/skin/blue.monday/css/jplayer.blue.monday.min.css',
+        'node_modules/jplayer/dist/skin/blue.monday/css/jplayer.blue.monday.min.css',
         'public/css/jplayer.css'
     ).copy(
         'node_modules/jplayer/dist/jplayer/jquery.jplayer.swf',

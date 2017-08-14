@@ -1,7 +1,7 @@
 site "https://galaxy.ansible.com/api/v1"
 
 role "dev-sec.os-hardening"
-role "dev-sec.ssh-hardening", github: "lazzurs/ansible-ssh-hardening", ref: "feature/2fa_auth"
+role "dev-sec.ssh-hardening", github: "noms-digital-studio/ansible-ssh-hardening", ref: "feature/2fa_auth"
 role "jnv.unattended-upgrades"
 role "geerlingguy.jenkins"
 role "geerlingguy.java"
