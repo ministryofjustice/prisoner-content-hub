@@ -1,0 +1,39 @@
+---
+
+- name: passwordless sudo for admin
+  copy:
+    dest: /etc/sudoers.d/wheel
+    content: |
+      %wheel ALL=(ALL) NOPASSWD: ALL
+    owner: root
+    group: root
+    mode: 0640
+    validate: 'visudo -cf %s'
+
+- name: Rob Lazzurs
+  user:
+    name: lazzurs
+    shell: /bin/bash
+    groups: wheel
+
+- name: Rob Lazzurs key
+  authorized_key:
+      user: lazzurs
+      key: "{{ item }}"
+      state: present
+  with_file:
+      - "files/keys/{{ env }}/lazzurs.pub"
+
+  #- name: Glen Mailer
+  #  user:
+  #    name: glenmailer
+  #    shell: /bin/bash
+  #    groups: wheel
+  #
+  #- name: Glen Mailer key
+  #  authorized_key:
+  #      user: glenmailer
+  #      key: "{{ item }}"
+  #      state: present
+  #  with_file:
+  #      - "files/keys/{{ env }}/glenmailer.pub"

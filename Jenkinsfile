@@ -6,6 +6,12 @@ pipeline {
     DOCKER_HUB_USER = credentials('DOCKER_HUB_USER')
     DOCKER_HUB_PASS = credentials('DOCKER_HUB_PASS')
   }
+  options {
+    timeout(time: 30, unit: 'MINUTES')
+    disableConcurrentBuilds()
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+
 
   stages {
 
@@ -17,9 +23,9 @@ pipeline {
   
     stage ('Build') {
       steps {
-        sh 'cd moj-fe && make build && make push'
-        sh 'cd moj-be && make build && make push'
-        sh 'cd db && make build && make push'
+        sh 'cd moj-fe && make build'
+        sh 'cd moj-be && make build'
+        sh 'cd db && make build'
       }
     }
 
@@ -35,7 +41,12 @@ pipeline {
         branch 'master'
       } 
       steps {
-        sh 'echo TODO'
+        sh 'cd moj-fe && make push'
+        sh 'cd moj-be && make push'
+        sh 'cd db && make push'
+        sshagent(['hub-env-dev-deploy']) {
+          sh 'ssh deploy@dev.hub.service.hmpps.dsd.io "cd digital-hub && make prod-up"'
+        }
       }
     }
 
@@ -46,17 +57,19 @@ pipeline {
       echo 'I have finished'
     }
     success {
-      echo 'I succeeded!'
+      echo 'Build is full of WIN!'
       slackSend channel:'#thehubsystems',
         color: 'good',
-        message: 'Completed successfully.'
-
+        message: 'Build is full of WIN!'
     }
     unstable {
       echo 'I am unstable :/'
     }
     failure {
-      echo 'I failed :('
+      echo 'Build is FAIL!'
+      slackSend channel:'#thehubsystems',
+        color: 'bad',
+        message: 'Build FAIL!'
     }
     changed {
       echo 'Things are different...'

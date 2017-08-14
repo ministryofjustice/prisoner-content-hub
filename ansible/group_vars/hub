@@ -1,0 +1,16 @@
+ssh_use_pam: true
+
+upgrade_distpackages_reboot_kernel: true
+
+nginx_upstreams:
+  - name: hub-fe
+    servers: {
+      "127.0.0.1:8181"
+    }
+
+firewall_state: started
+firewall_enabled_at_boot: true
+firewall_allowed_tcp_ports:
+  - "22"
+  - "443"
+

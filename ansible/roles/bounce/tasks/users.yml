@@ -51,6 +51,19 @@
   with_file:
       - "files/keys/{{ env }}/sean.pub"
 
+- name: Andrew Walker
+  user:
+    name: awalker
+    shell: /bin/bash
+
+- name: Andrew Walker key
+  authorized_key:
+      user: awalker
+      key: "{{ item }}"
+      state: present
+  with_file:
+      - "files/keys/{{ env }}/awalker.pub"
+
 - name: James Glossop
   user:
     name: jamesglossop

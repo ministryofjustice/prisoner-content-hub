@@ -1,0 +1,13 @@
+---
+
+- hosts: hub
+  roles:
+          - librarian_roles/dev-sec.ssh-hardening/
+          - librarian_roles/geerlingguy.nginx/
+          - librarian_roles/geerlingguy.docker/
+          - librarian_roles/geerlingguy.repo-epel/
+          - librarian_roles/geerlingguy.certbot/
+          - librarian_roles/geerlingguy.firewall/
+          - librarian_roles/openmicroscopy.upgrade-distpackages/
+          - hub
+
