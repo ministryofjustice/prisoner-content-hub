@@ -51,3 +51,8 @@ services:
                         interval: 15s
                         timeout: 30s
                         retries: 1
+
+volumes:
+        hub-be:
+                external: true
+
