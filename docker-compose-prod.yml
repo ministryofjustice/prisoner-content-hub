@@ -42,6 +42,8 @@ services:
                         PHP_MEMORY_LIMIT: 256M
                         PHP_UPLOAD_MAX_FILE_SIZE: 256M
                         PHP_POST_MAX_SIZE: 256M
+                volumes:
+                        - hub-be:/var/www/html/sites/default/files/
                 ports:
                         - 8182:80
                 healthcheck:
