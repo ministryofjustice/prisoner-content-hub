@@ -7,8 +7,7 @@ pipeline {
     DOCKER_HUB_PASS = credentials('DOCKER_HUB_PASS')
   }
   options {
-    timeout(time: 20, unit: 'MINUTES')
-    //timestamps()
+    timeout(time: 30, unit: 'MINUTES')
     disableConcurrentBuilds()
     buildDiscarder(logRotator(numToKeepStr: '5'))
   }
@@ -39,13 +38,15 @@ pipeline {
 
     stage ('Deploy') {
       when {
-        branch 'master'
+        branch 'feature/hub_dev_env'
       } 
       steps {
         sh 'cd moj-fe && make push'
         sh 'cd moj-be && make push'
         sh 'cd db && make push'
-        sh 'echo TODO env deploy and test'
+        sshagent(['hub-env-dev-deploy']) {
+          sh 'ssh deploy@dev.hub.service.hmpps.dsd.io "cd digital-hub && docker-compose -f docker-compose-prod.yml up -d"'
+        }
       }
     }
 
