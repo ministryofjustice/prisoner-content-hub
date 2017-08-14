@@ -45,7 +45,7 @@ pipeline {
         sh 'cd moj-be && make push'
         sh 'cd db && make push'
         sshagent(['hub-env-dev-deploy']) {
-          sh 'ssh deploy@dev.hub.service.hmpps.dsd.io "cd digital-hub && docker-compose -f docker-compose-prod.yml up -d"'
+          sh 'ssh deploy@dev.hub.service.hmpps.dsd.io "cd digital-hub && make prod-up"'
         }
       }
     }
