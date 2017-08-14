@@ -6,6 +6,12 @@ pipeline {
     DOCKER_HUB_USER = credentials('DOCKER_HUB_USER')
     DOCKER_HUB_PASS = credentials('DOCKER_HUB_PASS')
   }
+  options {
+    timeout(time: 20, unit: 'MINUTES')
+    timestamps()
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+
 
   stages {
 
