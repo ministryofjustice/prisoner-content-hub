@@ -22,7 +22,7 @@ services:
                 environment:
                         API_URI: http://hub-be/
                 ports:
-                        - 80:80
+                        - 8181:80
                 healthcheck:
                         test: ["CMD", "curl", "-f", "http://localhost"]
                         interval: 15s
