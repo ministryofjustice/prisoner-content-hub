@@ -38,7 +38,7 @@ pipeline {
 
     stage ('Deploy') {
       when {
-        branch 'feature/hub_dev_env'
+        branch 'master'
       } 
       steps {
         sh 'cd moj-fe && make push'
