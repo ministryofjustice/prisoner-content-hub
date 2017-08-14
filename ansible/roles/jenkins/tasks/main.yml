@@ -1,3 +1,4 @@
 ---
 
 - include: users.yml
+- include: cron.yml
