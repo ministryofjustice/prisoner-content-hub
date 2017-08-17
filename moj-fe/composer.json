@@ -8,8 +8,7 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "guzzlehttp/guzzle": "~6.0",
-        "mcamara/laravel-localization": "1.1.*",
-        "laravelcollective/html": "~5.0"
+        "mcamara/laravel-localization": "1.1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
