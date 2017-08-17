@@ -39,6 +39,7 @@
                     <div class="col-xs-2">
                         @include('languageDropdown', ['path' => $path])
                     </div>
+
                 </div>
                 </div>
             </div>

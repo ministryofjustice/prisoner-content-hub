@@ -1,0 +1,48 @@
+/* Search Box */
+
+.searchBox {
+
+  display: table;
+  width: 300px;
+  margin: 20px auto;
+
+
+  input {
+
+    &.searchInput
+    {
+      display: inline-block;
+      width: 260px;
+      margin: 0;
+      float: left;
+      border-radius: 10px 0px 0px 10px;
+      -moz-border-radius: 10px 0px 0px 10px;
+      border: 1px solid #ccc;
+    }
+  }
+
+  button {
+    display: inline-block;
+    width: 40px;
+    margin: 0;
+    padding: 0;
+    float: left;
+    background: #ccc;
+    border: none;
+    height: 40px;
+    text-align: center;
+    border-radius: 0px 10px 10px 0px;
+    -moz-border-radius: 0px 10px 10px 0px;
+    -webkit-border-radius: 0px 10px 10px 0px;
+    cursor: pointer;
+
+    img {
+
+      &.searchIcon{
+        width: auto;
+        height: 18px;
+        margin: 0 auto;
+      }
+    }
+  }
+}

@@ -1,10 +1,8 @@
-<div class="dropdown">
-    <button class="language-button" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-        English
-        <span class="icon icon-dropdown"></span>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="language-menu_dropdown">
-        <li><a href="{{ URL::to('/') }}{{ $path }}">English</a></li>
-        <li><a href="{{ URL::to('/') }}/cy{{ $path }}">Welsh</a></li>
-    </ul>
+<div class="searchBox form-group">
+    {!! Form::open(array('action' => 'HubLinksController@searchContent', 'method' => 'get', 'search' => 'contact_store', 'class' => 'form')) !!}
+        <input type="text" placeholder="Search.." class="searchInput" name="q">
+        <button type="submit" class="searchButton">
+            <img src="/img/search.svg" class="searchIcon" alt="Search button">
+        </button>
+    {!! Form::close() !!}
 </div>
