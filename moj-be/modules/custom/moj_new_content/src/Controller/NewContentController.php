@@ -5,9 +5,6 @@ namespace Drupal\moj_new_content\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-/**
- * Controller routines for page example routes.
- */
 class NewContentController extends ControllerBase
 {
     /**
@@ -41,7 +38,7 @@ class NewContentController extends ControllerBase
      *
      */
 
-    public function init()
+    protected function init()
     {
         $pdfData = self::buildRenderArray('moj_pdf_item', 'moj_pdf_item.serializer.default');
         if (self::cheackIfEmpty(json_decode($pdfData, true))) {
@@ -94,7 +91,7 @@ class NewContentController extends ControllerBase
      * @return json
      */
 
-    public function buildRenderArray(string $type, string $serialiseData)
+    protected function buildRenderArray($type, $serialiseData)
     {
         $nids = self::getNewNodeIds($type);
         $nodes = self::loadNodes($nids);
@@ -109,7 +106,7 @@ class NewContentController extends ControllerBase
      * @return array|int
      */
 
-    public function getNewNodeIds(string $type)
+    public function getNewNodeIds($type)
     {
         $query = \Drupal::entityQuery('node')
             ->condition('status', 1)
@@ -139,7 +136,7 @@ class NewContentController extends ControllerBase
      * @return array
      */
 
-    protected static function loadNodes(array $nids)
+    protected function loadNodes($nids)
     {
         $node_storage = \Drupal::entityTypeManager()->getStorage('node');    // TODO: Inject dependency
         $items = array_filter(
@@ -158,7 +155,7 @@ class NewContentController extends ControllerBase
      * @return json
      */
 
-    protected static function serialiseData(array $nodes, string $id)
+    protected static function serialiseData($nodes, $id)
     {
         $serializer = \Drupal::service($id); // TODO: Inject dependency
         return $serializer->serialize(array_values($nodes), 'json', ['plugin_id' => 'entity']);
@@ -171,7 +168,7 @@ class NewContentController extends ControllerBase
      * @return bool
      */
 
-    protected static function cheackIfEmpty(array $data)
+    protected static function cheackIfEmpty($data)
     {
         if (empty($data)) {
             return false;
@@ -188,7 +185,7 @@ class NewContentController extends ControllerBase
      * @return array
      */
 
-    protected static function groupVideos(array $data)
+    protected static function groupVideos($data)
     {
         $result = array();
         foreach ($data as $item) {
@@ -201,6 +198,5 @@ class NewContentController extends ControllerBase
         }
         return $result;
     }
-
 
 }

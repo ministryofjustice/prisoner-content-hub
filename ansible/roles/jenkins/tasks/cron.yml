@@ -1,0 +1,8 @@
+---
+
+- cron:
+    name: 'Remove Docker images'
+    minute: '0'
+    hour: '2'
+    job: 'docker rmi $(docker images -f "dangling=true" -q) > /dev/null'
+

@@ -93,7 +93,7 @@ class VideoPlayerTest extends TestCase
              ->see('http://placehold.it/300x300')
              ->see('1:20')
              ->see('Minute Maths')
-             ->seeElement("#video_player > source[src='http://192.168.33.9/sites/default/files/videos/2016-07/SampleVideo_1280x720_2mb_2.mp4']");
+             ->seeElement("#jquery_jplayer_1 > video[src='http://192.168.33.9/sites/default/files/videos/2016-07/SampleVideo_1280x720_2mb_2.mp4']");
     }
 
     public function testMockVideoWithNoId()

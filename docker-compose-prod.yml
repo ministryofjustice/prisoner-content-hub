@@ -22,7 +22,7 @@ services:
                 environment:
                         API_URI: http://hub-be/
                 ports:
-                        - 80:80
+                        - 8181:80
                 healthcheck:
                         test: ["CMD", "curl", "-f", "http://localhost"]
                         interval: 15s
@@ -42,6 +42,8 @@ services:
                         PHP_MEMORY_LIMIT: 256M
                         PHP_UPLOAD_MAX_FILE_SIZE: 256M
                         PHP_POST_MAX_SIZE: 256M
+                volumes:
+                        - hub-be:/var/www/html/sites/default/files/
                 ports:
                         - 8182:80
                 healthcheck:
@@ -49,3 +51,8 @@ services:
                         interval: 15s
                         timeout: 30s
                         retries: 1
+
+volumes:
+        hub-be:
+                external: true
+

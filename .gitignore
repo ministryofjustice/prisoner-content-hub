@@ -3,3 +3,4 @@ db_dump/
 .idea
 .DS_Store
 modules/contrib/backup_migrate/vendor/psr/
+*.swp

@@ -7,43 +7,42 @@ use App\Models\News;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
-class NewsRepository
-{
-    protected $client;
-    protected $locale = '';
+class NewsRepository {
 
-    public function __construct()
-    {
-        $this->client = new Client(array(
-            'base_uri' => config('app.api_uri'),
-            'timeout' => 60.0
-        ));
+	protected $client;
 
-        $this->locale = \App::getLocale();
-        if ($this->locale == 'en') {
-          $this->locale = '';
-        }
-    }
+	protected $locale = '';
 
-    public function landingPageNews()
-    {
-        $response = $this->client->get($this->locale . '/api/news/landing');
+	public function __construct() {
+		$this->client = new Client([
+			'base_uri' => config('app.api_uri'),
+			'timeout' => config('app.timeout'),
+		]);
 
-        $responseNews = json_decode($response->getBody());
+		$this->locale = \App::getLocale();
+		if ($this->locale == 'en') {
+			$this->locale = '';
+		}
+	}
 
-        $news = array();
+	public function landingPageNews() {
+		$response = $this->client->get($this->locale . '/api/news/landing');
 
-        foreach ($responseNews as $item) {
-            array_push($news, new News(
-                $item->nid,
-                $item->title,
-                $item->description,
-                $item->date,
-                $item->sticky
-            ));
-        }
+		$responseNews = json_decode($response->getBody());
 
-        return $news;
-    }
+		$news = [];
+
+		foreach ($responseNews as $item) {
+			array_push($news, new News(
+				$item->nid,
+				$item->title,
+				$item->description,
+				$item->date,
+				$item->sticky
+			));
+		}
+
+		return $news;
+	}
 
 }

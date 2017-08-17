@@ -80,5 +80,4 @@ class HubLinksController extends Controller
           ]
         );
     }
-
 }

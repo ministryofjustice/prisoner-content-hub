@@ -3,10 +3,8 @@
 <head>
     <script src="/js/jquery-1.12.4.min.js"></script>
     <script src="/js/bxslider/jquery.bxslider.min.js"></script>
-    <script src="/js/video.min.js"></script>
     <script src="/js/global.js" type="text/javascript"></script>
     <script src="/js/news.js" type="text/javascript"></script>
-    <script src="/js/video.js" type="text/javascript"></script>
     <script src="/js/jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/js/bootstrap.js" type="text/javascript"></script>
     <!-- Sudoku -->
@@ -60,11 +58,18 @@
     /*window.setInterval(function(){
         mySudokuJS.solveStep();
     }, 100);*/
-
     $(".new-game").on("click", function() {
         $("#sudoku-alert").removeClass("show");
+        clearErrors();
         mySudokuJS.generateBoard('easy');
     });
+
+    function clearErrors(){
+        $("#sudoku input").filter(function() {
+            $(this).removeAttr('disabled');
+            $(this).removeClass("board-cell--error highlight-val");
+        });
+    }
 </script>
 </body>
 </html>

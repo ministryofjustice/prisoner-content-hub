@@ -2,6 +2,7 @@ Digital Hub for Prisons
 =======================
 
 [![CircleCI](https://circleci.com/gh/noms-digital-studio/digital-hub.svg?style=svg)](https://circleci.com/gh/noms-digital-studio/digital-hub)
+[![Jenkins](https://img.shields.io/jenkins/s/https/dev.jenkins.hub.service.hmpps.dsd.io/jenkins/job/digital_hub/job/master.svg)]()
 
 
 This repo contains two directories.
@@ -38,10 +39,11 @@ Edit code and provide new features
 
 If you wish to work on the Digital Hub to provide more content types or features pull requests are welcome.
 
-If you are on macOS and have Homebrew installed you will need to run the following
+If you are on macOS and have Homebrew installed you will need to run the following in the root of the repo
 
-    brew install homebrew/php/composer
-    brew install npm
+    brew bundle
+
+This will install all of the packages you will need to do development on the project or you can inspect the Brewfile in the root and see what packages you will need.
 
 To build either the Laravel frontend container or Drupal backend container change into the relevant directory and run
 

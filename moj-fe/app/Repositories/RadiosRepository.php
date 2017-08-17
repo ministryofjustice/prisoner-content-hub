@@ -4,28 +4,25 @@ namespace App\Repositories;
 
 use GuzzleHttp\Client;
 
-class RadiosRepository
-{
+class RadiosRepository {
 
 	protected $client;
+
 	protected $locale = '';
 
-	public function __construct()
-	{
-		$this->client = new Client(array(
+	public function __construct() {
+		$this->client = new Client([
 			'base_uri' => config('app.api_uri'),
-			'timeout' => 60.0
-		));
+			'timeout' => config('app.timeout'),
+		]);
 
 		$this->locale = \App::getLocale();
-		if ($this->locale == 'en')
-		{
+		if ($this->locale == 'en') {
 			$this->locale = '';
 		}
 	}
 
-	public function landingPageRadios()
-	{
+	public function landingPageRadios() {
 		$response = $this->client->get($this->locale . '/api/radio/landing');
 
 		$responseTree = json_decode($response->getBody());
@@ -33,8 +30,7 @@ class RadiosRepository
 		return $responseTree;
 	}
 
-	public function show($nid)
-	{
+	public function show($nid) {
 		$response = $this->client->get($this->locale . '/api/radio/show/' . $nid);
 
 		$responseTree = json_decode($response->getBody());
@@ -42,8 +38,7 @@ class RadiosRepository
 		return $responseTree;
 	}
 
-	public function channelRadioShows($nid)
-	{
+	public function channelRadioShows($nid) {
 		$response = $this->client->get($this->locale . '/api/radio/shows/' . $nid);
 
 		$responseTree = json_decode($response->getBody());

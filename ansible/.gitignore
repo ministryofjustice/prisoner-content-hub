@@ -4,3 +4,4 @@ Ansiblefile.lock
 librarian_roles/
 tmp/
 *.retry
+.vagrant/

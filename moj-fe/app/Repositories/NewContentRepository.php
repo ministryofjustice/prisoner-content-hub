@@ -6,33 +6,35 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
 class NewContentRepository {
-    protected $client;
-    protected $locale = '';
 
-    public function __construct() {
-        $this->client = new Client(array(
-            'base_uri' => config('app.api_uri'),
-            'timeout' => 60.0
-        ));
+	protected $client;
 
-        $this->locale = \App::getLocale();
+	protected $locale = '';
 
-        if ($this->locale == 'en') {
-            $this->locale = '';
-        }
-    }
+	public function __construct() {
+		$this->client = new Client([
+			'base_uri' => config('app.api_uri'),
+			'timeout' => config('app.timeout'),
+		]);
 
-    public function getItem($user_id = NULL) {
-        $url = $this->locale . '/api/newcontent/';
+		$this->locale = \App::getLocale();
 
-        $headers = [];
+		if ($this->locale == 'en') {
+			$this->locale = '';
+		}
+	}
 
-        if ($user_id) {
-            $headers['custom-auth-id'] = $user_id;
-        }
+	public function getItem($user_id = NULL) {
+		$url = $this->locale . '/api/newcontent/';
 
-        $response	= $this->client->get($url, [ 'headers' => $headers ]);
+		$headers = [];
 
-        return json_decode($response->getBody());
-    }
+		if ($user_id) {
+			$headers['custom-auth-id'] = $user_id;
+		}
+
+		$response = $this->client->get($url, ['headers' => $headers]);
+
+		return json_decode($response->getBody());
+	}
 }

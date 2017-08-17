@@ -8,14 +8,16 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
 class HubLinksRepository {
+
 	protected $client;
+
 	protected $locale = '';
 
 	public function __construct() {
-		$this->client = new Client(array(
+		$this->client = new Client([
 			'base_uri' => config('app.api_uri'),
-			'timeout' => 60.0
-		));
+			'timeout' => config('app.timeout'),
+		]);
 
 		$this->locale = \App::getLocale();
 
@@ -33,22 +35,22 @@ class HubLinksRepository {
 			$headers['custom-auth-id'] = $user_id;
 		}
 
-		$response	= $this->client->get($url, [ 'headers' => $headers ]);
+		$response = $this->client->get($url, ['headers' => $headers]);
 
 		return json_decode($response->getBody());
 	}
 
-    public function checkNewContent($user_id = NULL) {
-        $url = $this->locale . '/api/checknewcontent';
+	public function checkNewContent($user_id = NULL) {
+		$url = $this->locale . '/api/checknewcontent';
 
-        $headers = [];
+		$headers = [];
 
-        if ($user_id) {
-            $headers['custom-auth-id'] = $user_id;
-        }
+		if ($user_id) {
+			$headers['custom-auth-id'] = $user_id;
+		}
 
-        $response	= $this->client->get($url, [ 'headers' => $headers ]);
+		$response = $this->client->get($url, ['headers' => $headers]);
 
-        return json_decode($response->getBody());
-    }
+		return json_decode($response->getBody());
+	}
 }

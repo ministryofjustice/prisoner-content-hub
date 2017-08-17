@@ -21,6 +21,7 @@ services:
                         - hub-memcache
                 environment:
                         API_URI: http://hub-be/
+                        APP_TIMEOUT: 60.0
                 ports:
                         - 8181:80
                 volumes:
