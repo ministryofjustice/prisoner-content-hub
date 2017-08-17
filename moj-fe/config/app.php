@@ -166,8 +166,7 @@ return [
 				App\Providers\PdfsRepositoryServiceProvider::class,
         App\Providers\NewsRepositoryServiceProvider::class,
         App\Providers\RadiosRepositoryServiceProvider::class,
-        App\Providers\SearchRepositoryServiceProvider::class,
-				Collective\Html\HtmlServiceProvider::class,
+        App\Providers\SearchRepositoryServiceProvider::class
     ],
 
     /*
