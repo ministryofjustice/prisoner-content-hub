@@ -24,7 +24,7 @@
                     <h3>Books</h3>
                     <ul>
                         @foreach($page->books as $books)
-                            <li><a href="/epub?pdf={{ $books->pdf_url }}" target="_blank"
+                            <li><a href="{{ $books->pdf_url }}" target="_blank"
                                    title="{{ $books->title }}">{{ $books->title }}.</a></li>
                         @endforeach
                     </ul>
