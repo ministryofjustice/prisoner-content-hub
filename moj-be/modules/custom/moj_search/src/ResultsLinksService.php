@@ -67,6 +67,7 @@ class ResultsLinksService extends ControllerBase
 
     private function checkFileIsPdfOrEpub()
     {
-        return $this->entity['mineType'] == 'application/epub+zip' ? '/epub?pdf='.$this->entity['filePath'] : $this->entity['filePath'];
+        // echo $this->entity['mineType'];
+        return $this->entity['mineType'] === 'application/epub+zip' ? '/epub?pdf='.$this->entity['filePath'] : $this->entity['filePath'];
     }
 }
