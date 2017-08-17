@@ -33,11 +33,13 @@ class PdfNormalizer extends NormalizerBase
      */
     public function normalize($entity, $format = NULL, array $context = array())
     {
+        $ResultsLinksService = \Drupal::service('service_search.results_links_service'); // TODO: Inject dependency or rethink how this is done
+
         return [
             "title" => $entity->getTitle(),
             "nid" => $entity->nid->value,
             "description" => $entity->description->value,
-            "pdf_url" => file_create_url($entity->field_moj_pdf->entity->getFileUri()),
+            "pdf_url" => $ResultsLinksService->generatelinks($entity),
             "thumbnail" => !empty($entity->field_moj_thumbnail_image->entity) ? file_create_url($entity->field_moj_thumbnail_image->entity->getFileUri()) : "",
             "additional_description" => $entity->field_moj_pdf_additional_desc->value
         ];
