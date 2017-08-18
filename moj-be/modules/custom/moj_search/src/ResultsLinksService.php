@@ -57,7 +57,7 @@ class ResultsLinksService extends ControllerBase
     private function generatepdflink($entity)
     {
         $this->entity = [
-          'mineType' => $entity->get('field_moj_pdf')->entity->getMimeType(),
+          'mimeType' => $entity->get('field_moj_pdf')->entity->getMimeType(),
           'filePath' => file_create_url(
             $entity->get('field_moj_pdf')->entity->getFileUri()
           ),
@@ -67,7 +67,6 @@ class ResultsLinksService extends ControllerBase
 
     private function checkFileIsPdfOrEpub()
     {
-        // echo $this->entity['mineType'];
-        return $this->entity['mineType'] === 'application/epub+zip' ? '/epub?pdf='.$this->entity['filePath'] : $this->entity['filePath'];
+        return $this->entity['mimeType'] === 'application/epub+zip' ? '/epub?pdf='.$this->entity['filePath'] : $this->entity['filePath'];
     }
 }
