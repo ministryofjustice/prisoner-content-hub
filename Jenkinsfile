@@ -5,6 +5,7 @@ pipeline {
   environment {
     DOCKER_HUB_USER = credentials('DOCKER_HUB_USER')
     DOCKER_HUB_PASS = credentials('DOCKER_HUB_PASS')
+    HUB_ENV_URL = 'https://dev.hub.service.hmpps.dsd.io'    
   }
   options {
     timeout(time: 30, unit: 'MINUTES')
@@ -47,6 +48,7 @@ pipeline {
         sshagent(['hub-env-dev-deploy']) {
           sh 'ssh deploy@dev.hub.service.hmpps.dsd.io "cd digital-hub && make prod-up"'
         }
+        sh 'cd capybara && bundle install && bundle exec rake test'
       }
     }
 
