@@ -1,0 +1,7 @@
+---
+
+- name: Ensure phantomjs is installed
+  apt:
+    name: phantomjs
+    state: present
+
