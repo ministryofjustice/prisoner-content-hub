@@ -17,7 +17,7 @@
 
             @if(!$results)
                 <section class="content books">
-                    <h3>No reults were found for: {{ $keywords }}</h3>
+                    <h3>No results were found for: {{ $keywords }}</h3>
                 </section>
             @endif
             @if($results)

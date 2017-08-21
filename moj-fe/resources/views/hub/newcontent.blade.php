@@ -38,7 +38,7 @@
                         <h4>{{ $key }}</h4>
                         @foreach($value as $videos)
                             <li>
-                                <a href="video/{{ $videos->nid }}" title="{{ $videos->title }}">{{ $videos->title }}
+                                <a href="video/{{ $videos->nid }}" target="_blank" title="{{ $videos->title }}">{{ $videos->title }}
                                     .</a>
                             </li>
                         @endforeach
@@ -50,7 +50,7 @@
                     <h3>Radio</h3>
 
                     @foreach($page->audio as $audio)
-                        <li><a href="radio/{{ $audio->nid }}" title="{{ $audio->title }}">{{ $audio->title }}.</a></li>
+                        <li><a href="radio/{{ $audio->nid }}" target="_blank" title="{{ $audio->title }}">{{ $audio->title }}.</a></li>
                     @endforeach
 
                 </section>
