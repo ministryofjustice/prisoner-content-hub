@@ -3,6 +3,8 @@
 namespace Drupal\moj_search;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\file\Entity\File;
+
 class ResultsLinksService extends ControllerBase
 {
 
@@ -56,11 +58,10 @@ class ResultsLinksService extends ControllerBase
 
     private function generatepdflink($entity)
     {
+        $url = parse_url(file_create_url($entity->get('field_moj_pdf')->entity->getFileUri()));
         $this->entity = [
           'mimeType' => $entity->get('field_moj_pdf')->entity->getMimeType(),
-          'filePath' => file_create_url(
-            $entity->get('field_moj_pdf')->entity->getFileUri()
-          ),
+          'filePath' => $url['path']
         ];
         return $this->checkFileIsPdfOrEpub();
     }
