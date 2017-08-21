@@ -3,5 +3,7 @@ description: Adds search endpoint.
 package: MoJ Self Service
 dependencies:
     - search_api
+    - search_api_db
+    - search_api_db_defaults
 type: module
 core: 8.x
