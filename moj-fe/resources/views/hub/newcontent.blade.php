@@ -9,7 +9,7 @@
 
             <header>
                 @if($page->todaysdate)
-                    <h2>{{ $page->todaysdate }}</h2>
+                    <h2>{{ $newContentDate }}</h2>
                 @endif
             </header>
 
@@ -21,7 +21,7 @@
 
             @if($page->books)
                 <section class="content books">
-                    <h3>Books</h3>
+                    <h3>{{ trans('hub.books') }}</h3>
                     <ul>
                         @foreach($page->books as $books)
                             <li><a href="{{ $books->pdf_url }}" target="_blank"
@@ -33,7 +33,7 @@
             @if($page->videos)
                 <section class="content videos">
 
-                    <h3>Videos</h3>
+                    <h3>{{ trans('hub.video') }}</h3>
                     @foreach($page->videos as $key => $value)
                         <h4>{{ $key }}</h4>
                         <ul>
@@ -48,7 +48,7 @@
             @endif
             @if($page->audio)
                 <section class="content radio">
-                    <h3>Radio</h3>
+                    <h3>{{ trans('hub.radio') }}</h3>
                     <ul>
                     @foreach($page->audio as $audio)
                         <li><a href="radio/{{ $audio->nid }}" target="_blank" title="{{ $audio->title }}">{{ $audio->title }}</a></li>
