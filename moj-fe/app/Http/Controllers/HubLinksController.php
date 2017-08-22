@@ -9,6 +9,7 @@ use App\Facades\Search;
 use App\Facades\NewContent;
 use App\Helpers\LangSelectPath;
 use App\Helpers\HubBackLink;
+use App\Helpers\NewContentLink;
 use App\Http\Controllers\Controller;
 
 class HubLinksController extends Controller
@@ -20,15 +21,16 @@ class HubLinksController extends Controller
         $path = LangSelectPath::getPath($request->path());
         $backlink = HubBackLink::getBackLink();
         $new_content = HubLinks::checkNewContent($request->input('user_id'));
+        $newcontentlink = NewContentLink::getNewContentLink();
 
-
-        return view(
+         return view(
           'hub.item',
           [
             'page' => $page_data,
             'path' => $path,
             'backlink' => $backlink,
             'newcontent' => $new_content,
+            'newcontentlink' => $newcontentlink,
           ]
         );
     }
