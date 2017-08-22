@@ -36,23 +36,25 @@
                     <h3>Videos</h3>
                     @foreach($page->videos as $key => $value)
                         <h4>{{ $key }}</h4>
+                        <ul>
                         @foreach($value as $videos)
                             <li>
                                 <a href="video/{{ $videos->nid }}" target="_blank" title="{{ $videos->title }}">{{ $videos->title }}
                                     .</a>
                             </li>
                         @endforeach
+                        </ul>
                     @endforeach
                 </section>
             @endif
             @if($page->audio)
                 <section class="content radio">
                     <h3>Radio</h3>
-
+                    <ul>
                     @foreach($page->audio as $audio)
                         <li><a href="radio/{{ $audio->nid }}" target="_blank" title="{{ $audio->title }}">{{ $audio->title }}.</a></li>
                     @endforeach
-
+                    </ul>
                 </section>
             @endif
         </div>
