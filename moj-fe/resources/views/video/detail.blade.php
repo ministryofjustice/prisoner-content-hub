@@ -30,18 +30,22 @@
   </script>
 
 <div class="video-player-wrap dark">
-
+    <div class="container">
     <div class="row">
         @if($video->getParentChannelExistsValue())
-            <a href="{{ action('VideosController@showChannelLandingPage', $video->getParentChannelId()) }}" id="back-to-landing"><span class="arrow" aria-hidden="true"></span>{{ trans('video.backTo') }} {{ $video->getParentChannel()}}</a>
+            <a href="{{ action('VideosController@showChannelLandingPage', $video->getParentChannelId()) }}" id="back-to-landing">
+                <span class="arrow" aria-hidden="true"></span>{{ trans('video.backTo') }} {{ $video->getParentChannel()}}
+            </a>
         @else
-            <a href="{{ action('VideosController@showVideoLandingPage') }}" id="back-to-landing"><span class="arrow" aria-hidden="true"></span>{{ trans('video.back') }}</a>
+            <a href="{{ action('VideosController@showVideoLandingPage') }}" id="back-to-landing">
+                <span class="arrow" aria-hidden="true"></span>{{ trans('video.back') }}
+            </a>
         @endif
     </div>
 
     <div class="row">
     
-        <div class="col-md-5" id="playerColSize">
+        <div class="col-md-6" id="playerColSize">
             <div id="jp_container_1" class="jp-video" role="application" aria-label="media player">
                 <div class="jp-type-single">
                     <div id="jquery_jplayer_1" class="jp-jplayer" style=""><img id="jp_poster_0" style="display: inline;" src="{{ $video->getThumbnail() }}"><video id="jp_video_0" preload="metadata" src="{{ $video->getUrl() }}" title="{{ $video->getTitle() }}" style="width: 0px; height: 0px;"></video></div>
@@ -86,7 +90,7 @@
             </div>
         </div>
     
-        <div class="col-md-7 video-details" id="textColSize">
+        <div class="col-md-6 video-details" id="textColSize">
 
             <span class="video-programme">{{ $video->getCategories()->name }}</span>
             <h2 class="video-title">{{ $video->getTitle() }}</h2>
@@ -122,6 +126,7 @@
             </div>
         </div>
     
+    </div>
     </div>
 
 </div>
