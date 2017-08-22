@@ -1,0 +1,14 @@
+---
+
+- name: Ensure phantomjs is installed
+  apt:
+    name: phantomjs
+    state: present
+
+- name: Fix phantomjs wrapper
+  copy:
+      src: phantomjs/phantomjs
+      dest: /usr/bin/phantomjs
+      owner: root
+      group: root
+      mode: 0755
