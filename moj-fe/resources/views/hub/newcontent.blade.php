@@ -25,7 +25,7 @@
                     <ul>
                         @foreach($page->books as $books)
                             <li><a href="{{ $books->pdf_url }}" target="_blank"
-                                   title="{{ $books->title }}">{{ $books->title }}.</a></li>
+                                   title="{{ $books->title }}">{{ $books->title }}</a></li>
                         @endforeach
                     </ul>
                 </section>
@@ -39,8 +39,7 @@
                         <ul>
                         @foreach($value as $videos)
                             <li>
-                                <a href="video/{{ $videos->nid }}" target="_blank" title="{{ $videos->title }}">{{ $videos->title }}
-                                    .</a>
+                                <a href="video/{{ $videos->nid }}" target="_blank" title="{{ $videos->title }}">{{ $videos->title }}</a>
                             </li>
                         @endforeach
                         </ul>
@@ -52,7 +51,7 @@
                     <h3>Radio</h3>
                     <ul>
                     @foreach($page->audio as $audio)
-                        <li><a href="radio/{{ $audio->nid }}" target="_blank" title="{{ $audio->title }}">{{ $audio->title }}.</a></li>
+                        <li><a href="radio/{{ $audio->nid }}" target="_blank" title="{{ $audio->title }}">{{ $audio->title }}</a></li>
                     @endforeach
                     </ul>
                 </section>
