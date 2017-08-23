@@ -15,7 +15,7 @@
                 <div class="navigation-title game-yellow">
                     <a href="#">
                         <span class="icon icon-icon-games" aria-hidden="true"></span>
-                        Neontroids
+                        {{ trans('games.neontroids') }}
                     </a>
                 </div>
             </div>
