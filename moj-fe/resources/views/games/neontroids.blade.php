@@ -5,7 +5,7 @@
     <div class="top-navigation">
         <div class="row">
             <div class="col-xs-12">
-                <a href="/hub" class="back-to-hub">
+                <a href="{{ $backlink }}" class="back-to-hub">
                     <span class="icon icon-icon-hub" aria-hidden="true"></span>
                     <div class="back-to-the-hub-text">
                         {{ trans('navigation.title') }}
@@ -15,7 +15,7 @@
                 <div class="navigation-title game-yellow">
                     <a href="#">
                         <span class="icon icon-icon-games" aria-hidden="true"></span>
-                        Neontroids
+                        {{ trans('games.neontroids') }}
                     </a>
                 </div>
             </div>
