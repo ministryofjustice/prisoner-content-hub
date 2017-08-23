@@ -6,5 +6,5 @@ return [
     'video' => 'Video',
     'radio' => 'Radio',
     'newcontenttitle' => 'Added Today',
-		'searchtitle' => 'Search Results',
+		'searchtitle' => 'Search Results'
 ];
