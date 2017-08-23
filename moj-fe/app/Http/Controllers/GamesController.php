@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use /** @noinspection PhpUnusedAliasInspection */
-	App\Http\Controllers\Controller;
+use App\Helpers\HubBackLink;
 
 class GamesController extends Controller
 {
@@ -14,21 +13,45 @@ class GamesController extends Controller
 
 	function showGamesChess()
 	{
-		return view('games.chess');
+	    $backlink = HubBackLink::getBackLink();
+
+	    return view('games.chess',
+        [
+          'backlink' => $backlink,
+        ]
+      );
 	}
 
 	function showGamesSudoku()
 	{
-		return view('games.sudoku');
+	    $backlink = HubBackLink::getBackLink();
+
+		return view('games.sudoku',
+      [
+        'backlink' => $backlink,
+      ]
+    );
 	}
 
 	function showGamesDraughts()
 	{
-		return view('games.draughts');
+      $backlink = HubBackLink::getBackLink();
+
+		return view('games.draughts',
+      [
+        'backlink' => $backlink,
+      ]
+    );
 	}
     function showGamesNeontroids()
     {
-        return view('games.neontroids');
+        $backlink = HubBackLink::getBackLink();
+
+        return view('games.neontroids',
+          [
+            'backlink' => $backlink,
+          ]
+        );
     }
 
 }
