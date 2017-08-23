@@ -63,7 +63,7 @@ class HubLinksController extends Controller
             'page' => $page_data,
             'path' => $path,
             'backlink' => $backlink,
-            'newContentDate' =>$NewContentDate
+            'newContentDate' => $NewContentDate
           ]
         );
     }
