@@ -3,5 +3,3 @@
 - hosts: bounce
   roles:
           - bounce
-          - librarian_roles/dev-sec.ssh-hardening/
-          - librarian_roles/jnv.unattended-upgrades/

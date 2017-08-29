@@ -11,3 +11,6 @@
           - librarian_roles/openmicroscopy.upgrade-distpackages/
           - hub
 
+- hosts: hub-prod
+  roles:
+          - hub
