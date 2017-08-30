@@ -53,7 +53,7 @@ process:
       ignore_case: true
       # default_values:
         # parent/target_id: parent
-  field_moj_description: hub_link
+  field_moj_description/value: description
   field_moj_video/target_id:
     plugin: migration
     migration: videos_video
