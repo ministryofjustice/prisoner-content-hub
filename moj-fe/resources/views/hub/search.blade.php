@@ -6,18 +6,18 @@
 
     <div class="container notifaction">
         <div class="col-xs-12">
-            @include('searchBox', ['path' => $path])
+            @include('searchBox', ['path' => $path, 'searchpath' => $searchpath])
         </div>
 
         <div class="col-xs-12">
 
             <header>
-                <h2>Search Results for: {{ $keywords }}</h2>
+                <h2>{{ trans('hub.search_results_for') }}: {{ $keywords }}</h2>
             </header>
 
             @if(!$results)
                 <section class="content books">
-                    <h3>No results were found for: {{ $keywords }}</h3>
+                    <h3>{{ trans('hub.no_results_found_for') }}: {{ $keywords }}</h3>
                 </section>
             @endif
             @if($results)

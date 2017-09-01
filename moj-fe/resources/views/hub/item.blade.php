@@ -23,7 +23,7 @@
     </div>
       @if (!$page->id)
       <div class="col-xs-12">
-          @include('searchBox', ['path' => $path])
+          @include('searchBox', ['path' => $path, 'searchpath' => $searchpath])
       </div>
       @endif
   </div>

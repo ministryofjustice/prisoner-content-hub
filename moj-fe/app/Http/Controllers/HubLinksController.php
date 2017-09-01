@@ -10,6 +10,7 @@ use App\Facades\NewContent;
 use App\Helpers\LangSelectPath;
 use App\Helpers\HubBackLink;
 use App\Helpers\NewContentLink;
+use App\Helpers\SearchPath;
 use App\Helpers\TranslatedDate;
 use App\Http\Controllers\Controller;
 
@@ -23,6 +24,7 @@ class HubLinksController extends Controller
         $backlink = HubBackLink::getBackLink();
         $new_content = HubLinks::checkNewContent($request->input('user_id'));
         $newcontentlink = NewContentLink::getNewContentLink();
+        $searchPath = SearchPath::getSearchPath();
 
          return view(
           'hub.item',
@@ -32,6 +34,7 @@ class HubLinksController extends Controller
             'backlink' => $backlink,
             'newcontent' => $new_content,
             'newcontentlink' => $newcontentlink,
+            'searchpath' => $searchPath
           ]
         );
     }
@@ -74,6 +77,7 @@ class HubLinksController extends Controller
         $results = Search::getResults($request->input('user_id'), $keywords);
         $path = LangSelectPath::getPath($request->path());
         $backlink = HubBackLink::getBackLink();
+        $searchPath = SearchPath::getSearchPath();
 
         return view(
           'hub.search',
@@ -82,6 +86,7 @@ class HubLinksController extends Controller
             'path' => $path,
             'backlink' => $backlink,
             'keywords' => $keywords,
+            'searchpath' => $searchPath
           ]
         );
     }
