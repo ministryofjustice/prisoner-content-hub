@@ -9,6 +9,6 @@ return [
   'books' => 'Books',
   'added_today' => 'Added Today',
   'search_results' => 'Search Results',
-  'search_results_for' =>  'Search results for',
+  'search_results_for' =>  'Search Results for',
   'no_results_found_for' => 'No results found for'
 ];
