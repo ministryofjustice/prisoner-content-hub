@@ -10,7 +10,6 @@ Capybara.register_driver :poltergeist do |app|
   })
 end
 session = Capybara::Session.new(:poltergeist)
-session.visit ENV['HUB_ENV_URL']
 session.visit ENV["HUB_ENV_URL"] + "/cy/hub/"
 session.fill_in('q', :with => 'search test')
 session.click_button('Search')
