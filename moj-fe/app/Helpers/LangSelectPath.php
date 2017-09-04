@@ -5,12 +5,16 @@ namespace App\Helpers;
 class LangSelectPath {
   public static function getPath($path)
   {
-    $parts = explode('/', $path);
-		if($parts[0] === 'cy')
+    if($path === '/')
     {
-        unset($parts[0]);
-        return implode('/', $parts);
+        return '/';
+    } else {
+        $parts = explode('/', $path);
+        if($parts[0] === 'cy')
+        {
+            unset($parts[0]);
+        }
+        return '/' . implode('/', $parts);
     }
-    return implode('/', $parts);
   }
 }
