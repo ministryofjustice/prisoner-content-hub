@@ -5,9 +5,9 @@ namespace App\Helpers;
 class LangSelectPath {
   public static function getPath($path)
   {
-    if($path === '/')
+    if($path === '/' || $path === 'hub')
     {
-        return '/';
+        return '/hub';
     } else {
         $parts = explode('/', $path);
         if($parts[0] === 'cy')
