@@ -11,4 +11,10 @@ class SearchPath
         self::$locale = \App::getLocale();
         return self::$locale === 'cy' ? '/cy/search' : '/search';
     }
+    public static function getSearchLangTag()
+    {
+        self::$locale = \App::getLocale();
+        return self::$locale === 'cy' ? '/cy' : '';
+    }
+
 }
