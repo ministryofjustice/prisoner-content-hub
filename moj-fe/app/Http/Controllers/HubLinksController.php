@@ -78,6 +78,7 @@ class HubLinksController extends Controller
         $path = LangSelectPath::getPath($request->path());
         $backlink = HubBackLink::getBackLink();
         $searchPath = SearchPath::getSearchPath();
+        $langTag = SearchPath::getSearchLangTag();
 
         return view(
           'hub.search',
@@ -86,7 +87,8 @@ class HubLinksController extends Controller
             'path' => $path,
             'backlink' => $backlink,
             'keywords' => $keywords,
-            'searchpath' => $searchPath
+            'searchpath' => $searchPath,
+            'langTag' => $langTag
           ]
         );
     }
