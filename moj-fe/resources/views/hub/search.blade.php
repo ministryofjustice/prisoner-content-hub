@@ -25,7 +25,7 @@
                     <ul>
                         @foreach($results as $result)
                             <li>
-                                <a href="{{ $result->link }}" target="_blank" title="{{ $result->title }}">{{ $result->title }}</a>
+                                <a href="{{ $langTag }}{{ $result->link }}" target="_blank" title="{{ $result->title }}">{{ $result->title }}</a>
                             </li>
                         @endforeach
                     </ul>
