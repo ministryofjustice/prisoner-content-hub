@@ -5,7 +5,12 @@ package: Content Import
 # core: 8.x
 dependencies:
   - drupal:migrate
+  - drupal:migrate_drupal
+  - drupal:migrate_drupal_ui
+  - drupal:migrate_tools
+  - drupal:migrate_source_csv
   - migrate_plus:migrate_plus
+  - migrate_tools:migrate_tools
 
 # Information added by Drupal.org packaging script on 2017-04-25
 version: '8.x-1.0'
