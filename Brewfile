@@ -15,6 +15,7 @@ brew 'terraform'
 brew 'yarn'
 brew 'openssl'
 brew 'ansible'
+brew 'mysql'
 brew 'homebrew/php/composer'
 # need to install java before jenkins
 cask 'java'
