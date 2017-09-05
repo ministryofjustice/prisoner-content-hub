@@ -10,11 +10,7 @@
         <script src="/js/jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="/js/bootstrap.js" type="text/javascript"></script>
 
-        @if (Request::is('/') || Request::is('hub/*'))
-        <title>Digital Hub</title>
-        @else
-        <title>Digital Hub - @yield('title')</title>
-        @endif
+        <title>Search: {{ $keywords }} </title>
 
         <link href="{{ elixir('css/app.css') }}" rel="stylesheet" type="text/css" />
         <link href="/js/bxslider/jquery.bxslider.css" rel="stylesheet" />
