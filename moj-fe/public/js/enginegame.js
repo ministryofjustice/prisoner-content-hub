@@ -29,7 +29,7 @@ function engineGame(options) {
         if (announced_game_over) {
             return;
         }
-        
+
         if (game.game_over()) {
             announced_game_over = true;
             alert("Check Mate, Game Over!");
@@ -38,14 +38,12 @@ function engineGame(options) {
 
     function uciCmd(cmd, which)
     {
-        // console.log("UCI: " + cmd);
-        
+        console.log("UCI: " + cmd);
+
         (which || engine).postMessage(cmd);
     }
 
-    uciCmd('uci');
-    
-    ///TODO: Eval starting posistions. I suppose the starting positions could be different in different chess varients.
+    // uciCmd('uci');
 
     function displayStatus()
     {
@@ -57,7 +55,7 @@ function engineGame(options) {
         } else {
             status += 'ready.';
         }
-        
+
         if(engineStatus.search) {
             status += '<br>' + engineStatus.search;
             if(engineStatus.score && displayScore) {
@@ -67,95 +65,23 @@ function engineGame(options) {
         $('#engineStatus').html(status);
     }
 
-    function displayClock(color, t)
-    {
-        var isRunning = false;
-        if(time.startTime > 0 && color === time.clockColor) {
-
-            t = Math.max(0, t + time.startTime - Date.now());
-            isRunning = true;
-        }
-        var id = color == playerColor ? '#time2' : '#time1';
-        var sec = Math.ceil(t / 1000);
-        var min = Math.floor(sec / 60);
-        sec -= min * 60;
-        var hours = Math.floor(min / 60);
-        min -= hours * 60;
-        var display = hours + ':' + ('0' + min).slice(-2) + ':' + ('0' + sec).slice(-2);
-        if(display === '0:00:00') {
-            game.reset();
-            announced_game_over = true;
-        }
-        if(isRunning) {
-            display += sec & 1 ? ' ..' : ' ..';
-        }
-        $(id).text(display);
-    }
-
-    function updateClock()
-    {
-        displayClock('white', time.wtime);
-        displayClock('black', time.btime);
-    }
-
-    function clockTick()
-    {
-        updateClock();
-        var t = (time.clockColor == 'white' ? time.wtime : time.btime) + time.startTime - Date.now();
-        var timeToNextSecond = (t % 1000) + 1;
-        clockTimeoutID = setTimeout(clockTick, timeToNextSecond);
-    }
-
-    function stopClock()
-    {
-        if(clockTimeoutID !== null) {
-            clearTimeout(clockTimeoutID);
-            clockTimeoutID = null;
-        }
-        if(time.startTime > 0) {
-            var elapsed = Date.now() - time.startTime;
-            time.startTime = null;
-            if(time.clockColor == 'white') {
-                time.wtime = Math.max(0, time.wtime - elapsed);
-            } else {
-                time.btime = Math.max(0, time.btime - elapsed);
-            }
-        }
-    }
-
-    function startClock()
-    {
-
-        if(game.turn() == 'w') {
-            time.wtime += time.winc;
-            time.clockColor = 'white';
-        } else {
-            time.btime += time.binc;
-            time.clockColor = 'black';
-        }
-        time.startTime = Date.now();
-        clockTick();
-    }
-    
     function get_moves()
     {
         var moves = '';
         var history = game.history({verbose: true});
-        
+
         for(var i = 0; i < history.length; ++i) {
             var move = history[i];
             moves += ' ' + move.from + move.to + (move.promotion ? move.promotion : '');
         }
-        
+
         return moves;
     }
 
     function prepareMove()
     {
-        stopClock();
         $('#pgn').text(game.pgn());
         board.position(game.fen());
-        updateClock();
         var turn = game.turn() == 'w' ? 'white' : 'black';
         if(!game.game_over()) {
             if(turn != playerColor) {
@@ -163,7 +89,7 @@ function engineGame(options) {
                 uciCmd('position startpos moves' + get_moves(), evaler);
                 // evaluation_el.textContent = "";
                 uciCmd("eval", evaler);
-                
+
                 if (time && time.wtime) {
                     uciCmd("go " + (time.depth ? "depth " + time.depth : "") + " wtime " + time.wtime + " winc " + time.winc + " btime " + time.btime + " binc " + time.binc);
                 } else {
@@ -303,16 +229,16 @@ function engineGame(options) {
             var max_err,
                 err_prob,
                 difficulty_slider;
-            
+
             if (skill < 0) {
                 skill = 0;
             }
             if (skill > 20) {
                 skill = 20;
             }
-            
+
             time.level = skill;
-            
+
             /// Change thinking depth allowance.
             if (skill < 5) {
                 time.depth = "1";
@@ -324,15 +250,15 @@ function engineGame(options) {
                 /// Let the engine decide.
                 time.depth = "";
             }
-            
+
             uciCmd('setoption name Skill Level value ' + skill);
-            
+
             ///NOTE: Stockfish level 20 does not make errors (intentially), so these numbers have no effect on level 20.
             /// Level 0 starts at 1
             err_prob = Math.round((skill * 6.35) + 1);
             /// Level 0 starts at 10
             max_err = Math.round((skill * -0.5) + 10);
-            
+
             uciCmd('setoption name Skill Level Maximum Error value ' + max_err);
             uciCmd('setoption name Skill Level Probability value ' + err_prob);
         },
