@@ -52,30 +52,33 @@
                     <h3>Moves:</h3>
                     <p id="pgn"></p>
                 </div>
+
+                <div id="chess-alert" class="alert alert-info show" role="alert">
+                    <h3>Chess skill settings</h3>
+                    <p>Skill level: <span id="skillLevelDisplay">-100</span></p>
+                    <p>Contempt level: <span id="contemptLevelDisplay">20</span></p>
+                    <p>Pawns get promoted to: <span id="promoteLevelDisplay">Queen</span></p>
+                    <!-- <p><a href="#"  class="new-game cta cta-success" title="Yes, start a new game">Yes, start a new game</a></p> -->
+                </div>
             </div>
             <div class="col-md-4 col-xs-12">
 
 
                 <form class="form-horizontal">
-                    {{--<div class="form-group">--}}
-                        {{--<label for="color" class="control-label">I play</label>--}}
-                        {{--<div class="btn-group" data-toggle="buttons">--}}
-                            {{--<button type="button" class="btn btn-primary active" id="color-white">White</button>--}}
-                            {{--<button type="button" class="btn btn-primary" id="color-black">Black</button>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
 
-                    {{--<div class="form-group">--}}
-                        {{--<label for="timeBase" class="control-label">Time allowed to make your move (min)</label>--}}
-                        {{--<input type="number" class="form-control" id="timeBase" value="5">--}}
-                    {{--</div>--}}
-                    {{--<div class="form-group">--}}
-                        {{--<label for="timeInc" class="control-label">Increment (sec)</label>--}}
-                        {{--<input type="number" class="form-control" id="timeInc" value="2">--}}
-                    {{--</div>--}}
+
+
+
+
                     <div class="form-group">
-                        <label for="skillLevel" class="control-label">Skill Level (0-20)</label>
-                        <input type="number" class="form-control" id="skillLevel" value="10">
+                        <label for="contemptLevel" class="control-label">Contempt Level (-100 to 100)</label>
+                        <input type="number" class="form-control" id="contemptLevel" value="-100" max="100" min="-100">
+                        <small>Roughly equivalent to "optimism." Positive values of contempt favor more "risky" play, while negative values will favor draws. Zero is neutral.</small>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="skillLevel" class="control-label">Skill Level (0 to 20)</label>
+                        <input type="number" class="form-control" id="skillLevel" value="20" max="20" min="0">
                     </div>
                     <div class="form-group">
                         <label for="color" class="control-label">Pawns get promoted to</label>
@@ -87,15 +90,10 @@
                         </select>
                     </div>
 
-
-                    {{--<div class="form-group">--}}
-                        {{--<label for="showScore" class="control-label">Show score</label>--}}
-                        {{--<input type="checkbox" class="form-control" id="showScore" checked>--}}
-                    {{--</div>--}}
                     <div class="form-group">
                         <hidden type="number" class="form-control" id="timeInc" value="2">
                         <hidden type="number" class="form-control" id="timeBase" value="5">
-                        <button type="button" class="btn btn-primary" onclick="newGame()">New Game</button>
+                        <button type="button" class="btn btn-primary" onclick="init()">New Game</button>
                     </div>
 
 
