@@ -5,6 +5,9 @@
 }
 
 textarea, input, button { outline: none; }
+.form-group {
+  margin-bottom: 0.8em;
+}
 
 .form-group {
   button,
@@ -14,6 +17,14 @@ textarea, input, button { outline: none; }
     display: block;
     width: 100%;
   }
+
+  small {
+    font-size: 0.7em;
+    line-height: 0.2;
+    font-style: italic;
+    color: #999;
+  }
+
   label {
     margin-bottom: 10px;
   }
