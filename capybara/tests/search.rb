@@ -9,11 +9,8 @@ Capybara.register_driver :poltergeist do |app|
     :phantomjs_options => ["--ignore-ssl-errors=yes", "--ssl-protocol=['tlsv1.2']"],
   })
 end
-
 session = Capybara::Session.new(:poltergeist)
-
 session.visit ENV['HUB_ENV_URL']
-
 session.fill_in('q', :with => 'search test')
 session.click_button('Search')
 if session.has_content?("Search Results for: search test")

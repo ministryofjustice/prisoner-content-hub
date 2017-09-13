@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Symfony\Component\Serializer\Serializer;
+use Drupal\Core\Language\LanguageInterface;
+use Drupal\node\NodeInterface;
 
 class SearchApiController extends ControllerBase
 {
@@ -98,6 +100,36 @@ class SearchApiController extends ControllerBase
     }
 
     /**
+     * Gets the language of the current request.
+     * @return
+     *   The language of the current request.
+     */
+
+    protected static function getCurrentLanguage() {
+        return \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT);
+    }
+
+    /**
+     * Translates the given node into the current language of the request.
+     * @param \Drupal\node\NodeInterface $node
+     *   The node to translate.
+     *
+     * @return
+     *   The node translated into the language of the current request.
+     */
+
+    protected static function translateNode(NodeInterface $node) {
+        $lang = self::getCurrentLanguage();
+        $langcode = $lang->getId();
+
+        if ($node->hasTranslation($langcode)) {
+            return $node->getTranslation($langcode);
+        } else {
+            return $node;
+        }
+    }
+
+    /**
      * searchApiEndpoint()
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
@@ -160,6 +192,10 @@ class SearchApiController extends ControllerBase
               return $item->access();
           }
         );
+        $items = array_map(function ($i) {
+            return self::translateNode($i);
+        }, $items);
+
         return $items;
     }
 

@@ -3,7 +3,7 @@
 namespace Drupal\moj_search;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\file\Entity\File;
+use Drupal\Core\Language\LanguageInterface;
 
 class ResultsLinksService extends ControllerBase
 {
@@ -29,6 +29,25 @@ class ResultsLinksService extends ControllerBase
     }
 
     /**
+     * Gets the language of the current request.
+     * @return
+     *   The language of the current request.
+     */
+
+    protected static function getCurrentLanguage() {
+        return \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT);
+    }
+
+    protected static function translateNode() {
+        $lang = self::getCurrentLanguage();
+        if($lang->getId() === 'cy'){
+            return '/cy';
+        } else {
+            return '';
+        }
+    }
+
+    /**
      * @param string $type
      * @param int $nid
      *
@@ -37,12 +56,13 @@ class ResultsLinksService extends ControllerBase
 
     public function generatelinks($entity)
     {
+        $lang = self::translateNode();
         switch ($entity->getType()) {
             case 'moj_video_item':
-                return '/video/'.$entity->id();
+                return $lang . '/video/'.$entity->id();
                 break;
             case 'moj_radio_item':
-                return '/radio/'.$entity->id();
+                return $lang . '/radio/'.$entity->id();
                 break;
             case 'moj_pdf_item':
                 return $this->generatepdflink($entity);

@@ -9,9 +9,7 @@
         <script src="/js/video.js" type="text/javascript"></script>
         <script src="/js/jquery.modal.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="/js/bootstrap.js" type="text/javascript"></script>
-
         <title>Search: {{ $keywords }} </title>
-
         <link href="{{ elixir('css/app.css') }}" rel="stylesheet" type="text/css" />
         <link href="/js/bxslider/jquery.bxslider.css" rel="stylesheet" />
         <link href="/css/sprite.css" rel="stylesheet" type="text/css" />
