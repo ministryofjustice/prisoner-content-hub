@@ -12,6 +12,7 @@ function engineGame(options) {
     var clockTimeoutID = null;
     var isEngineRunning = false;
     var announced_game_over;
+    var inCheck = false;
 
     var onDragStart = function (source, piece, position, orientation) {
         var re = playerColor === 'white' ? /^b/ : /^w/;
@@ -24,20 +25,39 @@ function engineGame(options) {
         if (announced_game_over) {
             return;
         }
-        if (game.game_over()) {
+        if(game.in_checkmate()){
             announced_game_over = true;
             alert("Check Mate, Game Over!");
+        }
+        if(game.in_draw()){
+            announced_game_over = true;
+            alert("Draw, Game Over!");
+        }
+        if(game.insufficient_material()){
+            announced_game_over = true;
+            alert("Draw, Game Over!");
+        }
+        if(game.in_stalemate()){
+            announced_game_over = true;
+            alert("Stalemate, Game Over!");
+        }
+        if(game.in_threefold_repetition()){
+            announced_game_over = true;
+            alert("Current board position has occurred three or more times, Game Over!");
         }
     }, 1000);
 
     function uciCmd(cmd, which) {
         console.log("UCI: " + cmd);
-
         (which || engine).postMessage(cmd);
     }
 
     function displayStatus() {
-        var status = 'Engine: Ready';
+        var status = 'Engine: Loading..';
+        console.log(engineStatus);
+        if(engineStatus.engineReady === true){
+            status = 'Engine: Ready';
+        }
         if (engineStatus.search) {
             status += '<br>' + engineStatus.search;
             if (engineStatus.score && displayScore) {
@@ -129,12 +149,14 @@ function engineGame(options) {
         board.position(game.fen());
         var turn = game.turn() === 'w' ? 'white' : 'black';
         if (!game.game_over()) {
+            if(game.in_check()){
+                alert("Check");
+            }
             if (turn !== playerColor) {
                 uciCmd('position startpos moves' + get_moves());
                 uciCmd('position startpos moves' + get_moves(), evaler);
                 // evaluation_el.textContent = "";
                 uciCmd("eval", evaler);
-
                 if (time && time.wtime) {
                     uciCmd("go " + (time.depth ? "depth " + time.depth : "") + " wtime " + time.wtime + " winc " + time.winc + " btime " + time.btime + " binc " + time.binc);
                 } else {

@@ -75,7 +75,7 @@
         game.setTime(baseTime, inc);
         game.setSkillLevel(skillLevel.val());
         game.setContempt(contemptLevel.val());
-        game.setThreads(2);
+        // game.setThreads(2);
         // game.setMinimumThinkingTime(100);
         game.setDisplayScore();
         game.setPlayerColor($('#color-white').hasClass('active') ? 'white' : 'white');
