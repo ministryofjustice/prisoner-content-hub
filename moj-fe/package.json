@@ -18,6 +18,7 @@
     "draughts": "0.0.1",
     "draughtsboard": "^0.1.1",
     "epub.js": "^0.2.15",
+    "handlebars": "^4.0.11",
     "jplayer": "2.9.2",
     "json3": "^3.3.2",
     "neontroids": "git+https://github.com/swilson-mojhub/neontroids.git#hub",
