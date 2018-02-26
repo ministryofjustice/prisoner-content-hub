@@ -31,7 +31,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 
     Route::get('/games/chess', ['as' => 'games.chess', 'uses' => 'GamesController@showGamesChess']);
     Route::get('/games/sudoku', ['as' => 'games.sudoku', 'uses' => 'GamesController@showGamesSudoku']);
-    Route::get('/games/draughts', ['as' => 'games.draughts', 'uses' => 'GamesController@showGamesDraughts']);
     Route::get('/games/neontroids', ['as' => 'games.neontroids', 'uses' => 'GamesController@showGamesNeontroids']);
 });
 Route::get('/news', 'NewsController@showNewsLandingPage');
