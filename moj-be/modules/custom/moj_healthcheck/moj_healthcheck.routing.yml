@@ -1,0 +1,6 @@
+moj_healthcheck.healthcheckApiEndpoint:
+  path: '/api/health'
+  defaults:
+    _controller: '\Drupal\moj_healthcheck\Controller\HealthcheckApiController::healthcheckApiEndpoint'
+  requirements:
+    _permission: 'access content'
