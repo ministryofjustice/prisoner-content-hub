@@ -12,22 +12,40 @@ class HealthTest extends TestCase
 
     public function __construct()
     {
-        $this->healthController = new HealthController();
     }
 
     public function setUp()
     {
-        $this->timeStamp = time();
+        parent::setUp();
+        $this->healthController = new HealthController();
     }
 
-    public function testResponseContentIsADateStamep()
+    public function tearDown()
     {
-       $this->assertEquals($this->healthController->checkHealth()->getContent(), $this->timeStamp);
+        parent::tearDown();
     }
 
-    public function testResponseCodeIs200()
+    public function testFrontEndCheckHealthEndpointCodeIs200()
     {
-        $this->assertEquals($this->healthController->checkHealth()->getStatusCode(), 200);
+        $HttpResponse = $this->healthController->getResponse();
+
+        $this->assertEquals($HttpResponse->getStatusCode(), 200);
     }
 
+    public function testHttpResponseIsJson()
+    {
+        $this->healthController->setHttpResponse();
+        $HttpResponse = $this->healthController->getResponse();
+
+        $this->assertEquals($HttpResponse->headers->get('Content-Type'), 'application/json');
+    }
+
+    public function testHttpResponseHasTimeStamp()
+    {
+        $this->healthController->setHttpResponse();
+        $HttpResponse = $this->healthController->getResponse();
+        $Json = json_decode($HttpResponse->getContent());
+
+        $this->assertEquals($Json->timestamp, time());
+    }
 }
