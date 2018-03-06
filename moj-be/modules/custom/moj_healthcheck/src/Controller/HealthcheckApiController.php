@@ -3,29 +3,24 @@
 namespace Drupal\moj_healthcheck\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\HttpFoundation\Response;
+use Drupal\Core\Database;
 
 class HealthcheckApiController extends ControllerBase
 {
-    protected $response;
-
-    protected function __construct()
-    {
-        $this->response = new Response(); //TODO Dependency inject the Response Class
-    }
+    public $response;
 
     public function healthcheckApiEndpoint()
     {
-        $this->response->setContent($this->setResponse());
+        $this->response = $this->setResponse();
         return $this->response;
     }
 
-    protected function setResponse()
+		public function setResponse()
     {
         return $this->databaseSimpleTest() ? time() : 'FALSE';
     }
 
-    protected function databaseSimpleTest()
+		public function databaseSimpleTest()
     {
         $connection = \Drupal::database();
         $query = $connection->query("SELECT version()");
