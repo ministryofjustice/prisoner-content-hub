@@ -33,7 +33,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
     Route::get('/games/sudoku', ['as' => 'games.sudoku', 'uses' => 'GamesController@showGamesSudoku']);
     Route::get('/games/neontroids', ['as' => 'games.neontroids', 'uses' => 'GamesController@showGamesNeontroids']);
 
-    Route::get('/health', ['uses' => 'HealthController@checkHealth']);
+    Route::get('/health', ['uses' => 'HealthController@frontEndCheckHealthEndpoint']);
+		Route::get('/cms/health', ['uses' => 'HealthController@backEndCheckHealthEndpoint']);
 
 });
 Route::get('/news', 'NewsController@showNewsLandingPage');
