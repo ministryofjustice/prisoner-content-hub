@@ -29,7 +29,7 @@ class HealthController extends Controller
         $this->client = new Client(
           [
             'base_uri' => config('app.api_uri'),
-            'timeout' => 30.0,
+            'timeout' => 2.0,
           ]
         );
     }
@@ -50,9 +50,11 @@ class HealthController extends Controller
 
         if ($this->cms) {
             $this->setHttpResponse($this->cms->getStatusCode(), json_decode($this->cms->getBody(), true));
-            return $this->response;
+        } else {
+            $this->setHttpResponse(200, array('backend' => array('status' => 'down')));
         }
-        return response()->view('errors.500', [], 500);
+
+        return $this->response;
     }
 
     public function checkCmsHealth()
@@ -76,7 +78,7 @@ class HealthController extends Controller
     {
         $this->response->setStatusCode($code);
         $this->response->headers->set('Content-Type', 'application/json');
-        $this->response->setContent(json_encode($this->createJson($body)));
+        $this->response->setContent(json_encode($this->createJson($body), JSON_PRETTY_PRINT));
     }
 
     public function createJson($body)
