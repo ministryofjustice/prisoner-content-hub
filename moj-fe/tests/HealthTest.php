@@ -25,6 +25,20 @@ class HealthTest extends TestCase
         parent::tearDown();
     }
 
+    public function bodyMock()
+    {
+        return array(
+          'backend' => array(
+            'timestamp' => time(),
+            'Drupal Version' => '8'
+          ),
+          'db' => array(
+            'database' => 'mysql',
+            'status'=> 'up'
+          )
+        );
+    }
+
     public function testFrontEndCheckHealthEndpointCodeIs200()
     {
         $HttpResponse = $this->healthController->getResponse();
@@ -34,7 +48,7 @@ class HealthTest extends TestCase
 
     public function testHttpResponseIsJson()
     {
-        $this->healthController->setHttpResponse();
+        $this->healthController->setHttpResponse(200, $this->bodyMock());
         $HttpResponse = $this->healthController->getResponse();
 
         $this->assertEquals($HttpResponse->headers->get('Content-Type'), 'application/json');
@@ -42,10 +56,10 @@ class HealthTest extends TestCase
 
     public function testHttpResponseHasTimeStamp()
     {
-        $this->healthController->setHttpResponse();
+        $this->healthController->setHttpResponse(200, $this->bodyMock());
         $HttpResponse = $this->healthController->getResponse();
         $Json = json_decode($HttpResponse->getContent());
 
-        $this->assertEquals($Json->timestamp, time());
+        $this->assertEquals($Json->frontend->timestamp, time());
     }
 }
