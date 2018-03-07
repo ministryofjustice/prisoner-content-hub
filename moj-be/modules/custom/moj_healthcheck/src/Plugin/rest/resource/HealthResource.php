@@ -26,6 +26,8 @@ class HealthResource extends ResourceBase {
     public function get() {
       $HealthcheckApiController = new HealthcheckApiController();
       $response = $HealthcheckApiController->healthcheckApiEndpoint();
-      return new ResourceResponse(['timestamp' => $response]);
+      return new ResourceResponse($response);
     }
 }
+
+
