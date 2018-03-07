@@ -22,16 +22,6 @@ class HealthController extends Controller
 
     protected $laravel;
 
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
-    public function getCmsHealth()
-    {
-        return $this->cmsHealth;
-    }
-
     public function __construct()
     {
         $this->response = new Response();
@@ -42,6 +32,16 @@ class HealthController extends Controller
             'timeout' => 30.0,
           ]
         );
+    }
+
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    public function getCmsHealth()
+    {
+        return $this->cmsHealth;
     }
 
     public function appCheckHealthEndpoint()
