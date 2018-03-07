@@ -35,7 +35,7 @@ class HealthController extends Controller
         $this->client = new Client(
           [
             'base_uri' => config('app.api_uri'),
-            'timeout' => config('app.timeout'),
+            'timeout' => 30.0,
           ]
         );
     }
