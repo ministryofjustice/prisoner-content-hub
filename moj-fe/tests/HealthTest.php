@@ -48,7 +48,7 @@ class HealthTest extends TestCase
 
     public function testHttpResponseIsJson()
     {
-        $this->healthController->setHttpResponse(200, $this->bodyMock());
+        $this->healthController->setHttpResponse(200, $this->bodyMock(), 'up');
         $HttpResponse = $this->healthController->getResponse();
 
         $this->assertEquals($HttpResponse->headers->get('Content-Type'), 'application/json');
@@ -56,7 +56,7 @@ class HealthTest extends TestCase
 
     public function testHttpResponseHasTimeStamp()
     {
-        $this->healthController->setHttpResponse(200, $this->bodyMock());
+        $this->healthController->setHttpResponse(200, $this->bodyMock(), 'up');
         $HttpResponse = $this->healthController->getResponse();
         $Json = json_decode($HttpResponse->getContent());
 
