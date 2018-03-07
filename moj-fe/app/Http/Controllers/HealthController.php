@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Client;
+use Drupal;
 
 class HealthController extends Controller
 {
@@ -18,6 +19,8 @@ class HealthController extends Controller
     protected $cms;
 
     protected $cmsHealth;
+
+    protected $laravel;
 
     public function getResponse()
     {
@@ -32,6 +35,7 @@ class HealthController extends Controller
     public function __construct()
     {
         $this->response = new Response();
+        $this->laravel = app();
         $this->client = new Client(
           [
             'base_uri' => config('app.api_uri'),
@@ -40,19 +44,12 @@ class HealthController extends Controller
         );
     }
 
-    public function frontEndCheckHealthEndpoint()
-    {
-        $this->setHttpResponse(200);
-
-        return $this->response;
-    }
-
-    public function backEndCheckHealthEndpoint()
+    public function appCheckHealthEndpoint()
     {
         $this->cms = $this->checkCmsHealth();
 
         if ($this->cms) {
-            $this->setHttpResponse($this->cms->getStatusCode());
+            $this->setHttpResponse($this->cms->getStatusCode(), json_decode($this->cms->getBody(), true));
             return $this->response;
         }
         return response()->view('errors.500', [], 500);
@@ -75,16 +72,21 @@ class HealthController extends Controller
         }
     }
 
-    public function setHttpResponse($code = 200)
+    public function setHttpResponse($code = 200, $body)
     {
         $this->response->setStatusCode($code);
         $this->response->headers->set('Content-Type', 'application/json');
-        $this->response->setContent(
-          json_encode(
-            array(
-              'timestamp' => time()
-            )
-          )
-        );
+        $this->response->setContent(json_encode($this->createJson($body)));
+    }
+
+    public function createJson($body)
+    {
+        $frontend = array(
+          'frontend' => array(
+            'laravel version' => $this->laravel->version(),
+            'status' => 'up',
+            'timestamp' => time())
+          );
+        return array_merge($frontend, $body);
     }
 }
