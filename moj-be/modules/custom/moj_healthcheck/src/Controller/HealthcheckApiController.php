@@ -31,7 +31,7 @@ class HealthcheckApiController extends ControllerBase
 		public function databaseSimpleTest()
     {
         $connection = \Drupal::database();
-        $query = $connection->query("SELECT /*+ MAX_EXECUTION_TIME(30000) */ version()");
+        $query = $connection->query("SELECT /*+ MAX_EXECUTION_TIME(1000) */ version()");
         return $query->execute();
     }
 
