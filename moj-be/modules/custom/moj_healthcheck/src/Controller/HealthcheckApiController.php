@@ -3,7 +3,6 @@
 namespace Drupal\moj_healthcheck\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Database;
 
 class HealthcheckApiController extends ControllerBase
 {
@@ -17,7 +16,16 @@ class HealthcheckApiController extends ControllerBase
 
 		public function setResponse()
     {
-        return $this->databaseSimpleTest() ? time() : 'FALSE';
+        return array(
+          'backend' => array(
+            'timestamp' => $this->databaseSimpleTest() ? time() : 'FALSE',
+            'Drupal Version' => \DRUPAL::VERSION
+          ),
+          'db' => array(
+            'database' => 'mysql',
+            'status'=> 'up'
+          )
+        );
     }
 
 		public function databaseSimpleTest()
@@ -26,4 +34,5 @@ class HealthcheckApiController extends ControllerBase
         $query = $connection->query("SELECT /*+ MAX_EXECUTION_TIME(30000) */ version()");
         return $query->execute();
     }
+
 }
