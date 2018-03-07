@@ -49,9 +49,9 @@ class HealthController extends Controller
         $this->cms = $this->checkCmsHealth();
 
         if ($this->cms) {
-            $this->setHttpResponse($this->cms->getStatusCode(), json_decode($this->cms->getBody(), true));
+            $this->setHttpResponse($this->cms->getStatusCode(), json_decode($this->cms->getBody(), true), 'up');
         } else {
-            $this->setHttpResponse(200, array('backend' => array('status' => 'down')));
+            $this->setHttpResponse(500, array('backend' => array('status' => 'down')), 'down');
         }
 
         return $this->response;
@@ -74,16 +74,17 @@ class HealthController extends Controller
         }
     }
 
-    public function setHttpResponse($code = 200, $body)
+    public function setHttpResponse($code = 200, $body, $status)
     {
         $this->response->setStatusCode($code);
         $this->response->headers->set('Content-Type', 'application/json');
-        $this->response->setContent(json_encode($this->createJson($body), JSON_PRETTY_PRINT));
+        $this->response->setContent(json_encode($this->createJson($body, $status), JSON_PRETTY_PRINT));
     }
 
-    public function createJson($body)
+    public function createJson($body, $status)
     {
         $frontend = array(
+          'status' => $status,
           'frontend' => array(
             'laravel version' => $this->laravel->version(),
             'status' => 'up',
