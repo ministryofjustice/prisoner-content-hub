@@ -455,8 +455,8 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
         '#type' => 'radios',
         '#title' => $this->t('Which bundles should be indexed?'),
         '#options' => [
+          0 => $this->t('Only those selected'),
           1 => $this->t('All except those selected'),
-          0 => $this->t('None except those selected'),
         ],
         '#default_value' => (int) $this->configuration['bundles']['default'],
       ];
@@ -480,8 +480,8 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
         '#type' => 'radios',
         '#title' => $this->t('Which languages should be indexed?'),
         '#options' => [
+          0 => $this->t('Only those selected'),
           1 => $this->t('All except those selected'),
-          0 => $this->t('None except those selected'),
         ],
         '#default_value' => (int) $this->configuration['languages']['default'],
       ];
@@ -703,7 +703,7 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
 
     if (isset($page)) {
       $page_size = $this->getConfigValue('tracking_page_size');
-      assert('$page_size', 'Tracking page size is not set.');
+      assert($page_size, 'Tracking page size is not set.');
       $select->range($page * $page_size, $page_size);
       // For paging to reliably work, a sort should be present.
       $entity_id = $this->getEntityType()->getKey('id');
@@ -745,6 +745,13 @@ class ContentEntity extends DatasourcePluginBase implements EntityDatasourceInte
       foreach ($translations as $langcode) {
         $item_ids[] = "$entity_id:$langcode";
       }
+    }
+
+    if (Utility::isRunningInCli()) {
+      // When running in the CLI, this might be executed for all entities from
+      // within a single process. To avoid running out of memory, reset the
+      // static cache after each batch.
+      $this->getEntityStorage()->resetCache($entity_ids);
     }
 
     return $item_ids;

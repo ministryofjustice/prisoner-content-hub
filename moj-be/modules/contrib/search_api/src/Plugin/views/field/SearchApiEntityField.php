@@ -103,8 +103,9 @@ class SearchApiEntityField extends EntityField {
     // To find out which options should be excluded, we take the $options keys
     // from the parent and remove the keys that come directly from the parent.
     $fallback_options = [];
-    if (is_callable([$this->fallbackHandler, 'defineOptions'])) {
-      $fallback_options = $this->fallbackHandler->defineOptions();
+    $fallback_define_options = [$this->fallbackHandler, 'defineOptions'];
+    if (is_callable($fallback_define_options)) {
+      $fallback_options = call_user_func($fallback_define_options);
       $parent_keys = $this->getParentOptionKeys();
       $remove_from_fallback = array_diff_key($options, array_flip($parent_keys));
       $fallback_options = array_diff_key($fallback_options, $remove_from_fallback);
@@ -122,19 +123,40 @@ class SearchApiEntityField extends EntityField {
    *
    * That is, this will exclude all options defined by
    * \Drupal\views\Plugin\views\field\FieldPluginBase, and only include those
-   * defined by \Drupal\views\Plugin\views\field\Field.
+   * defined by \Drupal\views\Plugin\views\field\EntityField.
+   *
+   * @param bool $form_only
+   *   (optional) If TRUE, return those fields that will be displayed as the
+   *   top-most elements in the config form. Otherwise, return all options
+   *   defined by the direct parent handler.
    *
    * @return string[]
-   *   The keys of options directly defined by our parent class.
+   *   The keys of options directly defined by our parent class or, if
+   *   $form_only was passed, those that would be displayed in its config form.
    */
-  protected function getParentOptionKeys() {
-    return [
-      'multiple_field_settings',
+  protected function getParentOptionKeys($form_only = FALSE) {
+    $options = [
       'click_sort_column',
       'type',
       'field_api_classes',
       'settings',
     ];
+    if ($form_only) {
+      $options[] = 'multiple_field_settings';
+      return $options;
+    }
+    $options = array_merge($options, [
+      'group_column',
+      'group_columns',
+      'group_rows',
+      'delta_limit',
+      'delta_offset',
+      'delta_reversed',
+      'delta_first_last',
+      'multi_type',
+      'separator',
+    ]);
+    return $options;
   }
 
   /**
@@ -164,7 +186,7 @@ class SearchApiEntityField extends EntityField {
     // our direct parent (\Drupal\views\Plugin\views\field\Field) to the
     // "parent_options" fieldset.
     parent::buildOptionsForm($form, $form_state);
-    $parent_keys = $this->getParentOptionKeys();
+    $parent_keys = $this->getParentOptionKeys(TRUE);
     foreach ($parent_keys as $key) {
       if (!empty($form[$key])) {
         $form[$key]['#fieldset'] = 'parent_options';
@@ -281,11 +303,12 @@ class SearchApiEntityField extends EntityField {
     }
 
     $parent_path = $this->getParentPath();
-    if (empty($values->_relationship_objects[$parent_path])) {
+    $combined_parent_path = $this->createCombinedPropertyPath($this->getDatasourceId(), $parent_path);
+    if (empty($values->_relationship_objects[$combined_parent_path])) {
       return [];
     }
     $build = [];
-    foreach (array_keys($values->_relationship_objects[$parent_path]) as $i) {
+    foreach (array_keys($values->_relationship_objects[$combined_parent_path]) as $i) {
       $this->valueIndex = $i;
       $build[] = parent::getItems($values);
     }

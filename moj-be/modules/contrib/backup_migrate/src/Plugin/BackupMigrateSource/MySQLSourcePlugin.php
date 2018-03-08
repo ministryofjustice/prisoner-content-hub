@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains BackupMigrate\Drupal\Source\MySQLSourcePlugin
- */
 
 namespace Drupal\backup_migrate\Plugin\BackupMigrateSource;
 

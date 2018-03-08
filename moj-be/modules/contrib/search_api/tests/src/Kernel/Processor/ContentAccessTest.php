@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\search_api\Kernel\Processor;
 
+use Drupal\comment\CommentInterface;
 use Drupal\comment\Entity\Comment;
 use Drupal\comment\Entity\CommentType;
 use Drupal\comment\Tests\CommentTestTrait;
@@ -83,6 +84,7 @@ class ContentAccessTest extends ProcessorTestBase {
     $this->addDefaultCommentField('node', 'page');
 
     $comment = Comment::create([
+      'status' => CommentInterface::PUBLISHED,
       'entity_type' => 'node',
       'entity_id' => $this->nodes[0]->id(),
       'field_name' => 'comment',
@@ -310,6 +312,27 @@ class ContentAccessTest extends ProcessorTestBase {
   }
 
   /**
+   * Tests whether the "search_api_bypass_access" query option is respected.
+   */
+  public function testQueryAccessBypass() {
+    $this->index->reindex();
+    $this->indexItems();
+    $this->assertEquals(5, $this->index->getTrackerInstance()->getIndexedItemsCount(), '5 items indexed, as expected.');
+
+    $query = \Drupal::getContainer()
+      ->get('search_api.query_helper')
+      ->createQuery($this->index, ['search_api_bypass_access' => TRUE]);
+    $result = $query->execute();
+
+    $expected = [
+      'user' => [0],
+      'comment' => [0],
+      'node' => [0, 1, 2],
+    ];
+    $this->assertResults($result, $expected);
+  }
+
+  /**
    * Tests whether the property is correctly added by the processor.
    */
   public function testAlterPropertyDefinitions() {
@@ -333,7 +356,7 @@ class ContentAccessTest extends ProcessorTestBase {
    * @return \Drupal\user\UserInterface
    *   The new user object.
    */
-  protected function createUser($permissions) {
+  protected function createUser(array $permissions) {
     $role = Role::create(['id' => 'role', 'name' => 'Role test']);
     $role->save();
     user_role_grant_permissions($role->id(), $permissions);

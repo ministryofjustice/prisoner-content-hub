@@ -5,6 +5,7 @@ namespace Drupal\search_api\Plugin\views\query;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Database\Query\ConditionInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -12,8 +13,11 @@ use Drupal\Core\Url;
 use Drupal\search_api\Entity\Index;
 use Drupal\search_api\LoggerTrait;
 use Drupal\search_api\ParseMode\ParseModeInterface;
+use Drupal\search_api\Plugin\views\field\SearchApiStandard;
+use Drupal\search_api\Processor\ConfigurablePropertyInterface;
 use Drupal\search_api\Query\ConditionGroupInterface;
 use Drupal\search_api\Query\QueryInterface;
+use Drupal\search_api\SearchApiException;
 use Drupal\search_api\Utility\Utility;
 use Drupal\user\Entity\User;
 use Drupal\views\Plugin\views\display\DisplayPluginBase;
@@ -151,6 +155,37 @@ class SearchApiQuery extends QueryPluginBase {
   }
 
   /**
+   * Retrieves the contained entity from a Views result row.
+   *
+   * @param \Drupal\views\ResultRow $row
+   *   The Views result row.
+   * @param string $relationship_id
+   *   The ID of the view relationship to use.
+   * @param \Drupal\views\ViewExecutable $view
+   *   The current view object.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface|null
+   *   The entity contained in the result row, if any.
+   */
+  public static function getEntityFromRow(ResultRow $row, $relationship_id, ViewExecutable $view) {
+    if ($relationship_id === 'none') {
+      $object = $row->_object ?: $row->_item->getOriginalObject();
+      $entity = $object->getValue();
+      if ($entity instanceof EntityInterface) {
+        return $entity;
+      }
+      return NULL;
+    }
+
+    // To avoid code duplication, just create a dummy field handler and use it
+    // to retrieve the entity.
+    $handler = new SearchApiStandard([], '', ['title' => '']);
+    $options = ['relationship' => $relationship_id];
+    $handler->init($view, $view->display_handler, $options);
+    return $handler->getEntity($row);
+  }
+
+  /**
    * Retrieves the module handler.
    *
    * @return \Drupal\Core\Extension\ModuleHandlerInterface
@@ -241,7 +276,7 @@ class SearchApiQuery extends QueryPluginBase {
    * @see \Drupal\views\Plugin\views\query\Sql::addField()
    * @see \Drupal\search_api\Plugin\views\query\SearchApiQuery::addField()
    */
-  public function addField($table, $field, $alias = '', $params = []) {
+  public function addField($table, $field, $alias = '', array $params = []) {
     $this->addRetrievedProperty($field);
     return $field;
   }
@@ -293,20 +328,13 @@ class SearchApiQuery extends QueryPluginBase {
    *   If $return_bool is FALSE, an associative array mapping all datasources
    *   containing entities to their entity types. Otherwise, TRUE if there is at
    *   least one such datasource.
+   *
+   * @deprecated Will be removed in a future version of the module. Use
+   *   \Drupal\search_api\IndexInterface::getEntityTypes() instead.
    */
   public function getEntityTypes($return_bool = FALSE) {
-    // @todo Might be useful enough to be moved to the Index class? Or maybe
-    //   Utility, to finally stop the growth of the Index class.
-    $types = [];
-    foreach ($this->index->getDatasources() as $datasource_id => $datasource) {
-      if ($type = $datasource->getEntityTypeId()) {
-        if ($return_bool) {
-          return TRUE;
-        }
-        $types[$datasource_id] = $type;
-      }
-    }
-    return $return_bool ? FALSE : $types;
+    $types = $this->index->getEntityTypes();
+    return $return_bool ? (bool) $types : $types;
   }
 
   /**
@@ -437,10 +465,11 @@ class SearchApiQuery extends QueryPluginBase {
 
       // Store the results.
       if (!$skip_result_count) {
-        $view->pager->total_items = $view->total_rows = $results->getResultCount();
+        $view->pager->total_items = $results->getResultCount();
         if (!empty($view->pager->options['offset'])) {
           $view->pager->total_items -= $view->pager->options['offset'];
         }
+        $view->total_rows = $view->pager->total_items;
       }
       $view->result = [];
       if ($results->getResultItems()) {
@@ -531,7 +560,23 @@ class SearchApiQuery extends QueryPluginBase {
       // Gather any properties from the search results.
       foreach ($result->getFields(FALSE) as $field_id => $field) {
         if ($field->getValues()) {
-          $values[$field->getCombinedPropertyPath()] = $field->getValues();
+          $path = $field->getCombinedPropertyPath();
+          try {
+            $property = $field->getDataDefinition();
+            // For configurable processor-defined properties, our Views field
+            // handlers use a special property path to distinguish multiple
+            // fields with the same property path. Therefore, we here also set
+            // the values using that special property path so this will work
+            // correctly.
+            if ($property instanceof ConfigurablePropertyInterface) {
+              $path .= '|' . $field_id;
+            }
+          }
+          catch (SearchApiException $e) {
+            // If we're not able to retrieve the data definition at this point,
+            // it doesn't really matter.
+          }
+          $values[$path] = $field->getValues();
         }
       }
 
@@ -635,8 +680,8 @@ class SearchApiQuery extends QueryPluginBase {
   /**
    * Retrieves the parse mode.
    *
-   * @return \Drupal\search_api\ParseMode\ParseModeInterface
-   *   The parse mode.
+   * @return \Drupal\search_api\ParseMode\ParseModeInterface|null
+   *   The parse mode, or NULL if the query was aborted.
    *
    * @see \Drupal\search_api\Query\QueryInterface::getParseMode()
    */
@@ -755,7 +800,7 @@ class SearchApiQuery extends QueryPluginBase {
    *
    * @see \Drupal\search_api\Query\QueryInterface::setFulltextFields()
    */
-  public function setFulltextFields($fields = NULL) {
+  public function setFulltextFields(array $fields = NULL) {
     if (!$this->shouldAbort()) {
       $this->query->setFulltextFields($fields);
     }
@@ -1071,7 +1116,7 @@ class SearchApiQuery extends QueryPluginBase {
    *
    * @see \Drupal\views\Plugin\views\query\Sql::addOrderBy()
    */
-  public function addOrderBy($table, $field = NULL, $order = 'ASC', $alias = '', $params = []) {
+  public function addOrderBy($table, $field = NULL, $order = 'ASC', $alias = '', array $params = []) {
     $server = $this->getIndex()->getServerInstance();
     if ($table == 'rand') {
       if ($server->supportsFeature('search_api_random_sort')) {

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\backup_migrate\SettingsProfileListBuilder.
- */
-
 namespace Drupal\backup_migrate\Controller;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
@@ -14,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
  * Provides a listing of Settings Profile entities.
  */
 class SettingsProfileListBuilder extends ConfigEntityListBuilder {
+
   /**
    * {@inheritdoc}
    */
@@ -30,4 +26,5 @@ class SettingsProfileListBuilder extends ConfigEntityListBuilder {
     // You probably want a few more properties here...
     return $row + parent::buildRow($entity);
   }
+
 }

@@ -5,6 +5,7 @@ namespace Drupal\search_api\Plugin\search_api\processor;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\search_api\Plugin\search_api\processor\Resources\Porter2;
 use Drupal\search_api\Processor\FieldsProcessorPluginBase;
+use Drupal\search_api\Query\QueryInterface;
 
 /**
  * Stems search terms.
@@ -97,6 +98,18 @@ class Stemmer extends FieldsProcessorPluginBase {
         }
       }
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preprocessSearchQuery(QueryInterface $query) {
+    // Only process queries that can (also) return English language content.
+    $languages = $query->getLanguages();
+    if ($languages && !in_array('en', $languages)) {
+      return;
+    }
+    parent::preprocessSearchQuery($query);
   }
 
   /**

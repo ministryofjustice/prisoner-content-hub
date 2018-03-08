@@ -231,7 +231,12 @@ class SearchApiFulltext extends FilterPluginBase {
       $input = &$this->options['group_info']['group_items'][$input]['value'];
     }
 
-    if (!trim($input)) {
+    // Under some circumstances, input will be an array containing the string
+    // value. Not sure why, but just deal with that.
+    while (is_array($input)) {
+      $input = $input ? reset($input) : '';
+    }
+    if (trim($input) === '') {
       // No input was given by the user. If the filter was set to "required" and
       // there is a query (not the case when an exposed filter block is
       // displayed stand-alone), abort it.
@@ -275,6 +280,9 @@ class SearchApiFulltext extends FilterPluginBase {
     $fields = $this->options['fields'];
     $fields = $fields ? $fields : array_keys($this->getFulltextFields());
     $query = $this->getQuery();
+    if ($query->shouldAbort()) {
+      return;
+    }
 
     if ($this->options['parse_mode']) {
       $parse_mode = $this->getParseModeManager()

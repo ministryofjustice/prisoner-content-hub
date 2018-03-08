@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\backup_migrate\DestinationListBuilder.
- */
-
 namespace Drupal\backup_migrate\Controller;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
@@ -14,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
  * Provides a listing of Backup Destination entities.
  */
 class DestinationListBuilder extends ConfigEntityListBuilder {
+
   /**
    * {@inheritdoc}
    */
@@ -52,13 +48,14 @@ class DestinationListBuilder extends ConfigEntityListBuilder {
   public function getDefaultOperations(EntityInterface $entity) {
     $operations = parent::getDefaultOperations($entity);
     if ($entity->access('backups') && $entity->hasLinkTemplate('backups')) {
-      $operations['backups'] = array(
+      $operations['backups'] = [
         'title' => $this->t('List Backups'),
         'weight' => 100,
         'url' => $entity->toUrl('backups'),
-      );
+      ];
     }
 
     return $operations;
   }
+
 }

@@ -2,8 +2,9 @@
 
 /**
  * @file
- * Contains database additions to drupal-8.bare.standard.php.gz for testing the
- * search_api_db_update_8102() update.
+ * Contains database additions to drupal-8.bare.standard.php.gz.
+ *
+ * Used for testing the search_api_db_update_8102() update.
  *
  * @see \Drupal\search_api_db\Tests\Update\SearchApiDbUpdate8102Test
  */

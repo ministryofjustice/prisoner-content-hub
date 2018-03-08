@@ -2,8 +2,9 @@
 
 /**
  * @file
- * Contains database additions to drupal-8.bare.standard.php.gz for setting up a
- * base Search API DB installation.
+ * Contains database additions to drupal-8.bare.standard.php.gz.
+ *
+ * Can be used for setting up a base Search API DB installation.
  */
 
 use Drupal\Core\Database\Database;

@@ -1,11 +1,7 @@
 <?php
-/**
- * @file
- * Contains Drupal\backup_migrate\Plugin\BackupMigrateSource\FileDirectorySourcePlugin
- */
-
 
 namespace Drupal\backup_migrate\Plugin\BackupMigrateSource;
+
 use BackupMigrate\Drupal\EntityPlugins\SourcePluginBase;
 
 /**

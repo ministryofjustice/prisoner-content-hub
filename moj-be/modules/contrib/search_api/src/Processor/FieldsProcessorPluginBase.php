@@ -129,7 +129,7 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase implements 
     if ($this->configuration['all_fields']) {
       $this->configuration['fields'] = [];
       foreach ($this->index->getFields() as $field_id => $field) {
-        if ($this->testType($field->getType())) {
+        if (!$field->isHidden() && $this->testType($field->getType())) {
           $this->configuration['fields'][] = $field_id;
         }
       }
@@ -156,7 +156,9 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase implements 
     // this processor (or no longer present on the index at all).
     foreach ($this->configuration['fields'] as $i => $field_id) {
       $field = $this->index->getField($field_id);
-      if ($field === NULL || !$this->testType($field->getType())) {
+      if ($field === NULL
+        || $field->isHidden()
+        || !$this->testType($field->getType())) {
         unset($this->configuration['fields'][$i]);
       }
     }
@@ -194,7 +196,7 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase implements 
       $default_fields = $this->configuration['fields'];
     }
     foreach ($fields as $name => $field) {
-      if ($this->testType($field->getType())) {
+      if (!$field->isHidden() && $this->testType($field->getType())) {
         $field_options[$name] = Html::escape($field->getPrefixedLabel());
         if ($all_fields || (!$fields_configured && $this->testField($name, $field))) {
           $default_fields[] = $name;
@@ -268,7 +270,7 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase implements 
       }
     }
     else {
-      $fields = array_keys($form['#options']);
+      $fields = array_keys($form['fields']['#options']);
     }
     $form_state->setValue('fields', $fields);
   }
@@ -419,17 +421,17 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase implements 
           $empty_string = $value === '';
           $this->processConditionValue($value);
 
-          // The (NOT) BETWEEN operators deserve special attention, as it seems
-          // unlikely that it makes sense to completely remove them. Processors
-          // that remove values are normally indicating that this value can't be
-          // in the index – but that's irrelevant for (NOT) BETWEEN conditions,
-          // as any value between the two bounds could still be included. We
-          // therefore never remove a (NOT) BETWEEN condition and also ignore it
-          // when one of the two values got removed. (Note that this check will
-          // also catch empty strings.) Processors who need different behavior
-          // have to override this method.
+          // Conditions with (NOT) BETWEEN operator deserve special attention,
+          // as it seems unlikely that it makes sense to completely remove them.
+          // Processors that remove values are normally indicating that this
+          // value can't be in the index – but that's irrelevant for (NOT)
+          // BETWEEN conditions, as any value between the two bounds could still
+          // be included. We therefore never remove a (NOT) BETWEEN condition
+          // and also ignore it when one of the two values got removed. (Note
+          // that this check will also catch empty strings.) Processors who need
+          // different behavior have to override this method.
           $between_operator = in_array($condition->getOperator(), ['BETWEEN', 'NOT BETWEEN']);
-          if ($between_operator && count($value) < 2) {
+          if ($between_operator && (!is_array($value) || count($value) < 2)) {
             continue;
           }
 
@@ -461,7 +463,7 @@ abstract class FieldsProcessorPluginBase extends ProcessorPluginBase implements 
    */
   protected function testField($name, FieldInterface $field) {
     if (!isset($this->configuration['fields'])) {
-      return $this->testType($field->getType());
+      return !$field->isHidden() && $this->testType($field->getType());
     }
     return in_array($name, $this->configuration['fields'], TRUE);
   }

@@ -21,4 +21,3 @@ entity.backup_migrate_source.add_form:
   title: 'Add Backup Source'
   appears_on:
     - entity.backup_migrate_source.collection
-

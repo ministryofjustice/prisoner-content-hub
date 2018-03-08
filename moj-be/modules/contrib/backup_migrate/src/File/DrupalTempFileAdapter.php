@@ -1,23 +1,17 @@
 <?php
-/**
- * @file
- * Contains BackupMigrate\Drupal\File\DrupalTempFileAdapter
- */
-
 
 namespace BackupMigrate\Drupal\File;
-
 
 use \BackupMigrate\Core\File\TempFileAdapter;
 use \BackupMigrate\Core\File\TempFileAdapterInterface;
 use \Drupal\Core\File\FileSystem;
 
 /**
- * Class DrupalTempFileAdapter
+ * Class DrupalTempFileAdapter.
+ *
  * @package BackupMigrate\Drupal\File
  */
-class DrupalTempFileAdapter extends TempFileAdapter implements TempFileAdapterInterface
-{
+class DrupalTempFileAdapter extends TempFileAdapter implements TempFileAdapterInterface {
 
   /**
    * The Drupal file system for provisioning temp files.
@@ -27,11 +21,14 @@ class DrupalTempFileAdapter extends TempFileAdapter implements TempFileAdapterIn
   protected $filesystem;
 
   /**
-   * Construct a manager
+   * Construct a manager.
    *
-   * @param \Drupal\Core\File\FileSystem $filesystem A file path or stream URL for the temp directory
-   * @param string $dir The directory to save to.
-   * @param string $prefix A string prefix to add to each created file.
+   * @param \Drupal\Core\File\FileSystem $filesystem
+   *   A file path or stream URL for the temp directory
+   * @param string $dir
+   *   The directory to save to.
+   * @param string $prefix
+   *   A string prefix to add to each created file.
    */
   public function __construct(FileSystem $filesystem, $dir = 'temporary://', $prefix = 'bam') {
     // Set the prefix and initialize the temp file tracking.
@@ -40,12 +37,11 @@ class DrupalTempFileAdapter extends TempFileAdapter implements TempFileAdapterIn
     $this->filesystem = $filesystem;
   }
 
-
   /**
    * {@inheritdoc}
    */
   public function createTempFile($ext = '') {
-    // Add a dot to the file extension
+    // Add a dot to the file extension.
     $ext = $ext ? '.' . $ext : '';
 
     $file = $this->filesystem->tempnam($this->dir, $this->prefix);
@@ -70,6 +66,5 @@ class DrupalTempFileAdapter extends TempFileAdapter implements TempFileAdapterIn
       }
     }
   }
-
 
 }

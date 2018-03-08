@@ -1,18 +1,15 @@
 <?php
-/**
- * @file
- * Contains Drupal\backup_migrate\Form\BackupDeleteForm
- */
-
 
 namespace Drupal\backup_migrate\Form;
-
 
 use BackupMigrate\Drupal\Config\DrupalConfigHelper;
 use Drupal\backup_migrate\Entity\Destination;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ *
+ */
 class BackupRestoreForm extends ConfirmFormBase {
 
   /**
@@ -76,7 +73,7 @@ class BackupRestoreForm extends ConfirmFormBase {
     $bam = backup_migrate_get_service_object();
     $form['source_id'] = DrupalConfigHelper::getPluginSelector($bam->sources(), $this->t('Restore To'));
 
-    $conf_schema = $bam->plugins()->map('configSchema', array('operation' => 'restore'));
+    $conf_schema = $bam->plugins()->map('configSchema', ['operation' => 'restore']);
     $form += DrupalConfigHelper::buildFormFromSchema($conf_schema, $bam->plugins()->config());
 
     return parent::buildForm($form, $form_state);
@@ -96,4 +93,5 @@ class BackupRestoreForm extends ConfirmFormBase {
 
     $form_state->setRedirectUrl($this->getCancelUrl());
   }
+
 }

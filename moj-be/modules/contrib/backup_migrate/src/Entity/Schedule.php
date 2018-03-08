@@ -1,13 +1,9 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\backup_migrate\Entity\Schedule.
- */
-
 namespace Drupal\backup_migrate\Entity;
 
 use BackupMigrate\Core\Config\Config;
+use BackupMigrate\Core\Destination\ListableDestinationInterface;
 use BackupMigrate\Core\Exception\BackupMigrateException;
 use BackupMigrate\Core\Main\BackupMigrateInterface;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
@@ -40,6 +36,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  * )
  */
 class Schedule extends ConfigEntityBase {
+
   /**
    * The Schedule ID.
    *
@@ -83,12 +80,39 @@ class Schedule extends ConfigEntityBase {
           $config = $profile->get('config');
         }
 
-        \Drupal::logger('backup_migrate')->info("Running schedule %name", ['%name' => $this->get('label')]);
+        \Drupal::logger('backup_migrate')->info(
+             "Running schedule %name", ['%name' => $this->get('label')]);
         // TODO: Set the config (don't just use the defaults).
         // Run the backup.
+        // Set the schedule id in file metadata so that we can delete our own backups later.
+        // This requires the metadata writer to have knowledge of 'bam_scheduleid' which is
+        // a somewhat tight coupling that I'd like to unwind.
+        $config['metadata']['bam_scheduleid'] = $this->id;
         $bam->setConfig(new Config($config));
-        $bam->backup($this->get('source_id'), $this->get('destination_id'), $config);
-        drupal_set_message('Backup Complete.');
+
+        $bam->backup($this->get('source_id'), $this->get('destination_id'));
+
+        // Delete old backups.
+        if ($keep = $this->get('keep')) {
+          $destination = $bam->destinations()->get($this->get('destination_id'));
+
+          // If the destination can be listed then get the list of files.
+          if ($destination instanceof ListableDestinationInterface) {
+            // Get a list of files to delete. Don't attempt to delete more
+            // than 10 files in one go.
+            $delete = $destination->queryFiles(
+              ['bam_scheduleid' => $this->id],
+              'datestamp',
+              SORT_DESC,
+              10,
+              $keep
+            );
+
+            foreach ($delete as $file) {
+              $destination->deleteFile($file->getFullName());
+            }
+          }
+        }
       }
       catch (BackupMigrateException $e) {
         \Drupal::logger('backup_migrate')->error(
@@ -117,6 +141,7 @@ class Schedule extends ConfigEntityBase {
 
   /**
    * Get the next time this schedule should run.
+   *
    * @return int
    */
   public function getNextRun() {
@@ -128,9 +153,10 @@ class Schedule extends ConfigEntityBase {
   }
 
   /**
-   * Return the schedule frequency formatted for display in human language
+   * Return the schedule frequency formatted for display in human language.
    *
    * @return \Drupal\Core\StringTranslation\PluralTranslatableMarkup
+   *
    * @throws \BackupMigrate\Core\Exception\BackupMigrateException
    */
   public function getPeriodFormatted() {
@@ -141,8 +167,10 @@ class Schedule extends ConfigEntityBase {
    * Convert a number of of seconds into a period array.
    *
    * @param int $seconds
+   *
    * @return array An array containing the period definition and the number of them.
    *  ['number' => 123, 'type' => [...]]
+   *
    * @throws \BackupMigrate\Core\Exception\BackupMigrateException
    */
   public static function secondsToPeriod($seconds) {
@@ -159,7 +187,9 @@ class Schedule extends ConfigEntityBase {
    * Convert a period array into seconds.
    *
    * @param array $period A period array
+   *
    * @return mixed
+   *
    * @throws \BackupMigrate\Core\Exception\BackupMigrateException
    */
   public static function periodToSeconds($period) {
@@ -170,6 +200,7 @@ class Schedule extends ConfigEntityBase {
    * Convert a period array into seconds.
    *
    * @param $period
+   *
    * @return \Drupal\Core\StringTranslation\PluralTranslatableMarkup
    */
   public static function formatPeriod($period) {
@@ -183,19 +214,20 @@ class Schedule extends ConfigEntityBase {
    * @return array
    */
   public static function getPeriodTypes() {
-    return array(
-      'seconds' => array('type' => 'seconds', 'seconds' => 1, 'title' => 'Seconds', 'singular' => 'Once a second', 'plural' => 'Every @count seconds'),
-      'minutes' => array('type' => 'minutes', 'seconds' => 60, 'title' => 'Minutes', 'singular' => 'Once a minute', 'plural' => 'Every @count minutes'),
-      'hours' => array('type' => 'hours', 'seconds' => 3600, 'title' => 'Hours', 'singular' => 'Hourly', 'plural' => 'Every @count hours'),
-      'days' => array('type' => 'days', 'seconds' => 86400, 'title' => 'Days', 'singular' => 'Daily', 'plural' => 'Every @count days'),
-      'weeks' => array('type' => 'weeks', 'seconds' => 604800, 'title' => 'Weeks', 'singular' => 'Weekly', 'plural' => 'Every @count weeks'),
-    );
+    return [
+      'seconds' => ['type' => 'seconds', 'seconds' => 1, 'title' => 'Seconds', 'singular' => 'Once a second', 'plural' => 'Every @count seconds'],
+      'minutes' => ['type' => 'minutes', 'seconds' => 60, 'title' => 'Minutes', 'singular' => 'Once a minute', 'plural' => 'Every @count minutes'],
+      'hours' => ['type' => 'hours', 'seconds' => 3600, 'title' => 'Hours', 'singular' => 'Hourly', 'plural' => 'Every @count hours'],
+      'days' => ['type' => 'days', 'seconds' => 86400, 'title' => 'Days', 'singular' => 'Daily', 'plural' => 'Every @count days'],
+      'weeks' => ['type' => 'weeks', 'seconds' => 604800, 'title' => 'Weeks', 'singular' => 'Weekly', 'plural' => 'Every @count weeks'],
+    ];
   }
 
   /**
    * Get a backup period type given it's key.
    *
    * @param string $type
+   *
    * @return array
    */
   public static function getPeriodType($type) {

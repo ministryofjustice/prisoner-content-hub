@@ -268,6 +268,7 @@ class TestBackend extends BackendPluginBase implements PluginFormInterface {
       $item->setScore(1);
       $result_items[$item_id] = $item;
     }
+    $results->setResultItems($result_items);
     $results->setResultCount(count($result_items));
   }
 

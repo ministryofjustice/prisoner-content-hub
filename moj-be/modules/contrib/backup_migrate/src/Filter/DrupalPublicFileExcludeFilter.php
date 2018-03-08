@@ -1,18 +1,12 @@
 <?php
-/**
- * @file
- * Contains BackupMigrate\Drupal\Filter\DrupalPublicFileExcludeFilter
- */
-
 
 namespace BackupMigrate\Drupal\Filter;
-
 
 use BackupMigrate\Core\Config\Config;
 use BackupMigrate\Core\Filter\FileExcludeFilter;
 
 /**
- * Class DrupalPublicFileExcludeFilter
+ * Class DrupalPublicFileExcludeFilter.
  *
  * A file exclusion filter that includes Drupal's cache directories by default.
  *
@@ -37,7 +31,7 @@ class DrupalPublicFileExcludeFilter extends FileExcludeFilter {
     ];
 
     // @TODO: Allow modules to add their own excluded defaults.
-
     return new Config($config);
   }
+
 }

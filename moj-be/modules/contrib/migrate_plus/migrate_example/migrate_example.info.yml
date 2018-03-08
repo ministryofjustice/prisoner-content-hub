@@ -5,11 +5,11 @@ package: Examples
 # core: 8.x
 dependencies:
   - drupal:migrate
-#  - migrate_plus:migrate_example_setup
+  - migrate_plus:migrate_example_setup
   - migrate_plus:migrate_plus
 
-# Information added by Drupal.org packaging script on 2017-04-25
-version: '8.x-3.0-beta1+6-dev'
+# Information added by Drupal.org packaging script on 2017-05-10
+version: '8.x-3.0-rc1'
 core: '8.x'
 project: 'migrate_plus'
-datestamp: 1493139246
+datestamp: 1494450495

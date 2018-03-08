@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\backup_migrate\SourceListBuilder.
- */
-
 namespace Drupal\backup_migrate\Controller;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
@@ -14,6 +9,7 @@ use Drupal\Core\Entity\EntityInterface;
  * Provides a listing of Backup Source entities.
  */
 class SourceListBuilder extends ConfigEntityListBuilder {
+
   /**
    * {@inheritdoc}
    */
