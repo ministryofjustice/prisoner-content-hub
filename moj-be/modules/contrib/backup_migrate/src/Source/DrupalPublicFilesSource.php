@@ -1,21 +1,17 @@
 <?php
-/**
- * @file
- * Contains BackupMigrate\Drupal\Source\DrupalPublicFilesSource
- */
-
 
 namespace BackupMigrate\Drupal\Source;
-
 
 use BackupMigrate\Core\Config\Config;
 use BackupMigrate\Core\Source\FileDirectorySource;
 
 /**
- * Class DrupalPublicFilesSource
+ * Class DrupalPublicFilesSource.
+ *
  * @package BackupMigrate\Drupal\Source
  */
 class DrupalPublicFilesSource extends FileDirectorySource {
+
   /**
    * Get the default values for the plugin.
    *
@@ -28,4 +24,5 @@ class DrupalPublicFilesSource extends FileDirectorySource {
 
     return new Config($config);
   }
+
 }

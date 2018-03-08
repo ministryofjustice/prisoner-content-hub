@@ -255,14 +255,12 @@ class Highlight extends ProcessorPluginBase implements PluginFormInterface {
     }
     if ($this->configuration['highlight'] != 'never') {
       $highlighted_fields = $this->highlightFields($result_items, $keys);
-      if ($highlighted_fields) {
+      foreach ($highlighted_fields as $item_id => $item_fields) {
+        $item = $result_items[$item_id];
         // Maybe the backend or some other processor has already set highlighted
         // field values.
-        foreach ($results->getExtraData('highlighted_fields', []) as $item_id => $old_highlighting) {
-          $highlighted_fields += [$item_id => []];
-          $highlighted_fields[$item_id] += $old_highlighting;
-        }
-        $results->setExtraData('highlighted_fields', $highlighted_fields);
+        $item_fields += $item->getExtraData('highlighted_fields', []);
+        $item->setExtraData('highlighted_fields', $item_fields);
       }
     }
   }
@@ -367,7 +365,7 @@ class Highlight extends ProcessorPluginBase implements PluginFormInterface {
    *   An array of all unique positive keywords used in the query.
    */
   protected function getKeywords(QueryInterface $query) {
-    $keys = $query->getKeys();
+    $keys = $query->getOriginalKeys();
     if (!$keys) {
       return [];
     }
@@ -474,12 +472,15 @@ class Highlight extends ProcessorPluginBase implements PluginFormInterface {
         // and ends with a space.
         $matches = [];
 
-        $found_position = FALSE;
         if (!$this->configuration['highlight_partial']) {
+          $found_position = FALSE;
           $regex = '/' . self::$boundary . preg_quote($key, '/') . self::$boundary . '/iu';
           if (preg_match($regex, ' ' . $text . ' ', $matches, PREG_OFFSET_CAPTURE, $look_start[$key])) {
             $found_position = $matches[0][1];
           }
+        }
+        elseif (function_exists('mb_stripos')) {
+          $found_position = mb_stripos($text, $key, $look_start[$key], 'UTF-8');
         }
         else {
           $found_position = stripos($text, $key, $look_start[$key]);

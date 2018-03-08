@@ -1,8 +1,3 @@
-'access backup and migrate':
-  'title': 'Access Backup and Migrate'
-  'description': 'Access the Backup and Migrate admin section.'
-  restrict access: true
-
 'perform backup':
   'title': 'Perform a backup'
   'description': 'Back up any of the available sources.'
@@ -11,11 +6,6 @@
 'access backup files':
   'title': 'Access backup files'
   'description': 'Access and download the previously created backup files.'
-  restrict access: true
-
-'delete backup files':
-  'title': 'Delete backup files'
-  'description': 'Delete the previously created backup files.'
   restrict access: true
 
 'restore from backup':
@@ -27,4 +17,3 @@
   'title': 'Administer Backup and Migrate'
   'description': 'Edit Backup and Migrate profiles, schedules and destinations.'
   restrict access: true
-

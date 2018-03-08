@@ -121,7 +121,7 @@ trait TestPluginTrait {
    *
    * @see \Drupal\search_api_test\TestPluginTrait::getMethodOverride()
    */
-  public function __call($name, $arguments) {
+  public function __call($name, array $arguments) {
     if ($override = $this->getMethodOverride($name)) {
       array_unshift($arguments, $this);
       return call_user_func_array($override, $arguments);

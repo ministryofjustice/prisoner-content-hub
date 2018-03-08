@@ -30,8 +30,7 @@ backup_migrate.backups:
      _controller: '\Drupal\backup_migrate\Controller\BackupController::listAll'
      _title: 'Backups'
    requirements:
-     _permission: 'administer backup and migrate'
-
+     _permission: 'access backup files'
 
 
 # Schedule
@@ -66,7 +65,6 @@ entity.backup_migrate_schedule.delete_form:
     _title: 'Delete schedule'
    requirements:
      _permission: 'administer backup and migrate'
-
 
 
 # Settings Profile

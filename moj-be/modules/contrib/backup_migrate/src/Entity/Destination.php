@@ -1,16 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\backup_migrate\Entity\Destination.
- */
-
 namespace Drupal\backup_migrate\Entity;
 
-use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\backup_migrate\DestinationInterface;
-use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
-
 
 /**
  * Defines the Backup Destination entity.
@@ -37,12 +29,14 @@ use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
  *   links = {
  *     "edit-form" = "/admin/config/development/backup_migrate/settings/destination/edit/{backup_migrate_destination}",
  *     "delete-form" = "/admin/config/development/backup_migrate/settings/destination/delete/{backup_migrate_destination}",
- *     "collection" = "/admin/config/development/backup_migrate/settings/destination",
+ *     "collection" =
+ *            "/admin/config/development/backup_migrate/settings/destination",
  *     "backups" = "/admin/config/development/backup_migrate/settings/destination/backups/{backup_migrate_destination}",
  *   }
  * )
  */
 class Destination extends WrapperEntityBase {
+
   /**
    * Return the plugin manager.
    *
@@ -51,4 +45,5 @@ class Destination extends WrapperEntityBase {
   public function getPluginManager() {
     return \Drupal::service('plugin.manager.backup_migrate_destination');
   }
+
 }

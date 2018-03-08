@@ -1,14 +1,28 @@
 <?php
+
+/**
+ * @file
+ * Primary hook implementations for Backup Migrate.
+ */
+
 use BackupMigrate\Core\Config\Config;
+use BackupMigrate\Core\Services\BackupMigrate;
 use BackupMigrate\Core\Main\BackupMigrateInterface;
 use Drupal\backup_migrate\Entity\Destination;
 use Drupal\backup_migrate\Entity\Schedule;
 use Drupal\backup_migrate\Entity\Source;
+use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\ClassLoader\Psr4ClassLoader;
 
-require __DIR__.'/vendor/autoload.php';
+// Autoload the required classes.
+// @todo Apparently this isn't working on Windows machines.
+// @see https://www.drupal.org/node/2913021
+$loader = new Psr4ClassLoader();
+$loader->addPrefix('BackupMigrate\\Core\\', __DIR__ . '/lib/backup_migrate_core/src');
+$loader->addPrefix('BackupMigrate\\Drupal\\', __DIR__ . '/src');
+$loader->register();
 
-define('BACKP_MIGRATE_MODULE_VERSION', '8.x-4.x-dev');
-
+define('BACKUP_MIGRATE_MODULE_VERSION', '8.x-4.x-dev');
 
 /**
  * Back up a source to 1 or more destinations.
@@ -19,36 +33,35 @@ define('BACKP_MIGRATE_MODULE_VERSION', '8.x-4.x-dev');
  */
 function backup_migrate_perform_backup($source_id, $destination_id, $config = []) {
   try {
-    // Retrieve the service
+    // Retrieve the service.
     $bam = backup_migrate_get_service_object($config);
 
     // Run the backup.
     $bam->backup($source_id, $destination_id);
-    drupal_set_message('Backup Complete.');
+    drupal_set_message(t('Backup Complete.'));
   }
   catch (Exception $e) {
     drupal_set_message($e->getMessage(), 'error');
   }
 }
 
-
 /**
- * Restore a source from a destination and file id
+ * Restore a source from a destination and file id.
  *
  * @param string $source_id
  * @param string|array $destination_id
  * @param string|null $file_id
  * @param array $config
- * @parem string $file_id
+ * @param string $file_id
  */
 function backup_migrate_perform_restore($source_id, $destination_id, $file_id = NULL, $config = []) {
   try {
-    // Retrieve the service
+    // Retrieve the service.
     $bam = backup_migrate_get_service_object($config);
 
     // Run the backup.
     $bam->restore($source_id, $destination_id, $file_id);
-    drupal_set_message('Restore Complete.');
+    drupal_set_message(t('Restore Complete.'));
   }
   catch (Exception $e) {
     drupal_set_message($e->getMessage(), 'error');
@@ -63,6 +76,7 @@ function backup_migrate_perform_restore($source_id, $destination_id, $file_id = 
  *  An array of configuration arrays, keyed by plugin id.
  * @param array $options
  *  A keyed array of options.
+ *
  * @return \BackupMigrate\Core\Main\BackupMigrate
  */
 function backup_migrate_get_service_object($config_array = [], $options = []) {
@@ -73,7 +87,7 @@ function backup_migrate_get_service_object($config_array = [], $options = []) {
     // Create the service object.
     $bam = new \BackupMigrate\Core\Main\BackupMigrate();
 
-    // Allow other modules to alter the object
+    // Allow other modules to alter the object.
     \Drupal::moduleHandler()->alter('backup_migrate_service_object', $bam, $options);
   }
 
@@ -121,15 +135,14 @@ function backup_migrate_backup_migrate_service_object_alter(BackupMigrateInterfa
   // TODO: Make this better.
   if (empty($options['nobrowser'])) {
     // Add a download destination.
-    $destinations->add('download', new \BackupMigrate\Drupal\Destination\DrupalBrowserDownloadDestination(new Config(['name' => t('Download')])));
-
-    // Add an upload destination
+    $user = \Drupal::currentUser();
+    if ($user->hasPermission('access backup files')) {
+      $destinations->add('download', new \BackupMigrate\Drupal\Destination\DrupalBrowserDownloadDestination(new Config(['name' => t('Download')])));
+    }
+    // Add an upload destination.
     $destinations->add('upload', new \BackupMigrate\Drupal\Destination\DrupalBrowserUploadDestination(new Config(['name' => t('Upload')])));
-
-    // Add a debug destination.
-    $destinations->add('debug', new \BackupMigrate\Core\Destination\DebugDestination(new Config(['name' => t('Debug'), 'format' => 'html'])));
   }
-  
+
   // Add a file naming filter.
   $plugins->add('namer', new \BackupMigrate\Core\Filter\FileNamer());
 
@@ -144,19 +157,19 @@ function backup_migrate_backup_migrate_service_object_alter(BackupMigrateInterfa
     new Config([
       'generator' => 'Backup and Migrate for Drupal (https://www.drupal.org/project/backup_migrate)',
       'generatorurl' => 'https://www.drupal.org/project/backup_migrate',
-      'generatorversion' => BACKP_MIGRATE_MODULE_VERSION
+      'generatorversion' => BACKUP_MIGRATE_MODULE_VERSION
     ])
-  ));
+    ));
 
-  // Add the custom configured sources
-  foreach (Source::loadMultiple() as $source) {
-    $source->getPlugin()->alterBackupMigrate($bam, $source->get('id'), $options);
-  }
+    // Add the custom configured sources.
+    foreach (Source::loadMultiple() as $source) {
+      $source->getPlugin()->alterBackupMigrate($bam, $source->get('id'), $options);
+    }
 
-  // Add the custom configured destination
-  foreach (Destination::loadMultiple() as $destination) {
-    $destination->getPlugin()->alterBackupMigrate($bam, $destination->get('id'), $options);
-  }
+    // Add the custom configured destination.
+    foreach (Destination::loadMultiple() as $destination) {
+      $destination->getPlugin()->alterBackupMigrate($bam, $destination->get('id'), $options);
+    }
 }
 
 /**
@@ -173,3 +186,17 @@ function backup_migrate_cron() {
   }
 }
 
+/**
+ * Implements hook_form_alter().
+ */
+function backup_migrate_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Label the items being deleted on uninstall to make the 'entire site' listing less terrifying.
+  if ($form_id === 'system_modules_uninstall_confirm_form') {
+    if (isset($form['entity_deletes']['backup_migrate_source'])) {
+      $form['text']['#markup'] .= '<p>' . t('Uninstalling Backup and Migrate will delete any custom Backup and Migrate configuration. <strong>Previously created backups will not be deleted.</strong>') . '</p>';
+    }
+    if (isset($form['entity_deletes']['backup_migrate_source']['#items']['entire_site'])) {
+      $form['entity_deletes']['backup_migrate_source']['#items']['entire_site'] = t('Full Site Backup Source');
+    }
+  }
+}

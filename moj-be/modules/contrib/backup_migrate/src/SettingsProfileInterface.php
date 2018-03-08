@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\backup_migrate\SettingsProfileInterface.
- */
-
 namespace Drupal\backup_migrate;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
@@ -14,5 +9,4 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
  */
 interface SettingsProfileInterface extends ConfigEntityInterface {
   // Add get/set methods for your configuration properties here.
-
 }

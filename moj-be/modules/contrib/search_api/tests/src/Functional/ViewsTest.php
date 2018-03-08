@@ -54,7 +54,7 @@ class ViewsTest extends SearchApiBrowserTestBase {
     // Do not use a batch for tracking the initial items after creating an
     // index when running the tests via the GUI. Otherwise, it seems Drupal's
     // Batch API gets confused and the test fails.
-    if (php_sapi_name() != 'cli') {
+    if (!Utility::isRunningInCli()) {
       \Drupal::state()->set('search_api_use_tracking_batch', FALSE);
     }
   }
@@ -196,6 +196,24 @@ class ViewsTest extends SearchApiBrowserTestBase {
       'keywords_op' => 'not empty',
     ];
     $this->checkResults($query, [1, 2, 4, 5], 'Search with Keywords "not empty" filter');
+
+    $query = [
+      'name[value]' => 'foo',
+    ];
+    $this->checkResults($query, [1, 2, 4], 'Search with Name "contains" filter');
+    $query = [
+      'name[value]' => 'foo',
+      'name_op' => '!=',
+    ];
+    $this->checkResults($query, [3, 5], 'Search with Name "doesn\'t contain" filter');
+    $query = [
+      'name_op' => 'empty',
+    ];
+    $this->checkResults($query, [], 'Search with Name "empty" filter');
+    $query = [
+      'name_op' => 'not empty',
+    ];
+    $this->checkResults($query, [1, 2, 3, 4, 5], 'Search with Name "not empty" filter');
 
     $query = [
       'language' => ['***LANGUAGE_site_default***'],
@@ -387,7 +405,7 @@ class ViewsTest extends SearchApiBrowserTestBase {
     for ($i = 0; $i < 3; ++$i) {
       // Flush the page-level caches to make sure the Views cache plugin is
       // used (so we could reproduce the bug if it's there).
-      \Drupal::getContainer()->get('cache.render')->deleteAll();
+      \Drupal::getContainer()->get('cache.page')->deleteAll();
       \Drupal::getContainer()->get('cache.dynamic_page_cache')->deleteAll();
       $this->submitForm([], 'Search');
       $this->assertSession()->addressEquals('search-api-test');
@@ -888,6 +906,29 @@ class ViewsTest extends SearchApiBrowserTestBase {
     $this->submitForm($edit, 'Add and configure contextual filters');
     $this->submitForm([], 'Apply');
     $this->submitForm([], 'Save');
+  }
+
+  /**
+   * Checks whether highlighting of results works correctly.
+   *
+   * @see views.view.search_api_test_cache.yml
+   */
+  public function testHighlighting() {
+    // Add the Highlight processor to the search index.
+    $index = Index::load('database_search_index');
+    $processor = $this->container
+      ->get('search_api.plugin_helper')
+      ->createProcessorPlugin($index, 'highlight');
+    $index->addProcessor($processor);
+    $index->save();
+
+    $path = 'search-api-test-search-view-caching-none';
+    $this->drupalGet($path);
+    $this->assertSession()->responseContains('foo bar baz');
+
+    $options['query']['search_api_fulltext'] = 'foo';
+    $this->drupalGet($path, $options);
+    $this->assertSession()->responseContains('<strong>foo</strong> bar baz');
   }
 
   /**

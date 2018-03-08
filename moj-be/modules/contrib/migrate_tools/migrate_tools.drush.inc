@@ -175,29 +175,29 @@ function drush_migrate_tools_migrate_status($migration_names = '') {
           ['@migration' => $migration_id, '@message' => $e->getMessage()]));
         continue;
       }
-      try {
-        $source_rows = $source_plugin->count();
-        // -1 indicates uncountable sources.
-        if ($source_rows == -1) {
-          $source_rows = dt('N/A');
-          $unprocessed = dt('N/A');
-        }
-        else {
-          $unprocessed = $source_rows - $map->processedCount();
-        }
-      }
-      catch (Exception $e) {
-        drush_print($e->getMessage());
-        drush_log(dt('Could not retrieve source count from @migration: @message',
-          ['@migration' => $migration_id, '@message' => $e->getMessage()]));
-        $source_rows = dt('N/A');
-        $unprocessed = dt('N/A');
-      }
-
       if ($names_only) {
         $table[] = [$migration_id];
       }
       else {
+        try {
+          $source_rows = $source_plugin->count();
+          // -1 indicates uncountable sources.
+          if ($source_rows == -1) {
+            $source_rows = dt('N/A');
+            $unprocessed = dt('N/A');
+          }
+          else {
+            $unprocessed = $source_rows - $map->processedCount();
+          }
+        }
+        catch (Exception $e) {
+          drush_print($e->getMessage());
+          drush_log(dt('Could not retrieve source count from @migration: @message',
+            ['@migration' => $migration_id, '@message' => $e->getMessage()]));
+          $source_rows = dt('N/A');
+          $unprocessed = dt('N/A');
+        }
+
         $status = $migration->getStatusLabel();
         $migrate_last_imported_store = \Drupal::keyValue('migrate_last_imported');
         $last_imported = $migrate_last_imported_store->get($migration->id(), FALSE);

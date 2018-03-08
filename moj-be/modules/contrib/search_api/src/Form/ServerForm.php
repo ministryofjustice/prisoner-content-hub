@@ -194,10 +194,10 @@ class ServerForm extends EntityForm {
       drupal_set_message($this->t('The backend plugin is missing or invalid.'), 'error');
       return;
     }
-    $form['backend_config'] += ['#type' => 'container'];
-    $form['backend_config']['#attributes'] = [
-      'id' => 'search-api-backend-config-form',
+    $form['backend_config'] += [
+      '#type' => 'container',
     ];
+    $form['backend_config']['#attributes']['id'] = 'search-api-backend-config-form';
     $form['backend_config']['#tree'] = TRUE;
   }
 

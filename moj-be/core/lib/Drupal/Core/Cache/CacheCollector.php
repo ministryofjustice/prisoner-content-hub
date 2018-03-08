@@ -2,6 +2,7 @@
 
 namespace Drupal\Core\Cache;
 
+use Drupal\Component\Assertion\Inspector;
 use Drupal\Component\Utility\Crypt;
 use Drupal\Core\DestructableInterface;
 use Drupal\Core\Lock\LockBackendInterface;
@@ -111,7 +112,7 @@ abstract class CacheCollector implements CacheCollectorInterface, DestructableIn
    *   (optional) The tags to specify for the cache item.
    */
   public function __construct($cid, CacheBackendInterface $cache, LockBackendInterface $lock, array $tags = []) {
-    assert('\Drupal\Component\Assertion\Inspector::assertAllStrings($tags)', 'Cache tags must be strings.');
+    assert(Inspector::assertAllStrings($tags), 'Cache tags must be strings.');
     $this->cid = $cid;
     $this->cache = $cache;
     $this->tags = $tags;
@@ -245,6 +246,18 @@ abstract class CacheCollector implements CacheCollectorInterface, DestructableIn
           return;
         }
         $data = array_merge($cache->data, $data);
+      }
+      elseif ($this->cacheCreated) {
+        // Getting here indicates that there was a cache entry at the
+        // beginning of the request, but now it's gone (some other process
+        // must have cleared it). We back out to prevent corrupting the cache
+        // with incomplete data, since we won't be able to properly merge
+        // the existing cache data from earlier with the new data.
+        // A future request will properly hydrate the cache from scratch.
+        if ($lock) {
+          $this->lock->release($lock_name);
+        }
+        return;
       }
       // Remove keys marked for deletion.
       foreach ($this->keysToRemove as $delete_key) {

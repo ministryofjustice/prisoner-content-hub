@@ -1,9 +1,4 @@
 <?php
-/**
- * @file
- * Contains BackupMigrate\Drupal\EntityPlugins\WrapperPluginInterface
- */
-
 
 namespace BackupMigrate\Drupal\EntityPlugins;
 
@@ -13,10 +8,12 @@ use Drupal\Component\Plugin\ConfigurablePluginInterface;
 /**
  * An interface for a plugin which wraps a Backup and Migrate plugin.
  *
- * Class WrapperPluginInterface
+ * Class WrapperPluginInterface.
+ *
  * @package BackupMigrate\Drupal\EntityPlugins
  */
 interface WrapperPluginInterface extends ConfigurablePluginInterface {
+
   /**
    * Alter the backup and migrate object to add the source and required services.
    *
@@ -26,8 +23,11 @@ interface WrapperPluginInterface extends ConfigurablePluginInterface {
    *  The id of the source to add.
    * @param array $options
    *  The alter options.
-   *  @see hook_backup_migrate_service_object_alter()
+   *
+   * @see hook_backup_migrate_service_object_alter()
+   *
    * @return mixed
    */
   public function alterBackupMigrate(BackupMigrateInterface $bam, $key, $options = []);
+
 }

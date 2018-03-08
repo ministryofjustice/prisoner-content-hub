@@ -1,19 +1,12 @@
 <?php
-/**
- * @file
- * Contains Drupal\backup_migrate\Plugin\BackupMigrateSource\DefaultDBSourcePlugin
- */
-
 
 namespace Drupal\backup_migrate\Plugin\BackupMigrateSource;
-
 
 use BackupMigrate\Core\Config\Config;
 use BackupMigrate\Core\Filter\DBExcludeFilter;
 use BackupMigrate\Core\Main\BackupMigrateInterface;
-use BackupMigrate\Core\Source\MySQLiSource;
+use BackupMigrate\Drupal\Source\DrupalMySQLiSource;
 use BackupMigrate\Drupal\EntityPlugins\SourcePluginBase;
-use BackupMigrate\Drupal\Source\DrupalSiteArchiveSource;
 
 /**
  * Defines an default database source plugin.
@@ -36,15 +29,18 @@ class DefaultDBSourcePlugin extends SourcePluginBase {
     // Add the default database.
     $info = \Drupal\Core\Database\Database::getConnectionInfo('default', 'default');
     $info = $info['default'];
+
+    // Set a default port if none is set. Because that's what core does.
+    $info['port'] = (empty($info['port']) ? 3306 : $info['port']);
     if ($info['driver'] == 'mysql') {
       $conf = $this->getConfig();
       foreach ($info as $key => $value) {
         $conf->set($key, $value);
       }
-      return new MySQLiSource($conf);
+      return new DrupalMySQLiSource($conf);
     }
 
-    return null;
+    return NULL;
   }
 
   /**
@@ -53,10 +49,29 @@ class DefaultDBSourcePlugin extends SourcePluginBase {
   public function alterBackupMigrate(BackupMigrateInterface $bam, $key, $options = []) {
     if ($source = $this->getObject()) {
       $bam->sources()->add($key, $source);
-
+      // @TODO: This needs a better solution.
       $config = [
         'exclude_tables' => [],
-        'nodata_tables' => [],
+        'nodata_tables' => [
+          'cache_advagg_minify',
+          'cache_bootstrap',
+          'cache_config',
+          'cache_container',
+          'cache_data',
+          'cache_default',
+          'cache_discovery',
+          'cache_discovery_migration',
+          'cache_dynamic_page_cache',
+          'cache_entity',
+          'cache_menu',
+          'cache_migrate',
+          'cache_render',
+          'cache_rest',
+          'cache_toolbar',
+          'sessions',
+          'watchdog',
+          'webprofiler',
+        ],
       ];
 
       // @TODO: Allow modules to add their own excluded tables.

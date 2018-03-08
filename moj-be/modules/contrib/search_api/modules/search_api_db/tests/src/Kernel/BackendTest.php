@@ -3,9 +3,16 @@
 namespace Drupal\Tests\search_api_db\Kernel;
 
 use Drupal\Component\Render\FormattableMarkup;
+use Drupal\Core\Database\Database as CoreDatabase;
 use Drupal\search_api\Entity\Server;
+use Drupal\search_api\IndexInterface;
+use Drupal\search_api\Item\ItemInterface;
+use Drupal\search_api\Plugin\search_api\data_type\value\TextToken;
+use Drupal\search_api\Plugin\search_api\data_type\value\TextValue;
 use Drupal\search_api\Query\QueryInterface;
 use Drupal\search_api\SearchApiException;
+use Drupal\search_api\Utility\Utility;
+use Drupal\search_api_db\DatabaseCompatibility\GenericDatabase;
 use Drupal\search_api_db\Plugin\search_api\backend\Database;
 use Drupal\search_api_db\Tests\DatabaseTestsTrait;
 use Drupal\Tests\search_api\Kernel\BackendTestBase;
@@ -80,6 +87,8 @@ class BackendTest extends BackendTestBase {
     $this->regressionTest2557291();
     $this->regressionTest2511860();
     $this->regressionTest2846932();
+    $this->regressionTest2926733();
+    $this->regressionTest2938646();
   }
 
   /**
@@ -477,6 +486,77 @@ class BackendTest extends BackendTestBase {
   }
 
   /**
+   * Tests indexing of text tokens with leading/trailing whitespace.
+   *
+   * @see https://www.drupal.org/node/2926733
+   */
+  protected function regressionTest2926733() {
+    $index = $this->getIndex();
+    $item_id = $this->getItemIds([1])[0];
+    $fields_helper = \Drupal::getContainer()
+      ->get('search_api.fields_helper');
+    $item = $fields_helper->createItem($index, $item_id);
+    $field = clone $index->getField('body');
+    $value = new TextValue('test');
+    $tokens = [];
+    foreach (['test', ' test', '  test', 'test  ', ' test '] as $token) {
+      $tokens[] = new TextToken($token);
+    }
+    $value->setTokens($tokens);
+    $field->setValues([$value]);
+    $item->setFields([
+      'body' => $field,
+    ]);
+    $item->setFieldsExtracted(TRUE);
+    $index->getServerInstance()->indexItems($index, [$item_id => $item]);
+
+    // Make sure to re-index the proper version of the item to avoid confusing
+    // the other tests.
+    list($datasource_id, $raw_id) = Utility::splitCombinedId($item_id);
+    $index->trackItemsUpdated($datasource_id, [$raw_id]);
+    $this->indexItems($index->id());
+  }
+
+  /**
+   * Tests indexing of items with boost.
+   *
+   * @see https://www.drupal.org/node/2938646
+   */
+  protected function regressionTest2938646() {
+    $db_info = $this->getIndexDbInfo();
+    $text_table = $db_info['field_tables']['body']['table'];
+    $item_id = $this->getItemIds([1])[0];
+    $select = \Drupal::database()->select($text_table, 't');
+    $select
+      ->fields('t', ['score'])
+      ->condition('item_id', $item_id)
+      ->condition('word', 'test');
+    $select2 = clone $select;
+
+    // Check old score.
+    $old_score = $select
+      ->execute()
+      ->fetchField();
+    $this->assertNotSame(FALSE, $old_score);
+    $this->assertGreaterThan(0, $old_score);
+
+    // Re-index item with higher boost.
+    $index = $this->getIndex();
+    $item = $this->container->get('search_api.fields_helper')
+      ->createItem($index, $item_id);
+    $item->setBoost(2);
+    $indexed_ids = $this->indexItemDirectly($index, $item);
+    $this->assertEquals([$item_id], $indexed_ids);
+
+    // Verify the field scores changed accordingly.
+    $new_score = $select2
+      ->execute()
+      ->fetchField();
+    $this->assertNotSame(FALSE, $new_score);
+    $this->assertEquals(2 * $old_score, $new_score);
+  }
+
+  /**
    * {@inheritdoc}
    */
   protected function checkIndexWithoutFields() {
@@ -579,6 +659,95 @@ class BackendTest extends BackendTestBase {
     $index_id = $index_id ?: $this->indexId;
     return \Drupal::keyValue(Database::INDEXES_KEY_VALUE_STORE_ID)
       ->get($index_id);
+  }
+
+  /**
+   * Indexes an item directly.
+   *
+   * @param \Drupal\search_api\IndexInterface $index
+   *   The search index to index the item on.
+   * @param \Drupal\search_api\Item\ItemInterface $item
+   *   The item.
+   *
+   * @return string[]
+   *   The successfully indexed IDs.
+   *
+   * @throws \Drupal\search_api\SearchApiException
+   *   Thrown if indexing failed.
+   */
+  protected function indexItemDirectly(IndexInterface $index, ItemInterface $item) {
+    $items = [$item->getId() => $item];
+
+    // Minimalistic version of code copied from
+    // \Drupal\search_api\Entity\Index::indexSpecificItems().
+    $index->alterIndexedItems($items);
+    \Drupal::moduleHandler()->alter('search_api_index_items', $index, $items);
+    foreach ($items as $item) {
+      // This will cache the extracted fields so processors, etc., can retrieve
+      // them directly.
+      $item->getFields();
+    }
+    $index->preprocessIndexItems($items);
+
+    $indexed_ids = [];
+    if ($items) {
+      $indexed_ids = $index->getServerInstance()->indexItems($index, $items);
+    }
+    return $indexed_ids;
+  }
+
+  /**
+   * Tests whether a server on a non-default database is handled correctly.
+   */
+  public function testNonDefaultDatabase() {
+    // Clone the primary credentials to a replica connection.
+    // Note this will result in two independent connection objects that happen
+    // to point to the same place.
+    // @see \Drupal\KernelTests\Core\Database\ConnectionTest::testConnectionRouting()
+    $connection_info = CoreDatabase::getConnectionInfo('default');
+    CoreDatabase::addConnectionInfo('default', 'replica', $connection_info['default']);
+
+    $db1 = CoreDatabase::getConnection('default', 'default');
+    $db2 = CoreDatabase::getConnection('replica', 'default');
+
+    // Safety checks copied from the Core test, if these fail something is wrong
+    // with Core.
+    $this->assertNotNull($db1, 'default connection is a real connection object.');
+    $this->assertNotNull($db2, 'replica connection is a real connection object.');
+    $this->assertNotSame($db1, $db2, 'Each target refers to a different connection.');
+
+    // Create backends based on each of the two targets and verify they use the
+    // right connections.
+    $config = [
+      'database' => 'default:default',
+    ];
+    $backend1 = Database::create($this->container, $config, '', []);
+    $config['database'] = 'default:replica';
+    $backend2 = Database::create($this->container, $config, '', []);
+
+    $this->assertSame($db1, $backend1->getDatabase());
+    $this->assertSame($db2, $backend2->getDatabase());
+
+    // Make sure they also use different DBMS compatibility handlers, which also
+    // use the correct database connections.
+    $dbms_comp1 = $backend1->getDbmsCompatibilityHandler();
+    $dbms_comp2 = $backend2->getDbmsCompatibilityHandler();
+    $this->assertNotSame($dbms_comp1, $dbms_comp2);
+    $this->assertSame($db1, $dbms_comp1->getDatabase());
+    $this->assertSame($db2, $dbms_comp2->getDatabase());
+
+    // Finally, make sure the DBMS compatibility handlers also have the correct
+    // classes (meaning we used the correct one and didn't just fall back to the
+    // generic database).
+    $service = $this->container->get('search_api_db.database_compatibility');
+    $database_type = $db1->databaseType();
+    $service_id = "$database_type.search_api_db.database_compatibility";
+    $service2 = $this->container->get($service_id);
+    $this->assertSame($service2, $service);
+    $class = get_class($service);
+    $this->assertNotEquals(GenericDatabase::class, $class);
+    $this->assertSame($dbms_comp1, $service);
+    $this->assertEquals($class, get_class($dbms_comp2));
   }
 
 }
