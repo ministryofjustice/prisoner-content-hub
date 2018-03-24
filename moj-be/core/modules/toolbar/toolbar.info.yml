@@ -7,8 +7,8 @@ package: Core
 dependencies:
   - breakpoint
 
-# Information added by Drupal.org packaging script on 2018-03-07
-version: '8.5.0'
+# Information added by Drupal.org packaging script on 2018-03-21
+version: '8.5.0+57-dev'
 core: '8.x'
 project: 'drupal'
-datestamp: 1520457825
+datestamp: 1521662947
