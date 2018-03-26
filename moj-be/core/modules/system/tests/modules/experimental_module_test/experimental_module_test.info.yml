@@ -5,8 +5,8 @@ package: Core (Experimental)
 # version: 8.y.x-unstable
 # core: 8.x
 
-# Information added by Drupal.org packaging script on 2018-03-21
-version: '8.5.0+57-dev'
+# Information added by Drupal.org packaging script on 2018-03-07
+version: '8.5.0'
 core: '8.x'
 project: 'drupal'
-datestamp: 1521662947
+datestamp: 1520457825

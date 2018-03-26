@@ -321,27 +321,18 @@ abstract class BrowserTestBase extends TestCase {
     $this->mink->setDefaultSessionName('default');
     $this->registerSessions();
 
-    $this->initFrontPage();
-
-    return $session;
-  }
-
-  /**
-   * Visits the front page when initializing Mink.
-   *
-   * According to the W3C WebDriver specification a cookie can only be set if
-   * the cookie domain is equal to the domain of the active document. When the
-   * browser starts up the active document is not our domain but 'about:blank'
-   * or similar. To be able to set our User-Agent and Xdebug cookies at the
-   * start of the test we now do a request to the front page so the active
-   * document matches the domain.
-   *
-   * @see https://w3c.github.io/webdriver/webdriver-spec.html#add-cookie
-   * @see https://www.w3.org/Bugs/Public/show_bug.cgi?id=20975
-   */
-  protected function initFrontPage() {
+    // According to the W3C WebDriver specification a cookie can only be set if
+    // the cookie domain is equal to the domain of the active document. When the
+    // browser starts up the active document is not our domain but 'about:blank'
+    // or similar. To be able to set our User-Agent and Xdebug cookies at the
+    // start of the test we now do a request to the front page so the active
+    // document matches the domain.
+    // @see https://w3c.github.io/webdriver/webdriver-spec.html#add-cookie
+    // @see https://www.w3.org/Bugs/Public/show_bug.cgi?id=20975
     $session = $this->getSession();
     $session->visit($this->baseUrl);
+
+    return $session;
   }
 
   /**
@@ -602,7 +593,6 @@ abstract class BrowserTestBase extends TestCase {
    *   A new web-assert option for asserting the presence of elements with.
    */
   public function assertSession($name = NULL) {
-    $this->addToAssertionCount(1);
     return new WebAssert($this->getSession($name), $this->baseUrl);
   }
 
@@ -1177,7 +1167,6 @@ abstract class BrowserTestBase extends TestCase {
   protected function clickLink($label, $index = 0) {
     $label = (string) $label;
     $links = $this->getSession()->getPage()->findAll('named', ['link', $label]);
-    $this->assertArrayHasKey($index, $links, 'The link ' . $label . ' was not found on the page.');
     $links[$index]->click();
   }
 
@@ -1316,28 +1305,6 @@ abstract class BrowserTestBase extends TestCase {
     }
 
     return $caller;
-  }
-
-  /**
-   * Transforms a nested array into a flat array suitable for drupalPostForm().
-   *
-   * @param array $values
-   *   A multi-dimensional form values array to convert.
-   *
-   * @return array
-   *   The flattened $edit array suitable for BrowserTestBase::drupalPostForm().
-   */
-  protected function translatePostValues(array $values) {
-    $edit = [];
-    // The easiest and most straightforward way to translate values suitable for
-    // BrowserTestBase::drupalPostForm() is to actually build the POST data
-    // string and convert the resulting key/value pairs back into a flat array.
-    $query = http_build_query($values);
-    foreach (explode('&', $query) as $item) {
-      list($key, $value) = explode('=', $item);
-      $edit[urldecode($key)] = urldecode($value);
-    }
-    return $edit;
   }
 
   /**

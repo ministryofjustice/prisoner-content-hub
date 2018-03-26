@@ -65,8 +65,8 @@ class MigrateUpgrade7Test extends MigrateUpgradeExecuteTestBase {
       'configurable_language' => 4,
       'contact_form' => 3,
       'editor' => 2,
-      'field_config' => 64,
-      'field_storage_config' => 47,
+      'field_config' => 63,
+      'field_storage_config' => 46,
       'file' => 3,
       'filter_format' => 7,
       'image_style' => 6,
@@ -118,7 +118,6 @@ class MigrateUpgrade7Test extends MigrateUpgradeExecuteTestBase {
     return [
       'aggregator',
       'block',
-      'book',
       'comment',
       'contact',
       'date',
@@ -170,6 +169,7 @@ class MigrateUpgrade7Test extends MigrateUpgradeExecuteTestBase {
    */
   protected function getMissingPaths() {
     return [
+      'book',
       'color',
       'rdf',
       // These modules are in the missing path list because they are installed
