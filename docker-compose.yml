@@ -16,13 +16,15 @@ services:
 
         hub-node:
                 image: node:alpine
+                user: "node"
+                working_dir: /home/node/app
                 depends_on:
                         - hub-be
                 environment:
                         API_URI: http://hub-be/
                         APP_TIMEOUT: 60.0
                 ports:
-                        - 8383:80
+                        - 8383:3000
                 volumes:
                         - ./moj-node/:/home/node/app
                 command: "npm start"
