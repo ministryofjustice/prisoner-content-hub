@@ -14,9 +14,26 @@ services:
         hub-memcache:
                 image: memcached
 
+        hub-node:
+                image: node:alpine
+                depends_on:
+                        - hub-be
+                environment:
+                        API_URI: http://hub-be/
+                        APP_TIMEOUT: 60.0
+                ports:
+                        - 8383:80
+                volumes:
+                        - ./moj-node/:/home/node/app
+                command: "npm start"
+                healthcheck:
+                        test: ["CMD", "curl", "-f", "http://localhost"]
+                        interval: 15s
+                        timeout: 30s
+                        retries: 1
         hub-fe:
                 image: mojdigitalstudio/digital-hub-fe
-                depends_on: 
+                depends_on:
                         - hub-be
                         - hub-memcache
                 environment:
@@ -34,7 +51,7 @@ services:
 
         hub-be:
                 image: mojdigitalstudio/digital-hub-be
-                depends_on: 
+                depends_on:
                         - hub-db
                 environment:
                         HUB_DB_ENV_MYSQL_DATABASE: hubdb
