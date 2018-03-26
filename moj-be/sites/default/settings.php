@@ -74,5 +74,3 @@ $config_directories['sync'] = 'sites/default/files/config/sync';
 // $settings['trusted_host_patterns'] = array(
 // '^localhost$',
 // );
-
-// date_default_timezone_set("Europe/London");
