@@ -1,5 +1,5 @@
 build-deps:
-	composer install
+#	composer install
 
 build: build-deps
 	docker build -t mojdigitalstudio/digital-hub-be .
