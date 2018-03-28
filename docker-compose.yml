@@ -28,11 +28,6 @@ services:
                 volumes:
                         - ./moj-node/:/home/node/app
                 command: "npm start"
-                healthcheck:
-                        test: ["CMD", "curl", "-f", "http://localhost"]
-                        interval: 15s
-                        timeout: 30s
-                        retries: 1
         hub-fe:
                 image: mojdigitalstudio/digital-hub-fe
                 depends_on:
