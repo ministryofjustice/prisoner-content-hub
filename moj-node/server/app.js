@@ -18,7 +18,7 @@ const version = moment.now().toString();
 const production = process.env.NODE_ENV === 'production';
 const testMode = process.env.NODE_ENV === 'test';
 
-module.exports = function createApp({logger, someService}) {
+module.exports = function createApp({logger, someService, someOtherService}) {
     const app = express();
 
     app.set('json spaces', 2);
@@ -129,7 +129,7 @@ module.exports = function createApp({logger, someService}) {
     }
 
     //Routing
-    app.use('/', createIndexRouter({logger, someService}));
+    app.use('/', createIndexRouter({logger, someService, someOtherService}));
 
     app.use(handleKnownErrors);
     app.use(renderErrors);

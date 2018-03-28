@@ -1,6 +1,6 @@
 const express = require('express');
 
-module.exports = function ({logger, someService}) {
+module.exports = function ({logger, someService, SomeOtherService}) {
     const router = express.Router();
 
     router.get('/', (req, res) => {

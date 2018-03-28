@@ -1,11 +1,11 @@
-module.exports = function createSomeService() {
+module.exports = function createSomeOtherService() {
 
     function getSomeData() {
         return {
-            text: 'Stuff from some service'
+            other: 'All the things'
         }
     }
-    
+
     return {
         getSomeData
     }
