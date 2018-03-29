@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\migrate_source_csv\Unit\Plugin\migrate\source;
 
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate_source_csv\CSVFileObject;
 use Drupal\migrate_source_csv\Plugin\migrate\source\CSV;
@@ -310,6 +311,48 @@ class CSVUnitTest extends CSVUnitBase {
     $fileObject = $this->readAttribute($csv, 'file');
 
     $this->assertInstanceOf(FooCSVFileObject::class, $fileObject);
+  }
+
+  /**
+   * Tests configurable CSV file object.
+   *
+   * @covers ::current
+   * @covers ::rewind
+   */
+  public function testConfigurableCSVFileObjectFlags() {
+    $configuration = [
+      'path' => $this->multiLine,
+      'keys' => ['id'],
+      'header_row_count' => 1,
+      'file_flags' => \SplFileObject::READ_CSV | \SplFileObject::READ_AHEAD | \SplFileObject::SKIP_EMPTY,
+    ];
+
+    $csv = new CSV($configuration, $this->pluginId, $this->pluginDefinition, $this->migration);
+    $csv_file_object = $csv->initializeIterator();
+    $row = [
+      'id' => '1',
+      'title' => 'Title 1',
+      'description' => "Description 1 Line 1\nDescription 1 Line 2\nDescription 1 Line 3",
+    ];
+    $csv_file_object->rewind();
+    $current = $csv_file_object->current();
+    $this->assertArrayEquals($row, $current);
+  }
+
+  /**
+   * Tests malformed CSV file path.
+   *
+   * @covers ::initializeIterator
+   */
+  public function testMalformedFilePath() {
+    $configuration = [
+      'path' => 'non-existent-path',
+      'keys' => ['id'],
+    ];
+
+    $csv = new CSV($configuration, $this->pluginId, $this->pluginDefinition, $this->migration);
+    $this->setExpectedException(InvalidPluginDefinitionException::class, 'File path (non-existent-path) does not exist.');
+    $csv->initializeIterator();
   }
 
 }
