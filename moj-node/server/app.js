@@ -7,6 +7,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const createIndexRouter = require('./routes/index');
+const createEducationRouter = require('./routes/education');
 const sassMiddleware = require('node-sass-middleware');
 const moment = require('moment');
 const path = require('path');
@@ -129,7 +130,8 @@ module.exports = function createApp({logger, someService, someOtherService}) {
     }
 
     //Routing
-    app.use('/', createIndexRouter({logger, someService, someOtherService}));
+    app.use('/', createIndexRouter({logger, someService}));
+    app.use('/education', createEducationRouter({logger, someOtherService}));
 
     app.use(handleKnownErrors);
     app.use(renderErrors);
