@@ -1,12 +1,12 @@
 const express = require('express');
 
-module.exports = function ({logger, someService}) {
+module.exports = function ({logger, someOtherService}) {
     const router = express.Router();
 
     router.get('/', (req, res) => {
-        logger.info('GET index');
+        logger.info('GET education');
 
-        const data = someService.getSomeData();
+        const data = someOtherService.getSomeData();
 
         res.render('index', {data})
     });
