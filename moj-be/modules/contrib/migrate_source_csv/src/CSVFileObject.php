@@ -35,8 +35,6 @@ class CSVFileObject extends \SplFileObject {
     // Necessary to use this approach because SplFileObject doesn't like NULL
     // arguments passed to it.
     call_user_func_array(['parent', '__construct'], func_get_args());
-
-    $this->setFlags(CSVFileObject::READ_CSV | CSVFileObject::READ_AHEAD | CSVFileObject::DROP_NEW_LINE | CSVFileObject::SKIP_EMPTY);
   }
 
   /**
