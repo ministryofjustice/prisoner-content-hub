@@ -11,5 +11,6 @@ RUN docker-php-ext-install gd
 RUN composer install --ignore-platform-reqs
 #RUN pecl install memcached
 #RUN docker-php-ext-enable memcached
+RUN echo "date.timezone = Europe/London" > /usr/local/etc/php/conf.d/timezone_set.ini
 RUN rm -f /etc/apache2/sites-enabled/*
 COPY ./apache/* /etc/apache2/sites-enabled/
