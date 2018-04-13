@@ -42,7 +42,11 @@
 </header>
 
 <main class="app-container">
-    <h1 class="title heading-large"><%= data.other %></h1>
+    <ul>
+      <% for(var i=0; i<data.menu.length; i++) {%>
+        <li><%= data.menu[i] %></li>
+      <% } %>
+    </ul>
 </main>
 
 <footer class="group js-footer" id="footer" role="contentinfo">
