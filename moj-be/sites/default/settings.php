@@ -37,7 +37,8 @@ $settings['update_free_access'] = FALSE;
  * security by serving user-uploaded files from a different domain or subdomain
  * pointing to the same server. Do not include a trailing slash.
  */
-$settings['file_public_base_url'] = getenv('HUB_EXT_FILE_URL', true);
+
+/* $settings['file_public_base_url'] = getenv('HUB_EXT_FILE_URL', true); */
 
 /**
  * Load services definition file.
