@@ -1,4 +1,4 @@
-migrate.source.csv:
+migrate_plus.source.csv:
   type: migrate_source
   label: 'CSV'
   mapping:
@@ -15,7 +15,7 @@ migrate.source.csv:
         type: string
         label: 'Key field'
     column_names:
-      type: sequence
+      type: ignore
       label: 'Numeric key 0-based index of the columns in source CSV file'
     file_class:
       type: string
@@ -29,3 +29,6 @@ migrate.source.csv:
     escape:
       type: string
       label: 'The field escape character (one character only)'
+    file_flags:
+      type: integer
+      label: 'Bitmask flags for the SplFileObject'
