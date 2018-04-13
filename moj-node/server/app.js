@@ -7,7 +7,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const createIndexRouter = require('./routes/index');
-const createEducationRouter = require('./routes/education');
+const createMenuRouter = require('./routes/menu');
 const sassMiddleware = require('node-sass-middleware');
 const moment = require('moment');
 const path = require('path');
@@ -19,7 +19,7 @@ const version = moment.now().toString();
 const production = process.env.NODE_ENV === 'production';
 const testMode = process.env.NODE_ENV === 'test';
 
-module.exports = function createApp({logger, someService, someOtherService}) {
+module.exports = function createApp({logger, someService, menuService}) {
     const app = express();
 
     app.set('json spaces', 2);
@@ -60,7 +60,7 @@ module.exports = function createApp({logger, someService, someOtherService}) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
 
-    app.use(log.requestLogger());
+    //app.use(log.requestLogger());
 
     // Resource Delivery Configuration
     app.use(compression());
@@ -131,7 +131,7 @@ module.exports = function createApp({logger, someService, someOtherService}) {
 
     //Routing
     app.use('/', createIndexRouter({logger, someService}));
-    app.use('/education', createEducationRouter({logger, someOtherService}));
+    app.use('/', createMenuRouter({logger, menuService}));
 
     app.use(handleKnownErrors);
     app.use(renderErrors);
