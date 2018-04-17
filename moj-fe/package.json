@@ -15,7 +15,6 @@
     "checkers.js": "0.0.1",
     "chess.js": "^0.10.2",
     "chessboardjs": "0.0.1",
-    "dev": "^0.1.3",
     "draughts": "0.0.1",
     "draughtsboard": "^0.1.1",
     "epub.js": "^0.2.15",
