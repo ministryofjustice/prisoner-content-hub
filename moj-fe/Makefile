@@ -1,13 +1,13 @@
 
 build-deps:
-#	npm install
-#	npm run prod
-#	npm run snyk-protect
-#	composer install --ignore-platform-reqs
-#	composer run-script post-root-package-install
-#	composer run-script post-create-project-cmd
+	npm install
+	npm run prod
+	npm run snyk-protect
+	composer install --ignore-platform-reqs
+	composer run-script post-root-package-install
+	composer run-script post-create-project-cmd
 
-build: build-deps
+build: 
 	docker build --no-cache -t mojdigitalstudio/digital-hub-fe .
 
 clean:

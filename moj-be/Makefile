@@ -1,7 +1,7 @@
 build-deps:
-#	composer install --ignore-platform-reqs
+	composer install --ignore-platform-reqs
 
-build: build-deps
+build: 
 	docker build -t mojdigitalstudio/digital-hub-be .
 
 clean:
