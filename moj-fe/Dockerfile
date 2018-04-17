@@ -12,7 +12,8 @@ COPY --from=composer /composer /node
 WORKDIR /node
 #RUN apt-get update && apt-get install -y libsass-dev
 RUN mkdir -p node_modules
-RUN npm install gulp snyk 
+RUN npm install gulp snyk -g
+RUN gulp
 RUN npm run prod
 RUN npm run snyk-protect
 
