@@ -1,24 +1,20 @@
 FROM composer as composer
 RUN mkdir -p /composer
 COPY . /composer
-RUN ls -lathr /composer
 WORKDIR /composer
 RUN composer install
 RUN composer run-script post-root-package-install
 RUN composer run-script post-create-project-cmd
-RUN ls -lathr /composer
 
 FROM node:8-stretch as node
 RUN mkdir -p /node
 COPY --from=composer /composer /node
-RUN ls -lathr /node
 WORKDIR /node
 #RUN apt-get update && apt-get install -y libsass-dev
-RUN npm install
-RUN ./node_modules/.bin/gulp
+RUN mkdir -p node_modules
+RUN npm install gulp snyk 
 RUN npm run prod
 RUN npm run snyk-protect
-RUN ls -lathr /node
 
 FROM php:5.6-apache
 #Apache configuraton
