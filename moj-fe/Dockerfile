@@ -25,6 +25,7 @@ FROM php:5.6-apache
 RUN a2enmod rewrite
 RUN a2enmod proxy
 RUN a2enmod proxy_http
+RUN a2enmod headers
 RUN rm -f /etc/apache2/sites-enabled/*
 COPY ./apache/* /etc/apache2/sites-enabled/
 #PHP configuration

@@ -38,7 +38,7 @@ $settings['update_free_access'] = FALSE;
  * pointing to the same server. Do not include a trailing slash.
  */
 
-/* $settings['file_public_base_url'] = getenv('HUB_EXT_FILE_URL', true); */
+$settings['file_public_base_url'] = getenv('HUB_EXT_FILE_URL', true);
 
 /**
  * Load services definition file.
@@ -75,3 +75,6 @@ $config_directories['sync'] = 'sites/default/files/config/sync';
 // $settings['trusted_host_patterns'] = array(
 // '^localhost$',
 // );
+
+$settings['reverse_proxy'] = TRUE;
+$settings['reverse_proxy_addresses'] = array($_SERVER['REMOTE_ADDR']);
