@@ -5,8 +5,7 @@
     "license": "GPL-2.0-or-later",
     "require": {
         "composer/installers": "^1.0.24",
-        "wikimedia/composer-merge-plugin": "^1.4",
-        "doctrine/common": "^2.8"
+        "wikimedia/composer-merge-plugin": "^1.4"
     },
     "replace": {
         "drupal/core": "^8.5"
@@ -15,10 +14,7 @@
     "prefer-stable": true,
     "config": {
         "preferred-install": "dist",
-        "autoloader-suffix": "Drupal8",
-        "platform": {
-        	"php": "7.1"
-        }
+        "autoloader-suffix": "Drupal8"
     },
     "extra": {
         "_readme": [

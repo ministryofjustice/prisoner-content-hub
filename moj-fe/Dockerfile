@@ -1,4 +1,4 @@
-FROM composer as composer
+FROM composer:1.6 as composer
 RUN mkdir -p /composer
 COPY . /composer
 WORKDIR /composer
@@ -11,10 +11,7 @@ RUN mkdir -p /node
 COPY --from=composer /composer /node
 WORKDIR /node
 #RUN apt-get update && apt-get install -y libsass-dev
-RUN mkdir -p node_modules
-RUN npm install gulp snyk 
-RUN /node/node_modules/gulp/bin/gulp.js
-
+RUN npm install
 RUN npm run prod
 RUN npm run snyk-protect
 
