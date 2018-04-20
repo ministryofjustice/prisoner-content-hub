@@ -1,4 +1,5 @@
 --require ./test/.setup.js
+--recursive
 --reporter spec
 --colors
 --bail
