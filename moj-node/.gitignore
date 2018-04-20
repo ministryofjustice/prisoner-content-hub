@@ -15,3 +15,5 @@ uploads/*
 test-results.xml
 build-info.json
 .env
+yarn-error.log
+.eslintcache
