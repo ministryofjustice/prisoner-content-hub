@@ -9,7 +9,7 @@ module.exports = function ({logger, someService, someOtherService}) {
         const data = someService.getSomeData();
         const dataOther = someOtherService.getSomeData();
 
-        res.render('index', {data, dataOther})
+        res.render('pages/index', {data, dataOther})
     });
 
     return router;
