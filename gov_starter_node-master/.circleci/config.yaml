@@ -1,0 +1,42 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8
+    working_directory: /home/circleci/app
+    branches:
+      ignore:
+        - /deploy-to.*/
+    steps:
+      - checkout
+      - restore_cache:
+          key: node_modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+          key: node_modules-{{ checksum "package.json" }}
+          key: node_modules
+      - restore_cache:
+          key: yarn-cache
+      - run:
+          name: Install Dependencies
+          command: yarn --frozen-lockfile
+      - save_cache:
+          key: node_modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+      - save_cache:
+          key: yarn-cache
+          paths:
+            - ~/.yarn-cache
+      - run:
+          name: Linter
+          command: yarn run lint
+      - run:
+          name: Tests
+          command: yarn test --reporter mocha-junit-reporter
+          environment:
+            MOCHA_FILE: ./reports/unit/test-results.xml
+
+      - store_test_results:
+          path: ./reports
+      - store_artifacts:
+          path: ./reports
