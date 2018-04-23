@@ -10,7 +10,7 @@ FROM node:8-stretch as node
 RUN mkdir -p /node
 COPY --from=composer /composer /node
 WORKDIR /node
-#RUN apt-get update && apt-get install -y libsass-dev
+RUN apt-get update && apt-get install -y libsass-dev
 RUN npm install
 RUN npm run prod
 RUN npm run snyk-protect
