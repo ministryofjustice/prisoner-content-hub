@@ -3,3 +3,6 @@
 - hosts: bounce
   roles:
           - bounce
+          - librarian_roles/geerlingguy.nginx/
+#          - librarian_roles/geerlingguy.certbot/ # keeping this for later
+          - librarian_roles/geerlingguy.firewall/
