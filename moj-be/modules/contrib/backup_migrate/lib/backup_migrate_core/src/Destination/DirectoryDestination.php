@@ -248,6 +248,19 @@ class DirectoryDestination extends DestinationBase implements ListableDestinatio
 
     // Read the list of files from the directory.
     $dir = $this->confGet('directory');
+
+    /** @var \Drupal\Core\File\FileSystemInterface $fileSystem */
+    $fileSystem = \Drupal::service('file_system');
+    $scheme = $fileSystem->uriScheme($dir);
+
+    // Ensure the stream is configured.
+    if (!$fileSystem->validScheme($scheme)) {
+      drupal_set_message(t('Your @scheme stream is not configured.', [
+        '@scheme' => $scheme . '://'
+      ]), 'warning');
+      return $files;
+    }
+
     if ($handle = opendir($dir)) {
       while (FALSE !== ($file = readdir($handle))) {
         $filepath = $dir . '/' . $file;
