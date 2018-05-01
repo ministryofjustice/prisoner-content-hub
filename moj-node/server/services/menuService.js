@@ -1,6 +1,4 @@
-const contentClient = require('../data/contentClient');
-
-module.exports = function createMenuService() {
+module.exports = function createMenuService(contentClient) {
   const getMenuElement = async () => {
     const data = await contentClient.getMenu();
     return {
@@ -15,5 +13,6 @@ module.exports = function createMenuService() {
 
   return {
     getMenuElement,
+    formatMenu,
   };
 };

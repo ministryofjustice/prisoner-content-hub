@@ -6,6 +6,7 @@
   },
   "globals": {
     "expect":true,
-    "sinon": true
+    "sinon": true,
+    "nock": true
   }
 }
