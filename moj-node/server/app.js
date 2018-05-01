@@ -143,22 +143,24 @@ module.exports = function createApp({
   return app;
 };
 
-function handleKnownErrors(error) {
-  logger.error(error);
+// eslint-disable-next-line no-unused-vars
+function handleKnownErrors(err, req, res, next) {
+  logger.error(err);
   // code to handle errors
 }
 
-function renderErrors(error, req, res) {
-  logger.error(error);
+// eslint-disable-next-line no-unused-vars
+function renderErrors(err, req, res, next) {
+  logger.error(err);
 
   // code to handle unknown errors
 
-  res.locals.error = error;
-  res.locals.stack = production ? null : error.stack;
+  res.locals.error = err;
+  res.locals.stack = production ? null : err.stack;
   res.locals.message = production ?
-    'Something went wrong. The error has been logged. Please try again' : error.message;
+    'Something went wrong. The error has been logged. Please try again' : err.message;
 
-  res.status(error.status || 500);
+  res.status(err.status || 500);
 
   res.render('pages/error');
 }
