@@ -1,5 +1,5 @@
 Digital Hub for Prisons
-=======================
+========================
 
 [![CircleCI](https://circleci.com/gh/ministryofjustice/digital-hub/tree/master.svg?style=svg)](https://circleci.com/gh/ministryofjustice/digital-hub/tree/master)
 
