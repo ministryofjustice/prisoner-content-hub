@@ -36,9 +36,9 @@ jobs:
                 key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
                 paths:
                     - ./moj-be/vendor
-            #- run:
-                #name: Run frontend tests
-                #command: cd moj-fe && make test
+            - run:
+                name: Run frontend tests
+                command: cd moj-fe && make test
             - run:
                 name: Run Drupal backend tests
                 command: cd moj-be && make test
