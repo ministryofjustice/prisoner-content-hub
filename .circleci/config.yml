@@ -50,7 +50,7 @@ jobs:
                 command: cd moj-fe && make push
             - run:
                 name: push be to docker
-                push_be: cd moj-be && make push
+                command: cd moj-be && make push
             - run:
                 name: push db to docker
-                push_db: cd db && make push
+                command: cd db && make push
