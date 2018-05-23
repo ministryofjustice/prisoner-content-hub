@@ -46,6 +46,11 @@ jobs:
                 name: Build DB container
                 command: cd db && make build
             - run:
-                push_fe: cd moj-fe && make push
+                name: push fe to docker
+                command: cd moj-fe && make push
+            - run:
+                name: push be to docker
                 push_be: cd moj-be && make push
+            - run:
+                name: push db to docker
                 push_db: cd db && make push
