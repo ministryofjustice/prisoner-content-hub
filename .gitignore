@@ -4,3 +4,5 @@ db_dump/
 .DS_Store
 modules/contrib/backup_migrate/vendor/psr/
 *.swp
+.vscode
+.vscode/**
