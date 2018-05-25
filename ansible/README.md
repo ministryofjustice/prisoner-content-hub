@@ -32,3 +32,6 @@ Once you have verified dev is still working as expected run prod
 
     ansible-playbook --ssh-common-args='-o ControlPath=~/tmp/hub-bounce-prod' -i bounce-prod site.yml
 
+Manage Users
+
+   ansible-playbook --ssh-common-args='-o ControlPath=~/tmp/hub-bounce-prod' -i [bounce-prod OR bounce-dev] users.yml
