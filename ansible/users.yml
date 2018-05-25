@@ -1,0 +1,5 @@
+- name: Users
+  become: true
+  hosts: all
+  roles:
+    - ansible-users
