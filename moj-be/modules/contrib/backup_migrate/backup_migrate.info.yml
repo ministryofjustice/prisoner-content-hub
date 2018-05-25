@@ -5,8 +5,8 @@ type: module
 # core: 8.x
 configure: backup_migrate.quick_backup
 
-# Information added by Drupal.org packaging script on 2018-02-21
-version: '8.x-4.0-rc1'
+# Information added by Drupal.org packaging script on 2018-03-29
+version: '8.x-4.0'
 core: '8.x'
 project: 'backup_migrate'
-datestamp: 1519215195
+datestamp: 1522330988

@@ -3,8 +3,8 @@ pipeline {
 
   // Environment
   environment {
-    DOCKER_HUB_USER = credentials('DOCKER_HUB_USER')
-    DOCKER_HUB_PASS = credentials('DOCKER_HUB_PASS')
+    DOCKER_USERNAME = credentials('DOCKER_USERNAME')
+    DOCKER_PASSWORD = credentials('DOCKER_PASSWORD')
     HUB_ENV_URL = 'https://dev.hub.service.hmpps.dsd.io'    
   }
   options {

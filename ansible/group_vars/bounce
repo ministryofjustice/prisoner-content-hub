@@ -11,3 +11,49 @@ unattended_origins_patterns:
   - 'o=Ubuntu,a=${distro_codename}'
   - 'o=Ubuntu,a=${distro_codename}-updates'
 
+nginx_upstreams:
+  - name: berwyn_hub
+    servers: {
+      "berwyn.mycloudgateway.co.uk:10001"
+    }
+  - name: wayland_hub
+    servers: {
+      "wayland.mycloudgateway.co.uk:10001"
+    }
+
+nginx_vhosts:
+#  - listen: "443 ssl http2"
+  - listen: "80"
+    server_name: "bli.prod.admin.hub.service.hmpps.dsd.io"
+    state: "present"
+    extra_parameters: |
+      ignore_invalid_headers off;
+      location / {
+        proxy_pass http://berwyn_hub;
+        proxy_set_header   Host              $host;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+      }
+  - listen: "80"
+    server_name: "wli.prod.admin.hub.service.hmpps.dsd.io"
+    state: "present"
+    extra_parameters: |
+      ignore_invalid_headers off;
+      location / {
+        proxy_pass http://wayland_hub;
+        proxy_set_header   Host              $host;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+      }
+  
+firewall_state: started
+firewall_enabled_at_boot: true
+firewall_allowed_tcp_ports:
+  - "22"
+  - "80"
+  - "443"
+#firewall_additional_rules:
+#  - "iptables -A INPUT -p tcp --dport 80 -s 35.177.252.195 -j ACCEPT"
+#  - "iptables -A INPUT -p tcp --dport 443 -s 35.177.252.195 -j ACCEPT"

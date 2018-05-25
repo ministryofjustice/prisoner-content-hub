@@ -1,14 +1,14 @@
 build-deps:
-	composer install
+	composer install --ignore-platform-reqs
 
-build: build-deps
+build: 
 	docker build -t mojdigitalstudio/digital-hub-be .
 
 clean:
 	rm -rf vendor
 
 push:
-	@docker login -u $(DOCKER_HUB_USER) -p $(DOCKER_HUB_PASS) 
+	@docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD) 
 	docker push mojdigitalstudio/digital-hub-be
 
 test:

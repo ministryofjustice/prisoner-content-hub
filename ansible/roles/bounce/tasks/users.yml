@@ -10,19 +10,20 @@
     mode: 0644
     validate: 'visudo -cf %s'
 
-- name: Rob Lazzurs
+- name: John Hackett
   user:
-    name: lazzurs
+    name: johnhackett
     shell: /bin/bash
     groups: admin
 
-- name: Rob Lazzurs key
+- name: John Hackett key
   authorized_key:
-      user: lazzurs
+      user: johnhackett
       key: "{{ item }}"
       state: present
   with_file:
-      - "files/keys/{{ env }}/lazzurs.pub"
+      - "files/keys/{{ env }}/johnhackett.pub"
+
 
 - name: Glen Mailer
   user:
