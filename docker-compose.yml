@@ -15,7 +15,7 @@ services:
                 image: memcached
 
         hub-node:
-                image: node:alpine
+                image: mojdigitalstudio/digital-hub-node
                 user: "node"
                 working_dir: /home/node/app
                 depends_on:
@@ -24,10 +24,11 @@ services:
                         API_URI: http://hub-be/
                         APP_TIMEOUT: 60.0
                 ports:
-                        - 8383:3000
+                        - 8183:3000
                 volumes:
-                        - ./moj-node/:/home/node/app
-                command: "npm start"
+                        - ./moj-node/server:/home/node/app/server
+                        - ./moj-node/test:/home/node/app/test
+                        - ./moj-node/assets:/home/node/app/assets
         hub-fe:
                 image: mojdigitalstudio/digital-hub-fe
                 depends_on:
