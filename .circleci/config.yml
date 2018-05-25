@@ -27,6 +27,16 @@ jobs:
                 paths:
                     - ./moj-fe/vendor
             - restore_cache:
+                key: moj-node/node_modules-{{ checksum "moj-node/package.json" }}
+                key: moj-node/node_modules
+            - run:
+                name: Build node frontend container
+                command: cd moj-node && make build
+            - save_cache:
+                key: moj-node/node_modules-{{ checksum "moj-node/package.json" }}
+                paths:
+                    - ./moj-node/node_modules
+            - restore_cache:
                 key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
                 key: moj-be/vendor
             - run:
@@ -51,6 +61,9 @@ jobs:
             - run:
                 name: push be to docker
                 command: cd moj-be && make push
+            - run:
+                name: push node fe to docker
+                command: cd moj-node && make push
             - run:
                 name: push db to docker
                 command: cd db && make push
