@@ -6,7 +6,7 @@ module.exports = function menu({ logger, menuService }) {
   router.get('/menu', async (request, response) => {
     logger.info('GET menu');
     const data = await menuService.getMenuElement();
-    response.render('pages/index', { data });
+    response.render('pages/menu', { data });
   });
   return router;
 };
