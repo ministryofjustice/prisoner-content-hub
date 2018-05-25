@@ -75,3 +75,6 @@ $config_directories['sync'] = 'sites/default/files/config/sync';
 // $settings['trusted_host_patterns'] = array(
 // '^localhost$',
 // );
+
+// $settings['reverse_proxy'] = TRUE;
+// $settings['reverse_proxy_addresses'] = array($_SERVER['REMOTE_ADDR']);
