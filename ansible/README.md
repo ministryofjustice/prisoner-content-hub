@@ -42,9 +42,9 @@ Documentation for the role used to manage this can be found here https://github.
 
 There are currently 3 groups:
 
-admin - For WebOps in the Digital Studio
-studio - For developement teams in the Digital Studio
-dxc - For external DXC staff who will use the bounce box ssh tunneling 
+ - `admin`, For WebOps in the Digital Studio
+ - `studio`,  For developement teams in the Digital Studio
+ - `dxc`, For external DXC staff who will use the bounce box ssh tunneling 
 
 To apply the changes run the `users.yml` playbook, e.g.
 
