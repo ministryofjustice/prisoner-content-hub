@@ -48,7 +48,7 @@ There are currently 3 groups:
 
 To apply the changes run the `users.yml` playbook, e.g.
 
-   ansible-playbook --ssh-common-args='-o ControlPath=~/tmp/hub-bounce-prod' -i [bounce-prod OR bounce-dev] users.yml
+   ```ansible-playbook --ssh-common-args='-o ControlPath=~/tmp/hub-bounce-prod' -i [bounce-prod OR bounce-dev] users.yml```
 
 New users will require both public key and password authentication.  To set an initial password do this manually for now.  As root user set a fresh password for the user and set the password as expired:
 ```
