@@ -77,6 +77,71 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
       - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEA8Z/Vo02e+M6ihSYBNdw5O4ViebBFt9WitVis/tH7OEpW33znQHL0/NA6uuxLhCpGI8OM9gmi8E6/3SdspIhyyq2qOnCNyHk6aEgmsO97l7RbBe/xYR5+QojDPcLuYA+mIH4uNELF1H2bbMxggT1Wf1K3BDohxB+4FGjCSzQiSvZY9ayNH5wK9xui+XPRM3oBimALMdolKfTlVZOLMsf+cJ/3/DXLAf4XXE8w9mDTuCipnRQMAiL2Sll8kLXWug05YMZ+cLIdN69enJDO/mfY63KCYqU+v16cgwUHNt7MRxJxFAqaisfv8wgOB0GelneHHHgCRqQqlGWf0AV4a6M02w=="
     shell: /bin/bash
 
+  - username: draganletic 
+    name: "Dragan Letic"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAi21s/RDWRdkNTBVcaMp5i+oI2LTpSO7ARS1tbqmZQEDA+IFbzvsYM40s+QGWCyjOm/ECBOfJK1toioYb9dv82wqhl26A328zIrndlLp6J5C+h8hCFMp3c1Eo3q38TMbPz9fkdEnxghfmyiChbXa+Hpvk3nczKMjFJ+2qsw0mvWyjHbosRjx3y0uOp8jIGR+Grf9bC4LNQ/rBYc8UHfF1kN7f97UQXyLhVQHOflWUmS3xbCeZGQaQ+GXyc7iLmdloBUkeMn/s1q/K5JF3FJ4oAbFHAaGXTkqi6kupTpUeJT0UdXcWpYhuVJeRTUN8DSWK+dEufkFweeS0RrtKYU/+bw=="
+    shell: /bin/bash
+
+  - username: graemewood 
+    name: "Graeme Wood"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAi5ZZ1QtL3WDdH02AjU7icZqsJguKtdz73a9SMWjB8+TpJTHdPrkFQpu94YzCqfyF8cANEUykaRUm1vvNtLQQAEXKp91hTZXoymJyP9E9ibxcmBkJWbS5wyatM29Ke2ivTfV4CeH0GdM7MCiM6mEjA0nq4qdAaOWn98pJfOymuNSpBM4YIH3Oy/P9fxfn/KNx5PFq1kCf1oz8qJfsmwm7UIJlkkAqY1xTTIuMxkdM+QpkxRo4ePYCCz/fB38zfccI7MpJAr9yvcd83ec/N6E3hEfI6mAwvXpOCDYJgvxrDrDZ99nOWomSIMF3RgZK9WZy42FNZO8Csz9oHkkr3CMsQQ=="
+    shell: /bin/bash
+
+  - username: brianaldridge 
+    name: "Brian Aldridge"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAxGq0VoDHfgLd9EiJbHhKm/rcgeED/v2+k45+c5BBNll/e4qMDPZQNf0dkAZvvmYQApsjMRMaZBAW98jChqTbOwn5jSyh5acl+GTojj6xP1ypO3Bh8HqqSZeohgKNEysuYutsHH6roVXJiR7dIUi0RNz4wtCpj07GANG0TOXIktc="
+    shell: /bin/bash
+
+  - username: jamiekirkwood 
+    name: "Jamie Kirkwood"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAw2DWhKqgqHSZclC9+p7PuNUNJAKMOuiGJYZbD6cK4yuypktFx1laxj8gm8LmHCf+99tXBSVhXIFHxPGGBryl2ol6448dJxY8yQTPdb3ZtM/Dw77W5aV5EMk9/Xdea/WYmdNGFZ5w/xIsxin7OZu1OiXKuIbpP44YMfr1NhohH26BcyG4gvE30dcaHKV5fYPEdP/z1gY1iwm44anhZaONe2gd36Ts1Iv5Czok/GrXnBo2oCMDwf3oPsdQt9HEUzKOwH2927LPUiZ6Dnj+hu2JUDIqQhUiuMDlGGKKZ5jJiY1Wi1E4iQ9CfynMiqPOnUOvxG5YtVQf4haQHuZMBKycxQ=="
+    shell: /bin/bash
+
+  - username: garybartram 
+    name: "Gary Bartram"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAwxgqwACfCmEPRx6DM8BiZRoMMGwvdjuqjuN2VEc3+KSLCL2E/h/vA1If+F6V9tENrvE9D3j3QD4bsmQk9AfbqYZwNCX3ytZTaeEAmMjlF1Yre/J04bDhSIhw69ojHQWXSC2uRB4iBAT8YCrsDovMy55EXrw2X7pTFjsiQ0DE1awdUuE/bgEwY9qzeX78PgfV/c+jrVRZBoBY9tfPzMIQEArpLbjUj/d7zrq26ARqU4iF8lkQ3OhoKx9bgUNTvKGF3YeFzQ2y8rr34ecmG925Q8ry551M646EiS9qdcKl8tMbNhYPhS5+4YqcfR16JKb/aTSW3tH+uAnySgbGeykCew=="
+    shell: /bin/bash
+
+  - username: geoffbuchan 
+    name: "Geoff Buchan"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAi6em4pLVLwNxaacWRCNGBmsUsPnfk/jc0S7VEc79QbRK30+xSef/Q4QCWStIRTmZ454vOZW58nP7Bry1mlSpSo57kzTa7wdB792DDHFKs2IY1y18smdyW9hHfsBV+JNuGLJK3xEHNRjynJAhnICQ14Bh2o9dHrL+NbYtn1xzBajBgXr8rKMtVpiRKz8AMWV+W6UK6KUYAKmCb75N7K9T0vPGXzLj3+NLTu8djjywplMDIcywPI12W/0uANxdXAKTal5DMQqRBhcubU8HrUPbg/lrlGmWhPNhuZENJtHL92t0E5xPDC4UrN2NaiUo+3HS47kbwrbAqS+KxVyt+O7Exw=="
+    shell: /bin/bash
+
+  - username: davidgauld 
+    name: "David Gauld"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAmkPxG6cUKYbgXdQOt6ZcTeUxNhEOhDe9ok0zUu/X/pZsWTnJmqAJ32YgOW3hOh03HYFAXbJofElFqeJDEZ1/jWLlAfc34a7KMBR+Epyl6ge9f3lcb6R4/Jdwn1mw3mFwQwzrgsRgHnCMB4lyUioFHYQmmr3ePSRN3+KAc4ZnH4kmuJ1goxuSNi3iv8VY9PRw/zbrneHPXho0v5Gs1dw12R6KuCfpX2VEnDZN7XzRf6ZIGi4z0dTTvMwjx81rCpbo+BE5y0nXSquXaVIy3DGaD8IY+rS0KcaJT0ztcrfJv45DgEj7vpcPMxxPtxsxjE9r/4xLtAxKZ4OmDGjet3j9GQ=="
+    shell: /bin/bash
+
+  - username: arronruecroft 
+    name: "Arron Ruecroft"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAipW7DCoiUvjFY0MgLoNDop4Sj6iIlJcF3Z8oXDdimwlzESqlkij79BWIXinVGcYF2IK5EIQFQJzL9LVoCzAmtkBQkAEwk2lSVkhZiVFOrtlOegWbAkKhMzalh/eZZeitflLpsKQR6cg/E8oDMSjavIDL3cC7k4hIyDZUYrvhxmS6Iiyp72ks2MfB2tFyuuPwq/ww8D3aPNvIv4ERcq/WjGqW/nzoc8aaOx0KBtNBL66HT6PBmjjYNE8+fIEXATmgCytS9wogu2uiXrw7dJ6HsZhUCegI9J0lxJ5XubZA0dsN1GCBlCd/aHTCXYklWX43Em4dYTcT2scy8jwAvQVUcw=="
+    shell: /bin/bash
+
+
 users_deleted:
   - username: jamesglossop
   - username: awalker 
