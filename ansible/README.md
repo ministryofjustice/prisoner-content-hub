@@ -32,3 +32,27 @@ Once you have verified dev is still working as expected run prod
 
     ansible-playbook --ssh-common-args='-o ControlPath=~/tmp/hub-bounce-prod' -i bounce-prod site.yml
 
+
+Managing Users
+---------------
+
+All user are now defined in `group_vars/all.yml`
+
+Documentation for the role used to manage this can be found here https://github.com/singleplatform-eng/ansible-users
+
+There are currently 3 groups:
+
+ - `admin`, For WebOps in the Digital Studio
+ - `studio`,  For developement teams in the Digital Studio
+ - `dxc`, For external DXC staff who will use the bounce box ssh tunneling 
+
+To apply the changes run the `users.yml` playbook, e.g.
+
+   ```ansible-playbook --ssh-common-args='-o ControlPath=~/tmp/hub-bounce-prod' -i [bounce-prod OR bounce-dev] users.yml```
+
+New users will require both public key and password authentication.  To set an initial password do this manually for now.  As root user set a fresh password for the user and set the password as expired:
+```
+passwd [username]
+passwd -e [username]
+```
+Send the password to the user, setting the `-e` will force the user to reset on first login.
