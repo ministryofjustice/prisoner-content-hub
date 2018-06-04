@@ -4,6 +4,8 @@ namespace Drupal\moj_resources\Plugin\rest\resource;
 
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
+use Drupal\moj_resources\Controller\FeaturedContentApiController;
+
 
 /**
  * Provides a Featured Content Resource
@@ -22,8 +24,10 @@ class FeaturedContentResource extends ResourceBase {
      * Responds to entity GET requests.
      * @return \Drupal\rest\ResourceResponse
      */
-    public function get() {
-      $response = json_encode('Featured Contnet');
+    public function get() 
+    {
+      $FeaturedContentApiController = new FeaturedContentApiController();
+      $response = json_encode($FeaturedContentApiController->FeaturedContentApiEndpoint());
       return new ResourceResponse($response);
     }
 }
