@@ -20,6 +20,7 @@ use Drupal\moj_resources\Controller\FeaturedContentApiController;
  */
 
 class FeaturedContentResource extends ResourceBase {
+  
   /**
      * Responds to entity GET requests.
      * @return \Drupal\rest\ResourceResponse
@@ -27,8 +28,9 @@ class FeaturedContentResource extends ResourceBase {
     public function get() 
     {
       $FeaturedContentApiController = new FeaturedContentApiController();
-      $response = json_encode($FeaturedContentApiController->FeaturedContentApiEndpoint());
-      return new ResourceResponse($response);
+      $result = $FeaturedContentApiController->FeaturedContentApiEndpoint();
+      $response = new ResourceResponse($result);
+      return $response->addCacheableDependency($result);
     }
 }
 
