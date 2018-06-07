@@ -22,13 +22,13 @@ users:
     shell: /bin/bash
     update_password: on_create
 
-    #    - username: glenmailer
-    #    name: "Glen Mailer"
-    #    groups:
-    #      - admin
-    #    ssh_key:
-    #      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDYyRloWdwa30GHqbXaQWJ8Yp3htQi94IYjNSvI7Lb1muCvIrHrPFTaX7mZtsHa0oOFUT1DLkpeKexwMPqxhTGnPcwG1nZrshQMNtjvp6XXECn9y0NOsJZOnQb7/RlXPsr1ZgJy5fj5N0gfVRnQFxVU2HVejKnmlO2n0tBikTqXnTbbiDSC8uR5oipWaJQEyiiLLRrQjm0kJJqNIq0H8h1K9hJ4CCTOZgfeGmEzLXenUoxDd/3NA/d/tGI0SiHL1zxgqRSLGKncRXCEY6afey3mzWi/vggc2QUp8EE5T/ZZ7d/URFFkf8eZ1M22jvSxtFvOpt8DhDSBjAtnizQeouKPDFjLrtbGwoyXG/rWwxgjdngBMNUabcqO0i5Ao6jcL0gbPh5riLS0t9rajHWpzA30xQ/hLE+DF5lXq92bbtW20EMHE02OsiBUJPSsHYQ8gbnQbrfV9wjW6UfcK6TKsJpO0sTu6WWHyLhjo6zSBEXAyseb2KaXzL1K7GFT/sI/sxkyxMvaokYvZbtRVkvPKxlg8Aprv6ehWrwQbxBMgrna25lfFVod4VEMw4ltP/3BAPGgbxeMsgGP08QGxv1HI7umiTiRdn2ZF4BnRxWEj3gG5Up0X+DnErP3YD+V76FjmtWpFUzD62e03DiO5u1gBolBUasx5M7hVlMsurvAWDrjdQ== glen@Glens-MBP.local"
-    #    shell: /bin/bash
+  - username: glenmailer
+    name: "Glen Mailer"
+    groups:
+      - admin
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDYyRloWdwa30GHqbXaQWJ8Yp3htQi94IYjNSvI7Lb1muCvIrHrPFTaX7mZtsHa0oOFUT1DLkpeKexwMPqxhTGnPcwG1nZrshQMNtjvp6XXECn9y0NOsJZOnQb7/RlXPsr1ZgJy5fj5N0gfVRnQFxVU2HVejKnmlO2n0tBikTqXnTbbiDSC8uR5oipWaJQEyiiLLRrQjm0kJJqNIq0H8h1K9hJ4CCTOZgfeGmEzLXenUoxDd/3NA/d/tGI0SiHL1zxgqRSLGKncRXCEY6afey3mzWi/vggc2QUp8EE5T/ZZ7d/URFFkf8eZ1M22jvSxtFvOpt8DhDSBjAtnizQeouKPDFjLrtbGwoyXG/rWwxgjdngBMNUabcqO0i5Ao6jcL0gbPh5riLS0t9rajHWpzA30xQ/hLE+DF5lXq92bbtW20EMHE02OsiBUJPSsHYQ8gbnQbrfV9wjW6UfcK6TKsJpO0sTu6WWHyLhjo6zSBEXAyseb2KaXzL1K7GFT/sI/sxkyxMvaokYvZbtRVkvPKxlg8Aprv6ehWrwQbxBMgrna25lfFVod4VEMw4ltP/3BAPGgbxeMsgGP08QGxv1HI7umiTiRdn2ZF4BnRxWEj3gG5Up0X+DnErP3YD+V76FjmtWpFUzD62e03DiO5u1gBolBUasx5M7hVlMsurvAWDrjdQ== glen@Glens-MBP.local"
+    shell: /bin/bash
     update_password: on_create
 
   - username: simoncross 
@@ -158,6 +158,50 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
+  - username: paulross
+    name: "Paul Ross"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIBUaNxP/5ftUt6kQc9XlNUF6RluznqUsKgkMs4B9uGc3l10lBf7ezMPtYWML/CiUY5hof2ZDrZPaQJPws6KsuQ0fZROhC204Fmri7mFHKbJtUD+b1lP1zcqNcDhKR3GrdRycyJBMG/bfWhvNDYPVByG/LjQt6NBEweD0BgBXTiUSw=="
+    shell: /bin/bash
+    update_password: on_create
+
+  - username: vickifoster
+    name: "Vicki Foster"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEApTNutd2+Dm2njgxw6jGIgy5ooEmGIYfzvEaPLRNlCQMMyD5VOeqyK9nwlkj+q+mxpU5kuEfIJlHQxINGtiN2b4L+86HplwUuxBio7yN/SlIGaV2Tlin7VJJWmnZcWWEwyy34RqSHmWUhkkMEHInGIBPiJA9ENBWG/3X8mpNYp+fvYmwJNk9GSMQSr0VMlUOjG8R8Qx9f8CF+MTzC+KhPE5/pE9jE+vDqoIsgDks+I68K/SvE2G32T8FKUev9JPflYnnPD/AVJ5TVjU8L1Vvq0EybIVoWy9Sjd4fxZcVh4y8wAR+39n5NgXoaIzQSffCFRWodG5RoKSlLksGyEHsOvQ=="
+    shell: /bin/bash
+    update_password: on_create
+
+  - username: blairjones
+    name: "Blair Jones"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAuYKeppsL13OuMt9MMdkpAc02OZm6Jv1BtxuyUiOMsNo6oDU29fsLa+HARJ1VHx/CkNVg/iFhizMMQ8F7cWi01XbmJt8VhdwEUCWYUJoGm6K3X+DpdMaMAQ/bKkcYzLhjAeyuHksqDn+7zeNXbUmibQb6HvmqO1nPwdXsMJOjBs7rQeT6WkBDLuBL8DBcCaQacE5osabmCdc8FVK2DXmbr2R/jyLaD7+StXxrL0lSp42uRme12Is9mpltut5kr51bXr6M/VWp8JQa/OsVWb8pbsKOj1wW7qUmoM0lVfGQGOd+1f10UjLlsn9jm8RthONyqOTtwpejJbPqtBzDBcZYnw=="
+    shell: /bin/bash
+    update_password: on_create
+    
+  - username: iangardner
+    name: "Ian Gardener"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAzB/Ikj5raLAcWbj90OmR93uuywMcBb75l3Q/IJLL9TQWiiiaXUt8VxnAB1cEOX8SPnZklQwxbhOyvxUgF/knxINQQEiZnQhPVM516bUBg6wJcSsoh2JBKOIAEwrWmWN7lPfVHdcTFPKoRYuFfBe7X+pJFftWFYka0EEnx1DCLWuRtpwIR4vRXfJ36ybOH4DmOTgdtzKjlFivtQFxg+zsLxyafkf6jWs51ADszfyvVYI40g6ex/x1OLC4ADXknlSl4WtKU0fpDeRhIn0iIY/5WPhvxzQ8SJbXy6gBeYrgf2KSaoCI6FKnu25FSc/DqrFo/6x30bzkZCEdNVK7eC9oDQ=="
+    shell: /bin/bash
+    update_password: on_create
+  
+  - username: philwilliams
+    name: "Phil Williams"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAy7oWlGDX2IEnjyF/Uo14ddFrQiGhdqTdVVG6QZK+oCwNzWG78vOdLdnNqE3LdlZR/kwS+JK6SxsNt9YqcIALjWzMymBLXQ3FeFLu7sNigTGqCIFMNU63hxEEL2eP1V0tH+lKP7Kustwf3r2xCtAxZiNPkEYOj4h5tRt8kqDXfgUa4V+Vb1DWzClj60oo2c2t43kA419WhMQHmqSgbnCXr96RNs0VS4pplEuQeeVYu/ToVxASDFi73gjSyyP2SX2+w7VIZyL3EdJqucuvvk6X7ZZMjw7wuQWsiQAc5qDPrQtWKAHtO9Pv/mvx0sK28TcoWlzvsu6fxv8Mw0z5F1TEuQ=="
+    shell: /bin/bash
+    update_password: on_create  
 
 users_deleted:
   - username: jamesglossop
