@@ -11,7 +11,7 @@ users:
     ssh_key:
       - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCdWcVB+1g7DVELgkN6jZTH113BDQSnuDfL2z48FG6A6h7a946Ugyc/9YMzNJpMs78vyVNNJYmRGzbn4MUpRTGBKVFlx0Xzq5wLLTrhAUBpWfJZUCFq2UV2wbY4qXUpypklzrVadmGqvKKZtvPfz4wDKcsV3tAm7SZaKDNFLXlUZJuv8flIobIFccIQ9dw8tNUCCNAzOq4vPQLttUgSuCwjNFiltgyWIj01FRsJjT8+MX36WTZs06T3CKrRdLNIcwPZNvkVQEoj1b/WcCI+IINcrRMXJjrfhHld6E4+5QyIqZ8VAMHdP/jRd6i09NgcI3D3VN9+oett0XEbyCeXdf6v matt@Matts-MacBook"
     shell: /bin/bash
-    update_password: on_create    
+    update_password: on_create
 
   - username: johnhackett
     name: "John Hackett"
@@ -39,7 +39,7 @@ users:
       - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWSqANCyqzYUSrQvqANenUZO5MFLrkANngmreuJiLPIp6CvyejwjQ5jauaoioLJp+6i20vz8H/Mabkh7vEqoF4BXCbMtHJOp57dokwYYB/MS45A1aQ3eKjGoOmo48eZYfkcy+AlhCpvPlii/D7CY0ihV0Q0dbhFFHRHRfRVqWYAUSBi/lMrvwzzPFayPbem3VaKeZrMl76wcyHHGySCBpvmRFFRaXOB/17rHu6ydezXJxfDntDivjL8QNic9YlUzpdYWIlXupviVrm8bCeVq9uDNByFoKEqDbikT2u5dVMwmwLivUg+BsSg7j6th7OtAlJTISadxzNq5ubaz3kX0fr"
     shell: /bin/bash
     update_password: on_create
-    
+
   - username: gemmabarnes
     name: "Gemma Barnes"
     groups:
@@ -201,9 +201,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     ssh_key:
       - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAy7oWlGDX2IEnjyF/Uo14ddFrQiGhdqTdVVG6QZK+oCwNzWG78vOdLdnNqE3LdlZR/kwS+JK6SxsNt9YqcIALjWzMymBLXQ3FeFLu7sNigTGqCIFMNU63hxEEL2eP1V0tH+lKP7Kustwf3r2xCtAxZiNPkEYOj4h5tRt8kqDXfgUa4V+Vb1DWzClj60oo2c2t43kA419WhMQHmqSgbnCXr96RNs0VS4pplEuQeeVYu/ToVxASDFi73gjSyyP2SX2+w7VIZyL3EdJqucuvvk6X7ZZMjw7wuQWsiQAc5qDPrQtWKAHtO9Pv/mvx0sK28TcoWlzvsu6fxv8Mw0z5F1TEuQ=="
     shell: /bin/bash
-    update_password: on_create
-
-  
+    update_password: on_create  
 
 users_deleted:
   - username: jamesglossop
