@@ -185,7 +185,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
     
-  - username: iangardener
+  - username: iangardner
     name: "Ian Gardener"
     groups:
       - dxc
