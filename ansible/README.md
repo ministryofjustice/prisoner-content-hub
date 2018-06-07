@@ -18,19 +18,15 @@ Setup
     bundle install
     bundle exec librarian-ansible install
 
-For the servers using 2FA you will need to create a control connection before trying to run Ansible.
+The hub bounce server requires 2FA, password and public key.  Ensure you ssh config works.
 
-As an example
+To run dev:
 
-    ssh -M -S ~/tmp/hub-bounce-dev hub-bounce-dev
-
-To run dev
-
-    ansible-playbook --ssh-common-args='-o ControlPath=~/tmp/hub-bounce-dev' -i bounce-dev site.yml
+    ansible-playbook -i bounce-dev site.yml --check
 
 Once you have verified dev is still working as expected run prod 
 
-    ansible-playbook --ssh-common-args='-o ControlPath=~/tmp/hub-bounce-prod' -i bounce-prod site.yml
+    ansible-playbook -i bounce-prod site.yml --check
 
 
 Managing Users
@@ -48,7 +44,7 @@ There are currently 3 groups:
 
 To apply the changes run the `users.yml` playbook, e.g.
 
-   ```ansible-playbook --ssh-common-args='-o ControlPath=~/tmp/hub-bounce-prod' -i [bounce-prod OR bounce-dev] users.yml```
+   ```ansible-playbook -i [bounce-prod OR bounce-dev] users.yml```
 
 New users will require both public key and password authentication.  To set an initial password do this manually for now.  As root user set a fresh password for the user and set the password as expired:
 ```
