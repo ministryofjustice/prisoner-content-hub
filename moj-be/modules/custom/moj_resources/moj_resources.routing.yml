@@ -1,0 +1,6 @@
+moj_new_content.resources:
+  path: '/test/featuredcontent'
+  defaults:
+    _controller: '\Drupal\moj_resources\Controller\FeaturedContentApiController::FeaturedContentApiEndpoint'
+  requirements:
+    _permission: 'access content'
