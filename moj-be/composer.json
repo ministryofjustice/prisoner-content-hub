@@ -62,5 +62,8 @@
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         }
-    ]
+    ],
+    "require-dev": {
+        "mdarse/phpunit-notifier": "^1.0"
+    }
 }
