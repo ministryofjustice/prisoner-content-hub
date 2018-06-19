@@ -23,7 +23,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   id = "featured_content_resource",
  *   label = @Translation("Featured content resource"),
  *   uri_paths = {
- *     "canonical" = "/api/node/featured/{lang}"
+ *     "canonical" = "/api/content/featured/{lang}"
  *   }
  * )
  */
