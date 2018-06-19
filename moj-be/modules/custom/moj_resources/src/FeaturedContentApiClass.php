@@ -12,32 +12,32 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 class FeaturedContentApiClass
 {
     /**
-     * Holds a list of  variable
+     * Node IDs
      *
      * @var array
      */
     protected $nids = array();
     
     /**
-     * Undocumented variable
+     * Nodes
      *
      * @var array
      */
     protected $nodes = array();
     /**
-     * Undocumented variable
+     * Language Tag
      *
-     * @var [type]
+     * @var string
      */
     protected $lang;
     /**
-     * Undocumented variable
+     * Node_storage object
      *
-     * @var [type]
+     * @var Drupal\Core\Entity\EntityManagerInterface
      */
     protected $node_storage;
     /**
-     * Entitity Query
+     * Entitity Query object
      *
      * @var Drupal\Core\Entity\Query\QueryFactory
      * 
@@ -45,7 +45,7 @@ class FeaturedContentApiClass
      */
     protected $entity_query;
     /**
-     * Undocumented function
+     * Class Constructor 
      *
      * @param EntityTypeManagerInterface $entityTypeManager
      * @param QueryFactory $entityQuery
@@ -57,13 +57,12 @@ class FeaturedContentApiClass
         $this->node_storage = $entityTypeManager->getStorage('node');
         $this->entity_query = $entityQuery;
         $this->nids = self::getFeaturedContentNodeIds();
-        print_r($this->nids);
         $this->nodes = self::loadNodesDetails($this->nids);
     }
     /**
-     * Undocumented function
+     * API resource function
      *
-     * @param [type] $lang
+     * @param [string] $lang
      * @return array
      */
     public function FeaturedContentApiEndpoint($lang)
@@ -76,7 +75,6 @@ class FeaturedContentApiClass
      * TranslateNode function
      *
      * @param NodeInterface $node
-     * A loaded node
      * 
      * @return $node
      */
@@ -85,7 +83,7 @@ class FeaturedContentApiClass
         return $node->hasTranslation($this->lang) ? $node->getTranslation($this->lang) : $node;
     }
     /**
-     * Undocumented function
+     * Get nids
      *
      * @return void
      */
@@ -99,10 +97,10 @@ class FeaturedContentApiClass
             ->execute();
     }
     /**
-     * Undocumented function
+     * Load full node details
      *
      * @param array $nids
-     * @return void
+     * @return array 
      */
     protected function loadNodesDetails(array $nids)
     {
@@ -114,7 +112,7 @@ class FeaturedContentApiClass
         );
     }
     /**
-     * Undocumented function
+     * Sanitise node
      *
      * @param [type] $item
      * @return void
@@ -123,10 +121,5 @@ class FeaturedContentApiClass
     {
         $serializer = \Drupal::service($item->getType().'.serializer.default'); // TODO: Inject dependency
         return $serializer->serialize($item, 'json', ['plugin_id' => 'entity']);
-    }
-
-    public function test()
-    {
-        return true;
     }
 }
