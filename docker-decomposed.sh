@@ -31,7 +31,7 @@ function hub_db {
   -e MYSQL_USER=$MYSQL_USER \
   -e MYSQL_PASSWORD=$MYSQL_PASSWORD \
   -p 3306:3306 \
-  -v /tmp/data/hub-db:/var/lib/mysql mojdigitalstudio/digital-hub-db
+  -v /data/hub-db:/var/lib/mysql mojdigitalstudio/digital-hub-db
 }
 
 function hub_memcache {
@@ -60,7 +60,7 @@ function hub_be {
    -e PHP_MEMORY_LIMIT=256M \
    -e PHP_UPLOAD_MAX_FILE_SIZE=256M \
    -e PHP_POST_MAX_SIZE=256M \
-   -v /tmp/content/moj_dhub_prod001_app/usr/share/nginx/html/moj_be/sites/default/files:/var/www/html/sites/default/files/ \
+   -v /content/moj_dhub_prod001_app/usr/share/nginx/html/moj_be/sites/default/files:/var/www/html/sites/default/files/ \
    -p 11001:80 mojdigitalstudio/digital-hub-be
 }
 
@@ -100,7 +100,7 @@ then
   fi
 
 printf "Stopping " && docker stop hub-fe
-printf "Removing " && docker rm hub-fe 
+printf "Removing " && docker rm hub-fe
 docker run -d --name hub-fe \
 --link hub-be \
 -e API_URI=http://hub-be/ \
