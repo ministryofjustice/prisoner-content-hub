@@ -67,8 +67,8 @@ function hub_be {
 # Start hub db
 if [ $component == "hub-db" ]
 then
-docker stop hub-db
-docker rm hub-db
+printf "Stopping " && docker stop hub-db
+printf "Removing " && docker rm hub-db
 hub_db
 fi
 
@@ -83,9 +83,9 @@ then
   exit 1
   fi
 
-docker stop hub-be
-docker rm hub-be
-hub_be
+printf "Stopping " && docker stop hub-be
+printf "Removing " && docker rm hub-be
+hub_be $site
 
 fi
 
@@ -99,8 +99,8 @@ then
   hub_be
   fi
 
-docker stop hub-fe
-docker rm hub-fe
+printf "Stopping " && docker stop hub-fe
+printf "Removing " && docker rm hub-fe 
 docker run -d --name hub-fe \
 --link hub-be \
 -e API_URI=http://hub-be/ \
@@ -110,7 +110,7 @@ fi
 # Start memcached
 if [ $component == "hub-memcache" ]
 then
-docker stop hub-memcache
-docker rm hub-memcache
+printf "Stopping " && docker stop hub-memcache
+printf "Removing " && docker rm hub-memcache
 hub_memcache
 fi
