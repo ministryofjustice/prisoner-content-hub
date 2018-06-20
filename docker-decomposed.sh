@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# For deploying docker containers, including linked containers, where docker compose is not available.
+
 # Component is the Docker container to rebuild: hub-db,hub-be,hub-fe or hub-memcached
 # Site is the name of the website as specificed by it's FQDN e.g. bwi for Berwyn, wli for Wayland
+
 component=$1
 site=$2
 
@@ -14,12 +17,19 @@ printf "${RED}Please provide a component e.g. hub-db,hub-be,hub-fe or hub-memcac
 exit 1
 fi
 
+if [ -z "$MYSQL_ROOT_PASSWORD" ] || [ -z "$MYSQL_USER" ] || [ -z "$MYSQL_PASSWORD" ]
+then
+printf "${RED}Please set the following environment variables:\n"
+printf "MYSQL_ROOT_PASSWORD, MYSQL_USER, MYSQL_PASSWORD.${NC}\n"
+exit 1
+fi
+
 function hub_db {
   docker run -d --name hub-db \
-  -e MYSQL_ROOT_PASSWORD=password \
+  -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
   -e MYSQL_DATABASE=hubdb \
-  -e MYSQL_USER=hubdb_user \
-  -e MYSQL_PASSWORD=hubdb_pass \
+  -e MYSQL_USER=$MYSQL_USER \
+  -e MYSQL_PASSWORD=$MYSQL_PASSWORD \
   -p 3306:3306 \
   -v /tmp/data/hub-db:/var/lib/mysql mojdigitalstudio/digital-hub-db
 }
@@ -43,8 +53,8 @@ function hub_be {
   docker run -d --name hub-be \
   --link hub-db --link hub-memcache \
    -e HUB_DB_ENV_MYSQL_DATABASE=hubdb \
-   -e HUB_DB_ENV_MYSQL_USER=hubdb_user \
-   -e HUB_DB_ENV_MYSQL_PASSWORD=hubdb_pass \
+   -e HUB_DB_ENV_MYSQL_USER=$MYSQL_USER \
+   -e HUB_DB_ENV_MYSQL_PASSWORD=$MYSQL_PASSWORD \
    -e HUB_DB_PORT_3306_TCP_ADDR=hub-db \
    -e HUB_EXT_FILE_URL=http://digital-hub.$1.dpn.gov.uk:11001/sites/default/files \
    -e PHP_MEMORY_LIMIT=256M \
