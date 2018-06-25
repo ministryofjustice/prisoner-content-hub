@@ -1,5 +1,14 @@
 ---
 
-- include: bounce.yml
-- include: jenkins.yml
-- include: hub.yml
+- name: Users
+  hosts: all
+  roles:
+    - provisioning
+    - role: librarian_roles/singleplatform-eng.users
+      tags: ["users"]
+
+- hosts: bounce
+  roles:
+    - bounce
+    - librarian_roles/geerlingguy.nginx/
+    - librarian_roles/geerlingguy.firewall/

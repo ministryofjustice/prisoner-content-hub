@@ -1,5 +1,0 @@
-- name: Users
-  become: true
-  hosts: all
-  roles:
-    - librarian_roles/singleplatform-eng.users
