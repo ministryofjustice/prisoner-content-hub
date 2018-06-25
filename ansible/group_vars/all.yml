@@ -31,7 +31,7 @@ users:
     shell: /bin/bash
     update_password: on_create
 
-  - username: simoncross 
+  - username: simoncross
     name: "Simon Cross"
     groups:
       - admin
@@ -77,7 +77,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
-  - username: philwhitfield 
+  - username: philwhitfield
     name: "Phil Whitfield"
     groups:
       - dxc
@@ -86,7 +86,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
-  - username: draganletic 
+  - username: draganletic
     name: "Dragan Letic"
     groups:
       - dxc
@@ -95,7 +95,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
-  - username: graemewood 
+  - username: graemewood
     name: "Graeme Wood"
     groups:
       - dxc
@@ -104,7 +104,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
-  - username: brianaldridge 
+  - username: brianaldridge
     name: "Brian Aldridge"
     groups:
       - dxc
@@ -113,7 +113,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
-  - username: jamiekirkwood 
+  - username: jamiekirkwood
     name: "Jamie Kirkwood"
     groups:
       - dxc
@@ -122,7 +122,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
-  - username: garybartram 
+  - username: garybartram
     name: "Gary Bartram"
     groups:
       - dxc
@@ -131,7 +131,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
-  - username: geoffbuchan 
+  - username: geoffbuchan
     name: "Geoff Buchan"
     groups:
       - dxc
@@ -140,7 +140,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
-  - username: davidgauld 
+  - username: davidgauld
     name: "David Gauld"
     groups:
       - dxc
@@ -149,7 +149,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
-  - username: arronruecroft 
+  - username: arronruecroft
     name: "Arron Ruecroft"
     groups:
       - dxc
@@ -184,7 +184,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
       - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAuYKeppsL13OuMt9MMdkpAc02OZm6Jv1BtxuyUiOMsNo6oDU29fsLa+HARJ1VHx/CkNVg/iFhizMMQ8F7cWi01XbmJt8VhdwEUCWYUJoGm6K3X+DpdMaMAQ/bKkcYzLhjAeyuHksqDn+7zeNXbUmibQb6HvmqO1nPwdXsMJOjBs7rQeT6WkBDLuBL8DBcCaQacE5osabmCdc8FVK2DXmbr2R/jyLaD7+StXxrL0lSp42uRme12Is9mpltut5kr51bXr6M/VWp8JQa/OsVWb8pbsKOj1wW7qUmoM0lVfGQGOd+1f10UjLlsn9jm8RthONyqOTtwpejJbPqtBzDBcZYnw=="
     shell: /bin/bash
     update_password: on_create
-    
+
   - username: iangardner
     name: "Ian Gardener"
     groups:
@@ -193,7 +193,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
       - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAzB/Ikj5raLAcWbj90OmR93uuywMcBb75l3Q/IJLL9TQWiiiaXUt8VxnAB1cEOX8SPnZklQwxbhOyvxUgF/knxINQQEiZnQhPVM516bUBg6wJcSsoh2JBKOIAEwrWmWN7lPfVHdcTFPKoRYuFfBe7X+pJFftWFYka0EEnx1DCLWuRtpwIR4vRXfJ36ybOH4DmOTgdtzKjlFivtQFxg+zsLxyafkf6jWs51ADszfyvVYI40g6ex/x1OLC4ADXknlSl4WtKU0fpDeRhIn0iIY/5WPhvxzQ8SJbXy6gBeYrgf2KSaoCI6FKnu25FSc/DqrFo/6x30bzkZCEdNVK7eC9oDQ=="
     shell: /bin/bash
     update_password: on_create
-  
+
   - username: philwilliams
     name: "Phil Williams"
     groups:
@@ -212,9 +212,18 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
+  - username: slaughton
+    name: "Shaun Laughton"
+    groups:
+      - admin
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDq3PeZOT5Nt9Yk2TUzITRdoxPO9KXY1z/Nw5qIvP/6JoaF+WjeXS9Q6bUNu0irsVeSG7IdxuVRgyQpIxFM8RAJYFmXo4Wn2dqzwkt6tdGvjcvPFLz+9Jte2e5zOR5QMMkWvWP2UvqDqekh6hgc3IGeLHXjweF9s8CRc8zv7bxjel2hEgPKW7bHpGyF15DPYElZXfH3DjcVqwvTuZNTNrz4+3BdCUF37m8VvLbi1eM6teTTvTLs5xtYfF8R1AbXJsNtUwlsukFams+CJQfh2d2f+Svbo2SdwHDrqQyOu/OacMktVLqpPc3NRHu+cUNADkRpEfIT/V3NYIq9+J6bXvOF imported-openssh-key"
+    shell: /bin/bash
+    update_password: on_create
+
 
 users_deleted:
   - username: jamesglossop
-  - username: awalker 
+  - username: awalker
   - username: sean
   - username: aharris
