@@ -1,0 +1,9 @@
+id: menu_resource
+plugin_id: menu_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - cookie

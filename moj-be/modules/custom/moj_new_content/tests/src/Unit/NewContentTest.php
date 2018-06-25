@@ -23,7 +23,7 @@ class NewContentTest extends UnitTestCase
     }
 
     /**
-     * A simple test that tests our celsiusToFahrenheit() function.
+     * A simple test.
      */
     public function testOneConversion() {
     }
