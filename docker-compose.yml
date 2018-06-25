@@ -14,9 +14,24 @@ services:
         hub-memcache:
                 image: memcached
 
+        hub-node:
+                image: mojdigitalstudio/digital-hub-node
+                user: "node"
+                working_dir: /home/node/app
+                depends_on:
+                        - hub-be
+                environment:
+                        API_URI: http://hub-be/
+                        APP_TIMEOUT: 60.0
+                ports:
+                        - 8183:3000
+                volumes:
+                        - ./moj-node/server:/home/node/app/server
+                        - ./moj-node/test:/home/node/app/test
+                        - ./moj-node/assets:/home/node/app/assets
         hub-fe:
                 image: mojdigitalstudio/digital-hub-fe
-                depends_on: 
+                depends_on:
                         - hub-be
                         - hub-memcache
                 environment:
@@ -34,7 +49,7 @@ services:
 
         hub-be:
                 image: mojdigitalstudio/digital-hub-be
-                depends_on: 
+                depends_on:
                         - hub-db
                 environment:
                         HUB_DB_ENV_MYSQL_DATABASE: hubdb
