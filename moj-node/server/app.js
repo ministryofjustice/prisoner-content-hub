@@ -2,6 +2,7 @@ const express = require('express');
 const addRequestId = require('express-request-id')();
 const helmet = require('helmet');
 const csurf = require('csurf');
+const nunjucks = require('nunjucks');
 const compression = require('compression');
 const passport = require('passport');
 const bodyParser = require('body-parser');
@@ -25,7 +26,12 @@ module.exports = function createApp({
   menuService,
 }) { // eslint-disable-line no-shadow
   const app = express();
-
+  
+  nunjucks.configure(['server/views','node_modules/govuk-frontend'], {
+    express: app,
+    autoescape: true
+  });
+    
   app.set('json spaces', 2);
 
   // Configure Express for running behind proxies
@@ -34,7 +40,7 @@ module.exports = function createApp({
 
   // View Engine Configuration
   app.set('views', path.join(__dirname, '../server/views'));
-  app.set('view engine', 'ejs');
+  app.set('view engine', 'html');
 
   // Server Configuration
   app.set('port', process.env.PORT || 3000);
