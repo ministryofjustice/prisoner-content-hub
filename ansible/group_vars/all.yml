@@ -203,6 +203,33 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
+  - username: zkarim
+    name: "Zhiar Karim"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAjdB6UFYK/oGVVr5CNmdbVHeiwFFs5qF0DZkqT6smFzM3HrvQLPmqvWxL592sMJyV3nCw+eH3UIzpZagjU50y75uxtWvpp2KzTi+DEW2FbxuioKHS+DajuBmOyPk8fqidNjeJlYoiHx2efBUjGLZ23zt5Qq/AYqUQHrY3PM2rYTAr1xTbsTFrtuU6jlXe2ramVaz52xxxV6FmrVgQMKoKMBj2jZXZrC8wZvG2aEylahhgwL57x9us6JnI4DiKxhI/qcH4Nu28jm8GnRWTtY0+frzN4fud8LZqeQ6Cgy8/W7aP4cEZNRJn/s6parJBz2OQ6qeT6Hngdfu9sjCnP5EOpQ== rsa-key-20180529"
+    shell: /bin/bash
+    update_password: on_create
+
+  - username: gburkett
+    name: "Gary Burkett"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAIEAsHXz3YDYYFww9M2lgJMqG+SQUm/0cyzus/oZjoBjJsl3BYFhN7o/K2xrY7CE0NVnCt0xT8+83k4BPlgTBMWt9ttWay/8nedCY7Lyp4eVUuQ7iajxCHUdfPKy8tvPJQ8nZIXa1sJflxmsF6TdnvITGJZNAB160xBDFmTLVirYWKU= rsa-key-20180619"
+    shell: /bin/bash
+    update_password: on_create
+
+  - username: pkay
+    name: "Philip Kay"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAjlRHHEQDbRmztnq/4LSdgV7LFCEirhYuujxcsBlL+vRhRdgGwcue5kAS+YktGjobwm8577O/3VfMok4/yz5v8xfGKtXPiwF/uSenG2Vo6/ykhcgN+/YFmm5VDCpJOwtj18KvaGAK0orWHUfXDldHD4hil/pWXjV0aa4muFpSb/cBB+kSo6fLiGfI3IYEUsF2JgJVnW9KefeJuaDyCscY0pgRbDI5FePrjiNkGt07xOA/fNAXdG9Lz0oZmpsTwsVy74GFPWpLIjpWPnb965EoRrKZbLwerhbCGIv/5kxXDCHZebRsNiKUIEqR0Gwm3+zHL05jj2+JKalDugJTFCmCwQ== rsa-key-20180619"
+    shell: /bin/bash
+    update_password: on_create
+
   - username: lazzurs
     name: "Rob Lazzurs"
     groups:
