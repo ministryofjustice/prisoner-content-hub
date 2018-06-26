@@ -31,7 +31,8 @@ module.exports = function createApp({
     express: app,
     autoescape: true
   });
-    
+
+
   app.set('json spaces', 2);
 
   // Configure Express for running behind proxies
@@ -111,9 +112,14 @@ module.exports = function createApp({
     '../assets/stylesheets',
     '../node_modules/govuk_template_jinja/assets',
     '../node_modules/govuk_frontend_toolkit',
+    '../node_modules/govuk-frontend/',
   ].forEach((dir) => {
     app.use('/public', express.static(path.join(__dirname, dir), cacheControl));
   });
+
+  
+
+  app.use('/assets', express.static(path.join(__dirname, '../node_modules/govuk-frontend/assets'), cacheControl));
 
   [
     '../node_modules/govuk_frontend_toolkit/images',

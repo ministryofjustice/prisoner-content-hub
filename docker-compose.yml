@@ -29,6 +29,7 @@ services:
                         - ./moj-node/server:/home/node/app/server
                         - ./moj-node/test:/home/node/app/test
                         - ./moj-node/assets:/home/node/app/assets
+        
         hub-fe:
                 image: mojdigitalstudio/digital-hub-fe
                 depends_on:
