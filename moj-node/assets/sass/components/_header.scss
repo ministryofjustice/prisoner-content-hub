@@ -12,9 +12,6 @@
     background:govuk-colour("black");
 }
 
-.govuk-hub-header__bottombar {
-}
-
 .govuk-hub-header__prison,
 .govuk-hub-header__title,
 .govuk-hub-header__date,
@@ -40,4 +37,12 @@
     margin: 0;
     box-shadow: none;
     -webkit-box-shadow: none;
+
+    &:hover {
+        background: $govuk-link-hover-colour;
+    }
+
+    &:visited {
+        background: $govuk-link-visited-colour;
+    }
 }
