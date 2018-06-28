@@ -6,27 +6,35 @@
 $govuk-hub-language-text: govuk-colour("black");
 
 .govuk-hub-language-toggle {
-
+    margin: 0;
 }
 
 .govuk-hub-language-toggle__item {
     display: inline-block;
     margin-left: govuk-spacing(2);
-    border-left: 1px solid #ccc;
+    margin-top: govuk-spacing(3);
+    margin-bottom: govuk-spacing(3);
+    border-left: 1px solid $govuk-border-colour;
     color: $govuk-hub-language-text;
-    
+
     &:first-child {
         border-left: none;
     }
 }
 
-.govuk-hub-language-toggle__item--active {
-
-}
-
 .govuk-hub-language-toggle__link {
     margin-left: govuk-spacing(2);
+    text-decoration: none;
+    border-bottom: 1px solid govuk-colour("black");
+    position: relative;
+    display: inline-block;
+    color: $govuk-text-colour;
+
     &:hover {
         text-decoration: none;
     }
+}
+
+.govuk-hub-language-toggle__link--active {
+    border-bottom: none;
 }
