@@ -1,55 +1,44 @@
-<header class="govuk-header {{ params.classes if params.classes }}" role="banner" data-module="header"
-        {%- for attribute, value in params.attributes %} {{attribute}}="{{value}}"{% endfor %}>
-  <div class="{{ params.containerClasses | default('govuk-width-container') }}">
+<header class="govuk-header govuk-hub-header {{ params.classes if params.classes }}" role="banner" data-module="header"
+  {%- for attribute, value in params.attributes %} {{attribute}}="{{value}}"{% endfor %}>
+  <div class="{{ params.containerClasses }}">
 
-    <div class="govuk-hub-header">
-      <a href="{{ params.homepageUrl | default('/') }}" class="govuk-hub-header__link govuk-hub-header__link--homepage">
-        <span class="govuk-header__logotype">
-          Homepage <span class="govuk-header__logotype-prison">HMP Berwyn</span>
-        </span>
-      </a>
+    <div class="govuk-hub-header__topbar">
+      <div class="govuk-width-container">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-one-half">
+            <a href="{{ params.homepageUrl | default('/') }}" class="govuk-hub-header__link govuk-hub-header__link--homepage">
+              <span class="govuk-hub-header__title govuk-body govuk-!-font-weight-bold">Homepage</span>
+              <span class="govuk-hub-header__prison">HMP Berwyn</span>
+            </a>
+          </div>
+          <div class="govuk-grid-column-one-half govuk-hub-align-right">
+            <span class="govuk-hub-header__date govuk-body govuk-!-font-weight-bold">Thursday 31 May</span>
+            <span class="govuk-hub-header__time">16:30</span>
+            <a href="#" role="button" class="govuk-button govuk-hub-start-menu">Menu</a>
+          </div>
+        </div>
+      </div>
     </div>
-
-    {# <div class="govuk-header__logo">
-      <a href="{{ params.homepageUrl | default('/') }}" class="govuk-header__link govuk-header__link--homepage">
-        <span class="govuk-header__logotype">
-          <span class="govuk-header__logotype-text">
-            
-          </span>
-        </span>
-        {% if (params.productName) %}
-        <span class="govuk-header__product-name">
-          {{ params.productName }}
-        </span>
-        {% endif %}
-      </a>
-    </div> #}
-{#     
-    <div class="govuk-header__content">
-
-    {% if (params.serviceName) %}
-    <a href="{{ params.serviceUrl }}" class="govuk-header__link govuk-header__link--service-name">
-      {{ params.serviceName }}
-    </a>
-    {% endif %}
-
-    {% if params.navigation %}
-    <button role="button" class="govuk-header__menu-button js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
-    <nav>
-      <ul id="navigation" class="govuk-header__navigation {{ params.navigationClasses if params.navigationClasses }}" aria-label="Top Level Navigation">
-        {% for item in params.navigation %}
-          {% if item.href and item.text %}
-            <li class="govuk-header__navigation-item{{ ' govuk-header__navigation-item--active' if item.active }}">
-              <a class="govuk-header__link" href="{{ item.href }}">
-                {{ item.text }}
-              </a>
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    </nav>
-    {% endif %}
-
-    </div> #}
+    <div class="govuk-hub-header__bottombar">
+      <div class="govuk-width-container">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-one-half">
+            <a href="#" class="govuk-back-link">Back</a>
+          </div>
+          <div class="govuk-grid-column-one-half govuk-hub-align-right">
+            <ul id="language" class="govuk-hub-language-toggle" aria-label="Language Toggle">
+              <li class="govuk-hub-language-toggle__item govuk-language-toggle__item--active ">
+                  English
+              </li>
+              <li class="govuk-hub-language-toggle__item">
+                <a class="govuk-hub-language-toggle__link" href="{{ item.href }}">
+                  Cymraeg
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>  
   </div>
 </header>
