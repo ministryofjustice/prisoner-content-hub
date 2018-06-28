@@ -1,0 +1,48 @@
+@import "node_modules/govuk-frontend/settings/all";
+@import "node_modules/govuk-frontend/tools/all";
+@import "node_modules/govuk-frontend/helpers/all";
+@import "node_modules/govuk-frontend/helpers/typography";
+
+$govuk-hub-header-text: govuk-colour("white");
+$govuk-hub-header: govuk-colour("white");
+$govuk-hub-header__topbar: govuk-colour("black");
+$govuk-hub-header: govuk-colour("white");
+
+.govuk-hub-header {
+    padding-top: govuk-spacing(0);
+    background: $govuk-hub-header;
+}
+
+.govuk-hub-header__topbar {
+    background: $govuk-hub-header__topbar;
+}
+
+.govuk-hub-header__bottombar {
+}
+
+.govuk-hub-header__prison,
+.govuk-hub-header__title,
+.govuk-hub-header__date,
+.govuk-hub-header__time {
+    color: $govuk-hub-header-text;
+    display: inline-block;
+    padding:  govuk-spacing(1);
+    margin-bottom: govuk-spacing(0);
+    @include govuk-font($size: 24);
+}
+
+.govuk-hub-header__time {
+    margin-right: govuk-spacing(1);
+}
+
+.govuk-hub-align-right {
+    text-align: right;
+}
+
+.govuk-hub-start-menu {
+    background: $govuk-link-colour;
+    vertical-align: baseline;
+    margin: 0;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
