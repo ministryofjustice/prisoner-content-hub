@@ -25,16 +25,30 @@ $govuk-hub-language-text: govuk-colour("black");
 .govuk-hub-language-toggle__link {
     margin-left: govuk-spacing(2);
     text-decoration: none;
-    border-bottom: 1px solid govuk-colour("black");
     position: relative;
     display: inline-block;
-    color: $govuk-text-colour;
-
+    
+    &:link, 
+    &:visited, 
+    &:active, 
+    &:focus {
+        
+        color: $govuk-link-colour;
+        border-bottom: 1px solid $govuk-link-colour;
+    }
     &:hover {
-        text-decoration: none;
+        color: $govuk-link-hover-colour;
+        border-bottom: 1px solid $govuk-link-hover-colour;
     }
 }
 
 .govuk-hub-language-toggle__link--active {
-    border-bottom: none;
+    &:link, 
+    &:visited, 
+    &:active, 
+    &:focus,
+    &:hover {   
+        color: $govuk-text-colour;
+        border-bottom: none;
+    }
 }
