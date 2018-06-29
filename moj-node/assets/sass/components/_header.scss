@@ -32,7 +32,6 @@
 }
 
 .govuk-hub-start-menu {
-    background: $govuk-link-colour;
     vertical-align: baseline;
     margin: 0;
     padding: govuk-spacing(3)  govuk-spacing(4)  govuk-spacing(2)  govuk-spacing(4);
@@ -43,7 +42,7 @@
     &:visited, 
     &:active, 
     &:focus {
-        background: $govuk-link-visited-colour;
+        background: $govuk-link-colour;
     }
     &:hover {
         background: $govuk-link-hover-colour;
