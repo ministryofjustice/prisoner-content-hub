@@ -1,16 +1,3 @@
-ssh_use_pam: true
-ssh_google_auth: true
-ssh_challengeresponseauthentication: true
-ssh_allow_tcp_forwarding: true
-unattended_automatic_reboot: true
-unattended_automatic_reboot_time: 02:00
-unattended_ignore_apps_require_restart: true
-unattended_mail: noms-studio-webops@digital.justice.gov.uk
-unattended_origins_patterns:
-  - 'origin=Ubuntu,archive=${distro_codename}-security'
-  - 'o=Ubuntu,a=${distro_codename}'
-  - 'o=Ubuntu,a=${distro_codename}-updates'
-
 nginx_upstreams:
   - name: berwyn_hub
     servers: {
@@ -22,7 +9,6 @@ nginx_upstreams:
     }
 
 nginx_vhosts:
-#  - listen: "443 ssl http2"
   - listen: "80"
     server_name: "bli.prod.admin.hub.service.hmpps.dsd.io"
     state: "present"
@@ -47,13 +33,10 @@ nginx_vhosts:
         proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
         proxy_set_header   X-Forwarded-Proto $scheme;
       }
-  
+
 firewall_state: started
 firewall_enabled_at_boot: true
 firewall_allowed_tcp_ports:
   - "22"
   - "80"
   - "443"
-#firewall_additional_rules:
-#  - "iptables -A INPUT -p tcp --dport 80 -s 35.177.252.195 -j ACCEPT"
-#  - "iptables -A INPUT -p tcp --dport 443 -s 35.177.252.195 -j ACCEPT"

@@ -1,15 +1,22 @@
 ---
 
-- name: Users
+- name: baseline
   hosts: all
   roles:
     - provisioning
-    - role: librarian_roles/singleplatform-eng.users
+    - base
+    - jnv.unattended-upgrades
+    - role: singleplatform-eng.users
       tags:
       - users
 
 - hosts: bounce
   roles:
-    - bounce
-    - librarian_roles/geerlingguy.nginx/
-    - librarian_roles/geerlingguy.firewall/
+    - geerlingguy.nginx
+    - geerlingguy.firewall
+
+- hosts: hub
+  roles:
+    - geerlingguy.nginx
+    - geerlingguy.firewall
+    - hub-containers
