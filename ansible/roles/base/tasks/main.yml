@@ -2,3 +2,5 @@
 
 - include: packages.yml
 - include: install-docker.yml
+- include: sudoers.yml
+- include: sshd.yml

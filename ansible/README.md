@@ -13,26 +13,36 @@ Running Ansible
 
 To run Ansible you will need to have this installed on your system.
 
-Setup
+### Setup
 
 ```
 ansible-galaxy install -r requirements.yml
 ```
 
-The hub bounce server requires 2FA, password and public key.  Ensure your ssh config works.
-
-To run dev:
-
-```
-ansible-playbook -i dev site.yml --check
-```
-
-Once you have verified dev is still working as expected run prod
+### Bounce Box
 
 ```
 ansible-playbook -i prod site.yml --check
 ```
 
+### Staging Site
+
+The staging site can only be accessed via the production bounce box, you'll need to set up bastion SSH config to make this work.
+
+If making a new VM from scratch via the terraform code, you'll need to use `-u provisioning` initially to create your local user, and then run ansible again using your own user to clean up the provisioning user.
+
+```
+Host prod.admin.hub.service.hmpps.dsd.io
+  User glenmailer
+
+Host digital-hub-stage.hmpps.dsd.io
+  User glenmailer
+  ProxyJump prod.admin.hub.service.hmpps.dsd.io
+```
+
+```
+ansible-playbook -i stage site.yml --check
+```
 
 Managing Users
 ---------------

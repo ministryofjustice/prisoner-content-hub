@@ -12,7 +12,7 @@ groups_to_create:
   - name: studio
   - name: dxc
 
-users:
+studio_users:
   - username: mattwhittaker
     name: "Matt Whittaker"
     groups:
@@ -86,6 +86,52 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
+  - username: lazzurs
+    name: "Rob Lazzurs"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-rsa 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 lazzurs@genesis"
+    shell: /bin/bash
+    update_password: on_create
+
+  - username: slaughton
+    name: "Shaun Laughton"
+    groups:
+      - admin
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDq3PeZOT5Nt9Yk2TUzITRdoxPO9KXY1z/Nw5qIvP/6JoaF+WjeXS9Q6bUNu0irsVeSG7IdxuVRgyQpIxFM8RAJYFmXo4Wn2dqzwkt6tdGvjcvPFLz+9Jte2e5zOR5QMMkWvWP2UvqDqekh6hgc3IGeLHXjweF9s8CRc8zv7bxjel2hEgPKW7bHpGyF15DPYElZXfH3DjcVqwvTuZNTNrz4+3BdCUF37m8VvLbi1eM6teTTvTLs5xtYfF8R1AbXJsNtUwlsukFams+CJQfh2d2f+Svbo2SdwHDrqQyOu/OacMktVLqpPc3NRHu+cUNADkRpEfIT/V3NYIq9+J6bXvOF imported-openssh-key"
+    shell: /bin/bash
+    update_password: on_create
+
+  - username: naomiturner
+    name: "Naomi Turner"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDO+IkalTmTUNfxxuHEew3Ht3sAGEdyc+/rj9CbIUoIoGRvDMh5HW1zU+suA9qDQKnfej5WDRs6zML+C7JoWmUzCIgi4BrRcWq9smqEbhasuaHTz1pbdiYgAEciturXZ2tPxu666n7W9X2Vw8cvvO+CJHIK9SP18L6rN7IN3eDZRLsOnR9DDWg69gYBQs0Q1hXFy3dkV5nZhVGt+7XK93WVLRQBv7NR2Hn9nA9EG9qCvvZQSSt3aD2yw1aqkmq4JovE6TdeBn9YnGzf5NbMyC5jyEGbAfikHgz3cufnpQ9+lXy68AyckXxsy6a14UBOkm4rk0eVjXkXuH3aMsQ+uU5T0SO/Lw7qo5rjAtz80/plZpyyPaZUwOb69+3Vw6wVQgbpcE8FQYIhdI3HvGqmU7ufxqrWRvxendbJXyqdz8kxCGHI8Ar0butMG7FGNo9kTgCLb6PHS8RwjCkgwfRqEETCyUrMWKW9NQksnFtP97g+jVaupbx721OFIpPMPRK8MhPjzMvUL5nBidPtxvPaUZTvoFXmdByD7rUb8ucTUK1XPd3MSYVW866KP/Z6y7Zdrd62kUThxlmeF0/wf97RMxRll4KvhbIe1zqq9QIM4ZylUzymJ4u3yPUK7B68V0kdeVgKKj/n9iVsCY3ZeA9eIPgOsO8ZP3lcfKT87TZMk0nrMw== naomi.turner@digital.justice.gov.uk"
+    shell: /bin/bash
+    update_password: on_create
+
+  - username: davidthomas
+    name: "David Thomas"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDlcb5QjyO6KYKMs2rTqo2iSLUDagz7eTU5ws/bn3BkH+lDJsZosyJN30SII/guEK8F62NfsBFvkD/XbIkS5h1StVtjuOTW4qKiqgDAYlLwa59BVJat+wWW7ApjZbSVulJ8+i98EtMWmZrUf2pUNFF7mu9t30sgZJsqlSbZ/HaQ1Limhgm05yeFIeTkvZoW64hH7h8wEVFDlCCoZ8GAk1K3P0WS4hsqLOtsxUrXEsNwsXgVa7NQ3l47R8CShFodV+WFqKOw5tUlUr9VnqW0BzTSY3Krwq4n21OLAjRh2H+QrJxnJ0rH/oW/vc/65ZuMhoYD7Ze6fqKWGLgxGVDtoX18v3YlrUhBUR3E/hQN67BnrQlKcargEBblgYl6/VZomZAq9FSkhXbC3IUT5EDTklKJlgTDah8Hds/clw4AEA6cuMe1YsJ35KnnaqgcPzfNYieWNldTECxjgQJ/Zr0aspVaaQUthG74Y4J9PRigWs5aziph37+qWl6kTv8Og4VQQi1xb3kNtbIQEipqv4GV8HbTyGpnw/zwTSJI/tLAV1GngYMlx8IOWe+idgLmikiU6nviaE8LvMT5Z9IJ3WsFLsp34dVSPuB/tAcJNVb37DcTMljWm2xbIGy89BN7Gglo+nhlS8yaNnj8bLwRxrxiE8HDFJ6bcRtQMeqFFX8V3FFb0w== david.thomas1@digital.justice.gov.uk"
+    shell: /bin/bash
+    update_password: on_create
+
+  - username: oliveryoung
+    name: Oliver Young
+    groups:
+      - admin
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCIie1Hn8c8rpQadsUEi2OSRf3P+jG5tCAhsUhfSD43AqTt46wd6rgDN8cjhonKJ1DY3u4r7/6BJzPTVz/uO0wB/R2CTbL6KlBz03NIe3epySfPwpz4HYDEgk6tBv0jWqb0t4QsnYvQRcx4+49BhC/c02dMSF0M5VkXUcqlG99bQeetTSu+SvfUwVnU17kgsbr/ojIQSgc7xD8+cJb6nzQ9aWfDFHMb09DF5vwpZ+fTqmaFpK7iLBGIpONkvAHaVZjxbKnq6XXyw2X6kVI1j4tr4E6rjOakZMFgAOCf1YzocI4dEmepOLSx3547nMG1skygVWDmPBkK76PLbtQOWVT ollie@dude.local"
+    shell: /bin/bash
+    update_password: on_create
+
+dxc_users:
   - username: philwhitfield
     name: "Phil Whitfield"
     groups:
@@ -239,51 +285,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
-  - username: lazzurs
-    name: "Rob Lazzurs"
-    groups:
-      - studio
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAIAQC+Il+9cUou7406NQgN864vVs4FItbUMQIvOZdCqzL5GPA3T6W6R65E5cR5AIoG7r3GZR3HKsUN6dfnHajMekcvk64znMZN5rrvvyoATDy4RwLq9LbnHSsMBNpeL9H7dc0jSmUNf2QU5bvL1AxJDxR1sm9lWGgeq0pg3oeWvGyz/H5mh5HTZUTKrIPSEZIQBpeOORVsAvqrRd6mC1sqLhLu/Tjse4h1rjecJijwBsDcE+tonNKx4lKUebeWGeiwq3+1A8tnJg3F0H+YqgtHz02Cx2QAZjmJpsVzsqvgbH/JwlKfFdXhBPRl7LiytNeQbddRn6WD+Cu4I5AaOCM6sX3wJGOGf/yVDUvEsTnH91m0k4hEqyuGbrZUTtvuhnYhx0fhp/rKJcJr6y8LbosKx93N2/N6bfOPhXHvv9NpQPdg0cdne/wTv8MB1Xu2culiQ4X6HPcmegjUerU8kssdg4kBngzX+nDhxl30pM1rqXxV1azKKhu50Qekni+XE/Tbi54NishuS4Kl2armfMMS+gefDRiH/4JHwMLlahyT4C95sc+8+oZ8uIw+7T5hha4XYTvHEhhCKtRpiQyUoT5DTW+Yx5D/YKQwRJiJPvgR9nlYbpUHgfQFY/DDGmiVREB4wgAzFm29Qbdd0sDwuPjhL4kiynmLcK393H1EELI0BXrG3BPbUEXiaIdefGX5bkvQKJok3ZE7ShsFRjxNHTCq6hLxy3cpZf7fRvn8OAmoA5e0oYKwRdWzolPPPtBNsPGNxRp2QXQHadjDBR14AdY4O3nMkCJcxx+OjUIyPFX/1iBHFm+hJITxs6bg7mAriRMk9n73ETR2iJKPRnT0HYcq3vjUbAwfw8iOjVTKb/XEv4BAAkxVMLDbDkGhskPtwtuYvxp5mbsH56DoC4hYrjseZQPySpJ1SFqa5PDd5n5THXQf/sh19/u1gtW+wJzVyYHp3iFxWMzrhnjC/4oCZfUAfRvgdntMd3uIQ94Je9piXXDLvP2WB/Q52FH7g5277njV5/kStCDigZ4xJ+tMw75gRdoEYz/3h1Oh1ryHj2sAklm8p0VPghrB7tW5iMrPS/8M/ZuYfVZzBqGuKNfvo1Al/D/to6kdYUd4MVc1e1NhPA/N4I5Q9ObOfqxRSLpel1Tw8UKqo9DJtbumQZxC34y79y1gkk0hKpQ8VBuHN+OhMT5fEEk/pxcSa0RSuHrE2NAgDZniW33gQs/flmwjU5nIRsD9ccqiJbPX6brZKYSuCqD6op/fcg2+HbeK3Dv8Io2D/+2C75FDwifcHGkZeYcmulSyEd8NqtXdeW3sV463J1bX7jP1p7ViePBJ6H6FQTfTWOHOj0rRfc9qLvsuDJ1S3xFThlZYE4s3IwFc5LiBXxhkOCiWmb+wGE/NUw20/jEm/IEtg/5ClK9Jn+ONGU7ygFKnBt1+E3Scm8mQx7XlhRK/eAaMKJ5oyCZcjvm26Mc03DAJWzB980nW1w1Rkw6Oa03mk/IOie2FAOWfhF9w3JzhqHv7Ej94P9OB7M4lUssPbKHFCL6U5jOXpVnhMucm/bkMcKqjzhAZ7ImOxIC/1XnmQClXZsyCLj4vXH/ar5pplpO1IYeRzmx+DqxtDmksgkMIUdNIT9m52zec4fhWa8IURKWBCd7DvT/P2+gadMLeVwlzMGeE5xv5VNfbYYtCTGpv+xdVGeWJ1AdOyfft5xyHXVBTt3vtlUuunL1ZcGYj6mIzzNvw6ysqeI8k2VlTSSneOOOGXVuviV3gPpfMgOCAz8f2STeW+hPm7Y8f4X3fKxO8lZjD8TtAUl6aR3CnZgVeJq1TUerxUtUsbjwE01sxdUFMFBxyq/DIX0f1TNOH7TFMN8q7NryXL9e3sz/tmD0hrb+ozPK6nh8Q2xiusYKN3UHuhG92IVq1UB7oQu2wqZonCCAdd8XWW0GF8M2twImzyzEw/IZZrpcsju6lZo2rd0H3pEOC+vjETsCskJPMp3ORkt2U+99g7ryeqibBXJWyJBuEskqPk/fWYhI32etBgQspWnsecweFOGcAux23vEOFpST6NvdifBGWFbMcL0Ar9lT/EmBiduBkvmzQZcYwgZqaDQ1IgpufXFlQqXGbv3/k+g28NmlFv3GAb8z/Bp6CIzrtIEJeTR6vmatLWgnhHUEfuPgaIKnRwhNAH0mXFFq5pBWNuUZEP6A8rz9YeWD6GYulG5JBbdZS5snXDJW8vEjbePOUd6vabIIcvKe9F98Zm30Ywt4EuU4wvVbwjXaRUCzdhyeU0xsg1BmV2tQaLFwVq8GXHIZ5fPfKgMCN7ZjiteQlblJuSN2PX8PUrtBwyp9rYnxghkcfvoHK+zzRVm7jINUJWySXeeE764Wv5GfldQTMY4A0l0sZYGsff7skHuOzHAOFl5MKptrCKADc+/qorCPy28zmU9d5ghmSZUvqg/TG1LJJW03y/QWMTp5yU/7BC0s0+i4v66ggDNun3lXvhCkpccyR4SD2FdcSxm+sRuTavHbGq+csrM7m6+sCzRBk4wkA0EpCm6nNzjBpFr+wmfR0IWVlQYR3w3MdwgWg66kpdpzl/EpB/2WFgrhf7t1n94b766Pd2RynsNWvXonaKeZGxfW6K2mazLLfldY24Vsfppdov9rJYrOp0q17iKQvEuBNCqcRlEj53GbcQwgoL6cgiXSlE4VRacimnobob5+0QOuk317ZkB4Bwle/b3ehQkPx9qDXiUkudh8JQw== lazzurs@genesis"
-    shell: /bin/bash
-    update_password: on_create
-
-  - username: slaughton
-    name: "Shaun Laughton"
-    groups:
-      - admin
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDq3PeZOT5Nt9Yk2TUzITRdoxPO9KXY1z/Nw5qIvP/6JoaF+WjeXS9Q6bUNu0irsVeSG7IdxuVRgyQpIxFM8RAJYFmXo4Wn2dqzwkt6tdGvjcvPFLz+9Jte2e5zOR5QMMkWvWP2UvqDqekh6hgc3IGeLHXjweF9s8CRc8zv7bxjel2hEgPKW7bHpGyF15DPYElZXfH3DjcVqwvTuZNTNrz4+3BdCUF37m8VvLbi1eM6teTTvTLs5xtYfF8R1AbXJsNtUwlsukFams+CJQfh2d2f+Svbo2SdwHDrqQyOu/OacMktVLqpPc3NRHu+cUNADkRpEfIT/V3NYIq9+J6bXvOF imported-openssh-key"
-    shell: /bin/bash
-    update_password: on_create
-
-  - username: naomiturner
-    name: "Naomi Turner"
-    groups:
-      - studio
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDO+IkalTmTUNfxxuHEew3Ht3sAGEdyc+/rj9CbIUoIoGRvDMh5HW1zU+suA9qDQKnfej5WDRs6zML+C7JoWmUzCIgi4BrRcWq9smqEbhasuaHTz1pbdiYgAEciturXZ2tPxu666n7W9X2Vw8cvvO+CJHIK9SP18L6rN7IN3eDZRLsOnR9DDWg69gYBQs0Q1hXFy3dkV5nZhVGt+7XK93WVLRQBv7NR2Hn9nA9EG9qCvvZQSSt3aD2yw1aqkmq4JovE6TdeBn9YnGzf5NbMyC5jyEGbAfikHgz3cufnpQ9+lXy68AyckXxsy6a14UBOkm4rk0eVjXkXuH3aMsQ+uU5T0SO/Lw7qo5rjAtz80/plZpyyPaZUwOb69+3Vw6wVQgbpcE8FQYIhdI3HvGqmU7ufxqrWRvxendbJXyqdz8kxCGHI8Ar0butMG7FGNo9kTgCLb6PHS8RwjCkgwfRqEETCyUrMWKW9NQksnFtP97g+jVaupbx721OFIpPMPRK8MhPjzMvUL5nBidPtxvPaUZTvoFXmdByD7rUb8ucTUK1XPd3MSYVW866KP/Z6y7Zdrd62kUThxlmeF0/wf97RMxRll4KvhbIe1zqq9QIM4ZylUzymJ4u3yPUK7B68V0kdeVgKKj/n9iVsCY3ZeA9eIPgOsO8ZP3lcfKT87TZMk0nrMw== naomi.turner@digital.justice.gov.uk"
-    shell: /bin/bash
-    update_password: on_create
-
-  - username: davidthomas
-    name: "David Thomas"
-    groups:
-      - studio
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDlcb5QjyO6KYKMs2rTqo2iSLUDagz7eTU5ws/bn3BkH+lDJsZosyJN30SII/guEK8F62NfsBFvkD/XbIkS5h1StVtjuOTW4qKiqgDAYlLwa59BVJat+wWW7ApjZbSVulJ8+i98EtMWmZrUf2pUNFF7mu9t30sgZJsqlSbZ/HaQ1Limhgm05yeFIeTkvZoW64hH7h8wEVFDlCCoZ8GAk1K3P0WS4hsqLOtsxUrXEsNwsXgVa7NQ3l47R8CShFodV+WFqKOw5tUlUr9VnqW0BzTSY3Krwq4n21OLAjRh2H+QrJxnJ0rH/oW/vc/65ZuMhoYD7Ze6fqKWGLgxGVDtoX18v3YlrUhBUR3E/hQN67BnrQlKcargEBblgYl6/VZomZAq9FSkhXbC3IUT5EDTklKJlgTDah8Hds/clw4AEA6cuMe1YsJ35KnnaqgcPzfNYieWNldTECxjgQJ/Zr0aspVaaQUthG74Y4J9PRigWs5aziph37+qWl6kTv8Og4VQQi1xb3kNtbIQEipqv4GV8HbTyGpnw/zwTSJI/tLAV1GngYMlx8IOWe+idgLmikiU6nviaE8LvMT5Z9IJ3WsFLsp34dVSPuB/tAcJNVb37DcTMljWm2xbIGy89BN7Gglo+nhlS8yaNnj8bLwRxrxiE8HDFJ6bcRtQMeqFFX8V3FFb0w== david.thomas1@digital.justice.gov.uk"
-    shell: /bin/bash
-    update_password: on_create
-
-  - username: oliveryoung
-    name: Oliver Young
-    groups:
-      - admin
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCIie1Hn8c8rpQadsUEi2OSRf3P+jG5tCAhsUhfSD43AqTt46wd6rgDN8cjhonKJ1DY3u4r7/6BJzPTVz/uO0wB/R2CTbL6KlBz03NIe3epySfPwpz4HYDEgk6tBv0jWqb0t4QsnYvQRcx4+49BhC/c02dMSF0M5VkXUcqlG99bQeetTSu+SvfUwVnU17kgsbr/ojIQSgc7xD8+cJb6nzQ9aWfDFHMb09DF5vwpZ+fTqmaFpK7iLBGIpONkvAHaVZjxbKnq6XXyw2X6kVI1j4tr4E6rjOakZMFgAOCf1YzocI4dEmepOLSx3547nMG1skygVWDmPBkK76PLbtQOWVT ollie@dude.local"
-    shell: /bin/bash
-    update_password: on_create
-
+users: "{{ studio_users }}"
 
 users_deleted:
   - username: jamesglossop

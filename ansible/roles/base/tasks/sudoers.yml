@@ -1,0 +1,9 @@
+- name: Allow %admin to nopasswd sudo
+  copy:
+    dest: /etc/sudoers.d/admin
+    content: |
+      %admin ALL=(ALL) NOPASSWD: ALL
+    owner: root
+    group: root
+    mode: 0644
+    validate: /usr/sbin/visudo -cf %s
