@@ -36,7 +36,7 @@ users:
     groups:
       - admin
     ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDYyRloWdwa30GHqbXaQWJ8Yp3htQi94IYjNSvI7Lb1muCvIrHrPFTaX7mZtsHa0oOFUT1DLkpeKexwMPqxhTGnPcwG1nZrshQMNtjvp6XXECn9y0NOsJZOnQb7/RlXPsr1ZgJy5fj5N0gfVRnQFxVU2HVejKnmlO2n0tBikTqXnTbbiDSC8uR5oipWaJQEyiiLLRrQjm0kJJqNIq0H8h1K9hJ4CCTOZgfeGmEzLXenUoxDd/3NA/d/tGI0SiHL1zxgqRSLGKncRXCEY6afey3mzWi/vggc2QUp8EE5T/ZZ7d/URFFkf8eZ1M22jvSxtFvOpt8DhDSBjAtnizQeouKPDFjLrtbGwoyXG/rWwxgjdngBMNUabcqO0i5Ao6jcL0gbPh5riLS0t9rajHWpzA30xQ/hLE+DF5lXq92bbtW20EMHE02OsiBUJPSsHYQ8gbnQbrfV9wjW6UfcK6TKsJpO0sTu6WWHyLhjo6zSBEXAyseb2KaXzL1K7GFT/sI/sxkyxMvaokYvZbtRVkvPKxlg8Aprv6ehWrwQbxBMgrna25lfFVod4VEMw4ltP/3BAPGgbxeMsgGP08QGxv1HI7umiTiRdn2ZF4BnRxWEj3gG5Up0X+DnErP3YD+V76FjmtWpFUzD62e03DiO5u1gBolBUasx5M7hVlMsurvAWDrjdQ== glen@Glens-MBP.local"
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDI0uAboNb1zywVbNOV+am7cBrm7EmkXsuqtIuekeqX9 touchbar macbook"
     shell: /bin/bash
     update_password: on_create
 
