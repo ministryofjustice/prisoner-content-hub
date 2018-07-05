@@ -1,3 +1,12 @@
+unattended_automatic_reboot: true
+unattended_automatic_reboot_time: 02:00
+unattended_ignore_apps_require_restart: true
+unattended_mail: noms-studio-webops@digital.justice.gov.uk
+unattended_origins_patterns:
+  - 'origin=Ubuntu,archive=${distro_codename}-security'
+  - 'o=Ubuntu,a=${distro_codename}'
+  - 'o=Ubuntu,a=${distro_codename}-updates'
+
 groups_to_create:
   - name: admin
   - name: studio

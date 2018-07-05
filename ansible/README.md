@@ -15,10 +15,11 @@ To run Ansible you will need to have this installed on your system.
 
 Setup
 
-    bundle install
-    bundle exec librarian-ansible install
+```
+ansible-galaxy install -r requirements.yml
+```
 
-The hub bounce server requires 2FA, password and public key.  Ensure you ssh config works.
+The hub bounce server requires 2FA, password and public key.  Ensure your ssh config works.
 
 To run dev:
 
