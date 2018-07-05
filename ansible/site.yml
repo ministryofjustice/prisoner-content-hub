@@ -3,12 +3,12 @@
 - name: baseline
   hosts: all
   roles:
-    - provisioning
     - base
     - jnv.unattended-upgrades
     - role: singleplatform-eng.users
       tags:
       - users
+    - provisioning
 
 - hosts: bounce
   roles:

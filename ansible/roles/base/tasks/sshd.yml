@@ -1,0 +1,9 @@
+- name: configure sshd
+  template:
+    src: sshd.conf
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - reload sshd
