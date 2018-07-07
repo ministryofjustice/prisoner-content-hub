@@ -1,4 +1,8 @@
 {% extends "../components/template.njk" %}
+{% from "../components/promoted-content/macro.njk" import hubPromotedContent %}
+{% from "../components/featured-content/macro.njk" import hubFeaturedContent %}
+{% from "../components/sub-menu/macro.njk" import hubSubMenu %}
+{% from "../components/series/macro.njk" import hubSeries %}
 
 {% block head %}
   <!--[if !IE 8]><!-->
@@ -17,11 +21,26 @@
   <![endif]-->
 {% endblock %}
 
-{% block content %}
-  <h1 class="govuk-heading-xl">Default page template</h1>
-
-  <p class="govuk-body">{{ data.text }}</p>
+{% block promotedContent %}
+  {{ hubPromotedContent({}) }}
 {% endblock %}
+
+{% block subMenu %}
+  {{ hubSubMenu({}) }}
+{% endblock %}
+
+{% block content %}
+  {{ hubFeaturedContent({
+    data: data
+  }) }}
+  
+{% endblock %}
+
+{% block postscript %}
+  {{ hubSeries({}) }}
+{% endblock %}
+
+
 
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
