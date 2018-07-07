@@ -1,0 +1,64 @@
+@import "node_modules/govuk-frontend/settings/all";
+@import "node_modules/govuk-frontend/tools/all";
+@import "node_modules/govuk-frontend/helpers/all";
+@import "node_modules/govuk-frontend/helpers/typography";
+
+.govuk-hub-header {
+    padding-top: govuk-spacing(0);
+    background: govuk-colour("white");
+}
+
+.govuk-hub-header__topbar {
+    background:govuk-colour("black");
+}
+
+.govuk-hub-header__prison,
+.govuk-hub-header__title,
+.govuk-hub-header__date,
+.govuk-hub-header__time {
+    color: govuk-colour("white");
+    display: inline-block;
+    padding:  govuk-spacing(2) govuk-spacing(1);
+    margin-bottom: 0;
+    @include govuk-font($size: 24);
+}
+
+.govuk-hub-header__time {
+    margin-right: govuk-spacing(1);
+}
+
+.govuk-hub-align-right {
+    text-align: right;
+}
+
+.govuk-hub-start-menu {
+    vertical-align: baseline;
+    margin: 0;
+    padding: govuk-spacing(3)  govuk-spacing(4)  govuk-spacing(2)  govuk-spacing(4);
+    box-shadow: none;
+    -webkit-box-shadow: none;
+
+    &:link, 
+    &:visited, 
+    &:active, 
+    &:focus {
+        background: $govuk-link-colour;
+    }
+    &:hover {
+        background: $govuk-link-hover-colour;
+    }
+}
+
+.govuk-hub-header__back-link {
+    &:link, 
+    &:visited, 
+    &:active, 
+    &:focus {
+        color: $govuk-link-colour;
+        border-bottom: 1px solid $govuk-link-colour;
+    }
+    &:hover {
+        color: $govuk-link-hover-colour;
+        border-bottom: 1px solid $govuk-link-hover-colour;
+    }
+}
