@@ -43,11 +43,12 @@
     data: inspirationdata
   }) }}
   
-  
 {% endblock %}
 
 {% block postscript %}
-  {{ hubSeries({}) }}
+  {{ hubSeries({
+    data: seriesdata
+  }) }}
 {% endblock %}
 
 

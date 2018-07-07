@@ -10,12 +10,14 @@ module.exports = function Index({ logger, demoDataService }) {
     const submenudata = demoDataService.getSubMenuData();
     const inspirationdata = demoDataService.getInspirationData();
     const newseventsData = demoDataService.getNewsEventsData();
+    const seriesdata = demoDataService.geSeriesData();
 
     res.render('pages/index', { 
       inspirationdata, 
       submenudata,
       newseventsData, 
-      promotalcontentdata 
+      promotalcontentdata,
+      seriesdata
     });
   });
 

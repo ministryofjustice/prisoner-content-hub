@@ -127,10 +127,22 @@ module.exports = function createDemoDataService() {
     };
   }
 
+  function geSeriesData() {
+    items = {};
+    for(let i = 0; i < 40; i++ ) {
+      items['item'+i] = {
+        linktext: 'Sample link ' + i,
+        linkurl: '#'
+      };
+    }
+    return {items};
+  }
+
   return {
     getPromotalContentData,
     getSubMenuData,
     getInspirationData,
-    getNewsEventsData
+    getNewsEventsData,
+    geSeriesData
   };
 };
