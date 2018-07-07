@@ -1,34 +1,11 @@
   <nav class="govuk-hub-sub-menu blue">
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-third">
-        <a href="#" title="Life at Berwyn" class="govuk-hub-sub-menu__link govuk-link">
-          Life at Berwyn
-        </a>
-      </div>
-      <div class="govuk-grid-column-one-third">
-        <a href="#" title="Doing your time" class="govuk-hub-sub-menu__link govuk-link">
-          Doing your time
-        </a>
-      </div>
-      <div class="govuk-grid-column-one-third">
-        <a href="#" title="Useful contacts" class="govuk-hub-sub-menu__link govuk-link">
-          Useful contacts
-        </a>
-      </div>
-      <div class="govuk-grid-column-one-third">
-        <a href="#" title="Induction" class="govuk-hub-sub-menu__link govuk-link">
-          Induction
-        </a>
-      </div>
-      <div class="govuk-grid-column-one-third">
-        <a href="#" title="Eduction" class="govuk-hub-sub-menu__link govuk-link">
-          Eduction
-        </a>
-      </div>
-      <div class="govuk-grid-column-one-third">
-        <a href="#" title="Getting out" class="govuk-hub-sub-menu__link govuk-link">
-          Getting out
-        </a>
-      </div>
+      {% for name, item in params.data.items %}
+        <div class="govuk-grid-column-one-third">
+          <a href="{%- if item.linkurl %} {{ item.linkurl }}{% endif -%}" title="{%- if item.linktext %} {{ item.linktext }}{% endif -%}" class="govuk-hub-sub-menu__link govuk-link">
+            {%- if item.linktext %} {{ item.linktext }}{% endif -%}
+          </a>
+        </div>
+      {% endfor %}
     </div>
   </nav>

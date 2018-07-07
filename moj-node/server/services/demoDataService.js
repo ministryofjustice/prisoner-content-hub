@@ -10,6 +10,37 @@ module.exports = function createDemoDataService() {
     }
   }
 
+  function getSubMenuData() {
+    return {
+      items: {
+        item1: {
+          linktext: 'Life at Berwyn',
+          linkurl: '#',
+        },
+        item2: {
+          linktext: 'Doing your time',
+          linkurl: '#',
+        },
+        item3: {
+          linktext: 'Useful contents',
+          linkurl: '#',
+        },
+        item4: {
+          linktext: 'Induction',
+          linkurl: '#',
+        },
+        item5: {
+          linktext: 'Eduction',
+          linkurl: '#',
+        },
+        item6: {
+          linktext: 'Getting out',
+          linkurl: '#',
+        }
+      }
+    }
+  }
+
   function getInspirationData() {
     return {
       number: 4,
@@ -98,7 +129,8 @@ module.exports = function createDemoDataService() {
 
   return {
     getPromotalContentData,
+    getSubMenuData,
     getInspirationData,
-    getNewsEventsData,
+    getNewsEventsData
   };
 };

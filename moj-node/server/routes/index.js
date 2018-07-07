@@ -7,11 +7,13 @@ module.exports = function Index({ logger, demoDataService }) {
     logger.info('GET index');
 
     const promotalcontentdata = demoDataService.getPromotalContentData();
+    const submenudata = demoDataService.getSubMenuData();
     const inspirationdata = demoDataService.getInspirationData();
     const newseventsData = demoDataService.getNewsEventsData();
 
     res.render('pages/index', { 
       inspirationdata, 
+      submenudata,
       newseventsData, 
       promotalcontentdata 
     });
