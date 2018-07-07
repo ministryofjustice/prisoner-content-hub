@@ -1,4 +1,15 @@
 module.exports = function createDemoDataService() {
+  
+  function getPromotalContentData() {
+    return {
+      title: 'Headline for the main feature to promote',
+      description: 'A brief description about the feature to give a bit more detail about what it is about',
+      linktext: 'Read more',
+      linkurl: '#',
+      graphic: '/images/featured-image.jpg',
+    }
+  }
+
   function getInspirationData() {
     return {
       number: 4,
@@ -86,6 +97,7 @@ module.exports = function createDemoDataService() {
   }
 
   return {
+    getPromotalContentData,
     getInspirationData,
     getNewsEventsData,
   };
