@@ -30,9 +30,15 @@
 {% endblock %}
 
 {% block content %}
+  
   {{ hubFeaturedContent({
-    data: data
+    data: newseventsData
   }) }}
+
+  {{ hubFeaturedContent({
+    data: inspirationdata
+  }) }}
+  
   
 {% endblock %}
 

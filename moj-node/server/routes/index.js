@@ -6,9 +6,10 @@ module.exports = function Index({ logger, demoDataService }) {
   router.get('/', (req, res) => {
     logger.info('GET index');
 
-    const data = demoDataService.getInspirationData();
+    const inspirationdata = demoDataService.getInspirationData();
+    const newseventsData = demoDataService.getNewsEventsData();
 
-    res.render('pages/index', { data });
+    res.render('pages/index', { inspirationdata, newseventsData });
   });
 
   return router;

@@ -53,7 +53,40 @@ module.exports = function createDemoDataService() {
     };
   }
 
+  function getNewsEventsData() {
+    return {
+      number: 2,
+      category_title: 'News and Events',
+      category_link: '#',
+      items: {
+        item1: {
+          title: 'Hello world',
+          description: 'Here is a short description',
+          size: 'large',
+          grid: 'govuk-grid-column-one-half',
+          type: 'news-events',
+          icon: 'icon-game',
+          linkclass: 'icon-link',
+          linktext: 'Play',
+          graphic: '/images/content-image.jpg'
+        },
+        item2: {
+          title: 'Hello People',
+          description: 'Here is a shorter description',
+          size: 'large',
+          grid: 'govuk-grid-column-one-half',
+          type: 'news-events',
+          icon: 'icon-document',
+          linkclass: 'icon-play',
+          linktext: 'Listen',
+          graphic: '/images/content-image.jpg'
+        }
+      }
+    };
+  }
+
   return {
     getInspirationData,
+    getNewsEventsData,
   };
 };
