@@ -17,10 +17,8 @@ $gradient: $trans, $fifityPerecntBlack;
 .govuk-hub-featured-content-item {
     
     position: relative;
-    // -webkit-transition: margin 0.5s; /* Safari */
-    // transition: margin 0.5s;
-
-    transition:all 0.5s ease;
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
 
     &.small {
         height: 190px;
