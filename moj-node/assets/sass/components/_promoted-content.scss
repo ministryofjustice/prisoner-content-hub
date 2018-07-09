@@ -4,9 +4,7 @@ $fifityPerecntBlack: rgba(0, 0, 0, 0.50);
 $gradient: $trans, $fifityPerecntBlack; 
 
 .govuk-hub-promoted-content {
-    position: relative;
-    // background: red;
-    // height: 295px; // Hmmm 
+    position: relative; 
 }
 
 .govuk-hub-promoted-content__header {
@@ -40,23 +38,13 @@ $gradient: $trans, $fifityPerecntBlack;
         color: govuk-colour("white");
     }
 }
-.govuk-hub-promoted-content__main {
-
-
-}
 
 .govuk-hub-promoted-content__overlay {
-    position: absolute;
-    z-index: 100;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
     @include gradient(right, $gradient);
-    // background: green;
+    height: 300px;
 }
 
 .govuk-hub-promoted-content__grpahic {
-    position: relative;
-
+    background-size: cover;
+    
 }
