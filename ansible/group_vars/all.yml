@@ -49,6 +49,15 @@ studio_users:
     shell: /bin/bash
     update_password: on_create
 
+  - username: georgesadathian
+    name: "George Sadathian"
+    groups:
+      - admin
+    ssh_key:
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHa5LiQwdSqhH/4l/r7AuysLpleXDValXi8WaorYk3sk v-gesada@MININT-OEIPK57"
+    shell: /bin/bash
+    update_password: on_create
+
   - username: gemmabarnes
     name: "Gemma Barnes"
     groups:
