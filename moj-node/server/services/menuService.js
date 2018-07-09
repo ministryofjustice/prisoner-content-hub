@@ -13,6 +13,5 @@ module.exports = function createMenuService(contentClient) {
 
   return {
     getMenuElement,
-    formatMenu,
   };
 };

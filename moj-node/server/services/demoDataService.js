@@ -1,5 +1,4 @@
 module.exports = function createDemoDataService() {
-  
   function getPromotalContentData() {
     return {
       title: 'Headline for the main feature to promote',
@@ -7,7 +6,7 @@ module.exports = function createDemoDataService() {
       linktext: 'Read more',
       linkurl: '#',
       graphic: '/images/featured-image.jpg',
-    }
+    };
   }
 
   function getSubMenuData() {
@@ -36,9 +35,9 @@ module.exports = function createDemoDataService() {
         item6: {
           linktext: 'Getting out',
           linkurl: '#',
-        }
-      }
-    }
+        },
+      },
+    };
   }
 
   function getInspirationData() {
@@ -56,7 +55,7 @@ module.exports = function createDemoDataService() {
           icon: 'icon-game',
           linkclass: 'icon-link',
           linktext: 'Play',
-          graphic: '/images/content-image.jpg'
+          graphic: '/images/content-image.jpg',
         },
         item2: {
           title: 'Hello People',
@@ -67,7 +66,7 @@ module.exports = function createDemoDataService() {
           icon: 'icon-document',
           linkclass: 'icon-play',
           linktext: 'Listen',
-          graphic: '/images/content-image.jpg'
+          graphic: '/images/content-image.jpg',
         },
         item3: {
           title: 'Hello Cats',
@@ -78,7 +77,7 @@ module.exports = function createDemoDataService() {
           icon: 'icon-movie',
           linkclass: 'icon-link',
           linktext: 'Read',
-          graphic: '/images/content-image.jpg'
+          graphic: '/images/content-image.jpg',
         },
         item4: {
           title: 'Hello Dogs',
@@ -89,9 +88,9 @@ module.exports = function createDemoDataService() {
           icon: 'icon-music',
           linkclass: 'icon-play',
           linktext: 'Play',
-          graphic: '/images/content-image.jpg'
-        }
-      }
+          graphic: '/images/content-image.jpg',
+        },
+      },
     };
   }
 
@@ -110,7 +109,7 @@ module.exports = function createDemoDataService() {
           icon: 'icon-game',
           linkclass: 'icon-link',
           linktext: 'Play',
-          graphic: '/images/content-image.jpg'
+          graphic: '/images/content-image.jpg',
         },
         item2: {
           title: 'Hello People',
@@ -121,21 +120,22 @@ module.exports = function createDemoDataService() {
           icon: 'icon-document',
           linkclass: 'icon-play',
           linktext: 'Listen',
-          graphic: '/images/content-image.jpg'
-        }
-      }
+          graphic: '/images/content-image.jpg',
+        },
+      },
     };
   }
 
   function geSeriesData() {
-    items = {};
-    for(let i = 0; i < 40; i++ ) {
-      items['item'+i] = {
-        linktext: 'Sample link ' + i,
-        linkurl: '#'
-      };
-    }
-    return {items};
+    const items = [...Array(40)].reduce((acc, cur, index) => ({
+      ...acc,
+      [`item${index}`]: {
+        linktext: `Sample link ${index}`,
+        linkurl: '#',
+      },
+    }), {});
+
+    return { items };
   }
 
   return {
@@ -143,6 +143,6 @@ module.exports = function createDemoDataService() {
     getSubMenuData,
     getInspirationData,
     getNewsEventsData,
-    geSeriesData
+    geSeriesData,
   };
 };
