@@ -20,17 +20,12 @@ class ContnetServiceTest extends EntityKernelTestBase
      * {@inheritdoc}
      */
 
-    public static $modules = ['moj_resources','node'];
+    public static $modules = [
+        'moj_pdf_item',
+        'moj_resources',
+        'node'
+        ];
 
-    // public function setup()
-    // {
-    //     $node = Node::create(array(
-    //         'title' => t('Sample content'),
-    //         'type' => 'moj_pdf_item',
-    //         'language' => 'en',
-    //     ));
-    //     $node->save();
-    // }
     /**
      * Test for existence of 'events_example_subscriber' service.
      */
@@ -39,12 +34,4 @@ class ContnetServiceTest extends EntityKernelTestBase
         $contnetService = $this->container->get('moj_resources.content_api_class');
         $this->assertTrue($contnetService instanceof ContentApiClass);
     }
-
-    // public function testFeaturedContnetServiceOne() 
-    // {
-    //     $featuredContnetService = $this->container->get('moj_resources.featured_content_api_class');
-    //     print_r($featuredContnetService->FeaturedContentApiEndpoint('en'));
-    //     $this->assertTrue($featuredContnetService->FeaturedContentApiEndpoint('en') instanceof FeaturedContentApiClass);
-    // }
-
 }
