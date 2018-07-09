@@ -22,7 +22,7 @@ const production = process.env.NODE_ENV === 'production';
 const testMode = process.env.NODE_ENV === 'test';
 
 module.exports = function createApp({
-  someService,
+  demoDataService,
   menuService,
 }) { // eslint-disable-line no-shadow
   const app = express();
@@ -146,7 +146,7 @@ module.exports = function createApp({
   }
 
   // Routing
-  app.use('/', createIndexRouter({ logger, someService }));
+  app.use('/', createIndexRouter({ logger, demoDataService }));
   app.use('/', createMenuRouter({ logger, menuService }));
 
   app.use(handleKnownErrors);

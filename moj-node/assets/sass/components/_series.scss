@@ -1,0 +1,17 @@
+.govuk-hub-series {
+    
+    ul {
+        margin: 0;
+        padding: 0;
+
+        li {
+            box-sizing: border-box;
+            display: inline-block;
+            width: 22%;
+            margin: govuk-spacing(2) 0;
+            a {
+
+            }
+        }
+    }
+}

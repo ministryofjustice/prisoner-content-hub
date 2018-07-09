@@ -1,0 +1,18 @@
+<section>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-m">Browse by series</h1>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <nav class="govuk-hub-series">
+        <ul>
+          {% for name, item in params.data.items %}
+            <li><a href="{%- if item.linkurl %}{{ item.linkurl }}{% endif -%}" title="{%- if item.linktext %} {{ item.linktext }}{% endif -%}" class="govuk-link govuk-link--no-visited-state">{%- if item.linktext %}{{ item.linktext }}{% endif -%}</a></li>
+          {% endfor %}
+        </ul>  
+      </nav>  
+    </div>
+  </div>
+</section>
