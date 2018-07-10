@@ -1,0 +1,8 @@
+- name: Create system users
+  user:
+    name: "{{ item.name }}"
+    comment: "{{ item.comment }}"
+    uid: "{{ item.uid }}"
+    system: true
+  with_items:
+    - "{{ system_users }}"

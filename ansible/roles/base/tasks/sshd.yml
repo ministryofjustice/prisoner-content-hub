@@ -1,3 +1,11 @@
+- name: ensure revoked_keys file exists
+  file:
+    path: /etc/ssh/revoked_keys
+    owner: root
+    group: root
+    mode: 0644
+    state: file
+
 - name: configure sshd
   template:
     src: sshd.conf

@@ -1,2 +1,5 @@
 [bounce]
 prod.admin.hub.service.hmpps.dsd.io
+
+[prod:children]
+bounce

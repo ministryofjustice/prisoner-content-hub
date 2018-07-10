@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+source /etc/docker-decomposed-secrets.sh
+
+{% for container in hub_containers %}
+docker-decomposed.sh {{ container.name }}
+{% endfor %}
