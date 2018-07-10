@@ -1,3 +1,13 @@
+- name: setup facts for nginx reverse proxies
+  include_tasks: nginx.yml
+  with_items:
+    - "{{ hub_sites }}"
+  loop_control:
+    loop_var: hub_site
+
+- debug:
+    var: nginx_vhosts
+
 - name: copy over decomposed script
   copy:
     src: docker-decomposed.sh
@@ -48,8 +58,8 @@
       export MYSQL_USER=hubdb_user
       export MYSQL_ROOT_PASSWORD=$(cat /etc/docker-decomposed-secrets-MYSQL_ROOT_PASSWORD)
       export MYSQL_PASSWORD=$(cat /etc/docker-decomposed-secrets-MYSQL_PASSWORD)
-      export PIWIK_URI=http://example.com
-      export DRUPAL_URL=http://{{ hub_backend_host }}
+      export PIWIK_URI=//example.com
+      export DRUPAL_URL=https://{{ hub_backend_host }}
     dest: /etc/docker-decomposed-secrets.sh
     mode: 0644
     owner: root

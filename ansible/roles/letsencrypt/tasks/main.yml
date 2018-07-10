@@ -1,0 +1,39 @@
+- name: add certbot repo
+  apt_repository:
+    repo: ppa:certbot/certbot
+
+- name: install certbot
+  apt:
+    name: python-certbot-nginx
+
+# Note that the certbot package installs `certbot.service` into systemd
+# And this runs on a twice-daily timer via certbot.timer
+# And it also installs a crontab via /etc/cron.d/certbot
+
+- name: certbot config file
+  copy:
+    dest: /etc/letsencrypt/cli.ini
+    content: |
+      {% for k, v in certbot_options.iteritems() %}
+      {{ k }}={{ v }}
+      {% endfor %}
+  vars:
+    certbot_options:
+      email: noms-studio-webops@digital.justice.gov.uk
+      no-eff-email: true
+      agree-tos: true
+      non-interactive: true
+      expand: true
+      authenticator: nginx
+
+- name: register
+  command: certbot register
+  args:
+    creates: /etc/letsencrypt/accounts/*/directory/*/regr.json
+
+- name: initial certificate acquisition
+  command: certbot certonly --post-hook 'systemctl reload nginx' --domains {{ item }}
+  args:
+    creates: /etc/letsencrypt/live/{{ item }}/fullchain.pem
+  with_items:
+    - "{{ letsencrypt_domains }}"

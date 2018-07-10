@@ -33,39 +33,13 @@ hub_containers:
   - image: mojdigitalstudio/digital-hub-fe
     name: hub-fe
 
-nginx_upstreams:
-  - name: hub_fe
-    servers:
-      - "localhost:10001"
-  - name: hub_be
-    servers:
-      - "localhost:11001"
-
-nginx_vhosts:
-  - listen: 80
-    server_name: "{{ hub_frontend_host }}"
-    state: present
-    extra_parameters: |
-      ignore_invalid_headers off;
-      location / {
-        proxy_pass http://hub_fe;
-        proxy_set_header   Host              $host;
-        proxy_set_header   X-Real-IP         $remote_addr;
-        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header   X-Forwarded-Proto $scheme;
-      }
-  - listen: 80
-    server_name: "{{ hub_backend_host }}"
-    state: present
-    extra_parameters: |
-      ignore_invalid_headers off;
-      location / {
-        proxy_pass http://hub_be;
-        proxy_set_header   Host              $host;
-        proxy_set_header   X-Real-IP         $remote_addr;
-        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header   X-Forwarded-Proto $scheme;
-      }
+hub_sites:
+  - upstream_name: hub_fe
+    upstream_port: 10001
+    domain: "{{ hub_frontend_host }}"
+  - upstream_name: hub_be
+    upstream_port: 11001
+    domain: "{{ hub_backend_host }}"
 
 firewall_state: started
 firewall_enabled_at_boot: true
