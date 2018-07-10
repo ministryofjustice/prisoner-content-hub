@@ -17,7 +17,7 @@ nginx_vhosts:
     state: "present"
     extra_parameters: |
       ignore_invalid_headers off;
-      location / {
+      location /health {
         proxy_pass http://berwyn_hub;
         proxy_set_header   Host              $host;
         proxy_set_header   X-Real-IP         $remote_addr;
@@ -29,7 +29,7 @@ nginx_vhosts:
     state: "present"
     extra_parameters: |
       ignore_invalid_headers off;
-      location / {
+      location /health {
         proxy_pass http://wayland_hub;
         proxy_set_header   Host              $host;
         proxy_set_header   X-Real-IP         $remote_addr;
