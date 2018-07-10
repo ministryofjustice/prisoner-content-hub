@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+{% for container in hub_containers %}
+docker pull {{ container.image }}:latest
+{% endfor %}
+
+hub-deploy

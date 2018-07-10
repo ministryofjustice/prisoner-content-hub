@@ -67,18 +67,4 @@ The new Drupal CLI is also provided as a Docker container as part of the Docker 
 Run a live version of the Digital Hub
 -------------------------------------
 
-We have separated out the Docker Compose file for running a live version of the Digital Hub for now.
-
-To run this version run the following command
-
-    docker-compose -f docker-compose-prod.yml up
-
-Deploying to Docker Swarm
--------------------------
-
-We currently run this under Docker Swarm in Azure for live versions. To deploy into Azure you will need to SSH into the swarm master which can be done with the following
-
-    ssh -p 50000 -l docker -fNL localhost:2434:/var/run/docker.sock ssh.dev.hub.service.hmpps.dsd.io
-    DOCKER_TLS_VERIFY= DOCKER_HOST=localhost:2434 docker stack up -c docker-compose-prod.yml hub-dev
-
-You create an SSH tunnel to the Docker instance on the Swarm master witht he first command and the second command will deploy the stack using the production docker compose configuration to the stack named hub-dev.
+Due to version incompatibilities with docker compose, we use a shell script to run in live, see `docker-decomposed.sh` for details.
