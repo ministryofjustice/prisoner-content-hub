@@ -49,9 +49,9 @@ jobs:
             #- run:
                 #name: Run frontend tests
                 #command: cd moj-fe && make test
-            #- run:
-                #name: Run Drupal backend tests
-                #command: cd moj-be && make test
+            - run:
+                name: Run Drupal backend tests
+                command: cd moj-be && make test
             - run:
                 name: Build DB container
                 command: cd db && make build
