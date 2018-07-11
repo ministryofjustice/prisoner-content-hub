@@ -17,6 +17,7 @@
 
 - hosts: hub
   roles:
+    - hub-containers
     - geerlingguy.nginx
     - geerlingguy.firewall
-    - hub-containers
+    - letsencrypt
