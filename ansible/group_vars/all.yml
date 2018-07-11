@@ -131,6 +131,15 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
+  - username: stevenbapaga
+    name: "Steven Bapaga"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBOxbHBE43Vu8NOZjFE9HBcTpaMCK3obUZQGgogyFNxIAIyO/2VnQKZeBx9UHRQnzWj+y8k/fiPyXnB+uptKDyyUN9Q0VeSSIBlgTVdO181WYO0yGKy2dLV6I88SalEbLuM1Gcr/Ws1fMMR0MA5Rl1pXwJgPAoExkhx7eNa/EDBIdYtO/uRD/D3H5LVQOTxrumid1J6t2MvCTosVtRwpO/XflT0IAiFSgIktIdqpslfEGLbFXTi8lPu9cVnqwLk11Zwbpwp/Buum5xWexkyHx+Gz4jtTwLjlVb1mM89kHYBvEuRJU5i8nlVve6g4RUmT3avr1cJ7vPqTb2nuEMk1tl sbapaga@gmail.com"
+    shell: /bin/bash
+    update_password: on_create
+
   - username: oliveryoung
     name: Oliver Young
     groups:
