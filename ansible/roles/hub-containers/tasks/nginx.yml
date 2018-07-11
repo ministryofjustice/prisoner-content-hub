@@ -23,9 +23,6 @@
         }
         ssl_certificate /etc/letsencrypt/live/{{ hub_site.domain }}/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/{{ hub_site.domain }}/privkey.pem;
-        ssl_protocols TLSv1.2;
-        ssl_prefer_server_ciphers on;
-        ssl_ciphers HIGH:!aNULL:!MD5;
 
 - set_fact:
     nginx_upstreams: "{{ nginx_upstreams + [hub_nginx_upstream] }}"
