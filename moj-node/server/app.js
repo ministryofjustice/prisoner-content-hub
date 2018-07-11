@@ -7,12 +7,12 @@ const compression = require('compression');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const createIndexRouter = require('./routes/index');
-const createMenuRouter = require('./routes/menu');
 const sassMiddleware = require('node-sass-middleware');
 const moment = require('moment');
 const path = require('path');
 const log = require('bunyan-request-logger')();
+const createMenuRouter = require('./routes/menu');
+const createIndexRouter = require('./routes/index');
 const logger = require('../log.js');
 
 const config = require('../server/config');
@@ -26,10 +26,10 @@ module.exports = function createApp({
   menuService,
 }) { // eslint-disable-line no-shadow
   const app = express();
-  
-  nunjucks.configure(['server/views','node_modules/govuk-frontend'], {
+
+  nunjucks.configure(['server/views', 'node_modules/govuk-frontend'], {
     express: app,
-    autoescape: true
+    autoescape: true,
   });
 
 
@@ -117,7 +117,6 @@ module.exports = function createApp({
     app.use('/public', express.static(path.join(__dirname, dir), cacheControl));
   });
 
-  
 
   app.use('/assets', express.static(path.join(__dirname, '../node_modules/govuk-frontend/assets'), cacheControl));
 
@@ -169,8 +168,8 @@ function renderErrors(err, req, res, next) {
 
   res.locals.error = err;
   res.locals.stack = production ? null : err.stack;
-  res.locals.message = production ?
-    'Something went wrong. The error has been logged. Please try again' : err.message;
+  res.locals.message = production
+    ? 'Something went wrong. The error has been logged. Please try again' : err.message;
 
   res.status(err.status || 500);
 

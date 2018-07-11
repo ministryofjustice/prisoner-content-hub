@@ -12,12 +12,12 @@ module.exports = function Index({ logger, demoDataService }) {
     const newseventsData = demoDataService.getNewsEventsData();
     const seriesdata = demoDataService.geSeriesData();
 
-    res.render('pages/index', { 
-      inspirationdata, 
+    res.render('pages/index', {
+      inspirationdata,
       submenudata,
-      newseventsData, 
+      newseventsData,
       promotalcontentdata,
-      seriesdata
+      seriesdata,
     });
   });
 

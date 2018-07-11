@@ -1,8 +1,7 @@
-const logger = require('../../log.js');
 const request = require('superagent');
+const logger = require('../../log.js');
 
 module.exports = {
-
   getMenu: async () => {
     try {
       const result = await request
