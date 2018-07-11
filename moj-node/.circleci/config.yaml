@@ -10,29 +10,24 @@ jobs:
         - /deploy-to.*/
     steps:
       - checkout
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
       - restore_cache:
-          key: node_modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
-          key: node_modules-{{ checksum "package.json" }}
-          key: node_modules
-      - restore_cache:
-          key: yarn-cache
+          key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
           name: Install Dependencies
-          command: yarn --frozen-lockfile
+          command: npm ci
       - save_cache:
-          key: node_modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
-            - ./node_modules
-      - save_cache:
-          key: yarn-cache
-          paths:
-            - ~/.yarn-cache
+            - node_modules
       - run:
           name: Linter
-          command: yarn run lint
+          command: npm run lint
       - run:
           name: Tests
-          command: yarn test --reporter mocha-junit-reporter
+          command: npm test --reporter mocha-junit-reporter
           environment:
             MOCHA_FILE: ./reports/unit/test-results.xml
 
