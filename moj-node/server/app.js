@@ -1,27 +1,27 @@
 const express = require('express');
 const addRequestId = require('express-request-id')();
-const helmet = require('helmet');
 const csurf = require('csurf');
-const nunjucks = require('nunjucks');
 const compression = require('compression');
-const passport = require('passport');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
-const sassMiddleware = require('node-sass-middleware');
-const moment = require('moment');
-const path = require('path');
+const helmet = require('helmet');
 const log = require('bunyan-request-logger')();
-const createMenuRouter = require('./routes/menu');
-const createIndexRouter = require('./routes/index');
-const logger = require('../log.js');
+const nunjucks = require('nunjucks');
+const path = require('path');
+const sassMiddleware = require('node-sass-middleware');
 
 const config = require('../server/config');
+const logger = require('../log.js');
 
-const version = moment.now().toString();
-const production = process.env.NODE_ENV === 'production';
-const testMode = process.env.NODE_ENV === 'test';
+const createMenuRouter = require('./routes/menu');
+const createIndexRouter = require('./routes/index');
+const createHealthRouter = require('./routes/health');
+
+const version = Date.now().toString();
 
 module.exports = function createApp({
+  appInfo,
   demoDataService,
   menuService,
 }) { // eslint-disable-line no-shadow
@@ -64,9 +64,6 @@ module.exports = function createApp({
     sameSite: 'lax',
   }));
 
-  app.use(passport.initialize());
-  app.use(passport.session());
-
   // Request Processing Configuration
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -77,18 +74,18 @@ module.exports = function createApp({
   app.use(compression());
 
   // Cachebusting version string
-  if (production) {
+  if (config.production) {
     // Version only changes on reboot
     app.locals.version = version;
   } else {
     // Version changes every request
     app.use((req, res, next) => {
-      res.locals.version = moment.now().toString();
+      res.locals.version = Date.now().toString();
       return next();
     });
   }
 
-  if (!production) {
+  if (config.production) {
     app.use('/public', sassMiddleware({
       src: path.join(__dirname, '../assets/sass'),
       dest: path.join(__dirname, '../assets/stylesheets'),
@@ -139,14 +136,16 @@ module.exports = function createApp({
   // Don't cache dynamic resources
   app.use(helmet.noCache());
 
+
   // CSRF protection
-  if (!testMode) {
-    app.use(csurf());
-  }
+  app.use(cookieParser());
+  app.use(csurf({ cookie: true }));
+
 
   // Routing
   app.use('/', createIndexRouter({ logger, demoDataService }));
   app.use('/', createMenuRouter({ logger, menuService }));
+  app.use('/health', createHealthRouter({ appInfo }));
 
   app.use(handleKnownErrors);
   app.use(renderErrors);
@@ -167,8 +166,8 @@ function renderErrors(err, req, res, next) {
   // code to handle unknown errors
 
   res.locals.error = err;
-  res.locals.stack = production ? null : err.stack;
-  res.locals.message = production
+  res.locals.stack = config.production ? null : err.stack;
+  res.locals.message = config.production
     ? 'Something went wrong. The error has been logged. Please try again' : err.message;
 
   res.status(err.status || 500);

@@ -30,6 +30,22 @@ jobs:
           command: npm test --reporter mocha-junit-reporter
           environment:
             MOCHA_FILE: ./reports/unit/test-results.xml
+      - deploy:
+          name: Build Derived Git Commit
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              BUILD_NUMBER=$CIRCLE_BUILD_NUM \
+              GIT_REF=$CIRCLE_SHA1 \
+              GIT_DATE=$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1) \
+                npm run record-build-info
+              git add --force --verbose build-info.json assets/stylesheets/application.css
+              git config user.name "Circle CI"
+              git config user.email "circle@circleci.com"
+              git commit \
+                -m "Deployment of build $CIRCLE_BUILD_NUM" \
+                -m "$(git log --format=%B -n 1 $CIRCLE_SHA1)" \
+                -m "From gitref $CIRCLE_SHA1"
+            fi
 
       - store_test_results:
           path: ./reports

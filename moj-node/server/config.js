@@ -11,5 +11,7 @@ function get(name, fallback, options = {}) {
 }
 
 module.exports = {
+  dev: !production,
+  production,
   sessionSecret: get('SESSION_SECRET', 'app-insecure-default-session', { requireInProduction: true }),
 };

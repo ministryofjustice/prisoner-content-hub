@@ -6,3 +6,5 @@ modules/contrib/backup_migrate/vendor/psr/
 *.swp
 .vscode
 .vscode/**
+.project
+.settings

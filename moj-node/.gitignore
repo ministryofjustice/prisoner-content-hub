@@ -20,3 +20,4 @@ yarn-error.log
 .eslintcache
 coverage/**
 .nyc_output/**
+build-info.json
