@@ -1,21 +1,22 @@
 $trans: rgba(0, 0, 0, 0);
 $fifityPerecntBlack: rgba(0, 0, 0, 0.50);
 
-$gradient: $trans, $fifityPerecntBlack; 
+$gradient: $trans, $fifityPerecntBlack;
 
 .govuk-hub-promoted-content {
-    position: relative; 
+    position: relative;
+    margin-bottom: 60px;
 }
 
 .govuk-hub-promoted-content__header {
     width: 50%;
-    padding: govuk-spacing(4) govuk-spacing(4) govuk-spacing(0) govuk-spacing(4);
-    
+    padding: govuk-spacing(8) govuk-spacing(8) govuk-spacing(0) govuk-spacing(8);
+
 }
 
 .govuk-hub-promoted-content__main {
     width: 50%;
-    padding: govuk-spacing(0) govuk-spacing(4) govuk-spacing(4) govuk-spacing(4);
+    padding: govuk-spacing(0) govuk-spacing(8) govuk-spacing(8) govuk-spacing(8);
 }
 
 .govuk-hub-promoted-content__header-title,
@@ -26,11 +27,15 @@ $gradient: $trans, $fifityPerecntBlack;
     margin-bottom: govuk-spacing(2);
 }
 
+.govuk-hub-promoted-content__description {
+  @include govuk-font($size: 24);
+}
+
 .govuk-hub-promoted-content__link
 {
-    &:link, 
-    &:visited, 
-    &:active, 
+    &:link,
+    &:visited,
+    &:active,
     &:focus {
         color: govuk-colour("white");
     }
@@ -46,5 +51,4 @@ $gradient: $trans, $fifityPerecntBlack;
 
 .govuk-hub-promoted-content__grpahic {
     background-size: cover;
-    
 }

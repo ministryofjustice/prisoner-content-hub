@@ -1,5 +1,4 @@
 .govuk-hub-series {
-    
     ul {
         margin: 0;
         padding: 0;
@@ -10,7 +9,7 @@
             width: 22%;
             margin: govuk-spacing(2) 0;
             a {
-
+              @include govuk-font($size: 24);
             }
         }
     }

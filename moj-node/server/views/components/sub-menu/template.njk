@@ -1,8 +1,8 @@
-  <nav class="govuk-hub-sub-menu blue">
+  <nav class="govuk-hub-sub-menu blue govuk-hub-pull-30">
     <div class="govuk-grid-row">
       {% for name, item in params.data.items %}
         <div class="govuk-grid-column-one-third">
-          <a href="{%- if item.linkurl %} {{ item.linkurl }}{% endif -%}" title="{%- if item.linktext %} {{ item.linktext }}{% endif -%}" class="govuk-hub-sub-menu__link govuk-link">
+          <a href="{%- if item.linkurl %} {{ item.linkurl }}{% endif -%}" title="{%- if item.linktext %} {{ item.linktext }}{% endif -%}" class="govuk-hub-sub-menu__link govuk-!-margin-bottom-6 govuk-link">
             {%- if item.linktext %} {{ item.linktext }}{% endif -%}
           </a>
         </div>

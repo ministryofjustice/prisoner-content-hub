@@ -1,7 +1,7 @@
 $trans: rgba(0, 0, 0, 0);
 $fifityPerecntBlack: rgba(0, 0, 0, 0.75);
 
-$gradient: $trans, $fifityPerecntBlack; 
+$gradient: $trans, $fifityPerecntBlack;
 
 
 .govuk-hub-featured-content-item__overlay,
@@ -15,7 +15,6 @@ $gradient: $trans, $fifityPerecntBlack;
 }
 
 .govuk-hub-featured-content-item {
-    
     position: relative;
     transition: all 0.5s ease;
     -webkit-transition: all 0.5s ease;
@@ -32,7 +31,7 @@ $gradient: $trans, $fifityPerecntBlack;
         height: 380px;
     }
     &:hover {
-        
+
         -webkit-transform: scale(1.1);
         -ms-transform: scale(1.1);
         transform: scale(1.1);
@@ -43,7 +42,7 @@ $gradient: $trans, $fifityPerecntBlack;
 
         .govuk-hub-featured-content-item__overlay {
             background: $fifityPerecntBlack;
-            
+
         }
         .govuk-hub-featured-content-item__header {
             opacity: 0;
@@ -82,7 +81,7 @@ $gradient: $trans, $fifityPerecntBlack;
     position: absolute;
     bottom: 25px;
     left: 20px;
-    
+
     .icon-play,
     .icon-link {
         font-size: 30px;
@@ -93,13 +92,14 @@ $gradient: $trans, $fifityPerecntBlack;
     .space {
         margin-left: govuk-spacing(1);
         display: inline-block;
+        text-decoration: underline;
     }
-    &:link, 
-    &:visited, 
-    &:active, 
+    &:link,
+    &:visited,
+    &:active,
     &:focus {
-        color: govuk-colour("white");
         text-decoration: none;
+        color: govuk-colour("white");
     }
     &:hover {
         color: govuk-colour("white");
@@ -112,6 +112,11 @@ $gradient: $trans, $fifityPerecntBlack;
     right: 20px;
     color: govuk-colour("white");
     font-size: 25px;
+}
+
+.govuk-hub-featured-content-item__main-icon.icon-game {
+  font-size: 30px;
+
 }
 
 .govuk-hub-featured-content-item__header-title,
@@ -127,7 +132,7 @@ $gradient: $trans, $fifityPerecntBlack;
 }
 
 .govuk-hub-featured-content-item__category-stripe {
-    
+
     height: 5px;
     width: 100%;
     display: inline-block;
