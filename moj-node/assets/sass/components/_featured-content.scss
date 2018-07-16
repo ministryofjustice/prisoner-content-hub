@@ -11,7 +11,7 @@
 }
 
 .govuk-hub-featured-content__category-link {
-
+    @include govuk-font($size: 24);
     display: inline-block;
 
     .icon-chevron {

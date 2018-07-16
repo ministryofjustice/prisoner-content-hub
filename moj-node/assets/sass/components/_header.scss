@@ -12,6 +12,11 @@
     background:govuk-colour("black");
 }
 
+.govuk-hub-align-items-center {
+  display: flex;
+  align-items: center;
+}
+
 .govuk-hub-header__prison,
 .govuk-hub-header__title,
 .govuk-hub-header__date,
