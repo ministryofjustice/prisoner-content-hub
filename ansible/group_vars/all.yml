@@ -58,7 +58,7 @@ studio_users:
     shell: /bin/bash
     update_password: on_create
 
-  - username: nbartle 
+  - username: nbartle
     name: "Nick Bartle"
     groups:
       - admin
