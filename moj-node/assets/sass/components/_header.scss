@@ -25,7 +25,7 @@
     display: inline-block;
     padding:  govuk-spacing(2) govuk-spacing(1);
     margin-bottom: 0;
-    @include govuk-font($size: 24);
+    @include govuk-font($size: 19);
 }
 
 .govuk-hub-header__date {
@@ -41,7 +41,7 @@
 }
 
 .govuk-hub-start-menu {
-    @include govuk-font($size: 24);
+    @include govuk-font($size: 19);
 
     vertical-align: baseline;
     margin: 0;

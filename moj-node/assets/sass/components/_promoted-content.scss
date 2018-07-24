@@ -9,13 +9,13 @@ $gradient: $trans, $fifityPerecntBlack;
 }
 
 .govuk-hub-promoted-content__header {
-    width: 50%;
+    width: 40%;
     padding: govuk-spacing(8) govuk-spacing(8) govuk-spacing(0) govuk-spacing(8);
 
 }
 
 .govuk-hub-promoted-content__main {
-    width: 50%;
+    width: 40%;
     padding: govuk-spacing(0) govuk-spacing(8) govuk-spacing(8) govuk-spacing(8);
 }
 
@@ -28,7 +28,7 @@ $gradient: $trans, $fifityPerecntBlack;
 }
 
 .govuk-hub-promoted-content__description {
-  @include govuk-font($size: 24);
+  @include govuk-font($size: 19);
 }
 
 .govuk-hub-promoted-content__link
