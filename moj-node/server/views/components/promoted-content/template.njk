@@ -5,7 +5,7 @@
         <div class="govuk-hub-promoted-content__grpahic" style="background-image:url({{ assetPath | default('/public') }}{%- if params.data.graphic %}{{ params.data.graphic }}{% endif -%})">
           <div class="govuk-hub-promoted-content__overlay">
             <header class="govuk-hub-promoted-content__header">
-              <h1 class="govuk-hub-promoted-content__header-title govuk-heading-l ">{%- if params.data.title %} {{ params.data.title }}{% endif -%}</h1>
+              <h1 class="govuk-hub-promoted-content__header-title govuk-heading-xl">{%- if params.data.title %} {{ params.data.title }}{% endif -%}</h1>
             </header>
             <main class="govuk-hub-promoted-content__main">
               <p class="govuk-hub-promoted-content__description govuk-body">{%- if params.data.description %} {{ params.data.description }}{% endif -%}</p>
