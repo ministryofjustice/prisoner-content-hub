@@ -28,38 +28,36 @@
   <div class="govuk-width-container">
 
     <main class="govuk-main-wrapper">
-      <div class="govuk-hub-flat-content-container">
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l">{{title}}</h1>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-l">{{title}}</h1>
 
-            {% for item in data %}
-              {% for contentType, content in item %}
-                {% if contentType == "heading" %}
-                  <h2 class="govuk-heading-l">{{content}}</h2>
-                {% elif contentType == "leadParagraph" %}
-                  <p class="govuk-body-l">{{content}}</p>
-                {% elif contentType == "paragraph" %}
-                  <p class="govuk-body">{{content | escape }}</p>
-                {% elif contentType == "insertText" %}
-                  <div class="govuk-inset-text">
-                    <strong>{{content}}</strong>
-                  </div>
-                {% elif contentType == "video" %}
-                  <video id="video1" style="max-width:100%;" controls="">
-                    <source src="http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_stereo.ogg" type="video/ogg">
-                    <source src="http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4" type="video/mp4">
-                    Your browser does not support HTML5 video.
-                  </video>
-                {% elif contentType == "blockText" %}
-                  <p class="govuk-body u-block-text">{{content| escape | nl2br}}</p>
-                {% elif contentType == "strongParagraph" %}
-                  <p class="govuk-body"><strong>{{content}}</strong></p>
-                {% endif %}
-              {% endfor %}
-
+          {% for item in data %}
+            {% for contentType, content in item %}
+              {% if contentType == "heading" %}
+                <h2 class="govuk-heading-l">{{content}}</h2>
+              {% elif contentType == "leadParagraph" %}
+                <p class="govuk-body-l">{{content}}</p>
+              {% elif contentType == "paragraph" %}
+                <p class="govuk-body">{{content | escape }}</p>
+              {% elif contentType == "insertText" %}
+                <div class="govuk-inset-text">
+                  <strong>{{content}}</strong>
+                </div>
+              {% elif contentType == "video" %}
+                <video id="video1" style="max-width:100%;" controls="">
+                  <source src="http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_stereo.ogg" type="video/ogg">
+                  <source src="http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4" type="video/mp4">
+                  Your browser does not support HTML5 video.
+                </video>
+              {% elif contentType == "blockText" %}
+                <p class="govuk-body u-block-text">{{content| escape | nl2br}}</p>
+              {% elif contentType == "strongParagraph" %}
+                <p class="govuk-body"><strong>{{content}}</strong></p>
+              {% endif %}
             {% endfor %}
-          </div>
+
+          {% endfor %}
         </div>
       </div>
     </main>
