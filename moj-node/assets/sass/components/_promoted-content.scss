@@ -31,6 +31,10 @@ $gradient: $trans, $fifityPerecntBlack;
   @include govuk-font($size: 24);
 }
 
+.govuk-hub-promoted-content__link {
+  @include govuk-font($size: 19);
+}
+
 .govuk-hub-promoted-content__link
 {
     &:link,
@@ -46,7 +50,7 @@ $gradient: $trans, $fifityPerecntBlack;
 
 .govuk-hub-promoted-content__overlay {
     @include gradient(right, $gradient);
-    height: 300px;
+    min-height: 300px;
 }
 
 .govuk-hub-promoted-content__grpahic {
