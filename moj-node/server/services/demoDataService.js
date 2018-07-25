@@ -17,7 +17,7 @@ module.exports = function createDemoDataService() {
           linkurl: '#',
         },
         item2: {
-          linktext: 'Doing your time',
+          linktext: 'Your Progress',
           linkurl: '#',
         },
         item3: {
