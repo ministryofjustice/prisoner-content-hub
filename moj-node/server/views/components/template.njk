@@ -35,7 +35,7 @@
     {% endblock %}
 
     {% block header %}
-      {{ govukHeader({}) }}
+      {{ govukHeader({ navMenu: navMenu }) }}
     {% endblock %}
 
     {% block main %}
@@ -70,5 +70,6 @@
 
 
     {% block bodyEnd %}{% endblock %}
+    <script src="/public/javascript/hub.js"></script>
   </body>
 </html>

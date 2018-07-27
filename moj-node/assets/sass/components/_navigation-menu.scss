@@ -1,0 +1,104 @@
+.govuk-hub-navigation {
+    color:  govuk-colour("white");
+    background-color: govuk-colour("black");
+    padding-top: 30px;
+    font-family: "nta", Arial, sans-serif;
+    transition: all 0.3s ease-out;
+    transform-origin: top;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 0;
+    overflow: hidden;
+    transform:scaleY(0);
+}
+
+.govuk-hub-navigation.is-open {
+  position: relative;
+  transform:scaleY(1);
+  height: auto;
+}
+
+.govuk-hub-navigation--alternate {
+  height: auto;
+  transform: none;
+  display: none;
+}
+
+.govuk-hub-navigation--alternate.is-open {
+  position: absolute;
+  display: block;
+  transform: none;
+  z-index: 101;
+}
+
+.govuk-hub-navigation__content-container {
+    padding: 0 25px;
+}
+
+.govuk-hub-navigation__list {
+    list-style: none;
+    padding-left: 0;
+
+}
+
+.govuk-hub-navigation__list-item {
+    a {
+        text-decoration: none;
+    }
+}
+
+.govuk-hub-navigation__list-item--with-chevron {
+    margin-bottom: 15px;
+
+    a {
+        @include govuk-font($size: 24);
+        color:  govuk-colour("white");
+        display: flex;
+        align-items: center;
+    }
+
+    a:before {
+        content: "";
+        width: 15px;
+        height: 27px;
+        background-image: url(/public/images/hub-chevron-icon.svg);
+        margin-right: 10px;
+    }
+
+}
+
+.govuk-hub-navigation__list-item-topic {
+    margin-bottom: 15px;
+
+    a {
+        display: inline-block;
+        padding: 5px 10px;
+        background: govuk-colour("white");
+        @include govuk-font($size: 19);
+        color: govuk-colour("black");
+        text-transform: uppercase;
+        font-weight: bold;
+
+    }
+}
+
+.govuk-hub-navigation-footer {
+    @include govuk-font($size: 24);
+    background-color: govuk-colour("blue");
+    text-align: center;
+    padding: 5px 0px;
+    cursor: pointer;
+}
+
+.govuk-hub-container-seperator {
+    border-top: solid 1px govuk-colour("white");
+    color: govuk-colour("white");
+}
+
+
+.govuk-hub-navigation__heading {
+    @include govuk-font($size: 24);
+    font-weight: 600;
+}
