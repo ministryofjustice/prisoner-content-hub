@@ -6,10 +6,11 @@
 .govuk-hub-header {
     padding-top: govuk-spacing(0);
     background: govuk-colour("white");
+    border-bottom: none;
 }
 
 .govuk-hub-header__topbar {
-    background:govuk-colour("black");
+    background: govuk-colour("black");
 }
 
 .govuk-hub-align-items-center {
@@ -23,7 +24,7 @@
 .govuk-hub-header__time {
     color: govuk-colour("white");
     display: inline-block;
-    padding:  govuk-spacing(2) govuk-spacing(1);
+    padding: govuk-spacing(2) govuk-spacing(1);
     margin-bottom: 0;
     @include govuk-font($size: 24);
 }

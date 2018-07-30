@@ -13,6 +13,7 @@ module.exports = function Index({ logger, demoDataService }) {
     const seriesdata = demoDataService.geSeriesData();
 
     res.render('pages/index', {
+      extras: ['www', 'eeee'],
       inspirationdata,
       submenudata,
       newseventsData,

@@ -18,6 +18,8 @@ const createMenuRouter = require('./routes/menu');
 const createIndexRouter = require('./routes/index');
 const createHealthRouter = require('./routes/health');
 
+const topicLinks = require('./data/topic-link.json');
+
 const version = Date.now().toString();
 
 module.exports = function createApp({
@@ -27,21 +29,19 @@ module.exports = function createApp({
 }) { // eslint-disable-line no-shadow
   const app = express();
 
-  nunjucks.configure(['server/views', 'node_modules/govuk-frontend'], {
+  // View Engine Configuration
+  app.set('views', path.join(__dirname, '../server/views'));
+  app.set('view engine', 'html');
+  nunjucks.configure('server/views', {
     express: app,
     autoescape: true,
   });
-
 
   app.set('json spaces', 2);
 
   // Configure Express for running behind proxies
   // https://expressjs.com/en/guide/behind-proxies.html
   app.set('trust proxy', true);
-
-  // View Engine Configuration
-  app.set('views', path.join(__dirname, '../server/views'));
-  app.set('view engine', 'html');
 
   // Server Configuration
   app.set('port', process.env.PORT || 3000);
@@ -126,6 +126,12 @@ module.exports = function createApp({
   // GovUK Template Configuration
   app.locals.asset_path = '/public/';
 
+  // Temporary menu
+  app.use((req, res, next) => {
+    res.locals.navMenu = topicLinks;
+    next();
+  });
+
   function addTemplateVariables(req, res, next) {
     res.locals.user = req.user;
     next();
@@ -141,10 +147,9 @@ module.exports = function createApp({
   app.use(cookieParser());
   app.use(csurf({ cookie: true }));
 
-
   // Routing
   app.use('/', createIndexRouter({ logger, demoDataService }));
-  app.use('/', createMenuRouter({ logger, menuService }));
+  app.use('/menu', createMenuRouter({ logger, menuService }));
   app.use('/health', createHealthRouter({ appInfo }));
 
   app.use(handleKnownErrors);
