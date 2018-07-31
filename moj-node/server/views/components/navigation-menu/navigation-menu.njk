@@ -1,33 +1,33 @@
 <div id="nav-menu" class="govuk-width-container govuk-hub-navigation govuk-hub-navigation--alternate">
   <div class="govuk-hub-navigation__content-container">
-    <ul class="govuk-grid-row govuk-hub-navigation__list govuk-!-margin-bottom-9">
-        <li class="govuk-grid-column-one-quarter govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
+    <ul class="govuk-hub-navigation__list govuk-!-margin-bottom-6">
+        <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
           <a href="/">News and events</a>
         </li>
-        <li class="govuk-grid-column-one-quarter govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
+        <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
           <a href="/">Life at Berwyn</a>
         </li>
-        <li class="govuk-grid-column-one-quarter govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
+        <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
           <a href="/">Your progress</a>
         </li>
-        <li class="govuk-grid-column-one-quarter govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
+        <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
           <a href="/">Education</a>
         </li>
-        <li class="govuk-grid-column-one-quarter govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
+        <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
           <a href="/">Useful contacts</a>
         </li>
-        <li class="govuk-grid-column-one-quarter govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
+        <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
           <a href="/">Induction</a>
         </li>
-        <li class="govuk-grid-column-one-quarter govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron ">
+        <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron ">
           <a href="/">Getting out</a>
         </li>
     </ul>
     <div class="govuk-hub-container-seperator">
         <h3 class="govuk-hub-navigation__heading">Browse by topic</h3>
-        <ul class="govuk-grid-row govuk-hub-navigation__list govuk-!-margin-bottom-4">
+        <ul class="govuk-hub-navigation__list govuk-!-margin-bottom-4">
           {% for menuItem in params.navMenu %}
-            <li class="govuk-grid-column-one-quarter govuk-hub-navigation__list-item govuk-hub-navigation__list-item-topic">
+            <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item-topic">
               <a href="/">{{menuItem.linkText}}</a>
             </li>
           {% endfor %}
