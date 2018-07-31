@@ -1,7 +1,7 @@
 .govuk-hub-navigation {
     color:  govuk-colour("white");
     background-color: govuk-colour("black");
-    padding-top: 30px;
+    padding-top: 10px;
     font-family: "nta", Arial, sans-serif;
     transition: all 0.3s ease-out;
     transform-origin: top;
@@ -40,7 +40,9 @@
 .govuk-hub-navigation__list {
     list-style: none;
     padding-left: 0;
-
+    columns: 4;
+    -webkit-columns: 4;
+    -moz-columns: 4;
 }
 
 .govuk-hub-navigation__list-item {
@@ -70,7 +72,7 @@
 }
 
 .govuk-hub-navigation__list-item-topic {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 
     a {
         display: inline-block;
