@@ -67,8 +67,8 @@ class ContentApiClass
         $this->lang = $lang;
         $this->nids = self::getContentNodeIds($category, $number);
         $this->nodes = self::loadNodesDetails($this->nids);
-        $translatedNodes = array_map('self::translateNode', $this->nodes);
-        return array_map('self::serialize', $translatedNodes);
+        return array_map('self::translateNode', $this->nodes);
+        // return array_map('self::serialize', $translatedNodes);
     }
     /**
      * TranslateNode function

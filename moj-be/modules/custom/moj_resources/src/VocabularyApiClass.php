@@ -82,8 +82,8 @@ class VocabularyApiClass
         $this->lang = $lang;
         $this->tids = self::getVocabularyTids($category); 
         $this->nodes = $this->term_storage->loadMultiple($this->tids);
-        $translatedNodes = array_map('self::translateNode', $this->nodes);
-        return self::serialize($translatedNodes);
+        return array_map('self::translateNode', $this->nodes);
+        // return self::serialize($translatedNodes);
     }
     /**
      * TranslateNode function

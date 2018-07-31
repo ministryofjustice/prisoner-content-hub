@@ -68,8 +68,7 @@ class FeaturedContentApiClass
     public function FeaturedContentApiEndpoint($lang)
     {   
         $this->lang = $lang;
-        $translatedNodes = array_map('self::translateNode', $this->nodes);
-        return array_map('self::serialize', $translatedNodes);
+        return array_map('self::translateNode', $this->nodes);
     }
     /**
      * TranslateNode function
