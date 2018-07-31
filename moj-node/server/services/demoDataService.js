@@ -4,7 +4,7 @@ module.exports = function createDemoDataService() {
       title: 'Headline for the main feature to promote',
       description: 'A brief description about the feature to give a bit more detail about what it is about',
       linktext: 'Read more',
-      linkurl: '#',
+      linkurl: '/flat-content',
       graphic: '/images/featured-image.jpg',
     };
   }
@@ -21,7 +21,7 @@ module.exports = function createDemoDataService() {
           linkurl: '#',
         },
         item3: {
-          linktext: 'Useful contents',
+          linktext: 'Useful contacts',
           linkurl: '#',
         },
         item4: {
@@ -29,7 +29,7 @@ module.exports = function createDemoDataService() {
           linkurl: '#',
         },
         item5: {
-          linktext: 'Eduction',
+          linktext: 'Education',
           linkurl: '#',
         },
         item6: {
