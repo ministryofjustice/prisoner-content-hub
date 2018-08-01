@@ -38,10 +38,24 @@
                 <p class="govuk-body-l">{{content}}</p>
               {% elif contentType == "paragraph" %}
                 <p class="govuk-body">{{content | escape }}</p>
+              {% elif contentType == "paragraphNoMargin" %}
+                <p class="govuk-body govuk-!-margin-bottom-1">{{content | escape }}</p>
               {% elif contentType == "insertText" %}
                 <div class="govuk-inset-text">
                   <strong>{{content}}</strong>
                 </div>
+              {% elif contentType == "orderedList" %}
+                <ol class="govuk-list govuk-list--number">
+                  {% for listItem in content %}
+                    <li>{{listItem}}</li>
+                  {% endfor %}
+                </ol>
+              {% elif contentType == "unorderedList" %}
+                <ul class="govuk-list govuk-list--bullet">
+                  {% for listItem in content %}
+                    <li>{{listItem}}</li>
+                  {% endfor %}
+                </ul>
               {% elif contentType == "video" %}
                 <video id="video1" style="max-width:100%;" controls="">
                   <source src="http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_stereo.ogg" type="video/ogg">
