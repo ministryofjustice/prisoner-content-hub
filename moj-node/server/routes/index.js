@@ -9,11 +9,13 @@ module.exports = function Index({ logger, demoDataService }) {
     const promotalcontentdata = demoDataService.getPromotalContentData();
     const submenudata = demoDataService.getSubMenuData();
     const inspirationdata = demoDataService.getInspirationData();
+    const gamedata = demoDataService.getGamesData();
     const newseventsData = demoDataService.getNewsEventsData();
     const seriesdata = demoDataService.geSeriesData();
 
     res.render('pages/index', {
       inspirationdata,
+      gamedata,
       submenudata,
       newseventsData,
       promotalcontentdata,
