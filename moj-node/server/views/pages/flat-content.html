@@ -37,7 +37,7 @@
               {% elif contentType == "leadParagraph" %}
                 <p class="govuk-body-l">{{content}}</p>
               {% elif contentType == "paragraph" %}
-                <p class="govuk-body">{{content | escape }}</p>
+                <p class="govuk-body">{{content | safe }}</p>
               {% elif contentType == "paragraphNoMargin" %}
                 <p class="govuk-body govuk-!-margin-bottom-1">{{content | escape }}</p>
               {% elif contentType == "insertText" %}
@@ -64,8 +64,6 @@
                 </video>
               {% elif contentType == "blockText" %}
                 <p class="govuk-body u-block-text">{{content| escape | nl2br}}</p>
-              {% elif contentType == "strongParagraph" %}
-                <p class="govuk-body"><strong>{{content}}</strong></p>
               {% endif %}
             {% endfor %}
           {% endfor %}
