@@ -12,6 +12,11 @@ module.exports = function Index({ logger, demoDataService }) {
     const gamedata = demoDataService.getGamesData();
     const newseventsData = demoDataService.getNewsEventsData();
     const seriesdata = demoDataService.geSeriesData();
+    const radiopodcastsdata = demoDataService.getRadioPodcastsData();
+    const healthymindbodydata = demoDataService.getHealthyMindBodyData();
+    const sciencenaturedata = demoDataService.getScienceNatureData();
+    const artculturedata = demoDataService.getArtCultureData();
+    const historydata = demoDataService.getHistoryData();
 
     res.render('pages/index', {
       inspirationdata,
@@ -20,6 +25,11 @@ module.exports = function Index({ logger, demoDataService }) {
       newseventsData,
       promotalcontentdata,
       seriesdata,
+      radiopodcastsdata,
+      healthymindbodydata,
+      sciencenaturedata,
+      artculturedata,
+      historydata
     });
   });
 
