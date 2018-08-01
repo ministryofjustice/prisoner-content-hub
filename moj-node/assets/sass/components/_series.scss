@@ -2,12 +2,13 @@
     ul {
         margin: 0;
         padding: 0;
+        columns: 4;
+        -webkit-columns: 4;
+        -moz-columns: 4;
 
         li {
-            box-sizing: border-box;
-            display: inline-block;
-            width: 22%;
-            margin: govuk-spacing(2) 0;
+            display: block;
+            margin: 0 0 govuk-spacing(4) 0;
             a {
               @include govuk-font($size: 19);
             }
