@@ -6,7 +6,7 @@
       </header>
       <main class="govuk-hub-featured-content-item__main">
         <p class="govuk-hub-featured-content-item__description govuk-body">{%- if params.description %} {{ params.description }}{% endif -%}</p>
-        <a href="#" title="Play" class="govuk-hub-featured-content-item-icon govuk-hub-featured-content-item__main-play govuk-link"><span class="{%- if params.linkclass %} {{ params.linkclass }}{% endif -%}"><span class="path1"></span><span class="path2"></span></span><span class="space">{%- if params.linktext %} {{ params.linktext }}{% endif -%}</span></a>
+        <a href="{%- if params.link %} {{ params.link }}{% endif -%}" title="Play" class="govuk-hub-featured-content-item-icon govuk-hub-featured-content-item__main-play govuk-link"><span class="{%- if params.linkclass %} {{ params.linkclass }}{% endif -%}"><span class="path1"></span><span class="path2"></span></span><span class="space">{%- if params.linktext %} {{ params.linktext }}{% endif -%}</span></a>
         <span class="govuk-hub-featured-content-item__main-icon {%- if params.icon %} {{ params.icon }}{% endif -%}"></span>
       </main>
       <div class="govuk-hub-featured-content-item__category-stripe {%- if params.type %} {{ params.type }}{% endif -%}"></div>

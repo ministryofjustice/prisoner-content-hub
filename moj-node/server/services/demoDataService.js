@@ -40,103 +40,6 @@ module.exports = function createDemoDataService() {
     };
   }
 
-  function getGamesData() {
-    return {
-      number: 3,
-      category_title: 'Games',
-      category_link: '#',
-      items: {
-        item1: {
-          title: 'Hello world',
-          description: 'Here is a short description',
-          size: 'medium',
-          grid: 'govuk-grid-column-one-third',
-          type: 'inspiration',
-          icon: 'icon-game',
-          linkclass: 'icon-link',
-          linktext: 'Play',
-          graphic: '/images/content-image.jpg',
-        },
-        item2: {
-          title: 'Hello People',
-          description: 'Here is a shorter description',
-          size: 'medium',
-          grid: 'govuk-grid-column-one-third',
-          type: 'inspiration',
-          icon: 'icon-document',
-          linkclass: 'icon-play',
-          linktext: 'Listen',
-          graphic: '/images/content-image.jpg',
-        },
-        item3: {
-          title: 'Hello Cats',
-          description: 'Here is a Long description',
-          size: 'medium',
-          grid: 'govuk-grid-column-one-third',
-          type: 'inspiration',
-          icon: 'icon-movie',
-          linkclass: 'icon-link',
-          linktext: 'Read',
-          graphic: '/images/content-image.jpg',
-        },
-      },
-    };
-  }
-
-  function getInspirationData() {
-    return {
-      number: 4,
-      category_title: 'Inspiration',
-      category_link: '#',
-      items: {
-        item1: {
-          title: 'Hello world',
-          description: 'Here is a short description',
-          size: 'small',
-          grid: 'govuk-grid-column-one-quarter',
-          type: 'inspiration',
-          icon: 'icon-game',
-          linkclass: 'icon-link',
-          linktext: 'Play',
-          graphic: '/images/content-image.jpg',
-        },
-        item2: {
-          title: 'Hello People',
-          description: 'Here is a shorter description',
-          size: 'small',
-          grid: 'govuk-grid-column-one-quarter',
-          type: 'inspiration',
-          icon: 'icon-document',
-          linkclass: 'icon-play',
-          linktext: 'Listen',
-          graphic: '/images/content-image.jpg',
-        },
-        item3: {
-          title: 'Hello Cats',
-          description: 'Here is a Long description',
-          size: 'small',
-          grid: 'govuk-grid-column-one-quarter',
-          type: 'inspiration',
-          icon: 'icon-movie',
-          linkclass: 'icon-link',
-          linktext: 'Read',
-          graphic: '/images/content-image.jpg',
-        },
-        item4: {
-          title: 'Hello Dogs',
-          description: 'Here is a description',
-          size: 'small',
-          grid: 'govuk-grid-column-one-quarter',
-          type: 'inspiration',
-          icon: 'icon-music',
-          linkclass: 'icon-play',
-          linktext: 'Play',
-          graphic: '/images/content-image.jpg',
-        },
-      },
-    };
-  }
-
   function getNewsEventsData() {
     return {
       number: 2,
@@ -152,7 +55,7 @@ module.exports = function createDemoDataService() {
           icon: 'icon-game',
           linkclass: 'icon-link',
           linktext: 'Find out more and see the schedule',
-          graphic: '/images/new-job-new-opportunity.jpg',
+          graphic: '/images/national-prison-radio.jpg',
           link: '#',
         },
         item2: {
@@ -171,16 +74,560 @@ module.exports = function createDemoDataService() {
     };
   }
 
-  function geSeriesData() {
-    const items = [...Array(40)].reduce((acc, cur, index) => ({
-      ...acc,
-      [`item${index}`]: {
-        linktext: `Sample link ${index}`,
-        linkurl: '#',
+  function getGamesData() {
+    return {
+      number: 3,
+      category_title: 'Games',
+      category_link: '#',
+      items: {
+        item1: {
+          title: 'Chess',
+          description: 'The ultimate game of strategy. From beginner to advanced.',
+          size: 'medium',
+          grid: 'govuk-grid-column-one-third',
+          type: 'games',
+          icon: 'icon-game',
+          linkclass: 'icon-link',
+          linktext: 'Play',
+          graphic: '/images/chess.jpg',
+        },
+        item2: {
+          title: 'Sudoku',
+          description: 'Counting from 1 to 9 has never been so much fun.',
+          size: 'medium',
+          grid: 'govuk-grid-column-one-third',
+          type: 'games',
+          icon: 'icon-game',
+          linkclass: 'icon-link',
+          linktext: 'Listen',
+          graphic: '/images/sudoku.jpg',
+        },
+        item3: {
+          title: 'Neontroids',
+          description: 'The Hub’s intergalactic shoot ’em up that’s out of this world!',
+          size: 'medium',
+          grid: 'govuk-grid-column-one-third',
+          type: 'games',
+          icon: 'icon-game',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/neontroids.jpg',
+        },
       },
-    }), {});
+    };
+  }
 
-    return { items };
+  function getInspirationData() {
+    return {
+      number: 4,
+      category_title: 'Inspiration',
+      category_link: '#',
+      items: {
+        item1: {
+          title: 'Restorative justice',
+          description: 'When a violent burglar met his victim.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'inspiration',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/restorative-justice.jpg',
+        },
+        item2: {
+          title: 'Jack’s feature',
+          description: 'Long-term prisoner, Jack Murton on life on the outside.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'inspiration',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/jacks-feature.jpg',
+        },
+        item3: {
+          title: 'The danger of silence',
+          description: 'Finding the courage to speak up against ignorance and injustice.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'inspiration',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/the-danger-of-silence.jpg',
+        },
+        item4: {
+          title: 'The habits of happiness',
+          description: 'Training our minds in fulfilment and wellbeing.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'inspiration',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/the-habits-of-happiness.jpg',
+        },
+      },
+    };
+  }
+
+  function getRadioPodcastsData() {
+    return {
+      number: 4,
+      category_title: 'Radio Shows and Padcasts',
+      category_link: '#',
+      items: {
+        item1: {
+          title: 'Sex talk',
+          description: 'Let’s talk about sex. Seasons 1 and 2 now available.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'radio-podcasts',
+          icon: 'icon-music',
+          linkclass: 'icon-link',
+          linktext: 'Listen',
+          graphic: '/images/sex-talk.jpg',
+        },
+        item2: {
+          title: 'Bob and beyond',
+          description: 'A solid hour of reggae classics.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'radio-podcasts',
+          icon: 'icon-music',
+          linkclass: 'icon-link',
+          linktext: 'Listen',
+          graphic: '/images/bob-and-beyond.jpg',
+        },
+        item3: {
+          title: 'Outside in',
+          description: 'Helping you think through the issue for release',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'radio-podcasts',
+          icon: 'icon-music',
+          linkclass: 'icon-link',
+          linktext: 'Listen',
+          graphic: '/images/outside-in.jpg',
+        },
+        item4: {
+          title: 'NPR Friday',
+          description: 'The best way to start your weekend.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'radio-podcasts',
+          icon: 'icon-music',
+          linkclass: 'icon-link',
+          linktext: 'Listen',
+          graphic: '/images/npr-friday.jpg',
+        },
+      },
+    };
+  }
+
+  function getHealthyMindBodyData() {
+    return {
+      number: 4,
+      category_title: 'Healthy Mind and Body',
+      category_link: '#',
+      items: {
+        item1: {
+          title: 'Yoga',
+          description: 'The perfect exercise for bang up.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'healthy-mind-body',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/yoga.jpg',
+        },
+        item2: {
+          title: 'How to make stress your friend',
+          description: 'Finding the positives in stress.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'healthy-mind-body',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/how-to-make-stress-your-friend.jpg',
+        },
+        item3: {
+          title: 'Berwyn gym',
+          description: 'Opening times and how to get access.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'healthy-mind-body',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/gym.jpg',
+        },
+        item4: {
+          title: 'What hallucinations reveal about our minds',
+          description: 'Neurologist Oliver Sacks talks about hallucinations experienced by visually impaired people.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'healthy-mind-body',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/hallucinations-reveal-about-our-minds.jpg',
+        },
+      },
+    };
+  }
+
+  function getScienceNatureData() {
+    return {
+      number: 4,
+      category_title: 'Science and Nature',
+      category_link: '#',
+      items: {
+        item1: {
+          title: 'Are we in control of our own decisions?',
+          description: 'We may not be as rational as we think when making decisions.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'science-nature',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/decisions.jpg',
+        },
+        item2: {
+          title: 'Science can answer moral questions',
+          description: 'How science can answer questions of good and evil, right and wrong.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'science-nature',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/moral.jpg',
+        },
+        item3: {
+          title: 'Rewilding the world',
+          description: 'What happened when wolves were reintroduced to the Yellowstone National Park.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'science-nature',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/wolves.jpg',
+        },
+        item4: {
+          title: 'What we learn before we’re born',
+          description: 'When does learning begin?',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'science-nature',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/learning.jpg',
+        },
+      },
+    };
+  }
+
+  function getScienceNatureData() {
+    return {
+      number: 4,
+      category_title: 'Science and Nature',
+      category_link: '#',
+      items: {
+        item1: {
+          title: 'Are we in control of our own decisions?',
+          description: 'We may not be as rational as we think when making decisions.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'science-nature',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/decisions.jpg',
+        },
+        item2: {
+          title: 'Science can answer moral questions',
+          description: 'How science can answer questions of good and evil, right and wrong.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'science-nature',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/moral.jpg',
+        },
+        item3: {
+          title: 'Rewilding the world',
+          description: 'What happened when wolves were reintroduced to the Yellowstone National Park.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'science-nature',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/wolves.jpg',
+        },
+        item4: {
+          title: 'What we learn before we’re born',
+          description: 'When does learning begin?',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'science-nature',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/learning.jpg',
+        },
+      },
+    };
+  }
+
+  function getArtCultureData() {
+    return {
+      number: 4,
+      category_title: 'Art and Culture',
+      category_link: '#',
+      items: {
+        item1: {
+          title: 'How movies teach manhood',
+          description: 'Movies should be sending more positive messages about manhood.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'art-culture',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/manhood.jpg',
+        },
+        item2: {
+          title: 'A father daughter dance in prison',
+          description: 'The story of a very special father - daughter dance.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'art-culture',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/dance.jpg',
+        },
+        item3: {
+          title: 'Koestler awards',
+          description: 'The national showcase of arts by offenders.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'art-culture',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/arts.jpg',
+        },
+        item4: {
+          title: 'Our unhealthy obsession with choice',
+          description: 'Could individual choice be distracting us from something bigger.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'art-culture',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/choice.jpg',
+        },
+      },
+    };
+  }
+
+  function getHistoryData() {
+    return {
+      number: 4,
+      category_title: 'History',
+      category_link: '#',
+      items: {
+        item1: {
+          title: 'The little problem I had renting a house',
+          description: 'A powerful story of everyday racism.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'history',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/racism.jpg',
+        },
+        item2: {
+          title: 'New York, before the city',
+          description: 'When Times Square was a wetland.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'history',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/newyork.jpg',
+        },
+        item3: {
+          title: 'What the gay rights movement learned from the civil rights movement',
+          description: 'How the 2 struggles intertwine and propel each other forward.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'history',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/civilrights.jpg',
+        },
+        item4: {
+          title: 'The mathematics of history',
+          description: 'Digitising history is revealing deep underlying trends.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'history',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/history.jpg',
+        },
+      },
+    };
+  }
+
+  function geSeriesData() {
+    return { 
+      items: {
+        item0: {
+          linktext: 'All Kinds of Minds',
+          linkurl: '#',
+        },
+        item1: {
+          linktext: 'Body of Health',
+          linkurl: '#',
+        },
+        item2: {
+          linktext: 'Gender Talk',
+          linkurl: '#',
+        },
+        item3: {
+          linktext: 'How We Decide',
+          linkurl: '#',
+        },
+        item4: {
+          linktext: 'Lessons From History',
+          linkurl: '#',
+        },
+        item5: {
+          linktext: 'Nature\'s Eye Candy',
+          linkurl: '#',
+        },
+        item6: {
+          linktext: 'Prime Time',
+          linkurl: '#',
+        },
+        item7: {
+          linktext: 'Stories to Help You Build Your Future',
+          linkurl: '#',
+        },
+        item8: {
+          linktext: 'Art That Gives You a Voice',
+          linkurl: '#',
+        },
+        item9: {
+          linktext: 'Check up',
+          linkurl: '#',
+        },
+        item10: {
+          linktext: 'How Failure Leads to Success',
+          linkurl: '#',
+        },
+        item11: {
+          linktext: 'How We Love',
+          linkurl: '#',
+        },
+        item12: {
+          linktext: 'Life\'s Big Questions',
+          linkurl: '#',
+        },
+        item13: {
+          linktext: 'NPR Friday',
+          linkurl: '#',
+        },
+        item14: {
+          linktext: 'Prison News',
+          linkurl: '#',
+        },
+        item15: {
+          linktext: 'NPR: Takeovers',
+          linkurl: '#',
+        },
+        item16: {
+          linktext: 'Becoming a Non-Smoker',
+          linkurl: '#',
+        },
+        item17: {
+          linktext: 'Emotional Hygiene',
+          linkurl: '#',
+        },
+        item18: {
+          linktext: 'How to Overcome Our Biases',
+          linkurl: '#',
+        },
+        item19: {
+          linktext: 'Koestler Trust',
+          linkurl: '#',
+        },
+        item20: {
+          linktext: 'Life Lessons from Prison',
+          linkurl: '#',
+        },
+        item21: {
+          linktext: 'Past, Present and Future',
+          linkurl: '#',
+        },
+        item22: {
+          linktext: 'Rock Show',
+          linkurl: '#',
+        },
+        item23: {
+          linktext: 'Timewise',
+          linkurl: '#',
+        },
+        item24: {
+          linktext: 'Bob and Beyond',
+          linkurl: '#',
+        },
+        item25: {
+          linktext: 'Freedom Inside',
+          linkurl: '#',
+        },
+        item26: {
+          linktext: 'How We Really Learn',
+          linkurl: '#',
+        },
+        item27: {
+          linktext: 'Khan Academy',
+          linkurl: '#',
+        },
+        item28: {
+          linktext: 'Math is Everywhere',
+          linkurl: '#',
+        },
+        item29: {
+          linktext: 'Porridge',
+          linkurl: '#',
+        },
+        item30: {
+          linktext: 'Straightline',
+          linkurl: '#',
+        },
+        item31: {
+          linktext: 'Work It',
+          linkurl: '#',
+        },
+      }
+    };
   }
 
   return {
@@ -190,5 +637,10 @@ module.exports = function createDemoDataService() {
     getInspirationData,
     getNewsEventsData,
     geSeriesData,
+    getRadioPodcastsData,
+    getHealthyMindBodyData,
+    getScienceNatureData,
+    getArtCultureData,
+    getHistoryData,
   };
 };
