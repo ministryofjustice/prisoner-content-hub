@@ -1,11 +1,11 @@
 module.exports = function createDemoDataService() {
   function getPromotalContentData() {
     return {
-      title: 'Headline for the main feature to promote',
-      description: 'A brief description about the feature to give a bit more detail about what it is about',
+      title: 'New job, new opportunity',
+      description: 'Check out all the current Berwyn vacancies, and how to apply.',
       linktext: 'Read more',
       linkurl: '/flat-content',
-      graphic: '/images/featured-image.jpg',
+      graphic: '/images/new-job-new-opportunity.jpg',
     };
   }
 
@@ -35,6 +35,49 @@ module.exports = function createDemoDataService() {
         item6: {
           linktext: 'Getting out',
           linkurl: '#',
+        },
+      },
+    };
+  }
+
+  function getGamesData() {
+    return {
+      number: 3,
+      category_title: 'Games',
+      category_link: '#',
+      items: {
+        item1: {
+          title: 'Hello world',
+          description: 'Here is a short description',
+          size: 'medium',
+          grid: 'govuk-grid-column-one-third',
+          type: 'inspiration',
+          icon: 'icon-game',
+          linkclass: 'icon-link',
+          linktext: 'Play',
+          graphic: '/images/content-image.jpg',
+        },
+        item2: {
+          title: 'Hello People',
+          description: 'Here is a shorter description',
+          size: 'medium',
+          grid: 'govuk-grid-column-one-third',
+          type: 'inspiration',
+          icon: 'icon-document',
+          linkclass: 'icon-play',
+          linktext: 'Listen',
+          graphic: '/images/content-image.jpg',
+        },
+        item3: {
+          title: 'Hello Cats',
+          description: 'Here is a Long description',
+          size: 'medium',
+          grid: 'govuk-grid-column-one-third',
+          type: 'inspiration',
+          icon: 'icon-movie',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/content-image.jpg',
         },
       },
     };
@@ -101,26 +144,28 @@ module.exports = function createDemoDataService() {
       category_link: '#',
       items: {
         item1: {
-          title: 'Hello world',
-          description: 'Here is a short description',
+          title: 'National Prison Radio: Now live on your TV',
+          description: 'Check out channel XX to listen.',
           size: 'large',
           grid: 'govuk-grid-column-one-half',
           type: 'news-events',
           icon: 'icon-game',
           linkclass: 'icon-link',
-          linktext: 'Play',
-          graphic: '/images/content-image.jpg',
+          linktext: 'Find out more and see the schedule',
+          graphic: '/images/new-job-new-opportunity.jpg',
+          link: '#',
         },
         item2: {
-          title: 'Hello People',
-          description: 'Here is a shorter description',
+          title: 'New clothing policy',
+          description: 'There’s been an update to our clothing policy.',
           size: 'large',
           grid: 'govuk-grid-column-one-half',
           type: 'news-events',
           icon: 'icon-document',
           linkclass: 'icon-play',
-          linktext: 'Listen',
-          graphic: '/images/content-image.jpg',
+          linktext: 'Find out what it means for you',
+          graphic: '/images/new-clothing-policy.jpg',
+          link: '#',
         },
       },
     };
@@ -141,6 +186,7 @@ module.exports = function createDemoDataService() {
   return {
     getPromotalContentData,
     getSubMenuData,
+    getGamesData,
     getInspirationData,
     getNewsEventsData,
     geSeriesData,
