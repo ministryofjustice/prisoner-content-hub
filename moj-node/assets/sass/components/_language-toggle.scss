@@ -20,6 +20,7 @@ $govuk-hub-language-text: govuk-colour("black");
     margin-bottom: govuk-spacing(3);
     border-left: 1px solid $govuk-border-colour;
     color: $govuk-hub-language-text;
+    @include govuk-font($size: 19);
 
     &:first-child {
         border-left: none;
@@ -31,12 +32,12 @@ $govuk-hub-language-text: govuk-colour("black");
     text-decoration: none;
     position: relative;
     display: inline-block;
-    
-    &:link, 
-    &:visited, 
-    &:active, 
+
+    &:link,
+    &:visited,
+    &:active,
     &:focus {
-        
+
         color: $govuk-link-colour;
         border-bottom: 1px solid $govuk-link-colour;
     }
@@ -47,11 +48,11 @@ $govuk-hub-language-text: govuk-colour("black");
 }
 
 .govuk-hub-language-toggle__link--active {
-    &:link, 
-    &:visited, 
-    &:active, 
+    &:link,
+    &:visited,
+    &:active,
     &:focus,
-    &:hover {   
+    &:hover {
         color: $govuk-text-colour;
         border-bottom: none;
     }
