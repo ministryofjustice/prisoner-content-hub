@@ -113,6 +113,14 @@
             {% endfor %}
           {% endfor %}
         </div>
+        <div class="govuk-grid-column-one-third">
+          {% if sidebar %}
+            {% if sidebar.progress %}
+              <img src="{{sidebar.progress}}" />
+            {% endif %}
+
+          {% endif %}
+        </div>
       </div>
 
       {% if backHomeEnabled %}
