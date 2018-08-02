@@ -2,6 +2,9 @@
 
     "title": "Current vacancies",
     "backHomeEnabled": false,
+    "sidebar": {
+        "progress": "/public/images/step-by-step.png"
+    },
     "data": [
         {
             "leadParagraph": "These are the jobs that are available as of August 2018"      
