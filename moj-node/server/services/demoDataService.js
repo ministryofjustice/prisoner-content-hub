@@ -17,7 +17,7 @@ module.exports = function createDemoDataService() {
           linkurl: '#',
         },
         item2: {
-          linktext: 'Your Progress',
+          linktext: 'Your progress',
           linkurl: '#',
         },
         item3: {
@@ -68,7 +68,7 @@ module.exports = function createDemoDataService() {
           linkclass: 'icon-play',
           linktext: 'Find out what it means for you',
           graphic: '/images/new-clothing-policy.jpg',
-          link: '#',
+          link: '/content/new-clothing-policy',
         },
       },
     };
@@ -201,7 +201,7 @@ module.exports = function createDemoDataService() {
         },
         item3: {
           title: 'Outside in',
-          description: 'Helping you think through the issue for release',
+          description: 'Helping you think through issues for release',
           size: 'small',
           grid: 'govuk-grid-column-one-quarter',
           type: 'radio-podcasts',
