@@ -4,7 +4,7 @@ module.exports = function createDemoDataService() {
       title: 'New job, new opportunity',
       description: 'Check out all the current Berwyn vacancies, and how to apply.',
       linktext: 'Read more',
-      linkurl: '/flat-content',
+      linkurl: '/content/job-vacancies',
       graphic: '/images/new-job-new-opportunity.jpg',
     };
   }

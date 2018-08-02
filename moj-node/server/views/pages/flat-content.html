@@ -42,7 +42,7 @@
                 <p class="govuk-body govuk-!-margin-bottom-1">{{content | escape }}</p>
               {% elif contentType == "insertText" %}
                 <div class="govuk-inset-text">
-                  <strong>{{content}}</strong>
+                  {{content | safe }}
                 </div>
               {% elif contentType == "orderedList" %}
                 <ol class="govuk-list govuk-list--number">
@@ -76,15 +76,50 @@
                   <p class="govuk-body govuk-!-font-size-16 u-display-block">{{content.metadata}}</p>
                 </div>
               </div>
+              {% elif contentType == "details" %}
+                <details class="govuk-details">
+                  <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">
+                      {{ content.heading}}
+                    </span>
+                  </summary>
+                  <div class="govuk-details__text">
+                    <p>{{ content.text | safe }}</p>
+                  </div>
+                </details>
+              
+              {% elif contentType == "table" %}
+                <table class="govuk-table">
+                  <thead class="govuk-table__head">
+                    
+                    <tr class="govuk-table__row">
+                      {% for tableHeadColumn in content.tableHead %}
+                        <th class="govuk-table__header" scope="col">{{tableHeadColumn}}</th>
+                      {% endfor %}
+                    </tr>
+                  </thead>
+                  <tbody class="govuk-table__body">
+
+                    {% for tableRow in content.tableRows %}
+                      <tr class="govuk-table__row">
+                        {% for rowContent in tableRow.row %}
+                          <td class="govuk-table__cell ">{{rowContent}}</td>
+                        {% endfor %}
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
               {% endif %}
             {% endfor %}
           {% endfor %}
         </div>
       </div>
 
-      <div>
-        <a href="/" class="govuk-button">Back to home</a>
-      </div>
+      {% if backHomeEnabled %}
+        <div>
+          <a href="/" class="govuk-button">Back to home</a>
+        </div>
+      {% endif %}
     </main>
   </div>
 {% endblock %}
