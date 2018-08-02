@@ -56,7 +56,7 @@ module.exports = function createDemoDataService() {
           linkclass: 'icon-link',
           linktext: 'Find out more and see the schedule',
           graphic: '/images/national-prison-radio.jpg',
-          link: '#',
+          link: '/content/national-prison-radio',
         },
         item2: {
           title: 'New clothing policy',
@@ -68,7 +68,7 @@ module.exports = function createDemoDataService() {
           linkclass: 'icon-play',
           linktext: 'Find out what it means for you',
           graphic: '/images/new-clothing-policy.jpg',
-          link: '#',
+          link: '/content/new-clothing-policy',
         },
       },
     };
