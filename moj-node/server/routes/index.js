@@ -9,15 +9,27 @@ module.exports = function Index({ logger, demoDataService }) {
     const promotalcontentdata = demoDataService.getPromotalContentData();
     const submenudata = demoDataService.getSubMenuData();
     const inspirationdata = demoDataService.getInspirationData();
+    const gamedata = demoDataService.getGamesData();
     const newseventsData = demoDataService.getNewsEventsData();
     const seriesdata = demoDataService.geSeriesData();
+    const radiopodcastsdata = demoDataService.getRadioPodcastsData();
+    const healthymindbodydata = demoDataService.getHealthyMindBodyData();
+    const sciencenaturedata = demoDataService.getScienceNatureData();
+    const artculturedata = demoDataService.getArtCultureData();
+    const historydata = demoDataService.getHistoryData();
 
     res.render('pages/index', {
       inspirationdata,
+      gamedata,
       submenudata,
       newseventsData,
       promotalcontentdata,
       seriesdata,
+      radiopodcastsdata,
+      healthymindbodydata,
+      sciencenaturedata,
+      artculturedata,
+      historydata
     });
   });
 
