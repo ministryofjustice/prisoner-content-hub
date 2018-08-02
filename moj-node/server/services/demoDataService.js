@@ -43,16 +43,16 @@ module.exports = function createDemoDataService() {
   function getNewsEventsData() {
     return {
       number: 2,
-      category_title: 'News and Events',
+      category_title: 'News and events',
       category_link: '#',
       items: {
         item1: {
           title: 'National Prison Radio: Now live on your TV',
-          description: 'Check out channel XX to listen.',
+          description: 'Check out channel 84 to listen.',
           size: 'large',
           grid: 'govuk-grid-column-one-half',
           type: 'news-events',
-          icon: 'icon-game',
+          icon: 'icon-document',
           linkclass: 'icon-link',
           linktext: 'Find out more and see the schedule',
           graphic: '/images/national-prison-radio.jpg',
@@ -65,7 +65,7 @@ module.exports = function createDemoDataService() {
           grid: 'govuk-grid-column-one-half',
           type: 'news-events',
           icon: 'icon-document',
-          linkclass: 'icon-play',
+          linkclass: 'icon-link',
           linktext: 'Find out what it means for you',
           graphic: '/images/new-clothing-policy.jpg',
           link: '/content/new-clothing-policy',
@@ -174,7 +174,7 @@ module.exports = function createDemoDataService() {
   function getRadioPodcastsData() {
     return {
       number: 4,
-      category_title: 'Radio Shows and Padcasts',
+      category_title: 'Radio shows and podcasts',
       category_link: '#',
       items: {
         item1: {
@@ -228,7 +228,7 @@ module.exports = function createDemoDataService() {
   function getHealthyMindBodyData() {
     return {
       number: 4,
-      category_title: 'Healthy Mind and Body',
+      category_title: 'Healthy mind and body',
       category_link: '#',
       items: {
         item1: {
@@ -282,61 +282,7 @@ module.exports = function createDemoDataService() {
   function getScienceNatureData() {
     return {
       number: 4,
-      category_title: 'Science and Nature',
-      category_link: '#',
-      items: {
-        item1: {
-          title: 'Are we in control of our own decisions?',
-          description: 'We may not be as rational as we think when making decisions.',
-          size: 'small',
-          grid: 'govuk-grid-column-one-quarter',
-          type: 'science-nature',
-          icon: 'icon-document',
-          linkclass: 'icon-link',
-          linktext: 'Read',
-          graphic: '/images/decisions.jpg',
-        },
-        item2: {
-          title: 'Science can answer moral questions',
-          description: 'How science can answer questions of good and evil, right and wrong.',
-          size: 'small',
-          grid: 'govuk-grid-column-one-quarter',
-          type: 'science-nature',
-          icon: 'icon-document',
-          linkclass: 'icon-link',
-          linktext: 'Read',
-          graphic: '/images/moral.jpg',
-        },
-        item3: {
-          title: 'Rewilding the world',
-          description: 'What happened when wolves were reintroduced to the Yellowstone National Park.',
-          size: 'small',
-          grid: 'govuk-grid-column-one-quarter',
-          type: 'science-nature',
-          icon: 'icon-document',
-          linkclass: 'icon-link',
-          linktext: 'Read',
-          graphic: '/images/wolves.jpg',
-        },
-        item4: {
-          title: 'What we learn before we’re born',
-          description: 'When does learning begin?',
-          size: 'small',
-          grid: 'govuk-grid-column-one-quarter',
-          type: 'science-nature',
-          icon: 'icon-document',
-          linkclass: 'icon-link',
-          linktext: 'Read',
-          graphic: '/images/learning.jpg',
-        },
-      },
-    };
-  }
-
-  function getScienceNatureData() {
-    return {
-      number: 4,
-      category_title: 'Science and Nature',
+      category_title: 'Science and nature',
       category_link: '#',
       items: {
         item1: {
@@ -390,7 +336,7 @@ module.exports = function createDemoDataService() {
   function getArtCultureData() {
     return {
       number: 4,
-      category_title: 'Art and Culture',
+      category_title: 'Art and culture',
       category_link: '#',
       items: {
         item1: {
