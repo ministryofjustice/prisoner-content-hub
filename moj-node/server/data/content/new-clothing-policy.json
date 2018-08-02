@@ -1,5 +1,5 @@
 {
-  "title": "New clothing policy: What you need to know",
+  "title": "New clothing policy: what you need to know",
   "data": [
     {
       "leadParagraph": "There's been an update to our clothing policy"
@@ -8,7 +8,7 @@
       "heading": "What you can get"
     },
     {
-      "paragraph": "Your visitors can bring 1 parcel of new clothes clothes for you each year. So, once you’ve had a parcel like this you’ll have to wait 12 months to be allowed to get another."
+      "paragraph": "Your visitors can bring <strong>1 parcel of new clothes</strong> clothes for you each year. So, once you’ve had a parcel like this you’ll have to wait 12 months to be allowed to get another."
     },
     {
       "heading": "Who it is for"
@@ -40,7 +40,8 @@
       ]
     },
     {
-      "paragraph": "If your new clothes takes you over your allowance, you’ll have to make some decisions and send what is left into storage."
+      "insertText": "If your new clothes takes you over your allowance, you’ll have to make some decisions and send what is left into storage."
+    
     }
 
   ]
