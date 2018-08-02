@@ -1,3 +1,13 @@
 .u-block-text {
   font-weight: bold;
 }
+
+.u-display-block {
+  display: block;
+}
+
+.govuk-hub-pdf-title {
+  @include govuk-font($size: 27);
+  font-weight: 500;
+
+}

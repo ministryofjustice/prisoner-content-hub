@@ -1,5 +1,5 @@
 {
-    "title": "National Prison Radio",
+    "title": "National Prison Radio Now live on yout TV",
     "data": [
 
       {
@@ -27,7 +27,12 @@
       },
 
       {
-        "paragraph": "(this is being sent by Jo - nj 27/07)"
+        "pdf": {
+          "thumbnail": "/public/images/aug-2018-screenshot.png",
+          "document": "/public/documents/Aug-2018.pdf",
+          "title": "August 2018 National Prison Radio Schedule",
+          "metadata": "PDF, 298KB, 1 page"
+        } 
       }
     ]
   }

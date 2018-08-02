@@ -27,7 +27,7 @@
 {% block main %}
   <div class="govuk-width-container">
     <main class="govuk-main-wrapper">
-      <div class="govuk-grid-row">
+      <div class="govuk-grid-row govuk-!-margin-bottom-9">
         <div class="govuk-grid-column-two-thirds">
           <h1 class="govuk-heading-xl">{{title}}</h1>
           {% for item in data %}
@@ -63,11 +63,27 @@
                   Your browser does not support HTML5 video.
                 </video>
               {% elif contentType == "blockText" %}
-                <p class="govuk-body u-block-text">{{content| escape | nl2br}}</p>
+                <p class="govuk-body u-block-text">{{content| escape | nl2br}}</p> 
+
+              {% elif contentType == "pdf" %}
+              <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-third">
+                  <img src="{{content.thumbnail}}" />
+                </div>
+
+                <div class="govuk-grid-column-two-thirds">
+                  <a href="{{content.document}}" target="_blank" class="u-display-block govuk-!-margin-bottom-2"><span class="govuk-hub-pdf-title">{{content.title}}</span></a>
+                  <p class="govuk-body govuk-!-font-size-16 u-display-block">{{content.metadata}}</p>
+                </div>
+              </div>
               {% endif %}
             {% endfor %}
           {% endfor %}
         </div>
+      </div>
+
+      <div>
+        <a href="/" class="govuk-button">Back to home</a>
       </div>
     </main>
   </div>
