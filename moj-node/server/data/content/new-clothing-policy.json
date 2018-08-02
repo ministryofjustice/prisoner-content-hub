@@ -25,7 +25,6 @@
         "Put in application (app) for a parcel.",
         "When that’s approved, your visitors hand in the parcel at the start of a visit.",
         "When it’s been checked, it’ll be added to your property card.",
-        "When it’s been checked, it’ll be added to your property card."
       ]
     },
     {
@@ -41,7 +40,7 @@
       ]
     },
     {
-      "insertText": "If your new clothes takes you over your allowance, you’ll have to make some decisions and send what is left into storage."
+      "insertText": "If your new clothes take you over your allowance, you’ll have to make some decisions and send what is left into storage."
     
     }
 
