@@ -1,5 +1,6 @@
 {
   "title": "Criminal Cases Review Commission (CCRC)",
+  "backHomeEnabled": true,
   "data": [
     {
       "leadParagraph": "The Criminal Cases Review Commission (CCRC) is the organisation set up to independently investigate miscarriages of justice."
