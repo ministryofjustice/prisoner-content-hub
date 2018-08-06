@@ -1,6 +1,8 @@
 {% from "components/skip-link/macro.njk" import govukSkipLink %}
 {% from "components/header/macro.njk" import govukHeader %}
 {% from "components/footer/macro.njk" import govukFooter %}
+{% from "components/landing-page-header/macro.njk" import hubLandingPageHeader %}
+
 <!DOCTYPE html>
 <html lang="{{ htmlLang | default('en') }}" class="govuk-template {{ htmlClasses }}">
   <head>
@@ -35,8 +37,12 @@
     {% endblock %}
 
     {% block header %}
-      {{ govukHeader({ navMenu: navMenu }) }}
+      {{ govukHeader({ 
+        navMenu: navMenu 
+      }) }}
     {% endblock %}
+
+    {% block landingpageheader %}{% endblock %}
 
     {% block main %}
       <div class="govuk-width-container">

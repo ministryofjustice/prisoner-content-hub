@@ -1,0 +1,39 @@
+.govuk-hub-page-header__background {
+
+    h1, p {
+        color: govuk-colour("white");
+    }
+
+    &.news-events {
+        background: govuk-colour("red");
+    }
+
+    &.games {
+        background: govuk-colour("orange");
+    }
+
+    &.radio-podcasts {
+        background: govuk-colour("bright-purple");
+    }
+
+    &.healthy-mind-body {
+        background: govuk-colour("turquoise");
+    }
+
+    &.inspiration {
+        background: govuk-colour("yellow");
+    }
+
+    &.science-nature {
+        background: govuk-colour("green");
+    }
+
+    &.art-culture {
+        background: govuk-colour("light-pink");
+    }
+
+    &.history {
+        background: govuk-colour("brown");
+    }
+
+}

@@ -46,7 +46,7 @@ module.exports = function Index({ logger, demoDataService }) {
 
   router.get('/landing', (req, res) => {
     try {
-      const content = 'Hello world'
+      const content = {};
       res.render('pages/landing', content);
     } catch (exp) {
       res.status(404);
