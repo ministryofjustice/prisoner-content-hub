@@ -46,8 +46,12 @@ module.exports = function Index({ logger, demoDataService }) {
 
   router.get('/landing', (req, res) => {
     try {
-      const content = {};
-      res.render('pages/landing', content);
+      const data = {
+        headerClass: 'healthy-mind-body', 
+      };
+      res.render('pages/landing', {
+        data
+      });
     } catch (exp) {
       res.status(404);
       res.send('Page not found');

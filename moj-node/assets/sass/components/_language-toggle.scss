@@ -6,7 +6,7 @@
 $govuk-hub-language-text: govuk-colour("black");
 
 .govuk-hub-language-toggle-padding {
-    padding-bottom: 50px;
+    padding-bottom: govuk-spacing(2);
 }
 
 .govuk-hub-language-toggle {

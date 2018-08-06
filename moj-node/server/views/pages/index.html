@@ -66,16 +66,18 @@
   {{ hubFeaturedContent({
     data: historydata
   }) }}
-
   
-  
-
 {% endblock %}
 
+
 {% block postscript %}
-  {{ hubSeries({
-    data: seriesdata
-  }) }}
+  <div class="govuk-width-container">
+      <main class="govuk-main-wrapper" id="main-content" role="main">
+        {{ hubSeries({
+          data: seriesdata
+        }) }}
+      </main>
+    </div>
 {% endblock %}
 
 

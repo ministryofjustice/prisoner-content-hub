@@ -1,29 +1,22 @@
 {% from "../featured-content-item/macro.njk" import hubFeaturedContentItem %}
 
-<div class="govuk-hub-page-header__background healthy-mind-body {%- if params.data.description %} {{ params.data.description }}{% endif -%}">
-  <div class="govuk-width-container">
-    <main class="govuk-main-wrapper  govuk-!-padding-top-6" id="main-content" role="main">
-
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-half">
-          <h1 class="govuk-heading-xl">Healthy mind and body</h1>
-          <p class="govuk-body-l">A parapgraph to introduce this section to briefly explain what the intentions of it are.</p>
-          <p class="govuk-body">Talk about who this content is relevant to in this space. And any other information you might want to highlight.</p>
-        </div>
-        <div class="govuk-grid-column-one-half">
-          {{ hubFeaturedContentItem({
-            title: 'Hello world',
-            description: 'This is a desciption',
-            size: 'large',
-            type: 'healthy-mind-body',
-            icon: 'icon-document',
-            linkclass: 'icon-link',
-            linktext: 'Clicky',
-            graphic: '/images/national-prison-radio.jpg',
-            link: '#'
-          }) }}
-        </div>
-      </div>
-    </main>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-one-half">
+    <h1 class="govuk-heading-xl">Healthy mind and body</h1>
+    <p class="govuk-body-l">A parapgraph to introduce this section to briefly explain what the intentions of it are.</p>
+    <p class="govuk-body">Talk about who this content is relevant to in this space. And any other information you might want to highlight.</p>
+  </div>
+  <div class="govuk-grid-column-one-half">
+    {{ hubFeaturedContentItem({
+      title: 'Hello world',
+      description: 'This is a desciption',
+      size: 'large',
+      type: 'healthy-mind-body',
+      icon: 'icon-document',
+      linkclass: 'icon-link',
+      linktext: 'Clicky',
+      graphic: '/images/national-prison-radio.jpg',
+      link: '#'
+    }) }}
   </div>
 </div>

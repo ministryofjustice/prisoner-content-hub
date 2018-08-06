@@ -42,33 +42,27 @@
       }) }}
     {% endblock %}
 
-    {% block landingpageheader %}{% endblock %}
-
-    {% block main %}
+    
+    <div class="govuk-hub-header__background {{ data.headerClass }}">
       <div class="govuk-width-container">
         {% block beforeContent %}{% endblock %}
-        <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main">
+        <main class="govuk-main-wrapper govuk-!-padding-top-8" id="header-content" role="header">
           {% block promotedContent %}{% endblock %}
+          {% block landingpageheader %}{% endblock %}
           {% block subMenu %}{% endblock %}
         </main>
       </div>
-
-      <div class="black-background govuk-!-margin-bottom-9 govuk-!-padding-top-4">
-        <div class="govuk-width-container">
-          <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main">
-            {% block content %}{% endblock %}
-          </main>
-        </div>
+    </div>
+    
+    <div class="black-background govuk-!-margin-bottom-9 govuk-!-padding-top-4">
+      <div class="govuk-width-container">
+        <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main">
+          {% block content %}{% endblock %}
+        </main>
       </div>
-    {% endblock %}
-
-    <div class="govuk-width-container">
-      <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main">
-        {% block postscript %}{% endblock %}
-      </main>
     </div>
 
-
+    {% block postscript %}{% endblock %}
 
     {% block footer %}
       {{ govukFooter({}) }}
