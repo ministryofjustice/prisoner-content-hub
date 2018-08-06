@@ -18,6 +18,11 @@ module.exports = function Index({ logger, demoDataService }) {
     const artculturedata = demoDataService.getArtCultureData();
     const historydata = demoDataService.getHistoryData();
 
+    const config = {
+      content: true,
+      header: true
+    }
+
     res.render('pages/index', {
       inspirationdata,
       gamedata,
@@ -29,7 +34,8 @@ module.exports = function Index({ logger, demoDataService }) {
       healthymindbodydata,
       sciencenaturedata,
       artculturedata,
-      historydata
+      historydata,
+      config
     });
   });
 
@@ -46,11 +52,16 @@ module.exports = function Index({ logger, demoDataService }) {
 
   router.get('/landing', (req, res) => {
     try {
+      const config = {
+        content: true,
+        header: true
+      }
       const data = {
         headerClass: 'healthy-mind-body', 
       };
       res.render('pages/landing', {
-        data
+        data,
+        config
       });
     } catch (exp) {
       res.status(404);
