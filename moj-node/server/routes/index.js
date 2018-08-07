@@ -17,6 +17,12 @@ module.exports = function Index({ logger, demoDataService }) {
     const sciencenaturedata = demoDataService.getScienceNatureData();
     const artculturedata = demoDataService.getArtCultureData();
     const historydata = demoDataService.getHistoryData();
+    
+
+    const config = {
+      content: true,
+      header: true
+    }
 
     res.render('pages/index', {
       inspirationdata,
@@ -29,7 +35,8 @@ module.exports = function Index({ logger, demoDataService }) {
       healthymindbodydata,
       sciencenaturedata,
       artculturedata,
-      historydata
+      historydata,
+      config
     });
   });
 
@@ -44,5 +51,28 @@ module.exports = function Index({ logger, demoDataService }) {
     }
   });
 
+  router.get('/landing', (req, res) => {
+    try {
+      const landingpagesubmenudata = demoDataService.getLandingPageSubMenuData();
+      const youmightlikedata = demoDataService.getYouMightLike();
+      const config = {
+        content: true,
+        header: true
+      }
+      const data = {
+        headerClass: 'healthy-mind-body', 
+      };
+      res.render('pages/landing', {
+        data,
+        config,
+        landingpagesubmenudata,
+        youmightlikedata
+      });
+    } catch (exp) {
+      res.status(404);
+      res.send('Page not found');
+    }
+  });
+  
   return router;
 };

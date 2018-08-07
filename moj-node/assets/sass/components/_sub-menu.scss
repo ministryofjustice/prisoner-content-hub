@@ -32,11 +32,12 @@
             &:visited,
             &:active,
             &:focus {
-                background: $govuk-link-colour;
+                background: govuk-colour("white");
+                color: $govuk-link-colour;
                 text-decoration: none;
             }
             &:hover {
-                background: $govuk-link-hover-colour;
+                color: $govuk-link-hover-colour;
             }
         }
     }

@@ -1,6 +1,8 @@
 {% from "components/skip-link/macro.njk" import govukSkipLink %}
 {% from "components/header/macro.njk" import govukHeader %}
 {% from "components/footer/macro.njk" import govukFooter %}
+{% from "components/landing-page-header/macro.njk" import hubLandingPageHeader %}
+
 <!DOCTYPE html>
 <html lang="{{ htmlLang | default('en') }}" class="govuk-template {{ htmlClasses }}">
   <head>
@@ -35,18 +37,25 @@
     {% endblock %}
 
     {% block header %}
-      {{ govukHeader({ navMenu: navMenu }) }}
+      {{ govukHeader({ 
+        navMenu: navMenu 
+      }) }}
     {% endblock %}
 
-    {% block main %}
-      <div class="govuk-width-container">
-        {% block beforeContent %}{% endblock %}
-        <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main">
-          {% block promotedContent %}{% endblock %}
-          {% block subMenu %}{% endblock %}
-        </main>
+    {% if config.header %}
+      <div class="govuk-hub-header__background {{ data.headerClass }}">
+        <div class="govuk-width-container">
+          {% block beforeContent %}{% endblock %}
+          <main class="govuk-main-wrapper govuk-!-padding-top-8" id="header-content" role="header">
+            {% block promotedContent %}{% endblock %}
+            {% block landingpageheader %}{% endblock %}
+            {% block subMenu %}{% endblock %}
+          </main>
+        </div>
       </div>
-
+    {% endif %}
+    
+    {% if config.content %}
       <div class="black-background govuk-!-margin-bottom-9 govuk-!-padding-top-4">
         <div class="govuk-width-container">
           <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main">
@@ -54,15 +63,9 @@
           </main>
         </div>
       </div>
-    {% endblock %}
+    {% endif %}
 
-    <div class="govuk-width-container">
-      <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main">
-        {% block postscript %}{% endblock %}
-      </main>
-    </div>
-
-
+    {% block postscript %}{% endblock %}
 
     {% block footer %}
       {{ govukFooter({}) }}
