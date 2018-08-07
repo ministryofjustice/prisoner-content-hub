@@ -52,6 +52,7 @@ module.exports = function Index({ logger, demoDataService }) {
 
   router.get('/landing', (req, res) => {
     try {
+      const landingpagesubmenudata = demoDataService.getLandingPageSubMenuData()
       const config = {
         content: true,
         header: true
@@ -61,7 +62,8 @@ module.exports = function Index({ logger, demoDataService }) {
       };
       res.render('pages/landing', {
         data,
-        config
+        config,
+        landingpagesubmenudata
       });
     } catch (exp) {
       res.status(404);

@@ -1,4 +1,5 @@
 {% from "../components/header/macro.njk" import govukHeaderWithBack %}
+{% from "../components/sub-menu/macro.njk" import hubSubMenu %}
 
 {% extends "../components/template.njk" %}
 
@@ -25,7 +26,13 @@
 {% endblock %}
 
 {% block landingpageheader %}
+  
   {{ hubLandingPageHeader({ data: 'red' }) }}
+
+  {{ hubSubMenu({
+    data: landingpagesubmenudata
+  }) }}
+  
 {% endblock %}
 
 {% block content %}

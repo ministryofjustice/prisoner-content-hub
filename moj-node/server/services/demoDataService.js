@@ -11,30 +11,105 @@ module.exports = function createDemoDataService() {
 
   function getSubMenuData() {
     return {
+      menuColour: 'blue',
       items: {
         item1: {
           linktext: 'Life at Berwyn',
           linkurl: '#',
+          columnClass: 'govuk-grid-column-one-third',
         },
         item2: {
           linktext: 'Your progress',
           linkurl: '#',
+          columnClass: 'govuk-grid-column-one-third',
         },
         item3: {
           linktext: 'Useful contacts',
           linkurl: '#',
+          columnClass: 'govuk-grid-column-one-third',
         },
         item4: {
           linktext: 'Induction',
           linkurl: '#',
+          columnClass: 'govuk-grid-column-one-third',
         },
         item5: {
           linktext: 'Education',
           linkurl: '#',
+          columnClass: 'govuk-grid-column-one-third',
         },
         item6: {
           linktext: 'Getting out',
           linkurl: '#',
+          columnClass: 'govuk-grid-column-one-third',
+        },
+      },
+    };
+  }
+
+  function getLandingPageSubMenuData() {
+    return {
+      menuColour: 'white',
+      items: {
+        item1: {
+          linktext: 'Life at Berwyn',
+          linkurl: '#',
+          columnClass: 'govuk-grid-column-one-quarter',
+        },
+        item2: {
+          linktext: 'Your progress',
+          linkurl: '#',
+          columnClass: 'govuk-grid-column-one-quarter',
+        },
+        item3: {
+          linktext: 'Useful contacts',
+          linkurl: '#',
+          columnClass: 'govuk-grid-column-one-quarter',
+        },
+        item4: {
+          linktext: 'Induction',
+          linkurl: '#',
+          columnClass: 'govuk-grid-column-one-quarter',
+        },
+        item5: {
+          linktext: 'Education',
+          linkurl: '#',
+          columnClass: 'govuk-grid-column-one-quarter',
+        },
+        item6: {
+          linktext: 'Getting out',
+          linkurl: '#',
+          columnClass: 'govuk-grid-column-one-quarter',
+        },
+        item7: {
+          linktext: 'Life at Berwyn',
+          linkurl: '#',
+          columnClass: 'govuk-grid-column-one-quarter',
+        },
+        item8: {
+          linktext: 'Your progress',
+          linkurl: '#',
+          columnClass: 'govuk-grid-column-one-quarter',
+        },
+        item9: {
+          linktext: 'Useful contacts',
+          linkurl: '#',
+          columnClass: 'govuk-grid-column-one-quarter',
+        },
+        item10: {
+          linktext: 'Induction',
+          linkurl: '#',
+          columnClass: 'govuk-grid-column-one-quarter',
+        },
+        item11: {
+          linktext: 'Education',
+          linkurl: '#',
+          columnClass: 'govuk-grid-column-one-quarter',
+        },
+        item12: {
+          linktext: 'Getting out',
+          linkurl: '#',
+          columnClass: 'govuk-grid-column-one-quarter',
         },
       },
     };
@@ -588,5 +663,6 @@ module.exports = function createDemoDataService() {
     getScienceNatureData,
     getArtCultureData,
     getHistoryData,
+    getLandingPageSubMenuData,
   };
 };
