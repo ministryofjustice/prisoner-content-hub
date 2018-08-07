@@ -24,102 +24,32 @@
   {{ govukHeaderWithBack({}) }}
 {% endblock %}
 
-{% block main %}
-  <div class="govuk-width-container">
-    <main class="govuk-main-wrapper">
-      <div class="govuk-grid-row govuk-!-margin-bottom-9">
-        <div class="govuk-grid-column-two-thirds">
-          <h1 class="govuk-heading-xl govuk-!-margin-bottom-6">{{title}}</h1>
-          {% for item in data %}
-            {% for contentType, content in item %}
-              {% if contentType == "heading" %}
-                <h2 class="govuk-heading-l">{{content}}</h2>
-              {% elif contentType == "leadParagraph" %}
-                <p class="govuk-body-l">{{content}}</p>
-              {% elif contentType == "paragraph" %}
-                <p class="govuk-body">{{content | safe }}</p>
-              {% elif contentType == "paragraphNoMargin" %}
-                <p class="govuk-body govuk-!-margin-bottom-1">{{content | escape }}</p>
-              {% elif contentType == "insertText" %}
-                <div class="govuk-inset-text">
-                  {{content | safe }}
-                </div>
-              {% elif contentType == "orderedList" %}
-                <ol class="govuk-list govuk-list--number">
-                  {% for listItem in content %}
-                    <li>{{listItem}}</li>
-                  {% endfor %}
-                </ol>
-              {% elif contentType == "unorderedList" %}
-                <ul class="govuk-list govuk-list--bullet">
-                  {% for listItem in content %}
-                    <li>{{listItem}}</li>
-                  {% endfor %}
-                </ul>
-              {% elif contentType == "video" %}
-                <video id="video1" style="max-width:100%;" controls="">
-                  <source src="http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_stereo.ogg" type="video/ogg">
-                  <source src="http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4" type="video/mp4">
-                  Your browser does not support HTML5 video.
-                </video>
-              {% elif contentType == "blockText" %}
-                <p class="govuk-body u-block-text">{{content| escape | nl2br}}</p> 
+{% block content %}
+<class class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds govuk-hub-media-player">
 
-              {% elif contentType == "pdf" %}
-              <div class="govuk-grid-row">
-                <div class="govuk-grid-column-one-third">
-                  <img src="{{content.thumbnail}}" />
-                </div>
+    <header class="govuk-hub-media-player__header">
+      <img src="public/images/show-tag.jpg" alt="Radio program name" class="govuk-hub-media-player__show-tag">
+      <p class="govuk-hub-media-player__catgeory govuk-heading-m"><a href="#" title="" class="govuk-link govuk-hub-media-player__catgeory-link">History</a></p>
+      <h2 class="govuk-hub-media-player__title govuk-heading-xl">2. Working Together: Conditions of Success</h2>
+    </header>
 
-                <div class="govuk-grid-column-two-thirds">
-                  <a href="{{content.document}}" target="_blank" class="u-display-block govuk-!-margin-bottom-2"><span class="govuk-hub-pdf-title">{{content.title}}</span></a>
-                  <p class="govuk-body govuk-!-font-size-16 u-display-block">{{content.metadata}}</p>
-                </div>
-              </div>
-              {% elif contentType == "details" %}
-                <details class="govuk-details">
-                  <summary class="govuk-details__summary">
-                    <span class="govuk-details__summary-text">
-                      {{ content.heading}}
-                    </span>
-                  </summary>
-                  <div class="govuk-details__text">
-                    <p>{{ content.text | safe }}</p>
-                  </div>
-                </details>
-              
-              {% elif contentType == "table" %}
-                <table class="govuk-table">
-                  <thead class="govuk-table__head">
-                    
-                    <tr class="govuk-table__row">
-                      {% for tableHeadColumn in content.tableHead %}
-                        <th class="govuk-table__header" scope="col">{{tableHeadColumn}}</th>
-                      {% endfor %}
-                    </tr>
-                  </thead>
-                  <tbody class="govuk-table__body">
+    <section class="govuk-hub-media-player__player">
+      {# <p class="govuk-hub-media-player__holding-text govuk-body">Video goes here</p> #}
+      <video src="public/images/video.ogv" controls poster="public/images/video-thumbnail.jpg">
+        <a href="public/images/video.ogv">Download song</a>
+      </video>
+    </section>
 
-                    {% for tableRow in content.tableRows %}
-                      <tr class="govuk-table__row">
-                        {% for rowContent in tableRow.row %}
-                          <td class="govuk-table__cell ">{{rowContent}}</td>
-                        {% endfor %}
-                      </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-              {% endif %}
-            {% endfor %}
-          {% endfor %}
-        </div>
-      </div>
+    <section class="govuk-hub-media-player__description">
+      <p class="govuk-body">To achieve our goals we all need to agree to do a few things when we work together. This clip introduces the conditions of success: active, open, supportive and respectful participation. </p>
+      <p class="govuk-body">The clip describes what each condition is and why it is important for successful working together. What do these conditions mean for you? How can you use them? How can they help you to achieve your goals?</p>
+      <a href="#" title="Play" id="read-more" class="govuk-hub-media-player-item-icon govuk-hub-media-player-item__main-play govuk-link"><span class="icon-link"><span class="path1"></span><span class="path2"></span></span><span class="space">Read more</span></a>
+    </section>
 
-      {% if backHomeEnabled %}
-        <div>
-          <a href="/" class="govuk-button">Back to home</a>
-        </div>
-      {% endif %}
-    </main>
+    <section class="">
+    </section>    
+
   </div>
+</div>
 {% endblock %}
