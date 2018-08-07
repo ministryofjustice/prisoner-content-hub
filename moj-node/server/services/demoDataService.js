@@ -132,6 +132,7 @@ module.exports = function createDemoDataService() {
           linktext: 'Find out more and see the schedule',
           graphic: '/images/national-prison-radio.jpg',
           link: '/content/national-prison-radio',
+          duration: '10 mins',
         },
         item2: {
           title: 'New clothing policy',
@@ -144,6 +145,7 @@ module.exports = function createDemoDataService() {
           linktext: 'Find out what it means for you',
           graphic: '/images/new-clothing-policy.jpg',
           link: '/content/new-clothing-policy',
+          duration: '10 mins',
         },
       },
     };
@@ -165,6 +167,7 @@ module.exports = function createDemoDataService() {
           linkclass: 'icon-link',
           linktext: 'Play',
           graphic: '/images/chess.jpg',
+          duration: '10 mins',
         },
         item2: {
           title: 'Sudoku',
@@ -651,6 +654,104 @@ module.exports = function createDemoDataService() {
     };
   }
 
+  function getYouMightLike() {
+    return {
+      number: 8,
+      category_title: 'You might like',
+      category_link: '#',
+      items: {
+        item1: {
+          title: 'Yoga',
+          description: 'The perfect exercise for bang up.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'none',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/yoga.jpg',
+        },
+        item2: {
+          title: 'How to make stress your friend',
+          description: 'Finding the positives in stress.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'none',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/how-to-make-stress-your-friend.jpg',
+        },
+        item3: {
+          title: 'Berwyn gym',
+          description: 'Opening times and how to get access.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'none',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/gym.jpg',
+        },
+        item4: {
+          title: 'What hallucinations reveal about our minds',
+          description: 'Neurologist Oliver Sacks talks about hallucinations experienced by visually impaired people.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'none',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/hallucinations-reveal-about-our-minds.jpg',
+        },
+        item5: {
+          title: 'What hallucinations reveal about our minds',
+          description: 'Neurologist Oliver Sacks talks about hallucinations experienced by visually impaired people.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'none',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/hallucinations-reveal-about-our-minds.jpg',
+        },
+        item6: {
+          title: 'What hallucinations reveal about our minds',
+          description: 'Neurologist Oliver Sacks talks about hallucinations experienced by visually impaired people.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'none',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/hallucinations-reveal-about-our-minds.jpg',
+        },
+        item7: {
+          title: 'What hallucinations reveal about our minds',
+          description: 'Neurologist Oliver Sacks talks about hallucinations experienced by visually impaired people.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'none',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/hallucinations-reveal-about-our-minds.jpg',
+        },
+        item8: {
+          title: 'What hallucinations reveal about our minds',
+          description: 'Neurologist Oliver Sacks talks about hallucinations experienced by visually impaired people.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'none',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/hallucinations-reveal-about-our-minds.jpg',
+        },
+      },
+    };
+  }
+
   return {
     getPromotalContentData,
     getSubMenuData,
@@ -664,5 +765,6 @@ module.exports = function createDemoDataService() {
     getArtCultureData,
     getHistoryData,
     getLandingPageSubMenuData,
+    getYouMightLike,
   };
 };

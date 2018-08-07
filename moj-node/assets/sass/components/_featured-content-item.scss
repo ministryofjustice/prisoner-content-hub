@@ -108,10 +108,18 @@ $gradient: $trans, $fifityPerecntBlack;
 
 .govuk-hub-featured-content-item__main-icon {
     position: absolute;
-    bottom: 25px;
+    bottom: 20px;
     right: 20px;
     color: govuk-colour("white");
     font-size: 25px;
+}
+
+.govuk-hub-featured-content-item__main-duration {
+    color: govuk-colour("white");
+    line-height: 1;
+    position: relative;
+    top: -5px;
+    left: 3px;
 }
 
 .govuk-hub-featured-content-item__main-icon.icon-game {
@@ -138,6 +146,10 @@ $gradient: $trans, $fifityPerecntBlack;
     position: absolute;
     bottom: 0px;
     left: 0px;
+
+    &.none {
+        display: none;
+    }
 
     &.news-events {
         background: govuk-colour("red");

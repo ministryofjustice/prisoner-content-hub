@@ -1,5 +1,6 @@
 {% from "../components/header/macro.njk" import govukHeaderWithBack %}
 {% from "../components/sub-menu/macro.njk" import hubSubMenu %}
+{% from "../components/you-might-like/macro.njk" import hubYouMightLike %}
 
 {% extends "../components/template.njk" %}
 
@@ -36,9 +37,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-      <h1>Hello</h1>
-    </div>
-  </div>
+  {{ hubYouMightLike({
+    data: youmightlikedata
+  }) }}
 {% endblock %}
