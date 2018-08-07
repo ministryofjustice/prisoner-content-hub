@@ -1,0 +1,125 @@
+{% from "../components/header/macro.njk" import govukHeaderWithBack %}
+
+{% extends "../components/template.njk" %}
+
+
+{% block head %}
+  <!--[if !IE 8]><!-->
+    <link href="/public/stylesheets/application.css" rel="stylesheet" />
+  <!--<![endif]-->
+
+  {# For Internet Explorer 8, you need to compile specific stylesheet #}
+  {# see https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md #}
+  <!--[if IE 8]>
+    <link href="/govuk-frontend/all-ie8.css" rel="stylesheet" />
+  <![endif]-->
+
+  {# For older browsers to allow them to recognise HTML5 elements such as `<header>` #}
+  <!--[if lt IE 9]>
+    <script src="/html5-shiv/html5shiv.js"></script>
+  <![endif]-->
+{% endblock %}
+
+{% block header %}
+  {{ govukHeaderWithBack({}) }}
+{% endblock %}
+
+{% block main %}
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+      <div class="govuk-grid-row govuk-!-margin-bottom-9">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-xl govuk-!-margin-bottom-6">{{title}}</h1>
+          {% for item in data %}
+            {% for contentType, content in item %}
+              {% if contentType == "heading" %}
+                <h2 class="govuk-heading-l">{{content}}</h2>
+              {% elif contentType == "leadParagraph" %}
+                <p class="govuk-body-l">{{content}}</p>
+              {% elif contentType == "paragraph" %}
+                <p class="govuk-body">{{content | safe }}</p>
+              {% elif contentType == "paragraphNoMargin" %}
+                <p class="govuk-body govuk-!-margin-bottom-1">{{content | escape }}</p>
+              {% elif contentType == "insertText" %}
+                <div class="govuk-inset-text">
+                  {{content | safe }}
+                </div>
+              {% elif contentType == "orderedList" %}
+                <ol class="govuk-list govuk-list--number">
+                  {% for listItem in content %}
+                    <li>{{listItem}}</li>
+                  {% endfor %}
+                </ol>
+              {% elif contentType == "unorderedList" %}
+                <ul class="govuk-list govuk-list--bullet">
+                  {% for listItem in content %}
+                    <li>{{listItem}}</li>
+                  {% endfor %}
+                </ul>
+              {% elif contentType == "video" %}
+                <video id="video1" style="max-width:100%;" controls="">
+                  <source src="http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_stereo.ogg" type="video/ogg">
+                  <source src="http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4" type="video/mp4">
+                  Your browser does not support HTML5 video.
+                </video>
+              {% elif contentType == "blockText" %}
+                <p class="govuk-body u-block-text">{{content| escape | nl2br}}</p> 
+
+              {% elif contentType == "pdf" %}
+              <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-third">
+                  <img src="{{content.thumbnail}}" />
+                </div>
+
+                <div class="govuk-grid-column-two-thirds">
+                  <a href="{{content.document}}" target="_blank" class="u-display-block govuk-!-margin-bottom-2"><span class="govuk-hub-pdf-title">{{content.title}}</span></a>
+                  <p class="govuk-body govuk-!-font-size-16 u-display-block">{{content.metadata}}</p>
+                </div>
+              </div>
+              {% elif contentType == "details" %}
+                <details class="govuk-details">
+                  <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">
+                      {{ content.heading}}
+                    </span>
+                  </summary>
+                  <div class="govuk-details__text">
+                    <p>{{ content.text | safe }}</p>
+                  </div>
+                </details>
+              
+              {% elif contentType == "table" %}
+                <table class="govuk-table">
+                  <thead class="govuk-table__head">
+                    
+                    <tr class="govuk-table__row">
+                      {% for tableHeadColumn in content.tableHead %}
+                        <th class="govuk-table__header" scope="col">{{tableHeadColumn}}</th>
+                      {% endfor %}
+                    </tr>
+                  </thead>
+                  <tbody class="govuk-table__body">
+
+                    {% for tableRow in content.tableRows %}
+                      <tr class="govuk-table__row">
+                        {% for rowContent in tableRow.row %}
+                          <td class="govuk-table__cell ">{{rowContent}}</td>
+                        {% endfor %}
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if backHomeEnabled %}
+        <div>
+          <a href="/" class="govuk-button">Back to home</a>
+        </div>
+      {% endif %}
+    </main>
+  </div>
+{% endblock %}

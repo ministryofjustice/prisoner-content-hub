@@ -73,6 +73,21 @@ module.exports = function Index({ logger, demoDataService }) {
       res.send('Page not found');
     }
   });
+
+  router.get('/video', (req, res) => {
+    try {
+      const config = {
+        content: true,
+        header: true
+      }
+      res.render('pages/video', {
+        config,
+      });
+    } catch (exp) {
+      res.status(404);
+      res.send('Page not found');
+    }
+  });
   
   return router;
 };
