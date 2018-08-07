@@ -21,7 +21,8 @@ module.exports = function Index({ logger, demoDataService }) {
 
     const config = {
       content: true,
-      header: true
+      header: true,
+      postscript: true,
     }
 
     res.render('pages/index', {
@@ -57,7 +58,8 @@ module.exports = function Index({ logger, demoDataService }) {
       const youmightlikedata = demoDataService.getYouMightLike();
       const config = {
         content: true,
-        header: true
+        header: true,
+        postscript: false,
       }
       const data = {
         headerClass: 'healthy-mind-body', 
@@ -78,7 +80,8 @@ module.exports = function Index({ logger, demoDataService }) {
     try {
       const config = {
         content: true,
-        header: true
+        header: true,
+        postscript: false,
       }
       res.render('pages/video', {
         config,
