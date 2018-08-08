@@ -814,17 +814,42 @@ module.exports = function createDemoDataService() {
       items: {
         item1: {
           title: 'Goal Setting',
-          graphic: '/images/chess.jpg',
+          graphic: '/images/content-image.jpg',
           link: '#'
         },
         item2: {
           title: 'The Peer Mentor View',
-          graphic: '/images/chess.jpg',
+          graphic: '/images/content-image.jpg',
           link: '#'
         },
         item3: {
           title: 'Change Accept Let Go',
-          graphic: '/images/chess.jpg',
+          graphic: '/images/content-image.jpg',
+          link: '#'
+        },
+      },
+    };
+  }
+
+  function getListenNextData() {
+    return {
+      number: 3,
+      category_title: 'Listen next',
+      category_link: '#',
+      items: {
+        item1: {
+          title: '10 Nov 2017 - Porridge Music Special: Hip-Hop and Garage',
+          graphic: '/images/radio-more-thumbnail.jpg',
+          link: '#'
+        },
+        item2: {
+          title: '10 Nov 2017 - Porridge Music Special: Hip-Hop and Garage',
+          graphic: '/images/radio-more-thumbnail.jpg',
+          link: '#'
+        },
+        item3: {
+          title: '10 Nov 2017 - Porridge Music Special: Hip-Hop and Garage',
+          graphic: '/images/radio-more-thumbnail.jpg',
           link: '#'
         },
       },
@@ -846,6 +871,7 @@ module.exports = function createDemoDataService() {
     getLandingPageSubMenuData,
     getYouMightLike,
     getWatchNextData,
+    getListenNextData,
     getYouMightLikeSmallData,
   };
 };

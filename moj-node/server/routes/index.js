@@ -100,7 +100,7 @@ module.exports = function Index({ logger, demoDataService }) {
 
   router.get('/audio', (req, res) => {
     try {
-      const watchnextdata = demoDataService.getWatchNextData();
+      const listennextdata = demoDataService.getListenNextData();
       const youmightlikedata = demoDataService.getYouMightLike();
       const youmightlikesmalldata = demoDataService.getYouMightLikeSmallData();
       const config = {
@@ -110,7 +110,7 @@ module.exports = function Index({ logger, demoDataService }) {
       }
       res.render('pages/audio', {
         config,
-        watchnextdata,
+        listennextdata,
         youmightlikedata,
         youmightlikesmalldata,
       });

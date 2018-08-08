@@ -1,5 +1,5 @@
 {% from "../components/header/macro.njk" import govukHeaderWithBack %}
-{% from "../components/audio-content/macro.njk" import hubVideoContent %}
+{% from "../components/audio-content/macro.njk" import hubAudioContent %}
 {% from "../components/you-might-like/macro.njk" import hubYouMightLike %}
 
 {% extends "../components/template.njk" %}
@@ -33,7 +33,7 @@
     <header class="govuk-hub-media-player__header">
       <img src="public/images/show-tag.jpg" alt="Radio program name" class="govuk-hub-media-player__show-tag">
       <p class="govuk-hub-media-player__catgeory govuk-heading-m"><a href="#" title="" class="govuk-link govuk-hub-media-player__catgeory-link">Porridge</a></p>
-      <h2 class="govuk-hub-media-player__title govuk-heading-xl">9 Nov 2018: Movie Mondays with Natalie</h2>
+      <h2 class="govuk-hub-media-player__title govuk-heading-xl">9 Nov 2018: Movie Mondays with Natalie and David</h2>
     </header>
 
     <section class="govuk-hub-media-player__player">
@@ -49,8 +49,8 @@
     </section>
 
     <section class="govuk-hub-media-player__watch-next">
-      {{ hubVideoContent({
-        data: watchnextdata
+      {{ hubAudioContent({
+        data: listennextdata
       }) }}
     </section>
 
