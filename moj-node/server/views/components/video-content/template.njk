@@ -1,0 +1,19 @@
+{% from "../video-content-item/macro.njk" import hubVideoContentItem %}
+
+<section>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h3 class="govuk-hub-featured-content__category-title">{{ params.data.category_title }}</h3>
+    </div>
+  </div>
+  <div class="govuk-grid-row content-items">
+    {% for name, item in params.data.items %}
+      <div class="item govuk-grid-column-one-third">
+          {{ hubVideoContentItem({
+            title: item.title,
+            graphic: item.graphic
+          }) }}
+      </div>
+    {% endfor %}
+  </div>
+</section>
