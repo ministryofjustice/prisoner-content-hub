@@ -97,6 +97,28 @@ module.exports = function Index({ logger, demoDataService }) {
       res.send('Page not found');
     }
   });
+
+  router.get('/audio', (req, res) => {
+    try {
+      const listennextdata = demoDataService.getListenNextData();
+      const youmightlikedata = demoDataService.getYouMightLike();
+      const youmightlikesmalldata = demoDataService.getYouMightLikeSmallData();
+      const config = {
+        content: true,
+        header: false,
+        postscript: false,
+      }
+      res.render('pages/audio', {
+        config,
+        listennextdata,
+        youmightlikedata,
+        youmightlikesmalldata,
+      });
+    } catch (exp) {
+      res.status(404);
+      res.send('Page not found');
+    }
+  });
   
   return router;
 };

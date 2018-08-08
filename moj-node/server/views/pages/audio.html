@@ -1,5 +1,5 @@
 {% from "../components/header/macro.njk" import govukHeaderWithBack %}
-{% from "../components/video-content/macro.njk" import hubVideoContent %}
+{% from "../components/audio-content/macro.njk" import hubAudioContent %}
 {% from "../components/you-might-like/macro.njk" import hubYouMightLike %}
 
 {% extends "../components/template.njk" %}
@@ -31,27 +31,26 @@
   <div class="govuk-grid-column-two-thirds govuk-hub-media-player">
 
     <header class="govuk-hub-media-player__header">
-      <img src="public/images/video-show-tag.jpg" alt="Radio program name" class="govuk-hub-media-player__show-tag">
-      <p class="govuk-hub-media-player__catgeory govuk-heading-m"><a href="#" title="" class="govuk-link govuk-hub-media-player__catgeory-link">Timewise</a></p>
-      <h2 class="govuk-hub-media-player__title govuk-heading-xl">2. Working Together: Conditions of Success</h2>
+      <img src="public/images/show-tag.jpg" alt="Radio program name" class="govuk-hub-media-player__show-tag">
+      <p class="govuk-hub-media-player__catgeory govuk-heading-m"><a href="#" title="" class="govuk-link govuk-hub-media-player__catgeory-link">Porridge</a></p>
+      <h2 class="govuk-hub-media-player__title govuk-heading-xl">9 Nov 2018: Movie Mondays with Natalie and David</h2>
     </header>
 
     <section class="govuk-hub-media-player__player">
       {# <p class="govuk-hub-media-player__holding-text govuk-body">Video goes here</p> #}
-      <video src="public/images/video.ogv" controls poster="public/images/video-thumbnail.jpg">
-        <a href="public/images/video.ogv">Download song</a>
-      </video>
+      <audio src="music.oga" controls>
+        <a href="music.oga">Download song</a>
+      </audio>
     </section>
 
     <section class="govuk-hub-media-player__description">
-      <p class="govuk-body">To achieve our goals we all need to agree to do a few things when we work together. This clip introduces the conditions of success: active, open, supportive and respectful participation. </p>
-      <p class="govuk-body">The clip describes what each condition is and why it is important for successful working together. What do these conditions mean for you? How can you use them? How can they help you to achieve your goals?</p>
+      <p class="govuk-body">Includes: Thought of the day from Diane Abbott.</p>
       <a href="#" title="Play" id="read-more" class="govuk-hub-media-player-item-icon govuk-hub-media-player-item__main-play govuk-link"><span class="icon-link"><span class="path1"></span><span class="path2"></span></span><span class="space">Read more</span></a>
     </section>
 
     <section class="govuk-hub-media-player__watch-next">
-      {{ hubVideoContent({
-        data: watchnextdata
+      {{ hubAudioContent({
+        data: listennextdata
       }) }}
     </section>
 
