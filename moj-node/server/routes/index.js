@@ -21,7 +21,8 @@ module.exports = function Index({ logger, demoDataService }) {
 
     const config = {
       content: true,
-      header: true
+      header: true,
+      postscript: true,
     }
 
     res.render('pages/index', {
@@ -57,7 +58,8 @@ module.exports = function Index({ logger, demoDataService }) {
       const youmightlikedata = demoDataService.getYouMightLike();
       const config = {
         content: true,
-        header: true
+        header: true,
+        postscript: false,
       }
       const data = {
         headerClass: 'healthy-mind-body', 
@@ -67,6 +69,28 @@ module.exports = function Index({ logger, demoDataService }) {
         config,
         landingpagesubmenudata,
         youmightlikedata
+      });
+    } catch (exp) {
+      res.status(404);
+      res.send('Page not found');
+    }
+  });
+
+  router.get('/video', (req, res) => {
+    try {
+      const watchnextdata = demoDataService.getWatchNextData();
+      const youmightlikedata = demoDataService.getYouMightLike();
+      const youmightlikesmalldata = demoDataService.getYouMightLikeSmallData();
+      const config = {
+        content: true,
+        header: false,
+        postscript: false,
+      }
+      res.render('pages/video', {
+        config,
+        watchnextdata,
+        youmightlikedata,
+        youmightlikesmalldata,
       });
     } catch (exp) {
       res.status(404);
