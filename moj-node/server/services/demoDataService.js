@@ -752,6 +752,85 @@ module.exports = function createDemoDataService() {
     };
   }
 
+  function getYouMightLikeSmallData() {
+    return {
+      number: 4,
+      category_title: 'You might like',
+      category_link: '#',
+      items: {
+        item1: {
+          title: 'Yoga',
+          description: 'The perfect exercise for bang up.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'none',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/yoga.jpg',
+        },
+        item2: {
+          title: 'How to make stress your friend',
+          description: 'Finding the positives in stress.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'none',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/how-to-make-stress-your-friend.jpg',
+        },
+        item3: {
+          title: 'Berwyn gym',
+          description: 'Opening times and how to get access.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'none',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/gym.jpg',
+        },
+        item4: {
+          title: 'What hallucinations reveal about our minds',
+          description: 'Neurologist Oliver Sacks talks about hallucinations experienced by visually impaired people.',
+          size: 'small',
+          grid: 'govuk-grid-column-one-quarter',
+          type: 'none',
+          icon: 'icon-document',
+          linkclass: 'icon-link',
+          linktext: 'Read',
+          graphic: '/images/hallucinations-reveal-about-our-minds.jpg',
+        }
+      },
+    };
+  }
+
+  function getWatchNextData() {
+    return {
+      number: 3,
+      category_title: 'Watch next',
+      category_link: '#',
+      items: {
+        item1: {
+          title: 'Goal Setting',
+          graphic: '/images/chess.jpg',
+          link: '#'
+        },
+        item2: {
+          title: 'The Peer Mentor View',
+          graphic: '/images/chess.jpg',
+          link: '#'
+        },
+        item3: {
+          title: 'Change Accept Let Go',
+          graphic: '/images/chess.jpg',
+          link: '#'
+        },
+      },
+    };
+  }
+
   return {
     getPromotalContentData,
     getSubMenuData,
@@ -766,5 +845,7 @@ module.exports = function createDemoDataService() {
     getHistoryData,
     getLandingPageSubMenuData,
     getYouMightLike,
+    getWatchNextData,
+    getYouMightLikeSmallData,
   };
 };

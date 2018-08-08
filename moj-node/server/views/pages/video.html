@@ -1,4 +1,6 @@
 {% from "../components/header/macro.njk" import govukHeaderWithBack %}
+{% from "../components/video-content/macro.njk" import hubVideoContent %}
+{% from "../components/you-might-like/macro.njk" import hubYouMightLike %}
 
 {% extends "../components/template.njk" %}
 
@@ -25,7 +27,7 @@
 {% endblock %}
 
 {% block content %}
-<class class="govuk-grid-row">
+<div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds govuk-hub-media-player">
 
     <header class="govuk-hub-media-player__header">
@@ -47,9 +49,24 @@
       <a href="#" title="Play" id="read-more" class="govuk-hub-media-player-item-icon govuk-hub-media-player-item__main-play govuk-link"><span class="icon-link"><span class="path1"></span><span class="path2"></span></span><span class="space">Read more</span></a>
     </section>
 
-    <section class="">
-    </section>    
+    <section class="govuk-hub-media-player__watch-next">
+      {{ hubVideoContent({
+        data: watchnextdata
+      }) }}
+    </section>
 
   </div>
 </div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+    {{ hubYouMightLike({
+      data: youmightlikesmalldata
+    }) }}
+  </div>
+</div>
+
+
 {% endblock %}

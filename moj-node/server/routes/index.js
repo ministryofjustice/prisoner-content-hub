@@ -78,13 +78,19 @@ module.exports = function Index({ logger, demoDataService }) {
 
   router.get('/video', (req, res) => {
     try {
+      const watchnextdata = demoDataService.getWatchNextData();
+      const youmightlikedata = demoDataService.getYouMightLike();
+      const youmightlikesmalldata = demoDataService.getYouMightLikeSmallData();
       const config = {
         content: true,
-        header: true,
+        header: false,
         postscript: false,
       }
       res.render('pages/video', {
         config,
+        watchnextdata,
+        youmightlikedata,
+        youmightlikesmalldata,
       });
     } catch (exp) {
       res.status(404);
