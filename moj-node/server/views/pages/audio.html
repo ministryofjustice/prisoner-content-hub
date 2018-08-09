@@ -6,6 +6,7 @@
 
 
 {% block head %}
+  <link href="/public/video-js.min.css" rel="stylesheet">
   <!--[if !IE 8]><!-->
     <link href="/public/stylesheets/application.css" rel="stylesheet" />
   <!--<![endif]-->
@@ -20,6 +21,8 @@
   <!--[if lt IE 9]>
     <script src="/html5-shiv/html5shiv.js"></script>
   <![endif]-->
+
+  <script src="/public/video.min.js"></script>
 {% endblock %}
 
 {% block header %}
@@ -38,8 +41,16 @@
 
     <section class="govuk-hub-media-player__player">
       {# <p class="govuk-hub-media-player__holding-text govuk-body">Video goes here</p> #}
-      <audio src="music.oga" controls>
-        <a href="music.oga">Download song</a>
+      <audio
+        controls 
+        poster="public/images/radio-player-background.jpg" 
+        id="my-player" 
+        class="video-js vjs-default-skin vjs-16-9"
+        data-setup="{ 
+          'fluid': true
+        }"
+      >
+        <source src="public/media/audio.mp3" type="audio/mp3" />
       </audio>
     </section>
 
