@@ -20,6 +20,10 @@
   <!--[if lt IE 9]>
     <script src="/html5-shiv/html5shiv.js"></script>
   <![endif]-->
+  
+  <link href="//vjs.zencdn.net/7.0/video-js.min.css" rel="stylesheet">
+<script src="//vjs.zencdn.net/7.0/video.min.js"></script>
+
 {% endblock %}
 
 {% block header %}
@@ -37,9 +41,15 @@
     </header>
 
     <section class="govuk-hub-media-player__player">
-      {# <p class="govuk-hub-media-player__holding-text govuk-body">Video goes here</p> #}
-      <video src="public/images/video.ogv" controls poster="public/images/video-thumbnail.jpg">
-        <a href="public/images/video.ogv">Download song</a>
+      <video
+        src="public/media/video.mp4" 
+        controls 
+        poster="public/images/video-thumbnail.jpg" 
+        id="my-player" 
+        class="video-js"
+        data-setup="{ }"
+      >
+        <a href="public/nidea/video.mp4">Download song</a>
       </video>
     </section>
 
