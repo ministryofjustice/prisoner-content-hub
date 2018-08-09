@@ -2,3 +2,30 @@ img {
     max-width: 100%;
     height: auto;
 }
+
+video {
+    width: 100%;
+    height: auto;
+}
+
+
+$primary-foreground-color: #fff; // #fff default
+$primary-background-color: #D53880;  // #2B333F default
+$center-big-play-button: true; // true default
+
+
+
+
+.vjs-default-skin .vjs-big-play-button {
+  font-size: 3em;
+  line-height: 1.5em;
+  height: 1.5em;
+  width: 1.5em;
+  border: none;
+  background-color: #D53880;
+  border-radius: 0;
+  left: 50%;
+  top: 50%;
+  margin-left: -1.5em;
+  margin-top: -0.75em;
+}
