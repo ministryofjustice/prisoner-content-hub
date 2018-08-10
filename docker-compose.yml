@@ -29,7 +29,7 @@ services:
                         - ./moj-node/server:/home/node/app/server
                         - ./moj-node/test:/home/node/app/test
                         - ./moj-node/assets:/home/node/app/assets
-        
+
         hub-fe:
                 image: mojdigitalstudio/digital-hub-fe
                 depends_on:
@@ -62,6 +62,7 @@ services:
                         PHP_UPLOAD_MAX_FILE_SIZE: 500M
                         PHP_POST_MAX_SIZE: 500M
                         SIMPLETEST_DB: mysql://hubdb_user:hubdb_pass@localhost/hubdb
+                        XDEBUG_IP: 127.0.0.1 # Replace with your machines IP: $ ipconfig getifaddr en0 
                 volumes:
                         - ./moj-be/:/var/www/html/
                 ports:
