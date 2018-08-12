@@ -8,3 +8,4 @@ modules/contrib/backup_migrate/vendor/psr/
 .vscode/**
 .project
 .settings
+moj-be/sites/default/settings.local.php
