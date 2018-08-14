@@ -7,3 +7,16 @@
         text-decoration: none;
     }
 }
+
+.govuk-hub-audio-content-items {
+
+    .item {
+        &:first-child {
+            padding-left: govuk-spacing(1);
+        }
+        &:last-child {
+            padding-right: govuk-spacing(1);
+        }
+    }
+    
+}
