@@ -4,7 +4,7 @@ namespace Drupal\Tests\moj_resources\Kernel;
 
 use Drupal\node\Entity\Node;
 use Drupal\KernelTests\KernelTestBase;
-use Drupal\moj_resources\FeaturedContentApiClass;
+use Drupal\moj_resources\PromotedContentApiClass;
 use Drupal\KernelTests\Core\Entity\EntityKernelTestBase;
 
 /**
@@ -32,6 +32,6 @@ class FeaturedContnetServiceTest extends EntityKernelTestBase
     public function testFeaturedContnetService() 
     {
         $featuredContnetService = $this->container->get('moj_resources.featured_content_api_class');
-        $this->assertTrue($featuredContnetService instanceof FeaturedContentApiClass);
+        $this->assertTrue($featuredContnetService instanceof PromotedContentApiClass);
     }
 }

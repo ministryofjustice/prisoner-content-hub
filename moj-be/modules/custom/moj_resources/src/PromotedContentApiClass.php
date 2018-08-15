@@ -6,10 +6,10 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 /**
- * FeaturedContentApiClass
+ * PromotedContentApiClass
  */
 
-class ContentApiClass
+class PromotedContentApiClass
 {
     /**
      * Node IDs
@@ -17,6 +17,7 @@ class ContentApiClass
      * @var array
      */
     protected $nids = array();
+    
     /**
      * Nodes
      *
@@ -55,6 +56,8 @@ class ContentApiClass
     ) {
         $this->node_storage = $entityTypeManager->getStorage('node');
         $this->entity_query = $entityQuery;
+        $this->nids = self::getPromotedContentNodeIds();
+        $this->nodes = self::loadNodesDetails($this->nids);
     }
     /**
      * API resource function
@@ -62,13 +65,10 @@ class ContentApiClass
      * @param [string] $lang
      * @return array
      */
-    public function ContentApiEndpoint($lang, $category, $number)
-    {
+    public function PromotedContentApiEndpoint($lang)
+    {   
         $this->lang = $lang;
-        $this->nids = self::getContentNodeIds($category, $number);
-        $this->nodes = self::loadNodesDetails($this->nids);
         return array_map('self::translateNode', $this->nodes);
-        // return array_map('self::serialize', $translatedNodes);
     }
     /**
      * TranslateNode function
@@ -86,13 +86,13 @@ class ContentApiClass
      *
      * @return void
      */
-    protected function getContentNodeIds($category, $number) 
+    protected function getPromotedContentNodeIds()
     {
         return $this->entity_query->get('node')
             ->condition('status', 1)
-            ->condition('field_moj_categories', $category)
+            ->condition('promote', 1)
             ->sort('created', 'DESC')
-            ->range(0, $number)
+            ->range(0, 1)
             ->execute();
     }
     /**

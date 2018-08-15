@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\\moj_resources\Plugin\rest\resource\ContentResource.
+ * Contains Drupal\\moj_resources\Plugin\rest\resource\PromotedContentResource.
  */
 
 namespace Drupal\moj_resources\Plugin\rest\resource;
@@ -10,8 +10,8 @@ namespace Drupal\moj_resources\Plugin\rest\resource;
 use Psr\Log\LoggerInterface;
 use Drupal\rest\ResourceResponse;
 use Drupal\rest\Plugin\ResourceBase;
-use Drupal\moj_resources\ContentApiClass;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\moj_resources\PromotedContentApiClass;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -20,30 +20,32 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * Provides a Featured Content Resource
  *
  * @RestResource(
- *   id = "content_resource",
- *   label = @Translation("Content resource"),
+ *   id = "promoted_content_resource",
+ *   label = @Translation("Promoted content resource"),
  *   uri_paths = {
- *     "canonical" = "/api/content/{category}/{number}/{lang}"
+ *     "canonical" = "/api/content/promoted/{lang}"
  *   }
  * )
  */
 
-class ContentResource extends ResourceBase 
+class PromotedContentResource extends ResourceBase
 {
-    protected $contentApiController;
+    protected $promotedContentApiController;
+
+    protected $promotedContentApiClass;
 
     protected $currentRequest;
 
     public function __construct(
-        array $configuration,
-        $plugin_id,
-        $plugin_definition,
-        array $serializer_formats,
-        LoggerInterface $logger,
-        ContentApiClass $ContentApiClass,
-        Request $currentRequest
+      array $configuration,
+      $plugin_id,
+      $plugin_definition,
+      array $serializer_formats,
+      LoggerInterface $logger,
+      PromotedContentApiClass $promotedContentApiClass,
+      Request $currentRequest
     ) {        
-        $this->contentApiClass = $ContentApiClass;
+        $this->promotedContentApiClass = $promotedContentApiClass;
         $this->currentRequest = $currentRequest;
         parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
     }
@@ -60,7 +62,7 @@ class ContentResource extends ResourceBase
             $plugin_definition,
             $container->getParameter('serializer.formats'),
             $container->get('logger.factory')->get('rest'),
-            $container->get('moj_resources.content_api_class'),
+            $container->get('moj_resources.promoted_content_api_class'),
             $container->get('request_stack')->getCurrentRequest()
         );
     }   
@@ -68,13 +70,11 @@ class ContentResource extends ResourceBase
     public function get() 
     {
         $lang = $this->currentRequest->get('lang');
-        $category = $this->currentRequest->get('category');
-        $number = $this->currentRequest->get('number');
-        $content = $this->contentApiClass->ContentApiEndpoint($lang, $category, $number);
-        if (!empty($content)) {
-            return new ResourceResponse($content);
+        $promoted = $this->promotedContentApiClass->PromotedContentApiEndpoint($lang);
+        if (!empty($promoted)) {
+            return new ResourceResponse($promoted);
         }
-        throw new NotFoundHttpException(t('No featured content found'));
+        throw new NotFoundHttpException(t('No promoted content found'));
     }
 }
 

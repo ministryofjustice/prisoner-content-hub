@@ -1,5 +1,5 @@
-id: content_resource
-plugin_id: content_resource
+id: promoted_content_resource
+plugin_id: promoted_content_resource
 granularity: method
 configuration:
   GET:

@@ -2,13 +2,13 @@
 
 namespace Drupal\moj_resources;
 
-use Drupal\moj_resources\FeaturedContentApiClass;
+use Drupal\moj_resources\PromotedContentApiClass;
 
-class _FeaturedContentApiClass extends FeaturedContentApiClass
+class _PromotedContentApiClass extends PromotedContentApiClass
 {
     public function _getFeaturedContentNodeIds()
     {
-        return $this->getFeaturedContentNodeIds();
+        return $this->getPromotedContentNodeIds();
     }
 
     public function getNids()
