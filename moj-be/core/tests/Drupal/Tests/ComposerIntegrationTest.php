@@ -189,9 +189,6 @@ class ComposerIntegrationTest extends UnitTestCase {
    *   testing in https://www.drupal.org/node/2874198
    */
   public function testMinPHPVersion() {
-
-    $this->markTestSkipped('must be revisited.');
-    
     // Check for lockfile in the application root. If the lockfile does not
     // exist, then skip this test.
     $lockfile = $this->root . '/composer.lock';

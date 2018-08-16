@@ -6,7 +6,7 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 /**
- * FeaturedContentApiClass
+ * ContentApiClass
  */
 
 class ContentApiClass
@@ -16,13 +16,14 @@ class ContentApiClass
      *
      * @var array
      */
-    protected $nids = array();
+    protected $nid = array();
+    
     /**
      * Nodes
      *
      * @var array
      */
-    protected $nodes = array();
+    protected $node = array();
     /**
      * Language Tag
      *
@@ -62,13 +63,12 @@ class ContentApiClass
      * @param [string] $lang
      * @return array
      */
-    public function ContentApiEndpoint($lang, $category, $number)
-    {
+    public function ContentApiEndpoint($lang, $nid)
+    {   
         $this->lang = $lang;
-        $this->nids = self::getContentNodeIds($category, $number);
-        $this->nodes = self::loadNodesDetails($this->nids);
-        return array_map('self::translateNode', $this->nodes);
-        // return array_map('self::serialize', $translatedNodes);
+        $this->nid = $nid;
+        $this->node = $this->loadNodesDetails($this->nid);
+        return $this->translateNode($this->node);
     }
     /**
      * TranslateNode function
@@ -81,44 +81,16 @@ class ContentApiClass
     {
         return $node->hasTranslation($this->lang) ? $node->getTranslation($this->lang) : $node;
     }
-    /**
-     * Get nids
-     *
-     * @return void
-     */
-    protected function getContentNodeIds($category, $number) 
-    {
-        return $this->entity_query->get('node')
-            ->condition('status', 1)
-            ->condition('field_moj_categories', $category)
-            ->sort('created', 'DESC')
-            ->range(0, $number)
-            ->execute();
-    }
+   
     /**
      * Load full node details
      *
      * @param array $nids
      * @return array 
      */
-    protected function loadNodesDetails(array $nids)
+    protected function loadNodesDetails($nid)
     {
-        return array_filter(
-            $this->node_storage->loadMultiple($nids), function ($item) 
-            {
-                return $item->access();
-            }
-        );
+        return $this->node_storage->load($nid);
     }
-    /**
-     * Sanitise node
-     *
-     * @param [type] $item
-     * @return void
-     */
-    protected function serialize($item) 
-    {
-        $serializer = \Drupal::service($item->getType().'.serializer.default'); // TODO: Inject dependency
-        return $serializer->serialize($item, 'json', ['plugin_id' => 'entity']);
-    }
+
 }

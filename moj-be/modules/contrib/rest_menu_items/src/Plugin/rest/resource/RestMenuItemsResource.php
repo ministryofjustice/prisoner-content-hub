@@ -145,6 +145,11 @@ class RestMenuItemsResource extends ResourceBase {
       // Finally, build a renderable array from the transformed tree.
       $menu = $menu_tree->build($tree);
 
+      // Return if the menu has no entries.
+      if (empty($menu['#items'])) {
+        return new ResourceResponse([]);
+      }
+
       $this->getMenuItems($menu['#items'], $this->menuItems);
 
       // Return response.
@@ -237,10 +242,11 @@ class RestMenuItemsResource extends ResourceBase {
    */
   private function getElementValue(array &$returnArray, $key, MenuLinkInterface $link, Url $url) {
     $external = $url->isExternal();
+    $routed = $url->isRouted();
     $existing = TRUE;
     $value = NULL;
 
-    if ($external) {
+    if ($external || !$routed) {
       $uri = $url->getUri();
     }
     else {
@@ -274,7 +280,9 @@ class RestMenuItemsResource extends ResourceBase {
         break;
 
       case 'alias':
-        $value = ltrim($this->aliasManager->getAliasByPath("/$uri"), '/');
+        if ($routed) {
+          $value = ltrim($this->aliasManager->getAliasByPath("/$uri"), '/');
+        }
         break;
 
       case 'external':
@@ -284,6 +292,12 @@ class RestMenuItemsResource extends ResourceBase {
       case 'absolute':
         if ($external) {
           $value = $uri;
+        }
+        elseif (!$routed) {
+          $url->setAbsolute();
+          $value = $url
+            ->toString(TRUE)
+            ->getGeneratedUrl();
         }
         else {
           $value = Url::fromUri('internal:/' . $uri, ['absolute' => TRUE])
@@ -295,6 +309,13 @@ class RestMenuItemsResource extends ResourceBase {
       case 'relative':
         if (!$external) {
           $value = Url::fromUri('internal:/' . $uri, ['absolute' => FALSE])
+            ->toString(TRUE)
+            ->getGeneratedUrl();
+        }
+
+        if (!$routed) {
+          $url->setAbsolute(FALSE);
+          $value = $url
             ->toString(TRUE)
             ->getGeneratedUrl();
         }
@@ -321,7 +342,7 @@ class RestMenuItemsResource extends ResourceBase {
         break;
 
       case 'uuid':
-        if (!$external) {
+        if (!$external && $routed) {
           $params = Url::fromUri('internal:/' . $uri)->getRouteParameters();
           $entity_type = key($params);
           if (!empty($entity_type)) {

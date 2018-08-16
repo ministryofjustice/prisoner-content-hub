@@ -7,8 +7,8 @@ dependencies:
   - drupal:migrate (>= 8.1)
   - migrate_plus:migrate_plus
 
-# Information added by Drupal.org packaging script on 2018-03-19
-version: '8.x-2.1'
+# Information added by Drupal.org packaging script on 2018-05-30
+version: '8.x-2.2'
 core: '8.x'
 project: 'migrate_source_csv'
-datestamp: 1521470286
+datestamp: 1527712684

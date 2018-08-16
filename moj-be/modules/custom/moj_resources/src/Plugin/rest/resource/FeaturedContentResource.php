@@ -10,8 +10,8 @@ namespace Drupal\moj_resources\Plugin\rest\resource;
 use Psr\Log\LoggerInterface;
 use Drupal\rest\ResourceResponse;
 use Drupal\rest\Plugin\ResourceBase;
-use Symfony\Component\HttpFoundation\Request;
 use Drupal\moj_resources\FeaturedContentApiClass;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -21,14 +21,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *
  * @RestResource(
  *   id = "featured_content_resource",
- *   label = @Translation("Featured content resource"),
+ *   label = @Translation("Featured Content resource"),
  *   uri_paths = {
- *     "canonical" = "/api/content/featured/{lang}"
+ *     "canonical" = "/api/content/featured/{category}/{number}/{lang}"
  *   }
  * )
  */
 
-class FeaturedContentResource extends ResourceBase 
+class FeaturedContentResource extends ResourceBase
 {
     protected $featuredContentApiController;
 
@@ -68,9 +68,11 @@ class FeaturedContentResource extends ResourceBase
     public function get() 
     {
         $lang = $this->currentRequest->get('lang');
-        $featured = $this->featuredContentApiClass->FeaturedContentApiEndpoint($lang);
-        if (!empty($featured)) {
-            return new ResourceResponse($featured);
+        $category = $this->currentRequest->get('category');
+        $number = $this->currentRequest->get('number');
+        $featuredContent = $this->featuredContentApiClass->FeaturedContentApiEndpoint($lang, $category, $number);
+        if (!empty($featuredContent)) {
+            return new ResourceResponse($featuredContent);
         }
         throw new NotFoundHttpException(t('No featured content found'));
     }

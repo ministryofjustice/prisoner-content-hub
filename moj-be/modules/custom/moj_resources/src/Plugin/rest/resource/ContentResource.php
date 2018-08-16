@@ -10,40 +10,42 @@ namespace Drupal\moj_resources\Plugin\rest\resource;
 use Psr\Log\LoggerInterface;
 use Drupal\rest\ResourceResponse;
 use Drupal\rest\Plugin\ResourceBase;
-use Drupal\moj_resources\ContentApiClass;
 use Symfony\Component\HttpFoundation\Request;
+use Drupal\moj_resources\ContentApiClass;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Provides a Featured Content Resource
+ * Provides a Content Resource
  *
  * @RestResource(
  *   id = "content_resource",
  *   label = @Translation("Content resource"),
  *   uri_paths = {
- *     "canonical" = "/api/content/{category}/{number}/{lang}"
+ *     "canonical" = "/api/content/{nid}/{lang}"
  *   }
  * )
  */
 
-class ContentResource extends ResourceBase 
+class ContentResource extends ResourceBase
 {
     protected $contentApiController;
+
+    protected $contentApiClass;
 
     protected $currentRequest;
 
     public function __construct(
-        array $configuration,
-        $plugin_id,
-        $plugin_definition,
-        array $serializer_formats,
-        LoggerInterface $logger,
-        ContentApiClass $ContentApiClass,
-        Request $currentRequest
+      array $configuration,
+      $plugin_id,
+      $plugin_definition,
+      array $serializer_formats,
+      LoggerInterface $logger,
+      ContentApiClass $contentApiClass,
+      Request $currentRequest
     ) {        
-        $this->contentApiClass = $ContentApiClass;
+        $this->contentApiClass = $contentApiClass;
         $this->currentRequest = $currentRequest;
         parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
     }
@@ -68,13 +70,12 @@ class ContentResource extends ResourceBase
     public function get() 
     {
         $lang = $this->currentRequest->get('lang');
-        $category = $this->currentRequest->get('category');
-        $number = $this->currentRequest->get('number');
-        $content = $this->contentApiClass->ContentApiEndpoint($lang, $category, $number);
+        $nid = $this->currentRequest->get('nid');
+        $content = $this->contentApiClass->ContentApiEndpoint($lang, $nid);
         if (!empty($content)) {
             return new ResourceResponse($content);
         }
-        throw new NotFoundHttpException(t('No featured content found'));
+        throw new NotFoundHttpException(t('No content found'));
     }
 }
 

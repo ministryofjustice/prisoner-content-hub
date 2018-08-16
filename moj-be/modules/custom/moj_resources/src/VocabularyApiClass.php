@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Serializer;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
- * FeaturedContentApiClass
+ * PromotedContentApiClass
  */
 
 class VocabularyApiClass

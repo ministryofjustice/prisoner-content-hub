@@ -5,7 +5,7 @@ namespace Drupal\Tests\moj_resources\Unit;
 use Drupal\Tests\UnitTestCase;
 use Drupal\Tests\Core\Form\FormTestBase;
 use Drupal\Core\Entity\Query\QueryFactory;
-use Drupal\moj_resources\_FeaturedContentApiClass;
+use Drupal\moj_resources\_PromotedContentApiClass;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 
@@ -88,7 +88,7 @@ class NewContentTest extends FormTestBase
             ->method($this->anything())
             ->will($this->returnSelf());
         
-        $this->featuredContentApiClass = new _FeaturedContentApiClass($this->entityManager, $this->entityQueryFactory);
+        $this->featuredContentApiClass = new _PromotedContentApiClass($this->entityManager, $this->entityQueryFactory);
     }
 
     public function testGetFeaturedContentReturnsNodeId()

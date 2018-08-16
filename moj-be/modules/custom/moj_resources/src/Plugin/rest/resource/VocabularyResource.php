@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\\moj_resources\Plugin\rest\resource\ContentResource.
+ * Contains Drupal\\moj_resources\Plugin\rest\resource\FeaturedContentResource.
  */
 
 namespace Drupal\moj_resources\Plugin\rest\resource;

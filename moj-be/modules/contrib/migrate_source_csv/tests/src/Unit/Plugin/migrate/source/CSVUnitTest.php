@@ -257,6 +257,24 @@ class CSVUnitTest extends CSVUnitBase {
   }
 
   /**
+   * Test the getFile return a valid file instance.
+   *
+   * @covers ::getFile
+   */
+  public function testGetFile() {
+    $configuration = [
+      'path' => $this->happyPath,
+      'keys' => ['id'],
+      'header_row_count' => 1,
+    ];
+
+    $csv = new CSV($configuration, $this->pluginId, $this->pluginDefinition, $this->migration);
+    $csv->initializeIterator();
+    $file = $csv->getFile();
+    $this->assertInstanceOf(\SplFileObject::class, $file);
+  }
+
+  /**
    * Tests that fields have a machine name and description.
    *
    * @covers ::fields
