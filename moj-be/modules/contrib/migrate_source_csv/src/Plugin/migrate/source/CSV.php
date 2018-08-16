@@ -172,6 +172,16 @@ class CSV extends SourcePluginBase implements ConfigurablePluginInterface {
   }
 
   /**
+   * Gets the file object.
+   *
+   * @return \SplFileObject
+   *   The file object.
+   */
+  public function getFile() {
+    return $this->file;
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function setConfiguration(array $configuration) {
