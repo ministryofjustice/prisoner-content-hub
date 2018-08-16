@@ -1,4 +1,7 @@
 services:
+    moj_resources.content_api_class:
+        class: Drupal\moj_resources\ContentApiClass
+        arguments: ['@entity_type.manager','@entity.query']
     moj_resources.promoted_content_api_class:
         class: Drupal\moj_resources\PromotedContentApiClass
         arguments: ['@entity_type.manager','@entity.query']
