@@ -11,6 +11,7 @@ groups_to_create:
   - name: admin
   - name: studio
   - name: dxc
+  - name: unilink
 
 studio_users:
   - username: mattwhittaker
@@ -312,6 +313,43 @@ dxc_users:
     shell: /bin/bash
     update_password: on_create
 
+  - username: kquinlan
+    name: "Kevin Quinlan"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAhVv8bMx/Luetpyau8xNjEeLz018eAgOUNnvZa4tH37nT7Xm3GoOkrS0G6dSu3SXQcTi1xqxWnd9E0RaMAbJCY9JHvB2KtSAR0mWOW208Jb0H1/Z+PNm/RjPi86WuT2hiUHTwulioA2t5azJBaP2h/KqVqmxnaIpMszKPCRfuS+Cs4Q9ed5ao1HO3AZZ7dLgQxJaJhhjj+/pN33KPN1UGag6M9SdU9dLyIf/RxAM28rcfo8uovPqubvTzpmNIAurVVHMFXs3v4uQxorfnAtZKElxHivIJZlusfuImT0cwI6fJ7b8VehRCO3UdlNiAPiyoAc915/FmGmUP5XrUr0u4xw=="
+    shell: /bin/bash
+    update_password: on_create
+
+  - username: dgauld
+    name: "David Gauld"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAnalgI6AIYRCAkKQzIb9HgAf1wpvhYAUJcJmB7fjNbP3uDQVxmz5EQwURHpBfyrXGDI0Pg0r4c26PDBaaQKZ4n+nD0UlK2ImsnSaOmCZD3ukMEiaOfBN6QHxMKEuN2XNEn6WCnorhYS10ug1q3PhRvEWPLZyq+KsvGdNoCA7Cy0iA0HJ/9lAd94H+z4KPIv9t2qWHMTJP8eEFWJQ3USR0R5L8o4B4+Dw/z3zubzMTq9WrPLI4SDUR5qemjXK0SBcpsUWtRcyhoeijDF8dGE1w0l28IE8fNoJT5J59vlH7eiDtddnNqwRUMrSpVQ4bVy+Q7lzxqIpLLAZAPYBqm8GAqQ=="
+    shell: /bin/bash
+    update_password: on_create
+
+  - username: kebblewhite
+    name: "Kieran Ebblewhite"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAp0tgnHMjyngHWIzaS+RlFNPbt7IzHJvdDDOJx4sLdCK73Ks3K4qqbmQsRoyGrSWKiNBt/qYFMhuSx82tSewaB8QaaklLhjAQlQe+NU9vx1KOxSQD8MF0Yyh/HKFNCA6Tss80V5/+WLoIr/OeMAp7XaDFYL7C1b9pMmeMW1fPAN8CR7Hq1wLbL6zkRywmR0P5Uwat8i1M9F2/7d5bajUZu5+drTnsVyh7zp0ypBNS8GfZQqbDn6mbPPaaEF1fhsH0kK/YMnwRzjkQBvAbRGekGHA/hgUXytkd08/T8Xx8YRjxTh1E4C8cwF6ICETT3aFL1r82vJpAR80LuKrt49t8Qw=="
+    shell: /bin/bash
+    update_password: on_create
+
+unilink_users:
+  - username: ppaton
+    name: "Paul Paton"
+    groups:
+      - unilink
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAiKO33b2Zv1Z3jKakLBfmfowMMQHCAa39aZS2V54GSzcq9i6SD5wueFDwgalvNuInlXhgvL1XbJ+0tF6GDgcHgvO6YfNhNauSkCSCKtH1LnABiK7XUHfYmw+FtKC8CTjeZYQWZ/EbmGTtWLgWJnqjvFr6L2zZXwmobk5JN5+3bzyFAEoaTFt3ZDH7PlXz83TAK8QzegrylfZvUer7WMIIm878BKWNgrIXs4PWiY2TwejchP6avMVsupRKeuLX225NO/4RtTT6qGHwcLy+sghZs3k8N3i3z4W/q9ahULy//hYi3a8/Q/RXudofGblDWK2/j/7FBM2fGcc/3m/S5rF6wQ== rsa-key-20180816"
+    shell: /bin/bash
+    update_password: on_create
+
 users: "{{ studio_users }}"
 
 users_deleted:
@@ -319,6 +357,8 @@ users_deleted:
   - username: awalker
   - username: sean
   - username: aharris
+  - username: ppatton
+  - username: iangardener
 
 nginx_extra_http_options: |
   ##
