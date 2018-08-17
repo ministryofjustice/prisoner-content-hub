@@ -83,6 +83,7 @@ class VocabularyApiClass
         $this->tids = self::getVocabularyTids($category); 
         $this->nodes = $this->term_storage->loadMultiple($this->tids);
         return array_map('self::translateNode', $this->nodes);
+        // return self::serialize($translatedNodes);
     }
     /**
      * TranslateNode function
@@ -105,5 +106,15 @@ class VocabularyApiClass
         return $this->entity_query->get('taxonomy_term')
             ->condition('vid', $category)
             ->execute();
+    }
+    /**
+     * Sanitise terms
+     *
+     * @param [array] $item
+     * @return array
+     */
+    protected function serialize($items) 
+    {
+        return $this->termSerializer->serialize($items, 'json', ['plugin_id' => 'entity']);
     }
 }

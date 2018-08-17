@@ -17,12 +17,6 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- * @SWG\Get(
- *     path="/v1/api/menu",
- *     @SWG\Response(response="200", description="Hub main menu resource")
- * )
- */
 
 /**
  * Provides a Menu Resource
@@ -31,7 +25,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   id = "menu_resource",
  *   label = @Translation("Menu resource"),
  *   uri_paths = {
- *     "canonical" = "/v1/api/menu"
+ *     "canonical" = "/api/menu/{parent}/{lang}"
  *   }
  * )
  */
@@ -46,9 +40,9 @@ class MenuResource extends ResourceBase
 
     protected $languageManager;
 
-    protected $paramater_current_page_id;
+    protected $currentPageIdParameter;
 
-    protected $paramater_language_tag;
+    protected $languageParameter;
 
 
     public function __construct(
@@ -64,14 +58,9 @@ class MenuResource extends ResourceBase
         $this->menuApiClass = $MenuApiClass;
         $this->currentRequest = $currentRequest;
         $this->languageManager = $languageManager;
-
         $this->availableLangs = $this->languageManager->getLanguages();
-        $this->paramater_language_tag = self::setLanguage();
-        $this->paramater_current_page_id = self::setCurrentPageId();
-
-        self::checklanguageParameterIsValid();
-        self::checkCurrentPageIdParamaterIsNumeric();
-        
+        $this->currentPageIdParameter = $this->currentRequest->get('parent');
+        $this->languageParameter = $this->currentRequest->get('lang');
         parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
     }
   
@@ -95,6 +84,8 @@ class MenuResource extends ResourceBase
 
     public function get() 
     {
+        self::checklanguageParameterIsValid();
+        self::checkCurrentPageIdParameterIsNumeric();
         $menu = $this->menuApiClass->MenuApiEndpoint($lang, $parent);
         if (!empty($menu)) {
             return new ResourceResponse($menu);
@@ -106,7 +97,7 @@ class MenuResource extends ResourceBase
     {
         foreach($this->availableLangs as $lang)
         {
-            if ($lang->getid() === $this->paramater_language_tag) {
+            if ($lang->getid() === $this->languageParameter) {
                 return true;
             } 
         }
@@ -117,9 +108,9 @@ class MenuResource extends ResourceBase
         );
     }
 
-    protected function checkCurrentPageIdParamaterIsNumeric()
+    protected function checkCurrentPageIdParameterIsNumeric()
     {
-        if (is_numeric($this->paramater_current_page_id)) {
+        if (is_numeric($this->currentPageIdParameter)) {
             return true;
         }
         throw new NotFoundHttpException(
@@ -127,15 +118,5 @@ class MenuResource extends ResourceBase
             null,
             404
         );
-    }
-
-    protected function setLanguage()
-    {
-        return is_null($this->currentRequest->get('lang')) ? 'en' : $this->currentRequest->get('lang');
-    }
-
-    protected function setCurrentPageId()
-    {
-        return is_null($this->currentRequest->get('parent')) ? 0 : $this->currentRequest->get('parent');
     }
 }
