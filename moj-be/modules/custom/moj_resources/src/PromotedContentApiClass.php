@@ -93,6 +93,7 @@ class PromotedContentApiClass
             ->condition('promote', 1)
             ->sort('created', 'DESC')
             ->range(0, 1)
+            ->accessCheck(false)
             ->execute();
     }
     /**

@@ -88,12 +88,17 @@ class FeaturedContentApiClass
      */
     protected function getFeaturedContentNodeIds($category, $number)
     {
-        return $this->entity_query->get('node')
+        $results = $this->entity_query->get('node')
             ->condition('status', 1)
-            ->condition('field_moj_top_level_categories', $category)
             ->sort('created', 'DESC')
             ->range(0, $number)
-            ->execute();
+            ->accessCheck(false);
+
+        if ($category !== 0) {
+            $results->condition('field_moj_top_level_categories', $category);
+        };
+        
+        return $results->execute();
     }
     /**
      * Load full node details
