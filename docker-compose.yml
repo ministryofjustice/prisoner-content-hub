@@ -104,3 +104,14 @@ services:
                 entrypoint:
                         - drupal
                         - '--root=/var/www/html/'
+        hub-api-docs:
+                image: mojdigitalstudio/digital-hub-api-docs
+                depends_on:
+                        - hub-db
+                        - hub-be
+                environment:
+                        API_URL: ./swagger.json
+                volumes:
+                        - ./moj-api-docs/:/var/www/html/
+                ports:
+                        - 8184:8080
