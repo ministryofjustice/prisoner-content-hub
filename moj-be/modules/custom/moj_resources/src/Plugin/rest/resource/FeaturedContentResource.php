@@ -17,13 +17,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
+ * @SWG\Get(
+ *     path="/v1/api/content/featured",
+ *     @SWG\Response(response="200", description="Hub featured content resource")
+ * )
+ */
+
+/**
  * Provides a Featured Content Resource
  *
  * @RestResource(
  *   id = "featured_content_resource",
  *   label = @Translation("Featured Content resource"),
  *   uri_paths = {
- *     "canonical" = "/api/content/featured/{category}/{number}/{lang}"
+ *     "canonical" = "/v1/api/content/featured"
  *   }
  * )
  */
