@@ -4,6 +4,9 @@ build-deps:
 build: 
 	docker build -t mojdigitalstudio/digital-hub-be .
 
+build-api-docs:
+	vendor/zircote/swagger-php/bin/swagger modules/custom/moj_resources
+	
 clean:
 	rm -rf vendor
 

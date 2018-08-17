@@ -1,0 +1,73 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "HMPPS Digital Hub API",
+        "description": "This is the HMPPS Digital Hub API.",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": "thehub@digital.justice.gov.uk"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "host": "https://drupal.digital-hub-stage.hmpps.dsd.io",
+    "basePath": "/v1",
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/v1/api/content/{nid}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Hub content resource"
+                    }
+                }
+            }
+        },
+        "/v1/api/content/featured": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Hub featured content resource"
+                    }
+                }
+            }
+        },
+        "/v1/api/menu": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Hub main menu resource"
+                    }
+                }
+            }
+        },
+        "/v1/api/content/promoted": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Hub promoted content resource"
+                    }
+                }
+            }
+        },
+        "/v1/api/vocabulary/{category}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Hub vocabulary resource"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {},
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    }
+}
