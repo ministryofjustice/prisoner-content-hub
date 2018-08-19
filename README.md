@@ -68,3 +68,15 @@ Run a live version of the Digital Hub
 -------------------------------------
 
 Due to version incompatibilities with docker compose, we use a shell script to run in live, see `docker-decomposed.sh` for details.
+
+
+View Swagger documention on local
+-------------------------------------
+
+To view the API documention on your local machine run: 
+
+```
+docker-compose up
+```
+
+View documention at http://localhost:8184
