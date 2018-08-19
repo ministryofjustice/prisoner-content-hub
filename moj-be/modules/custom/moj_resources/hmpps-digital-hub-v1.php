@@ -1,8 +1,8 @@
 <?php
 /**
  * @SWG\Swagger(
- *     schemes={"https"},
- *     host="drupal.digital-hub-stage.hmpps.dsd.io",
+ *     schemes={"http"},
+ *     host="localhost:8182",
  *     basePath="/v1",
  *     @SWG\Info(
  *         version="1.0.0",
