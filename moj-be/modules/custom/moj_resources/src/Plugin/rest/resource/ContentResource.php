@@ -54,7 +54,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   id = "content_resource",
  *   label = @Translation("Content resource"),
  *   uri_paths = {
- *     "canonical" = "/api/content/{nid}"
+ *     "canonical" = "/v1/api/content/{nid}"
  *   }
  * )
  */
