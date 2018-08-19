@@ -20,6 +20,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  /**
  * @SWG\Get(
  *     path="/api/vocabulary/{category}",
+ *     tags={"Category"},
  *     @SWG\Parameter(
  *          name="_format",
  *          in="query",

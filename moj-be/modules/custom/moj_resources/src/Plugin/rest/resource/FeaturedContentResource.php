@@ -20,6 +20,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * @SWG\Get(
  *     path="/api/content/featured",
+ *     tags={"Content"},
  *     @SWG\Parameter(
  *          name="_format",
  *          in="query",

@@ -21,6 +21,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
   /**
  * @SWG\Get(
  *     path="/api/menu",
+ *     tags={"Menu"},
  *     @SWG\Parameter(
  *          name="_parent",
  *          in="path",
