@@ -44,7 +44,7 @@ jobs:
                 command: cd moj-be && make build
             - run:
                 name: Build API docs
-                command: cd moj-be && make bild-api-docs
+                command: cd moj-be && make build-api-docs
             - save_cache:
                 key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
                 paths:
