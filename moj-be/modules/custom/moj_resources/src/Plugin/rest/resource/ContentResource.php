@@ -20,7 +20,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * @SWG\Swagger(
  *     schemes={"https"},
- *     host="https://drupal.digital-hub-stage.hmpps.dsd.io",
+ *     host="drupal.digital-hub-stage.hmpps.dsd.io",
  *     basePath="/v1",
  *     @SWG\Info(
  *         version="1.0.0",
@@ -42,9 +42,32 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  * )
  */
 
-/**
+
+ /**
  * @SWG\Get(
- *     path="/v1/api/content/{nid}",
+ *     path="/api/content/{nid}",
+ *     @SWG\Parameter(
+ *          name="{id}",
+ *          in="path",
+ *          required=true,
+ *          type="integer",
+ *          description="ID of content to be returned",
+ *      ),
+ *     @SWG\Parameter(
+ *          name="_format",
+ *          in="query",
+ *          required=true,
+ *          type="string",
+ *          description="Response format, should be 'json'",
+ *      ),
+ *      @SWG\Parameter(
+ *          name="_lang",
+ *          in="query",
+ *          required=false,
+ *          type="string",
+ *          description="The language tag to translate results, if there is no translation available then the site default is returned, the default is 'en' (English). Options are 'en' (English) or 'cy' (Welsh).",
+ *      ),
+ *      
  *     @SWG\Response(response="200", description="Hub content resource")
  * )
  */
@@ -56,7 +79,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *   id = "content_resource",
  *   label = @Translation("Content resource"),
  *   uri_paths = {
- *     "canonical" = "/v1/api/content/{nid}"
+ *     "canonical" = "/api/content/{nid}"
  *   }
  * )
  */
@@ -142,7 +165,7 @@ class ContentResource extends ResourceBase
 
     protected function setLanguage()
     {
-        return is_null($this->currentRequest->get('lang')) ? 'en' : $this->currentRequest->get('lang');
+        return is_null($this->currentRequest->get('_lang')) ? 'en' : $this->currentRequest->get('_lang');
     }
 
     protected function checkContentIdParameterIsNumeric()
