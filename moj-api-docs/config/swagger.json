@@ -13,10 +13,10 @@
         },
         "version": "1.0.0"
     },
-    "host": "drupal.digital-hub-stage.hmpps.dsd.io",
+    "host": "localhost:8182",
     "basePath": "/v1",
     "schemes": [
-        "https"
+        "http"
     ],
     "paths": {
         "/api/content/{nid}": {
