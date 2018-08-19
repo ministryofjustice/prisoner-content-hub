@@ -110,8 +110,8 @@ services:
                         - hub-db
                         - hub-be
                 environment:
-                        API_URL: ./swagger.json
+                        API_URL: ./config/swagger.json
                 volumes:
-                        - ./moj-api-docs/:/var/www/html/
+                        - ./moj-api-docs/config:/var/www/html/config
                 ports:
                         - 8184:8080

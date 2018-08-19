@@ -1,2 +1,2 @@
 FROM swaggerapi/swagger-ui
-COPY ./swagger.json /usr/share/nginx/html/
+COPY ./config/swagger.json /usr/share/nginx/html/config/
