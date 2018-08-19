@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *     path="/api/content/{nid}",
  *     tags={"Content"},
  *     @SWG\Parameter(
- *          name="{id}",
+ *          name="{nid}",
  *          in="path",
  *          required=true,
  *          type="integer",

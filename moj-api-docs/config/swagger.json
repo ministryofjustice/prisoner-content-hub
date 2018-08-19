@@ -26,7 +26,7 @@
                 ],
                 "parameters": [
                     {
-                        "name": "{id}",
+                        "name": "{nid}",
                         "in": "path",
                         "description": "ID of content to be returned",
                         "required": true,
