@@ -183,7 +183,7 @@ dxc_users:
     groups:
       - dxc
     ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAi5ZZ1QtL3WDdH02AjU7icZqsJguKtdz73a9SMWjB8+TpJTHdPrkFQpu94YzCqfyF8cANEUykaRUm1vvNtLQQAEXKp91hTZXoymJyP9E9ibxcmBkJWbS5wyatM29Ke2ivTfV4CeH0GdM7MCiM6mEjA0nq4qdAaOWn98pJfOymuNSpBM4YIH3Oy/P9fxfn/KNx5PFq1kCf1oz8qJfsmwm7UIJlkkAqY1xTTIuMxkdM+QpkxRo4ePYCCz/fB38zfccI7MpJAr9yvcd83ec/N6E3hEfI6mAwvXpOCDYJgvxrDrDZ99nOWomSIMF3RgZK9WZy42FNZO8Csz9oHkkr3CMsQQ=="
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAu/RYnifM5BAGF7lo1ZyIbI4rO2ZrGb/fxSEhI+GJRPrmkDUeY+OqraPTu1n2ng0O55OInu9S96kUA8CIqODgYqayvUQesYYilJ/+G95tkyhCHc4WpN5nKteJg4SDTznI/T6uhNFj48cT4rtJQfFnvf9iGASl5kBNy9I2XGVTHmv6hzH3KxvJ7TeQoLv+w8ta1y61xGhrmyfimRvic87PzjXBepD3CZvdutrblljuCdbL3Z53zPGF/p3JZqWlpXypw69wNoTPc9r939jYnYs9bzG/4M4C2dnk86EgyHxw7KZ0/ktw72fFVQUo6CSgxKvuANHP9eI44G+mBX1pRlLuWQ=="
     shell: /bin/bash
     update_password: on_create
 
@@ -255,7 +255,7 @@ dxc_users:
     groups:
       - dxc
     ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEApTNutd2+Dm2njgxw6jGIgy5ooEmGIYfzvEaPLRNlCQMMyD5VOeqyK9nwlkj+q+mxpU5kuEfIJlHQxINGtiN2b4L+86HplwUuxBio7yN/SlIGaV2Tlin7VJJWmnZcWWEwyy34RqSHmWUhkkMEHInGIBPiJA9ENBWG/3X8mpNYp+fvYmwJNk9GSMQSr0VMlUOjG8R8Qx9f8CF+MTzC+KhPE5/pE9jE+vDqoIsgDks+I68K/SvE2G32T8FKUev9JPflYnnPD/AVJ5TVjU8L1Vvq0EybIVoWy9Sjd4fxZcVh4y8wAR+39n5NgXoaIzQSffCFRWodG5RoKSlLksGyEHsOvQ=="
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAomBNn2LKU4vaAXwrgka4p4Wekuh6rBGSwSmiW9Ct+UfnRs3ysAHoGWHSSXhzHAMdW1xJ4Omj/cKgSn92oKuif3WeyGTxhVi64/iXvcymTHEhLcb9nOyCxuY6RExhDweVjMQvTrJJwLuOHbmhPxEm6Xzt6IBqa7hJLrHbPGIrUGpfhb7s0Q4gpdY82DV2zauOnyKdtdv2R+ntreuthGDm/F3MuLKiraEwa/rJA5qFjKWeawal/W7fgFApF6u7C/TTRqrTGBWSl8LEEFK+Oi2wTyczfphPMhHIYsRUryDf9Swf+f7f4OOLgAcO79HaitlmA2qPcJifHAgBH/ye8I1K+Q=="
     shell: /bin/bash
     update_password: on_create
 
