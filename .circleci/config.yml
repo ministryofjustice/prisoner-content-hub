@@ -42,6 +42,9 @@ jobs:
             - run:
                 name: Build backend container
                 command: cd moj-be && make build
+            #- run:
+                #name: Build API docs
+                #command: cd moj-be && make build-api-docs
             - save_cache:
                 key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
                 paths:

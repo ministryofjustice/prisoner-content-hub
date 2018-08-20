@@ -19,7 +19,37 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @SWG\Get(
- *     path="/v1/api/content/featured",
+ *     path="/api/content/featured",
+ *     tags={"Content"},
+ *     @SWG\Parameter(
+ *          name="_format",
+ *          in="query",
+ *          required=true,
+ *          type="string",
+ *          description="Response format, should be 'json'",
+ *      ),
+ *      @SWG\Parameter(
+ *          name="_number",
+ *          in="query",
+ *          required=false,
+ *          type="integer",
+ *          description="Number of results to bring back, the default is '1'.",
+ *      ),
+ *      @SWG\Parameter(
+ *          name="_category",
+ *          in="query",
+ *          required=false,
+ *          type="integer",
+ *          description="ID of category to return, the default is to being back all categories.",
+ *      ),
+ *      @SWG\Parameter(
+ *          name="_lang",
+ *          in="query",
+ *          required=false,
+ *          type="string",
+ *          description="The language tag to translate results, if there is no translation available then the site default is returned, the default is 'en' (English). Options are 'en' (English) or 'cy' (Welsh).",
+ *      ),
+ *      
  *     @SWG\Response(response="200", description="Hub featured content resource")
  * )
  */
@@ -147,18 +177,18 @@ class FeaturedContentResource extends ResourceBase
 
     protected function setLanguage()
     {
-        return is_null($this->currentRequest->get('lang')) ? 'en' : $this->currentRequest->get('lang');
+        return is_null($this->currentRequest->get('_lang')) ? 'en' : $this->currentRequest->get('_lang');
     }
 
 
     protected function setNumberOfResults()
     {
-        return is_null($this->currentRequest->get('number')) ? 1 : $this->currentRequest->get('number');
+        return is_null($this->currentRequest->get('_number')) ? 1 : $this->currentRequest->get('_number');
     }
 
     protected function setCategory()
     {
-        return is_null($this->currentRequest->get('category')) ? 0 : $this->currentRequest->get('category');
+        return is_null($this->currentRequest->get('_category')) ? 0 : $this->currentRequest->get('_category');
     }
 }   
 

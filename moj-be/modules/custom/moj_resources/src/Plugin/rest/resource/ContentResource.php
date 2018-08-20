@@ -17,34 +17,32 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- * @SWG\Swagger(
- *     schemes={"https"},
- *     host="https://drupal.digital-hub-stage.hmpps.dsd.io",
- *     basePath="/v1",
- *     @SWG\Info(
- *         version="1.0.0",
- *         title="HMPPS Digital Hub API",
- *         description="This is the HMPPS Digital Hub API.",
- *         termsOfService="http://swagger.io/terms/",
- *         @SWG\Contact(
- *             email="thehub@digital.justice.gov.uk"
- *         ),
- *         @SWG\License(
- *             name="Apache 2.0",
- *             url="http://www.apache.org/licenses/LICENSE-2.0.html"
- *         )
- *     ),
- *     @SWG\ExternalDocumentation(
- *         description="Find out more about Swagger",
- *         url="http://swagger.io"
- *     )
- * )
- */
-
-/**
+ /**
  * @SWG\Get(
- *     path="/v1/api/content/{nid}",
+ *     path="/api/content/{nid}",
+ *     tags={"Content"},
+ *     @SWG\Parameter(
+ *          name="{nid}",
+ *          in="path",
+ *          required=true,
+ *          type="integer",
+ *          description="ID of content to be returned",
+ *      ),
+ *     @SWG\Parameter(
+ *          name="_format",
+ *          in="query",
+ *          required=true,
+ *          type="string",
+ *          description="Response format, should be 'json'",
+ *      ),
+ *      @SWG\Parameter(
+ *          name="_lang",
+ *          in="query",
+ *          required=false,
+ *          type="string",
+ *          description="The language tag to translate results, if there is no translation available then the site default is returned, the default is 'en' (English). Options are 'en' (English) or 'cy' (Welsh).",
+ *      ),
+ *      
  *     @SWG\Response(response="200", description="Hub content resource")
  * )
  */
@@ -142,7 +140,7 @@ class ContentResource extends ResourceBase
 
     protected function setLanguage()
     {
-        return is_null($this->currentRequest->get('lang')) ? 'en' : $this->currentRequest->get('lang');
+        return is_null($this->currentRequest->get('_lang')) ? 'en' : $this->currentRequest->get('_lang');
     }
 
     protected function checkContentIdParameterIsNumeric()

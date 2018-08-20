@@ -19,8 +19,24 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @SWG\Get(
- *     path="/v1/api/content/promoted",
- *     @SWG\Response(response="200", description="Hub promoted content resource")
+ *     path="/api/content/promoted",
+ *      tags={"Content"},
+ *      @SWG\Parameter(
+ *          name="_format",
+ *          in="query",
+ *          required=true,
+ *          type="string",
+ *          description="Response format, should be 'json'",
+ *      ),
+ *      @SWG\Parameter(
+ *          name="_lang",
+ *          in="query",
+ *          required=false,
+ *          type="string",
+ *          description="The language tag to translate results, if there is no translation available then the site default is returned, the default is 'en' (English). Options are 'en' (English) or 'cy' (Welsh).",
+ *      ),
+ *      
+ *     @SWG\Response(response="200", description="Hub featured content resource")
  * )
  */
 
@@ -91,7 +107,7 @@ class PromotedContentResource extends ResourceBase
 
     public function get() 
     {
-        $lang = $this->currentRequest->get('lang');
+        $lang = $this->currentRequest->get('_lang');
         $promoted = $this->promotedContentApiClass->PromotedContentApiEndpoint($lang);
         if (!empty($promoted)) {
             return new ResourceResponse($promoted);
@@ -116,7 +132,7 @@ class PromotedContentResource extends ResourceBase
 
     protected function setLanguage()
     {
-        return is_null($this->currentRequest->get('lang')) ? 'en' : $this->currentRequest->get('lang');
+        return is_null($this->currentRequest->get('_lang')) ? 'en' : $this->currentRequest->get('_lang');
     }
 }
 

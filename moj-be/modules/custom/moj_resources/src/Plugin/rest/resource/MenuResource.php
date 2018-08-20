@@ -17,9 +17,33 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
+
+  /**
  * @SWG\Get(
- *     path="/v1/api/menu",
+ *     path="/api/menu",
+ *     tags={"Menu"},
+ *     @SWG\Parameter(
+ *          name="_parent",
+ *          in="path",
+ *          required=false,
+ *          type="integer",
+ *          description="ID parent page, default is '0' the top level menu",
+ *      ),
+ *     @SWG\Parameter(
+ *          name="_format",
+ *          in="query",
+ *          required=true,
+ *          type="string",
+ *          description="Response format, should be 'json'",
+ *      ),
+ *      @SWG\Parameter(
+ *          name="_lang",
+ *          in="query",
+ *          required=false,
+ *          type="string",
+ *          description="The language tag to translate results, if there is no translation available then the site default is returned, the default is 'en' (English). Options are 'en' (English) or 'cy' (Welsh).",
+ *      ),
+ *      
  *     @SWG\Response(response="200", description="Hub main menu resource")
  * )
  */
@@ -131,11 +155,11 @@ class MenuResource extends ResourceBase
 
     protected function setLanguage()
     {
-        return is_null($this->currentRequest->get('lang')) ? 'en' : $this->currentRequest->get('lang');
+        return is_null($this->currentRequest->get('_lang')) ? 'en' : $this->currentRequest->get('_lang');
     }
 
     protected function setCurrentPageId()
     {
-        return is_null($this->currentRequest->get('parent')) ? 0 : $this->currentRequest->get('parent');
+        return is_null($this->currentRequest->get('_parent')) ? 0 : $this->currentRequest->get('_parent');
     }
 }
