@@ -1,6 +1,40 @@
-const { hubContentFor, hubFeaturedContent } = require('../../server/clients/hubContent');
+const createHubFeaturedContentService = require('../../server/services/hubFeaturedContent');
 
-describe('HubContent', () => {
+const featuredContentService = createHubFeaturedContentService();
+
+const responseData = {
+    "3546": {
+        "nid": [
+            {
+                "value": 1
+            }
+        ],
+        "title": [
+            {
+                "value": "foo title"
+            }
+        ],
+        "field_moj_description": [
+            {
+                "value": "<p>foo description<p>\r\n",
+                "processed": "<p>foo description<p>",
+            }
+        ],
+        "field_moj_thumbnail_image": [
+            {
+                "alt": "Foo image alt text",
+                "url": "image.url.com"
+            }
+        ],
+        "field_moj_duration": [
+            {
+                "value": "40:00"
+            }
+        ],
+    }
+}
+
+describe('Hub featured content', () => {
 
     describe('#hubFeaturedContent', () => {
         const contentResponse = {
@@ -32,7 +66,11 @@ describe('HubContent', () => {
                         "url": "image.url.com"
                     }
                 ],
-    
+                "field_moj_duration": [
+                    {
+                        "value": "40:00"
+                    }
+                ],
             }
         };
 
@@ -48,7 +86,7 @@ describe('HubContent', () => {
                 history: contentFor("page"),
             }
             const stub = sinon.stub().returns(contentResponse);
-            const response = await hubFeaturedContent(featuredContentClient(stub));
+            const response = await featuredContentService.hubFeaturedContent(featuredContentClient(stub));
 
             expect(response).to.eql(expectedResult);
         });
@@ -72,7 +110,7 @@ describe('HubContent', () => {
                 stub.onSecondCall().throws();
                 stub.returns(contentResponse);
         
-                const response = await hubFeaturedContent(featuredContentClient(stub));
+                const response = await featuredContentService.hubFeaturedContent(featuredContentClient(stub));
     
                 expect(response).to.eql(expectedResult);
 
@@ -82,72 +120,80 @@ describe('HubContent', () => {
 
     describe('#hubContentFor', () => {
         it('returns a radio featured content', async () => {
-            const content = await hubContentFor(generateFeatureContentClientFor("moj_radio_item"));
+            const content = await featuredContentService.hubContentFor(generateFeatureContentClientFor("moj_radio_item"));
     
             expect(content).to.eql(contentFor("radio"));
         });
     
         it('returns a video featured content', async () => {
-            const content = await hubContentFor(generateFeatureContentClientFor("moj_video_item"));
+            const content = await featuredContentService.hubContentFor(generateFeatureContentClientFor("moj_video_item"));
     
             expect(content).to.eql(contentFor("video"));
         });
     
         it('returns a pdf featured content', async () => {
-            const content = await hubContentFor(generateFeatureContentClientFor("moj_pdf_item"));
+            const content = await featuredContentService.hubContentFor(generateFeatureContentClientFor("moj_pdf_item"));
     
             expect(content).to.eql(contentFor("pdf"));
         });
         it('returns a page featured content', async () => {
-            const content = await hubContentFor(generateFeatureContentClientFor("page"));
-    
+            const content = await featuredContentService.hubContentFor(generateFeatureContentClientFor("page"));
+
             expect(content).to.eql(contentFor("page"));
+        });
+
+        context("When there is a summary available", () => {
+            it("uses the summary text instead of the sanitized description", async () =>{
+                const content = await featuredContentService.hubContentFor(generateFeatureContentWithSummaryClientFor("page"));
+
+                expect(content).to.eql(contentWithSummaryFor("page"));
+            });
         });
     });
 });
 
-
-
-function generateFeatureContentClientFor(contentType, stubResponse) {
+function generateFeatureContentClientFor(contentType) {
     const httpClient = {
         get: sinon.stub().returns({
             "3546": {
-                "nid": [
-                    {
-                        "value": 1
-                    }
-                ],
+                ...responseData["3546"],
                 "type": [
                     {
                         "target_id": contentType,
                     }
                 ],
-                "title": [
-                    {
-                        "value": "foo title"
-                    }
-                ],
-                "field_moj_description": [
-                    {
-                        "value": "<p>foo description<p>\r\n",
-                        "processed": "<p>foo description<p>",
-                    }
-                ],
-                "field_moj_thumbnail_image": [
-                    {
-                        "alt": "Foo image alt text",
-                        "url": "image.url.com"
-                    }
-                ],
-    
             }
+            
         })
     }
 
     return httpClient;
 }
 
+function generateFeatureContentWithSummaryClientFor(contentType) {
+    const httpClient = {
+        get: sinon.stub().returns({
+            "3546": {
+                ...responseData["3546"],
+                "type": [
+                    {
+                        "target_id": contentType,
+                    }
+                ],
+                "field_moj_description": [
+                    {
+                        "value": "<p>foo description<p>\r\n",
+                        "processed": "<p>foo description<p>",
+                        "summary": "foo summary",
+                    }
+                ],
+            }
+        }
+            )
+    }
 
+    return httpClient;
+}
 
 function featuredContentClient(response) {
     const httpClient = {
@@ -173,11 +219,28 @@ function contentFor(contentType) {
         contentType: contentType,
         description: {
             raw: '<p>foo description<p>\r\n',
-            sanitized:  '<p>foo description<p>'
+            sanitized:  'foo description'
         },
         image: {
             alt: 'Foo image alt text',
             url: 'image.url.com'
-        }
+        },
+        duration: '40:00'
+    }]
+}
+
+function contentWithSummaryFor(contentType) {
+    return [{
+        id: 1,
+        title: 'foo title',
+        contentType: contentType,
+        description: {
+            sanitized:  'foo summary'
+        },
+        image: {
+            alt: 'Foo image alt text',
+            url: 'image.url.com'
+        },
+        duration: '40:00'
     }]
 }

@@ -1,8 +1,6 @@
 const express = require('express');
 
-const { hubFeaturedContent } = require('../clients/hubContent');
-
-module.exports = function Index({ logger, demoDataService }) {
+module.exports = function Index({ logger, demoDataService, hubFeaturedContentService }) {
   const router = express.Router();
 
   router.get('/', async (req, res) => {
@@ -21,11 +19,7 @@ module.exports = function Index({ logger, demoDataService }) {
       const artculturedata = demoDataService.getArtCultureData();
       const historydata = demoDataService.getHistoryData();
 
-      const featuredContent = await hubFeaturedContent();
-      console.log("********************************");
-      console.log(featuredContent);
-      console.log("********************************");
-
+      const featuredContent = await hubFeaturedContentService.hubFeaturedContent();
 
       const config = {
         content: true,
@@ -34,6 +28,10 @@ module.exports = function Index({ logger, demoDataService }) {
       };
 
       // res.sendStatus(200);
+
+      console.log("******************************");
+      console.log(featuredContent)
+      console.log("********************************")
 
       res.render('pages/index', {
         ...featuredContent,

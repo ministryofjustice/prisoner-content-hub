@@ -1,6 +1,7 @@
 const request = require('superagent');
 const R = require('ramda');
 
+const { sanitizeTruncateText } = require('../utils/index');
 const config = require('../config');
 
 const contentTypes = {
@@ -8,7 +9,7 @@ const contentTypes = {
   moj_pdf_item: "pdf",
   moj_video_item: "video",
   page: "page"  
-}
+};
 
 class HubContentClient {
   constructor(client = request) {
@@ -36,125 +37,39 @@ class HubFeaturedContentResponse {
     const contentTypeFrom = R.view(R.lensPath(['type', 0, 'target_id']));
     const descriptionValueFrom = R.view(R.lensPath(['field_moj_description', 0, 'value']));
     const descriptionProcessedFrom = R.view(R.lensPath(['field_moj_description', 0, 'processed']));
+    const summaryValueFrom = R.view(R.lensPath(['field_moj_description', 0, 'summary']));
     const imageAltFrom = R.view(R.lensPath(['field_moj_thumbnail_image', 0, 'alt']));
     const imageUrlFrom = R.view(R.lensPath(['field_moj_thumbnail_image', 0, 'url']));
+    const durationFrom = R.view(R.lensPath(['field_moj_duration', 0, 'value']));
 
     if (!data) return {};
 
     return Object
       .keys(data)
-      .map(key => ({
-        id: idFrom(data[key]),
-        title: titleFrom(data[key]),
-        contentType: contentTypes[contentTypeFrom(data[key])],
-        description: {
-          raw: descriptionValueFrom(data[key]),
-          sanitized: descriptionProcessedFrom(data[key]),
-        },
-        image: {
-          alt: imageAltFrom(data[key]),
-          url: imageUrlFrom(data[key]),
-        }
-      }))
+      .map(key => {
+        const description = summaryValueFrom(data[key]) 
+        ? { sanitized: summaryValueFrom(data[key]) } 
+        : {
+            raw: descriptionValueFrom(data[key]),
+            sanitized: sanitizeTruncateText(descriptionProcessedFrom(data[key])),
+        };
+
+        return ({
+          id: idFrom(data[key]),
+          title: titleFrom(data[key]),
+          contentType: contentTypes[contentTypeFrom(data[key])],
+          description,
+          image: {
+            alt: imageAltFrom(data[key]),
+            url: imageUrlFrom(data[key]),
+          },
+          duration: durationFrom(data[key]),
+      })
+    })
   }
 }
 
-function newsAndEventsFn(httpClient) {
-  return hubContentFor(httpClient, { query: {
-    "_number": 2,
-    "_category": 664
-  }})
-}
-
-function artAndCultureFn(httpClient) {
-  return hubContentFor(httpClient, { query: {
-    "_number": 4,
-    "_category": 651
-  }})
-}
-
-function healthyMindAndBodyFn(httpClient) {
-  return hubContentFor(httpClient, { query: {
-    "_number": 4,
-    "_category": 648
-  }})
-}
-
-function gamesFn(httpClient) {
-  return hubContentFor(httpClient, { query: {
-    "_number": 3,
-    "_category": 647
-  }})
-}
-
-function radioShowsAndPodcastsFn(httpClient) {
-  return hubContentFor(httpClient, { query: {
-    "_number": 4,
-    "_category": 646
-  }})
-}
-
-function inspirationFn(httpClient) {
-  return hubContentFor(httpClient, { query: {
-    "_number": 4,
-    "_category": 649
-  }})
-}
-
-function scienceAndNatureFn(httpClient) {
-  return hubContentFor(httpClient, { query: {
-    "_number": 4,
-    "_category": 650
-  }})
-}
-function historyFn(httpClient) {
-  return hubContentFor(httpClient, { query: {
-    "_number": 4,
-    "_category": 643
-  }})
-}
-
-async function hubContentFor(httpClient, opts = { query: {}}) {
-  const response = await httpClient.get("/featured", opts.query);
-  return HubFeaturedContentResponse.parse(response);
-}
-
-async function hubFeaturedContent(httpClient) {
-  const client = new HubContentClient(httpClient);
-
-  const [
-    newsAndEvents,
-    games,
-    radioShowsAndPodcasts,
-    healthyMindAndBody,
-    inspiration,
-    scienceAndNature,
-    artAndCulture,
-    history
-  ] = await Promise.all([
-    newsAndEventsFn(client),
-    gamesFn(client),
-    radioShowsAndPodcastsFn(client),
-    healthyMindAndBodyFn(client),
-    inspirationFn(client),
-    scienceAndNatureFn(client),
-    artAndCultureFn(client),
-    historyFn(client),
-  ])
-
-  return {
-    newsAndEvents,
-    games,
-    radioShowsAndPodcasts,
-    healthyMindAndBody,
-    inspiration,
-    scienceAndNature,
-    artAndCulture,
-    history
-  }  
-}
-
 module.exports = {
-  hubContentFor,
-  hubFeaturedContent,
+  HubContentClient,
+  HubFeaturedContentResponse,
 };
