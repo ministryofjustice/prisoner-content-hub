@@ -1,7 +1,7 @@
 const striptags = require('striptags');
 
 
-function sanitizeTruncateText(text, opts = { size = 50 }) {
+function sanitizeTruncateText(text, opts = { size: 100 }) {
     if (!text) return null;
 
     const sanitized = striptags(text);
