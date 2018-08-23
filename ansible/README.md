@@ -51,12 +51,11 @@ All users are now defined in `group_vars/all.yml`
 
 Documentation for the role used to manage this can be found here https://github.com/singleplatform-eng/ansible-users
 
-There are currently 4 groups:
+There are currently 3 groups:
 
  - `admin`, For WebOps in the Digital Studio
  - `studio`,  For development teams in the Digital Studio
  - `dxc`, For external DXC staff who will use the bounce box ssh tunnelling
- - `unilink`, For external Unilink staff who will use the bounce box ssh tunnelling
 
 To apply the changes run the `site.yml` playbook as above, you can scope to the `users` tag to speed things up if you like.
 
