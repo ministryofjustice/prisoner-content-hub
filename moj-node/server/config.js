@@ -14,4 +14,7 @@ module.exports = {
   dev: !production,
   production,
   sessionSecret: get('SESSION_SECRET', 'app-insecure-default-session', { requireInProduction: true }),
+  api: {
+    hubContent: `${get('HUB_API_ENDPOINT')}/content`,
+  },
 };

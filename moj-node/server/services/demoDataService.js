@@ -520,7 +520,7 @@ module.exports = function createDemoDataService() {
   }
 
   function geSeriesData() {
-    return { 
+    return {
       items: {
         item0: {
           linktext: 'All Kinds of Minds',
@@ -650,7 +650,7 @@ module.exports = function createDemoDataService() {
           linktext: 'Work It',
           linkurl: '#',
         },
-      }
+      },
     };
   }
 
@@ -801,7 +801,7 @@ module.exports = function createDemoDataService() {
           linkclass: 'icon-link',
           linktext: 'Read',
           graphic: '/images/hallucinations-reveal-about-our-minds.jpg',
-        }
+        },
       },
     };
   }
@@ -815,17 +815,17 @@ module.exports = function createDemoDataService() {
         item1: {
           title: 'Goal Setting',
           graphic: '/images/content-image.jpg',
-          link: '#'
+          link: '#',
         },
         item2: {
           title: 'The Peer Mentor View',
           graphic: '/images/content-image.jpg',
-          link: '#'
+          link: '#',
         },
         item3: {
           title: 'Change Accept Let Go',
           graphic: '/images/content-image.jpg',
-          link: '#'
+          link: '#',
         },
       },
     };
@@ -840,17 +840,17 @@ module.exports = function createDemoDataService() {
         item1: {
           title: '10 Nov 2017 - Porridge Music Special: Hip-Hop and Garage',
           graphic: '/images/radio-more-thumbnail.jpg',
-          link: '#'
+          link: '#',
         },
         item2: {
           title: '10 Nov 2017 - Porridge Music Special: Hip-Hop and Garage',
           graphic: '/images/radio-more-thumbnail.jpg',
-          link: '#'
+          link: '#',
         },
         item3: {
           title: '10 Nov 2017 - Porridge Music Special: Hip-Hop and Garage',
           graphic: '/images/radio-more-thumbnail.jpg',
-          link: '#'
+          link: '#',
         },
       },
     };

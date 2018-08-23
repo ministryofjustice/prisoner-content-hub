@@ -35,36 +35,60 @@
 
 {% block content %}
 
-  {{ hubFeaturedContent({
+  {# {{ hubFeaturedContent({
     data: newseventsData
-  }) }}
+  }) }} #}
 
-  {{ hubFeaturedContent({
+  {# {{ hubFeaturedContent({
     data: gamedata
-  }) }}
+  }) }} #}
   
   {{ hubFeaturedContent({
-    data: radiopodcastsdata
+    categoryTitle: "Radio shows and podcasts",
+    categoryLink: "/",
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: radioShowsAndPodcasts,
+    size: "small"
   }) }}
 
   {{ hubFeaturedContent({
-    data: healthymindbodydata
+    categoryTitle: "Healthy mind and body",
+    categoryLink: "/",
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: healthyMindAndBody,
+    size: "small"
   }) }}
 
   {{ hubFeaturedContent({
-    data: inspirationdata
+    categoryTitle: "Inspiration",
+    categoryLink: "/",
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: inspiration,
+    size: "small"
   }) }}
 
   {{ hubFeaturedContent({
-    data: sciencenaturedata
+    categoryTitle: "Science and nature",
+    categoryLink: "/",
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: scienceAndNature,
+    size: "small"
   }) }}
 
   {{ hubFeaturedContent({
-    data: artculturedata
+    categoryTitle: "Art and culture",
+    categoryLink: "/",
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: artAndCulture,
+    size: "small"
   }) }}
 
   {{ hubFeaturedContent({
-    data: historydata
+    categoryTitle: "History",
+    categoryLink: "/",
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: history,
+    size: "small"
   }) }}
   
 {% endblock %}

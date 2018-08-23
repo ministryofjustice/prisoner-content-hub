@@ -1,15 +1,15 @@
-<article class="govuk-hub-featured-content-item {%- if params.size %} {{ params.size }}{% endif -%}" >
-  <div class="govuk-hub-featured-content-item__image" style="background-image:url({{ assetPath | default('/public') }}{%- if params.graphic %}{{ params.graphic }}{% endif -%})">
+<article class="govuk-hub-featured-content-item {{ params.size }}" >
+  <div class="govuk-hub-featured-content-item__image" style="background-image:url({{ params.graphic.url if params.graphic.url else 'http://placekitten.com/g/650/380' }})">
     <div class="govuk-hub-featured-content-item__overlay">
       <header class="govuk-hub-featured-content-item__header">
-        <h3 class="govuk-hub-featured-content-item__header-title govuk-heading-m govuk-!-font-size-24">{%- if params.title %} {{ params.title }}{% endif -%}</h3>
+        <h3 class="govuk-hub-featured-content-item__header-title govuk-heading-m govuk-!-font-size-24">{{ params.title }}</h3>
       </header>
       <main class="govuk-hub-featured-content-item__main">
-        <p class="govuk-hub-featured-content-item__description govuk-body">{%- if params.description %} {{ params.description }}{% endif -%}</p>
-        <a href="{%- if params.link %} {{ params.link }}{% endif -%}" title="Play" class="govuk-hub-featured-content-item-icon govuk-hub-featured-content-item__main-play govuk-link"><span class="{%- if params.linkclass %} {{ params.linkclass }}{% endif -%}"><span class="path1"></span><span class="path2"></span></span><span class="space">{%- if params.linktext %} {{ params.linktext }}{% endif -%}</span></a>
+        <p class="govuk-hub-featured-content-item__description govuk-body">{{ params.description.sanitized }}</p>
+        <a href="{{ params.link }}" title="{{ params.linktext }}" class="govuk-hub-featured-content-item-icon govuk-hub-featured-content-item__main-play govuk-link"><span class="{{ params.linkIcon }}"><span class="path1"></span><span class="path2"></span></span><span class="space">{{ params.linktext }}</span></a>
         <span class="govuk-hub-featured-content-item__main-icon {%- if params.icon %} {{ params.icon }}{% endif -%}"><span class="govuk-body govuk-hub-featured-content-item__main-duration">{%- if params.duration %} {{ params.duration }}{% endif -%}</span></span>
       </main>
-      <div class="govuk-hub-featured-content-item__category-stripe {%- if params.type %} {{ params.type }}{% endif -%}"></div>
+      <div class="govuk-hub-featured-content-item__category-stripe {{ params.type }}"></div>
     </div>
   </div>
 </article>
