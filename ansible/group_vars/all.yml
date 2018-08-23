@@ -11,7 +11,6 @@ groups_to_create:
   - name: admin
   - name: studio
   - name: dxc
-  - name: unilink
 
 studio_users:
   - username: mattwhittaker
@@ -340,16 +339,6 @@ dxc_users:
     shell: /bin/bash
     update_password: on_create
 
-unilink_users:
-  - username: ppaton
-    name: "Paul Paton"
-    groups:
-      - unilink
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAiKO33b2Zv1Z3jKakLBfmfowMMQHCAa39aZS2V54GSzcq9i6SD5wueFDwgalvNuInlXhgvL1XbJ+0tF6GDgcHgvO6YfNhNauSkCSCKtH1LnABiK7XUHfYmw+FtKC8CTjeZYQWZ/EbmGTtWLgWJnqjvFr6L2zZXwmobk5JN5+3bzyFAEoaTFt3ZDH7PlXz83TAK8QzegrylfZvUer7WMIIm878BKWNgrIXs4PWiY2TwejchP6avMVsupRKeuLX225NO/4RtTT6qGHwcLy+sghZs3k8N3i3z4W/q9ahULy//hYi3a8/Q/RXudofGblDWK2/j/7FBM2fGcc/3m/S5rF6wQ== rsa-key-20180816"
-    shell: /bin/bash
-    update_password: on_create
-
 users: "{{ studio_users }}"
 
 users_deleted:
@@ -359,6 +348,7 @@ users_deleted:
   - username: aharris
   - username: ppatton
   - username: iangardener
+  - username: ppaton
 
 nginx_extra_http_options: |
   ##
