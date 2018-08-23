@@ -1,71 +1,86 @@
 const { HubContentClient, HubFeaturedContentResponse } = require('../clients/hubContent');
 
 module.exports = function createHubFeaturedContentService() {
-
   function newsAndEventsFn(httpClient) {
-    return hubContentFor(httpClient, { query: {
-      "_number": 2,
-      "_category": 664
-    }})
+    return hubContentFor(httpClient, {
+      query: {
+        _number: 2,
+        _category: 664,
+      },
+    });
   }
-  
+
   function artAndCultureFn(httpClient) {
-    return hubContentFor(httpClient, { query: {
-      "_number": 4,
-      "_category": 651
-    }})
+    return hubContentFor(httpClient, {
+      query: {
+        _number: 4,
+        _category: 651,
+      },
+    });
   }
-  
+
   function healthyMindAndBodyFn(httpClient) {
-    return hubContentFor(httpClient, { query: {
-      "_number": 4,
-      "_category": 648
-    }})
+    return hubContentFor(httpClient, {
+      query: {
+        _number: 4,
+        _category: 648,
+      },
+    });
   }
-  
+
   function gamesFn(httpClient) {
-    return hubContentFor(httpClient, { query: {
-      "_number": 3,
-      "_category": 647
-    }})
+    return hubContentFor(httpClient, {
+      query: {
+        _number: 3,
+        _category: 647,
+      },
+    });
   }
-  
+
   function radioShowsAndPodcastsFn(httpClient) {
-    return hubContentFor(httpClient, { query: {
-      "_number": 4,
-      "_category": 646
-    }})
+    return hubContentFor(httpClient, {
+      query: {
+        _number: 4,
+        _category: 646,
+      },
+    });
   }
-  
+
   function inspirationFn(httpClient) {
-    return hubContentFor(httpClient, { query: {
-      "_number": 4,
-      "_category": 649
-    }})
+    return hubContentFor(httpClient, {
+      query: {
+        _number: 4,
+        _category: 649,
+      },
+    });
   }
-  
+
   function scienceAndNatureFn(httpClient) {
-    return hubContentFor(httpClient, { query: {
-      "_number": 4,
-      "_category": 650
-    }})
+    return hubContentFor(httpClient, {
+      query: {
+        _number: 4,
+        _category: 650,
+      },
+    });
   }
-  
+
   function historyFn(httpClient) {
-    return hubContentFor(httpClient, { query: {
-      "_number": 4,
-      "_category": 643
-    }})
+    return hubContentFor(httpClient, {
+      query: {
+        _number: 4,
+        _category: 643,
+      },
+    });
   }
-  
-  async function hubContentFor(httpClient, opts = { query: {}}) {
-    const response = await httpClient.get("/featured", opts.query);
+
+  async function hubContentFor(httpClient, opts = { query: {} }) {
+    const response = await httpClient.get('/featured', opts.query);
     return HubFeaturedContentResponse.parse(response);
   }
-  
+
   async function hubFeaturedContent(httpClient) {
     const client = new HubContentClient(httpClient);
-  
+
     const [
       newsAndEvents,
       games,
@@ -74,7 +89,7 @@ module.exports = function createHubFeaturedContentService() {
       inspiration,
       scienceAndNature,
       artAndCulture,
-      history
+      history,
     ] = await Promise.all([
       newsAndEventsFn(client),
       gamesFn(client),
@@ -84,8 +99,8 @@ module.exports = function createHubFeaturedContentService() {
       scienceAndNatureFn(client),
       artAndCultureFn(client),
       historyFn(client),
-    ])
-  
+    ]);
+
     return {
       newsAndEvents,
       games,
@@ -94,12 +109,12 @@ module.exports = function createHubFeaturedContentService() {
       inspiration,
       scienceAndNature,
       artAndCulture,
-      history
-    }  
+      history,
+    };
   }
 
   return {
     hubContentFor,
-    hubFeaturedContent
-  }
-}
+    hubFeaturedContent,
+  };
+};

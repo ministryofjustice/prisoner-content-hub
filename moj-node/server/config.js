@@ -15,6 +15,6 @@ module.exports = {
   production,
   sessionSecret: get('SESSION_SECRET', 'app-insecure-default-session', { requireInProduction: true }),
   api: {
-    hubContent: 'http://localhost:8182/v1/api/content',
+    hubContent: `${get('HUB_API_ENDPOINT')}/content`,
   },
 };

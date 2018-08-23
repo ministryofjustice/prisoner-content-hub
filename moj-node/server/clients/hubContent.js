@@ -5,10 +5,10 @@ const { sanitizeTruncateText } = require('../utils/index');
 const config = require('../config');
 
 const contentTypes = {
-  moj_radio_item: "radio",
-  moj_pdf_item: "pdf",
-  moj_video_item: "video",
-  page: "page"  
+  moj_radio_item: 'radio',
+  moj_pdf_item: 'pdf',
+  moj_video_item: 'video',
+  page: 'page',
 };
 
 class HubContentClient {
@@ -23,10 +23,7 @@ class HubContentClient {
       .query({ _lang: 'en' })
       .query(query)
       .then(res => res.body)
-      .catch((error) => {
-        // add logger
-        return null;
-      })
+      .catch(() => null);
   }
 }
 
@@ -46,13 +43,13 @@ class HubFeaturedContentResponse {
 
     return Object
       .keys(data)
-      .map(key => {
-        const description = summaryValueFrom(data[key]) 
-        ? { sanitized: summaryValueFrom(data[key]) } 
-        : {
+      .map((key) => {
+        const description = summaryValueFrom(data[key])
+          ? { sanitized: summaryValueFrom(data[key]) }
+          : {
             raw: descriptionValueFrom(data[key]),
             sanitized: sanitizeTruncateText(descriptionProcessedFrom(data[key])),
-        };
+          };
 
         return ({
           id: idFrom(data[key]),
@@ -64,8 +61,8 @@ class HubFeaturedContentResponse {
             url: imageUrlFrom(data[key]),
           },
           duration: durationFrom(data[key]),
-      })
-    })
+        });
+      });
   }
 }
 
