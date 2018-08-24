@@ -25,6 +25,7 @@ const version = Date.now().toString();
 module.exports = function createApp({
   appInfo,
   hubFeaturedContentService,
+  hubPromotedContentService,
   demoDataService,
   menuService,
 }) { // eslint-disable-line no-shadow
@@ -151,7 +152,9 @@ module.exports = function createApp({
   app.use(csurf({ cookie: true }));
 
   // Routing
-  app.use('/', createIndexRouter({ logger, demoDataService, hubFeaturedContentService }));
+  app.use('/', createIndexRouter({
+    logger, demoDataService, hubFeaturedContentService, hubPromotedContentService,
+  }));
   app.use('/menu', createMenuRouter({ logger, menuService }));
   app.use('/health', createHealthRouter({ appInfo }));
 

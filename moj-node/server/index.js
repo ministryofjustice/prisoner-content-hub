@@ -5,8 +5,10 @@ const appInfoService = require('./services/appInfo');
 const createDemoDataService = require('./services/demoDataService');
 const createMenuService = require('./services/menuService');
 const createHubFeaturedContentService = require('./services/hubFeaturedContent');
+const createHubPromotedContentService = require('./services/hubPromotedContent');
 const HubClient = require('./clients/hub');
 const featuredContentRepository = require('./repositories/hubFeaturedContent');
+const promotedContentRepository = require('./repositories/hubPromotedContent');
 
 const buildInfo = config.dev ? null : require('../build-info.json'); // eslint-disable-line import/no-unresolved
 
@@ -20,12 +22,20 @@ const hubFeaturedContentService = createHubFeaturedContentService(
   ),
 );
 
+
+const hubPromotedContentService = createHubPromotedContentService(
+  promotedContentRepository(
+    new HubClient(),
+  ),
+);
+
 const app = createApp({
   logger,
   demoDataService,
   menuService,
   appInfo: appInfoService(buildInfo),
   hubFeaturedContentService,
+  hubPromotedContentService,
 });
 
 module.exports = app;

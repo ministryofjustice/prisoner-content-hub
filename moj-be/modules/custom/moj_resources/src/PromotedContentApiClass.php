@@ -91,6 +91,7 @@ class PromotedContentApiClass
         return $this->entity_query->get('node')
             ->condition('status', 1)
             ->condition('promote', 1)
+            ->condition('sticky', 1)
             ->sort('created', 'DESC')
             ->range(0, 1)
             ->accessCheck(false)
