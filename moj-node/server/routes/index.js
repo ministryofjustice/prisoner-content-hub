@@ -1,6 +1,8 @@
 const express = require('express');
 
-module.exports = function Index({ logger, demoDataService, hubFeaturedContentService, hubPromotedContentService }) {
+module.exports = function Index({
+  logger, demoDataService, hubFeaturedContentService, hubPromotedContentService,
+}) {
   const router = express.Router();
 
   router.get('/', async (req, res) => {
@@ -10,7 +12,7 @@ module.exports = function Index({ logger, demoDataService, hubFeaturedContentSer
       const submenudata = demoDataService.getSubMenuData();
       const gamedata = demoDataService.getGamesData();
       const newseventsData = demoDataService.getNewsEventsData();
-      
+
       const featuredContent = await hubFeaturedContentService.hubFeaturedContent();
 
       const [promotionalContent] = await hubPromotedContentService.hubPromotedContent();
