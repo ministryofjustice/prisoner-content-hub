@@ -9,9 +9,6 @@ const contentTypes = {
 };
 
 function sanitizeTruncateText(text, opts = { size: 100 }) {
-  
-  
-
   if (!text) return null;
 
   const sanitized = striptags(text);
@@ -57,5 +54,5 @@ function parseResponse(data) {
 
 module.exports = {
   sanitizeTruncateText,
-  parseResponse
+  parseResponse,
 };
