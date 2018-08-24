@@ -1,11 +1,11 @@
 const createHubPromotedContentService = require('../../server/services/hubPromotedContent');
 
-const promotedContentRepository = { 
-  hubPromotedContent: sinon.stub().returns('promotedContent')
+const promotedContentRepository = {
+  hubPromotedContent: sinon.stub().returns('promotedContent'),
 };
 
-const promotedContentRepositoryWithError = { 
-  hubPromotedContent: sinon.stub().returns(null)
+const promotedContentRepositoryWithError = {
+  hubPromotedContent: sinon.stub().returns(null),
 };
 
 describe('hub promoted conntent service', () => {
@@ -20,7 +20,6 @@ describe('hub promoted conntent service', () => {
 
     context('when some promoted content are missing', () => {
       it('fails to return content', async () => {
-
         const service = createHubPromotedContentService(promotedContentRepositoryWithError);
         const response = await service.hubPromotedContent();
         const expectedResult = null;
