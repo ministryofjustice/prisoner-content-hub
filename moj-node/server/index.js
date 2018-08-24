@@ -35,7 +35,7 @@ const app = createApp({
   menuService,
   appInfo: appInfoService(buildInfo),
   hubFeaturedContentService,
-  hubPromotedContentService
+  hubPromotedContentService,
 });
 
 module.exports = app;
