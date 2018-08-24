@@ -15,7 +15,7 @@ function sanitizeTruncateText(text, opts = { size: 100 }) {
   return `${sanitized.substring(0, opts.size)}...`;
 }
 
-function parseResponse(data) {
+function parseHubContentResponse(data) {
   const idFrom = R.view(R.lensPath(['nid', 0, 'value']));
   const titleFrom = R.view(R.lensPath(['title', 0, 'value']));
   const contentTypeFrom = R.view(R.lensPath(['type', 0, 'target_id']));
@@ -54,5 +54,5 @@ function parseResponse(data) {
 
 module.exports = {
   sanitizeTruncateText,
-  parseResponse,
+  parseHubContentResponse,
 };

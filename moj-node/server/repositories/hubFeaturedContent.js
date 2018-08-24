@@ -1,12 +1,12 @@
 
-const { parseResponse } = require('../utils/index');
+const { parseHubContentResponse } = require('../utils/index');
 const config = require('../config');
 
 
 function hubFeaturedContentRepository(httpClient) {
   async function hubContentFor(opts = { query: {} }) {
     const response = await httpClient.get(`${config.api.hubContent}/featured`, opts.query);
-    return parseResponse(response);
+    return parseHubContentResponse(response);
   }
 
   function newsAndEvents() {
