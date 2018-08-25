@@ -112,7 +112,6 @@ const defaultAlt = {
   page: 'Document file',
 };
 
-
 function contentFor(contentType) {
   return [{
     id: 1,
@@ -129,7 +128,6 @@ function contentFor(contentType) {
     duration: '40:00',
   }];
 }
-
 
 function generateFeatureContentClientFor(contentType) {
   const httpClient = {
