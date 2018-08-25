@@ -45,11 +45,10 @@ function parseHubContentResponse(data) {
   return Object
     .keys(data)
     .map((key) => {
-      
       const image = imageUrlFrom(data[key])
-        ? { 
+        ? {
           url: imageUrlFrom(data[key]),
-          alt: imageAltFrom(data[key])
+          alt: imageAltFrom(data[key]),
         }
         : {
           url: defaultThumbs[contentTypeFrom(data[key])],
