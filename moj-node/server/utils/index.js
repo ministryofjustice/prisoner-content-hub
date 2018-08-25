@@ -8,6 +8,20 @@ const contentTypes = {
   page: 'page',
 };
 
+const defaultThumbs = {
+  moj_radio_item: '/public/images/default_audio.png',
+  moj_pdf_item: '/public/images/default_document.png',
+  moj_video_item: '/public/images/default_video.png',
+  page: '/public/images/default_document.png',
+};
+
+const defaultAlt = {
+  moj_radio_item: 'Audio file',
+  moj_pdf_item: 'Document file',
+  moj_video_item: 'Video file',
+  page: 'Document file',
+};
+
 function sanitizeTruncateText(text, opts = { size: 100 }) {
   if (!text) return null;
 
@@ -31,6 +45,17 @@ function parseHubContentResponse(data) {
   return Object
     .keys(data)
     .map((key) => {
+      
+      const image = imageUrlFrom(data[key])
+        ? { 
+          url: imageUrlFrom(data[key]),
+          alt: imageAltFrom(data[key])
+        }
+        : {
+          url: defaultThumbs[contentTypeFrom(data[key])],
+          alt: defaultAlt[contentTypeFrom(data[key])],
+        };
+
       const description = summaryValueFrom(data[key])
         ? { sanitized: summaryValueFrom(data[key]) }
         : {
@@ -43,10 +68,7 @@ function parseHubContentResponse(data) {
         title: titleFrom(data[key]),
         contentType: contentTypes[contentTypeFrom(data[key])],
         description,
-        image: {
-          alt: imageAltFrom(data[key]),
-          url: imageUrlFrom(data[key]),
-        },
+        image,
         duration: durationFrom(data[key]),
       });
     });
