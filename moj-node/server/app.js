@@ -16,6 +16,7 @@ const logger = require('../log.js');
 
 const createIndexRouter = require('./routes/index');
 const createHealthRouter = require('./routes/health');
+const createContentRouter = require('./routes/content');
 
 const topicLinks = require('./data//topic-link.json');
 
@@ -27,6 +28,7 @@ module.exports = function createApp({
   hubPromotedContentService,
   demoDataService,
   hubMenuService,
+  hubContentService,
 }) {
   const app = express();
 
@@ -160,6 +162,10 @@ module.exports = function createApp({
   app.use('/', createIndexRouter({
     logger, demoDataService, hubFeaturedContentService, hubPromotedContentService,
   }));
+  app.use('/content', createContentRouter({
+    logger, hubContentService,
+  }));
+
   app.use('/health', createHealthRouter({ appInfo }));
 
   app.use(handleKnownErrors);

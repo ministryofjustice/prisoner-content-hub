@@ -36,16 +36,16 @@ module.exports = function Index({
     }
   });
 
-  router.get('/content/:contentName', (req, res) => {
-    try {
-      const contentPath = `../data/content/${req.params.contentName}`;
-      const content = require(contentPath); // eslint-disable-line
-      res.render('pages/flat-content', content);
-    } catch (exp) {
-      res.status(404);
-      res.send('Page not found');
-    }
-  });
+  // router.get('/content/:contentName', (req, res) => {
+  //   try {
+  //     const contentPath = `../data/content/${req.params.contentName}`;
+  //     const content = require(contentPath); // eslint-disable-line
+  //     res.render('pages/flat-content', content);
+  //   } catch (exp) {
+  //     res.status(404);
+  //     res.send('Page not found');
+  //   }
+  // });
 
   router.get('/landing', (req, res) => {
     try {
