@@ -1,4 +1,5 @@
 const request = require('superagent');
+const logger = require('../../log');
 
 class HubContentClient {
   constructor(client = request) {
@@ -12,7 +13,10 @@ class HubContentClient {
       .query({ _lang: 'en' })
       .query(query)
       .then(res => res.body)
-      .catch(() => null);
+      .catch((exp) => {
+        logger.error(exp);
+        return null;
+      });
   }
 }
 

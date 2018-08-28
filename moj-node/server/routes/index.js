@@ -1,7 +1,10 @@
 const express = require('express');
 
 module.exports = function Index({
-  logger, demoDataService, hubFeaturedContentService, hubPromotedContentService,
+  logger,
+  demoDataService,
+  hubFeaturedContentService,
+  hubPromotedContentService,
 }) {
   const router = express.Router();
 
@@ -14,9 +17,7 @@ module.exports = function Index({
       const newseventsData = demoDataService.getNewsEventsData();
 
       const featuredContent = await hubFeaturedContentService.hubFeaturedContent();
-
       const [promotionalContent] = await hubPromotedContentService.hubPromotedContent();
-
 
       const config = {
         content: true,
