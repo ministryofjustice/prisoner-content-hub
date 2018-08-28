@@ -3,7 +3,7 @@ module.exports = function createHubPromotedContentService(repository) {
     try {
       return repository.hubPromotedContent();
     } catch (ex) {
-      return null;
+      return [];
     }
   }
   return {

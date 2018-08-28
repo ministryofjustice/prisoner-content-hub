@@ -35,7 +35,7 @@ describe('Hub promoted content', () => {
         const repository = hubPromotedContentRepository(generateNoContentClientFor());
         const response = await repository.hubPromotedContent();
 
-        expect(response).to.eql(null);
+        expect(response).to.eql([]);
       });
     });
   });

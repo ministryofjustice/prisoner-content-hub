@@ -1,4 +1,5 @@
 const request = require('superagent');
+const logger = require('../../log');
 
 class HubContentClient {
   constructor(client = request) {
@@ -11,8 +12,16 @@ class HubContentClient {
       .query({ _format: 'json' })
       .query({ _lang: 'en' })
       .query(query)
-      .then(res => res.body)
-      .catch(() => null);
+      .then((res) => {
+        logger.debug(`Requested ${endpoint}`);
+
+        return res.body;
+      })
+      .catch((exp) => {
+        logger.debug(`Requested ${endpoint} and got back`);
+        logger.error(exp);
+        return null;
+      });
   }
 }
 

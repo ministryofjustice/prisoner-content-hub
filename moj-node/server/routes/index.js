@@ -1,22 +1,21 @@
 const express = require('express');
 
 module.exports = function Index({
-  logger, demoDataService, hubFeaturedContentService, hubPromotedContentService,
+  logger,
+  demoDataService,
+  hubFeaturedContentService,
+  hubPromotedContentService,
 }) {
   const router = express.Router();
 
   router.get('/', async (req, res) => {
     try {
       logger.info('GET index');
-
-      const submenudata = demoDataService.getSubMenuData();
       const gamedata = demoDataService.getGamesData();
       const newseventsData = demoDataService.getNewsEventsData();
 
       const featuredContent = await hubFeaturedContentService.hubFeaturedContent();
-
       const [promotionalContent] = await hubPromotedContentService.hubPromotedContent();
-
 
       const config = {
         content: true,
@@ -28,7 +27,6 @@ module.exports = function Index({
         ...featuredContent,
         promotionalContent,
         gamedata,
-        submenudata,
         newseventsData,
         config,
       });

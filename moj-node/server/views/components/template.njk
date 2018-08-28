@@ -37,8 +37,9 @@
     {% endblock %}
 
     {% block header %}
-      {{ govukHeader({ 
-        navMenu: navMenu 
+      {{ govukHeader({
+        mainMenu: mainMenu,
+        topicsMenu: topicsMenu
       }) }}
     {% endblock %}
 
@@ -46,7 +47,7 @@
       <div class="govuk-hub-header__background {{ data.headerClass }}">
         <div class="govuk-width-container">
           {% block beforeContent %}{% endblock %}
-          <main class="govuk-main-wrapper govuk-!-padding-top-8" id="header-content" role="header">
+          <main class="govuk-main-wrapper" id="header-content" role="header">
             {% block promotedContent %}{% endblock %}
             {% block landingpageheader %}{% endblock %}
             {% block subMenu %}{% endblock %}
@@ -54,7 +55,7 @@
         </div>
       </div>
     {% endif %}
-    
+
     {% if config.content %}
       <div class="black-background govuk-!-margin-bottom-0 govuk-!-padding-top-9">
         <div class="govuk-width-container">

@@ -2,34 +2,18 @@
   <div class="govuk-width-container">
     <div class="govuk-hub-navigation__content-container">
       <ul class="govuk-hub-navigation__list govuk-!-margin-bottom-6">
-          <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
-            <a href="/">News and events</a>
-          </li>
-          <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
-            <a href="/">Life at Berwyn</a>
-          </li>
-          <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
-            <a href="/">Your progress</a>
-          </li>
-          <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
-            <a href="/">Education</a>
-          </li>
-          <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
-            <a href="/">Useful contacts</a>
-          </li>
-          <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
-            <a href="/">Induction</a>
-          </li>
-          <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron ">
-            <a href="/">Getting out</a>
-          </li>
+          {% for menuItem in params.mainMenu %}
+            <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item--with-chevron">
+              <a href="{{menuItem.href}}">{{menuItem.linkText}}</a>
+            </li>
+          {% endfor %}
       </ul>
       <div class="govuk-hub-container-seperator">
           <h3 class="govuk-hub-navigation__heading">Browse by topic</h3>
           <ul class="govuk-hub-navigation__list govuk-!-margin-bottom-4">
-            {% for menuItem in params.navMenu %}
+            {% for menuItem in params.topicsMenu %}
               <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item-topic">
-                <a href="/">{{menuItem.linkText}}</a>
+                <a href="{{menuItem.href}}">{{menuItem.linkText}}</a>
               </li>
             {% endfor %}
           </ul>

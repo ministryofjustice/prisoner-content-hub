@@ -14,11 +14,10 @@ const sassMiddleware = require('node-sass-middleware');
 const config = require('../server/config');
 const logger = require('../log.js');
 
-const createMenuRouter = require('./routes/menu');
 const createIndexRouter = require('./routes/index');
 const createHealthRouter = require('./routes/health');
 
-const topicLinks = require('./data/topic-link.json');
+const topicLinks = require('./data//topic-link.json');
 
 const version = Date.now().toString();
 
@@ -27,8 +26,8 @@ module.exports = function createApp({
   hubFeaturedContentService,
   hubPromotedContentService,
   demoDataService,
-  menuService,
-}) { // eslint-disable-line no-shadow
+  hubMenuService,
+}) {
   const app = express();
 
   // View Engine Configuration
@@ -130,10 +129,16 @@ module.exports = function createApp({
   // GovUK Template Configuration
   app.locals.asset_path = '/public/';
 
-  // Temporary menu
-  app.use((req, res, next) => {
-    res.locals.navMenu = topicLinks;
-    next();
+  // Navigation menu
+  app.use(async (req, res, next) => {
+    try {
+      const mainMenu = await hubMenuService.menu();
+      res.locals.mainMenu = mainMenu;
+      res.locals.topicsMenu = topicLinks;
+      next();
+    } catch (ex) {
+      next(ex);
+    }
   });
 
   function addTemplateVariables(req, res, next) {
@@ -155,7 +160,6 @@ module.exports = function createApp({
   app.use('/', createIndexRouter({
     logger, demoDataService, hubFeaturedContentService, hubPromotedContentService,
   }));
-  app.use('/menu', createMenuRouter({ logger, menuService }));
   app.use('/health', createHealthRouter({ appInfo }));
 
   app.use(handleKnownErrors);
