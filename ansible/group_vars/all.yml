@@ -227,7 +227,7 @@ dxc_users:
     groups:
       - dxc
     ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAmkPxG6cUKYbgXdQOt6ZcTeUxNhEOhDe9ok0zUu/X/pZsWTnJmqAJ32YgOW3hOh03HYFAXbJofElFqeJDEZ1/jWLlAfc34a7KMBR+Epyl6ge9f3lcb6R4/Jdwn1mw3mFwQwzrgsRgHnCMB4lyUioFHYQmmr3ePSRN3+KAc4ZnH4kmuJ1goxuSNi3iv8VY9PRw/zbrneHPXho0v5Gs1dw12R6KuCfpX2VEnDZN7XzRf6ZIGi4z0dTTvMwjx81rCpbo+BE5y0nXSquXaVIy3DGaD8IY+rS0KcaJT0ztcrfJv45DgEj7vpcPMxxPtxsxjE9r/4xLtAxKZ4OmDGjet3j9GQ=="
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAnalgI6AIYRCAkKQzIb9HgAf1wpvhYAUJcJmB7fjNbP3uDQVxmz5EQwURHpBfyrXGDI0Pg0r4c26PDBaaQKZ4n+nD0UlK2ImsnSaOmCZD3ukMEiaOfBN6QHxMKEuN2XNEn6WCnorhYS10ug1q3PhRvEWPLZyq+KsvGdNoCA7Cy0iA0HJ/9lAd94H+z4KPIv9t2qWHMTJP8eEFWJQ3USR0R5L8o4B4+Dw/z3zubzMTq9WrPLI4SDUR5qemjXK0SBcpsUWtRcyhoeijDF8dGE1w0l28IE8fNoJT5J59vlH7eiDtddnNqwRUMrSpVQ4bVy+Q7lzxqIpLLAZAPYBqm8GAqQ== dpkey"
     shell: /bin/bash
     update_password: on_create
 
@@ -309,6 +309,24 @@ dxc_users:
       - dxc
     ssh_key:
       - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAjlRHHEQDbRmztnq/4LSdgV7LFCEirhYuujxcsBlL+vRhRdgGwcue5kAS+YktGjobwm8577O/3VfMok4/yz5v8xfGKtXPiwF/uSenG2Vo6/ykhcgN+/YFmm5VDCpJOwtj18KvaGAK0orWHUfXDldHD4hil/pWXjV0aa4muFpSb/cBB+kSo6fLiGfI3IYEUsF2JgJVnW9KefeJuaDyCscY0pgRbDI5FePrjiNkGt07xOA/fNAXdG9Lz0oZmpsTwsVy74GFPWpLIjpWPnb965EoRrKZbLwerhbCGIv/5kxXDCHZebRsNiKUIEqR0Gwm3+zHL05jj2+JKalDugJTFCmCwQ== rsa-key-20180619"
+    shell: /bin/bash
+    update_password: on_create
+  
+  - username: kquinlan
+    name: "Kevin Quinlan"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAhVv8bMx/Luetpyau8xNjEeLz018eAgOUNnvZa4tH37nT7Xm3GoOkrS0G6dSu3SXQcTi1xqxWnd9E0RaMAbJCY9JHvB2KtSAR0mWOW208Jb0H1/Z+PNm/RjPi86WuT2hiUHTwulioA2t5azJBaP2h/KqVqmxnaIpMszKPCRfuS+Cs4Q9ed5ao1HO3AZZ7dLgQxJaJhhjj+/pN33KPN1UGag6M9SdU9dLyIf/RxAM28rcfo8uovPqubvTzpmNIAurVVHMFXs3v4uQxorfnAtZKElxHivIJZlusfuImT0cwI6fJ7b8VehRCO3UdlNiAPiyoAc915/FmGmUP5XrUr0u4xw== rsa-key-20161108"
+    shell: /bin/bash
+    update_password: on_create
+
+  - username: kebblewhite
+    name: "Kieran Ebblewhite"
+    groups:
+      - dxc
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAp0tgnHMjyngHWIzaS+RlFNPbt7IzHJvdDDOJx4sLdCK73Ks3K4qqbmQsRoyGrSWKiNBt/qYFMhuSx82tSewaB8QaaklLhjAQlQe+NU9vx1KOxSQD8MF0Yyh/HKFNCA6Tss80V5/+WLoIr/OeMAp7XaDFYL7C1b9pMmeMW1fPAN8CR7Hq1wLbL6zkRywmR0P5Uwat8i1M9F2/7d5bajUZu5+drTnsVyh7zp0ypBNS8GfZQqbDn6mbPPaaEF1fhsH0kK/YMnwRzjkQBvAbRGekGHA/hgUXytkd08/T8Xx8YRjxTh1E4C8cwF6ICETT3aFL1r82vJpAR80LuKrt49t8Qw== rsa-key-20180704"
     shell: /bin/bash
     update_password: on_create
 
