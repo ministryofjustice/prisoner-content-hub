@@ -40,15 +40,6 @@ studio_users:
     shell: /bin/bash
     update_password: on_create
 
-  - username: simoncross
-    name: "Simon Cross"
-    groups:
-      - admin
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDWSqANCyqzYUSrQvqANenUZO5MFLrkANngmreuJiLPIp6CvyejwjQ5jauaoioLJp+6i20vz8H/Mabkh7vEqoF4BXCbMtHJOp57dokwYYB/MS45A1aQ3eKjGoOmo48eZYfkcy+AlhCpvPlii/D7CY0ihV0Q0dbhFFHRHRfRVqWYAUSBi/lMrvwzzPFayPbem3VaKeZrMl76wcyHHGySCBpvmRFFRaXOB/17rHu6ydezXJxfDntDivjL8QNic9YlUzpdYWIlXupviVrm8bCeVq9uDNByFoKEqDbikT2u5dVMwmwLivUg+BsSg7j6th7OtAlJTISadxzNq5ubaz3kX0fr"
-    shell: /bin/bash
-    update_password: on_create
-
   - username: georgesadathian
     name: "George Sadathian"
     groups:
@@ -349,7 +340,8 @@ users_deleted:
   - username: ppatton
   - username: iangardener
   - username: ppaton
-
+  - username: simoncross
+  
 nginx_extra_http_options: |
   ##
   # SSL Settings from "modern" profile on
