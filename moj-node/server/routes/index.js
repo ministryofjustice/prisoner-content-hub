@@ -11,8 +11,6 @@ module.exports = function Index({
   router.get('/', async (req, res) => {
     try {
       logger.info('GET index');
-
-      const submenudata = demoDataService.getSubMenuData();
       const gamedata = demoDataService.getGamesData();
       const newseventsData = demoDataService.getNewsEventsData();
 
@@ -29,7 +27,6 @@ module.exports = function Index({
         ...featuredContent,
         promotionalContent,
         gamedata,
-        submenudata,
         newseventsData,
         config,
       });

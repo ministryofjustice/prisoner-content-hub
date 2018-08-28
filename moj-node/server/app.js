@@ -129,7 +129,7 @@ module.exports = function createApp({
   // GovUK Template Configuration
   app.locals.asset_path = '/public/';
 
-  // Temporary menu
+  // Navigation menu
   app.use(async (req, res, next) => {
     try {
       const mainMenu = await hubMenuService.menu();
