@@ -1,5 +1,6 @@
 const hubContentRepository = require('../../server/repositories/hubContent');
 const radioShowResponse = require('../resources/radioShow.json');
+const flatPageContentResponse = require('../resources/flatPageContent.json');
 
 describe('hubContentRepository', () => {
   it('returns formated data for radio shows', async () => {
@@ -8,7 +9,16 @@ describe('hubContentRepository', () => {
     const content = await repository.contentFor('3546');
 
     expect(content).to.eql(radioContent());
-    expect(client.get.lastCall.args[0]).to.include(3546);
+    expect(client.get.lastCall.args[0]).to.include('3546');
+  });
+
+  it('returns formated data for flat page contents', async () => {
+    const client = generateFlatPageContentClient();
+    const repository = hubContentRepository(client);
+    const content = await repository.contentFor('3491');
+
+    expect(content).to.eql(flatPageContent());
+    expect(client.get.lastCall.args[0]).to.include('3491');
   });
 });
 
@@ -16,6 +26,14 @@ describe('hubContentRepository', () => {
 function generateRadioShowClient() {
   const httpClient = {
     get: sinon.stub().returns(radioShowResponse),
+  };
+
+  return httpClient;
+}
+
+function generateFlatPageContentClient() {
+  const httpClient = {
+    get: sinon.stub().returns(flatPageContentResponse),
   };
 
   return httpClient;
@@ -43,5 +61,17 @@ function radioContent() {
       alt: 'Foo Bar',
       url: 'http://localhost:8181/sites/default/files/2018-08/Screen%20Shot%202018-08-20%20at%2010.21.54_0.png',
     },
+  };
+}
+
+function flatPageContent() {
+  return {
+    id: 3491,
+    title: 'Foo article',
+    type: 'page',
+    body: {
+      sanitized: '<p>Foo article description</p>',
+    },
+    standFirst: 'Foo article stand first',
   };
 }

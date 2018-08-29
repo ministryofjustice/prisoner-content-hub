@@ -1,13 +1,16 @@
-.u-block-text {
-  font-weight: bold;
-}
+.gov-uk-dynamic-content {
+  p {
+    @extend .govuk-body;
+  }
 
-.u-display-block {
-  display: block;
-}
+  strong {
+    font-weight: bold;
+  }
 
-.govuk-hub-pdf-title {
-  @include govuk-font($size: 27);
-  font-weight: 500;
-
+  img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 729px;
+  }
 }
