@@ -33,7 +33,7 @@
   </div>
   <div class="govuk-grid-row content-items">
     {% for item in params.data %}
-      <div class="item {{ params.columnNumber }}">
+      <div data-featured-item-id="featured-content-{{item.id}}" class="item {{ params.columnNumber }}">
           {{ hubFeaturedContentItem({
             title: item.title,
             description: item.description,

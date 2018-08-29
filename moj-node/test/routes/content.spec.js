@@ -5,7 +5,7 @@ const createHubContentRouter = require('../../server/routes/content');
 const { setupBasicApp, logger } = require('../test-helpers');
 
 
-describe('/content/:id', () => {
+describe('GET /content/:id', () => {
   describe('radio content', () => {
     const hubContentService = {
       contentFor: sinon.stub().returns({
