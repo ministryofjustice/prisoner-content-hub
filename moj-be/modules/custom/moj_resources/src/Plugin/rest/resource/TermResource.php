@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
  /**
  * @SWG\Get(
- *     path="/api/vocabulary/{category}",
+ *     path="/api/term/{tid}",
  *     tags={"Category"},
  *     @SWG\Parameter(
  *          name="_format",
@@ -29,11 +29,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *          description="Response format, should be 'json'",
  *      ),
  *      @SWG\Parameter(
- *          name="{category}",
+ *          name="{term}",
  *          in="query",
  *          required=true,
  *          type="integer",
- *          description="ID of category to return",
+ *          description="ID of term to return",
  *      ),
  *      @SWG\Parameter(
  *          name="_lang",
@@ -43,25 +43,25 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *          description="The language tag to translate results, if there is no translation available then the site default is returned, the default is 'en' (English). Options are 'en' (English) or 'cy' (Welsh).",
  *      ),
  *      
- *     @SWG\Response(response="200", description="Hub vocabulary resource")
+ *     @SWG\Response(response="200", description="Hub term resource")
  * )
  */
 
 /**
- * Provides a Vocabulary Resource
+ * Provides a Term Resource
  *
  * @RestResource(
- *   id = "vocabulary_resource",
- *   label = @Translation("Vocabulary resource"),
+ *   id = "term_resource",
+ *   label = @Translation("Term resource"),
  *   uri_paths = {
- *     "canonical" = "/v1/api/vocabulary/{category}"
+ *     "canonical" = "/v1/api/term/{tid}"
  *   }
  * )
  */
 
-class VocabularyResource extends ResourceBase 
+class TermResource extends ResourceBase 
 {
-    protected $vocabularyApiClass;
+    protected $termApiClass;
 
     protected $currentRequest;
 
@@ -69,7 +69,7 @@ class VocabularyResource extends ResourceBase
 
     protected $languageManager;
 
-    protected $paramater_category;
+    protected $paramater_term_id;
 
     Protected $paramater_language_tag;
 
@@ -79,20 +79,19 @@ class VocabularyResource extends ResourceBase
         $plugin_definition,
         array $serializer_formats,
         LoggerInterface $logger,
-        VocabularyApiClass $VocabularyApiClass,
+        TermApiClass $TermApiClass,
         Request $currentRequest,
         LanguageManager $languageManager
     ) {        
-        $this->vocabularyApiClass = $VocabularyApiClass;
+        $this->termApiClass = $TermApiClass;
         $this->currentRequest = $currentRequest;
         $this->languageManager = $languageManager;
 
         $this->availableLangs = $this->languageManager->getLanguages();
         $this->paramater_language_tag = self::setLanguage();
-        $this->paramater_category = $this->currentRequest->get('category');
+        $this->paramater_term_id = $this->currentRequest->get('tid');
         
         self::checklanguageParameterIsValid();
-        
 
         parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
     }
@@ -109,7 +108,7 @@ class VocabularyResource extends ResourceBase
             $plugin_definition,
             $container->getParameter('serializer.formats'),
             $container->get('logger.factory')->get('rest'),
-            $container->get('moj_resources.vocabulary_api_class'),
+            $container->get('moj_resources.term_api_class'),
             $container->get('request_stack')->getCurrentRequest(),
             $container->get('language_manager')
         );
@@ -117,12 +116,12 @@ class VocabularyResource extends ResourceBase
 
     public function get() 
     {
-        self::checkCatgeoryIsString();
-        $content = $this->vocabularyApiClass->VocabularyApiEndpoint($this->paramater_language_tag, $this->paramater_category);
+        self::checkTermIsString();
+        $content = $this->termApiClass->TermApiEndpoint($this->paramater_language_tag, $this->paramater_term_id);
         if (!empty($content)) {
             return new ResourceResponse($content);
         }
-        throw new NotFoundHttpException(t('No featured content found'));
+        throw new NotFoundHttpException(t('No term found'));
     }
 
     protected function checklanguageParameterIsValid() 
@@ -140,9 +139,9 @@ class VocabularyResource extends ResourceBase
         );
     }
 
-    protected function checkCatgeoryIsString()
+    protected function checkTermIsString()
     {
-        if (is_string($this->paramater_category)) {
+        if (is_string($this->paramater_term_id)) {
             return true;
         }
         throw new NotFoundHttpException(
