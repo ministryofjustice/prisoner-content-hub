@@ -116,7 +116,7 @@ class TermResource extends ResourceBase
 
     public function get() 
     {
-        self::checkTermIsString();
+        self::checkTermIsNumeric();
         $content = $this->termApiClass->TermApiEndpoint($this->paramater_language_tag, $this->paramater_term_id);
         if (!empty($content)) {
             return new ResourceResponse($content);
@@ -124,6 +124,7 @@ class TermResource extends ResourceBase
         throw new NotFoundHttpException(t('No term found'));
     }
 
+    
     protected function checklanguageParameterIsValid() 
     {
         foreach($this->availableLangs as $lang)
@@ -139,13 +140,13 @@ class TermResource extends ResourceBase
         );
     }
 
-    protected function checkTermIsString()
+    protected function checkTermIsNumeric()
     {
-        if (is_string($this->paramater_term_id)) {
+        if (is_numeric($this->paramater_term_id)) {
             return true;
         }
         throw new NotFoundHttpException(
-            t('The category parameter must the machine name of the drupal catgeory'),
+            t('The term parameter must be a numeric'),
             null,
             404
         );
