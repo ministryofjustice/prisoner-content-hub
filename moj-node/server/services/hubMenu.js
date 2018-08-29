@@ -1,8 +1,9 @@
 function createHubMenuService(repository) {
   try {
-    return {
+    const menu = {
       menu: () => repository.menu(),
     };
+    return menu;
   } catch (ex) {
     return null;
   }

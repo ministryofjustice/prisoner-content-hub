@@ -24,7 +24,7 @@ describe('hubMenuRepository', () => {
       const httpClient = {
         get: sinon.stub().returns(null),
       };
-      const repository = hubMenuRepository(httpClient());
+      const repository = hubMenuRepository(httpClient);
       const expected = [];
       const result = await repository.menu();
 
