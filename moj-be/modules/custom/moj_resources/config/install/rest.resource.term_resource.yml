@@ -1,0 +1,9 @@
+id: term_resource
+plugin_id: term_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - cookie
