@@ -5,7 +5,6 @@ const config = require('./config');
 const HubClient = require('./clients/hub');
 
 const appInfoService = require('./services/appInfo');
-const createDemoDataService = require('./services/demoDataService');
 const createHubMenuService = require('./services/hubMenu');
 const createHubFeaturedContentService = require('./services/hubFeaturedContent');
 const createHubPromotedContentService = require('./services/hubPromotedContent');
@@ -19,7 +18,6 @@ const contentRepository = require('./repositories/hubContent');
 const buildInfo = config.dev ? null : require('../build-info.json'); // eslint-disable-line import/no-unresolved
 
 // pass in dependencies of service
-const demoDataService = createDemoDataService();
 const hubMenuService = createHubMenuService(
   hubMenuRepository(
     new HubClient(),
@@ -44,7 +42,6 @@ const hubContentService = createHubContentService(
 
 const app = createApp({
   appInfo: appInfoService(buildInfo),
-  demoDataService,
   logger,
   hubFeaturedContentService,
   hubPromotedContentService,

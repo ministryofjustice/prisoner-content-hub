@@ -26,7 +26,6 @@ module.exports = function createApp({
   appInfo,
   hubFeaturedContentService,
   hubPromotedContentService,
-  demoDataService,
   hubMenuService,
   hubContentService,
 }) {
@@ -160,7 +159,7 @@ module.exports = function createApp({
 
   // Routing
   app.use('/', createIndexRouter({
-    logger, demoDataService, hubFeaturedContentService, hubPromotedContentService,
+    logger, hubFeaturedContentService, hubPromotedContentService,
   }));
   app.use('/content', createContentRouter({
     logger, hubContentService,
