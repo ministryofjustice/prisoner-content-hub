@@ -20,7 +20,7 @@ describe('hubMenuRepository', () => {
       expect(result).to.eql(expected);
     });
 
-    context('When there is no data available', async () => {
+    it('returns and empty array when there is no data returned', async () => {
       const httpClient = {
         get: sinon.stub().returns(null),
       };

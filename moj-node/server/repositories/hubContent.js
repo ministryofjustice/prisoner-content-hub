@@ -1,5 +1,3 @@
-const R = require('ramda');
-
 const config = require('../config');
 const { HUB_CONTENT_TYPES } = require('../constants/hub');
 
@@ -19,6 +17,7 @@ const {
   episodeFrom,
   seasonFrom,
   standFirstFrom,
+  nameFrom,
 } = require('../selectors/hub');
 
 
@@ -27,6 +26,19 @@ module.exports = function hubContentRepository(httpClient) {
     const response = await httpClient.get(`${config.api.hubContent}/${id}`);
 
     return parseResponse(response);
+  }
+
+  async function termFor(id) {
+    const response = await httpClient.get(`${config.api.hubTerm}/${id}`);
+
+    return parseTermResponse(response);
+  }
+
+  function parseTermResponse(data) {
+    if (data === null) return null;
+    return {
+      name: nameFrom(data),
+    };
   }
 
   function parseResponse(data) {
@@ -45,7 +57,6 @@ module.exports = function hubContentRepository(httpClient) {
   }
 
   function parseRadioResponse(data) {
-    const series = R.map(R.prop('target_id'));
     return {
       id: idFrom(data),
       title: titleFrom(data),
@@ -63,7 +74,7 @@ module.exports = function hubContentRepository(httpClient) {
       },
       episode: episodeFrom(data),
       season: seasonFrom(data),
-      series: series(seriesFrom(data)),
+      series: seriesFrom(data),
     };
   }
 
@@ -81,5 +92,6 @@ module.exports = function hubContentRepository(httpClient) {
 
   return {
     contentFor,
+    termFor,
   };
 };
