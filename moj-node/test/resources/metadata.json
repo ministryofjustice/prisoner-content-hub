@@ -1,0 +1,87 @@
+{
+    "tid": [
+        {
+            "value": 651
+        }
+    ],
+    "uuid": [
+        {
+            "value": "556e218f-4155-4838-b5fa-9724f01d9ed3"
+        }
+    ],
+    "langcode": [
+        {
+            "value": "en"
+        }
+    ],
+    "vid": [
+        {
+            "target_id": "moj_categories",
+            "target_type": "taxonomy_vocabulary",
+            "target_uuid": "d7e7e479-0dcb-4b22-bad0-a48964c00be1"
+        }
+    ],
+    "name": [
+        {
+            "value": "Foo metadata"
+        }
+    ],
+    "description": [
+        {
+            "value": null,
+            "format": null,
+            "processed": ""
+        }
+    ],
+    "weight": [
+        {
+            "value": 0
+        }
+    ],
+    "parent": [],
+    "changed": [
+        {
+            "value": 1533809609
+        }
+    ],
+    "default_langcode": [
+        {
+            "value": true
+        }
+    ],
+    "content_translation_source": [
+        {
+            "value": "und"
+        }
+    ],
+    "content_translation_outdated": [
+        {
+            "value": false
+        }
+    ],
+    "content_translation_uid": [
+        {
+            "target_id": 202,
+            "target_type": "user",
+            "target_uuid": "77040a5f-5e45-497f-b640-e4e9d98ae927",
+            "url": "/user/202"
+        }
+    ],
+    "content_translation_status": [
+        {
+            "value": true
+        }
+    ],
+    "content_translation_created": [
+        {
+            "value": 1533809609
+        }
+    ],
+    "path": [
+        {
+            "alias": null,
+            "pid": null,
+            "langcode": "en"
+        }
+    ]
+}

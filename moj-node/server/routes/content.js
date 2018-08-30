@@ -1,3 +1,4 @@
+const { prop } = require('ramda');
 const express = require('express');
 
 module.exports = function createContentRouter({
@@ -17,8 +18,9 @@ module.exports = function createContentRouter({
 
     try {
       const data = await hubContentService.contentFor(req.params.id);
+      const type = prop('type', data);
 
-      switch (data.type) {
+      switch (type) {
         case 'radio':
           return res.render('pages/audio', {
             config,

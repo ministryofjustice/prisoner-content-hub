@@ -17,5 +17,6 @@ module.exports = {
   api: {
     hubContent: `${get('HUB_API_ENDPOINT')}/content`,
     hubMenu: `${get('HUB_API_ENDPOINT')}/menu`,
+    hubTerm: `${get('HUB_API_ENDPOINT')}/term`,
   },
 };
