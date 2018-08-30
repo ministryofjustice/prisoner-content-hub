@@ -16,7 +16,7 @@ module.exports = function Index({
       const config = {
         content: true,
         header: true,
-        postscript: true,
+        postscript: false,
       };
 
       res.render('pages/index', {

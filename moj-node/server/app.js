@@ -161,7 +161,7 @@ module.exports = function createApp({
   app.use('/', createIndexRouter({
     logger, hubFeaturedContentService, hubPromotedContentService,
   }));
-  app.use('/content', createContentRouter({
+  app.use('/content/:type', createContentRouter({
     logger, hubContentService,
   }));
 

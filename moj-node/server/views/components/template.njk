@@ -47,11 +47,11 @@
       <div class="govuk-hub-header__background {{ data.headerClass }}">
         <div class="govuk-width-container">
           {% block beforeContent %}{% endblock %}
-          <main class="govuk-main-wrapper" id="header-content" role="header">
+          <header class="govuk-main-wrapper" id="header-content">
             {% block promotedContent %}{% endblock %}
             {% block landingpageheader %}{% endblock %}
             {% block subMenu %}{% endblock %}
-          </main>
+          </header>
         </div>
       </div>
     {% endif %}

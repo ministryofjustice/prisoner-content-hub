@@ -1,15 +1,19 @@
-<article class="govuk-hub-featured-content-item {{ params.size }}" >
-  <div data-featured-item-background class="govuk-hub-featured-content-item__image" style="background-image:url({{ params.graphic.url }})">
-    <div class="govuk-hub-featured-content-item__overlay">
-      <header class="govuk-hub-featured-content-item__header">
-        <h3 class="govuk-hub-featured-content-item__header-title govuk-heading-m govuk-!-font-size-24">{{ params.title }}</h3>
-      </header>
-      <main class="govuk-hub-featured-content-item__main">
-        <p class="govuk-hub-featured-content-item__description govuk-body">{{ params.description.sanitized }}</p>
-        <a href="{{ params.link }}" title="{{ params.linktext }}" class="govuk-hub-featured-content-item-icon govuk-hub-featured-content-item__main-play govuk-link"><span class="{{ params.linkIcon }}"><span class="path1"></span><span class="path2"></span></span><span class="space">{{ params.linktext }}</span></a>
-        <span class="govuk-hub-featured-content-item__main-icon {%- if params.icon %} {{ params.icon }}{% endif -%}"><span data-featured-item-duration="{{ params.duration }}" class="govuk-body govuk-hub-featured-content-item__main-duration">{%- if params.duration %} {{ params.duration }}{% endif -%}</span></span>
-      </main>
-      <div class="govuk-hub-featured-content-item__category-stripe {{ params.type }}"></div>
-    </div>
-  </div>
-</article>
+<a class="govuk-hub-featured-link" href="/content/{{ params.slug }}/{{ params.id }}"> 
+  <article class="govuk-hub-featured-content-item {{ params.size }}">
+      <div data-featured-item-background class="govuk-hub-featured-content-item__image" style="background-image:url({{ params.graphic.url }})">
+        <div class="govuk-hub-featured-content-item__overlay">
+          <header class="govuk-hub-featured-content-item__header">
+            <h3 class="govuk-hub-featured-content-item__header-title govuk-heading-m govuk-!-font-size-24">{{ params.title }}</h3>
+          </header>
+          <div class="govuk-hub-featured-content-item__main">
+            <p class="govuk-hub-featured-content-item__description govuk-body">{{ params.description.sanitized }}</p>
+            <div title="{{ params.linktext }}" class="govuk-hub-featured-content-item-icon govuk-hub-featured-content-item__main-play govuk-link"><span class="{{ params.linkIcon }}"><span class="path1"></span><span class="path2"></span></span><span class="space">{{ params.linktext }}</span></div>
+            <span class="govuk-hub-featured-content-item__main-icon {%- if params.icon %} {{ params.icon }}{% endif -%}">
+              <span data-featured-item-duration="{{ params.duration }}" class="govuk-body govuk-hub-featured-content-item__main-duration">{%- if params.duration %} {{ params.duration }}{% endif -%}</span>
+            </span>
+          </div>
+          <div class="govuk-hub-featured-content-item__category-stripe {{ params.type }}"></div>
+        </div>
+      </div>
+  </article>
+</a>

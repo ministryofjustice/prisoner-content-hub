@@ -4,16 +4,16 @@
       <article data-promoted-item-text class="govuk-hub-promoted-content">
         <div data-promoted-item-background class="govuk-hub-promoted-content__grpahic" style="background-image:url({{ params.data.image.url }})">
           <div class="govuk-hub-promoted-content__overlay">
-            <header class="govuk-hub-promoted-content__header">
+            <div class="govuk-hub-promoted-content__header">
               <h1 class="govuk-hub-promoted-content__header-title govuk-heading-xl">{{ params.data.title }}</h1>
-            </header>
-            <main class="govuk-hub-promoted-content__main">
+            </div>
+            <div class="govuk-hub-promoted-content__main">
               <p class="govuk-hub-promoted-content__description govuk-body">{{ params.data.description.sanitized }}</p>
               <p><span class="icon-link"><span class="path1"></span><span class="path2"></span></span> <a href="{%- if params.data.linkurl %} {{ params.data.linkurl }}{% endif -%}" class="govuk-hub-promoted-content__link govuk-link"> Read more</a></p>
-            </main>
+            </div>
           </div>
         </div>
       </article>
     </div>
   </div>
-<section>
+</section>
