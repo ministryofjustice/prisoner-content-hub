@@ -24,7 +24,11 @@ module.exports = function createContentRouter({
             config,
             data,
           });
-
+        case 'page':
+          return res.render('pages/flat-content', {
+            data,
+            backHomeEnabled: true,
+          });
         default:
           return res.sendStatus(404);
       }

@@ -29,97 +29,11 @@
     <main class="govuk-main-wrapper">
       <div class="govuk-grid-row govuk-!-margin-bottom-9">
         <div class="govuk-grid-column-two-thirds">
-          <h1 class="govuk-heading-xl govuk-!-margin-bottom-6">{{title}}</h1>
-          {% for item in data %}
-            {% for contentType, content in item %}
-              {% if contentType == "heading" %}
-                <h2 class="govuk-heading-l">{{content}}</h2>
-              {% elif contentType == "leadParagraph" %}
-                <p class="govuk-body-l">{{content}}</p>
-              {% elif contentType == "paragraph" %}
-                <p class="govuk-body">{{content | safe }}</p>
-              {% elif contentType == "paragraphNoMargin" %}
-                <p class="govuk-body govuk-!-margin-bottom-1">{{content | escape }}</p>
-              {% elif contentType == "insertText" %}
-                <div class="govuk-inset-text">
-                  {{content | safe }}
-                </div>
-              {% elif contentType == "orderedList" %}
-                <ol class="govuk-list govuk-list--number">
-                  {% for listItem in content %}
-                    <li>{{listItem}}</li>
-                  {% endfor %}
-                </ol>
-              {% elif contentType == "unorderedList" %}
-                <ul class="govuk-list govuk-list--bullet">
-                  {% for listItem in content %}
-                    <li>{{listItem}}</li>
-                  {% endfor %}
-                </ul>
-              {% elif contentType == "video" %}
-                <video id="video1" style="max-width:100%;" controls="">
-                  <source src="http://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_stereo.ogg" type="video/ogg">
-                  <source src="http://download.blender.org/peach/bigbuckbunny_movies/BigBuckBunny_320x180.mp4" type="video/mp4">
-                  Your browser does not support HTML5 video.
-                </video>
-              {% elif contentType == "blockText" %}
-                <p class="govuk-body u-block-text">{{content| escape | nl2br}}</p> 
-
-              {% elif contentType == "pdf" %}
-              <div class="govuk-grid-row">
-                <div class="govuk-grid-column-one-third">
-                  <img src="{{content.thumbnail}}" />
-                </div>
-
-                <div class="govuk-grid-column-two-thirds">
-                  <a href="{{content.document}}" target="_blank" class="u-display-block govuk-!-margin-bottom-2"><span class="govuk-hub-pdf-title">{{content.title}}</span></a>
-                  <p class="govuk-body govuk-!-font-size-16 u-display-block">{{content.metadata}}</p>
-                </div>
-              </div>
-              {% elif contentType == "details" %}
-                <details class="govuk-details">
-                  <summary class="govuk-details__summary">
-                    <span class="govuk-details__summary-text">
-                      {{ content.heading}}
-                    </span>
-                  </summary>
-                  <div class="govuk-details__text">
-                    <p>{{ content.text | safe }}</p>
-                  </div>
-                </details>
-              
-              {% elif contentType == "table" %}
-                <table class="govuk-table">
-                  <thead class="govuk-table__head">
-                    
-                    <tr class="govuk-table__row">
-                      {% for tableHeadColumn in content.tableHead %}
-                        <th class="govuk-table__header" scope="col">{{tableHeadColumn}}</th>
-                      {% endfor %}
-                    </tr>
-                  </thead>
-                  <tbody class="govuk-table__body">
-
-                    {% for tableRow in content.tableRows %}
-                      <tr class="govuk-table__row">
-                        {% for rowContent in tableRow.row %}
-                          <td class="govuk-table__cell ">{{rowContent}}</td>
-                        {% endfor %}
-                      </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
-              {% endif %}
-            {% endfor %}
-          {% endfor %}
-        </div>
-        <div class="govuk-grid-column-one-third">
-          {% if sidebar %}
-            {% if sidebar.progress %}
-              <img src="{{sidebar.progress}}" />
-            {% endif %}
-
-          {% endif %}
+          <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">{{data.title}}</h1>
+          <p id="stand-first" class="govuk-body-l">{{data.standFirst}}</p>
+          <div id="body" class="gov-uk-dynamic-content">
+            {{data.body.sanitized | safe }}
+          </div>
         </div>
       </div>
 

@@ -41,6 +41,38 @@ describe('GET /content/:id', () => {
           expect($('#thumbnail').attr('alt')).to.equal('Foo Bar', 'Page thumbnail alt did not match');
         });
     });
+  });
+
+  describe('flat page content', () => {
+    const hubContentService = {
+      contentFor: sinon.stub().returns({
+        id: 3491,
+        title: 'Foo article',
+        type: 'page',
+        body: {
+          sanitized: '<p>Foo article body</p>',
+        },
+        standFirst: 'Foo article stand first',
+      }),
+    };
+
+    it('returns the correct content for a flat content page page', () => {
+      const router = createHubContentRouter({ logger, hubContentService });
+      const app = setupBasicApp();
+
+      app.use('/content', router);
+
+      return request(app)
+        .get('/content/1')
+        .expect(200)
+        .then((response) => {
+          const $ = cheerio.load(response.text);
+
+          expect($('#title').text()).to.include('Foo article', 'Page title did not match');
+          expect($('#stand-first').text()).to.include('Foo article stand first', 'Article stand first did not match');
+          expect($('#body').text()).to.include('Foo article body', 'Article body did not match');
+        });
+    });
 
     it('returns a 404 when incorrect data is returned', () => {
       const invalidService = {

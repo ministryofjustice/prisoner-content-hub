@@ -9,6 +9,7 @@ const {
   contentTypeFrom,
   descriptionValueFrom,
   descriptionProcessedFrom,
+  bodyProcessedFrom,
   summaryValueFrom,
   imageAltFrom,
   imageUrlFrom,
@@ -17,6 +18,7 @@ const {
   seriesFrom,
   episodeFrom,
   seasonFrom,
+  standFirstFrom,
 } = require('../selectors/hub');
 
 
@@ -35,6 +37,8 @@ module.exports = function hubContentRepository(httpClient) {
     switch (type) {
       case 'radio':
         return parseRadioResponse(data);
+      case 'page':
+        return parseFlatPageContent(data);
       default:
         return null;
     }
@@ -60,6 +64,18 @@ module.exports = function hubContentRepository(httpClient) {
       episode: episodeFrom(data),
       season: seasonFrom(data),
       series: series(seriesFrom(data)),
+    };
+  }
+
+  function parseFlatPageContent(data) {
+    return {
+      id: idFrom(data),
+      title: titleFrom(data),
+      type: HUB_CONTENT_TYPES[contentTypeFrom(data)],
+      body: {
+        sanitized: bodyProcessedFrom(data),
+      },
+      standFirst: standFirstFrom(data),
     };
   }
 
