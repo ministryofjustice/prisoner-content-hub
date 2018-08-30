@@ -27,14 +27,17 @@
     <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-hub-featured-content__category-title">{{ params.categoryTitle }}</h1>
     </div>
+    {% if false %}
     <div class="govuk-grid-column-one-third govuk-hub-align-right">
       <a href="{{ params.categoryLink }}" class="govuk-hub-featured-content__category-link govuk-link">More <span class="icon-chevron"></span></a>
     </div>
+    {% endif %}
   </div>
   <div class="govuk-grid-row content-items">
     {% for item in params.data %}
       <div data-featured-item-id="featured-content-{{item.id}}" class="item {{ params.columnNumber }}">
           {{ hubFeaturedContentItem({
+            id: item.id,
             title: item.title,
             description: item.description,
             size: params.size,
@@ -43,7 +46,8 @@
             linktext: linkText[item.contentType],
             graphic: item.image,
             linkIcon: linkIcon[item.contentType],
-            duration: item.duration
+            duration: item.duration,
+            slug: params.slug
           }) }}
       </div>
     {% endfor %}
