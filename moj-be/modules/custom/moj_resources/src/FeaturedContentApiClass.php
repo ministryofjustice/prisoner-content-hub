@@ -90,6 +90,7 @@ class FeaturedContentApiClass
     {
         $results = $this->entity_query->get('node')
             ->condition('status', 1)
+            ->condition('promote', 1)
             ->range(0, $number)
             ->accessCheck(false);
 
