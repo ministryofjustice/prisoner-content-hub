@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @SWG\Get(
- *     path="/api/content/series",
+ *     path="/api/content/{id}",
  *     tags={"Content"},
  *     @SWG\Parameter(
  *          name="_format",
@@ -36,11 +36,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *          description="Number of results to bring back, the default is '1'.",
  *      ),
  *      @SWG\Parameter(
- *          name="_category",
- *          in="query",
+ *          name="id",
+ *          in="path",
  *          required=false,
  *          type="integer",
- *          description="ID of category to return, the default is to being back all categories.",
+ *          description="Term ID of category to return, the default is to being back all categories.",
  *      ),
  *      @SWG\Parameter(
  *          name="_lang",
