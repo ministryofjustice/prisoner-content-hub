@@ -100,7 +100,7 @@ class SeriesContentApiClass
             $results->range(0, $number);
         };
 
-        $results->sort('changed', 'DESC');
+        $results->sort('field_moj_episode', 'DESC');
         
         return $results->execute();
     }
