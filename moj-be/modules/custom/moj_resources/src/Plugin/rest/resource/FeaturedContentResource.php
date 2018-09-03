@@ -90,7 +90,7 @@ class FeaturedContentResource extends ResourceBase
         LoggerInterface $logger,
         FeaturedContentApiClass $FeaturedContentApiClass,
         Request $currentRequest,
-        LanguageManager $languageManager,
+        LanguageManager $languageManager
     ) {        
         $this->featuredContentApiClass = $FeaturedContentApiClass;
         $this->currentRequest = $currentRequest;
@@ -119,7 +119,7 @@ class FeaturedContentResource extends ResourceBase
             $container->get('logger.factory')->get('rest'),
             $container->get('moj_resources.featured_content_api_class'),
             $container->get('request_stack')->getCurrentRequest(),
-            $container->get('language_manager'),
+            $container->get('language_manager')
         );
     }   
 
