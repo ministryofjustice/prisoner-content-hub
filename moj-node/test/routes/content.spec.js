@@ -10,7 +10,8 @@ describe('GET /content/:id', () => {
     const hubContentService = {
       contentFor: sinon.stub().returns({
         type: 'radio',
-        series: 'Foo series',
+        seriesName: 'Foo series',
+        seriesId: 'foo-id',
         title: 'Foo title',
         description: {
           sanitized: '<p>Bar body</p>',
@@ -20,6 +21,21 @@ describe('GET /content/:id', () => {
           alt: 'Foo Bar',
           url: 'foo.png',
         },
+        season: [
+          {
+            id: 98,
+            title: 'Baz episode',
+            type: 'audio',
+            duration: '18:41',
+            episode: 1,
+            season: 1,
+            seriesId: 694,
+            thumbnail: {
+              alt: 'foo.image.alt',
+              url: 'foo.image.png',
+            },
+          },
+        ],
       }),
     };
 
@@ -41,6 +57,12 @@ describe('GET /content/:id', () => {
           expect($('#my-player > source').attr('src')).to.equal('foo.mp3', 'Page media did not match');
           expect($('#thumbnail').attr('src')).to.equal('foo.png', 'Page thumbnail src did not match');
           expect($('#thumbnail').attr('alt')).to.equal('Foo Bar', 'Page thumbnail alt did not match');
+
+          // episodes
+
+          expect($('#next-episodes a').length).to.equal(1, 'The number of next episodes shows don\'t match');
+          expect($('#next-episodes a').text()).to.include('Baz episode', 'The episode title doesn\'t match');
+          expect($('#episode-thumbnail').attr('style')).to.include('foo.image.png', 'The episode thumbnail doesn\'t match');
         });
     });
   });

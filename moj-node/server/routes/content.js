@@ -8,7 +8,7 @@ module.exports = function createContentRouter({
   const router = express.Router();
 
   router.get('/:id', async (req, res) => {
-    logger.info(`GET /content/${req.params.id}`);
+    logger.info(`GET /${req.params.id}`);
 
     const config = {
       content: true,

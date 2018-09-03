@@ -1,3 +1,5 @@
+const R = require('ramda');
+
 const config = require('../config');
 const { HUB_CONTENT_TYPES } = require('../constants/hub');
 
@@ -13,7 +15,7 @@ const {
   imageUrlFrom,
   durationFrom,
   audioFrom,
-  seriesFrom,
+  seriesIdFrom,
   episodeFrom,
   seasonFrom,
   standFirstFrom,
@@ -34,6 +36,12 @@ module.exports = function hubContentRepository(httpClient) {
     return parseTermResponse(response);
   }
 
+  async function seasonFor(id) {
+    const response = await httpClient.get(`${config.api.series}/${id}`);
+
+    return parseSeasonResponse(response);
+  }
+
   function parseTermResponse(data) {
     if (data === null) return null;
     return {
@@ -48,7 +56,7 @@ module.exports = function hubContentRepository(httpClient) {
 
     switch (type) {
       case 'radio':
-        return parseRadioResponse(data);
+        return parseMediaResponse(data);
       case 'page':
         return parseFlatPageContent(data);
       default:
@@ -56,17 +64,21 @@ module.exports = function hubContentRepository(httpClient) {
     }
   }
 
-  function parseRadioResponse(data) {
+  function parseMediaResponse(data) {
+    if (data === null) return null;
+
+    const type = HUB_CONTENT_TYPES[contentTypeFrom(data)];
+
     return {
       id: idFrom(data),
       title: titleFrom(data),
-      type: HUB_CONTENT_TYPES[contentTypeFrom(data)],
+      type,
       description: {
         raw: descriptionValueFrom(data),
         sanitized: descriptionProcessedFrom(data),
         summary: summaryValueFrom(data),
       },
-      media: audioFrom(data),
+      media: type === 'radio' ? audioFrom(data) : null,
       duration: durationFrom(data),
       thumbnail: {
         alt: imageAltFrom(data),
@@ -74,11 +86,13 @@ module.exports = function hubContentRepository(httpClient) {
       },
       episode: episodeFrom(data),
       season: seasonFrom(data),
-      series: seriesFrom(data),
+      seriesId: seriesIdFrom(data),
     };
   }
 
   function parseFlatPageContent(data) {
+    if (data === null) return null;
+
     return {
       id: idFrom(data),
       title: titleFrom(data),
@@ -90,8 +104,22 @@ module.exports = function hubContentRepository(httpClient) {
     };
   }
 
+  function parseSeasonResponse(data) {
+    if (data === null) return null;
+
+    const transform = R.map(key => parseMediaResponse(data[key]));
+
+    const season = R.pipe(
+      R.keys,
+      transform,
+    );
+
+    return season(data);
+  }
+
   return {
     contentFor,
     termFor,
+    seasonFor,
   };
 };

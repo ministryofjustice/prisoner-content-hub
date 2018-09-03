@@ -18,5 +18,15 @@
             padding-right: govuk-spacing(1);
         }
     }
-    
+
+}
+
+.govuk-hub-episode-thumbnail {
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  max-width: 266px;
+  height: 156px;
+  margin-bottom: 10px;
 }
