@@ -39,7 +39,7 @@ describe('hubContentRepository', () => {
 
     expect(content).to.eql(seasonContent());
     expect(client.get.lastCall.args[0]).to.include('id');
-});
+  });
 });
 
 
@@ -65,7 +65,7 @@ function radioContent() {
     duration: '1:35:27',
     episode: 1,
     season: 1,
-    series: 665,
+    seriesId: 665,
     thumbnail: {
       alt: 'Foo Bar',
       url: 'http://localhost:8181/sites/default/files/2018-08/Screen%20Shot%202018-08-20%20at%2010.21.54_0.png',
@@ -86,46 +86,44 @@ function flatPageContent() {
 }
 
 function seasonContent() {
-  return {
-    season: [
-      {
-        id: 98,
-        title: 'Foo episode',
-        description: {
-          raw: '<p>foo description</p>',
-          sanitized: '<p>foo description</p>',
-          summary: '',
-        },
-        type: 'video',
-        media: null,
-        duration: '18:41',
-        episode: 1,
-        season: 1,
-        series: 694,
-        thumbnail: {
-          alt: '',
-          url: 'foo.image.png',
-        },
+  return [
+    {
+      id: 98,
+      title: 'Foo episode',
+      description: {
+        raw: '<p>foo description</p>',
+        sanitized: '<p>foo description</p>',
+        summary: '',
       },
-      {
-        id: 2,
-        title: 'Bar episode',
-        description: {
-          raw: '<p>bar description</p>',
-          sanitized: '<p>bar description</p>',
-          summary: '',
-        },
-        type: 'video',
-        media: null,
-        duration: '19:37',
-        episode: 2,
-        season: 1,
-        series: 694,
-        thumbnail: {
-          alt: '',
-          url: 'bar.img.png',
-        },
-      }
-    ]
-  }
+      type: 'video',
+      media: null,
+      duration: '18:41',
+      episode: 1,
+      season: 1,
+      seriesId: 694,
+      thumbnail: {
+        alt: '',
+        url: 'foo.image.png',
+      },
+    },
+    {
+      id: 2,
+      title: 'Bar episode',
+      description: {
+        raw: '<p>bar description</p>',
+        sanitized: '<p>bar description</p>',
+        summary: '',
+      },
+      type: 'video',
+      media: null,
+      duration: '19:37',
+      episode: 2,
+      season: 1,
+      seriesId: 694,
+      thumbnail: {
+        alt: '',
+        url: 'bar.img.png',
+      },
+    },
+  ];
 }

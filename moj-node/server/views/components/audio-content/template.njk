@@ -1,17 +1,18 @@
-{% from "../video-content-item/macro.njk" import hubVideoContentItem %}
+{% from "../audio-content-item/macro.njk" import hubAudioContentItem %}
 
 <section>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-      <h3 class="govuk-hub-featured-content__category-title">{{ params.data.category_title }}</h3>
+      <h3 class="govuk-hub-featured-content__category-title">Listen next</h3>
     </div>
   </div>
   <div class="govuk-grid-row content-items govuk-hub-audio-content-items">
-    {% for name, item in params.data.items %}
+    {% for item in params.data %}
       <div class="item govuk-grid-column-one-third">
-          {{ hubVideoContentItem({
+          {{ hubAudioContentItem({
+            id: item.id,
             title: item.title,
-            graphic: item.graphic
+            thumbnail: item.thumbnail
           }) }}
       </div>
     {% endfor %}

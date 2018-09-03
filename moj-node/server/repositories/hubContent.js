@@ -37,8 +37,8 @@ module.exports = function hubContentRepository(httpClient) {
   }
 
   async function seasonFor(id) {
-    const response = await httpClient.get(`${config.api.series}`);
-    
+    const response = await httpClient.get(`${config.api.series}/${id}`);
+
     return parseSeasonResponse(response);
   }
 
@@ -66,7 +66,7 @@ module.exports = function hubContentRepository(httpClient) {
 
   function parseMediaResponse(data) {
     if (data === null) return null;
-    
+
     const type = HUB_CONTENT_TYPES[contentTypeFrom(data)];
 
     return {
@@ -86,7 +86,7 @@ module.exports = function hubContentRepository(httpClient) {
       },
       episode: episodeFrom(data),
       season: seasonFrom(data),
-      series: seriesFrom(data),
+      seriesId: seriesFrom(data),
     };
   }
 
@@ -111,12 +111,10 @@ module.exports = function hubContentRepository(httpClient) {
 
     const season = R.pipe(
       R.keys,
-      transform
-    )
+      transform,
+    );
 
-    return {
-      season: season(data)
-    }
+    return season(data);
   }
 
   return {

@@ -18,9 +18,10 @@ describe('#hubContentService', () => {
         title: 'foo',
         href: 'www.foo.com',
         type: 'radio',
-        series: 'seriesId',
+        seriesId: 'seriesId',
       }),
       termFor: sinon.stub().returns({ name: 'foo series name' }),
+      seasonFor: sinon.stub().returns([{ name: 'foo episode' }, { name: 'bar episode' }]),
     };
 
     const service = createHubContentService(repository);
@@ -31,9 +32,12 @@ describe('#hubContentService', () => {
       title: 'foo',
       href: 'www.foo.com',
       type: 'radio',
-      series: 'foo series name',
+      seriesId: 'seriesId',
+      seriesName: 'foo series name',
+      season: [{ name: 'foo episode' }, { name: 'bar episode' }],
     });
 
     expect(repository.termFor.lastCall.args[0]).to.equal('seriesId');
+    expect(repository.seasonFor.lastCall.args[0]).to.equal('seriesId');
   });
 });

@@ -14,13 +14,15 @@ module.exports = function createHubContentService(repository) {
   }
 
   async function radioData(data) {
-    const id = prop('series', data);
+    const seriesId = prop('seriesId', data);
 
-    const series = await repository.termFor(id);
+    const series = await repository.termFor(seriesId);
+    const season = await repository.seasonFor(seriesId);
 
     return {
       ...data,
-      series: prop('name', series),
+      seriesName: prop('name', series),
+      season,
     };
   }
 
