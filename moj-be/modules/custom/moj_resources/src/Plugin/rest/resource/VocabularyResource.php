@@ -120,7 +120,9 @@ class VocabularyResource extends ResourceBase
         self::checkCatgeoryIsString();
         $content = $this->vocabularyApiClass->VocabularyApiEndpoint($this->paramater_language_tag, $this->paramater_category);
         if (!empty($content)) {
-            return new ResourceResponse($content);
+            $response = new ResourceResponse($content);
+            $response->addCacheableDependency($content);
+            return $response;
         }
         throw new NotFoundHttpException(t('No featured content found'));
     }

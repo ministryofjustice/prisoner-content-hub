@@ -119,7 +119,9 @@ class TermResource extends ResourceBase
         self::checkTermIsNumeric();
         $content = $this->termApiClass->TermApiEndpoint($this->paramater_language_tag, $this->paramater_term_id);
         if (!empty($content)) {
-            return new ResourceResponse($content);
+            $response = new ResourceResponse($content);
+            $response->addCacheableDependency($content);
+            return $response;
         }
         throw new NotFoundHttpException(t('No term found'));
     }

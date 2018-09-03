@@ -125,13 +125,15 @@ class SeriesContentResource extends ResourceBase
 
     public function get() 
     {
-        $featuredContent = $this->seriesContentApiClass->SeriesContentApiEndpoint(
+        $seriesContent = $this->seriesContentApiClass->SeriesContentApiEndpoint(
             $this->paramater_language_tag, 
             $this->currentRequest->get('id'), 
             $this->paramater_number_results
         );
-        if (!empty($featuredContent)) {
-            return new ResourceResponse($featuredContent);
+        if (!empty($seriesContent)) {
+            $response = new ResourceResponse($seriesContent);
+            $response->addCacheableDependency($seriesContent);
+            return $response;
         }
         throw new NotFoundHttpException(t('No featured content found'));
     }

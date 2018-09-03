@@ -16,6 +16,7 @@ use Drupal\moj_resources\FeaturedContentApiClass;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Drupal\Core\PageCache\ResponsePolicy\KillSwitch;
 
 /**
  * @SWG\Get(
@@ -76,6 +77,8 @@ class FeaturedContentResource extends ResourceBase
 
     protected $languageManager;
 
+    protected $killSwitch;
+
     protected $paramater_category;
 
     Protected $paramater_language_tag;
@@ -90,11 +93,13 @@ class FeaturedContentResource extends ResourceBase
         LoggerInterface $logger,
         FeaturedContentApiClass $FeaturedContentApiClass,
         Request $currentRequest,
-        LanguageManager $languageManager
+        LanguageManager $languageManager,
+        KillSwitch $killSwitch
     ) {        
         $this->featuredContentApiClass = $FeaturedContentApiClass;
         $this->currentRequest = $currentRequest;
         $this->languageManager = $languageManager;
+        $this->killSwitch = $killSwitch;
         $this->availableLangs = $this->languageManager->getLanguages();
         $this->paramater_category = self::setCategory();
         $this->paramater_number_results = self::setNumberOfResults();
@@ -119,7 +124,8 @@ class FeaturedContentResource extends ResourceBase
             $container->get('logger.factory')->get('rest'),
             $container->get('moj_resources.featured_content_api_class'),
             $container->get('request_stack')->getCurrentRequest(),
-            $container->get('language_manager')
+            $container->get('language_manager'),
+            $container->get('page_cache_kill_switch')
         );
     }   
 
@@ -131,7 +137,9 @@ class FeaturedContentResource extends ResourceBase
             $this->paramater_number_results
         );
         if (!empty($featuredContent)) {
-            return new ResourceResponse($featuredContent);
+            $response = new ResourceResponse($featuredContent);
+            $response->addCacheableDependency($featuredContent);
+            return $response;
         }
         throw new NotFoundHttpException(t('No featured content found'));
     }
