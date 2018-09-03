@@ -15,7 +15,7 @@ const {
   imageUrlFrom,
   durationFrom,
   audioFrom,
-  seriesFrom,
+  seriesIdFrom,
   episodeFrom,
   seasonFrom,
   standFirstFrom,
@@ -86,7 +86,7 @@ module.exports = function hubContentRepository(httpClient) {
       },
       episode: episodeFrom(data),
       season: seasonFrom(data),
-      seriesId: seriesFrom(data),
+      seriesId: seriesIdFrom(data),
     };
   }
 

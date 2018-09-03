@@ -1,4 +1,9 @@
-const { prop } = require('ramda');
+const {
+  prop,
+  filter,
+  propEq,
+  not,
+} = require('ramda');
 
 module.exports = function createHubContentService(repository) {
   async function contentFor(id) {
@@ -14,15 +19,17 @@ module.exports = function createHubContentService(repository) {
   }
 
   async function radioData(data) {
+    const id = prop('id', data);
     const seriesId = prop('seriesId', data);
 
     const series = await repository.termFor(seriesId);
     const season = await repository.seasonFor(seriesId);
+    const filterOutCurrentEpisode = filter(item => not(propEq('id', id, item)));
 
     return {
       ...data,
       seriesName: prop('name', series),
-      season,
+      season: filterOutCurrentEpisode(season),
     };
   }
 

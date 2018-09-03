@@ -29,7 +29,7 @@ describe('GET /content/:id', () => {
             duration: '18:41',
             episode: 1,
             season: 1,
-            series: 694,
+            seriesId: 694,
             thumbnail: {
               alt: 'foo.image.alt',
               url: 'foo.image.png',
@@ -62,7 +62,7 @@ describe('GET /content/:id', () => {
 
           expect($('#next-episodes a').length).to.equal(1, 'The number of next episodes shows don\'t match');
           expect($('#next-episodes a').text()).to.include('Baz episode', 'The episode title doesn\'t match');
-          expect($('#next-episodes a img').attr('src')).to.equal('foo.image.png', 'The episode thumbnail doesn\'t match');
+          expect($('#episode-thumbnail').attr('style')).to.include('foo.image.png', 'The episode thumbnail doesn\'t match');
         });
     });
   });
