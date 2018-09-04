@@ -4,9 +4,14 @@
 @import "node_modules/govuk-frontend/helpers/typography";
 
 .govuk-hub-header {
-    padding-top: govuk-spacing(0);
     background: govuk-colour("white");
-    border-bottom: none;
+}
+
+.govuk-hub-phase-banner {
+    padding-top: govuk-spacing(2);
+    padding-bottom: govuk-spacing(2);
+    border-bottom: 1px solid #bfc1c3;
+    margin-bottom: govuk-spacing(6);
 }
 
 .govuk-hub-header__topbar {
