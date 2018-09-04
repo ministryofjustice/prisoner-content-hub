@@ -12,8 +12,8 @@ function hubFeaturedContentRepository(httpClient) {
   function newsAndEvents() {
     return hubContentFor({
       query: {
-        _number: 2,
-        _category: 664,
+        _number: 4,
+        _category: 644,
       },
     });
   }

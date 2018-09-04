@@ -35,9 +35,13 @@
 
 {% block content %}
 
-  {# {{ hubFeaturedContent({
-    data: newseventsData
-  }) }} #}
+  {{ hubFeaturedContent({
+    categoryTitle: "News and events",
+    categoryLink: "/",
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: newsAndEvents,
+    size: "small"
+  }) }}
 
   {# {{ hubFeaturedContent({
     data: gamedata

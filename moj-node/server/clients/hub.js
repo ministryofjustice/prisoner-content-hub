@@ -13,12 +13,12 @@ class HubContentClient {
       .query({ _lang: 'en' })
       .query(query)
       .then((res) => {
-        logger.debug(`Requested ${endpoint}`);
+        logger.debug(`Requested ${endpoint}`, query);
 
         return res.body;
       })
       .catch((exp) => {
-        logger.debug(`Requested ${endpoint} and got back`);
+        logger.debug(`Requested ${endpoint} and got back`, query);
         logger.error(exp);
         return null;
       });
