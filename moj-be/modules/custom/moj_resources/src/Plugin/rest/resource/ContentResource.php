@@ -118,7 +118,9 @@ class ContentResource extends ResourceBase
         self::checkContentIdParameterIsNumeric();
         $content = $this->contentApiClass->ContentApiEndpoint($lang, $this->nid);
         if (!empty($content)) {
-            return new ResourceResponse($content);
+            $response = new ResourceResponse($content);
+            $response->addCacheableDependency($content);
+            return $response;
         }
         throw new NotFoundHttpException(t('No content found'));
     }
