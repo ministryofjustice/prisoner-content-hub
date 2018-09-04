@@ -27,6 +27,7 @@
     padding: govuk-spacing(2) govuk-spacing(1);
     margin-bottom: 0;
     @include govuk-font($size: 24);
+    font-weight: bold;
 }
 
 .govuk-hub-header__date {
