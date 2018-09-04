@@ -43,9 +43,10 @@
 }
 
 .content-items {
-    margin-bottom: govuk-spacing(6);
+    // margin-bottom: govuk-spacing(6);
 
     .item {
+        margin-bottom: govuk-spacing(6);
         padding: 0 govuk-spacing(1);
 
         &:first-child {

@@ -48,7 +48,7 @@ function hubFeaturedContentRepository(httpClient) {
   function radioShowsAndPodcasts() {
     return hubContentFor({
       query: {
-        _number: 4,
+        _number: 8,
         _category: 646,
       },
     });
