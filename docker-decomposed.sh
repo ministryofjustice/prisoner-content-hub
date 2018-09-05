@@ -38,7 +38,6 @@ hub_db() {
   mojdigitalstudio/digital-hub-db
 }
 
-
 hub_be() {
   docker_code_volume=""
 
@@ -77,11 +76,22 @@ hub_fe() {
   --link hub-be \
   -e API_URI=http://hub-be/ \
   -e PIWIK_URI=$PIWIK_URI \
-  -p 10001:80 \
+  -p 10002:80 \
   --restart always \
   mojdigitalstudio/digital-hub-fe
 }
 
+hub_node() {
+  printf "Stopping " && docker stop hub-node
+  printf "Removing " && docker rm hub-node
+  docker run -d --name hub-node \
+  --link hub-be \
+  -e HUB_API_ENDPOINT=http://hub-be/ \
+  -e PIWIK_URI=$PIWIK_URI \
+  -p 10001:3000 \
+  --restart always \
+  mojdigitalstudio/digital-hub-node
+}
 
 hub_memcache() {
   printf "Stopping " && docker stop hub-memcache
@@ -101,11 +111,14 @@ hub-be)
 hub-fe)
   hub_fe
   ;;
+hub-node)
+  hub_node
+  ;;
 hub-memcache)
   hub_memcache
   ;;
 *)
-  printf "${RED}Please provide a component [hub-db hub-be hub-fe hub-memcache]${NC}\n"
+  printf "${RED}Please provide a component [hub-db hub-be hub-fe hub-node hub-memcache]${NC}\n"
   exit 1
   ;;
 esac
