@@ -67,8 +67,25 @@ class SeriesContentApiClass
         $this->lang = $lang;
         $this->nids = self::getSeriesContentNodeIds($category, $number);
         $this->nodes = self::loadNodesDetails($this->nids);
+        usort($this->nodes, 'self::sortEpisodes');
+        usort($this->nodes, 'self::groupSeasons');
         return array_map('self::translateNode', $this->nodes);
-        // return array_map('self::serialize', $translatedNodes);
+    }
+    /**
+     * sortEpisodes
+     *
+     */
+    protected function sortEpisodes($a, $b)
+    {
+        return (int)$a->field_moj_episode->value < (int)$b->field_moj_episode->value;
+    }
+    /**
+     * groupSeasons
+     *
+     */
+    protected function groupSeasons($a, $b)
+    {
+        return (int)$a->field_moj_season->value < (int)$b->field_moj_season->value;
     }
     /**
      * TranslateNode function
@@ -81,6 +98,7 @@ class SeriesContentApiClass
     {
         return $node->hasTranslation($this->lang) ? $node->getTranslation($this->lang) : $node;
     }
+    
     /**
      * Get nids
      *
@@ -89,19 +107,14 @@ class SeriesContentApiClass
     protected function getSeriesContentNodeIds($category, $number)
     {
         $results = $this->entity_query->get('node')
-            ->condition('status', 1)
-            ->accessCheck(false);
-
+            ->condition('status', 1);
         if ($category !== 0) {
             $results->condition('field_moj_series', $category);
         };
-
         if ($number !== 0) {
             $results->range(0, $number);
         };
-
-        $results->sort('field_moj_episode', 'DESC');
-        
+        $results->accessCheck(false);        
         return $results->execute();
     }
     /**
