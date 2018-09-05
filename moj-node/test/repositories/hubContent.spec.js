@@ -78,7 +78,8 @@ function flatPageContent() {
     id: 3491,
     title: 'Foo article',
     type: 'page',
-    body: {
+    description: {
+      raw: '<p>Foo article description</p>',
       sanitized: '<p>Foo article description</p>',
     },
     standFirst: 'Foo article stand first',

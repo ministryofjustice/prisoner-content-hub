@@ -73,7 +73,7 @@ describe('GET /content/:id', () => {
         id: 3491,
         title: 'Foo article',
         type: 'page',
-        body: {
+        description: {
           sanitized: '<p>Foo article body</p>',
         },
         standFirst: 'Foo article stand first',

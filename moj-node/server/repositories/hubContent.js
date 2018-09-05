@@ -9,7 +9,6 @@ const {
   contentTypeFrom,
   descriptionValueFrom,
   descriptionProcessedFrom,
-  bodyProcessedFrom,
   summaryValueFrom,
   imageAltFrom,
   imageUrlFrom,
@@ -97,8 +96,9 @@ module.exports = function hubContentRepository(httpClient) {
       id: idFrom(data),
       title: titleFrom(data),
       type: HUB_CONTENT_TYPES[contentTypeFrom(data)],
-      body: {
-        sanitized: bodyProcessedFrom(data),
+      description: {
+        raw: descriptionValueFrom(data),
+        sanitized: descriptionProcessedFrom(data),
       },
       standFirst: standFirstFrom(data),
     };
