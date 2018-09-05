@@ -6,7 +6,7 @@
             <h3 class="govuk-hub-featured-content-item__header-title govuk-heading-m govuk-!-font-size-24">{{ params.title }}</h3>
           </header>
           <div class="govuk-hub-featured-content-item__main">
-            <p class="govuk-hub-featured-content-item__description govuk-body">{{ params.description.sanitized }}</p>
+            <p class="govuk-hub-featured-content-item__description govuk-body">{{ params.summary }}</p>
             <div title="{{ params.linktext }}" class="govuk-hub-featured-content-item-icon govuk-hub-featured-content-item__main-play govuk-link"><span class="{{ params.linkIcon }}"><span class="path1"></span><span class="path2"></span></span><span class="space">{{ params.linktext }}</span></div>
             <span class="govuk-hub-featured-content-item__main-icon {%- if params.icon %} {{ params.icon }}{% endif -%}">
               <span data-featured-item-duration="{{ params.duration }}" class="govuk-body govuk-hub-featured-content-item__main-duration">{%- if params.duration %} {{ params.duration }}{% endif -%}</span>

@@ -1,12 +1,8 @@
-const striptags = require('striptags');
-
 const { HUB_CONTENT_TYPES } = require('../constants/hub');
 const {
   idFrom,
   titleFrom,
   contentTypeFrom,
-  descriptionValueFrom,
-  descriptionProcessedFrom,
   summaryValueFrom,
   imageAltFrom,
   imageUrlFrom,
@@ -27,13 +23,6 @@ const defaultAlt = {
   page: 'Document file',
 };
 
-function sanitizeTruncateText(text, opts = { size: 100 }) {
-  if (!text) return null;
-
-  const sanitized = striptags(text);
-  return `${sanitized.substring(0, opts.size)}...`;
-}
-
 function parseHubContentResponse(data) {
   if (!data) return {};
 
@@ -50,18 +39,11 @@ function parseHubContentResponse(data) {
           alt: defaultAlt[contentTypeFrom(data[key])],
         };
 
-      const description = summaryValueFrom(data[key])
-        ? { sanitized: summaryValueFrom(data[key]) }
-        : {
-          raw: descriptionValueFrom(data[key]),
-          sanitized: sanitizeTruncateText(descriptionProcessedFrom(data[key])),
-        };
-
       return ({
         id: idFrom(data[key]),
         title: titleFrom(data[key]),
         contentType: HUB_CONTENT_TYPES[contentTypeFrom(data[key])],
-        description,
+        summary: summaryValueFrom(data[key]),
         image,
         duration: durationFrom(data[key]),
       });
@@ -69,6 +51,5 @@ function parseHubContentResponse(data) {
 }
 
 module.exports = {
-  sanitizeTruncateText,
   parseHubContentResponse,
 };
