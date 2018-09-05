@@ -108,21 +108,13 @@ class SeriesContentApiClass
     {
         $results = $this->entity_query->get('node')
             ->condition('status', 1);
-
         if ($category !== 0) {
             $results->condition('field_moj_series', $category);
         };
-
         if ($number !== 0) {
             $results->range(0, $number);
         };
-
-        $results->groupBy('field_moj_season')
-            ->sort('field_moj_episode')
-            ->sort('field_moj_date')
-            ->accessCheck(false);
-       
-        
+        $results->accessCheck(false);        
         return $results->execute();
     }
     /**
