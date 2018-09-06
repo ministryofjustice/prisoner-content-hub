@@ -21,8 +21,9 @@ services:
                 depends_on:
                         - hub-be
                 environment:
-                        API_URI: http://hub-be/
+                        HUB_API_ENDPOINT: http://hub-be/v1/api
                         APP_TIMEOUT: 60.0
+                        PORT: 3000
                 ports:
                         - 8183:3000
                 volumes:
