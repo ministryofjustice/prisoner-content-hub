@@ -43,18 +43,11 @@
 }
 
 .content-items {
-    // margin-bottom: govuk-spacing(6);
+    padding-left: govuk-spacing(3);
+    padding-right: govuk-spacing(3);
 
     .item {
         margin-bottom: govuk-spacing(6);
         padding: 0 govuk-spacing(1);
-
-        &:first-child {
-            padding-left: govuk-spacing(3);
-        }
-
-        &:last-child {
-            padding-right: govuk-spacing(3);
-        }
     }
 }
