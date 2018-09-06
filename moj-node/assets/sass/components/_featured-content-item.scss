@@ -77,6 +77,12 @@ $gradient: $trans, $fifityPerecntBlack;
     opacity: 0;
 }
 
+.space {
+  margin-left: govuk-spacing(1);
+  display: inline-block;
+  text-decoration: underline;
+}
+
 .govuk-hub-featured-content-item__main-play {
     position: absolute;
     bottom: 25px;
@@ -89,11 +95,6 @@ $gradient: $trans, $fifityPerecntBlack;
         top: 5px;
     }
 
-    .space {
-        margin-left: govuk-spacing(1);
-        display: inline-block;
-        text-decoration: underline;
-    }
     &:link,
     &:visited,
     &:active,
