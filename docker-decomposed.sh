@@ -86,7 +86,7 @@ hub_node() {
   printf "Removing " && docker rm hub-node
   docker run -d --name hub-node \
   --link hub-be \
-  -e HUB_API_ENDPOINT=https://drupal.digital-hub-stage.hmpps.dsd.io/v1/api \
+  -e HUB_API_ENDPOINT=http://hub-be/v1/api \
   -e PIWIK_URI=$PIWIK_URI \
   -p 10001:3000 \
   --restart always \
