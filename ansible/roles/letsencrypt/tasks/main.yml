@@ -14,7 +14,7 @@
   copy:
     dest: /etc/letsencrypt/cli.ini
     content: |
-      {% for k, v in certbot_options.iteritems() %}
+      {% for k, v in certbot_options.items() %}
       {{ k }}={{ v }}
       {% endfor %}
   vars:
