@@ -7,7 +7,7 @@ module.exports = function Index({
 }) {
   const router = express.Router();
 
-  router.get('/', async (req, res) => {
+  router.get('/', async (req, res, next) => {
     try {
       logger.info('GET index');
       const featuredContent = await hubFeaturedContentService.hubFeaturedContent();
@@ -25,8 +25,7 @@ module.exports = function Index({
         config,
       });
     } catch (exception) {
-      logger.error(exception);
-      res.sendStatus(500);
+      next(exception);
     }
   });
 

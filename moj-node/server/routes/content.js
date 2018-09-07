@@ -7,7 +7,7 @@ module.exports = function createContentRouter({
 }) {
   const router = express.Router();
 
-  router.get('/:id', async (req, res) => {
+  router.get('/:id', async (req, res, next) => {
     logger.info(`GET /${req.params.id}`);
 
     const config = {
@@ -35,7 +35,7 @@ module.exports = function createContentRouter({
           return res.sendStatus(404);
       }
     } catch (ex) {
-      return res.sendStatus(500);
+      return next(ex);
     }
   });
 
