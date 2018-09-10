@@ -8,8 +8,8 @@
     "build": "npm run css-build",
     "css-build": "./bin/build-css",
     "clean": "rm -rf public/* .port.tmp *.log build/* uploads/* test-results.xml",
-    "lint": "./node_modules/eslint/bin/eslint.js . --cache --max-warnings 0",
-    "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha",
+    "lint": "eslint . --cache --max-warnings 0",
+    "test": "NODE_ENV=test mocha",
     "record-build-info": "node ./bin/record-build-info",
     "verify": "npm run lint && npm run test"
   },

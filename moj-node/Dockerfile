@@ -10,6 +10,7 @@ RUN npm install
 # RUN npm install --only=production
 # Bundle app source
 COPY . /home/node/app
+
 # Generate styles
 RUN ./node_modules/node-sass/bin/node-sass $@ \
     --include-path node_modules/govuk_frontend_toolkit/stylesheets \
@@ -17,5 +18,9 @@ RUN ./node_modules/node-sass/bin/node-sass $@ \
     --include-path node_modules/govuk-elements-sass/public/sass \
     /home/node/app/assets/sass/style.scss \
     /home/node/app/assets/stylesheets/application.css
+
+# Run application verification
+RUN npm run verify
+
 EXPOSE 3000
 CMD [ "npm", "start" ]
