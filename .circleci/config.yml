@@ -31,7 +31,7 @@ jobs:
                 key: moj-node/node_modules
             - run:
                 name: Build node frontend container
-                command: cd moj-node && npm ci && make build
+                command: cd moj-node && make build
             - save_cache:
                 key: dependency-cache-{{ checksum "package-lock.json" }}
                 paths:
