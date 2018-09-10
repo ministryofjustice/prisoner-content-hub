@@ -57,7 +57,7 @@ jobs:
                 # command: cd moj-be && make test
             - run:
                 name: Run moj-node verification
-                command: cd moj-node && make test
+                command: cd moj-node && make verify
             - run:
                 name: Build DB container
                 command: cd db && make build
