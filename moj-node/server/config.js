@@ -10,14 +10,16 @@ function get(name, fallback, options = {}) {
   throw new Error(`Missing env var ${name}`);
 }
 
+const hubEndpoint = get('HUB_API_ENDPOINT', 'www.foo.com');
+
 module.exports = {
   dev: !production,
   production,
   sessionSecret: get('SESSION_SECRET', 'app-insecure-default-session', { requireInProduction: true }),
   api: {
-    hubContent: `${get('HUB_API_ENDPOINT')}/content`,
-    hubMenu: `${get('HUB_API_ENDPOINT')}/menu`,
-    hubTerm: `${get('HUB_API_ENDPOINT')}/term`,
-    series: `${get('HUB_API_ENDPOINT')}/content/series`,
+    hubContent: `${hubEndpoint}/content`,
+    hubMenu: `${hubEndpoint}/menu`,
+    hubTerm: `${hubEndpoint}/term`,
+    series: `${hubEndpoint}/content/series`,
   },
 };
