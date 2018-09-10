@@ -1,4 +1,5 @@
 - set_fact:
+    nginx_client_max_body_size: 1024m
     hub_nginx_upstream:
       name: "{{ hub_site.upstream_name }}"
       servers:
