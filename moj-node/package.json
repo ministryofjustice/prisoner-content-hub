@@ -4,13 +4,14 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.js",
-    "start:dev": "yarn build && DEBUG=gov-starter-server* nodemon server.js | bunyan -o short",
-    "build": "yarn run css-build",
+    "start:dev": "npm run build && DEBUG=gov-starter-server* nodemon server.js | bunyan -o short",
+    "build": "npm run css-build",
     "css-build": "./bin/build-css",
     "clean": "rm -rf public/* .port.tmp *.log build/* uploads/* test-results.xml",
     "lint": "eslint . --cache --max-warnings 0",
     "test": "NODE_ENV=test mocha",
-    "record-build-info": "node ./bin/record-build-info"
+    "record-build-info": "node ./bin/record-build-info",
+    "verify": "npm run lint && npm run test"
   },
   "engines": {
     "node": ">= 8.10.0",
