@@ -56,6 +56,9 @@ jobs:
                 # name: Run Drupal backend tests
                 # command: cd moj-be && make test
             - run:
+                name: Run moj-node verification
+                command: cd moj-node && make test
+            - run:
                 name: Build DB container
                 command: cd db && make build
             - run:
