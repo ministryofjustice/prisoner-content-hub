@@ -1,4 +1,4 @@
-const hubMenuRepository = require('../../server/repositories/hubMenu');
+const hubMenuRepository = require('../../../server/repositories/hubMenu');
 
 describe('hubMenuRepository', () => {
   describe('#menu', () => {

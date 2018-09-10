@@ -1,8 +1,8 @@
 const request = require('supertest');
 const cheerio = require('cheerio');
 
-const createHubContentRouter = require('../../server/routes/content');
-const { setupBasicApp, logger } = require('../test-helpers');
+const createHubContentRouter = require('../../../server/routes/content');
+const { setupBasicApp, logger } = require('../../test-helpers');
 
 
 describe('GET /content/:id', () => {

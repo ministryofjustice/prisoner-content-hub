@@ -1,4 +1,4 @@
-const hubContentRepository = require('../../server/repositories/hubContent');
+const hubContentRepository = require('../../../server/repositories/hubContent');
 const radioShowResponse = require('../resources/radioShow.json');
 const termsResponse = require('../resources/terms.json');
 const flatPageContentResponse = require('../resources/flatPageContent.json');
