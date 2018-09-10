@@ -9,7 +9,8 @@
     "css-build": "./bin/build-css",
     "clean": "rm -rf public/* .port.tmp *.log build/* uploads/* test-results.xml",
     "lint": "eslint . --cache --max-warnings 0",
-    "test": "NODE_ENV=test mocha",
+    "test": "NODE_ENV=test mocha test/unit/",
+    "test:e2e": "NODE_ENV=test mocha test/e2e/",
     "record-build-info": "node ./bin/record-build-info",
     "verify": "npm run lint && npm run test"
   },
@@ -58,6 +59,7 @@
     "mocha": "^5.2.0",
     "nock": "^9.4.2",
     "nodemon": "^1.18.2",
+    "puppeteer": "^1.8.0",
     "sass-middleware": "^0.0.3",
     "sinon": "^6.1.3",
     "superagent-nock": "^0.4.0",
