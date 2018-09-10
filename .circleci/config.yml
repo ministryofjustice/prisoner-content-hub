@@ -31,11 +31,12 @@ jobs:
                 key: moj-node/node_modules
             - run:
                 name: Build node frontend container
-                command: cd moj-node && make build
+                command: cd moj-node && npm ci && make build
             - save_cache:
-                key: moj-node/node_modules-{{ checksum "moj-node/package.json" }}
+                key: dependency-cache-{{ checksum "package-lock.json" }}
                 paths:
-                    - ./moj-node/node_modules
+                    - node_modules
+
             - restore_cache:
                 key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
                 key: moj-be/vendor
@@ -55,9 +56,6 @@ jobs:
             # - run:
                 # name: Run Drupal backend tests
                 # command: cd moj-be && make test
-            - run:
-                name: Run moj-node verification
-                command: cd moj-node && make verify
             - run:
                 name: Build DB container
                 command: cd db && make build
