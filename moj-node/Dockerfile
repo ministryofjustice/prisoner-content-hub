@@ -1,4 +1,9 @@
 FROM node:9.11.1-alpine
+
+ARG BUILD_NUMBER
+ARG GIT_REF
+ARG GIT_DATE
+
 # Create app directory
 WORKDIR /home/node/app
 # Install app dependencies
@@ -21,6 +26,9 @@ RUN ./node_modules/node-sass/bin/node-sass $@ \
 
 # Run application verification
 RUN npm run verify
+
+# Record build number
+RUN BUILD_NUMBER=${BUILD_NUMBER} GIT_REF=${GIT_REF} GIT_DATE=${GIT_DATE} npm run record-build-info
 
 EXPOSE 3000
 CMD [ "npm", "start" ]

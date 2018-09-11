@@ -15,18 +15,23 @@ const getEnvironmentVariable = (name) => {
   throw new Error(`Missing env var ${name}`);
 };
 
-const buildInfo = {
-  buildNumber: getEnvironmentVariable('BUILD_NUMBER'),
-  gitRef: getEnvironmentVariable('GIT_REF'),
-  gitDate: new Date(getEnvironmentVariable('GIT_DATE')),
-};
+try {
+  const buildInfo = {
+    buildNumber: getEnvironmentVariable('BUILD_NUMBER'),
+    gitRef: getEnvironmentVariable('GIT_REF'),
+    gitDate: new Date(getEnvironmentVariable('GIT_DATE')),
+  };
 
-recordBuildInfoTo(target, buildInfo, (error) => {
-  if (error) {
-    console.log('💔 Failed to record build info');
-    return process.exit(1);
-  }
+  recordBuildInfoTo(target, buildInfo, (error) => {
+    if (error) {
+      console.log('💔 Failed to record build info');
+      return process.exit(1);
+    }
 
-  console.log('✨ Successfully recorded build info');
-  return process.exit(0);
-});
+    console.log('✨ Successfully recorded build info');
+    return process.exit(0);
+  });
+} catch (exp) {
+  console.log('Failed to create build info');
+  console.log(exp);
+}
