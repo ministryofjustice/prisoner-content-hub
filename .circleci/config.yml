@@ -30,18 +30,16 @@ jobs:
                 key: moj-node/node_modules-{{ checksum "moj-node/package.json" }}
                 key: moj-node/node_modules
             - run:
-                name: Change directory to moj-node
-                command: cd moj-node
-            - run:
                 name: Build node frontend container
                 command: |
                     if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        cd moj-node && \
                         BUILD_NUMBER=$CIRCLE_BUILD_NUM \
                         GIT_REF=$CIRCLE_SHA1 \
                         GIT_DATE=$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1) \
                         make build
                     else
-                        make build
+                        cd moj-node make build
                     fi
 
             - save_cache:
