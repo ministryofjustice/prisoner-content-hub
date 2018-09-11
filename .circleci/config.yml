@@ -88,7 +88,7 @@ jobs:
                 command: |
                     if [ "${CIRCLE_BRANCH}" == "master" ]; then
                         cd moj-node && make push
-                    if
+                    fi
             - run:
                 name: push db to docker
                 command:
