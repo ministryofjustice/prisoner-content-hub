@@ -10,7 +10,7 @@ function get(name, fallback, options = {}) {
   throw new Error(`Missing env var ${name}`);
 }
 
-const hubEndpoint = get('HUB_API_ENDPOINT', 'www.foo.com', { requireInProduction: true });
+const hubEndpoint = get('HUB_API_ENDPOINT', { requireInProduction: true });
 
 module.exports = {
   dev: !production,
