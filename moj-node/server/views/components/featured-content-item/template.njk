@@ -1,9 +1,9 @@
-<a class="govuk-hub-featured-link" href="/content/{{ params.id }}">
+<a data-featured-id="{{ params.id }}" class="govuk-hub-featured-link" href="/content/{{ params.id }}">
   <article class="govuk-hub-featured-content-item {{ params.size }}">
       <div data-featured-item-background class="govuk-hub-featured-content-item__image" style="background-image:url({{ params.graphic.url }})">
         <div class="govuk-hub-featured-content-item__overlay">
           <header class="govuk-hub-featured-content-item__header">
-            <h3 class="govuk-hub-featured-content-item__header-title govuk-heading-m govuk-!-font-size-24">{{ params.title }}</h3>
+            <h3 data-featured-title="{{ params.title }}" class="govuk-hub-featured-content-item__header-title govuk-heading-m govuk-!-font-size-24">{{ params.title }}</h3>
           </header>
           <div class="govuk-hub-featured-content-item__main">
             <p class="govuk-hub-featured-content-item__description govuk-body">{{ params.summary }}</p>

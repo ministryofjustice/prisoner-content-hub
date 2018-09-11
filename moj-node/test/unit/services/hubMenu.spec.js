@@ -1,4 +1,4 @@
-const createHubMenuService = require('../../server/services/hubMenu');
+const createHubMenuService = require('../../../server/services/hubMenu');
 
 describe('#hubMenuService', () => {
   it('returns an menu', async () => {

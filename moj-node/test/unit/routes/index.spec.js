@@ -1,8 +1,8 @@
 const request = require('supertest');
 const cheerio = require('cheerio');
 
-const createIndexRouter = require('../../server/routes/index');
-const { setupBasicApp, logger } = require('../test-helpers');
+const createIndexRouter = require('../../../server/routes/index');
+const { setupBasicApp, logger } = require('../../test-helpers');
 
 
 describe('GET /', () => {
