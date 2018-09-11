@@ -34,9 +34,9 @@ jobs:
                 command: |
                     if [ "${CIRCLE_BRANCH}" == "master" ]; then
                         cd moj-node && \
-                        BUILD_NUMBER=$CIRCLE_BUILD_NUM \
-                        GIT_REF=$CIRCLE_SHA1 \
-                        GIT_DATE=$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1) \
+                        BUILD_NUMBER="$CIRCLE_BUILD_NUM" \
+                        GIT_REF="$CIRCLE_SHA1" \
+                        GIT_DATE="$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1)" \
                         make build
                     else
                         cd moj-node make build
@@ -89,7 +89,7 @@ jobs:
                     fi
             - run:
                 name: push db to docker
-                command:
+                command: |
                     if [ "${CIRCLE_BRANCH}" == "master" ]; then
                         cd db && make push
                     fi
