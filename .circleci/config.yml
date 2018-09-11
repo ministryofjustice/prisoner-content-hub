@@ -30,8 +30,20 @@ jobs:
                 key: moj-node/node_modules-{{ checksum "moj-node/package.json" }}
                 key: moj-node/node_modules
             - run:
+                name: Change directory to moj-node
+                command: cd moj-node
+            - run:
                 name: Build node frontend container
-                command: cd moj-node && make build
+                command: |
+                    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        BUILD_NUMBER=$CIRCLE_BUILD_NUM \
+                        GIT_REF=$CIRCLE_SHA1 \
+                        GIT_DATE=$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1) \
+                        make build
+                    else
+                        make build
+                    fi
+
             - save_cache:
                 key: dependency-cache-{{ checksum "package-lock.json" }}
                 paths:
@@ -61,13 +73,25 @@ jobs:
                 command: cd db && make build
             - run:
                 name: push fe to docker
-                command: cd moj-fe && make push
+                command: |
+                    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        cd moj-fe && make push
+                    fi
             - run:
                 name: push be to docker
-                command: cd moj-be && make push
+                command: |
+                    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        cd moj-be && make push
+                    fi
             - run:
                 name: push node fe to docker
-                command: cd moj-node && make push
+                command: |
+                    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        cd moj-node && make push
+                    if
             - run:
                 name: push db to docker
-                command: cd db && make push
+                command:
+                    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        cd db && make push
+                    fi
