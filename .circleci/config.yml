@@ -126,3 +126,5 @@ workflows:
             - build_laravel_frontend:
                 requires:
                     - hold
+            - hold:
+                type: approval
