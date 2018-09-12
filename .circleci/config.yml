@@ -5,6 +5,38 @@ defaults: &defaults
 
 version: 2
 jobs:
+    build:
+        <<: *defaults
+        steps:
+        - checkout
+        - setup_remote_docker:
+            reusable: true
+        - restore_cache:
+            key: moj-node/node_modules-{{ checksum "moj-node/package.json" }}
+            key: moj-node/node_modules
+        - run:
+            name: Build node frontend container
+            command: |
+                if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                    cd moj-node && \
+                    BUILD_NUMBER="$CIRCLE_BUILD_NUM" \
+                    GIT_REF="$CIRCLE_SHA1" \
+                    GIT_DATE="$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1)" \
+                    make build
+                else
+                    cd moj-node make build
+                fi
+        - save_cache:
+            key: dependency-cache-{{ checksum "package-lock.json" }}
+            paths:
+                - node_modules
+        - run:
+            name: push node fe to docker
+            command: |
+                if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                    cd moj-node && make push
+                fi
+                
     build_db:
         <<: *defaults
         steps:
@@ -80,42 +112,12 @@ jobs:
                     cd moj-fe && make push
                 fi
                 
-    build_node_frontend:
-        <<: *defaults
-        steps:
-        - checkout
-        - setup_remote_docker:
-            reusable: true
-        - restore_cache:
-            key: moj-node/node_modules-{{ checksum "moj-node/package.json" }}
-            key: moj-node/node_modules
-        - run:
-            name: Build node frontend container
-            command: |
-                if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                    cd moj-node && \
-                    BUILD_NUMBER="$CIRCLE_BUILD_NUM" \
-                    GIT_REF="$CIRCLE_SHA1" \
-                    GIT_DATE="$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1)" \
-                    make build
-                else
-                    cd moj-node make build
-                fi
-        - save_cache:
-            key: dependency-cache-{{ checksum "package-lock.json" }}
-            paths:
-                - node_modules
-        - run:
-            name: push node fe to docker
-            command: |
-                if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                    cd moj-node && make push
-                fi
 
 workflows:
     version: 2
     build_test_deploy:
         jobs:
+            - build
             - build_db:
                 requires:
                     - hold
@@ -125,5 +127,3 @@ workflows:
             - build_laravel_frontend:
                 requires:
                     - hold
-            - build_node_frontend
-
