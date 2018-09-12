@@ -4,6 +4,9 @@
 
 {% extends "../components/template.njk" %}
 
+{% block pageTitle %}
+  {{ data.title }}
+{% endblock %}
 
 {% block head %}
   <link href="/public/video-js.min.css" rel="stylesheet">
