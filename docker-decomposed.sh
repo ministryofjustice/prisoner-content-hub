@@ -88,7 +88,7 @@ hub_node() {
   --link hub-be \
   -e HUB_API_ENDPOINT=http://hub-be/v1/api \
   -e PIWIK_URI=$PIWIK_URI \
-  -e NODE_ENV=production
+  -e NODE_ENV=production \
   -p 10001:3000 \
   --restart always \
   mojdigitalstudio/digital-hub-node
