@@ -1,10 +1,119 @@
-version: 2
+defaults: &defaults
+    working_directory: ~/digital-hub
+    docker:
+        - image: mojdigitalstudio/circleci-build-container
 
+version: 2
 jobs:
+    build_db:
+        <<: *defaults
+        steps:
+            - checkout
+            - setup_remote_docker:
+                reusable: true
+            - run:
+                name: Build DB container
+                command: cd db && make build
+             - run:
+                name: push db to docker
+                command: |
+                    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        cd db && make push
+                    fi
+    build_cms:
+        <<: *defaults
+        steps:
+        - checkout
+        - setup_remote_docker:
+            reusable: true
+        - restore_cache:
+                key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
+                key: moj-be/vendor
+            - run:
+                name: Build backend container
+                command: cd moj-be && make build
+            - save_cache:
+                key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
+                paths:
+                    - ./moj-be/vendor
+            # - run:
+                # name: Run Drupal backend tests
+                # command: cd moj-be && make test
+            - run:
+                name: Build DB container
+                command: cd db && make build
+            - run:
+                name: push be to docker
+                command: |
+                    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        cd moj-be && make push
+                    fi
+    build_laravel_frontend:
+        <<: *defaults
+        steps:
+        - checkout
+        - setup_remote_docker:
+            reusable: true
+        - restore_cache:
+            key: moj-fe/node_modules-{{ checksum "moj-fe/package.json" }}
+            key: moj-fe/node_modules
+        - restore_cache:
+            key: moj-fe/vendor-{{ checksum "moj-fe/composer.json" }}
+            key: moj-fe/vendor
+        - run:
+            name: Build frontend container
+            command: cd moj-fe && make build
+        - save_cache:
+            key: moj-fe/node_modules-{{ checksum "moj-fe/package.json" }}
+            paths:
+                - ./moj-fe/node_modules
+        - save_cache:
+            key: moj-fe/vendor-{{ checksum "moj-fe/composer.json" }}
+            paths:
+                - ./moj-fe/vendor
+        - run:
+            name: push fe to docker
+            command: |
+                if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                    cd moj-fe && make push
+                fi
+    build_node_frontend:
+        <<: *defaults
+        steps:
+        - checkout
+        - setup_remote_docker:
+            reusable: true
+        - restore_cache:
+            key: moj-node/node_modules-{{ checksum "moj-node/package.json" }}
+            key: moj-node/node_modules
+        - run:
+            name: Build node frontend container
+            command: |
+                if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                    cd moj-node && \
+                    BUILD_NUMBER="$CIRCLE_BUILD_NUM" \
+                    GIT_REF="$CIRCLE_SHA1" \
+                    GIT_DATE="$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1)" \
+                    make build
+                else
+                    cd moj-node make build
+                fi
+        - save_cache:
+            key: dependency-cache-{{ checksum "package-lock.json" }}
+            paths:
+                - node_modules
+        - run:
+            name: push node fe to docker
+            command: |
+                if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                    cd moj-node && make push
+                fi
+        
+
+
+
     build:
-        working_directory: ~/digital-hub
-        docker:
-            - image: mojdigitalstudio/circleci-build-container
+        <<: *defaults
         steps:
             - checkout
             - setup_remote_docker:
