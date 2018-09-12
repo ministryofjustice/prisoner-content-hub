@@ -111,3 +111,19 @@ jobs:
                 if [ "${CIRCLE_BRANCH}" == "master" ]; then
                     cd moj-node && make push
                 fi
+
+workflows:
+    version: 2
+    build_test_deploy:
+        jobs:
+            - build_db:
+                requires:
+                    - hold
+            - build_cms:
+                requires:
+                    - hold
+            - build_laravel_frontend:
+                requires:
+                    - hold
+            - build_node_frontend
+
