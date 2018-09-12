@@ -111,7 +111,6 @@ jobs:
                 if [ "${CIRCLE_BRANCH}" == "master" ]; then
                     cd moj-fe && make push
                 fi
-                
 
 workflows:
     version: 2
