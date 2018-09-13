@@ -151,6 +151,7 @@ workflows:
                 requires:
                     - hold
             - run_e2e_test:
+                type: approval
                 requires:
                     - build_db
                     - build_cms
