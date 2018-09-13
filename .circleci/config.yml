@@ -114,9 +114,9 @@ jobs:
 
 
     run_e2e_test:
-        working_directory: ~/digital-hub
         docker:
             - image: circleci/node:8
+        working_directory: /home/circleci/app
         steps:
             - checkout
             - run:
@@ -133,7 +133,7 @@ jobs:
                     - node_modules
             - run:
                 name: E2E test
-                command: HUB_APP_URL="https://digital-hub-stage.hmpps.dsd.io/" npm run test:e2e
+                command: HUB_APP_URL="https://digital-hub-stage.hmpps.dsd.io" npm run test:e2e
 
 
 workflows:
