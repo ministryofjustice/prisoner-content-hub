@@ -1,10 +1,10 @@
-const { getEnv, isProduction } = require('../utils/index');
+const { getEnv } = require('../utils/index');
 
-const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
+const hubEndpoint = getEnv('HUB_API_ENDPOINT');
+const appURL = getEnv('HUB_APP_URL', 'http://localhost:3000');
 
 module.exports = {
-  dev: !isProduction,
-  production: isProduction,
+  appURL,
   api: {
     hubHealth: `${hubEndpoint}/api/health`,
     hubContent: `${hubEndpoint}/v1/api/content`,

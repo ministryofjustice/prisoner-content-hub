@@ -1,5 +1,7 @@
 const puppeteer = require('puppeteer');
 
+const config = require('../config');
+
 describe('Home page', () => {
   let browser;
   let page;
@@ -17,7 +19,7 @@ describe('Home page', () => {
     let container;
 
     before(async () => {
-      await page.goto('http://localhost:3000');
+      await page.goto(config.appURL);
       container = await page.$('[data-featured-section-id="news-events"]');
     });
 
@@ -56,7 +58,7 @@ describe('Home page', () => {
     let container;
 
     before(async () => {
-      await page.goto('http://localhost:3000');
+      await page.goto(config.appURL);
       container = await page.$('[data-featured-section-id="radio-podcasts"]');
     });
 
