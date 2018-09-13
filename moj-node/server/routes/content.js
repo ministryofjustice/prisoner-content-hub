@@ -32,10 +32,11 @@ module.exports = function createContentRouter({
             backHomeEnabled: true,
           });
         default:
-          return res.sendStatus(404);
+          // send to the 404 page
+          return next();
       }
-    } catch (ex) {
-      return next(ex);
+    } catch (exp) {
+      return next(exp);
     }
   });
 
