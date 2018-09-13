@@ -152,9 +152,8 @@ workflows:
                     - hold
             - run_e2e_test:
                 requires:
-                    - hold
-                    # - build_db
-                    # - build_cms
-                    # - build_laravel_frontend
+                    - build_db
+                    - build_cms
+                    - build_laravel_frontend
             - hold:
                 type: approval
