@@ -121,7 +121,7 @@ hub_matomo_db() {
   -e MYSQL_DATABASE=${MYSQL_MATOMO_DB} \
   -v /data/moj_dhub_matomo_db/var/lib/mysql/:/var/lib/mysql/ \
   --restart-always \
-  mojdigitalstudio/digital-hub-db
+  mariadb
 }
 
 case $component in
