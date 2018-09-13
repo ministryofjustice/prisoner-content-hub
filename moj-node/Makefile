@@ -3,9 +3,9 @@ build-deps:
 
 build:
 	docker build -t mojdigitalstudio/digital-hub-node . \
-		--build-arg BUILD_NUMBER=$(BUILD_NUMBER) \
-		--build-arg GIT_REF=$(GIT_REF) \
-		--build-arg GIT_DATE=$(GIT_DATE)
+		--build-arg BUILD_NUMBER="$(BUILD_NUMBER)" \
+		--build-arg GIT_REF="$(GIT_REF)" \
+		--build-arg GIT_DATE="$(GIT_DATE)"
 
 
 push:
