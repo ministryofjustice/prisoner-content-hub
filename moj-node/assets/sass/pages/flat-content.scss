@@ -35,10 +35,9 @@
     @extend .govuk-table__header; 
   }
 
-  td { @extend .govuk-table__cell;
-
+  td { 
+    @extend .govuk-table__cell;
   }
-
 
   strong {
     font-weight: bold;
