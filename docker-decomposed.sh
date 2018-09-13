@@ -101,6 +101,28 @@ hub_memcache() {
   memcached
 }
 
+hub_matomo() {
+  docker run -d --name hub-matomo \
+  --link hub-matomo-db \
+  -p 12002:80 \
+  -v /data/moj_dhub_matomo_config/:/var/www/html/config/ \
+  --restart always \
+  matomo:3-apache
+}
+
+hub_matomo_db() {
+  printf "Stopping " && docker stop hub-matomo-db
+  printf "Removing " && docker rm   hub-matomo-db
+  docker run -d --name hub-matomo-db \
+  -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
+  -e MYSQL_USER=${MYSQL_MATOMO_USER} \
+  -e MYSQL_PASS=${MYSQL_MATOMO_PASS} \
+  -e MYSQL_DATABASE=${MYSQL_MATOMO_DB} \
+  -v /data/moj_dhub_matomo_db/var/lib/mysql/:/var/lib/mysql/ \
+  --restart-always \
+  mojdigitalstudio/digital-hub-db
+}
+
 case $component in
 hub-db)
   hub_db

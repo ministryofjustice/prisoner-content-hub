@@ -52,7 +52,7 @@ services:
         hub-be:
                 image: mojdigitalstudio/digital-hub-be
                 depends_on:
-                        - hub-db
+                        2- hub-db
                 environment:
                         HUB_DB_ENV_MYSQL_DATABASE: hubdb
                         HUB_DB_ENV_MYSQL_USER: hubdb_user
@@ -116,3 +116,18 @@ services:
                         - ./moj-api-docs/config:/var/www/html/config
                 ports:
                         - 8184:8080
+        hub-matomo:
+                image: matomo:3-apache
+                depends_on:
+                        - hub-matomo-db
+                ports:
+                        - 12002
+        hub-matomo-db:
+                image: mojdigitalstudio/digital-hub-matomo-db
+                environment:
+                        MYSQL_ROOT_PASSWORD: rootpass
+                        MYSQL_DATABASE: matomo_db
+                        MYSQL_USER: matomo_user
+                        MYSQL_PASSWORD: matomo_pass
+                volumes:
+                        - /data/digital-hub-matmomo-db/var/lib/mysql/data:/var/lib/mysql/data
