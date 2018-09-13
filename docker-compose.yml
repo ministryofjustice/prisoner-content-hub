@@ -52,7 +52,7 @@ services:
         hub-be:
                 image: mojdigitalstudio/digital-hub-be
                 depends_on:
-                        2- hub-db
+                        - hub-db
                 environment:
                         HUB_DB_ENV_MYSQL_DATABASE: hubdb
                         HUB_DB_ENV_MYSQL_USER: hubdb_user
