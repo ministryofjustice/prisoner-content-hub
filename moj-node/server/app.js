@@ -24,6 +24,7 @@ module.exports = function createApp({
   hubPromotedContentService,
   hubMenuService,
   hubContentService,
+  healthService,
 }) {
   const app = express();
 
@@ -136,7 +137,7 @@ module.exports = function createApp({
     logger, hubContentService,
   }));
 
-  app.use('/health', createHealthRouter({ appInfo }));
+  app.use('/health', createHealthRouter({ appInfo, healthService }));
 
   app.use('*', (req, res) => {
     res.status(404);

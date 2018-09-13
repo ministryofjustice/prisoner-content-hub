@@ -1,11 +1,16 @@
 const express = require('express');
 
-module.exports = function Health({ appInfo }) {
+module.exports = function Health({ appInfo, healthService }) {
   const router = express.Router();
 
-  router.get('/', (req, res, next) => {
+  router.get('/', async (req, res, next) => {
     try {
-      res.json({ status: 'OK', ...appInfo.getBuildInfo() });
+      const healthStatus = await healthService.status();
+
+      res.json({
+        ...appInfo.getBuildInfo(),
+        ...healthStatus,
+      });
     } catch (exp) {
       next(exp);
     }

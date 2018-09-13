@@ -16,9 +16,10 @@ module.exports = {
   dev: !production,
   production,
   api: {
-    hubContent: `${hubEndpoint}/content`,
-    hubMenu: `${hubEndpoint}/menu`,
-    hubTerm: `${hubEndpoint}/term`,
-    series: `${hubEndpoint}/content/series`,
+    hubHealth: `${hubEndpoint}/api/health`,
+    hubContent: `${hubEndpoint}/v1/api/content`,
+    hubMenu: `${hubEndpoint}/v1/api/menu`,
+    hubTerm: `${hubEndpoint}/v1/api/term`,
+    series: `${hubEndpoint}/v1/api/content/series`,
   },
 };
