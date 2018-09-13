@@ -3,13 +3,13 @@ const createHubFeaturedContentService = require('../../../server/services/hubFea
 
 const hubRepository = {
   newsAndEvents: sinon.stub().returns({ newsAndEvents: 'newsAndEvents' }),
-  games: sinon.stub().returns({ games: 'games' }),
+  // games: sinon.stub().returns({ games: 'games' }),
   radioShowsAndPodcasts: sinon.stub().returns({ radioShowsAndPodcasts: 'radioShowsAndPodcasts' }),
-  healthyMindAndBody: sinon.stub().returns({ healthyMindAndBody: 'healthyMindAndBody' }),
-  inspiration: sinon.stub().returns({ inspiration: 'inspiration' }),
-  scienceAndNature: sinon.stub().returns({ scienceAndNature: 'scienceAndNature' }),
-  artAndCulture: sinon.stub().returns({ artAndCulture: 'artAndCulture' }),
-  history: sinon.stub().returns({ history: 'history' }),
+  // healthyMindAndBody: sinon.stub().returns({ healthyMindAndBody: 'healthyMindAndBody' }),
+  // inspiration: sinon.stub().returns({ inspiration: 'inspiration' }),
+  // scienceAndNature: sinon.stub().returns({ scienceAndNature: 'scienceAndNature' }),
+  // artAndCulture: sinon.stub().returns({ artAndCulture: 'artAndCulture' }),
+  // history: sinon.stub().returns({ history: 'history' }),
 };
 
 
@@ -20,13 +20,13 @@ describe('hubFeaturedService', () => {
       const response = await service.hubFeaturedContent();
       const expectedResult = {
         newsAndEvents: { newsAndEvents: 'newsAndEvents' },
-        games: { games: 'games' },
+        // games: { games: 'games' },
         radioShowsAndPodcasts: { radioShowsAndPodcasts: 'radioShowsAndPodcasts' },
-        healthyMindAndBody: { healthyMindAndBody: 'healthyMindAndBody' },
-        inspiration: { inspiration: 'inspiration' },
-        scienceAndNature: { scienceAndNature: 'scienceAndNature' },
-        artAndCulture: { artAndCulture: 'artAndCulture' },
-        history: { history: 'history' },
+        // healthyMindAndBody: { healthyMindAndBody: 'healthyMindAndBody' },
+        // inspiration: { inspiration: 'inspiration' },
+        // scienceAndNature: { scienceAndNature: 'scienceAndNature' },
+        // artAndCulture: { artAndCulture: 'artAndCulture' },
+        // history: { history: 'history' },
       };
 
       expect(response).to.eql(expectedResult);
@@ -36,13 +36,13 @@ describe('hubFeaturedService', () => {
       it('fails to return content', async () => {
         const hubRepositoryWithError = {
           newsAndEvents: sinon.stub().returns({}),
-          games: sinon.stub().returns({}),
-          radioShowsAndPodcasts: sinon.stub().returns({}),
-          healthyMindAndBody: sinon.stub().returns({}),
-          inspiration: sinon.stub().returns({}),
-          scienceAndNature: sinon.stub().returns({}),
-          artAndCulture: sinon.stub().returns({}),
-          history: sinon.stub().throws(new Error('error')),
+          // games: sinon.stub().returns({}),
+          radioShowsAndPodcasts: sinon.stub().throws(new Error('error')),
+          // healthyMindAndBody: sinon.stub().returns({}),
+          // inspiration: sinon.stub().returns({}),
+          // scienceAndNature: sinon.stub().returns({}),
+          // artAndCulture: sinon.stub().returns({}),
+          // history: sinon.stub().throws(new Error('error')),
         };
 
         const service = createHubFeaturedContentService(hubRepositoryWithError);
