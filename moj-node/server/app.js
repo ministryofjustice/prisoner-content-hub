@@ -116,6 +116,9 @@ module.exports = function createApp({
   // Don't cache dynamic resources
   app.use(helmet.noCache());
 
+  // Health end point
+  app.use('/health', createHealthRouter({ appInfo, healthService }));
+
   // Navigation menu middleware
   // app.use(async (req, res, next) => {
   //   try {
@@ -128,7 +131,6 @@ module.exports = function createApp({
   //   }
   // });
 
-
   // Routing
   app.use('/', createIndexRouter({
     logger, hubFeaturedContentService, hubPromotedContentService,
@@ -136,8 +138,6 @@ module.exports = function createApp({
   app.use('/content', createContentRouter({
     logger, hubContentService,
   }));
-
-  app.use('/health', createHealthRouter({ appInfo, healthService }));
 
   app.use('*', (req, res) => {
     res.status(404);
