@@ -9,7 +9,7 @@ module.exports = function createHubFeaturedContentService(repository) {
         // inspiration,
         // scienceAndNature,
         // artAndCulture,
-        history,
+        // history,
       ] = await Promise.all([
         repository.newsAndEvents(),
         // repository.games(),
