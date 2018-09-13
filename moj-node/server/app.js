@@ -13,7 +13,7 @@ const createIndexRouter = require('./routes/index');
 const createHealthRouter = require('./routes/health');
 const createContentRouter = require('./routes/content');
 
-const topicLinks = require('./data//topic-link.json');
+// const topicLinks = require('./data//topic-link.json');
 
 const version = Date.now().toString();
 
@@ -22,7 +22,7 @@ module.exports = function createApp({
   logger,
   hubFeaturedContentService,
   hubPromotedContentService,
-  hubMenuService,
+  // hubMenuService,
   hubContentService,
   healthService,
 }) {
@@ -117,16 +117,16 @@ module.exports = function createApp({
   app.use(helmet.noCache());
 
   // Navigation menu middleware
-  app.use(async (req, res, next) => {
-    try {
-      const mainMenu = await hubMenuService.menu();
-      res.locals.mainMenu = mainMenu;
-      res.locals.topicsMenu = topicLinks;
-      next();
-    } catch (ex) {
-      next(ex);
-    }
-  });
+  // app.use(async (req, res, next) => {
+  //   try {
+  //     const mainMenu = await hubMenuService.menu();
+  //     res.locals.mainMenu = mainMenu;
+  //     res.locals.topicsMenu = topicLinks;
+  //     next();
+  //   } catch (ex) {
+  //     next(ex);
+  //   }
+  // });
 
 
   // Routing
