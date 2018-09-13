@@ -24,7 +24,7 @@ jobs:
                     GIT_DATE="$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1)" \
                     make build
                 else
-                    cd moj-node make build
+                    cd moj-node && make build
                 fi
         - save_cache:
             key: dependency-cache-{{ checksum "package-lock.json" }}
@@ -36,7 +36,7 @@ jobs:
                 if [ "${CIRCLE_BRANCH}" == "master" ]; then
                     cd moj-node && make push
                 fi
-                
+
     build_db:
         <<: *defaults
         steps:
@@ -80,7 +80,7 @@ jobs:
             command: |
                 if [ "${CIRCLE_BRANCH}" == "master" ]; then
                     cd moj-be && make push
-                    fi
+                fi
 
     build_laravel_frontend:
         <<: *defaults
