@@ -263,7 +263,7 @@ dxc_users:
     groups:
       - dxc
     ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAzB/Ikj5raLAcWbj90OmR93uuywMcBb75l3Q/IJLL9TQWiiiaXUt8VxnAB1cEOX8SPnZklQwxbhOyvxUgF/knxINQQEiZnQhPVM516bUBg6wJcSsoh2JBKOIAEwrWmWN7lPfVHdcTFPKoRYuFfBe7X+pJFftWFYka0EEnx1DCLWuRtpwIR4vRXfJ36ybOH4DmOTgdtzKjlFivtQFxg+zsLxyafkf6jWs51ADszfyvVYI40g6ex/x1OLC4ADXknlSl4WtKU0fpDeRhIn0iIY/5WPhvxzQ8SJbXy6gBeYrgf2KSaoCI6FKnu25FSc/DqrFo/6x30bzkZCEdNVK7eC9oDQ=="
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAhKE+7ISlr8WltYZvDVrvd/HHindj/om27xqUfmgg5Yosvj9afHVCgIN6h5r//zxfxUpX8CBFlWzklQ94nvz3xbuSRSMPIr/t+gDZ0TW0ZdTrbyNRV04a2OFQNy+vQumDC2j8uJ3QIP46RWDb0VidFHRvM1I+sQkjK+fzgFnxCCro13DPQO4hdbCSGt8NOph01PHrPi3/wurZkUCpuN04NpmtUv6FFHDnMF3jzh6nNxfLNY8B2qPN4Us81U0Bss+oOlEnlYT9DWkq2M/TChKyz96nVAUQc9xNc2RquDFpwycQ8Vb5Ztjs2CTlP+nBLUKlYQC99F7DdfOqaYAnUiWDeQ=="
     shell: /bin/bash
     update_password: on_create
 
@@ -341,7 +341,7 @@ users_deleted:
   - username: iangardener
   - username: ppaton
   - username: simoncross
-  
+
 nginx_extra_http_options: |
   ##
   # SSL Settings from "modern" profile on
