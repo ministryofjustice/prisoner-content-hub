@@ -40,4 +40,34 @@ describe('#hubContentService', () => {
     expect(repository.termFor.lastCall.args[0]).to.equal('seriesId');
     expect(repository.seasonFor.lastCall.args[0]).to.equal('seriesId');
   });
+
+  it('returns video show content', async () => {
+    const repository = {
+      contentFor: sinon.stub().returns({
+        id: 1,
+        title: 'foo',
+        href: 'www.foo.com',
+        type: 'video',
+        seriesId: 'seriesId',
+      }),
+      termFor: sinon.stub().returns({ name: 'foo series name' }),
+      seasonFor: sinon.stub().returns([{ title: 'foo episode', id: 1 }, { id: 2, title: 'bar episode' }]),
+    };
+
+    const service = createHubContentService(repository);
+    const result = await service.contentFor(1);
+
+    expect(result).to.eql({
+      id: 1,
+      title: 'foo',
+      href: 'www.foo.com',
+      type: 'video',
+      seriesId: 'seriesId',
+      seriesName: 'foo series name',
+      season: [{ id: 2, title: 'bar episode' }], // hides the current episode from season
+    });
+
+    expect(repository.termFor.lastCall.args[0]).to.equal('seriesId');
+    expect(repository.seasonFor.lastCall.args[0]).to.equal('seriesId');
+  });
 });

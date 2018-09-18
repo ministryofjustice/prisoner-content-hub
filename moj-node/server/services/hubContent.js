@@ -12,13 +12,14 @@ module.exports = function createHubContentService(repository) {
 
     switch (type) {
       case 'radio':
-        return radioData(result);
+      case 'video':
+        return media(result);
       default:
         return result;
     }
   }
 
-  async function radioData(data) {
+  async function media(data) {
     const id = prop('id', data);
     const seriesId = prop('seriesId', data);
 
