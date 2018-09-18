@@ -1,20 +1,15 @@
-const production = process.env.NODE_ENV === 'production';
+const { getEnv, isProduction } = require('../utils/index');
 
-function get(name, fallback, options = {}) {
-  if (process.env[name]) {
-    return process.env[name];
-  }
-  if (fallback !== undefined && (!production || !options.requireInProduction)) {
-    return fallback;
-  }
-  throw new Error(`Missing env var ${name}`);
-}
+const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
 
 module.exports = {
-  dev: !production,
-  production,
-  sessionSecret: get('SESSION_SECRET', 'app-insecure-default-session', { requireInProduction: true }),
+  dev: !isProduction,
+  production: isProduction,
   api: {
-    hubContent: `${get('HUB_API_ENDPOINT')}content`,
+    hubHealth: `${hubEndpoint}/api/health`,
+    hubContent: `${hubEndpoint}/v1/api/content`,
+    hubMenu: `${hubEndpoint}/v1/api/menu`,
+    hubTerm: `${hubEndpoint}/v1/api/term`,
+    series: `${hubEndpoint}/v1/api/content/series`,
   },
 };

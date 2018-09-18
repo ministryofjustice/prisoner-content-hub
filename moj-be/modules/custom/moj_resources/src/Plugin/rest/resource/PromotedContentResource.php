@@ -110,7 +110,9 @@ class PromotedContentResource extends ResourceBase
         $lang = $this->currentRequest->get('_lang');
         $promoted = $this->promotedContentApiClass->PromotedContentApiEndpoint($lang);
         if (!empty($promoted)) {
-            return new ResourceResponse($promoted);
+            $response = new ResourceResponse($promoted);
+            $response->addCacheableDependency($promoted);
+            return $response;
         }
         throw new NotFoundHttpException(t('No promoted content found'));
     }

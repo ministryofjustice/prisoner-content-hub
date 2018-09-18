@@ -1,10 +1,89 @@
-version: 2
+defaults: &defaults
+    working_directory: ~/digital-hub
+    docker:
+        - image: mojdigitalstudio/circleci-build-container
 
+version: 2
 jobs:
     build:
-        working_directory: ~/digital-hub
-        docker:
-            - image: mojdigitalstudio/circleci-build-container
+        <<: *defaults
+        steps:
+            - checkout
+            - setup_remote_docker:
+                reusable: true
+            - restore_cache:
+                key: moj-node/node_modules-{{ checksum "moj-node/package.json" }}
+                key: moj-node/node_modules
+            - run:
+                name: Build node frontend container
+                command: |
+                    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        cd moj-node && \
+                        BUILD_NUMBER="$CIRCLE_BUILD_NUM" \
+                        GIT_REF="$CIRCLE_SHA1" \
+                        GIT_DATE="$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1)" \
+                        make build
+                    else
+                        cd moj-node && make build
+                    fi
+            - save_cache:
+                key: dependency-cache-{{ checksum "package-lock.json" }}
+                paths:
+                    - node_modules
+            - run:
+                name: push node fe to docker
+                command: |
+                    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        cd moj-node && make push
+                    fi
+
+    build_db:
+        <<: *defaults
+        steps:
+            - checkout
+            - setup_remote_docker:
+                reusable: true
+            - run:
+                name: Build DB container
+                command: cd db && make build
+            - run:
+                name: push db to docker
+                command: |
+                    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        cd db && make push
+                    fi
+
+    build_cms:
+        <<: *defaults
+        steps:
+            - checkout
+            - setup_remote_docker:
+                reusable: true
+            - restore_cache:
+                key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
+                key: moj-be/vendor
+            - run:
+                name: Build backend container
+                command: cd moj-be && make build
+            - save_cache:
+                key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
+                paths:
+                    - ./moj-be/vendor
+            # - run:
+                # name: Run Drupal backend tests
+                # command: cd moj-be && make test
+            - run:
+                name: Build DB container
+                command: cd db && make build
+            - run:
+                name: push be to docker
+                command: |
+                    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        cd moj-be && make push
+                    fi
+
+    build_laravel_frontend:
+        <<: *defaults
         steps:
             - checkout
             - setup_remote_docker:
@@ -26,47 +105,56 @@ jobs:
                 key: moj-fe/vendor-{{ checksum "moj-fe/composer.json" }}
                 paths:
                     - ./moj-fe/vendor
-            - restore_cache:
-                key: moj-node/node_modules-{{ checksum "moj-node/package.json" }}
-                key: moj-node/node_modules
-            - run:
-                name: Build node frontend container
-                command: cd moj-node && make build
-            - save_cache:
-                key: moj-node/node_modules-{{ checksum "moj-node/package.json" }}
-                paths:
-                    - ./moj-node/node_modules
-            - restore_cache:
-                key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
-                key: moj-be/vendor
-            - run:
-                name: Build backend container
-                command: cd moj-be && make build
-            #- run:
-                #name: Build API docs
-                #command: cd moj-be && make build-api-docs
-            - save_cache:
-                key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
-                paths:
-                    - ./moj-be/vendor
-            #- run:
-                #name: Run frontend tests
-                #command: cd moj-fe && make test
-            # - run:
-                # name: Run Drupal backend tests
-                # command: cd moj-be && make test
-            - run:
-                name: Build DB container
-                command: cd db && make build
             - run:
                 name: push fe to docker
-                command: cd moj-fe && make push
+                command: |
+                    if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                        cd moj-fe && make push
+                    fi
+
+
+    run_e2e_test:
+        docker:
+            - image: circleci/node:latest-browsers
+        working_directory: /home/circleci/app
+        steps:
+            - checkout
             - run:
-                name: push be to docker
-                command: cd moj-be && make push
+                name: Update npm
+                command: 'sudo npm install -g npm@latest'
+            - restore_cache:
+                key: dependency-cache-{{ checksum "package-lock.json" }}
             - run:
-                name: push node fe to docker
-                command: cd moj-node && make push
+                name: Install Dependencies
+                command: cd moj-node && npm ci
+            - save_cache:
+                key: dependency-cache-{{ checksum "package-lock.json" }}
+                paths:
+                    - node_modules
             - run:
-                name: push db to docker
-                command: cd db && make push
+                name: E2E test
+                command: cd moj-node && HUB_APP_URL="https://digital-hub-stage.hmpps.dsd.io" npm run test:e2e
+
+
+workflows:
+    version: 2
+    build_test_deploy:
+        jobs:
+            - build
+            - build_db:
+                requires:
+                    - hold
+            - build_cms:
+                requires:
+                    - hold
+            - build_laravel_frontend:
+                requires:
+                    - hold
+            - run_e2e_test:
+                type: approval
+                requires:
+                    - build_db
+                    - build_cms
+                    - build_laravel_frontend
+            - hold:
+                type: approval

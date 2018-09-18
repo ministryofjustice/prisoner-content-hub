@@ -32,10 +32,19 @@ hub_containers:
     name: hub-be
   - image: mojdigitalstudio/digital-hub-fe
     name: hub-fe
+  - image: mojdigitalstudio/digital-hub-node
+    name: hub-node
+  - image: matomo:3-apache
+    name: hub-matomo
+  - image: mojdigitalstudio/digital-hub-db
+    name: hub-matomo-db
 
 hub_sites:
-  - upstream_name: hub_fe
+  - upstream_name: hub_node
     upstream_port: 10001
+    domain: "{{ hub_frontend_host }}"
+  - upstream_name: hub_fe
+    upstream_port: 10002
     domain: "{{ hub_frontend_host }}"
   - upstream_name: hub_be
     upstream_port: 11001

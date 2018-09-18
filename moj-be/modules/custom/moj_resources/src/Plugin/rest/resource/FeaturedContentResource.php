@@ -131,7 +131,9 @@ class FeaturedContentResource extends ResourceBase
             $this->paramater_number_results
         );
         if (!empty($featuredContent)) {
-            return new ResourceResponse($featuredContent);
+            $response = new ResourceResponse($featuredContent);
+            $response->addCacheableDependency($featuredContent);
+            return $response;
         }
         throw new NotFoundHttpException(t('No featured content found'));
     }

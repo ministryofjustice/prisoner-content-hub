@@ -22,29 +22,32 @@
   radio: "icon-play"
 }%}
 
-<section>
+<section data-featured-section-id="{{params.contentType}}">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-      <h1 class="govuk-hub-featured-content__category-title">{{ params.categoryTitle }}</h1>
+      <h1 data-featured-section-title="{{ params.categoryTitle }}" class="govuk-hub-featured-content__category-title">{{ params.categoryTitle }}</h1>
     </div>
+    {% if false %}
     <div class="govuk-grid-column-one-third govuk-hub-align-right">
       <a href="{{ params.categoryLink }}" class="govuk-hub-featured-content__category-link govuk-link">More <span class="icon-chevron"></span></a>
     </div>
+    {% endif %}
   </div>
-  <div class="govuk-grid-row content-items">
+  <div data-featured-section-items class="govuk-grid-row content-items">
     {% for item in params.data %}
-      <div class="item {{ params.columnNumber }}">
-          {{ hubFeaturedContentItem({
-            title: item.title,
-            description: item.description,
-            size: params.size,
-            type: item.contentType,
-            icon: icon[item.contentType],
-            linktext: linkText[item.contentType],
-            graphic: item.image,
-            linkIcon: linkIcon[item.contentType],
-            duration: item.duration
-          }) }}
+      <div data-featured-item-id="featured-content-{{item.id}}" class="item {{ params.columnNumber }}">
+        {{ hubFeaturedContentItem({
+          id: item.id,
+          title: item.title,
+          summary: item.summary,
+          size: params.size,
+          type: params.contentType,
+          icon: icon[item.contentType],
+          linktext: linkText[item.contentType],
+          graphic: item.image,
+          linkIcon: linkIcon[item.contentType],
+          duration: item.duration
+        }) }}
       </div>
     {% endfor %}
   </div>

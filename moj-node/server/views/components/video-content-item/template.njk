@@ -1,6 +1,6 @@
 <article class="govuk-hub-video-content-item" >
-  <a href="{%- if params.link %}{{ params.link }}{% endif -%}" title="{%- if params.title %}{{ params.title }}{% endif -%}" class="govuk-link--no-visited-state">
-    <img src="{{ assetPath | default('/public') }}/{%- if params.graphic %}{{ params.graphic }}{% endif -%}" alt="{%- if params.title %}{{ params.title }}{% endif -%}">
-    <p class="govuk-body govuk-!-font-weight-bold ">{%- if params.title %}{{ params.title }}{% endif -%}</p>
+  <a href="#" title="{{ params.title }}" class="govuk-link--no-visited-state">
+    <img src="{{ url }}" alt="{{ alt }}">
+    <p class="govuk-body govuk-!-font-weight-bold ">{{ params.title }}</p>
   </a>
 </article>

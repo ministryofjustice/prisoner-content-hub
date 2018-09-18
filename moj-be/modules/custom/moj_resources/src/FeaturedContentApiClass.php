@@ -90,13 +90,15 @@ class FeaturedContentApiClass
     {
         $results = $this->entity_query->get('node')
             ->condition('status', 1)
-            ->sort('created', 'DESC')
+            ->condition('promote', 1)
             ->range(0, $number)
             ->accessCheck(false);
 
         if ($category !== 0) {
             $results->condition('field_moj_top_level_categories', $category);
         };
+
+        $results->sort('changed', 'DESC');
         
         return $results->execute();
     }

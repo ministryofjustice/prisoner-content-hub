@@ -25,6 +25,7 @@ $gradient: $trans, $fifityPerecntBlack;
 {
     color: govuk-colour("white");
     margin-bottom: govuk-spacing(2);
+    text-decoration: underline;
 }
 
 .govuk-hub-promoted-content__description {
@@ -55,4 +56,17 @@ $gradient: $trans, $fifityPerecntBlack;
 
 .govuk-hub-promoted-content__grpahic {
     background-size: cover;
+}
+
+.govuk-hub-promoted-content__no-link {
+  text-decoration: none;
+
+  h1 {
+    text-decoration: none;
+  }
+
+  p {
+    text-decoration: none;
+  }
+
 }

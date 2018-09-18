@@ -1,4 +1,8 @@
-{% extends "template.njk" %}
+{% extends "../components/template.njk" %}
+
+{% block pageTitle %}
+  The error has been logged, please try again
+{% endblock %}
 
 {% block head %}
   <!--[if !IE 8]><!-->
@@ -17,15 +21,22 @@
   <![endif]-->
 {% endblock %}
 
-{% block content %}
-    <h1 class="govuk-heading-xl">Default page template</h1>
-    <h1>{{message}}</h1>
-    <h2>{{error.status}}</h2>
-    <pre>{{error.stack}}</pre>
-{% endblock %}
+{% block main %}
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+      <div class="govuk-grid-row govuk-!-margin-bottom-9">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-l">{{ message }}</h1>
+          <p class="govuk-body-l">The error has been logged, please try again.</p>
 
-{% block bodyEnd %}
-  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
-  <script src="/govuk-frontend/all.js"></script>
-  <script>window.GOVUKFrontend.initAll()</script>
+          <p>
+            If the error persists, contact support quoting
+            <kbd>{{ req_id }}</kbd>
+          </p>
+          <code>{{ stack }}</code>
+        </div>
+      </div>
+    </main>
+  </div>
+
 {% endblock %}

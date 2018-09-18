@@ -1,10 +1,6 @@
 const express = require('express');
 const addRequestId = require('express-request-id')();
-const csurf = require('csurf');
 const compression = require('compression');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const cookieSession = require('cookie-session');
 const helmet = require('helmet');
 const log = require('bunyan-request-logger')();
 const nunjucks = require('nunjucks');
@@ -12,23 +8,24 @@ const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
 
 const config = require('../server/config');
-const logger = require('../log.js');
 
-const createMenuRouter = require('./routes/menu');
 const createIndexRouter = require('./routes/index');
 const createHealthRouter = require('./routes/health');
+const createContentRouter = require('./routes/content');
 
-const topicLinks = require('./data/topic-link.json');
+// const topicLinks = require('./data//topic-link.json');
 
 const version = Date.now().toString();
 
 module.exports = function createApp({
   appInfo,
+  logger,
   hubFeaturedContentService,
   hubPromotedContentService,
-  demoDataService,
-  menuService,
-}) { // eslint-disable-line no-shadow
+  // hubMenuService,
+  hubContentService,
+  healthService,
+}) {
   const app = express();
 
   // View Engine Configuration
@@ -55,20 +52,6 @@ module.exports = function createApp({
 
   app.use(addRequestId);
 
-  app.use(cookieSession({
-    name: 'session',
-    keys: [config.sessionSecret],
-    maxAge: 60 * 60 * 1000,
-    secure: config.https,
-    httpOnly: true,
-    signed: true,
-    overwrite: true,
-    sameSite: 'lax',
-  }));
-
-  // Request Processing Configuration
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
 
   app.use(log.requestLogger());
 
@@ -130,58 +113,59 @@ module.exports = function createApp({
   // GovUK Template Configuration
   app.locals.asset_path = '/public/';
 
-  // Temporary menu
-  app.use((req, res, next) => {
-    res.locals.navMenu = topicLinks;
-    next();
-  });
-
-  function addTemplateVariables(req, res, next) {
-    res.locals.user = req.user;
-    next();
-  }
-
-  app.use(addTemplateVariables);
-
   // Don't cache dynamic resources
   app.use(helmet.noCache());
 
+  // Health end point
+  app.use('/health', createHealthRouter({ appInfo, healthService }));
 
-  // CSRF protection
-  app.use(cookieParser());
-  app.use(csurf({ cookie: true }));
+  // Navigation menu middleware
+  // app.use(async (req, res, next) => {
+  //   try {
+  //     const mainMenu = await hubMenuService.menu();
+  //     res.locals.mainMenu = mainMenu;
+  //     res.locals.topicsMenu = topicLinks;
+  //     next();
+  //   } catch (ex) {
+  //     next(ex);
+  //   }
+  // });
 
   // Routing
   app.use('/', createIndexRouter({
-    logger, demoDataService, hubFeaturedContentService, hubPromotedContentService,
+    logger, hubFeaturedContentService, hubPromotedContentService,
   }));
-  app.use('/menu', createMenuRouter({ logger, menuService }));
-  app.use('/health', createHealthRouter({ appInfo }));
+  app.use('/content', createContentRouter({
+    logger, hubContentService,
+  }));
 
-  app.use(handleKnownErrors);
+  app.use('*', (req, res) => {
+    res.status(404);
+    res.render('pages/404');
+  });
+
   app.use(renderErrors);
+
+  // eslint-disable-next-line no-unused-vars
+  function renderErrors(error, req, res, next) {
+    logger.error(error, 'Unhandled error');
+
+    res.status(error.status || 500);
+
+    const locals = {
+      message: 'Something went wrong.',
+      req_id: req.id,
+      stack: '',
+    };
+    if (error.expose || config.dev) {
+      locals.message = error.message;
+    }
+    if (config.dev) {
+      locals.stack = error.stack;
+    }
+
+    res.render('pages/error', locals);
+  }
 
   return app;
 };
-
-// eslint-disable-next-line no-unused-vars
-function handleKnownErrors(err, req, res, next) {
-  logger.error(err);
-  // code to handle errors
-}
-
-// eslint-disable-next-line no-unused-vars
-function renderErrors(err, req, res, next) {
-  logger.error(err);
-
-  // code to handle unknown errors
-
-  res.locals.error = err;
-  res.locals.stack = config.production ? null : err.stack;
-  res.locals.message = config.production
-    ? 'Something went wrong. The error has been logged. Please try again' : err.message;
-
-  res.status(err.status || 500);
-
-  res.render('pages/error');
-}

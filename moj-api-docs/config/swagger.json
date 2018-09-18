@@ -159,6 +159,83 @@
                 }
             }
         },
+        "/api/content/series/{id}": {
+            "get": {
+                "tags": [
+                    "Content"
+                ],
+                "parameters": [
+                    {
+                        "name": "_format",
+                        "in": "query",
+                        "description": "Response format, should be 'json'",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "_number",
+                        "in": "query",
+                        "description": "Number of results to bring back, the default is all",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Term ID of category to return, the default is to being back all categories.",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "_lang",
+                        "in": "query",
+                        "description": "The language tag to translate results, if there is no translation available then the site default is returned, the default is 'en' (English). Options are 'en' (English) or 'cy' (Welsh).",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Hub featured content resource"
+                    }
+                }
+            }
+        },
+        "/api/term/{tid}": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "parameters": [
+                    {
+                        "name": "_format",
+                        "in": "query",
+                        "description": "Response format, should be 'json'",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "{term}",
+                        "in": "query",
+                        "description": "ID of term to return",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "_lang",
+                        "in": "query",
+                        "description": "The language tag to translate results, if there is no translation available then the site default is returned, the default is 'en' (English). Options are 'en' (English) or 'cy' (Welsh).",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Hub term resource"
+                    }
+                }
+            }
+        },
         "/api/vocabulary/{category}": {
             "get": {
                 "tags": [

@@ -1,4 +1,4 @@
-const hubPromotedContentRepository = require('../../server/repositories/hubPromotedContent');
+const hubPromotedContentRepository = require('../../../server/repositories/hubPromotedContent');
 
 describe('Hub promoted content', () => {
   describe('#hubPromotedContent', () => {
@@ -35,7 +35,7 @@ describe('Hub promoted content', () => {
         const repository = hubPromotedContentRepository(generateNoContentClientFor());
         const response = await repository.hubPromotedContent();
 
-        expect(response).to.eql(null);
+        expect(response).to.eql([]);
       });
     });
   });
@@ -74,6 +74,7 @@ function generatePromotedContentClientFor(contentType) {
           {
             value: '<p>foo description<p>\r\n',
             processed: '<p>foo description<p>',
+            summary: 'foo summary',
           },
         ],
         field_moj_thumbnail_image: [
@@ -99,10 +100,7 @@ function contentFor(contentType) {
     id: 1,
     title: 'foo title',
     contentType,
-    description: {
-      raw: '<p>foo description<p>\r\n',
-      sanitized: 'foo description...',
-    },
+    summary: 'foo summary',
     image: {
       alt: 'Foo image alt text',
       url: 'image.url.com',

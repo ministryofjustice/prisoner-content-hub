@@ -1,4 +1,4 @@
-const hubFeaturedContentRepository = require('../../server/repositories/hubFeaturedContent');
+const hubFeaturedContentRepository = require('../../../server/repositories/hubFeaturedContent');
 
 describe('hubFeaturedRepository', () => {
   describe('#hubContentFor', () => {
@@ -37,6 +37,32 @@ describe('hubFeaturedRepository', () => {
         expect(content).to.eql(contentWithSummaryFor('page'));
       });
     });
+    context('When there is no thumbnail available', () => {
+      it('uses the default document thumbnail', async () => {
+        const repository = hubFeaturedContentRepository(generateFeaturedContnetWithNoImageClientFor('page'));
+        const content = await repository.hubContentFor();
+
+        expect(content).to.eql(contentWithNoImageFor('page'));
+      });
+      it('uses the default pdf thumbnail', async () => {
+        const repository = hubFeaturedContentRepository(generateFeaturedContnetWithNoImageClientFor('moj_pdf_item'));
+        const content = await repository.hubContentFor();
+
+        expect(content).to.eql(contentWithNoImageFor('pdf'));
+      });
+      it('uses the default video thumbnail', async () => {
+        const repository = hubFeaturedContentRepository(generateFeaturedContnetWithNoImageClientFor('moj_video_item'));
+        const content = await repository.hubContentFor();
+
+        expect(content).to.eql(contentWithNoImageFor('video'));
+      });
+      it('uses the default audio thumbnail', async () => {
+        const repository = hubFeaturedContentRepository(generateFeaturedContnetWithNoImageClientFor('moj_radio_item'));
+        const content = await repository.hubContentFor();
+
+        expect(content).to.eql(contentWithNoImageFor('radio'));
+      });
+    });
   });
 });
 
@@ -56,6 +82,7 @@ const responseData = {
       {
         value: '<p>foo description<p>\r\n',
         processed: '<p>foo description<p>',
+        summary: 'foo summary',
       },
     ],
     field_moj_thumbnail_image: [
@@ -72,15 +99,26 @@ const responseData = {
   },
 };
 
+const defaultThumbs = {
+  radio: '/public/images/default_audio.png',
+  pdf: '/public/images/default_document.png',
+  video: '/public/images/default_video.png',
+  page: '/public/images/default_document.png',
+};
+
+const defaultAlt = {
+  radio: 'Audio file',
+  pdf: 'Document file',
+  video: 'Video file',
+  page: 'Document file',
+};
+
 function contentFor(contentType) {
   return [{
     id: 1,
     title: 'foo title',
     contentType,
-    description: {
-      raw: '<p>foo description<p>\r\n',
-      sanitized: 'foo description...',
-    },
+    summary: 'foo summary',
     image: {
       alt: 'Foo image alt text',
       url: 'image.url.com',
@@ -88,7 +126,6 @@ function contentFor(contentType) {
     duration: '40:00',
   }];
 }
-
 
 function generateFeatureContentClientFor(contentType) {
   const httpClient = {
@@ -132,17 +169,52 @@ function generateFeatureContentWithSummaryClientFor(contentType) {
   return httpClient;
 }
 
+function generateFeaturedContnetWithNoImageClientFor(contentType) {
+  const httpClient = {
+    get: sinon.stub().returns({
+      3546: {
+        ...responseData['3546'],
+        type: [
+          {
+            target_id: contentType,
+          },
+        ],
+        field_moj_thumbnail_image: [
+          {
+            alt: '',
+            url: '',
+          },
+        ],
+      },
+    }),
+  };
+
+  return httpClient;
+}
+
 function contentWithSummaryFor(contentType) {
   return [{
     id: 1,
     title: 'foo title',
     contentType,
-    description: {
-      sanitized: 'foo summary',
-    },
+    summary: 'foo summary',
     image: {
       alt: 'Foo image alt text',
       url: 'image.url.com',
+    },
+    duration: '40:00',
+  }];
+}
+
+function contentWithNoImageFor(contentType) {
+  return [{
+    id: 1,
+    title: 'foo title',
+    contentType,
+    summary: 'foo summary',
+    image: {
+      alt: defaultAlt[contentType],
+      url: defaultThumbs[contentType],
     },
     duration: '40:00',
   }];
