@@ -14,10 +14,11 @@ function setupBasicApp() {
   return app;
 }
 
-
 const logger = {
   info: sinon.stub(),
   error: sinon.stub(),
+  debug: sinon.stub(),
+  warn: sinon.stub(),
 };
 
 module.exports = {

@@ -1,4 +1,4 @@
-const createHubPromotedContentService = require('../../../server/services/hubPromotedContent');
+const createHubPromotedContentService = require('../../server/services/hubPromotedContent');
 
 const promotedContentRepository = {
   hubPromotedContent: sinon.stub().returns('promotedContent'),
@@ -8,7 +8,7 @@ const promotedContentRepositoryWithError = {
   hubPromotedContent: sinon.stub().returns(null),
 };
 
-describe('hub promoted conntent service', () => {
+describe('hub promoted content service', () => {
   describe('#hubPromotedContent', () => {
     it('returns featured content', async () => {
       const service = createHubPromotedContentService(promotedContentRepository);
