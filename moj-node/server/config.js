@@ -5,6 +5,7 @@ const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
 module.exports = {
   dev: !isProduction,
   production: isProduction,
+  motamoUrl: getEnv('MATOMO_URL', { requireInProduction: true }),
   api: {
     hubHealth: `${hubEndpoint}/api/health`,
     hubContent: `${hubEndpoint}/v1/api/content`,

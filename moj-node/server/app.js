@@ -113,6 +113,11 @@ module.exports = function createApp({
   // GovUK Template Configuration
   app.locals.asset_path = '/public/';
 
+  app.locals.envVars = {
+    MATOMO_URL: config.motamoUrl,
+  };
+
+
   // Don't cache dynamic resources
   app.use(helmet.noCache());
 
@@ -130,7 +135,6 @@ module.exports = function createApp({
   //     next(ex);
   //   }
   // });
-
   // Routing
   app.use('/', createIndexRouter({
     logger, hubFeaturedContentService, hubPromotedContentService,
