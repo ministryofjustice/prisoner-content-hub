@@ -42,37 +42,35 @@
       <h1 id="title" class="govuk-hub-media-player__title govuk-heading-xl govuk-body govuk-!-font-size-36 govuk-body govuk-!-font-weight-bold">{{ data.title }}</h1>
     </header>
 
-    <section class="govuk-hub-media-player__player">
+    <div class="govuk-hub-media-player__player">
       {# <p class="govuk-hub-media-player__holding-text govuk-body">Video goes here</p> #}
       <audio
         controls
         poster="/public/images/radio-player-background.jpg"
         id="my-player"
         class="video-js vjs-default-skin vjs-16-9"
-        data-setup="{
-          'fluid': true
-        }"
+        data-setup="{'fluid': true}"
       >
         <source src="{{ data.media }}" type="audio/mp3" />
       </audio>
-    </section>
+    </div>
 
-    <section class="govuk-hub-media-player__description">
+    <div class="govuk-hub-media-player__description">
       <div id="body" class="govuk-body">{{ data.description.sanitized | safe }}</div>
       {# <a href="#" title="Play" id="read-more" class="govuk-hub-media-player-item-icon govuk-hub-media-player-item__main-play govuk-link"><span class="icon-link"><span class="path1"></span><span class="path2"></span></span><span class="space">Read more</span></a> #}
-    </section>
+    </div>
 
-    <section id="next-episodes" class="govuk-hub-media-player__watch-next">
+    <div id="next-episodes" class="govuk-hub-media-player__watch-next">
       {{ hubAudioContent({
           data: data.season
          })
       }}
-    </section>
+    </div>
 
   </div>
 </div>
 
-<div class="govuk-grid-row">
+{# <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
 
@@ -80,7 +78,7 @@
       data: youmightlikesmalldata
     }) }}
   </div>
-</div>
+</div> #}
 
 
 {% endblock %}

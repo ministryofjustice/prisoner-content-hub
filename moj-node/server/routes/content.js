@@ -26,6 +26,11 @@ module.exports = function createContentRouter({
             config,
             data,
           });
+        case 'video':
+          return res.render('pages/video', {
+            config,
+            data,
+          });
         case 'page':
           return res.render('pages/flat-content', {
             data,

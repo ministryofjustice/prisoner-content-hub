@@ -14,6 +14,7 @@ const {
   imageUrlFrom,
   durationFrom,
   audioFrom,
+  videoFrom,
   seriesIdFrom,
   episodeFrom,
   seasonFrom,
@@ -54,6 +55,7 @@ module.exports = function hubContentRepository(httpClient) {
     const type = HUB_CONTENT_TYPES[contentTypeFrom(data)];
 
     switch (type) {
+      case 'video':
       case 'radio':
         return parseMediaResponse(data);
       case 'page':
@@ -77,7 +79,7 @@ module.exports = function hubContentRepository(httpClient) {
         sanitized: descriptionProcessedFrom(data),
         summary: summaryValueFrom(data),
       },
-      media: type === 'radio' ? audioFrom(data) : null,
+      media: type === 'radio' ? audioFrom(data) : videoFrom(data),
       duration: durationFrom(data),
       thumbnail: {
         alt: imageAltFrom(data),

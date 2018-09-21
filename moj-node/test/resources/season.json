@@ -41,7 +41,7 @@
         }
       ],
       "revision_log": [
-        
+
       ],
       "status": [
         {
@@ -109,7 +109,7 @@
         }
       ],
       "menu_link": [
-        
+
       ],
       "field_moj_categories": [
         {
@@ -162,10 +162,10 @@
         }
       ],
       "field_moj_subtitles": [
-        
+
       ],
       "field_moj_tags": [
-        
+
       ],
       "field_moj_thumbnail_image": [
         {
@@ -199,11 +199,11 @@
           "data": null,
           "target_type": "file",
           "target_uuid": "28986fc0-6ca5-4116-878a-6fc4bd5a02c0",
-          "url": "https://drupal.digital-hub-stage.hmpps.dsd.io/sites/default/files/videos/2016-09/OliverSacks_2009.mp4"
+          "url": "http://foo/video/video.mp4"
         }
       ],
       "field_related_prisons": [
-        
+
       ]
     },
     "100": {
@@ -229,7 +229,7 @@
       ],
       "type": [
         {
-          "target_id": "moj_video_item",
+          "target_id": "moj_radio_item",
           "target_type": "node_type",
           "target_uuid": "4096def5-bead-4574-9c09-9b5bde2f2f6f"
         }
@@ -248,7 +248,7 @@
         }
       ],
       "revision_log": [
-        
+
       ],
       "status": [
         {
@@ -316,7 +316,7 @@
         }
       ],
       "menu_link": [
-        
+
       ],
       "field_moj_categories": [
         {
@@ -344,7 +344,7 @@
       "field_moj_season": [
         {
           "value": 1
-        } 
+        }
       ],
       "field_moj_secondary_tags": [
         {
@@ -375,10 +375,10 @@
         }
       ],
       "field_moj_subtitles": [
-        
+
       ],
       "field_moj_tags": [
-        
+
       ],
       "field_moj_thumbnail_image": [
         {
@@ -406,17 +406,16 @@
           "url": "/taxonomy/term/650"
         }
       ],
-      "field_moj_video": [
+      "field_moj_audio": [
         {
           "target_id": 221,
           "data": null,
           "target_type": "file",
           "target_uuid": "2fd64933-6922-4302-9351-08cdd944323a",
-          "url": "https://drupal.digital-hub-stage.hmpps.dsd.io/sites/default/files/videos/2016-09/TempleGrandin_2010.mp4"
+          "url": "http://foo/audio/audio.mp3"
         }
       ],
       "field_related_prisons": [
-        
       ]
     }
 }

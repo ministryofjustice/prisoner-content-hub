@@ -1,0 +1,6 @@
+--require ./test-e2e/.setup.js
+--recursive
+--reporter spec
+--colors
+--bail
+--timeout 25000

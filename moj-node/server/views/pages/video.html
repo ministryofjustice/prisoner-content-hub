@@ -22,7 +22,7 @@
   <!--[if lt IE 9]>
     <script src="/html5-shiv/html5shiv.js"></script>
   <![endif]-->
-  
+
   <script src="/public/video.min.js"></script>
 
 {% endblock %}
@@ -36,50 +36,45 @@
   <div class="govuk-grid-column-two-thirds govuk-hub-media-player">
 
     <header class="govuk-hub-media-player__header">
-      <img src="public/images/video-show-tag.jpg" alt="Radio program name" class="govuk-hub-media-player__show-tag">
-      <p class="govuk-hub-media-player__catgeory govuk-heading-m"><a href="#" title="" class="govuk-link govuk-hub-media-player__catgeory-link">Timewise</a></p>
-      <h1 class="govuk-hub-media-player__title govuk-heading-xl govuk-body govuk-!-font-size-36 govuk-body govuk-!-font-weight-bold">2. Working Together: Conditions of Success</h1>
+      <img width="100" height="100" id="thumbnail" src="{{ data.thumbnail.url }}" alt="{{ data.thumbnail.alt }}" class="govuk-hub-media-player__show-tag">
+      <p class="govuk-hub-media-player__catgeory govuk-heading-m"><a href="#" id="series" title="" class="govuk-link govuk-hub-media-player__catgeory-link">{{ data.seriesName }}</a></p>
+      <h1 id="title" class="govuk-hub-media-player__title govuk-heading-xl govuk-body govuk-!-font-size-36 govuk-body govuk-!-font-weight-bold">{{ data.title }}</h1>
     </header>
 
-
-    <section class="govuk-hub-media-player__player">
+    <div class="govuk-hub-media-player__player">
       <video
-        controls 
-        poster="public/images/video-thumbnail.jpg" 
-        id="my-player" 
+        controls
+        poster="/public/images/video-thumbnail.jpg"
+        id="my-player"
         class="video-js vjs-default-skin vjs-16-9"
-        data-setup="{ 
-          'fluid': true
-        }"
+        data-setup="{'fluid': true}"
       >
-        <source src="public/media/video.mp4" type="video/mp4" />
+        <source src="{{ data.media }}" type="video/mp4" />
       </video>
-    </section>
+    </div>
 
-    <section class="govuk-hub-media-player__description">
-      <p class="govuk-body">To achieve our goals we all need to agree to do a few things when we work together. This clip introduces the conditions of success: active, open, supportive and respectful participation. </p>
-      <p class="govuk-body">The clip describes what each condition is and why it is important for successful working together. What do these conditions mean for you? How can you use them? How can they help you to achieve your goals?</p>
-      <a href="#" title="Play" id="read-more" class="govuk-hub-media-player-item-icon govuk-hub-media-player-item__main-play govuk-link"><span class="icon-link"><span class="path1"></span><span class="path2"></span></span><span class="space">Read more</span></a>
-    </section>
+    <div class="govuk-hub-media-player__description">
+      <div id="body" class="govuk-body">{{ data.description.sanitized | safe }}</div>
+      {# <a href="#" title="Play" id="read-more" class="govuk-hub-media-player-item-icon govuk-hub-media-player-item__main-play govuk-link"><span class="icon-link"><span class="path1"></span><span class="path2"></span></span><span class="space">Read more</span></a> #}
+    </div>
 
-    <section class="govuk-hub-media-player__watch-next">
+    <div id="next-episodes" class="govuk-hub-media-player__watch-next">
       {{ hubVideoContent({
-        data: watchnextdata
+        data: data.season
       }) }}
-    </section>
+    </div>
 
   </div>
 </div>
 
-<div class="govuk-grid-row">
+{# <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
-
     {{ hubYouMightLike({
       data: youmightlikesmalldata
     }) }}
   </div>
-</div>
+</div> #}
 
 
 {% endblock %}

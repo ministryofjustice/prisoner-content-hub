@@ -1,0 +1,29 @@
+{
+  "type": "radio",
+  "seriesName": "Foo series",
+  "seriesId": "foo-id",
+  "title": "Foo title",
+  "description": {
+    "sanitized": "<p>Foo body</p>"
+  },
+  "media": "foo.mp3",
+  "thumbnail": {
+    "alt": "foo Bar",
+    "url": "foo.png"
+  },
+  "season": [
+    {
+      "id": 98,
+      "title": "Foo episode",
+      "type": "radio",
+      "duration": "18:41",
+      "episode": 1,
+      "season": 1,
+      "seriesId": 694,
+      "thumbnail": {
+        "alt": "foo.image.alt",
+        "url": "foo.image.png"
+      }
+    }
+  ]
+}

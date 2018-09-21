@@ -1,4 +1,4 @@
-const createHubFeaturedContentService = require('../../../server/services/hubFeaturedContent');
+const createHubFeaturedContentService = require('../../server/services/hubFeaturedContent');
 
 
 const hubRepository = {

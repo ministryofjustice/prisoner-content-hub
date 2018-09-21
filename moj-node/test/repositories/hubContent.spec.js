@@ -1,5 +1,7 @@
-const hubContentRepository = require('../../../server/repositories/hubContent');
+const hubContentRepository = require('../../server/repositories/hubContent');
 const radioShowResponse = require('../resources/radioShow.json');
+const videoShowResponse = require('../resources/videoShow.json');
+
 const termsResponse = require('../resources/terms.json');
 const flatPageContentResponse = require('../resources/flatPageContent.json');
 const seasonResponse = require('../resources/season.json');
@@ -11,6 +13,15 @@ describe('hubContentRepository', () => {
     const content = await repository.contentFor('id');
 
     expect(content).to.eql(radioContent());
+    expect(client.get.lastCall.args[0]).to.include('id');
+  });
+
+  it('returns formated data for video shows', async () => {
+    const client = generateClient(videoShowResponse);
+    const repository = hubContentRepository(client);
+    const content = await repository.contentFor('id');
+
+    expect(content).to.eql(videoContent());
     expect(client.get.lastCall.args[0]).to.include('id');
   });
 
@@ -73,6 +84,28 @@ function radioContent() {
   };
 }
 
+function videoContent() {
+  return {
+    id: 3546,
+    title: 'Foo video show',
+    description: {
+      raw: '<p>Hello world</p>\r\n',
+      sanitized: '<p>Hello world</p>',
+      summary: 'hello world',
+    },
+    type: 'video',
+    media: 'http://localhost:8181/sites/default/files/video/media.mp4',
+    duration: '1:35:27',
+    episode: 1,
+    season: 1,
+    seriesId: 665,
+    thumbnail: {
+      alt: 'Foo Bar',
+      url: 'http://localhost:8181/sites/default/files/2018-08/Screen%20Shot%202018-08-20%20at%2010.21.54_0.png',
+    },
+  };
+}
+
 function flatPageContent() {
   return {
     id: 3491,
@@ -97,7 +130,7 @@ function seasonContent() {
         summary: '',
       },
       type: 'video',
-      media: null,
+      media: 'http://foo/video/video.mp4',
       duration: '18:41',
       episode: 1,
       season: 1,
@@ -115,8 +148,8 @@ function seasonContent() {
         sanitized: '<p>bar description</p>',
         summary: '',
       },
-      type: 'video',
-      media: null,
+      type: 'radio',
+      media: 'http://foo/audio/audio.mp3',
       duration: '19:37',
       episode: 2,
       season: 1,

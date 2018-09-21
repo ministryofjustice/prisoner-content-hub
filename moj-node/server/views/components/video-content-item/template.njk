@@ -1,6 +1,6 @@
-<article class="govuk-hub-video-content-item" >
-  <a href="#" title="{{ params.title }}" class="govuk-link--no-visited-state">
-    <img src="{{ url }}" alt="{{ alt }}">
+<div class="govuk-hub-video-content-item item" id="episode-id-{{ params.id }}">
+  <a href="/content/{{ params.id }}" title="{{ params.title }}" class="govuk-link--no-visited-state">
+    <div id="episode-thumbnail" class="govuk-hub-episode-thumbnail" style="background-image: url({{ params.thumbnail.url }});" ></div>
     <p class="govuk-body govuk-!-font-weight-bold ">{{ params.title }}</p>
   </a>
-</article>
+</div>
