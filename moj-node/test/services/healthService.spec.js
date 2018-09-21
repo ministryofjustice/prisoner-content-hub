@@ -1,4 +1,4 @@
-const createHealthService = require('../../../server/services/health');
+const createHealthService = require('../../server/services/health');
 
 describe('HealthService', () => {
   context('when the all services are up', () => {

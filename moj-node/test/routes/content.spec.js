@@ -1,8 +1,8 @@
 const request = require('supertest');
 const cheerio = require('cheerio');
 
-const createHubContentRouter = require('../../../server/routes/content');
-const { setupBasicApp, logger } = require('../../test-helpers');
+const createHubContentRouter = require('../../server/routes/content');
+const { setupBasicApp, logger } = require('../test-helpers');
 
 const radioShowResponse = require('../resources/radioShowServiceResponse.json');
 const videoShowResponse = require('../resources/videoShowServiceResponse.json');

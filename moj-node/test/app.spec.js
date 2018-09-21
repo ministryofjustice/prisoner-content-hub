@@ -2,31 +2,7 @@ const request = require('supertest');
 
 const createApp = require('../server/app');
 const config = require('../server/config');
-
-const appInfo = {
-  getBuildInfo: sinon.stub(),
-};
-
-const logger = {
-  info: sinon.stub(),
-  error: sinon.stub(),
-  debug: sinon.stub(),
-  warn: sinon.stub(),
-};
-
-const hubPromotedContentService = {
-  hubPromotedContent: sinon.stub().returns([]),
-};
-
-const hubFeaturedContentService = {
-  hubFeaturedContent: sinon.stub().returns({}),
-};
-const hubMenuService = {
-  menu: sinon.stub(),
-};
-const hubContentService = {
-  contentFor: sinon.stub().returns({}),
-};
+const { logger } = require('./test-helpers');
 
 describe('App', () => {
   it('renders a 404 page correctly on invalid url', () => request(app())
@@ -38,24 +14,37 @@ describe('App', () => {
 
   it('hides the stack trace on error pages', () => {
     const error = new Error('broken kittens');
-    hubMenuService.menu.rejects(error);
+    const copy = config.dev;
+
     config.dev = false;
 
-    return request(app())
+    return request(app({
+      hubPromotedContentService: {
+        hubPromotedContent: sinon.stub().rejects(error),
+      },
+    }))
       .get('/')
       .expect(500)
       .then((res) => {
         expect(res.text).to.contain('Something went wrong.');
         expect(res.text).to.contain('<code></code>', 'The code block is not empty');
+
+        // restore config
+        config.dev = copy;
       });
   });
 
   it('shows the stack trace on error pages', () => {
     const error = new Error('Broken kittens');
-    hubMenuService.menu.rejects(error);
+    const copy = config.dev;
+
     config.dev = true;
 
-    return request(app())
+    return request(app({
+      hubPromotedContentService: {
+        hubPromotedContent: sinon.stub().rejects(error),
+      },
+    }))
       .get('/')
       .expect(500)
       .then((res) => {
@@ -64,8 +53,8 @@ describe('App', () => {
         expect(res.text).to.not.contain('<code></code>', 'The code block should not be empty');
         expect(res.text).to.contain('at Context.it', 'there should be an error in the code block');
 
-        // restore stub
-        hubMenuService.menu = sinon.stub();
+        // restore config
+        config.dev = copy;
       });
   });
 
@@ -82,13 +71,15 @@ describe('App', () => {
 });
 
 
-function app() {
-  return createApp({
-    appInfo,
+function app(opts) {
+  const services = {
+    appInfo: sinon.stub(),
+    hubPromotedContentService: { hubPromotedContent: sinon.stub().returns([]) },
+    hubFeaturedContentService: { hubFeaturedContent: sinon.stub().returns([]) },
+    hubMenuService: { menu: sinon.stub().returns([]) },
+    hubContentService: { contentFor: sinon.stub().returns({}) },
     logger,
-    hubPromotedContentService,
-    hubFeaturedContentService,
-    hubMenuService,
-    hubContentService,
-  });
+    ...opts,
+  };
+  return createApp(services);
 }

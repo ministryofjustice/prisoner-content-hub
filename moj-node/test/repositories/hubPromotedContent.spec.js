@@ -1,4 +1,4 @@
-const hubPromotedContentRepository = require('../../../server/repositories/hubPromotedContent');
+const hubPromotedContentRepository = require('../../server/repositories/hubPromotedContent');
 
 describe('Hub promoted content', () => {
   describe('#hubPromotedContent', () => {

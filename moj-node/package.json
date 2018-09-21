@@ -9,8 +9,8 @@
     "css-build": "./bin/build-css",
     "clean": "rm -rf public/* .port.tmp *.log build/* uploads/* test-results.xml",
     "lint": "eslint . --cache --max-warnings 0",
-    "test": "NODE_ENV=test mocha test/unit/",
-    "test:e2e": "NODE_ENV=test mocha test/e2e/",
+    "test": "NODE_ENV=test mocha test",
+    "test:e2e": "NODE_ENV=test mocha test-e2e",
     "record-build-info": "node ./bin/record-build-info",
     "verify": "npm run lint && npm run test"
   },
