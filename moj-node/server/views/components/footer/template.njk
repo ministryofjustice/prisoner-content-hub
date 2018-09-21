@@ -1,4 +1,4 @@
-<footer class="govuk-footer {{ params.classes if params.classes }}" role="contentinfo"
+<footer class="govuk-footer {{ params.classes if params.classes }}"
         {%- for attribute, value in params.attributes %} {{attribute}}="{{value}}"{% endfor %}>
   <div class="govuk-width-container {{ params.containerClasses if params.containerClasses }}">
     {% if params.navigation %}
@@ -70,7 +70,7 @@
         </span>
       </div>
       <div class="govuk-footer__meta-item">
-        
+
       </div>
     </div>
   </div>
