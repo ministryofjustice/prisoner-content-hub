@@ -42,6 +42,8 @@
     "govuk_frontend_toolkit": "^7.6.0",
     "govuk_template_jinja": "^0.24.1",
     "helmet": "^3.13.0",
+    "jplayer": "^2.9.2",
+    "jquery": "^3.3.1",
     "mkdirp": "^0.5.1",
     "node-sass-middleware": "0.11.0",
     "nunjucks": "^3.1.3",
