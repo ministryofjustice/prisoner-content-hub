@@ -43,7 +43,7 @@ describe('GET /content/:id', () => {
           expect($('#title').text()).to.equal('Foo title', 'Page title did not match');
           expect($('#body').text()).to.equal('Foo body', 'Page body did not match');
           expect($('#series').text()).to.equal('Foo series', 'Page title did not match');
-          expect($('#my-player > source').attr('src')).to.equal('foo.mp3', 'Page media did not match');
+          expect($('#audioPlayerContainer').attr('data-audio')).to.equal('foo.mp3', 'Page media did not match');
           expect($('#thumbnail').attr('src')).to.equal('foo.png', 'Page thumbnail src did not match');
           expect($('#thumbnail').attr('alt')).to.equal('foo Bar', 'Page thumbnail alt did not match');
 
