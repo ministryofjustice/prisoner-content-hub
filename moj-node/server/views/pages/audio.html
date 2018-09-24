@@ -25,7 +25,25 @@
     <script src="/html5-shiv/html5shiv.js"></script>
   <![endif]-->
 
-  <script src="/public/video.min.js"></script>
+  <script src="/public/jquery.min.js"></script>
+  <script src="/public/jplayer/jquery.jplayer.min.js"></script>
+  <script src="/public/javascript/jplayer.cleanskin.min.js"></script>
+
+  <script type="text/javascript">
+			$(document).ready(function() {
+				$('.webPlayer').videoPlayer({
+					name: '{{ data.title }}',
+					media: {
+						mp3: '{{ data.media }}'
+					},
+          	size: {
+						width: '100%',
+						height: 'auto'
+					},
+				});
+			});
+		</script>
+    
 {% endblock %}
 
 {% block header %}
@@ -44,7 +62,10 @@
 
     <div class="govuk-hub-media-player__player">
       {# <p class="govuk-hub-media-player__holding-text govuk-body">Video goes here</p> #}
-      <audio
+      <div id="audioPlayer" class="webPlayer light">
+        <div id="audioPlayerContainer" class="videoPlayer" data-audio="{{ data.media }}"></div>
+      </div> 
+      {# <audio
         controls
         poster="/public/images/radio-player-background.jpg"
         id="my-player"
@@ -52,7 +73,7 @@
         data-setup="{'fluid': true}"
       >
         <source src="{{ data.media }}" type="audio/mp3" />
-      </audio>
+      </audio> #}
     </div>
 
     <div class="govuk-hub-media-player__description">

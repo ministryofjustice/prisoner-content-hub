@@ -97,6 +97,8 @@ module.exports = function createApp({
     '../node_modules/govuk_frontend_toolkit',
     '../node_modules/govuk-frontend/',
     '../node_modules/video.js/dist',
+    '../node_modules/jplayer/dist',
+    '../node_modules/jquery/dist',
   ].forEach((dir) => {
     app.use('/public', express.static(path.join(__dirname, dir), cacheControl));
   });
