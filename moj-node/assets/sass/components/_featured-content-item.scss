@@ -1,5 +1,6 @@
 $trans: rgba(0, 0, 0, 0);
 $fifityPerecntBlack: rgba(0, 0, 0, 0.75);
+$twentyFivePerecntBlack: rgba(0, 0, 0, 0.25);
 
 $gradient: $trans, $fifityPerecntBlack;
 
@@ -136,6 +137,7 @@ $gradient: $trans, $fifityPerecntBlack;
 }
 
 .govuk-hub-featured-content-item__overlay {
+    background: $twentyFivePerecntBlack;
     @include gradient(bottom, $gradient);
 }
 
