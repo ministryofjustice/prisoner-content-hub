@@ -3,6 +3,7 @@ const { getEnv, isProduction } = require('../utils/index');
 const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
 
 module.exports = {
+  appName: getEnv('APP_NAME', 'Test application', { requireInProduction: true }),
   dev: !isProduction,
   production: isProduction,
   motamoUrl: getEnv('MATOMO_URL', { requireInProduction: true }),
