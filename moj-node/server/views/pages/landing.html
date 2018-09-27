@@ -23,17 +23,21 @@
 {% endblock %}
 
 {% block header %}
-  {{ govukHeaderWithBack({}) }}
+  {{ govukHeaderWithBack({
+        mainMenu: mainMenu,
+        topicsMenu: topicsMenu,
+        appName: envVars.APP_NAME
+      }) }}
 {% endblock %}
 
 {% block landingpageheader %}
-  
+
   {{ hubLandingPageHeader({ data: 'red' }) }}
 
   {{ hubSubMenu({
     data: landingpagesubmenudata
   }) }}
-  
+
 {% endblock %}
 
 {% block content %}

@@ -114,9 +114,9 @@ module.exports = function createApp({
 
   // GovUK Template Configuration
   app.locals.asset_path = '/public/';
-
   app.locals.envVars = {
     MATOMO_URL: config.motamoUrl,
+    APP_NAME: config.appName,
   };
 
 

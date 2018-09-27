@@ -43,11 +43,15 @@
 				});
 			});
 		</script>
-    
+
 {% endblock %}
 
 {% block header %}
-  {{ govukHeaderWithBack({}) }}
+  {{ govukHeaderWithBack({
+        mainMenu: mainMenu,
+        topicsMenu: topicsMenu,
+        appName: envVars.APP_NAME
+      }) }}
 {% endblock %}
 
 {% block content %}
@@ -64,7 +68,7 @@
       {# <p class="govuk-hub-media-player__holding-text govuk-body">Video goes here</p> #}
       <div id="audioPlayer" class="webPlayer light">
         <div id="audioPlayerContainer" class="videoPlayer" data-audio="{{ data.media }}"></div>
-      </div> 
+      </div>
       {# <audio
         controls
         poster="/public/images/radio-player-background.jpg"

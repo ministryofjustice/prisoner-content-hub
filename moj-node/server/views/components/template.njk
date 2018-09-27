@@ -7,7 +7,7 @@
 <html lang="{{ htmlLang | default('en') }}" class="govuk-template {{ htmlClasses }}">
   <head>
     <meta charset="utf-8" />
-    <title>{% block pageTitle %}HMP Berwyn{% endblock %}</title>
+    <title>{% block pageTitle %}{{envVars.APP_NAME}}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="{{ themeColor | default('#0b0c0c') }}" /> {# Hardcoded value of $govuk-black #}
 
@@ -30,7 +30,8 @@
     {% block header %}
       {{ govukHeader({
         mainMenu: mainMenu,
-        topicsMenu: topicsMenu
+        topicsMenu: topicsMenu,
+        appName: envVars.APP_NAME
       }) }}
     {% endblock %}
 
