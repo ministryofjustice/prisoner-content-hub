@@ -22,17 +22,24 @@ then
   exit 1
 fi
 
+# Grab some image names that are using the date suffix
+node_image=$(docker ps --filter "name=hub-node-" --format "{{.Names}}")
+be_image=$(docker ps --filter "name=hub-be-" --format "{{.Names}}")
+db_image=$(docker ps --filter "name=hub-db-" --format "{{.Names}}")
+matomo_image=$(docker ps --filter "name=hub-matomo-" --format "{{.Names}}")
+matomo_db_image=$(docker ps --filter "name=hub-matomo-db-" --format "{{.Names}}")
+
 # Start hub db
 hub_db() {
-  printf "Stopping " && docker stop hub-db
-  printf "Removing " && docker rm hub-db
+  printf "Stopping " && docker stop ${db_image}
+  printf "Removing " && docker rm ${db_image}
   printf "Starting $component"
-  docker run -d --name hub-db \
+  docker run -d --name hub-db-$(date +%Y%m%d) \
   -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
   -e MYSQL_DATABASE=hubdb \
   -e MYSQL_USER=$MYSQL_USER \
   -e MYSQL_PASSWORD=$MYSQL_PASSWORD \
-  -p 3306:3306 \
+  -p 3307:3306 \
   -v /data/hub-db:/var/lib/mysql \
   --restart always \
   mojdigitalstudio/digital-hub-db
@@ -41,8 +48,8 @@ hub_db() {
 hub_be() {
   docker_code_volume=""
 
-  printf "Stopping " && docker stop hub-be
-  printf "Removing " && docker rm hub-be
+  printf "Stopping " && docker stop ${be_image}
+  printf "Removing " && docker rm ${be_image}
   # Flag to export code volume for use by other containers
   if [ -n "$DOCKER_CODE_VOLUME" ]; then
     docker_code_volume="-v hub_be_code:/var/www/html"
@@ -50,8 +57,8 @@ hub_be() {
   fi
 
 
-  docker run -d --name hub-be \
-  --link hub-db --link hub-memcache \
+  docker run -d --name hub-be-$(date +%Y%m%d) \
+  --link $(db_image) --link hub-memcache \
   -e HUB_DB_ENV_MYSQL_DATABASE=hubdb \
   -e HUB_DB_ENV_MYSQL_USER=$MYSQL_USER \
   -e HUB_DB_ENV_MYSQL_PASSWORD=$MYSQL_PASSWORD \
@@ -63,12 +70,12 @@ hub_be() {
   -e PIWIK_URI=$PIWIK_URI \
   -v /content/moj_dhub_prod001_app/usr/share/nginx/html/moj_be/sites/default/files:/var/www/html/sites/default/files/ \
   $docker_code_volume \
-  -p 11001:80 \
+  -p 11002:80 \
   --restart always \
   mojdigitalstudio/digital-hub-be
 }
 
-
+# hub-fe is no longer used and has been replaced by hub-node
 hub_fe() {
   printf "Stopping " && docker stop hub-fe
   printf "Removing " && docker rm hub-fe
@@ -76,20 +83,20 @@ hub_fe() {
   --link hub-be \
   -e API_URI=http://hub-be/ \
   -e PIWIK_URI=$PIWIK_URI \
-  -p 10002:80 \
+  -p 10001:80 \
   --restart always \
   mojdigitalstudio/digital-hub-fe
 }
 
 hub_node() {
-  printf "Stopping " && docker stop hub-node
-  printf "Removing " && docker rm hub-node
-  docker run -d --name hub-node \
-  --link hub-be \
-  -e HUB_API_ENDPOINT=http://hub-be \
+  printf "Stopping ${image}" && docker stop ${node_image}
+  printf "Removing ${image}" && docker rm ${node_image}
+  docker run -d --name hub-node-$(date +%Y%m%d) \
+  --link $(be_image) \
+  -e HUB_API_ENDPOINT=http://${be_image} \
   -e PIWIK_URI=$PIWIK_URI \
   -e NODE_ENV=production \
-  -p 10001:3000 \
+  -p 10002:3000 \
   --restart always \
   mojdigitalstudio/digital-hub-node
 }
@@ -102,9 +109,11 @@ hub_memcache() {
   memcached
 }
 
-hub_matomo() {
-  docker run -d --name hub-matomo \
-  --link hub-matomo-db \
+hub_matomo(i) {
+  printf "Stopping " && docker stop ${hub_matomo_image}
+  printf "Removing " && docker rm   ${hub_matomo_image}
+  docker run -d --name hub-matomo-$(date +%Y%m%d) \
+  --link ${matomo_db_image} \
   -p 12002:80 \
   -v /data/moj_dhub_matomo_config/:/var/www/html/config/ \
   --restart always \
@@ -112,9 +121,9 @@ hub_matomo() {
 }
 
 hub_matomo_db() {
-  printf "Stopping " && docker stop hub-matomo-db
-  printf "Removing " && docker rm   hub-matomo-db
-  docker run -d --name hub-matomo-db \
+  printf "Stopping " && docker stop ${hub_matomo_db_image}
+  printf "Removing " && docker rm   ${hub_matomo_db_image}
+  docker run -d --name hub-matomo-db-$(data +%Y%m%d) \
   -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
   -e MYSQL_USER=${MYSQL_MATOMO_USER} \
   -e MYSQL_PASS=${MYSQL_MATOMO_PASS} \
