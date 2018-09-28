@@ -121,13 +121,17 @@ services:
                 depends_on:
                         - hub-matomo-db
                 ports:
-                        - 12002
+                        - 8185:80
+                links:
+                        - hub-matomo-db
+                volumes:
+                        - ./moj-reporting/config:/var/www/html/config:rw
+                        - ./moj-reporting/digital-hub-matmomo-db/var/lib/mysql/data:/var/lib/mysql/data
+                        - ./logs:/var/www/html/logs
         hub-matomo-db:
-                image: mojdigitalstudio/digital-hub-matomo-db
+                image: mariadb
                 environment:
-                        MYSQL_ROOT_PASSWORD: rootpass
-                        MYSQL_DATABASE: matomo_db
+                        MYSQL_ROOT_PASSWORD: password
+                        MYSQL_DATABASE: matomo
                         MYSQL_USER: matomo_user
                         MYSQL_PASSWORD: matomo_pass
-                volumes:
-                        - /data/digital-hub-matmomo-db/var/lib/mysql/data:/var/lib/mysql/data
