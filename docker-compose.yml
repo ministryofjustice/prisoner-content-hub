@@ -126,6 +126,7 @@ services:
                         - hub-matomo-db
                 volumes:
                         - ./moj-reporting/config:/var/www/html/config:rw
+                        - ./moj-reporting/digital-hub-matmomo-db/var/lib/mysql/data:/var/lib/mysql/data
                         - ./logs:/var/www/html/logs
         hub-matomo-db:
                 image: mariadb
