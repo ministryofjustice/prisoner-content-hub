@@ -1,5 +1,5 @@
 {% from "../components/header/macro.njk" import govukHeaderWithBack %}
-{% from "../components/video-content/macro.njk" import hubVideoContent %}
+{% from "../components/next-episodes-content/macro.njk" import nextEpisodesContent %}
 {% from "../components/you-might-like/macro.njk" import hubYouMightLike %}
 
 {% extends "../components/template.njk" %}
@@ -63,7 +63,7 @@
     </div>
 
     <div id="next-episodes" class="govuk-hub-media-player__watch-next">
-      {{ hubVideoContent({
+      {{ nextEpisodesContent({
         data: data.season
       }) }}
     </div>

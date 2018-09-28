@@ -1,5 +1,5 @@
 {% from "../components/header/macro.njk" import govukHeaderWithBack %}
-{% from "../components/audio-content/macro.njk" import hubAudioContent %}
+{% from "../components/next-episodes-content/macro.njk" import nextEpisodesContent %}
 {% from "../components/you-might-like/macro.njk" import hubYouMightLike %}
 
 {% extends "../components/template.njk" %}
@@ -30,28 +30,27 @@
   <script src="/public/javascript/jplayer.cleanskin.min.js"></script>
 
   <script type="text/javascript">
-			$(document).ready(function() {
-				$('.webPlayer').videoPlayer({
-					name: '{{ data.title }}',
-					media: {
-						mp3: '{{ data.media }}'
-					},
-          	size: {
-						width: '100%',
-						height: 'auto'
-					},
-				});
-			});
-		</script>
-
+    $(document).ready(function() {
+      $('.webPlayer').videoPlayer({
+        name: '{{ data.title }}',
+        media: {
+          mp3: '{{ data.media }}'
+        },
+          size: {
+          width: '100%',
+          height: 'auto'
+        },
+      });
+    });
+	</script>
 {% endblock %}
 
 {% block header %}
   {{ govukHeaderWithBack({
-        mainMenu: mainMenu,
-        topicsMenu: topicsMenu,
-        appName: envVars.APP_NAME
-      }) }}
+    mainMenu: mainMenu,
+    topicsMenu: topicsMenu,
+    appName: envVars.APP_NAME
+  }) }}
 {% endblock %}
 
 {% block content %}
@@ -86,12 +85,11 @@
     </div>
 
     <div id="next-episodes" class="govuk-hub-media-player__watch-next">
-      {{ hubAudioContent({
+      {{ nextEpisodesContent({
           data: data.season
          })
       }}
     </div>
-
   </div>
 </div>
 
