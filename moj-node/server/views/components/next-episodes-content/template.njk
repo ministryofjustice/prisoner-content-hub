@@ -1,4 +1,4 @@
-{% from "../next-episode-content-item/macro.njk" import nextEpisodeContentItem %}
+{% from "../episode-content-item/macro.njk" import episodeContentItem %}
 
 <section>
   <div class="govuk-grid-row">
@@ -9,7 +9,7 @@
   <div class="govuk-grid-row content-items govuk-hub-episodes-content-items">
     {% for item in params.data %}
       <div class="item govuk-grid-column-one-third">
-          {{ nextEpisodeContentItem({
+          {{ episodeContentItem({
             id: item.id,
             title: item.title,
             thumbnail: item.thumbnail
