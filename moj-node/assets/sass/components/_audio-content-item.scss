@@ -8,7 +8,10 @@
     }
 }
 
-.govuk-hub-audio-content-items {
+.govuk-hub-episodes-content-items {
+    display: flex;
+    flex-wrap: wrap;
+
 
     .item {
         &:first-child {
