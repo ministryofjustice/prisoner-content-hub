@@ -1,0 +1,32 @@
+.govuk-hub-episode-content-item {
+  p {
+    color: govuk-colour("white");
+  }
+  a {
+    text-decoration: none;
+  }
+}
+
+.govuk-hub-episodes-content-items {
+  display: flex;
+  flex-wrap: wrap;
+
+  .item {
+    &:first-child {
+      padding-left: govuk-spacing(1);
+    }
+    &:last-child {
+      padding-right: govuk-spacing(1);
+    }
+  }
+}
+
+.govuk-hub-episode-thumbnail {
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  max-width: 266px;
+  height: 156px;
+  margin-bottom: 10px;
+}
