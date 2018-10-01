@@ -31,15 +31,12 @@
 
   <script type="text/javascript">
     $(document).ready(function() {
-      $('.webPlayer').videoPlayer({
+      $('#audioPlayer').videoPlayer({
         name: '{{ data.title }}',
         media: {
-          mp3: '{{ data.media }}'
-        },
-          size: {
-          width: '100%',
-          height: 'auto'
-        },
+          preload: 'metadata',
+          mp3: '{{ data.media }}',
+        }
       });
     });
 	</script>
@@ -63,20 +60,10 @@
       <h1 id="title" class="govuk-hub-media-player__title govuk-heading-xl govuk-body govuk-!-font-size-36 govuk-body govuk-!-font-weight-bold">{{ data.title }}</h1>
     </header>
 
-    <div class="govuk-hub-media-player__player">
-      {# <p class="govuk-hub-media-player__holding-text govuk-body">Video goes here</p> #}
+    <div class="govuk-hub-media-player__player govuk-hub-media-audio">
       <div id="audioPlayer" class="webPlayer light">
         <div id="audioPlayerContainer" class="videoPlayer" data-audio="{{ data.media }}"></div>
       </div>
-      {# <audio
-        controls
-        poster="/public/images/radio-player-background.jpg"
-        id="my-player"
-        class="video-js vjs-default-skin vjs-16-9"
-        data-setup="{'fluid': true}"
-      >
-        <source src="{{ data.media }}" type="audio/mp3" />
-      </audio> #}
     </div>
 
     <div class="govuk-hub-media-player__description">

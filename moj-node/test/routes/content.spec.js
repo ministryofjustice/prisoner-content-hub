@@ -75,7 +75,7 @@ describe('GET /content/:id', () => {
           expect($('#title').text()).to.equal('Baz title', 'Page title did not match');
           expect($('#body').text()).to.equal('Baz body', 'Page body did not match');
           expect($('#series').text()).to.equal('Baz series', 'Page title did not match');
-          expect($('#my-player > source').attr('src')).to.equal('baz.mp4', 'Page media did not match');
+          expect($('#videoPlayerContainer').attr('data-video')).to.equal('baz.mp4', 'Page media did not match');
           expect($('#thumbnail').attr('src')).to.equal('baz.png', 'Page thumbnail src did not match');
           expect($('#thumbnail').attr('alt')).to.equal('baz Bar', 'Page thumbnail alt did not match');
 
