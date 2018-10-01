@@ -3,33 +3,33 @@ module.exports = function createHubFeaturedContentService(repository) {
     try {
       const [
         newsAndEvents,
-        // games,
+        games,
         radioShowsAndPodcasts,
-        // healthyMindAndBody,
-        // inspiration,
-        // scienceAndNature,
-        // artAndCulture,
-        // history,
+        healthyMindAndBody,
+        inspiration,
+        scienceAndNature,
+        artAndCulture,
+        history,
       ] = await Promise.all([
         repository.newsAndEvents(),
-        // repository.games(),
+        repository.games(),
         repository.radioShowsAndPodcasts(),
-        // repository.healthyMindAndBody(),
-        // repository.inspiration(),
-        // repository.scienceAndNature(),
-        // repository.artAndCulture(),
-        // repository.history(),
+        repository.healthyMindAndBody(),
+        repository.inspiration(),
+        repository.scienceAndNature(),
+        repository.artAndCulture(),
+        repository.history(),
       ]);
 
       return {
         newsAndEvents,
-        // games,
+        games,
         radioShowsAndPodcasts,
-        // healthyMindAndBody,
-        // inspiration,
-        // scienceAndNature,
-        // artAndCulture,
-        // history,
+        healthyMindAndBody,
+        inspiration,
+        scienceAndNature,
+        artAndCulture,
+        history,
       };
     } catch (ex) {
       return null;
