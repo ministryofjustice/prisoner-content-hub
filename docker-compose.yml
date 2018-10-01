@@ -24,6 +24,8 @@ services:
                         HUB_API_ENDPOINT: http://hub-be/v1/api
                         APP_TIMEOUT: 60.0
                         PORT: 3000
+                        APP_NAME: HMPS Berwyn
+                        MATOMO_URL: //hub-matomo/
                 ports:
                         - 8183:3000
                 volumes:
