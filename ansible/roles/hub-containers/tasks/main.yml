@@ -60,6 +60,8 @@
       export MYSQL_PASSWORD=$(cat /etc/docker-decomposed-secrets-MYSQL_PASSWORD)
       export PIWIK_URI=//example.com
       export DRUPAL_URL=https://{{ hub_backend_host }}
+      export MATOMO_URL=//digital-hub-stage.hmpps.dsd.io
+      exort APP_NAME="HMPS Berwyn"
     dest: /etc/docker-decomposed-secrets.sh
     mode: 0644
     owner: root

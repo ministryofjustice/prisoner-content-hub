@@ -36,7 +36,7 @@ hub_containers:
     name: hub-node
   - image: matomo:3-apache
     name: hub-matomo
-  - image: mojdigitalstudio/digital-hub-db
+  - image: mariadb
     name: hub-matomo-db
 
 hub_sites:

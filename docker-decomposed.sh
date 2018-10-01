@@ -22,24 +22,23 @@ then
   exit 1
 fi
 
-# Grab some image names that are using the date suffix
-node_image=$(docker ps --filter "name=hub-node-" --format "{{.Names}}")
-be_image=$(docker ps --filter "name=hub-be-" --format "{{.Names}}")
-db_image=$(docker ps --filter "name=hub-db-" --format "{{.Names}}")
-matomo_image=$(docker ps --filter "name=hub-matomo-" --format "{{.Names}}")
-matomo_db_image=$(docker ps --filter "name=hub-matomo-db-" --format "{{.Names}}")
+node_image="hub-node"
+be_image="hub-be"
+db_image="hub-db"
+matomo_image="hub-matomo"
+matomo_db_image="hub-matomo-db"
 
 # Start hub db
 hub_db() {
   printf "Stopping " && docker stop ${db_image}
   printf "Removing " && docker rm ${db_image}
   printf "Starting $component"
-  docker run -d --name hub-db-$(date +%Y%m%d) \
+  docker run -d --name hub-db \
   -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD \
   -e MYSQL_DATABASE=hubdb \
   -e MYSQL_USER=$MYSQL_USER \
   -e MYSQL_PASSWORD=$MYSQL_PASSWORD \
-  -p 3307:3306 \
+  -p 3306:3306 \
   -v /data/hub-db:/var/lib/mysql \
   --restart always \
   mojdigitalstudio/digital-hub-db
@@ -57,20 +56,20 @@ hub_be() {
   fi
 
 
-  docker run -d --name hub-be-$(date +%Y%m%d) \
-  --link $(db_image) --link hub-memcache \
+  docker run -d --name hub-be \
+  --link ${db_image} --link hub-memcache \
   -e HUB_DB_ENV_MYSQL_DATABASE=hubdb \
   -e HUB_DB_ENV_MYSQL_USER=$MYSQL_USER \
   -e HUB_DB_ENV_MYSQL_PASSWORD=$MYSQL_PASSWORD \
   -e HUB_DB_PORT_3306_TCP_ADDR=hub-db \
   -e HUB_EXT_FILE_URL=$DRUPAL_URL/sites/default/files \
   -e PHP_MEMORY_LIMIT=256M \
-  -e PHP_UPLOAD_MAX_FILE_SIZE=256M \
-  -e PHP_POST_MAX_SIZE=256M \
+  -e PHP_UPLOAD_MAX_FILE_SIZE=1024M \
+  -e PHP_POST_MAX_SIZE=1024M \
   -e PIWIK_URI=$PIWIK_URI \
   -v /content/moj_dhub_prod001_app/usr/share/nginx/html/moj_be/sites/default/files:/var/www/html/sites/default/files/ \
   $docker_code_volume \
-  -p 11002:80 \
+  -p 11001:80 \
   --restart always \
   mojdigitalstudio/digital-hub-be
 }
@@ -83,7 +82,7 @@ hub_fe() {
   --link hub-be \
   -e API_URI=http://hub-be/ \
   -e PIWIK_URI=$PIWIK_URI \
-  -p 10001:80 \
+  -p 10002:80 \
   --restart always \
   mojdigitalstudio/digital-hub-fe
 }
@@ -91,14 +90,14 @@ hub_fe() {
 hub_node() {
   printf "Stopping ${image}" && docker stop ${node_image}
   printf "Removing ${image}" && docker rm ${node_image}
-  docker run -d --name hub-node-$(date +%Y%m%d) \
-  --link $(be_image) \
+  docker run -d --name hub-node \
+  --link ${be_image} \
   -e HUB_API_ENDPOINT=http://${be_image} \
   -e PIWIK_URI=$PIWIK_URI \
-  -e APP_NAME=$APP_NAME \
-  -e MATOMO_URL=$MATOMO_URL \
+  -e APP_NAME="${APP_NAME}" \
+  -e MATOMO_URL="$MATOMO_URL" \
   -e NODE_ENV=production \
-  -p 10002:3000 \
+  -p 10001:3000 \
   --restart always \
   mojdigitalstudio/digital-hub-node
 }
@@ -111,10 +110,10 @@ hub_memcache() {
   memcached
 }
 
-hub_matomo(i) {
+hub_matomo() {
   printf "Stopping " && docker stop ${hub_matomo_image}
   printf "Removing " && docker rm   ${hub_matomo_image}
-  docker run -d --name hub-matomo-$(date +%Y%m%d) \
+  docker run -d --name hub-matomo \
   --link ${matomo_db_image} \
   -p 12002:80 \
   -v /data/moj_dhub_matomo_config/:/var/www/html/config/ \
@@ -125,13 +124,13 @@ hub_matomo(i) {
 hub_matomo_db() {
   printf "Stopping " && docker stop ${hub_matomo_db_image}
   printf "Removing " && docker rm   ${hub_matomo_db_image}
-  docker run -d --name hub-matomo-db-$(data +%Y%m%d) \
+  docker run -d --name hub-matomo-db \
   -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
   -e MYSQL_USER=${MYSQL_MATOMO_USER} \
   -e MYSQL_PASS=${MYSQL_MATOMO_PASS} \
   -e MYSQL_DATABASE=${MYSQL_MATOMO_DB} \
   -v /data/moj_dhub_matomo_db/var/lib/mysql/:/var/lib/mysql/ \
-  --restart-always \
+  --restart always \
   mariadb
 }
 
@@ -151,8 +150,14 @@ hub-node)
 hub-memcache)
   hub_memcache
   ;;
+hub-matomo)
+  hub_matomo
+  ;;
+hub-matomo-db)
+  hub_matomo_db
+  ;;
 *)
-  printf "${RED}Please provide a component [hub-db hub-be hub-fe hub-node hub-memcache]${NC}\n"
+  printf "${RED}Please provide a component [hub-db hub-be hub-fe hub-node hub-memcache hub-matomo hub-matomo-db]${NC}\n"
   exit 1
   ;;
 esac
