@@ -95,6 +95,8 @@ hub_node() {
   --link $(be_image) \
   -e HUB_API_ENDPOINT=http://${be_image} \
   -e PIWIK_URI=$PIWIK_URI \
+  -e APP_NAME=$APP_NAME \
+  -e MATOMO_URL=$MATOMO_URL \
   -e NODE_ENV=production \
   -p 10002:3000 \
   --restart always \
