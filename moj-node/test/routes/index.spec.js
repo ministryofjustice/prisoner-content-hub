@@ -78,7 +78,7 @@ describe('GET /', () => {
         const $ = cheerio.load(response.text);
         const radioItemSelector = '[data-featured-item-id="featured-content-1"]';
 
-        expect($('[data-featured-item-id]').length).to.equal(2, '2 featured items should be rendered');
+        expect($('[data-featured-item-id]').length).to.equal(7, '7 featured items should be rendered');
         expect($(radioItemSelector).text()).to.include('Foo radio show', 'Correct title rendered');
         expect($(radioItemSelector).text()).to.include('foo summary', 'Correct description rendered');
         expect($(`${radioItemSelector} [data-featured-item-background]`).attr('style')).to.include('image.url.com', 'Correct image rendered');
