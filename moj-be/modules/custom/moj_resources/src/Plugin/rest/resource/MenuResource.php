@@ -119,7 +119,10 @@ class MenuResource extends ResourceBase
 
     public function get() 
     {
-        $menu = $this->menuApiClass->MenuApiEndpoint($lang, $parent);
+        $menu = $this->menuApiClass->MenuApiEndpoint(
+            $this->paramater_language_tag, 
+            $this->paramater_current_page_id
+        );
         if (!empty($menu)) {
             return new ResourceResponse($menu);
         }
