@@ -4,12 +4,14 @@ const createHubFeaturedContentService = require('../../server/services/hubFeatur
 const hubRepository = {
   newsAndEvents: sinon.stub().returns({ newsAndEvents: 'newsAndEvents' }),
   games: sinon.stub().returns({ games: 'games' }),
-  radioShowsAndPodcasts: sinon.stub().returns({ radioShowsAndPodcasts: 'radioShowsAndPodcasts' }),
+  musicAndGames: sinon.stub().returns({ musicAndGames: 'musicAndGames' }),
   healthyMindAndBody: sinon.stub().returns({ healthyMindAndBody: 'healthyMindAndBody' }),
   inspiration: sinon.stub().returns({ inspiration: 'inspiration' }),
   scienceAndNature: sinon.stub().returns({ scienceAndNature: 'scienceAndNature' }),
   artAndCulture: sinon.stub().returns({ artAndCulture: 'artAndCulture' }),
   history: sinon.stub().returns({ history: 'history' }),
+  legalAndYourRights: sinon.stub().returns({ legalAndYourRights: 'legalAndYourRights' }),
+
 };
 
 
@@ -21,12 +23,13 @@ describe('hubFeaturedService', () => {
       const expectedResult = {
         newsAndEvents: { newsAndEvents: 'newsAndEvents' },
         games: { games: 'games' },
-        radioShowsAndPodcasts: { radioShowsAndPodcasts: 'radioShowsAndPodcasts' },
+        musicAndGames: { musicAndGames: 'musicAndGames' },
         healthyMindAndBody: { healthyMindAndBody: 'healthyMindAndBody' },
         inspiration: { inspiration: 'inspiration' },
         scienceAndNature: { scienceAndNature: 'scienceAndNature' },
         artAndCulture: { artAndCulture: 'artAndCulture' },
         history: { history: 'history' },
+        legalAndYourRights: { legalAndYourRights: 'legalAndYourRights' },
       };
 
       expect(response).to.eql(expectedResult);
@@ -38,11 +41,12 @@ describe('hubFeaturedService', () => {
           newsAndEvents: sinon.stub().returns({}),
           games: sinon.stub().returns({}),
           radioShowsAndPodcasts: sinon.stub().throws(new Error('error')),
-          healthyMindAndBody: sinon.stub().returns({}),
+          musicAndGames: sinon.stub().returns({}),
           inspiration: sinon.stub().returns({}),
           scienceAndNature: sinon.stub().returns({}),
           artAndCulture: sinon.stub().returns({}),
           history: sinon.stub().throws(new Error('error')),
+          legalAndYourRights: sinon.stub().throws(new Error('error')),
         };
 
         const service = createHubFeaturedContentService(hubRepositoryWithError);
