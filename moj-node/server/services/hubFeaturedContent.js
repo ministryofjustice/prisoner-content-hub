@@ -10,6 +10,7 @@ module.exports = function createHubFeaturedContentService(repository) {
         scienceAndNature,
         artAndCulture,
         history,
+        legalAndYourRights,
       ] = await Promise.all([
         repository.newsAndEvents(),
         repository.games(),
@@ -19,6 +20,7 @@ module.exports = function createHubFeaturedContentService(repository) {
         repository.scienceAndNature(),
         repository.artAndCulture(),
         repository.history(),
+        repository.legalAndYourRights(),
       ]);
 
       return {
@@ -30,6 +32,7 @@ module.exports = function createHubFeaturedContentService(repository) {
         scienceAndNature,
         artAndCulture,
         history,
+        legalAndYourRights,
       };
     } catch (ex) {
       return null;

@@ -81,6 +81,15 @@ function hubFeaturedContentRepository(httpClient) {
     });
   }
 
+  function legalAndYourRights() {
+    return hubContentFor({
+      query: {
+        _number: 4,
+        _category: 785,
+      },
+    });
+  }
+
 
   return {
     hubContentFor,
@@ -92,6 +101,7 @@ function hubFeaturedContentRepository(httpClient) {
     inspiration,
     scienceAndNature,
     history,
+    legalAndYourRights,
   };
 }
 
