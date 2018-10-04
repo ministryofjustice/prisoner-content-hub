@@ -45,11 +45,11 @@ function hubFeaturedContentRepository(httpClient) {
     });
   }
 
-  function radioShowsAndPodcasts() {
+  function musicAndGames() {
     return hubContentFor({
       query: {
-        _number: 8,
-        _category: 646,
+        _number: 4,
+        _category: 647,
       },
     });
   }
@@ -88,7 +88,7 @@ function hubFeaturedContentRepository(httpClient) {
     artAndCulture,
     healthyMindAndBody,
     games,
-    radioShowsAndPodcasts,
+    musicAndGames,
     inspiration,
     scienceAndNature,
     history,
