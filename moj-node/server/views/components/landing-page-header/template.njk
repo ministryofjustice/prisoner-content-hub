@@ -6,9 +6,11 @@
       <div class="govuk-!-margin-bottom-6">
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-one-half govuk-!-padding-top-6">
-            <h1 class="govuk-heading-xl">{{ params.title }}</h1>
-            <p class="govuk-body-l">{{ params.description.summary}}</p>
-            <p class="govuk-body">{{params.description.sanitized | safe }}</p>
+            <h1 id="title" class="govuk-heading-xl">{{ params.title }}</h1>
+            <p id="summary" class="govuk-body-l">{{ params.description.summary}}</p>
+            <div id="description" class="gov-uk-dynamic-content">
+              {{params.description.sanitized | safe }}
+            </div>
           </div>
           <div class="govuk-grid-column-one-half">
             {{ hubFeaturedContentItem({

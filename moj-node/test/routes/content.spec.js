@@ -122,11 +122,12 @@ describe('GET /content/:id', () => {
   describe('Landing page', () => {
     const hubContentService = {
       contentFor: sinon.stub().returns({
-        id: 3491,
-        title: 'Foo article',
+        id: 1,
+        title: 'Foo Landing page',
         type: 'landing-page',
         description: {
-          sanitized: '<p>Foo article body</p>',
+          sanitized: '<p>Foo landing page body</p>',
+          summary: 'Some summary',
         },
       }),
     };
@@ -143,8 +144,9 @@ describe('GET /content/:id', () => {
         .then((response) => {
           const $ = cheerio.load(response.text);
 
-          expect($('#title').text()).to.include('Foo article', 'Page title did not match');
-          expect($('#body').text()).to.include('Foo article body', 'Article body did not match');
+          expect($('#title').text()).to.include('Foo Landing page', 'Page title did not match');
+          expect($('#summary').text()).to.include('Some summary', 'Page summary did not match');
+          expect($('#description').text()).to.include('Foo landing page body', 'Page description did not match');
         });
     });
   });
