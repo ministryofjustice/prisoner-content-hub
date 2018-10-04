@@ -100,13 +100,22 @@
     contentType: "art-culture"
   }) }}
 
-  {{ hubFeaturedContent({
+  {# {{ hubFeaturedContent({
     categoryTitle: "History",
     categoryLink: "/",
     columnNumber: "govuk-grid-column-one-quarter",
     data: history,
     size: "small",
     contentType: "history"
+  }) }} #}
+
+  {{ hubFeaturedContent({
+    categoryTitle: "Music and games",
+    categoryLink: "/",
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: musicAndGames,
+    size: "small",
+    contentType: "music-games"
   }) }}
 
   {{ hubFeaturedContent({
