@@ -23,7 +23,7 @@ describe('GET /content/:id', () => {
       .expect(404);
   });
 
-  describe('radio content', () => {
+  describe('Radio page', () => {
     const hubContentService = {
       contentFor: sinon.stub().returns(radioShowResponse),
     };
@@ -55,7 +55,7 @@ describe('GET /content/:id', () => {
     });
   });
 
-  describe('video content', () => {
+  describe('Video page', () => {
     const hubContentService = {
       contentFor: sinon.stub().returns(videoShowResponse),
     };
@@ -87,7 +87,7 @@ describe('GET /content/:id', () => {
     });
   });
 
-  describe('flat page content', () => {
+  describe('Flat page content', () => {
     const hubContentService = {
       contentFor: sinon.stub().returns({
         id: 3491,
@@ -100,7 +100,7 @@ describe('GET /content/:id', () => {
       }),
     };
 
-    it('returns the correct content for a flat content page page', () => {
+    it('returns the correct content for a flat content page', () => {
       const router = createHubContentRouter({ logger, hubContentService });
       const app = setupBasicApp();
 
@@ -114,6 +114,36 @@ describe('GET /content/:id', () => {
 
           expect($('#title').text()).to.include('Foo article', 'Page title did not match');
           expect($('#stand-first').text()).to.include('Foo article stand first', 'Article stand first did not match');
+          expect($('#body').text()).to.include('Foo article body', 'Article body did not match');
+        });
+    });
+  });
+
+  describe('Landing page', () => {
+    const hubContentService = {
+      contentFor: sinon.stub().returns({
+        id: 3491,
+        title: 'Foo article',
+        type: 'landing-page',
+        description: {
+          sanitized: '<p>Foo article body</p>',
+        },
+      }),
+    };
+
+    it('returns the correct content for a landing page', () => {
+      const router = createHubContentRouter({ logger, hubContentService });
+      const app = setupBasicApp();
+
+      app.use('/content', router);
+
+      return request(app)
+        .get('/content/1')
+        .expect(200)
+        .then((response) => {
+          const $ = cheerio.load(response.text);
+
+          expect($('#title').text()).to.include('Foo article', 'Page title did not match');
           expect($('#body').text()).to.include('Foo article body', 'Article body did not match');
         });
     });

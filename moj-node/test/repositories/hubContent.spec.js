@@ -5,6 +5,7 @@ const videoShowResponse = require('../resources/videoShow.json');
 const termsResponse = require('../resources/terms.json');
 const flatPageContentResponse = require('../resources/flatPageContent.json');
 const seasonResponse = require('../resources/season.json');
+const landingPageResponse = require('../resources/landingPage.json');
 
 describe('hubContentRepository', () => {
   it('returns formated data for radio shows', async () => {
@@ -25,7 +26,7 @@ describe('hubContentRepository', () => {
     expect(client.get.lastCall.args[0]).to.include('id');
   });
 
-  it('returns terms data', async () => {
+  it('returns formatted terms data', async () => {
     const client = generateClient(termsResponse);
     const repository = hubContentRepository(client);
     const content = await repository.termFor('id');
@@ -49,6 +50,15 @@ describe('hubContentRepository', () => {
     const content = await repository.seasonFor('id');
 
     expect(content).to.eql(seasonContent());
+    expect(client.get.lastCall.args[0]).to.include('id');
+  });
+
+  it('returns formated data for a landing page', async () => {
+    const client = generateClient(landingPageResponse);
+    const repository = hubContentRepository(client);
+    const content = await repository.contentFor('id');
+
+    expect(content).to.eql(landingPageContent());
     expect(client.get.lastCall.args[0]).to.include('id');
   });
 });
@@ -160,4 +170,17 @@ function seasonContent() {
       },
     },
   ];
+}
+
+function landingPageContent() {
+  return {
+    id: 1,
+    title: 'Landing page title',
+    type: 'landing-page',
+    description: {
+      raw: '<p>bar description</p>',
+      sanitized: '<p>bar description</p>',
+      summary: 'Foo bar summary',
+    },
+  };
 }

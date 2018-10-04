@@ -1,7 +1,7 @@
 const createHubContentService = require('../../server/services/hubContent');
 
 describe('#hubContentService', () => {
-  it('returns an content', async () => {
+  it('returns content for a given ID', async () => {
     const repository = {
       contentFor: sinon.stub().returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
     };
@@ -70,4 +70,25 @@ describe('#hubContentService', () => {
     expect(repository.termFor.lastCall.args[0]).to.equal('seriesId');
     expect(repository.seasonFor.lastCall.args[0]).to.equal('seriesId');
   });
+
+  // it('returns landing page content', async () => {
+  //   const repository = {
+  //     contentFor: sinon.stub().returns({
+  //       id: 1,
+  //       title: 'foo',
+  //       type: 'landing-page',
+  //       description: {},
+  //     }),
+  //   };
+
+  //   const service = createHubContentService(repository);
+  //   const result = await service.contentFor(1);
+
+  //   expect(result).to.eql({
+  //     id: 1,
+  //     title: 'foo',
+  //     type: 'landing-page',
+  //     description: {},
+  //   });
+  // });
 });

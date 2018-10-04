@@ -49,10 +49,25 @@ module.exports = function hubContentRepository(httpClient) {
     };
   }
 
+  function parseLandingResponse(data) {
+    if (data === null) return null;
+
+    return {
+      id: idFrom(data),
+      title: titleFrom(data),
+      type: typeFromData(data),
+      description: {
+        raw: descriptionValueFrom(data),
+        sanitized: descriptionProcessedFrom(data),
+        summary: summaryValueFrom(data),
+      },
+    };
+  }
+
   function parseResponse(data) {
     if (data === null) return null;
 
-    const type = HUB_CONTENT_TYPES[contentTypeFrom(data)];
+    const type = typeFromData(data);
 
     switch (type) {
       case 'video':
@@ -60,6 +75,8 @@ module.exports = function hubContentRepository(httpClient) {
         return parseMediaResponse(data);
       case 'page':
         return parseFlatPageContent(data);
+      case 'landing-page':
+        return parseLandingResponse(data);
       default:
         return null;
     }
@@ -68,7 +85,7 @@ module.exports = function hubContentRepository(httpClient) {
   function parseMediaResponse(data) {
     if (data === null) return null;
 
-    const type = HUB_CONTENT_TYPES[contentTypeFrom(data)];
+    const type = typeFromData(data);
 
     return {
       id: idFrom(data),
@@ -117,6 +134,10 @@ module.exports = function hubContentRepository(httpClient) {
     );
 
     return season(data);
+  }
+
+  function typeFromData(data) {
+    return HUB_CONTENT_TYPES[contentTypeFrom(data)];
   }
 
   return {
