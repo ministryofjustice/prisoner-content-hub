@@ -4,32 +4,35 @@ module.exports = function createHubFeaturedContentService(repository) {
       const [
         newsAndEvents,
         games,
-        radioShowsAndPodcasts,
+        musicAndGames,
         healthyMindAndBody,
         inspiration,
         scienceAndNature,
         artAndCulture,
         history,
+        legalAndYourRights,
       ] = await Promise.all([
         repository.newsAndEvents(),
         repository.games(),
-        repository.radioShowsAndPodcasts(),
+        repository.musicAndGames(),
         repository.healthyMindAndBody(),
         repository.inspiration(),
         repository.scienceAndNature(),
         repository.artAndCulture(),
         repository.history(),
+        repository.legalAndYourRights(),
       ]);
 
       return {
         newsAndEvents,
         games,
-        radioShowsAndPodcasts,
+        musicAndGames,
         healthyMindAndBody,
         inspiration,
         scienceAndNature,
         artAndCulture,
         history,
+        legalAndYourRights,
       };
     } catch (ex) {
       return null;

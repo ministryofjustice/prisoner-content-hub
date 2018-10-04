@@ -54,21 +54,22 @@
   }) }} #}
 
   {{ hubFeaturedContent({
-    categoryTitle: "Radio shows and podcasts",
-    categoryLink: "/",
-    columnNumber: "govuk-grid-column-one-quarter",
-    data: radioShowsAndPodcasts,
-    size: "small",
-    contentType: "radio-podcasts"
-  }) }}
-
-  {{ hubFeaturedContent({
     categoryTitle: "Healthy mind and body",
     categoryLink: "/",
     columnNumber: "govuk-grid-column-one-quarter",
     data: healthyMindAndBody,
     size: "small",
-    contentType: "radio-podcasts"
+    contentType: "healthy-mind-body"
+  }) }}
+
+
+  {{ hubFeaturedContent({
+    categoryTitle: "Legal and your rights",
+    categoryLink: "/",
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: legalAndYourRights,
+    size: "small",
+    contentType: "legal-and-your-rights"
   }) }}
 
   {{ hubFeaturedContent({
@@ -106,6 +107,15 @@
     data: history,
     size: "small",
     contentType: "history"
+  }) }}
+
+  {{ hubFeaturedContent({
+    categoryTitle: "Music and games",
+    categoryLink: "/",
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: musicAndGames,
+    size: "small",
+    contentType: "music-games"
   }) }}
 
 {% endblock %}
