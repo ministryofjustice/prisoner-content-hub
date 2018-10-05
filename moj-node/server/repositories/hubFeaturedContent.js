@@ -49,7 +49,7 @@ function hubFeaturedContentRepository(httpClient) {
     return hubContentFor({
       query: {
         _number: 4,
-        _category: 647,
+        _category: 785,
       },
     });
   }
@@ -85,7 +85,7 @@ function hubFeaturedContentRepository(httpClient) {
     return hubContentFor({
       query: {
         _number: 4,
-        _category: 785,
+        _category: 786,
       },
     });
   }
