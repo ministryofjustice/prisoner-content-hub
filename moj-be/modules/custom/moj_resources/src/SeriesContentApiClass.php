@@ -68,7 +68,6 @@ class SeriesContentApiClass
         $this->nids = self::getSeriesContentNodeIds($category, $number);
         $this->nodes = self::loadNodesDetails($this->nids);
         usort($this->nodes, 'self::sortEpisodes');
-        usort($this->nodes, 'self::groupSeasons');
         return array_map('self::translateNode', $this->nodes);
     }
     /**
@@ -77,15 +76,8 @@ class SeriesContentApiClass
      */
     protected function sortEpisodes($a, $b)
     {
-        return (int)$a->field_moj_episode->value < (int)$b->field_moj_episode->value;
-    }
-    /**
-     * groupSeasons
-     *
-     */
-    protected function groupSeasons($a, $b)
-    {
-        return (int)$a->field_moj_season->value < (int)$b->field_moj_season->value;
+        $diff = $b->field_moj_season->value - $a->field_moj_season->value;
+        return ($diff !== 0) ? $diff : $b->field_moj_episode->value - $a->field_moj_episode->value;
     }
     /**
      * TranslateNode function
