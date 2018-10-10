@@ -30,23 +30,25 @@ main() {
 
 transfer_image() {
   local image="${1}"
+  local filename="${image//:/_}"
+  local filename="${filename//\//_}.tar"
 
   echo " [*] Pulling ${image}"
   sudo docker pull "${image}"
 
-  echo " [*] Saving image ${image} as ${image//:/_}.tar"
-  sudo docker save -o "/mnt/${image//:/_}.tar" "${image}"
-  sudo chmod 0644 "/mnt/${image//:/_}.tar"
+  echo " [*] Saving image ${image} as ${filename}"
+  sudo docker save -o "/mnt/${filename}" "${image}"
+  sudo chmod 0644 "/mnt/${filename}"
 
   # We enable SSH compression in this transfer as the Berwyn connection isn't the fastest
   echo " [*] Transfering image to prod, you'll be prompted for the root password"
-  scp -q -C -o PasswordAuthentication=yes "/mnt/${image//:/_}.tar" root@berwyn.mycloudgateway.co.uk:~
+  scp -q -C -o PasswordAuthentication=yes "/mnt/${filename}" root@berwyn.mycloudgateway.co.uk:~
 
   echo " [*] Importing image to Berwyn local docker repo, you'll be prompted for the root password"
-  ssh -q -o PasswordAuthentication=yes root@berwyn.mycloudgateway.co.uk "docker load -i ${image//:/_}.tar && rm ${image//:/_}.tar"
+  ssh -q -o PasswordAuthentication=yes root@berwyn.mycloudgateway.co.uk "docker load -i ${filename} && rm ${filename}"
 
   echo " [*] Removing local copies"
-  sudo rm "/mnt/${image//:/_}.tar"
+  sudo rm "/mnt/${filename}"
   sudo docker rmi "${image}"
 }
 
