@@ -30,7 +30,7 @@ module.exports = function createHubContentService(repository) {
     return {
       ...data,
       seriesName: prop('name', series),
-      season: filterOutCurrentEpisode(season),
+      season: season ? filterOutCurrentEpisode(season) : season,
     };
   }
 
