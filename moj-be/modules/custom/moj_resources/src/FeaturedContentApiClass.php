@@ -67,6 +67,7 @@ class FeaturedContentApiClass
         $this->lang = $lang;
         $this->nids = self::getFeaturedContentNodeIds($category, $number);
         $this->nodes = self::loadNodesDetails($this->nids);
+        usort($this->nodes, 'self::sortByWeight');
         return array_map('self::translateNode', $this->nodes);
         // return array_map('self::serialize', $translatedNodes);
     }
@@ -97,8 +98,6 @@ class FeaturedContentApiClass
         if ($category !== 0) {
             $results->condition('field_moj_top_level_categories', $category);
         };
-
-        $results->sort('changed', 'DESC');
         
         return $results->execute();
     }
@@ -116,6 +115,14 @@ class FeaturedContentApiClass
                 return $item->access();
             }
         );
+    }
+    /**
+     * sortByWeight
+     *
+     */
+    protected function sortByWeight($a, $b)
+    {
+        return (int)$a->field_moj_weight->value > (int)$b->field_moj_weight->value;
     }
     /**
      * Sanitise node
