@@ -6,6 +6,7 @@ const termsResponse = require('../resources/terms.json');
 const flatPageContentResponse = require('../resources/flatPageContent.json');
 const seasonResponse = require('../resources/season.json');
 const landingPageResponse = require('../resources/landingPage.json');
+const featuredContentResponse = require('../resources/featuredContent.json');
 
 describe('hubContentRepository', () => {
   it('returns formated data for radio shows', async () => {
@@ -59,6 +60,15 @@ describe('hubContentRepository', () => {
     const content = await repository.contentFor('id');
 
     expect(content).to.eql(landingPageContent());
+    expect(client.get.lastCall.args[0]).to.include('id');
+  });
+
+  it('returns a landing page featured content', async () => {
+    const client = generateClient(featuredContentResponse);
+    const repository = hubContentRepository(client);
+    const content = await repository.FeaturedContentFor('id');
+
+    expect(content).to.eql(featuredContent());
     expect(client.get.lastCall.args[0]).to.include('id');
   });
 });
@@ -178,6 +188,23 @@ function landingPageContent() {
     title: 'Landing page title',
     type: 'landing-page',
     description: {
+      raw: '<p>bar description</p>',
+      sanitized: '<p>bar description</p>',
+      summary: 'Foo bar summary',
+    },
+  };
+}
+
+function featuredContent() {
+  return {
+    featuredId: 1,
+    featuredTitle: 'Featured Title',
+    featuredType: 'radio',
+    featuredThumb: {
+      alt: 'Foo Bar',
+      url: 'http://localhost:8181/sites/default/files/2018-08/Screen%20Shot%202018-08-20%20at%2010.21.54_0.png',
+    },
+    featuredDescription: {
       raw: '<p>bar description</p>',
       sanitized: '<p>bar description</p>',
       summary: 'Foo bar summary',
