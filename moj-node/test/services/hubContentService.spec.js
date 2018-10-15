@@ -71,24 +71,31 @@ describe('#hubContentService', () => {
     expect(repository.seasonFor.lastCall.args[0]).to.equal('seriesId');
   });
 
-  // it('returns landing page content', async () => {
-  //   const repository = {
-  //     contentFor: sinon.stub().returns({
-  //       id: 1,
-  //       title: 'foo',
-  //       type: 'landing-page',
-  //       description: {},
-  //     }),
-  //   };
+  xit('returns landing page content', async () => {
+    const repository = {
+      contentFor: sinon.stub().returns({
+        id: 1,
+        title: 'foo',
+        type: 'landing-page',
+        description: {},
+        featuredId: 'featuredId',
+      }),
+    };
 
-  //   const service = createHubContentService(repository);
-  //   const result = await service.contentFor(1);
+    const service = createHubContentService(repository);
+    const result = await service.contentFor(1);
 
-  //   expect(result).to.eql({
-  //     id: 1,
-  //     title: 'foo',
-  //     type: 'landing-page',
-  //     description: {},
-  //   });
-  // });
+    expect(result).to.eql({
+      id: 1,
+      title: 'foo',
+      type: 'landing-page',
+      description: {},
+      featuredId: 'featuredId',
+      featuredTitle: 'featured foo',
+      featuredType: 'radio',
+      featuredThumb: 'foo.png',
+      featuredSummary: 'foo summary',
+      featuredUrl: 'foo.com',
+    });
+  });
 });
