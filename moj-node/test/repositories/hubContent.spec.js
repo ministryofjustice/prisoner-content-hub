@@ -66,8 +66,7 @@ describe('hubContentRepository', () => {
   it('returns a landing page featured content', async () => {
     const client = generateClient(featuredContentResponse);
     const repository = hubContentRepository(client);
-    const content = await repository.FeaturedContentFor('id');
-
+    const content = await repository.featuredContentFor('id');
     expect(content).to.eql(featuredContent());
     expect(client.get.lastCall.args[0]).to.include('id');
   });
@@ -197,17 +196,13 @@ function landingPageContent() {
 
 function featuredContent() {
   return {
-    featuredId: 1,
-    featuredTitle: 'Featured Title',
-    featuredType: 'radio',
-    featuredThumb: {
+    id: 1,
+    title: 'Featured Title',
+    type: 'radio',
+    summary: 'Foo bar summary',
+    image: {
       alt: 'Foo Bar',
       url: 'http://localhost:8181/sites/default/files/2018-08/Screen%20Shot%202018-08-20%20at%2010.21.54_0.png',
-    },
-    featuredDescription: {
-      raw: '<p>bar description</p>',
-      sanitized: '<p>bar description</p>',
-      summary: 'Foo bar summary',
     },
   };
 }
