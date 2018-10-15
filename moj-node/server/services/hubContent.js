@@ -14,6 +14,8 @@ module.exports = function createHubContentService(repository) {
       case 'radio':
       case 'video':
         return media(result);
+      case 'landing-page':
+        return landingPage(result);
       default:
         return result;
     }
@@ -31,6 +33,23 @@ module.exports = function createHubContentService(repository) {
       ...data,
       seriesName: prop('name', series),
       season: season ? filterOutCurrentEpisode(season) : season,
+    };
+  }
+
+  async function landingPage(data) {
+    const id = prop('id', data);
+    const featuredId = prop('featuredId', data);
+
+    const featuredContent = await epository.contentFor(featuredId);
+
+    return {
+      ...data,
+      featuredId: 'featuredId',
+      featuredTitle: 'featured foo',
+      featuredType: 'radio',
+      featuredThumb: 'foo.png',
+      featuredSummary: 'foo summary',
+      featuredUrl: 'foo.com',
     };
   }
 
