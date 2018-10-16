@@ -90,6 +90,7 @@ class RelatedContentApiClass
     {
         $results = $this->entity_query->get('node')
             ->condition('status', 1)
+            ->range(0, 10)
             ->accessCheck(false);
 
         if ($category !== 0) {
