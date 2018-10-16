@@ -67,7 +67,7 @@ class FeaturedContentApiClass
         $this->lang = $lang;
         $this->nids = self::getFeaturedContentNodeIds($category, $number);
         $this->nodes = self::loadNodesDetails($this->nids);
-        usort($this->nodes, 'self::sortByWeight');
+        usort($this->nodes, 'self::sortByWeightDescending');
         return array_map('self::translateNode', $this->nodes);
         // return array_map('self::serialize', $translatedNodes);
     }
@@ -120,7 +120,7 @@ class FeaturedContentApiClass
      * sortByWeight
      *
      */
-    protected function sortByWeight($a, $b)
+    protected function sortByWeightDescending($a, $b)
     {
         return (int)$a->field_moj_weight->value > (int)$b->field_moj_weight->value;
     }

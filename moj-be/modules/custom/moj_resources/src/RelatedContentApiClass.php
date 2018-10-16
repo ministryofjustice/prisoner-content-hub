@@ -67,7 +67,7 @@ class RelatedContentApiClass
         $this->lang = $lang;
         $this->nids = self::getRelatedContentNodeIds($category);
         $this->nodes = self::loadNodesDetails($this->nids);
-        // usort($this->nodes, 'self::sortByWeight');
+        // usort($this->nodes, 'self::sortByWeightDescending');
         return array_map('self::translateNode', $this->nodes);
     }
     /**
@@ -116,7 +116,7 @@ class RelatedContentApiClass
      * sortByWeight
      *
      */
-    protected function sortByWeight($a, $b)
+    protected function sortByWeightDescending($a, $b)
     {
         return (int)$a->field_moj_weight->value > (int)$b->field_moj_weight->value;
     }
