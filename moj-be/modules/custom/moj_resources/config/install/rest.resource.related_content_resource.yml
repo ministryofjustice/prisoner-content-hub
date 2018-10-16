@@ -1,0 +1,9 @@
+id: related_content_resource
+plugin_id: related_content_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - cookie
