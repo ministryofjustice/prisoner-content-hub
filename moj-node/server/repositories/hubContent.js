@@ -22,6 +22,7 @@ const {
   seasonFrom,
   standFirstFrom,
   nameFrom,
+  landingFeaturedContentIdFrom,
 } = require('../selectors/hub');
 
 
@@ -62,7 +63,8 @@ module.exports = function hubContentRepository(httpClient) {
     return {
       id: idFrom(data),
       title: titleFrom(data),
-      type: typeFromData(data),
+      type: typeFrom(data),
+      featuredContentId: landingFeaturedContentIdFrom(data),
       description: {
         raw: descriptionValueFrom(data),
         sanitized: descriptionProcessedFrom(data),
@@ -74,7 +76,7 @@ module.exports = function hubContentRepository(httpClient) {
   function parseResponse(data) {
     if (data === null) return null;
 
-    const type = typeFromData(data);
+    const type = typeFrom(data);
 
     switch (type) {
       case 'video':
@@ -92,7 +94,7 @@ module.exports = function hubContentRepository(httpClient) {
   function parseMediaResponse(data) {
     if (data === null) return null;
 
-    const type = typeFromData(data);
+    const type = typeFrom(data);
 
     return {
       id: idFrom(data),
@@ -121,12 +123,17 @@ module.exports = function hubContentRepository(httpClient) {
     return {
       id: idFrom(data),
       title: titleFrom(data),
-      type: HUB_CONTENT_TYPES[contentTypeFrom(data)],
+      type: typeFrom(data),
       description: {
         raw: descriptionValueFrom(data),
         sanitized: descriptionProcessedFrom(data),
+        summary: summaryValueFrom(data),
       },
       standFirst: standFirstFrom(data),
+      thumbnail: {
+        alt: imageAltFrom(data),
+        url: imageUrlFrom(data),
+      },
     };
   }
 
@@ -143,7 +150,7 @@ module.exports = function hubContentRepository(httpClient) {
     return season(data);
   }
 
-  function typeFromData(data) {
+  function typeFrom(data) {
     return HUB_CONTENT_TYPES[contentTypeFrom(data)];
   }
 

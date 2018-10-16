@@ -30,7 +30,7 @@
           "description": "",
           "target_type": "file",
           "target_uuid": "b6fee0ca-8e4d-4771-9f4e-1b43da854ee6",
-          "url": "http://localhost:8181/sites/default/files/video/media.mp4"
+          "url": "http://foo.bar.com/video.mp4"
       }
   ],
   "field_moj_description": [
@@ -79,7 +79,7 @@
           "height": 1800,
           "target_type": "file",
           "target_uuid": "38b9cffb-241a-40f7-b187-e99c67897471",
-          "url": "http://localhost:8181/sites/default/files/2018-08/Screen%20Shot%202018-08-20%20at%2010.21.54_0.png"
+          "url": "http://foo.bar.com/image.png"
       }
   ]
 }

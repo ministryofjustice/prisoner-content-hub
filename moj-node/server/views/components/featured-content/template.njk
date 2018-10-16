@@ -1,27 +1,5 @@
 {% from "../featured-content-item/macro.njk" import hubFeaturedContentItem %}
 
-{%  set icon = {
-  video: "icon-movie",
-  page: "icon-document",
-  pdf: "icon-document",
-  radio: "icon-music"
-}
-%}
-
-{% set linkText = {
-  video: "Watch",
-  page: "Read",
-  pdf: "Read",
-  radio: "Listen"
-}%}
-
-{% set linkIcon = {
-  video: "icon-play",
-  page: "icon-link",
-  pdf: "icon-link",
-  radio: "icon-play"
-}%}
-
 <section data-featured-section-id="{{params.contentType}}">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -36,18 +14,18 @@
   <div data-featured-section-items class="govuk-grid-row content-items">
     {% for item in params.data %}
       <div data-featured-item-id="featured-content-{{item.id}}" class="item {{ params.columnNumber }}">
-        {{ hubFeaturedContentItem({
-          id: item.id,
-          title: item.title,
-          summary: item.summary,
-          size: params.size,
-          type: params.contentType,
-          icon: icon[item.contentType],
-          linktext: linkText[item.contentType],
-          graphic: item.image,
-          linkIcon: linkIcon[item.contentType],
-          duration: item.duration
-        }) }}
+        {{
+          hubFeaturedContentItem({
+            id: item.id,
+            title: item.title,
+            summary: item.summary,
+            size: params.size,
+            type: params.contentType,
+            contentType: item.contentType,
+            graphic: item.image,
+            duration: item.duration
+          })
+        }}
       </div>
     {% endfor %}
   </div>

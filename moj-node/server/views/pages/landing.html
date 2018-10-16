@@ -32,9 +32,11 @@
 
 {% block main %}
   {{ hubLandingPageHeader({
-    title: data.title,
-    description: data.description
-  }) }}
+      title: data.title,
+      description: data.description,
+      featuredContent: data.featuredContent
+    })
+  }}
 {% endblock %}
 
 

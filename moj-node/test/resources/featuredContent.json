@@ -131,7 +131,7 @@
             "height": 400,
             "target_type": "file",
             "target_uuid": "b1f2bad9-b934-4a01-b87f-c1d009317011",
-            "url": "http://localhost:8181/sites/default/files/2018-08/Screen%20Shot%202018-08-20%20at%2010.21.54_0.png"
+            "url": "http://foo.bar.com/image.png"
         }
     ],
     "field_moj_top_level_categories": [

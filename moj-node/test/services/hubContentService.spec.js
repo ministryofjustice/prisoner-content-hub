@@ -71,31 +71,38 @@ describe('#hubContentService', () => {
     expect(repository.seasonFor.lastCall.args[0]).to.equal('seriesId');
   });
 
-  xit('returns landing page content', async () => {
-    const repository = {
-      contentFor: sinon.stub().returns({
-        id: 1,
-        title: 'foo',
-        type: 'landing-page',
-        description: {},
-        featuredId: 'featuredId',
-      }),
+
+  describe('landing page', () => {
+    const content = {
+      type: 'landing-page',
+      featuredContentId: 'featuredContentId',
     };
 
-    const service = createHubContentService(repository);
-    const result = await service.contentFor(1);
+    const createRepository = () => ({
+      contentFor: sinon.stub()
+        .onFirstCall()
+        .returns(content)
+        .onSecondCall()
+        .returns('something'),
+    });
 
-    expect(result).to.eql({
-      id: 1,
-      title: 'foo',
-      type: 'landing-page',
-      description: {},
-      featuredId: 'featuredId',
-      featuredTitle: 'featured foo',
-      featuredType: 'radio',
-      featuredThumb: 'foo.png',
-      featuredSummary: 'foo summary',
-      featuredUrl: 'foo.com',
+    it('returns landing page content', async () => {
+      const repository = createRepository();
+      const service = createHubContentService(repository);
+      const result = await service.contentFor(content.id);
+
+      expect(result).to.have.property('type', content.type);
+      expect(result).to.have.property('featuredContentId', content.featuredContentId);
+      expect(result).to.have.property('featuredContent', 'something');
+    });
+
+    it('calls for the featured content', async () => {
+      const repository = createRepository();
+      const service = createHubContentService(repository);
+
+      await service.contentFor(content.id);
+
+      expect(repository.contentFor.lastCall.lastArg).to.equal(content.featuredContentId);
     });
   });
 });
