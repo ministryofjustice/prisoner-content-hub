@@ -6,10 +6,10 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 /**
- * PromotedContentApiClass
+ * RelatedContentApiClass
  */
 
-class FeaturedContentApiClass
+class RelatedContentApiClass
 {
     /**
      * Node IDs
@@ -62,14 +62,13 @@ class FeaturedContentApiClass
      * @param [string] $lang
      * @return array
      */
-    public function FeaturedContentApiEndpoint($lang, $category, $number)
+    public function RelatedContentApiEndpoint($lang, $category)
     {
         $this->lang = $lang;
-        $this->nids = self::getFeaturedContentNodeIds($category, $number);
+        $this->nids = self::getRelatedContentNodeIds($category);
         $this->nodes = self::loadNodesDetails($this->nids);
-        usort($this->nodes, 'self::sortByWeightDescending');
+        // usort($this->nodes, 'self::sortByWeightDescending');
         return array_map('self::translateNode', $this->nodes);
-        // return array_map('self::serialize', $translatedNodes);
     }
     /**
      * TranslateNode function
@@ -87,18 +86,15 @@ class FeaturedContentApiClass
      *
      * @return void
      */
-    protected function getFeaturedContentNodeIds($category, $number)
+    protected function getRelatedContentNodeIds($category)
     {
         $results = $this->entity_query->get('node')
             ->condition('status', 1)
-            ->condition('promote', 1)
-            ->range(0, $number)
             ->accessCheck(false);
 
         if ($category !== 0) {
             $results->condition('field_moj_top_level_categories', $category);
         };
-        
         return $results->execute();
     }
     /**
@@ -123,16 +119,5 @@ class FeaturedContentApiClass
     protected function sortByWeightDescending($a, $b)
     {
         return (int)$a->field_moj_weight->value > (int)$b->field_moj_weight->value;
-    }
-    /**
-     * Sanitise node
-     *
-     * @param [type] $item
-     * @return void
-     */
-    protected function serialize($item) 
-    {
-        $serializer = \Drupal::service($item->getType().'.serializer.default'); // TODO: Inject dependency
-        return $serializer->serialize($item, 'json', ['plugin_id' => 'entity']);
     }
 }

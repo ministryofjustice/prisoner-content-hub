@@ -8,6 +8,9 @@ services:
     moj_resources.featured_content_api_class:
         class: Drupal\moj_resources\FeaturedContentApiClass
         arguments: ['@entity_type.manager','@entity.query']
+    moj_resources.related_content_api_class:
+        class: Drupal\moj_resources\RelatedContentApiClass
+        arguments: ['@entity_type.manager','@entity.query']
     moj_resources.series_content_api_class:
         class: Drupal\moj_resources\SeriesContentApiClass
         arguments: ['@entity_type.manager','@entity.query']
