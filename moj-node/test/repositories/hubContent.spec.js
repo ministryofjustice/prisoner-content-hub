@@ -5,6 +5,7 @@ const videoShowResponse = require('../resources/videoShow.json');
 const termsResponse = require('../resources/terms.json');
 const flatPageContentResponse = require('../resources/flatPageContent.json');
 const seasonResponse = require('../resources/season.json');
+const landingPageResponse = require('../resources/landingPage.json');
 
 describe('hubContentRepository', () => {
   it('returns formated data for radio shows', async () => {
@@ -25,7 +26,7 @@ describe('hubContentRepository', () => {
     expect(client.get.lastCall.args[0]).to.include('id');
   });
 
-  it('returns terms data', async () => {
+  it('returns formatted terms data', async () => {
     const client = generateClient(termsResponse);
     const repository = hubContentRepository(client);
     const content = await repository.termFor('id');
@@ -51,6 +52,15 @@ describe('hubContentRepository', () => {
     expect(content).to.eql(seasonContent());
     expect(client.get.lastCall.args[0]).to.include('id');
   });
+
+  it('returns formated data for a landing page', async () => {
+    const client = generateClient(landingPageResponse);
+    const repository = hubContentRepository(client);
+    const content = await repository.contentFor('id');
+
+    expect(content).to.eql(landingPageContent());
+    expect(client.get.lastCall.args[0]).to.include('id');
+  });
 });
 
 
@@ -72,14 +82,14 @@ function radioContent() {
       summary: 'hello world',
     },
     type: 'radio',
-    media: 'http://localhost:8181/sites/default/files/audio/media.mp3',
+    media: 'http://foo.bar.com/audio.mp3',
     duration: '1:35:27',
     episode: 1,
     season: 1,
     seriesId: 665,
     thumbnail: {
       alt: 'Foo Bar',
-      url: 'http://localhost:8181/sites/default/files/2018-08/Screen%20Shot%202018-08-20%20at%2010.21.54_0.png',
+      url: 'http://foo.bar.com/image.png',
     },
   };
 }
@@ -94,14 +104,14 @@ function videoContent() {
       summary: 'hello world',
     },
     type: 'video',
-    media: 'http://localhost:8181/sites/default/files/video/media.mp4',
+    media: 'http://foo.bar.com/video.mp4',
     duration: '1:35:27',
     episode: 1,
     season: 1,
     seriesId: 665,
     thumbnail: {
       alt: 'Foo Bar',
-      url: 'http://localhost:8181/sites/default/files/2018-08/Screen%20Shot%202018-08-20%20at%2010.21.54_0.png',
+      url: 'http://foo.bar.com/image.png',
     },
   };
 }
@@ -114,6 +124,11 @@ function flatPageContent() {
     description: {
       raw: '<p>Foo article description</p>',
       sanitized: '<p>Foo article description</p>',
+      summary: '',
+    },
+    thumbnail: {
+      alt: undefined,
+      url: undefined,
     },
     standFirst: 'Foo article stand first',
   };
@@ -160,4 +175,18 @@ function seasonContent() {
       },
     },
   ];
+}
+
+function landingPageContent() {
+  return {
+    id: 1,
+    title: 'Landing page title',
+    type: 'landing-page',
+    featuredContentId: 3602,
+    description: {
+      raw: '<p>bar description</p>',
+      sanitized: '<p>bar description</p>',
+      summary: 'Foo bar summary',
+    },
+  };
 }

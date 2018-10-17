@@ -2,6 +2,8 @@ const R = require('ramda');
 
 const config = require('../config');
 const { HUB_CONTENT_TYPES } = require('../constants/hub');
+const { parseHubContentResponse } = require('../utils/index');
+
 
 const {
   idFrom,
@@ -20,6 +22,7 @@ const {
   seasonFrom,
   standFirstFrom,
   nameFrom,
+  landingFeaturedContentIdFrom,
 } = require('../selectors/hub');
 
 
@@ -42,6 +45,11 @@ module.exports = function hubContentRepository(httpClient) {
     return parseSeasonResponse(response);
   }
 
+  async function featuredContentFor(id) {
+    const response = await httpClient.get(`${config.api.hubContent}/${id}`);
+    return parseHubContentResponse(response);
+  }
+
   function parseTermResponse(data) {
     if (data === null) return null;
     return {
@@ -49,10 +57,26 @@ module.exports = function hubContentRepository(httpClient) {
     };
   }
 
+  function parseLandingResponse(data) {
+    if (data === null) return null;
+
+    return {
+      id: idFrom(data),
+      title: titleFrom(data),
+      type: typeFrom(data),
+      featuredContentId: landingFeaturedContentIdFrom(data),
+      description: {
+        raw: descriptionValueFrom(data),
+        sanitized: descriptionProcessedFrom(data),
+        summary: summaryValueFrom(data),
+      },
+    };
+  }
+
   function parseResponse(data) {
     if (data === null) return null;
 
-    const type = HUB_CONTENT_TYPES[contentTypeFrom(data)];
+    const type = typeFrom(data);
 
     switch (type) {
       case 'video':
@@ -60,6 +84,8 @@ module.exports = function hubContentRepository(httpClient) {
         return parseMediaResponse(data);
       case 'page':
         return parseFlatPageContent(data);
+      case 'landing-page':
+        return parseLandingResponse(data);
       default:
         return null;
     }
@@ -68,7 +94,7 @@ module.exports = function hubContentRepository(httpClient) {
   function parseMediaResponse(data) {
     if (data === null) return null;
 
-    const type = HUB_CONTENT_TYPES[contentTypeFrom(data)];
+    const type = typeFrom(data);
 
     return {
       id: idFrom(data),
@@ -97,12 +123,17 @@ module.exports = function hubContentRepository(httpClient) {
     return {
       id: idFrom(data),
       title: titleFrom(data),
-      type: HUB_CONTENT_TYPES[contentTypeFrom(data)],
+      type: typeFrom(data),
       description: {
         raw: descriptionValueFrom(data),
         sanitized: descriptionProcessedFrom(data),
+        summary: summaryValueFrom(data),
       },
       standFirst: standFirstFrom(data),
+      thumbnail: {
+        alt: imageAltFrom(data),
+        url: imageUrlFrom(data),
+      },
     };
   }
 
@@ -119,9 +150,14 @@ module.exports = function hubContentRepository(httpClient) {
     return season(data);
   }
 
+  function typeFrom(data) {
+    return HUB_CONTENT_TYPES[contentTypeFrom(data)];
+  }
+
   return {
     contentFor,
     termFor,
     seasonFor,
+    featuredContentFor,
   };
 };

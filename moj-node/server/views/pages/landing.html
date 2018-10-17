@@ -30,18 +30,25 @@
       }) }}
 {% endblock %}
 
-{% block landingpageheader %}
-
-  {{ hubLandingPageHeader({ data: 'red' }) }}
-
-  {{ hubSubMenu({
-    data: landingpagesubmenudata
-  }) }}
-
+{% block main %}
+  {{ hubLandingPageHeader({
+      title: data.title,
+      description: data.description,
+      featuredContent: data.featuredContent
+    })
+  }}
 {% endblock %}
 
-{% block content %}
+
+
+
+  {# {{ hubSubMenu({
+    data: landingpagesubmenudata
+  }) }} #}
+
+
+{# {% block content %}
   {{ hubYouMightLike({
     data: youmightlikedata
   }) }}
-{% endblock %}
+{% endblock %} #}

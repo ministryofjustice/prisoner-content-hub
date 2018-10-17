@@ -1,8 +1,8 @@
 const {
   prop,
   filter,
-  propEq,
   not,
+  equals,
 } = require('ramda');
 
 module.exports = function createHubContentService(repository) {
@@ -14,6 +14,8 @@ module.exports = function createHubContentService(repository) {
       case 'radio':
       case 'video':
         return media(result);
+      case 'landing-page':
+        return landingPage(result);
       default:
         return result;
     }
@@ -24,13 +26,23 @@ module.exports = function createHubContentService(repository) {
     const seriesId = prop('seriesId', data);
 
     const series = await repository.termFor(seriesId);
-    const season = await repository.seasonFor(seriesId);
-    const filterOutCurrentEpisode = filter(item => not(propEq('id', id, item)));
+    const seasons = await repository.seasonFor(seriesId);
+    const filterOutCurrentEpisode = filter(item => not(equals(prop('id', item), id)));
 
     return {
       ...data,
       seriesName: prop('name', series),
-      season: season ? filterOutCurrentEpisode(season) : season,
+      season: seasons ? filterOutCurrentEpisode(seasons) : seasons,
+    };
+  }
+
+  async function landingPage(data) {
+    const featuredContentId = prop('featuredContentId', data);
+    const featuredContent = await repository.contentFor(featuredContentId);
+
+    return {
+      ...data,
+      featuredContent,
     };
   }
 

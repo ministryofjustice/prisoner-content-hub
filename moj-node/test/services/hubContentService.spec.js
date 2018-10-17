@@ -1,7 +1,7 @@
 const createHubContentService = require('../../server/services/hubContent');
 
 describe('#hubContentService', () => {
-  it('returns an content', async () => {
+  it('returns content for a given ID', async () => {
     const repository = {
       contentFor: sinon.stub().returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
     };
@@ -69,5 +69,40 @@ describe('#hubContentService', () => {
 
     expect(repository.termFor.lastCall.args[0]).to.equal('seriesId');
     expect(repository.seasonFor.lastCall.args[0]).to.equal('seriesId');
+  });
+
+
+  describe('landing page', () => {
+    const content = {
+      type: 'landing-page',
+      featuredContentId: 'featuredContentId',
+    };
+
+    const createRepository = () => ({
+      contentFor: sinon.stub()
+        .onFirstCall()
+        .returns(content)
+        .onSecondCall()
+        .returns('something'),
+    });
+
+    it('returns landing page content', async () => {
+      const repository = createRepository();
+      const service = createHubContentService(repository);
+      const result = await service.contentFor(content.id);
+
+      expect(result).to.have.property('type', content.type);
+      expect(result).to.have.property('featuredContentId', content.featuredContentId);
+      expect(result).to.have.property('featuredContent', 'something');
+    });
+
+    it('calls for the featured content', async () => {
+      const repository = createRepository();
+      const service = createHubContentService(repository);
+
+      await service.contentFor(content.id);
+
+      expect(repository.contentFor.lastCall.lastArg).to.equal(content.featuredContentId);
+    });
   });
 });

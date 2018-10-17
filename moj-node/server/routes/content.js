@@ -36,6 +36,11 @@ module.exports = function createContentRouter({
             data,
             backHomeEnabled: true,
           });
+        case 'landing-page':
+          return res.render('pages/landing', {
+            data,
+            backHomeEnabled: true,
+          });
         default:
           // send to the 404 page
           return next();

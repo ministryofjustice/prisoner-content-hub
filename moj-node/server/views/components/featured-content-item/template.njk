@@ -1,3 +1,25 @@
+{%  set icon = {
+  video: "icon-movie",
+  page: "icon-document",
+  pdf: "icon-document",
+  radio: "icon-music"
+}
+%}
+
+{% set linkText = {
+  video: "Watch",
+  page: "Read",
+  pdf: "Read",
+  radio: "Listen"
+}%}
+
+{% set linkIcon = {
+  video: "icon-play",
+  page: "icon-link",
+  pdf: "icon-link",
+  radio: "icon-play"
+}%}
+
 <a data-featured-id="{{ params.id }}" class="govuk-hub-featured-link" href="/content/{{ params.id }}">
   <article class="govuk-hub-featured-content-item {{ params.size }}">
       <div data-featured-item-background class="govuk-hub-featured-content-item__image" style="background-image:url({{ params.graphic.url }})">
@@ -7,8 +29,8 @@
           </header>
           <div class="govuk-hub-featured-content-item__main">
             <p class="govuk-hub-featured-content-item__description govuk-body">{{ params.summary }}</p>
-            <div title="{{ params.linktext }}" class="govuk-hub-featured-content-item-icon govuk-hub-featured-content-item__main-play govuk-link"><span class="{{ params.linkIcon }}"><span class="path1"></span><span class="path2"></span></span><span class="space">{{ params.linktext }}</span></div>
-            <span class="govuk-hub-featured-content-item__main-icon {%- if params.icon %} {{ params.icon }}{% endif -%}">
+            <div title="{{ linkText[params.contentType] }}" class="govuk-hub-featured-content-item-icon govuk-hub-featured-content-item__main-play govuk-link"><span class="{{ linkIcon[params.contentType] }}"><span class="path1"></span><span class="path2"></span></span><span class="space">{{ linkText[params.contentType] }}</span></div>
+            <span class="govuk-hub-featured-content-item__main-icon {{ icon[params.contentType] }}">
               <span data-featured-item-duration="{{ params.duration }}" class="govuk-body govuk-hub-featured-content-item__main-duration">{%- if params.duration %} {{ params.duration }}{% endif -%}</span>
             </span>
           </div>

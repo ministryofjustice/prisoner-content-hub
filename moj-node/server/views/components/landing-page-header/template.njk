@@ -1,24 +1,32 @@
 {% from "../featured-content-item/macro.njk" import hubFeaturedContentItem %}
 
-<div class="govuk-!-margin-bottom-6">
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-half">
-      <h1 class="govuk-heading-xl">Healthy mind and body</h1>
-      <p class="govuk-body-l">A parapgraph to introduce this section to briefly explain what the intentions of it are.</p>
-      <p class="govuk-body">Talk about who this content is relevant to in this space. And any other information you might want to highlight.</p>
-    </div>
-    <div class="govuk-grid-column-one-half">
-      {{ hubFeaturedContentItem({
-        title: 'Hello world',
-        description: 'This is a desciption',
-        size: 'large',
-        type: 'healthy-mind-body',
-        icon: 'icon-document',
-        linkclass: 'icon-link',
-        linktext: 'Clicky',
-        graphic: '/images/national-prison-radio.jpg',
-        link: '#'
-      }) }}
+<div class="govuk-hub-landing-page-header">
+  <div class="govuk-width-container">
+    <div class="govuk-main-wrapper">
+      <div class="govuk-!-margin-bottom-6">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-one-half govuk-!-padding-top-6">
+            <h1 id="title" class="govuk-heading-xl">{{ params.title }}</h1>
+            <p id="summary" class="govuk-body-l">{{ params.description.summary}}</p>
+            <div id="description" class="gov-uk-dynamic-content">
+              {{params.description.sanitized | safe }}
+            </div>
+          </div>
+
+          <div class="govuk-grid-column-one-half">
+            {{ hubFeaturedContentItem({
+                id: params.featuredContent.id,
+                title: params.featuredContent.title,
+                summary: params.featuredContent.description.summary,
+                size: 'large',
+                contentType: params.featuredContent.type,
+                graphic: params.featuredContent.thumbnail,
+                duration: params.featuredContent.duration
+              })
+            }}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
