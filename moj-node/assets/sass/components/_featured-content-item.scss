@@ -142,7 +142,6 @@ $gradient: $trans, $fifityPerecntBlack;
 }
 
 .govuk-hub-featured-content-item__category-stripe {
-
     height: 5px;
     width: 100%;
     display: inline-block;
@@ -153,41 +152,41 @@ $gradient: $trans, $fifityPerecntBlack;
     &.none {
         display: none;
     }
+}
 
-    &.news-events {
-        background: govuk-colour("red");
-    }
 
-    &.games {
-        background: govuk-colour("orange");
-    }
+.govuk-hub-news-events {
+  background-color: govuk-colour("red");
+}
 
-    &.music-games {
-        background: govuk-colour("bright-purple");
-    }
+.govuk-hub-games {
+  background-color: govuk-colour("orange");
+}
 
-    &.legal-and-your-rights {
-        background: govuk-colour("bright-purple");
-    }
+.govuk-hub-music-games {
+  background-color: govuk-colour("bright-purple");
+}
 
-    &.healthy-mind-body {
-        background: govuk-colour("turquoise");
-    }
+.govuk-hub-legal-and-your-rights {
+  background-color: govuk-colour("bright-purple");
+}
 
-    &.inspiration {
-        background: govuk-colour("yellow");
-    }
+.govuk-hub-healthy-mind-body {
+  background-color: govuk-colour("turquoise");
+}
 
-    &.science-nature {
-        background: govuk-colour("green");
-    }
+.govuk-hub-inspiration {
+  background-color: govuk-colour("yellow");
+}
 
-    &.art-culture {
-        background: govuk-colour("light-pink");
-    }
+.govuk-hub-science-nature {
+  background-color: govuk-colour("green");
+}
 
-    &.history {
-        background: govuk-colour("brown");
-    }
+.govuk-hub-art-culture {
+  background-color: govuk-colour("light-pink");
+}
 
+.govuk-hub-history {
+  background-color: govuk-colour("brown");
 }
