@@ -23,6 +23,7 @@ const {
   standFirstFrom,
   nameFrom,
   landingFeaturedContentIdFrom,
+  categoryIdFrom,
 } = require('../selectors/hub');
 
 
@@ -70,6 +71,7 @@ module.exports = function hubContentRepository(httpClient) {
         sanitized: descriptionProcessedFrom(data),
         summary: summaryValueFrom(data),
       },
+      categoryId: categoryIdFrom(data),
     };
   }
 

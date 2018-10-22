@@ -180,6 +180,7 @@ function seasonContent() {
 function landingPageContent() {
   return {
     id: 1,
+    categoryId: 655,
     title: 'Landing page title',
     type: 'landing-page',
     featuredContentId: 3602,
