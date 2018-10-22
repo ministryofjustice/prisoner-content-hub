@@ -2,10 +2,13 @@
 # Pull an image from docker hub, save it, transfer it to Berwyn and import to the local docker image repo
 set -e -u -o pipefail
 
-# Some terminal colour
-GREEN="[1;32m"
-DEF="[39m"
-STAR="${GREEN}*${DEF}"
+. util.sh
+
+# Used to prevent muxes hanging around
+rm_ctrl_socket() {
+  ssh ${ssh_mux_opts} root@berwyn.mycloudgateway.co.uk
+}
+trap rm_ctrl_socket EXIT
 
 main() {
   case ${1:-} in
@@ -41,19 +44,11 @@ transfer_image() {
   echo " [${STAR}] Pulling ${image}"
   sudo docker pull "${image}"
 
-  echo " [${STAR}] Saving image ${image} as ${filename}"
-  sudo docker save -o "/mnt/${filename}" "${image}"
-  sudo chmod 0644 "/mnt/${filename}"
-
   # We enable SSH compression in this transfer as the Berwyn connection isn't the fastest
   echo " [${STAR}] Transfering image to prod, you'll be prompted for the root password"
-  scp -q -C -o PasswordAuthentication=yes "/mnt/${filename}" root@berwyn.mycloudgateway.co.uk:~
+  sudo docker save "${image}" | pv -W | ssh ${ssh_opts} root@berwyn.mycloudgateway.co.uk "docker load"
 
-  echo " [${STAR}] Importing image to Berwyn local docker repo, you'll be prompted for the root password"
-  ssh -q -o PasswordAuthentication=yes root@berwyn.mycloudgateway.co.uk "docker load -i ${filename} && rm ${filename}"
-
-  echo " [${STAR}] Removing local copies"
-  sudo rm "/mnt/${filename}"
+  echo " [${STAR}] Removing local copy"
   sudo docker rmi "${image}"
 }
 
