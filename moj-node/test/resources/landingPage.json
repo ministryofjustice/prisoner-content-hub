@@ -116,7 +116,7 @@
   ],
   "field_moj_secondary_tags": [],
   "field_moj_series": [],
-  "field_moj_top_level_categories": [
+  "field_moj_landing_page_term": [
     {
       "target_id": 655,
       "target_type": "taxonomy_term",
