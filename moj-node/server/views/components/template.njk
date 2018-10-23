@@ -62,6 +62,8 @@
       </div>
     {% endif %}
 
+    {% block main %}{% endblock %}
+
     {% if config.content %}
       <div class="black-background govuk-!-margin-bottom-0 govuk-!-padding-top-9">
         <div class="govuk-width-container">
@@ -71,8 +73,6 @@
         </div>
       </div>
     {% endif %}
-
-    {% block main %}{% endblock %}
 
     {% if config.postscript %}
       {% block postscript %}{% endblock %}

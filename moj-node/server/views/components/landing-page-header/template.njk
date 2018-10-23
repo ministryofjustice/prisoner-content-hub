@@ -4,38 +4,37 @@
   "644": "news-events",
   "651": "art-culture",
   "648": "healthy-mind-body",
-  "647": "music-games",
   "646": "radio-shows-podcasts",
   "649": "inspiration",
   "650": "science-nature",
-  "643": "history"
+  "643": "history",
+  "786": "legal-and-your-rights",
+  "785": "music-games"
 } %}
 
-<div class="govuk-hub-landing-page-header govuk-hub-{{ categoryName[params.categoryId] }}">
+<div id="category-{{params.categoryId}}" class="govuk-hub-landing-page-header govuk-hub-{{ categoryName[params.categoryId] }}">
   <div class="govuk-width-container">
     <div class="govuk-main-wrapper">
-      <div class="govuk-!-margin-bottom-6">
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-one-half govuk-!-padding-top-6">
-            <h1 id="title" class="govuk-heading-xl">{{ params.title }}</h1>
-            <p id="summary" class="govuk-body-l">{{ params.description.summary}}</p>
-            <div id="description" class="gov-uk-dynamic-content">
-              {{params.description.sanitized | safe }}
-            </div>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half govuk-!-padding-top-6">
+          <h1 id="title" class="govuk-heading-xl">{{ params.title }}</h1>
+          <p id="summary" class="govuk-body-l">{{ params.description.summary}}</p>
+          <div id="description" class="gov-uk-dynamic-content">
+            {{params.description.sanitized | safe }}
           </div>
+        </div>
 
-          <div class="govuk-grid-column-one-half">
-            {{ hubFeaturedContentItem({
-                id: params.featuredContent.id,
-                title: params.featuredContent.title,
-                summary: params.featuredContent.description.summary,
-                size: 'large',
-                contentType: params.featuredContent.type,
-                graphic: params.featuredContent.thumbnail,
-                duration: params.featuredContent.duration
-              })
-            }}
-          </div>
+        <div class="govuk-grid-column-one-half">
+          {{ hubFeaturedContentItem({
+              id: params.featuredContent.id,
+              title: params.featuredContent.title,
+              summary: params.featuredContent.description.summary,
+              size: 'large',
+              contentType: params.featuredContent.type,
+              graphic: params.featuredContent.thumbnail,
+              duration: params.featuredContent.duration
+            })
+          }}
         </div>
       </div>
     </div>

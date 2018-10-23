@@ -7,17 +7,17 @@ const {
 
 module.exports = function createHubContentService(repository) {
   async function contentFor(id) {
-    const result = await repository.contentFor(id);
-    const type = prop('type', result);
+    const content = await repository.contentFor(id);
+    const type = prop('type', content);
 
     switch (type) {
       case 'radio':
       case 'video':
-        return media(result);
+        return media(content);
       case 'landing-page':
-        return landingPage(result);
+        return landingPage(content);
       default:
-        return result;
+        return content;
     }
   }
 
@@ -39,10 +39,13 @@ module.exports = function createHubContentService(repository) {
   async function landingPage(data) {
     const featuredContentId = prop('featuredContentId', data);
     const featuredContent = await repository.contentFor(featuredContentId);
+    const categoryId = prop('categoryId', data);
+    const relatedContent = await repository.relatedContentFor(categoryId);
 
     return {
       ...data,
       featuredContent,
+      relatedContent,
     };
   }
 

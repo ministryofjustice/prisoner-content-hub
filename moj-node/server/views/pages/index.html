@@ -26,6 +26,16 @@
   <![endif]-->
 {% endblock %}
 
+{% set categoryLinks = {
+  "news-events": "/content/3632",
+  "art-culture": "/content/3661",
+  "healthy-mind-body": "/content/3657",
+  "music-games": "/content/3662",
+  "inspiration": "/content/3659",
+  "science-nature": "/content/3660",
+  "legal-and-your-rights": "/content/3658"
+} %}
+
 {% block promotedContent %}
   {{ hubPromotedContent({
     data: promotionalContent
@@ -42,7 +52,7 @@
 
   {{ hubFeaturedContent({
     categoryTitle: "News and events",
-    categoryLink: "/",
+    categoryLink: categoryLinks["news-events"],
     columnNumber: "govuk-grid-column-one-quarter",
     data: newsAndEvents,
     size: "small",
@@ -55,7 +65,7 @@
 
   {{ hubFeaturedContent({
     categoryTitle: "Healthy mind and body",
-    categoryLink: "/",
+    categoryLink: categoryLinks["healthy-mind-body"],
     columnNumber: "govuk-grid-column-one-quarter",
     data: healthyMindAndBody,
     size: "small",
@@ -65,7 +75,7 @@
 
   {{ hubFeaturedContent({
     categoryTitle: "Legal advice and your rights",
-    categoryLink: "/",
+    categoryLink: categoryLinks["legal-and-your-rights"],
     columnNumber: "govuk-grid-column-one-quarter",
     data: legalAndYourRights,
     size: "small",
@@ -74,7 +84,7 @@
 
   {{ hubFeaturedContent({
     categoryTitle: "Inspiration",
-    categoryLink: "/",
+    categoryLink: categoryLinks["inspiration"],
     columnNumber: "govuk-grid-column-one-quarter",
     data: inspiration,
     size: "small",
@@ -84,7 +94,7 @@
 
   {{ hubFeaturedContent({
     categoryTitle: "Science and nature",
-    categoryLink: "/",
+    categoryLink: categoryLinks["science-nature"],
     columnNumber: "govuk-grid-column-one-quarter",
     data: scienceAndNature,
     size: "small",
@@ -93,7 +103,7 @@
 
   {{ hubFeaturedContent({
     categoryTitle: "Art and culture",
-    categoryLink: "/",
+    categoryLink: categoryLinks["art-culture"],
     columnNumber: "govuk-grid-column-one-quarter",
     data: artAndCulture,
     size: "small",
@@ -111,7 +121,7 @@
 
   {{ hubFeaturedContent({
     categoryTitle: "Music and games",
-    categoryLink: "/",
+    categoryLink: categoryLinks["music-games"],
     columnNumber: "govuk-grid-column-one-quarter",
     data: musicAndGames,
     size: "small",

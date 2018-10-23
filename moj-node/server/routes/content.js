@@ -38,6 +38,7 @@ module.exports = function createContentRouter({
           });
         case 'landing-page':
           return res.render('pages/landing', {
+            config,
             data,
             backHomeEnabled: true,
           });
