@@ -1,0 +1,386 @@
+{
+  "3018": {
+    "nid": [
+      {
+        "value": 3018
+      }
+    ],
+    "uuid": [
+      {
+        "value": "8724147a-ac4a-47cf-ae3a-6acb57817f7b"
+      }
+    ],
+    "vid": [
+      {
+        "value": 3018
+      }
+    ],
+    "langcode": [
+      {
+        "value": "en"
+      }
+    ],
+    "type": [
+      {
+        "target_id": "moj_radio_item",
+        "target_type": "node_type",
+        "target_uuid": "792973a0-b235-452a-a211-1705dab79732"
+      }
+    ],
+    "revision_timestamp": [
+      {
+        "value": 1497262063
+      }
+    ],
+    "revision_uid": [
+      {
+        "target_id": 197,
+        "target_type": "user",
+        "target_uuid": "51b61c1d-5d28-46df-8561-45d1954ebdc4",
+        "url": "/user/197"
+      }
+    ],
+    "revision_log": [],
+    "status": [
+      {
+        "value": true
+      }
+    ],
+    "title": [
+      {
+        "value": "Foobar bar"
+      }
+    ],
+    "uid": [
+      {
+        "target_id": 197,
+        "target_type": "user",
+        "target_uuid": "51b61c1d-5d28-46df-8561-45d1954ebdc4",
+        "url": "/user/197"
+      }
+    ],
+    "created": [
+      {
+        "value": 1497262046
+      }
+    ],
+    "changed": [
+      {
+        "value": 1537283892
+      }
+    ],
+    "promote": [
+      {
+        "value": false
+      }
+    ],
+    "sticky": [
+      {
+        "value": false
+      }
+    ],
+    "default_langcode": [
+      {
+        "value": true
+      }
+    ],
+    "revision_translation_affected": [
+      {
+        "value": true
+      }
+    ],
+    "content_translation_source": [
+      {
+        "value": "und"
+      }
+    ],
+    "content_translation_outdated": [
+      {
+        "value": false
+      }
+    ],
+    "path": [
+      {
+        "alias": null,
+        "pid": null,
+        "langcode": "en"
+      }
+    ],
+    "menu_link": [],
+    "field_moj_audio": [
+      {
+        "target_id": 8681,
+        "display": true,
+        "description": "",
+        "target_type": "file",
+        "target_uuid": "2884ff98-632f-4051-84dc-dca9bbc9d49b",
+        "url": "http://foo.bar.mp3"
+      }
+    ],
+    "field_moj_categories": [
+      {
+        "target_id": 25
+      }
+    ],
+    "field_moj_date": [],
+    "field_moj_description": [
+      {
+        "value": "<p>Liverpool Takeover 11 April 2017.</p>\r\n",
+        "format": "basic_html",
+        "processed": "<p>Liverpool Takeover 11 April 2017.</p>",
+        "summary": ""
+      }
+    ],
+    "field_moj_duration": [
+      {
+        "value": "51:20"
+      }
+    ],
+    "field_moj_episode": [
+      {
+        "value": 8
+      }
+    ],
+    "field_moj_season": [
+      {
+        "value": 1
+      }
+    ],
+    "field_moj_series": [
+      {
+        "target_id": 664,
+        "target_type": "taxonomy_term",
+        "target_uuid": "730f40c4-1f18-4f8c-811c-1a8073fb6446",
+        "url": "/taxonomy/term/664"
+      }
+    ],
+    "field_moj_tags": [
+      {
+        "target_id": 727,
+        "target_type": "taxonomy_term",
+        "target_uuid": "29809af0-ad9b-4997-963d-42ef233efeea",
+        "url": "/taxonomy/term/727"
+      },
+      {
+        "target_id": 721,
+        "target_type": "taxonomy_term",
+        "target_uuid": "ed3a88bd-b7c8-4e6c-b41c-38d4c59665cd",
+        "url": "/taxonomy/term/721"
+      }
+    ],
+    "field_moj_thumbnail_image": [
+      {
+        "target_id": 9786,
+        "alt": "",
+        "title": "",
+        "width": 2012,
+        "height": 1227,
+        "target_type": "file",
+        "target_uuid": "f13c5479-5874-4b6b-98db-3cc012bad436",
+        "url": "http://foo.bar.jpg"
+      }
+    ],
+    "field_moj_top_level_categories": [
+      {
+        "target_id": 646,
+        "target_type": "taxonomy_term",
+        "target_uuid": "cc2b69b2-843b-4c77-b1ad-07d9a9acced4",
+        "url": "/taxonomy/term/646"
+      }
+    ],
+    "field_moj_weight": [],
+    "field_related_prisons": []
+  },
+  "3341": {
+    "nid": [
+      {
+        "value": 3341
+      }
+    ],
+    "uuid": [
+      {
+        "value": "cab16f44-163f-4da4-80b7-ed1cbda0e645"
+      }
+    ],
+    "vid": [
+      {
+        "value": 3341
+      }
+    ],
+    "langcode": [
+      {
+        "value": "en"
+      }
+    ],
+    "type": [
+      {
+        "target_id": "moj_radio_item",
+        "target_type": "node_type",
+        "target_uuid": "792973a0-b235-452a-a211-1705dab79732"
+      }
+    ],
+    "revision_timestamp": [
+      {
+        "value": 1517576147
+      }
+    ],
+    "revision_uid": [
+      {
+        "target_id": 197,
+        "target_type": "user",
+        "target_uuid": "51b61c1d-5d28-46df-8561-45d1954ebdc4",
+        "url": "/user/197"
+      }
+    ],
+    "revision_log": [],
+    "status": [
+      {
+        "value": true
+      }
+    ],
+    "title": [
+      {
+        "value": "Baz bar"
+      }
+    ],
+    "uid": [
+      {
+        "target_id": 197,
+        "target_type": "user",
+        "target_uuid": "51b61c1d-5d28-46df-8561-45d1954ebdc4",
+        "url": "/user/197"
+      }
+    ],
+    "created": [
+      {
+        "value": 1517576115
+      }
+    ],
+    "changed": [
+      {
+        "value": 1537284295
+      }
+    ],
+    "promote": [
+      {
+        "value": false
+      }
+    ],
+    "sticky": [
+      {
+        "value": false
+      }
+    ],
+    "default_langcode": [
+      {
+        "value": true
+      }
+    ],
+    "revision_translation_affected": [
+      {
+        "value": true
+      }
+    ],
+    "content_translation_source": [
+      {
+        "value": "und"
+      }
+    ],
+    "content_translation_outdated": [
+      {
+        "value": false
+      }
+    ],
+    "path": [
+      {
+        "alias": null,
+        "pid": null,
+        "langcode": "en"
+      }
+    ],
+    "menu_link": [],
+    "field_moj_audio": [
+      {
+        "target_id": 9274,
+        "display": true,
+        "description": "",
+        "target_type": "file",
+        "target_uuid": "e616d033-9e70-4f08-ab8d-b20122cd25a9",
+        "url": "http://foo.bar.mp3"
+      }
+    ],
+    "field_moj_categories": [
+      {
+        "target_id": 25
+      }
+    ],
+    "field_moj_date": [],
+    "field_moj_description": [
+      {
+        "value": "<p>Takeover from 5 September 2017.</p>\r\n",
+        "format": "basic_html",
+        "processed": "<p>Takeover from 5 September 2017.</p>",
+        "summary": ""
+      }
+    ],
+    "field_moj_duration": [
+      {
+        "value": "51:04"
+      }
+    ],
+    "field_moj_episode": [
+      {
+        "value": 2
+      }
+    ],
+    "field_moj_season": [
+      {
+        "value": 1
+      }
+    ],
+    "field_moj_series": [
+      {
+        "target_id": 664,
+        "target_type": "taxonomy_term",
+        "target_uuid": "730f40c4-1f18-4f8c-811c-1a8073fb6446",
+        "url": "/taxonomy/term/664"
+      }
+    ],
+    "field_moj_tags": [
+      {
+        "target_id": 727,
+        "target_type": "taxonomy_term",
+        "target_uuid": "29809af0-ad9b-4997-963d-42ef233efeea",
+        "url": "/taxonomy/term/727"
+      },
+      {
+        "target_id": 721,
+        "target_type": "taxonomy_term",
+        "target_uuid": "ed3a88bd-b7c8-4e6c-b41c-38d4c59665cd",
+        "url": "/taxonomy/term/721"
+      }
+    ],
+    "field_moj_thumbnail_image": [
+      {
+        "target_id": 9792,
+        "alt": "",
+        "title": "",
+        "width": 2012,
+        "height": 1227,
+        "target_type": "file",
+        "target_uuid": "9f8ec9cf-9186-4e3f-a652-5997c35cfc70",
+        "url": "http://foo.bar.jpg"
+      }
+    ],
+    "field_moj_top_level_categories": [
+      {
+        "target_id": 646,
+        "target_type": "taxonomy_term",
+        "target_uuid": "cc2b69b2-843b-4c77-b1ad-07d9a9acced4",
+        "url": "/taxonomy/term/646"
+      }
+    ],
+    "field_moj_weight": [],
+    "field_related_prisons": []
+  }
+}

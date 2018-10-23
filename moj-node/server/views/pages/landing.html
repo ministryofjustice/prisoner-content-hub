@@ -40,16 +40,13 @@
   }}
 {% endblock %}
 
-
-
-
-  {# {{ hubSubMenu({
-    data: landingpagesubmenudata
-  }) }} #}
-
-
-{# {% block content %}
+{% block content %}
   {{ hubYouMightLike({
-    data: youmightlikedata
+    data: data.relatedContent
   }) }}
-{% endblock %} #}
+{% endblock %}
+
+{# {{ hubSubMenu({
+  data: landingpagesubmenudata
+}) }} #}
+

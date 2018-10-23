@@ -51,6 +51,11 @@ module.exports = function hubContentRepository(httpClient) {
     return parseHubContentResponse(response);
   }
 
+  async function relatedContentFor(id) {
+    const response = await httpClient.get(`${config.api.hubContent}/related`, { _category: id });
+    return parseHubContentResponse(response);
+  }
+
   function parseTermResponse(data) {
     if (data === null) return null;
     return {
@@ -161,5 +166,6 @@ module.exports = function hubContentRepository(httpClient) {
     termFor,
     seasonFor,
     featuredContentFor,
+    relatedContentFor,
   };
 };

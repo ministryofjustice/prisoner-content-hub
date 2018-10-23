@@ -1,25 +1,26 @@
 {% from "../featured-content-item/macro.njk" import hubFeaturedContentItem %}
 
-<section>
+<section id="related-contents">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-      <h3 class="govuk-heading-m govuk-hub-you-might-like__title">{{ params.data.category_title }}</h3>
+      <h3 class="govuk-heading-m govuk-hub-you-might-like__title">You might like</h3>
     </div>
   </div>
   <div class="govuk-grid-row content-items">
-    {% for name, item in params.data.items %}
-      <div class="item {{ item.grid }}">
-          {{ hubFeaturedContentItem({
+    {% for item in params.data %}
+      <div class="item govuk-grid-column-one-quarter">
+        {{
+          hubFeaturedContentItem({
+            id: item.id,
             title: item.title,
-            description: item.description,
-            size: item.size,
-            type: item.type,
-            icon: item.icon,
-            linkclass: item.linkclass,
-            linktext: item.linktext,
-            graphic: item.graphic,
-            link: item.link
-          }) }}
+            summary: item.summary,
+            size: "small",
+            type: params.contentType,
+            contentType: item.contentType,
+            graphic: item.image,
+            duration: item.duration
+          })
+        }}
       </div>
     {% endfor %}
   </div>

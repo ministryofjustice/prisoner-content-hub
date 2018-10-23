@@ -76,9 +76,11 @@ describe('#hubContentService', () => {
     const content = {
       type: 'landing-page',
       featuredContentId: 'featuredContentId',
+      categoryId: 'categoryId',
     };
 
     const createRepository = () => ({
+      relatedContentFor: sinon.stub().returns('relatedContent'),
       contentFor: sinon.stub()
         .onFirstCall()
         .returns(content)
@@ -92,8 +94,9 @@ describe('#hubContentService', () => {
       const result = await service.contentFor(content.id);
 
       expect(result).to.have.property('type', content.type);
-      expect(result).to.have.property('featuredContentId', content.featuredContentId);
+      expect(result).to.have.property('featuredContentId', 'featuredContentId');
       expect(result).to.have.property('featuredContent', 'something');
+      expect(result).to.have.property('relatedContent', 'relatedContent');
     });
 
     it('calls for the featured content', async () => {
@@ -102,7 +105,16 @@ describe('#hubContentService', () => {
 
       await service.contentFor(content.id);
 
-      expect(repository.contentFor.lastCall.lastArg).to.equal(content.featuredContentId);
+      expect(repository.contentFor.lastCall.lastArg).to.equal('featuredContentId', `the featuredContentId was supposed to be ${content.featuredContentId}`);
+    });
+
+    it('calls for the related content', async () => {
+      const repository = createRepository();
+      const service = createHubContentService(repository);
+
+      await service.contentFor(content.id);
+
+      expect(repository.relatedContentFor.lastCall.lastArg).to.equal('categoryId', `the categoryId was supposed to be "${content.categoryId}"`);
     });
   });
 });

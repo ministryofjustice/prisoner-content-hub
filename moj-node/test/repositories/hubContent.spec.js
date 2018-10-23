@@ -6,6 +6,7 @@ const termsResponse = require('../resources/terms.json');
 const flatPageContentResponse = require('../resources/flatPageContent.json');
 const seasonResponse = require('../resources/season.json');
 const landingPageResponse = require('../resources/landingPage.json');
+const relatedContentResponse = require('../resources/relatedContent.json');
 
 describe('hubContentRepository', () => {
   it('returns formated data for radio shows', async () => {
@@ -26,7 +27,7 @@ describe('hubContentRepository', () => {
     expect(client.get.lastCall.args[0]).to.include('id');
   });
 
-  it('returns formatted terms data', async () => {
+  it('returns formated data for terms', async () => {
     const client = generateClient(termsResponse);
     const repository = hubContentRepository(client);
     const content = await repository.termFor('id');
@@ -60,6 +61,15 @@ describe('hubContentRepository', () => {
 
     expect(content).to.eql(landingPageContent());
     expect(client.get.lastCall.args[0]).to.include('id');
+  });
+
+  it('returns formated data for related content', async () => {
+    const client = generateClient(relatedContentResponse);
+    const repository = hubContentRepository(client);
+    const content = await repository.relatedContentFor('id');
+
+    expect(content).to.eql(relatedContent());
+    expect(JSON.stringify(client.get.lastCall.args[1])).to.include('id');
   });
 });
 
@@ -190,4 +200,29 @@ function landingPageContent() {
       summary: 'Foo bar summary',
     },
   };
+}
+
+function relatedContent() {
+  return [{
+    id: 3018,
+    title: 'Foobar bar',
+    contentType: 'radio',
+    summary: '',
+    image: {
+      url: 'http://foo.bar.jpg',
+      alt: '',
+    },
+    duration: '51:20',
+  },
+  {
+    id: 3341,
+    title: 'Baz bar',
+    contentType: 'radio',
+    summary: '',
+    image: {
+      url: 'http://foo.bar.jpg',
+      alt: '',
+    },
+    duration: '51:04',
+  }];
 }
