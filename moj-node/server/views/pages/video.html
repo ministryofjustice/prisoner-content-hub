@@ -61,8 +61,10 @@
 
     <header class="govuk-hub-media-player__header">
       <img width="100" height="100" id="thumbnail" src="{{ data.thumbnail.url }}" alt="{{ data.thumbnail.alt }}" class="govuk-hub-media-player__show-tag">
-      <p class="govuk-hub-media-player__catgeory govuk-heading-m"><a href="#" id="series" title="" class="govuk-link govuk-hub-media-player__catgeory-link">{{ data.seriesName }}</a></p>
-      <h1 id="title" class="govuk-hub-media-player__title govuk-heading-xl govuk-body govuk-!-font-size-36 govuk-body govuk-!-font-weight-bold">{{ data.title }}</h1>
+      <div class="govuk-hub-title-container">
+        <p class="govuk-hub-media-player__catgeory govuk-heading-m"><a href="#" id="series" title="" class="govuk-link govuk-hub-media-player__catgeory-link">{{ data.seriesName }}</a></p>
+        <h1 id="title" class="govuk-hub-media-player__title govuk-heading-xl govuk-body govuk-!-font-size-36 govuk-body govuk-!-font-weight-bold">{{ data.title }}</h1>
+      </div>
     </header>
 
     <div class="govuk-hub-media-player__player govuk-hub-media-video">
