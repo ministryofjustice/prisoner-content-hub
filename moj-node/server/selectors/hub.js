@@ -17,4 +17,4 @@ module.exports.seasonFrom = R.view(R.lensPath(['field_moj_season', 0, 'value']))
 module.exports.standFirstFrom = R.view(R.lensPath(['field_moj_stand_first', 0, 'value']));
 module.exports.nameFrom = R.view(R.lensPath(['name', 0, 'value']));
 module.exports.landingFeaturedContentIdFrom = R.view(R.lensPath(['field_moj_landing_feature_contet', 0, 'target_id']));
-module.exports.categoryIdFrom = R.view(R.lensPath(['field_moj_top_level_categories', 0, 'target_id']));
+module.exports.categoryIdFrom = R.view(R.lensPath(['field_moj_landing_page_term', 0, 'target_id']));
