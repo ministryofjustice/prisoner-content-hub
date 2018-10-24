@@ -18,6 +18,15 @@ function hubFeaturedContentRepository(httpClient) {
     });
   }
 
+  function dayToDay() {
+    return hubContentFor({
+      query: {
+        _number: 4,
+        _category: 787,
+      },
+    });
+  }
+
   function artAndCulture() {
     return hubContentFor({
       query: {
@@ -94,6 +103,7 @@ function hubFeaturedContentRepository(httpClient) {
   return {
     hubContentFor,
     newsAndEvents,
+    dayToDay,
     artAndCulture,
     healthyMindAndBody,
     games,

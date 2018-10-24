@@ -28,6 +28,7 @@
 
 {% set categoryLinks = {
   "news-events": "/content/3632",
+  "Day-to-day": "/content/3663",
   "art-culture": "/content/3661",
   "healthy-mind-body": "/content/3657",
   "music-games": "/content/3662",
@@ -59,6 +60,15 @@
     contentType: "news-events"
   }) }}
 
+{{ hubFeaturedContent({
+    categoryTitle: "Day-to-day",
+    categoryLink: categoryLinks["Day-to-day"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: dayToDay,
+    size: "small",
+    contentType: "Day-to-day"
+  }) }}
+  
   {# {{ hubFeaturedContent({
     data: gamedata
   }) }} #}
