@@ -3,6 +3,7 @@ module.exports = function createHubFeaturedContentService(repository) {
     try {
       const [
         newsAndEvents,
+        dayToDay,
         games,
         musicAndGames,
         healthyMindAndBody,
@@ -13,6 +14,7 @@ module.exports = function createHubFeaturedContentService(repository) {
         legalAndYourRights,
       ] = await Promise.all([
         repository.newsAndEvents(),
+        repository.dayToDay(),
         repository.games(),
         repository.musicAndGames(),
         repository.healthyMindAndBody(),
@@ -25,6 +27,7 @@ module.exports = function createHubFeaturedContentService(repository) {
 
       return {
         newsAndEvents,
+        dayToDay,
         games,
         musicAndGames,
         healthyMindAndBody,

@@ -91,6 +91,10 @@
         background: govuk-colour("red");
     }
 
+    &.day-to-day {
+        background: govuk-colour("blue");
+    }
+
     &.games {
         background: govuk-colour("orange");
     }
