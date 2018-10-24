@@ -94,7 +94,11 @@ class RelatedContentApiClass
             ->accessCheck(false);
 
         if ($category !== 0) {
-            $results->condition('field_moj_top_level_categories', $category);
+            $group = $results
+                ->orConditionGroup()
+                ->condition('field_moj_top_level_categories', $category)
+                ->condition('field_moj_tags', $category);
+            $results->condition($group);
         };
         return $results->execute();
     }
