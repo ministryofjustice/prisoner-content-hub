@@ -16,7 +16,7 @@ const hubRepository = {
 };
 
 
-  describe('hubFeaturedService', () => {
+describe('hubFeaturedService', () => {
   describe('#hubFeaturedContent', () => {
     it('returns featured content', async () => {
       const service = createHubFeaturedContentService(hubRepository);
