@@ -4,7 +4,6 @@
 
 {% extends "../components/template.njk" %}
 
-
 {% block head %}
   <!--[if !IE 8]><!-->
     <link href="/public/stylesheets/application.css" rel="stylesheet" />
@@ -27,7 +26,7 @@
         mainMenu: mainMenu,
         topicsMenu: topicsMenu,
         appName: envVars.APP_NAME
-      }) }}
+  }) }}
 {% endblock %}
 
 {% block main %}
@@ -41,17 +40,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-      <h3 class="govuk-heading-m govuk-hub-related-content__title">You might like</h3>
-    </div>
-  </div>
   {{ hubRelatedContent({
     data: data.relatedContent
   }) }}
 {% endblock %}
-
-{# {{ hubSubMenu({
-  data: landingpagesubmenudata
-}) }} #}
-
