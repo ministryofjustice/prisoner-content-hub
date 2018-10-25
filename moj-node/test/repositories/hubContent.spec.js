@@ -32,7 +32,13 @@ describe('hubContentRepository', () => {
     const repository = hubContentRepository(client);
     const content = await repository.termFor('id');
 
-    expect(content).to.eql({ name: 'Foo terms' });
+    expect(content).to.eql({
+      name: 'Foo terms',
+      description: {
+        raw: '<p>foo description</p>',
+        sanitized: '<p>foo description</p>',
+      },
+    });
     expect(client.get.lastCall.args[0]).to.include('id');
   });
 

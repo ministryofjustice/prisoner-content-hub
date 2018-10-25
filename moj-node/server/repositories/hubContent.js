@@ -11,6 +11,8 @@ const {
   contentTypeFrom,
   descriptionValueFrom,
   descriptionProcessedFrom,
+  termDescriptionValueFrom,
+  termDescriptionProcessedFrom,
   summaryValueFrom,
   imageAltFrom,
   imageUrlFrom,
@@ -60,6 +62,10 @@ module.exports = function hubContentRepository(httpClient) {
     if (data === null) return null;
     return {
       name: nameFrom(data),
+      description: {
+        raw: termDescriptionValueFrom(data),
+        sanitized: termDescriptionProcessedFrom(data),
+      },
     };
   }
 

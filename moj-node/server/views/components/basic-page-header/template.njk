@@ -1,0 +1,20 @@
+<div id="category-{{params.id}}" class="govuk-hub-landing-page-header govuk-hub-dark">
+  <div class="govuk-width-container">
+    <div class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half govuk-!-padding-top-6">
+          <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-5">{{ params.title }}</h1>
+          {% if params.description.summary %}
+            <p id="summary" class="govuk-body-l">{{ params.description.summary}}</p>
+          {% endif %}
+
+          {% if params.description.sanitized %}
+            <div id="description" class="gov-uk-dynamic-content govuk-body-l">
+              {{params.description.sanitized | safe }}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

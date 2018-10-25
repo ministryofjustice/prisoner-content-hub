@@ -1,5 +1,6 @@
 {% from "../components/header/macro.njk" import govukHeaderWithBack %}
 {% from "../components/sub-menu/macro.njk" import hubSubMenu %}
+{% from "../components/basic-page-header/macro.njk" import basicPageHeader %}
 {% from "../components/related-content/macro.njk" import hubRelatedContent %}
 
 {% extends "../components/template.njk" %}
@@ -30,10 +31,9 @@
 {% endblock %}
 
 {% block main %}
-  {{ hubLandingPageHeader({
-      title: data.title,
+  {{ basicPageHeader({
+      title: data.name,
       description: data.description,
-      featuredContent: data.featuredContent,
       categoryId: data.categoryId
     })
   }}

@@ -178,7 +178,6 @@ describe('GET /content/:id', () => {
           expect($('#description').text()).to.include('Foo landing page body', 'Page description did not match');
           expect($('[data-featured-id="foo-id"]').text()).to.include('foo-feature-title', 'featured item title did not match');
           expect($('[data-featured-id="foo-id"]').text()).to.include('foo-feature-summary', 'featured item summary did not match');
-
           expect($('.content-items .item').length).to.equal(2, 'it did not render the correct number of related items');
         });
     });

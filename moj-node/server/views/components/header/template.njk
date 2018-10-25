@@ -25,12 +25,11 @@
       </span>
     </p>
   </div>
-
+  {% if false %}
   <div class="govuk-hub-header__bottombar">
     <div class="govuk-width-container  govuk-!-margin-bottom-5">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full govuk-hub-align-right">
-          {% if false %}
           <ul id="language" class="govuk-hub-language-toggle" aria-label="Language Toggle">
             <li class="govuk-hub-language-toggle__item">
                 <a class="govuk-hub-language-toggle__link govuk-hub-language-toggle__link--active" href="{{ item.href }}">
@@ -43,11 +42,12 @@
               </a>
             </li>
           </ul>
-          {% endif %}
         </div>
       </div>
     </div>
   </div>
+ {% endif %}
+
 
 {% if false %}
 {%- include "../navigation-menu/navigation-menu.njk" -%}
