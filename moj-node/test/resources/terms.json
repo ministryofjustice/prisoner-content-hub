@@ -28,9 +28,9 @@
     ],
     "description": [
         {
-            "value": null,
-            "format": null,
-            "processed": ""
+            "value": "<p>foo description</p>",
+            "format": "basic_html",
+            "processed": "<p>foo description</p>"
         }
     ],
     "weight": [

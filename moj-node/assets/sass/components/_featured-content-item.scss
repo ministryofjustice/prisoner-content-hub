@@ -3,6 +3,7 @@ $fifityPerecntBlack: rgba(0, 0, 0, 0.75);
 $twentyFivePerecntBlack: rgba(0, 0, 0, 0.25);
 
 $gradient: $trans, $fifityPerecntBlack;
+$hub-grey: #494c4e;
 
 
 .govuk-hub-featured-content-item__overlay,
@@ -154,7 +155,6 @@ $gradient: $trans, $fifityPerecntBlack;
     }
 }
 
-
 .govuk-hub-news-events {
   background-color: govuk-colour("red");
 }
@@ -194,3 +194,9 @@ $gradient: $trans, $fifityPerecntBlack;
 .govuk-hub-history {
   background-color: govuk-colour("brown");
 }
+
+.govuk-hub-dark {
+  background-color: $hub-grey;
+}
+
+

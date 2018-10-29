@@ -1,9 +1,9 @@
 {% from "../components/header/macro.njk" import govukHeaderWithBack %}
 {% from "../components/sub-menu/macro.njk" import hubSubMenu %}
+{% from "../components/basic-page-header/macro.njk" import basicPageHeader %}
 {% from "../components/related-content/macro.njk" import hubRelatedContent %}
 
 {% extends "../components/template.njk" %}
-
 
 {% block head %}
   <!--[if !IE 8]><!-->
@@ -27,31 +27,20 @@
         mainMenu: mainMenu,
         topicsMenu: topicsMenu,
         appName: envVars.APP_NAME
-      }) }}
+  }) }}
 {% endblock %}
 
 {% block main %}
-  {{ hubLandingPageHeader({
-      title: data.title,
+  {{ basicPageHeader({
+      title: data.name,
       description: data.description,
-      featuredContent: data.featuredContent,
       categoryId: data.categoryId
     })
   }}
 {% endblock %}
 
 {% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-      <h3 class="govuk-heading-m govuk-hub-related-content__title">You might like</h3>
-    </div>
-  </div>
   {{ hubRelatedContent({
     data: data.relatedContent
   }) }}
 {% endblock %}
-
-{# {{ hubSubMenu({
-  data: landingpagesubmenudata
-}) }} #}
-

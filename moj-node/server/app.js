@@ -12,6 +12,7 @@ const config = require('../server/config');
 const createIndexRouter = require('./routes/index');
 const createHealthRouter = require('./routes/health');
 const createContentRouter = require('./routes/content');
+const createTagRouter = require('./routes/tags');
 
 // const topicLinks = require('./data//topic-link.json');
 
@@ -24,6 +25,7 @@ module.exports = function createApp({
   hubPromotedContentService,
   // hubMenuService,
   hubContentService,
+  hubTagsService,
   healthService,
 }) {
   const app = express();
@@ -137,12 +139,22 @@ module.exports = function createApp({
   //     next(ex);
   //   }
   // });
+
   // Routing
   app.use('/', createIndexRouter({
-    logger, hubFeaturedContentService, hubPromotedContentService,
+    logger,
+    hubFeaturedContentService,
+    hubPromotedContentService,
   }));
+
   app.use('/content', createContentRouter({
-    logger, hubContentService,
+    logger,
+    hubContentService,
+  }));
+
+  app.use('/tags', createTagRouter({
+    logger,
+    hubTagsService,
   }));
 
   app.use('*', (req, res) => {
