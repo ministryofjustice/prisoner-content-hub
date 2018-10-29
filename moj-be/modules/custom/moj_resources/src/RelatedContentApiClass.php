@@ -62,10 +62,10 @@ class RelatedContentApiClass
      * @param [string] $lang
      * @return array
      */
-    public function RelatedContentApiEndpoint($lang, $category)
+    public function RelatedContentApiEndpoint($lang, $category, $number, $offset)
     {
         $this->lang = $lang;
-        $this->nids = self::getRelatedContentNodeIds($category);
+        $this->nids = self::getRelatedContentNodeIds($category, $number, $offset);
         $this->nodes = self::loadNodesDetails($this->nids);
         // usort($this->nodes, 'self::sortByWeightDescending');
         return array_map('self::translateNode', $this->nodes);
@@ -86,11 +86,11 @@ class RelatedContentApiClass
      *
      * @return void
      */
-    protected function getRelatedContentNodeIds($category)
+    protected function getRelatedContentNodeIds($category, $number, $offset)
     {
         $results = $this->entity_query->get('node')
             ->condition('status', 1)
-            ->range(0, 10)
+            ->range($offset, $number)
             ->accessCheck(false);
 
         if ($category !== 0) {
