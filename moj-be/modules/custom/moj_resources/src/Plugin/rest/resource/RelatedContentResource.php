@@ -140,7 +140,9 @@ class RelatedContentResource extends ResourceBase
     {
         $relatedContent = $this->relatedContentApiClass->RelatedContentApiEndpoint(
             $this->paramater_language_tag, 
-            $this->paramater_category
+            $this->paramater_category,
+            $this->paramater_number,
+            $this->paramater_offset
         );
         if (!empty($relatedContent)) {
             $response = new ResourceResponse($relatedContent);

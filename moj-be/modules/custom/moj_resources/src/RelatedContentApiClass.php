@@ -90,7 +90,7 @@ class RelatedContentApiClass
     {
         $results = $this->entity_query->get('node')
             ->condition('status', 1)
-            ->range($number, $offset)
+            ->range($offset, $number)
             ->accessCheck(false);
 
         if ($category !== 0) {
