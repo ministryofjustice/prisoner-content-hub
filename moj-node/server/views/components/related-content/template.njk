@@ -1,6 +1,6 @@
 {% from "../featured-content-item/macro.njk" import hubFeaturedContentItem %}
 
-<div id="related-contents" class="govuk-grid-row content-items">
+<div data-content-id="{{params.id}}" id="related-contents" class="govuk-grid-row content-items">
   {% for item in params.data %}
     <div class="item govuk-grid-column-one-quarter">
       {{
@@ -18,3 +18,33 @@
     </div>
   {% endfor %}
 </div>
+
+
+<script id="template" type="x-tmpl-mustache">
+  <% #relatedContent %>
+    <div class="item govuk-grid-column-one-quarter">
+      <a data-featured-id="<% id %>" class="govuk-hub-featured-link" href="/content/<% id %>">
+        <article class="govuk-hub-featured-content-item small">
+            <div data-featured-item-background="" class="govuk-hub-featured-content-item__image" style="background-image:url(<% image.url %>)">
+              <div class="govuk-hub-featured-content-item__overlay">
+                <header class="govuk-hub-featured-content-item__header">
+                  <h3 data-featured-title="<%  title  %>" class="govuk-hub-featured-content-item__header-title govuk-heading-m govuk-!-font-size-24"><%  title  %></h3>
+                </header>
+                <div class="govuk-hub-featured-content-item__main">
+                  <p class="govuk-hub-featured-content-item__description govuk-body"></p>
+                  <div title="Watch" class="govuk-hub-featured-content-item-icon govuk-hub-featured-content-item__main-play govuk-link"><span class="icon-play"><span class="path1"></span><span class="path2"></span></span><span class="space">Watch</span></div>
+                  <span class="govuk-hub-featured-content-item__main-icon icon-movie">
+                    <span data-featured-item-duration="<% duration %>" class="govuk-body govuk-hub-featured-content-item__main-duration"> <% duration %></span>
+                  </span>
+                </div>
+                <div class="govuk-hub-featured-content-item__category-stripe govuk-hub-"></div>
+              </div>
+            </div>
+        </article>
+      </a>
+    </div>
+  <% /relatedContent %>
+</script>
+
+<script src="/public/mustache.min.js"></script>
+<script src="/public/javascript/tags.js"></script>

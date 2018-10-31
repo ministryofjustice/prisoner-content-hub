@@ -41,12 +41,13 @@
 {% endblock %}
 
 {% block content %}
-  <div class="govuk-grid-row">
+  {# <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
       <h3 class="govuk-heading-m govuk-hub-related-content__title">You might like</h3>
     </div>
-  </div>
+  </div> #}
   {{ hubRelatedContent({
+    id: data.categoryId,
     data: data.relatedContent
   }) }}
 {% endblock %}

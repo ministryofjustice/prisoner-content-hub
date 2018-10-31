@@ -40,7 +40,7 @@ module.exports = function createHubContentService(repository) {
     const featuredContentId = prop('featuredContentId', data);
     const featuredContent = await repository.contentFor(featuredContentId);
     const categoryId = prop('categoryId', data);
-    const relatedContent = await repository.relatedContentFor(categoryId);
+    const relatedContent = await repository.relatedContentFor({ id: categoryId });
 
     return {
       ...data,

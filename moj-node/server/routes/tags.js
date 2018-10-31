@@ -8,9 +8,11 @@ module.exports = function Tags({
 
   router.get('/:id', async (req, res, next) => {
     try {
-      logger.info(`GET /tags/${req.params.id}`);
+      const { id } = req.params;
 
-      const data = await hubTagsService.termFor(req.params.id);
+      logger.info(`GET /tags/${id}`);
+
+      const data = await hubTagsService.termFor(id);
 
       const config = {
         content: true,
@@ -19,11 +21,23 @@ module.exports = function Tags({
       };
 
       res.render('pages/tags', {
+        tagId: id,
         data,
         config,
       });
     } catch (exception) {
       next(exception);
+    }
+  });
+
+  router.get('/related-content/:id', async (req, res) => {
+    try {
+      logger.info(`GET /tags/${req.params.id}/related-content`);
+
+      const data = await hubTagsService.relatedContentFor({ id: req.params.id, ...req.query });
+      res.json(data);
+    } catch (exp) {
+      res.json(null);
     }
   });
 
