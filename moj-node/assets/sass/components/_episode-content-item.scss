@@ -10,6 +10,7 @@
 .govuk-hub-episodes-content-items {
   display: flex;
   flex-wrap: wrap;
+  max-width: 880px; // Temporary fix for IE browsers
 
   .item {
     &:first-child {

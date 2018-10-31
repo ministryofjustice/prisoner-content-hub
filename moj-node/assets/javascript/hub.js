@@ -30,7 +30,7 @@ const days = [
 
 // Navigation menu
 if (navMenu) {
-  document.body.addEventListener('click', (event) => {
+  document.body.addEventListener('click', function(event) {
     // handle navigation hide
     if (matchesSelectorAll(event.target, '#nav-hide')) {
       event.preventDefault();
@@ -61,7 +61,7 @@ if (navMenu) {
 
 // update the time
 if(todaysTime) {
-  setInterval(() => {
+  setInterval(function() {
     const date = new Date();
     const currentTime = todaysTime.textContent.trim();
     const minutes = date.getMinutes();
@@ -75,7 +75,7 @@ if(todaysTime) {
 
 // update the date
 if(todaysDate) {
-  setInterval(() => {
+  setInterval(function() {
     const date = new Date();
     const currentDate = todaysDate.textContent.trim();
     const nextDate = days[date.getDay()] + " " + date.getDate() + " " + months[date.getMonth()];
@@ -87,7 +87,7 @@ if(todaysDate) {
 
 
 function matchesSelectorAll(target, selector) {
-  return target.matches(selector) || target.matches(`${selector} *`);
+  return target.matches(selector) || target.matches(selector + " *");
 }
 
 function formateTime(time) {
