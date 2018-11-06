@@ -114,7 +114,7 @@ describe('#hubContentService', () => {
 
       await service.contentFor(content.id);
 
-      expect(repository.relatedContentFor.lastCall.lastArg).to.equal('categoryId', `the categoryId was supposed to be "${content.categoryId}"`);
+      expect(repository.relatedContentFor.lastCall.lastArg).to.eql({ id: 'categoryId' }, `the categoryId was supposed to be "${content.categoryId}"`);
     });
   });
 });

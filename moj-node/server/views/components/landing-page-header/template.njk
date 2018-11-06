@@ -19,13 +19,18 @@
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half govuk-!-padding-top-6">
           <h1 id="title" class="govuk-heading-xl">{{ params.title }}</h1>
-          <p id="summary" class="govuk-body-l">{{ params.description.summary}}</p>
-          <div id="description" class="gov-uk-dynamic-content">
-            {{params.description.sanitized | safe }}
-          </div>
+          {% if params.description.summary %}
+            <p id="summary" class="govuk-body-l">{{ params.description.summary}}</p>
+          {% endif %}
+
+          {% if params.description.sanitized %}
+            <div id="description" class="gov-uk-dynamic-content">
+              {{params.description.sanitized | safe }}
+            </div>
+          {% endif %}
         </div>
 
-        <div class="govuk-grid-column-one-half">
+        {# <div class="govuk-grid-column-one-half">
           {{ hubFeaturedContentItem({
               id: params.featuredContent.id,
               title: params.featuredContent.title,
@@ -36,7 +41,7 @@
               duration: params.featuredContent.duration
             })
           }}
-        </div>
+        </div> #}
       </div>
     </div>
   </div>

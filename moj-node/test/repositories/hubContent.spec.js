@@ -72,7 +72,7 @@ describe('hubContentRepository', () => {
   it('returns formated data for related content', async () => {
     const client = generateClient(relatedContentResponse);
     const repository = hubContentRepository(client);
-    const content = await repository.relatedContentFor('id');
+    const content = await repository.relatedContentFor({ id: 'id' });
 
     expect(content).to.eql(relatedContent());
     expect(JSON.stringify(client.get.lastCall.args[1])).to.include('id');
