@@ -124,7 +124,10 @@ class MenuResource extends ResourceBase
             $this->paramater_current_page_id
         );
         if (!empty($menu)) {
-            return new ResourceResponse($menu);
+
+            $response = new ResourceResponse($menu);
+            $response->addCacheableDependency($menu);
+            return $response;
         }
         throw new NotFoundHttpException(t('No featured content found'));
     }
