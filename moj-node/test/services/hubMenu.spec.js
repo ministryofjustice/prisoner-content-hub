@@ -1,13 +1,17 @@
 const createHubMenuService = require('../../server/services/hubMenu');
 
 describe('#hubMenuService', () => {
-  it('returns an menu', async () => {
+  it('returns an navigation', async () => {
     const repository = {
-      menu: sinon.stub().returns([{ title: 'foo', href: 'www.foo.com' }]),
+      mainMenu: sinon.stub().returns('A main Menu'),
+      tagsMenu: sinon.stub().returns('A tags menu'),
     };
     const service = createHubMenuService(repository);
-    const result = await service.menu();
+    const result = await service.navigationMenu();
 
-    return expect(result).to.eql([{ title: 'foo', href: 'www.foo.com' }]);
+    return expect(result).to.eql({
+      mainMenu: 'A main Menu',
+      topicsMenu: 'A tags menu',
+    });
   });
 });

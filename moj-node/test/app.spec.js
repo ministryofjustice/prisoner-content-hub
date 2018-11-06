@@ -76,7 +76,7 @@ function app(opts) {
     appInfo: sinon.stub(),
     hubPromotedContentService: { hubPromotedContent: sinon.stub().returns([]) },
     hubFeaturedContentService: { hubFeaturedContent: sinon.stub().returns([]) },
-    hubMenuService: { menu: sinon.stub().returns([]) },
+    hubMenuService: { navigationMenu: sinon.stub().returns({ mainMenu: [], topicsMenu: [] }) },
     hubContentService: { contentFor: sinon.stub().returns({}) },
     logger,
     ...opts,

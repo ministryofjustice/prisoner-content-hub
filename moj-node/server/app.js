@@ -6,6 +6,8 @@ const log = require('bunyan-request-logger')();
 const nunjucks = require('nunjucks');
 const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
+const session = require('express-session');
+const MemoryStore = require('memorystore')(session);
 
 const config = require('../server/config');
 
@@ -23,7 +25,7 @@ module.exports = function createApp({
   logger,
   hubFeaturedContentService,
   hubPromotedContentService,
-  // hubMenuService,
+  hubMenuService,
   hubContentService,
   hubTagsService,
   healthService,
@@ -91,6 +93,16 @@ module.exports = function createApp({
   //  Static Resources Configuration
   const cacheControl = { maxAge: config.staticResourceCacheDuration * 1000 };
 
+  app.use(session({
+    store: config.test ? null : new MemoryStore({
+      checkPeriod: 300000, // prune expired entries every 5 minutes
+    }),
+    secret: config.cookieSecret,
+    resave: false,
+    saveUninitialized: true,
+  }));
+
+
   [
     '../public',
     '../assets',
@@ -130,16 +142,30 @@ module.exports = function createApp({
   app.use('/health', createHealthRouter({ appInfo, healthService }));
 
   // Navigation menu middleware
-  // app.use(async (req, res, next) => {
-  //   try {
-  //     const mainMenu = await hubMenuService.menu();
-  //     res.locals.mainMenu = mainMenu;
-  //     res.locals.topicsMenu = topicLinks;
-  //     next();
-  //   } catch (ex) {
-  //     next(ex);
-  //   }
-  // });
+  app.use(async (req, res, next) => {
+    if (req.session.mainMenu && req.session.topicsMenu) {
+      res.locals.mainMenu = req.session.mainMenu;
+      res.locals.topicsMenu = req.session.topicsMenu;
+
+      return next();
+    }
+    try {
+      const {
+        mainMenu,
+        topicsMenu,
+      } = await hubMenuService.navigationMenu();
+
+      req.session.mainMenu = mainMenu;
+      res.locals.mainMenu = mainMenu;
+
+      req.session.topicsMenu = topicsMenu;
+      res.locals.topicsMenu = topicsMenu;
+
+      return next();
+    } catch (ex) {
+      return next(ex);
+    }
+  });
 
   // Routing
   app.use('/', createIndexRouter({
