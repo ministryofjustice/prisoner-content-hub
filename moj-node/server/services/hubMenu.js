@@ -1,12 +1,17 @@
 function createHubMenuService(repository) {
-  try {
-    const menu = {
-      menu: () => repository.menu(),
+  async function navigationMenu() {
+    const mainMenu = await repository.mainMenu();
+    const topicsMenu = await repository.tagsMenu();
+
+    return {
+      mainMenu,
+      topicsMenu,
     };
-    return menu;
-  } catch (ex) {
-    return null;
   }
+
+  return {
+    navigationMenu,
+  };
 }
 
 module.exports = createHubMenuService;
