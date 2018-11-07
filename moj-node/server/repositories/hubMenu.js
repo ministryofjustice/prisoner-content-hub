@@ -9,7 +9,7 @@ const {
 function hubMenuRepository(httpClient) {
   async function mainMenu() {
     const response = await httpClient.get(config.api.hubMenu);
-    return parseResponse(response);
+    return parseMenuResponse(response);
   }
 
   async function tagsMenu() {
@@ -17,7 +17,7 @@ function hubMenuRepository(httpClient) {
     return parseTagsResponse(response);
   }
 
-  function parseResponse(data = []) {
+  function parseMenuResponse(data = []) {
     if (data === null) return [];
 
     return data.map(

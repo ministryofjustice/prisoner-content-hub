@@ -85,7 +85,8 @@ describe('#hubContentService', () => {
         .onFirstCall()
         .returns(content)
         .onSecondCall()
-        .returns('something'),
+        .returns('fooBar'),
+      menuFor: sinon.stub().returns('fooMenu'),
     });
 
     it('returns landing page content', async () => {
@@ -95,8 +96,9 @@ describe('#hubContentService', () => {
 
       expect(result).to.have.property('type', content.type);
       expect(result).to.have.property('featuredContentId', 'featuredContentId');
-      expect(result).to.have.property('featuredContent', 'something');
+      expect(result).to.have.property('featuredContent', 'fooBar');
       expect(result).to.have.property('relatedContent', 'relatedContent');
+      expect(result).to.have.property('menu', 'fooMenu');
     });
 
     it('calls for the featured content', async () => {
@@ -115,6 +117,15 @@ describe('#hubContentService', () => {
       await service.contentFor(content.id);
 
       expect(repository.relatedContentFor.lastCall.lastArg).to.eql({ id: 'categoryId' }, `the categoryId was supposed to be "${content.categoryId}"`);
+    });
+
+    it('call for a menu', async () => {
+      const repository = createRepository();
+      const service = createHubContentService(repository);
+
+      await service.contentFor(content.id);
+
+      expect(repository.menuFor.lastCall.lastArg).to.equal('categoryId', `the categoryId was supposed to be "${content.categoryId}"`);
     });
   });
 });

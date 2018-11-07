@@ -1,4 +1,6 @@
 {% from "../featured-content-item/macro.njk" import hubFeaturedContentItem %}
+{% from "../sub-menu/macro.njk" import hubSubMenu %}
+
 
 {% set categoryName = {
   "644": "news-events",
@@ -43,6 +45,12 @@
           }}
         </div> #}
       </div>
+
+
+      {{ hubSubMenu({
+        data: params.menu,
+        theme: "white"
+      }) }}
     </div>
   </div>
 </div>
