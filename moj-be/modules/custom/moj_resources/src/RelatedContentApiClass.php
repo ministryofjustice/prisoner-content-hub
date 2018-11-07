@@ -88,8 +88,10 @@ class RelatedContentApiClass
      */
     protected function getRelatedContentNodeIds($category, $number, $offset)
     {
+        $bundle = array('page', 'moj_pdf_item', 'moj_radio_item', 'moj_video_item', );
         $results = $this->entity_query->get('node')
             ->condition('status', 1)
+            ->condition('type', $bundle, 'IN')
             ->range($offset, $number)
             ->accessCheck(false);
 
