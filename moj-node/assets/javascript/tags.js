@@ -1,5 +1,4 @@
-
-(function() {
+;(function() {
   var template = document.getElementById('template').innerHTML;
   var relatedContents = document.getElementById('related-contents');
   var contentId = relatedContents.getAttribute('data-content-id');
@@ -8,22 +7,28 @@
   var url = "/tags/related-content/" + contentId;
   var customTags = [ '<%', '%>' ];
   var currentOffset = 0;
+  var paginateOffset = 9
 
 
   // Mustache stuff;
   Mustache.parse(template);
   Mustache.tags = customTags;
 
+  // Load the first few to;
+  addContent(currentOffset);
 
-  function getContent(query, cb) {
+  // Load the rest as the user scrolls
+  window.addEventListener('scroll', handleScroll);
+
+  function getContent(query, callback) {
     var request = new XMLHttpRequest();
 
     request.addEventListener('load', function(response) {
-      cb(undefined, response.target);
+      callback(undefined, response.target);
     });
 
     request.addEventListener('error', function() {
-      cb(true, undefined);
+      callback(true, undefined);
     });
 
     request.addEventListener("loadend", function() {
@@ -66,21 +71,17 @@
     });
   }
 
-  window.addEventListener('scroll', (event) => {
+  function handleScroll(event) {
     if (currentOffset === null) return;
 
-    var d = document.documentElement;
-    var offset = d.scrollTop + window.innerHeight;
-    var height = d.offsetHeight;
+    var docElement = document.documentElement;
+    var offset = docElement.scrollTop + window.innerHeight;
+    var height = docElement.offsetHeight;
 
     if (offset === height) {
-      currentOffset += 9;
+      currentOffset += paginateOffset;
 
       addContent(currentOffset);
     }
-
-  });
-
-  // kick things off;
-  addContent(currentOffset);
+  }
 })();
