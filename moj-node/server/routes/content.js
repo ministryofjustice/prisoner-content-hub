@@ -1,9 +1,12 @@
 const { prop } = require('ramda');
 const express = require('express');
+const request = require('superagent');
+
 
 module.exports = function createContentRouter({
   hubContentService,
   logger,
+  requestClient = request,
 }) {
   const router = express.Router();
 
@@ -42,6 +45,15 @@ module.exports = function createContentRouter({
             data,
             backHomeEnabled: true,
           });
+        case 'pdf': {
+          const stream = requestClient.get(data.url);
+
+          stream.on('error', next);
+
+          res.contentType('application/pdf');
+
+          return stream.pipe(res);
+        }
         default:
           // send to the 404 page
           return next();

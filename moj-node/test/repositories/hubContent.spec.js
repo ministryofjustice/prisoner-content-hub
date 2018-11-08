@@ -7,6 +7,7 @@ const flatPageContentResponse = require('../resources/flatPageContent.json');
 const seasonResponse = require('../resources/season.json');
 const landingPageResponse = require('../resources/landingPage.json');
 const relatedContentResponse = require('../resources/relatedContent.json');
+const pdfContentResponse = require('../resources/pdfContentResponse.json');
 
 describe('hubContentRepository', () => {
   it('returns formated data for radio shows', async () => {
@@ -76,6 +77,15 @@ describe('hubContentRepository', () => {
 
     expect(content).to.eql(relatedContent());
     expect(JSON.stringify(client.get.lastCall.args[1])).to.include('id');
+  });
+
+  it('returns formated data for pdf', async () => {
+    const client = generateClient(pdfContentResponse);
+    const repository = hubContentRepository(client);
+    const content = await repository.contentFor('id');
+
+    expect(content).to.eql(pdfContent());
+    expect(JSON.stringify(client.get.lastCall.args[0])).to.include('id');
   });
 });
 
@@ -231,4 +241,14 @@ function relatedContent() {
     },
     duration: '51:04',
   }];
+}
+
+
+function pdfContent() {
+  return {
+    id: 1,
+    title: 'Foo pdf',
+    type: 'pdf',
+    url: 'www.foo.bar/file.pdf',
+  };
 }

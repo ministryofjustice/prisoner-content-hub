@@ -1,5 +1,7 @@
 const request = require('supertest');
 const cheerio = require('cheerio');
+const fs = require('fs');
+const path = require('path');
 
 const createHubContentRouter = require('../../server/routes/content');
 const { setupBasicApp, logger } = require('../test-helpers');
@@ -115,6 +117,41 @@ describe('GET /content/:id', () => {
           expect($('#title').text()).to.include('Foo article', 'Page title did not match');
           expect($('#stand-first').text()).to.include('Foo article stand first', 'Article stand first did not match');
           expect($('#body').text()).to.include('Foo article body', 'Article body did not match');
+        });
+    });
+  });
+
+  describe('Pdf pages', () => {
+    const hubContentService = {
+      contentFor: sinon.stub().returns({
+        id: 1,
+        title: 'foo pdf file',
+        type: 'pdf',
+        url: 'www.foo.bar/file.pdf',
+      }),
+    };
+
+    const stream = {
+      on: sinon.stub(),
+      pipe: res => fs.createReadStream(path.resolve(__dirname, '../resources/foo.pdf')).pipe(res),
+    };
+
+    const requestClient = {
+      get: sinon.stub().returns(stream),
+    };
+
+    it('returns a PDF', () => {
+      const router = createHubContentRouter({ logger, hubContentService, requestClient });
+      const app = setupBasicApp();
+
+      app.use('/content', router);
+
+      return request(app)
+        .get('/content/1')
+        .expect(200)
+        .expect('Content-Type', 'application/pdf')
+        .then(() => {
+          expect(requestClient.get.lastCall.args[0]).to.equal('www.foo.bar/file.pdf');
         });
     });
   });

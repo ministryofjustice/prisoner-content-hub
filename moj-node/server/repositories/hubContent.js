@@ -26,6 +26,7 @@ const {
   nameFrom,
   landingFeaturedContentIdFrom,
   categoryIdFrom,
+  pdfUrlFrom,
 } = require('../selectors/hub');
 
 
@@ -103,6 +104,8 @@ module.exports = function hubContentRepository(httpClient) {
         return parseFlatPageContent(data);
       case 'landing-page':
         return parseLandingResponse(data);
+      case 'pdf':
+        return parsePDFResponse(data);
       default:
         return null;
     }
@@ -151,6 +154,17 @@ module.exports = function hubContentRepository(httpClient) {
         alt: imageAltFrom(data),
         url: imageUrlFrom(data),
       },
+    };
+  }
+
+  function parsePDFResponse(data) {
+    if (data === null) return null;
+
+    return {
+      id: idFrom(data),
+      title: titleFrom(data),
+      type: typeFrom(data),
+      url: pdfUrlFrom(data),
     };
   }
 
