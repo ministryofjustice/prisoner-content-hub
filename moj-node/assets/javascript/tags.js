@@ -3,9 +3,12 @@
   var template = document.getElementById('template').innerHTML;
   var relatedContents = document.getElementById('related-contents');
   var contentId = relatedContents.getAttribute('data-content-id');
+  var loader = document.querySelector('.ajax-loader');
+
   var url = "/tags/related-content/" + contentId;
   var customTags = [ '<%', '%>' ];
   var currentOffset = 9;
+
 
   // Mustache stuff;
   Mustache.parse(template);
@@ -13,18 +16,25 @@
 
 
   function getContent(query, cb) {
-    var oReq = new XMLHttpRequest();
+    var request = new XMLHttpRequest();
 
-    oReq.onload = function(response) {
+    request.addEventListener('load', function(response) {
       cb(undefined, response.target);
-    }
+    });
 
-    oReq.onerror = function() {
+    request.addEventListener('error', function() {
       cb(true, undefined);
-    }
-    oReq.open("GET", url + "?perPage=8&offset=" + query.offset);
-    oReq.responseType = "application/json";
-    oReq.send();
+    });
+
+    request.addEventListener("loadend", function() {
+      loader.setAttribute('hidden', true);
+    });
+
+    request.open("GET", url + "?perPage=8&offset=" + query.offset);
+    request.responseType = "application/json";
+    request.send();
+
+    loader.removeAttribute('hidden');
   }
 
   function updateTemplate(data) {

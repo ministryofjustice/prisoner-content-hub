@@ -1,3 +1,17 @@
 .govuk-hub-related-content__title {
     color: govuk-colour("white");
 }
+
+.ajax-loader {
+  padding: 2em;
+  text-align: center;
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+
+.ajax-loader[hidden] {
+  display: none;
+}
