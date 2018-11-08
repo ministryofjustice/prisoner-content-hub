@@ -7,7 +7,7 @@
 
   var url = "/tags/related-content/" + contentId;
   var customTags = [ '<%', '%>' ];
-  var currentOffset = 9;
+  var currentOffset = 0;
 
 
   // Mustache stuff;
@@ -46,10 +46,7 @@
 
 
   function addContent(offset) {
-    if (currentOffset === null) return;
-
     return getContent({ offset: offset}, function(err, response) {
-
       if (err) {
         currentOffset = null;
         return false;
@@ -65,20 +62,20 @@
 
       updateTemplate(data);
 
-      currentOffset += 9;
-
       return true;
     });
   }
 
   window.addEventListener('scroll', (event) => {
+    if (currentOffset === null) return;
+
     var d = document.documentElement;
     var offset = d.scrollTop + window.innerHeight;
     var height = d.offsetHeight;
 
-    const percentageScrolled = Math.round((offset / height) * 100);
-
     if (offset === height) {
+      currentOffset += 9;
+
       addContent(currentOffset);
     }
 
