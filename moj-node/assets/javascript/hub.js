@@ -28,6 +28,11 @@ const days = [
   'Saturday',
 ];
 
+// IE Polyfill
+if (!Element.prototype.matches) {
+  Element.prototype.matches = Element.prototype.msMatchesSelector;
+}
+
 // Navigation menu
 if (navMenu) {
   document.body.addEventListener('click', function(event) {
