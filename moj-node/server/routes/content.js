@@ -48,9 +48,12 @@ module.exports = function createContentRouter({
         case 'pdf': {
           const stream = requestClient.get(data.url);
 
-          stream.on('error', next);
+          // X-Download-Options prevents Internet Explorer from executing downloads
+          // in your site’s context. We don't want that
+          res.removeHeader('X-Download-Options');
+          res.type('application/pdf');
 
-          res.contentType('application/pdf');
+          stream.on('error', next);
 
           return stream.pipe(res);
         }
