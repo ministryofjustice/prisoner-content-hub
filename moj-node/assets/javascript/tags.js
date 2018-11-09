@@ -6,8 +6,8 @@
 
   var url = "/tags/related-content/" + contentId;
   var customTags = [ '<%', '%>' ];
-  var currentOffset = 9;
-  var paginateOffset = 9
+  var currentOffset = 8;
+  var paginateOffset = 8;
 
 
   // Mustache stuff;
