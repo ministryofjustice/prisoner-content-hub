@@ -6,7 +6,7 @@
 
   var url = "/tags/related-content/" + contentId;
   var customTags = [ '<%', '%>' ];
-  var currentOffset = 0;
+  var currentOffset = 9;
   var paginateOffset = 9
 
 
