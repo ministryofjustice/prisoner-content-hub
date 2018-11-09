@@ -33,7 +33,6 @@ module.exports = function Tags({
   router.get('/related-content/:id', async (req, res) => {
     try {
       logger.info(`GET /tags/${req.params.id}/related-content`);
-
       const data = await hubTagsService.relatedContentFor({ id: req.params.id, ...req.query });
       res.json(data);
     } catch (exp) {
