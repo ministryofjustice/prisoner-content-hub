@@ -129,7 +129,7 @@ class MenuResource extends ResourceBase
             $response->addCacheableDependency($menu);
             return $response;
         }
-        throw new NotFoundHttpException(t('No featured content found'));
+        throw new NotFoundHttpException(t('No menu found'));
     }
 
     protected function checklanguageParameterIsValid() 
