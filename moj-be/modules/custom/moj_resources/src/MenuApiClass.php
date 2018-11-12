@@ -69,7 +69,7 @@ class MenuApiClass
     
     protected $pageIdsInMenu;
 
-    protected $pageIds array();
+    protected $pageIds = array();
     
     /**
      * Paramaters
