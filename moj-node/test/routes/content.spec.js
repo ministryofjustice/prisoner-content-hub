@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const createHubContentRouter = require('../../server/routes/content');
+const featureToggleMiddleWare = require('../../server/middleware/featureToggle');
 const { setupBasicApp, logger } = require('../test-helpers');
 
 const radioShowResponse = require('../resources/radioShowServiceResponse.json');
@@ -157,48 +158,53 @@ describe('GET /content/:id', () => {
   });
 
   describe('Landing page', () => {
-    const hubContentService = {
-      contentFor: sinon.stub().returns({
-        id: 1,
-        title: 'Foo Landing page',
-        type: 'landing-page',
-        description: {
-          sanitized: '<p>Foo landing page body</p>',
-          summary: 'Some summary',
+    const serviceResponse = {
+      id: 1,
+      title: 'Foo Landing page',
+      type: 'landing-page',
+      description: {
+        sanitized: '<p>Foo landing page body</p>',
+        summary: 'Some summary',
+      },
+      featuredContent: {
+        id: 'foo-id',
+        title: 'foo-feature-title',
+        description: { summary: 'foo-feature-summary' },
+        contentType: 'landing-page',
+        graphic: {
+          url: '',
         },
-        featuredContent: {
-          id: 'foo-id',
-          title: 'foo-feature-title',
-          description: { summary: 'foo-feature-summary' },
-          contentType: 'landing-page',
+      },
+      relatedContent: [
+        {
+          id: 'baz-id',
+          title: 'baz-feature-title',
+          description: { summary: 'baz-feature-summary' },
+          contentType: 'radio-show',
           graphic: {
             url: '',
           },
         },
-        relatedContent: [
-          {
-            id: 'baz-id',
-            title: 'baz-feature-title',
-            description: { summary: 'baz-feature-summary' },
-            contentType: 'radio-show',
-            graphic: {
-              url: '',
-            },
+        {
+          id: 'bar-id',
+          title: 'bar-feature-title',
+          description: { summary: 'bar-feature-summary' },
+          contentType: 'radio-show',
+          graphic: {
+            url: '',
           },
-          {
-            id: 'bar-id',
-            title: 'bar-feature-title',
-            description: { summary: 'bar-feature-summary' },
-            contentType: 'radio-show',
-            graphic: {
-              url: '',
-            },
-          },
-        ],
-      }),
+        },
+      ],
+      menu: [
+        { linkText: 'Foo', href: '/content/1', id: '1' },
+        { linkText: 'Bar', href: '/content/2', id: '2' },
+      ],
     };
 
     it('returns the correct content for a landing page', () => {
+      const hubContentService = {
+        contentFor: sinon.stub().returns(serviceResponse),
+      };
       const router = createHubContentRouter({ logger, hubContentService });
       const app = setupBasicApp();
 
@@ -211,14 +217,30 @@ describe('GET /content/:id', () => {
           const $ = cheerio.load(response.text);
 
           expect($('#title').text()).to.include('Foo Landing page', 'Page title did not match');
-          expect($('#summary').text()).to.include('Some summary', 'Page summary did not match');
-          expect($('#description').text()).to.include('Foo landing page body', 'Page description did not match');
-          // eslint-disable-next-line max-len
-          // expect($('[data-featured-id="foo-id"]').text()).to.include('foo-feature-title', 'featured item title did not match');
-          // eslint-disable-next-line max-len
-          // expect($('[data-featured-id="foo-id"]').text()).to.include('foo-feature-summary', 'featured item summary did not match');
           expect($('.content-items .item').length).to.equal(2, 'it did not render the correct number of related items');
+          expect($('#sub-menu a').length).to.equal(0, 'show have not rendered a sub menu');
         });
+    });
+
+    describe('when the landing page feature is toggled', () => {
+      it('renders a sub menu', () => {
+        const hubContentService = {
+          contentFor: sinon.stub().returns(serviceResponse),
+        };
+        const router = createHubContentRouter({ logger, hubContentService });
+        const app = setupBasicApp();
+
+        app.use(featureToggleMiddleWare(['showLandingPageMenu']));
+        app.use('/content', router);
+
+        return request(app)
+          .get('/content/1')
+          .query({ showLandingPageMenu: 'true' })
+          .then((response) => {
+            const $ = cheerio.load(response.text);
+            expect($('#sub-menu > a').length).to.equal(2, 'it did not render the correct number of menu items');
+          });
+      });
     });
   });
 });

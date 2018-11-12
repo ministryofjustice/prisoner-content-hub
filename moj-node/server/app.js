@@ -16,7 +16,7 @@ const createHealthRouter = require('./routes/health');
 const createContentRouter = require('./routes/content');
 const createTagRouter = require('./routes/tags');
 
-// const topicLinks = require('./data//topic-link.json');
+const featureToggleMiddleware = require('./middleware/featureToggle');
 
 const version = Date.now().toString();
 
@@ -137,6 +137,9 @@ module.exports = function createApp({
 
   // Don't cache dynamic resources
   app.use(helmet.noCache());
+
+  // feature toggle
+  app.use(featureToggleMiddleware(config.features));
 
   // Health end point
   app.use('/health', createHealthRouter({ appInfo, healthService }));

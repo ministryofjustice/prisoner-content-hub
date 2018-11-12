@@ -74,6 +74,7 @@ describe('#hubContentService', () => {
 
   describe('landing page', () => {
     const content = {
+      id: 'foo-id',
       type: 'landing-page',
       featuredContentId: 'featuredContentId',
       categoryId: 'categoryId',
@@ -125,7 +126,7 @@ describe('#hubContentService', () => {
 
       await service.contentFor(content.id);
 
-      expect(repository.menuFor.lastCall.lastArg).to.equal('categoryId', `the categoryId was supposed to be "${content.categoryId}"`);
+      expect(repository.menuFor.lastCall.lastArg).to.equal('foo-id', `the foo-id was supposed to be "${content.id}"`);
     });
   });
 });

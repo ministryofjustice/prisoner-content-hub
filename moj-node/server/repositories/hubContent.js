@@ -44,7 +44,7 @@ module.exports = function hubContentRepository(httpClient) {
   }
 
   async function menuFor(id) {
-    const response = await httpClient.get(config.api.hubMenu, { parent: id });
+    const response = await httpClient.get(config.api.hubMenu, { _parent: id });
     return parseMenuResponse(response);
   }
 
