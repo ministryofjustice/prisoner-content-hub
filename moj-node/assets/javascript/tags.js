@@ -63,11 +63,17 @@
         return false;
       }
 
-      const data = JSON.parse(response.responseText);
+      try {
+        const data = JSON.parse(response.responseText);
 
-      updateTemplate(data);
+        updateTemplate(data);
 
-      return true;
+        return true;
+      } catch (error) {
+        console.log(error);
+        currentOffset = null;
+        return false;
+      }
     });
   }
 
