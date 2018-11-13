@@ -1,9 +1,9 @@
-  <nav class="govuk-hub-sub-menu govuk-hub-pull-30 {%- if params.data.menuColour %} {{ params.data.menuColour }}{% endif -%}">
+  <nav class="govuk-hub-sub-menu {{params.theme}} govuk-hub-pull-30">
     <div class="govuk-grid-row">
-      {% for name, item in params.data.items %}
-        <div class="{%- if item.columnClass %} {{ item.columnClass }}{% endif -%}">
-          <a href="{%- if item.linkurl %} {{ item.linkurl }}{% endif -%}" title="{%- if item.linktext %} {{ item.linktext }}{% endif -%}" class="govuk-hub-sub-menu__link govuk-!-margin-bottom-6 govuk-link">
-            {%- if item.linktext %} {{ item.linktext }}{% endif -%}
+      {% for item in params.data %}
+        <div id="sub-menu" class="govuk-grid-column-one-quarter">
+          <a href="{{ item.href }}" title="{{ item.linkText }}" class="govuk-hub-sub-menu__link govuk-!-margin-bottom-6 govuk-link">
+            {{ item.linkText }}
           </a>
         </div>
       {% endfor %}

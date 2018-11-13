@@ -37,15 +37,18 @@ module.exports = function createHubContentService(repository) {
   }
 
   async function landingPage(data) {
+    const id = prop('id', data);
     const featuredContentId = prop('featuredContentId', data);
     const featuredContent = await repository.contentFor(featuredContentId);
     const categoryId = prop('categoryId', data);
     const relatedContent = await repository.relatedContentFor({ id: categoryId });
+    const menu = await repository.menuFor(id);
 
     return {
       ...data,
       featuredContent,
       relatedContent,
+      menu,
     };
   }
 

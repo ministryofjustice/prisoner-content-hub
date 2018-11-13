@@ -43,6 +43,11 @@ module.exports = function hubContentRepository(httpClient) {
     return parseTermResponse(response);
   }
 
+  async function menuFor(id) {
+    const response = await httpClient.get(config.api.hubMenu, { _parent: id });
+    return parseMenuResponse(response);
+  }
+
   async function seasonFor(id) {
     const response = await httpClient.get(`${config.api.series}/${id}`);
 
@@ -90,6 +95,19 @@ module.exports = function hubContentRepository(httpClient) {
       categoryId: categoryIdFrom(data),
     };
   }
+
+  function parseMenuResponse(data = []) {
+    if (data === null) return [];
+
+    return data.map(
+      menuItem => ({
+        linkText: R.prop('title', menuItem),
+        href: `/content/${R.prop('id', menuItem)}`,
+        id: R.prop('id', menuItem),
+      }),
+    );
+  }
+
 
   function parseResponse(data) {
     if (data === null) return null;
@@ -191,5 +209,6 @@ module.exports = function hubContentRepository(httpClient) {
     seasonFor,
     featuredContentFor,
     relatedContentFor,
+    menuFor,
   };
 };

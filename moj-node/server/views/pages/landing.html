@@ -1,5 +1,4 @@
 {% from "../components/header/macro.njk" import govukHeaderWithBack %}
-{% from "../components/sub-menu/macro.njk" import hubSubMenu %}
 {% from "../components/related-content/macro.njk" import hubRelatedContent %}
 
 {% extends "../components/template.njk" %}
@@ -35,7 +34,9 @@
       title: data.title,
       description: data.description,
       featuredContent: data.featuredContent,
-      categoryId: data.categoryId
+      categoryId: data.categoryId,
+      menu: data.menu,
+      features: features
     })
   }}
 {% endblock %}
@@ -46,13 +47,12 @@
       <h3 class="govuk-heading-m govuk-hub-related-content__title">You might like</h3>
     </div>
   </div> #}
+
   {{ hubRelatedContent({
     id: data.categoryId,
     data: data.relatedContent
   }) }}
 {% endblock %}
 
-{# {{ hubSubMenu({
-  data: landingpagesubmenudata
-}) }} #}
+
 

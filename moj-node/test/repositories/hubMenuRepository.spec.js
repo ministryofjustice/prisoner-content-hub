@@ -1,5 +1,4 @@
 const hubMenuRepository = require('../../server/repositories/hubMenu');
-
 const topicsResponse = require('../resources/tagsContent.json');
 
 describe('hubMenuRepository', () => {
