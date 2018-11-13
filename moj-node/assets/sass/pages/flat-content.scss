@@ -47,6 +47,11 @@
     @extend .govuk-inset-text;
   }
 
+  figcaption  {
+    @extend .govuk-body;
+  }
+  
+
   img {
     display: block;
     width: auto;
