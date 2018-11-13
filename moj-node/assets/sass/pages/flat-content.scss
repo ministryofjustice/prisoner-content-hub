@@ -43,6 +43,10 @@
     font-weight: bold;
   }
 
+  blockquote p  {
+    @extend .govuk-inset-text;
+  }
+
   img {
     display: block;
     width: auto;
