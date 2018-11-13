@@ -19,6 +19,6 @@ module.exports = {
   },
   features: [
     'showLandingPageMenu',
-    'showPageMenu'
+    'showPageMenu',
   ],
 };
