@@ -111,7 +111,7 @@ describe('hubContentRepository', () => {
       ];
 
       expect(content).to.eql(expected);
-      expect(JSON.stringify(client.get.lastCall.args[1])).to.eql(JSON.stringify({ _parent: 'id' }));
+      expect(JSON.stringify(client.get.lastCall.args[1])).to.eql(JSON.stringify({ _parent: 'id', _menu: 'main' }));
     });
   });
 });

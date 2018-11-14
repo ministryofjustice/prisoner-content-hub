@@ -2,6 +2,7 @@ const request = require('supertest');
 const cheerio = require('cheerio');
 
 const createIndexRouter = require('../../server/routes/index');
+const featureToggleMiddleWare = require('../../server/middleware/featureToggle');
 const { setupBasicApp, logger } = require('../test-helpers');
 
 
@@ -21,7 +22,6 @@ describe('GET /', () => {
   const hubFeaturedContentService = {
     hubFeaturedContent: sinon.stub().returns({
       newsAndEvents: [{ ...featuredItem, title: 'News story', id: 0 }],
-      games: [],
       musicAndGames: [{ ...featuredItem, title: 'Foo radio show' }],
       healthyMindAndBody: [{ ...featuredItem, id: 2 }],
       inspiration: [{ ...featuredItem, id: 3 }],
@@ -40,11 +40,19 @@ describe('GET /', () => {
     }]),
   };
 
+  const hubMenuService = {
+    seriesMenu: sinon.stub().returns([
+      { linkText: 'Foo', href: '/content/1', id: '1' },
+      { linkText: 'Bar', href: '/content/2', id: '2' },
+    ]),
+  };
+
   it('renders promoted content', () => {
     const router = createIndexRouter({
       logger,
       hubFeaturedContentService,
       hubPromotedContentService,
+      hubMenuService,
     });
     const app = setupBasicApp();
 
@@ -67,6 +75,7 @@ describe('GET /', () => {
       logger,
       hubFeaturedContentService,
       hubPromotedContentService,
+      hubMenuService,
     });
     const app = setupBasicApp();
 
@@ -96,6 +105,7 @@ describe('GET /', () => {
       logger,
       hubFeaturedContentService: hubFeaturedContentServiceFailure,
       hubPromotedContentService,
+      hubMenuService,
     });
     const app = setupBasicApp();
 
@@ -104,5 +114,55 @@ describe('GET /', () => {
     return request(app)
       .get('/')
       .expect(500);
+  });
+
+  describe('when the feature the showBrowseBySeries is not enabled', () => {
+    it('does not render browse by series menu', () => {
+      const router = createIndexRouter({
+        logger,
+        hubFeaturedContentService,
+        hubPromotedContentService,
+        hubMenuService,
+      });
+      const app = setupBasicApp();
+
+      app.use(router);
+
+      return request(app)
+        .get('/')
+        .expect(200)
+        .then((response) => {
+          const $ = cheerio.load(response.text);
+
+          expect($('#browser-by-series').length).to.equal(0, 'should not have rendered browse by series section');
+        });
+    });
+  });
+
+  describe('when the feature the showBrowseBySeries is enabled', () => {
+    it('show the browse by series menu', () => {
+      const router = createIndexRouter({
+        logger,
+        hubFeaturedContentService,
+        hubPromotedContentService,
+        hubMenuService,
+      });
+
+      const app = setupBasicApp();
+
+      app.use(featureToggleMiddleWare(['showBrowseBySeries']));
+
+      app.use(router);
+
+      return request(app)
+        .get('/')
+        .query({ showBrowseBySeries: 'true' })
+        .then((response) => {
+          const $ = cheerio.load(response.text);
+
+          expect($('#browser-by-series h1').text()).to.equal('Browse by series');
+          expect($('#browser-by-series .govuk-hub-series li').length).to.equal(2, 'Correct number of menu items');
+        });
+    });
   });
 });

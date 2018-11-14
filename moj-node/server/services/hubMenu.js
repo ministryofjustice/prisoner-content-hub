@@ -1,7 +1,9 @@
 function createHubMenuService(repository) {
   async function navigationMenu() {
-    const mainMenu = await repository.mainMenu();
-    const topicsMenu = await repository.tagsMenu();
+    const [mainMenu, topicsMenu] = await Promise.all([
+      repository.mainMenu(),
+      repository.tagsMenu(),
+    ]);
 
     return {
       mainMenu,
@@ -9,8 +11,13 @@ function createHubMenuService(repository) {
     };
   }
 
+  function seriesMenu() {
+    return repository.seriesMenu();
+  }
+
   return {
     navigationMenu,
+    seriesMenu,
   };
 }
 

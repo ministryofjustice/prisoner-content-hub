@@ -142,13 +142,15 @@
 
 
 {% block postscript %}
-  <div class="govuk-width-container govuk-!-margin-top-6">
+  {% if features.showBrowseBySeries %}
+  <div id="browser-by-series" class="govuk-width-container govuk-!-margin-top-6">
       <div class="govuk-main-wrapper" id="postscript-content">
         {{ hubSeries({
-          data: seriesdata
+          data: seriesMenu
         }) }}
       </div>
     </div>
+  {% endif %}
 {% endblock %}
 
 

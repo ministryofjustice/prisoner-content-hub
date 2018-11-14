@@ -8,8 +8,8 @@
     <div class="govuk-grid-column-full">
       <nav class="govuk-hub-series">
         <ul>
-          {% for name, item in params.data.items %}
-            <li><a href="{%- if item.linkurl %}{{ item.linkurl }}{% endif -%}" title="{%- if item.linktext %} {{ item.linktext }}{% endif -%}" class="govuk-link govuk-link--no-visited-state">{%- if item.linktext %}{{ item.linktext }}{% endif -%}</a></li>
+          {% for item in params.data %}
+            <li><a href="{{ item.href }}" title="{{ item.linkText }}" class="govuk-link govuk-link--no-visited-state">{{ item.linkText }}</a></li>
           {% endfor %}
         </ul>
       </nav>

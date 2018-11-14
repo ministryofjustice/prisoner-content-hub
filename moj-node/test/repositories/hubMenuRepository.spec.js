@@ -62,4 +62,37 @@ describe('hubMenuRepository', () => {
       expect(result).to.eql(expected);
     });
   });
+
+  describe('#seriesMenu', () => {
+    it('returns a series Menu', async () => {
+      const httpClient = {
+        get: sinon.stub().returns([
+          { title: 'Foo', link: 'www.foo.com', id: '1' },
+          { title: 'Bar', link: 'www.bar.com', id: '2' },
+        ]),
+
+      };
+
+      const repository = hubMenuRepository(httpClient);
+      const expected = [
+        { linkText: 'Foo', href: '/content/1', id: '1' },
+        { linkText: 'Bar', href: '/content/2', id: '2' },
+      ];
+
+      const result = await repository.seriesMenu();
+
+      expect(result).to.eql(expected);
+    });
+
+    it('returns and empty array when there is no data returned', async () => {
+      const httpClient = {
+        get: sinon.stub().returns(null),
+      };
+      const repository = hubMenuRepository(httpClient);
+      const expected = [];
+      const result = await repository.seriesMenu();
+
+      expect(result).to.eql(expected);
+    });
+  });
 });
