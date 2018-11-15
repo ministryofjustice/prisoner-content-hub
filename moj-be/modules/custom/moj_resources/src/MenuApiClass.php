@@ -65,9 +65,20 @@ class MenuApiClass
      *
      * @var string
      */
-    protected $menuName = 'main';
+    protected $menuName;
     
+    /**
+     * pageIdsInMenu
+     *
+     * @var array
+     */
     protected $pageIdsInMenu;
+
+    /**
+     * pageIds
+     * 
+     * @var array
+     */
 
     protected $pageIds = array();
     
@@ -99,10 +110,11 @@ class MenuApiClass
      * @param int $current
      * @return void
      */
-    public function MenuApiEndpoint($lang, $current)
+    public function MenuApiEndpoint($lang, $current, $menu)
     {
         $this->lang = $lang;
         $this->current = $current;
+        $this->menuName = $menu;
         $this->pageIdsInMenu = self::getPageIdInMenu($this->menuName);
 
         if (in_array($this->current, $this->pageIdsInMenu) || $this->current === 0) {
@@ -152,13 +164,7 @@ class MenuApiClass
         self::setParameters();
         return $this->menuLinkTree->load($menu, $this->parameters);
     }
-
-    /**
-     * Undocumented function
-     *
-     * @param [type] $menu_name
-     * @return void
-     */
+    
     protected function getPageIdInMenu($menu_name) 
     {
         $storage = \Drupal::entityManager()->getStorage('menu_link_content');

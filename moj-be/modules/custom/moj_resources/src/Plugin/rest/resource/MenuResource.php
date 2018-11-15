@@ -43,6 +43,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *          type="string",
  *          description="The language tag to translate results, if there is no translation available then the site default is returned, the default is 'en' (English). Options are 'en' (English) or 'cy' (Welsh).",
  *      ),
+ *      @SWG\Parameter(
+ *          name="_menu",
+ *          in="query",
+ *          required=false,
+ *          type="string",
+ *          description="The machine name of the menu to return, the default is the main menu.",
+ *      ),
  *      
  *     @SWG\Response(response="200", description="Hub main menu resource")
  * )
@@ -74,6 +81,8 @@ class MenuResource extends ResourceBase
 
     protected $paramater_language_tag;
 
+    protected $paramater_menu;
+
 
     public function __construct(
         array $configuration,
@@ -92,6 +101,7 @@ class MenuResource extends ResourceBase
         $this->availableLangs = $this->languageManager->getLanguages();
         $this->paramater_language_tag = self::setLanguage();
         $this->paramater_current_page_id = self::setCurrentPageId();
+        $this->paramater_menu = self::setMenu();
 
         self::checklanguageParameterIsValid();
         self::checkCurrentPageIdParamaterIsNumeric();
@@ -121,7 +131,8 @@ class MenuResource extends ResourceBase
     {
         $menu = $this->menuApiClass->MenuApiEndpoint(
             $this->paramater_language_tag, 
-            $this->paramater_current_page_id
+            $this->paramater_current_page_id,
+            $this->paramater_menu
         );
         if (!empty($menu)) {
 
@@ -167,5 +178,10 @@ class MenuResource extends ResourceBase
     protected function setCurrentPageId()
     {
         return is_null($this->currentRequest->get('_parent')) ? 0 : $this->currentRequest->get('_parent');
+    }
+
+    protected function setMenu()
+    {
+        return is_null($this->currentRequest->get('_menu')) ? 'main' : $this->currentRequest->get('_menu');
     }
 }
