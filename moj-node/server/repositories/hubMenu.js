@@ -5,16 +5,20 @@ const {
   nameFrom,
 } = require('../selectors/hub');
 
-
 function hubMenuRepository(httpClient) {
   async function mainMenu() {
-    const response = await httpClient.get(config.api.hubMenu);
+    const response = await httpClient.get(config.api.hubMenu, { _menu: 'main' });
     return parseMenuResponse(response);
   }
 
   async function tagsMenu() {
     const response = await httpClient.get(config.api.tags);
     return parseTagsResponse(response);
+  }
+
+  async function seriesMenu() {
+    const response = await httpClient.get(config.api.hubMenu, { _menu: 'series' });
+    return parseMenuResponse(response);
   }
 
   function parseMenuResponse(data = []) {
@@ -42,6 +46,7 @@ function hubMenuRepository(httpClient) {
   return {
     mainMenu,
     tagsMenu,
+    seriesMenu,
   };
 }
 

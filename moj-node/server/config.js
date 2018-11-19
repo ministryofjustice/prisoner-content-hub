@@ -20,5 +20,6 @@ module.exports = {
   features: [
     'showLandingPageMenu',
     'showPageMenu',
+    'showBrowseBySeries',
   ],
 };

@@ -4,24 +4,34 @@ module.exports = function Index({
   logger,
   hubFeaturedContentService,
   hubPromotedContentService,
+  hubMenuService,
 }) {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
     try {
       logger.info('GET index');
-      const featuredContent = await hubFeaturedContentService.hubFeaturedContent();
-      const [promotionalContent] = await hubPromotedContentService.hubPromotedContent();
+
+      const [
+        featuredContent,
+        [promotionalContent],
+        seriesMenu,
+      ] = await Promise.all([
+        hubFeaturedContentService.hubFeaturedContent(),
+        hubPromotedContentService.hubPromotedContent(),
+        hubMenuService.seriesMenu(),
+      ]);
 
       const config = {
         content: true,
         header: true,
-        postscript: false,
+        postscript: true,
       };
 
       res.render('pages/index', {
         ...featuredContent,
         promotionalContent,
+        seriesMenu,
         config,
       });
     } catch (exception) {

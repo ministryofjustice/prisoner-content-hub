@@ -24,10 +24,12 @@ module.exports = function createHubContentService(repository) {
   async function media(data) {
     const id = prop('id', data);
     const seriesId = prop('seriesId', data);
-
-    const series = await repository.termFor(seriesId);
-    const seasons = await repository.seasonFor(seriesId);
     const filterOutCurrentEpisode = filter(item => not(equals(prop('id', item), id)));
+
+    const [series, seasons] = await Promise.all([
+      repository.termFor(seriesId),
+      repository.seasonFor(seriesId),
+    ]);
 
     return {
       ...data,
@@ -39,10 +41,17 @@ module.exports = function createHubContentService(repository) {
   async function landingPage(data) {
     const id = prop('id', data);
     const featuredContentId = prop('featuredContentId', data);
-    const featuredContent = await repository.contentFor(featuredContentId);
     const categoryId = prop('categoryId', data);
-    const relatedContent = await repository.relatedContentFor({ id: categoryId });
-    const menu = await repository.menuFor(id);
+
+    const [
+      featuredContent,
+      relatedContent,
+      menu,
+    ] = await Promise.all([
+      repository.contentFor(featuredContentId),
+      repository.relatedContentFor({ id: categoryId }),
+      repository.menuFor(id),
+    ]);
 
     return {
       ...data,

@@ -175,6 +175,7 @@ module.exports = function createApp({
     logger,
     hubFeaturedContentService,
     hubPromotedContentService,
+    hubMenuService,
   }));
 
   app.use('/content', createContentRouter({
