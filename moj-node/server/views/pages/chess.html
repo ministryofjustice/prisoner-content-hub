@@ -47,11 +47,11 @@
           [GAME HERE]
         </div>
 
-        <pre id="engineStatus"></pre>
+        <p id="engineStatus" class="govuk-body-s govuk-hint govuk-!-margin-bottom-6"></p>
 
         <div class="moves govuk-!-margin-bottom-4">
-          <h3 class="govuk-heading-m">Moves:</h3>
-          <p id="pgn"></p>
+          <h3 class="govuk-heading-m">Moves</h3>
+          <p class="govuk-body" id="pgn">No moves made.</p>
         </div>
 
         <div id="chess-alert" class="govuk-!-margin-bottom-4" role="alert">
@@ -88,7 +88,7 @@
         </div>
         <div class="govuk-form-group">
           <label for="color" class="govuk-label">Pawns get promoted to</label>
-          <select class="govuk-select" id="promote">
+          <select class="govuk-select" id="promote" style="width: 100%">
               <option value="q" selected="">Queen</option>
               <option value="r">Rook</option>
               <option value="b">Bishop</option>
@@ -96,8 +96,8 @@
           </select>
         </div>
         <div class="govuk-form-group">
-          <input type="hidden" id="timeInc" value="2" />
-          <input type="hidden" id="timeBase" value="5" />
+          <input type="hidden" id="timeInc" value="0" />
+          <input type="hidden" id="timeBase" value="1" />
           <button type="button" class="govuk-button" onclick="init()">New Game</button>
         </div>
         <h3 class="govuk-heading-m">Help</h3>
@@ -126,6 +126,7 @@
     var skillLevel = $('#skillLevel');
     var contemptLevel = $('#contemptLevel');
     var inc = parseFloat($('#timeInc').val());
+
 
     skillLevel.on("change", function () {
         game.setSkillLevel(parseInt(this.value, 10));

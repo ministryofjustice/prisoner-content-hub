@@ -3,8 +3,8 @@ function engineGame(options) {
   options = options || {}
   var game = new Chess();
   var board;
-  var engine = typeof STOCKFISH === "function" ? STOCKFISH() : new Worker(options.stockfishjs || '/public/javascript/games/chess/stockfish.js');
-  var evaler = typeof STOCKFISH === "function" ? STOCKFISH() : new Worker(options.stockfishjs || '/public/javascript/games/chess/stockfish.js');
+  var engine = new Worker(options.stockfishjs || '/public/javascript/games/chess/stockfish.js');
+  var evaler = new Worker(options.stockfishjs || '/public/javascript/games/chess/stockfish.js');
   var engineStatus = {};
   var displayScore = false;
   var time = {wtime: 300000, btime: 300000, winc: 2000, binc: 2000};
@@ -145,7 +145,10 @@ function engineGame(options) {
   }
 
   function prepareMove() {
-      $('#pgn').text(game.pgn());
+      if(game.pgn().length) {
+        $('#pgn').text(game.pgn());
+      }
+
       board.position(game.fen());
       var turn = game.turn() === 'w' ? 'white' : 'black';
       if (!game.game_over()) {
