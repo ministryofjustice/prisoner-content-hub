@@ -15,6 +15,7 @@ const createIndexRouter = require('./routes/index');
 const createHealthRouter = require('./routes/health');
 const createContentRouter = require('./routes/content');
 const createTagRouter = require('./routes/tags');
+const createGamesRouter = require('./routes/games');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 
@@ -187,6 +188,8 @@ module.exports = function createApp({
     logger,
     hubTagsService,
   }));
+
+  app.use('/games', createGamesRouter({ logger }));
 
   app.use('*', (req, res) => {
     res.status(404);

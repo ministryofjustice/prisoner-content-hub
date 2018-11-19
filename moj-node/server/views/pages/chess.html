@@ -1,0 +1,162 @@
+{% from "../components/header/macro.njk" import govukHeaderWithBack %}
+{% extends "../components/template.njk" %}
+
+{% block pageTitle %}
+  {{ data.title }}
+{% endblock %}
+
+{% block head %}
+  <!--[if !IE 8]><!-->
+  <link href="/public/stylesheets/application.css" rel="stylesheet" />
+  <!--<![endif]-->
+
+  {# For Internet Explorer 8, you need to compile specific stylesheet #}
+  {# see https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md #}
+  <!--[if IE 8]>
+    <link href="/govuk-frontend/all-ie8.css" rel="stylesheet" />
+  <![endif]-->
+
+  {# For older browsers to allow them to recognise HTML5 elements such as `<header>` #}
+  <!--[if lt IE 9]>
+    <script src="/html5-shiv/html5shiv.js"></script>
+  <![endif]-->
+
+  <link href="/public/css/chessboard.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block header %}
+  {{ govukHeaderWithBack({
+    mainMenu: mainMenu,
+    topicsMenu: topicsMenu,
+    appName: envVars.APP_NAME,
+    features: features
+  }) }}
+{% endblock %}
+
+{% block main %}
+<div class="govuk-width-container">
+  <main class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">Chess</h1>
+      </div>
+    </div>
+     <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <div id="board" class="govuk-!-margin-bottom-4" style="width: 100%;">
+          [GAME HERE]
+        </div>
+
+        <pre id="engineStatus"></pre>
+
+        <div class="moves govuk-!-margin-bottom-4">
+          <h3 class="govuk-heading-m">Moves:</h3>
+          <p id="pgn"></p>
+        </div>
+
+        <div id="chess-alert" class="govuk-!-margin-bottom-4" role="alert">
+          <h3 class="govuk-heading-m">Chess skill settings</h3>
+          <p class="govuk-body">Skill level: <span id="skillLevelDisplay">-100</span></p>
+          <p class="govuk-body">Contempt level: <span id="contemptLevelDisplay">20</span></p>
+          <p class="govuk-body">Pawns get promoted to: <span id="promoteLevelDisplay">Queen</span></p>
+        </div>
+
+      </div>
+
+      <div class="govuk-grid-column-one-third">
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="contemptLevel">
+            Contempt Level (-100 to 100)
+          </label>
+          <input type="number" class="govuk-input govuk-!-margin-bottom-2" id="contemptLevel" value="-100" max="100" min="-100">
+          <details class="govuk-details">
+            <summary class="govuk-details__summary">
+              <span class="govuk-details__summary-text">
+                Help with contempt level
+              </span>
+            </summary>
+            <div class="govuk-details__text">
+              Roughly equivalent to "optimism." Positive values of contempt favor more "risky" play, while negative values will favor draws. Zero is neutral.
+            </div>
+          </details>
+        </div>
+        <div class="govuk-form-group">
+          <label class="govuk-label" for="skillLevel">
+            Skill Level (0 to 20)
+          </label>
+          <input type="number" class="govuk-input govuk-!-margin-bottom-2" id="skillLevel" value="20" max="20" min="0">
+        </div>
+        <div class="govuk-form-group">
+          <label for="color" class="govuk-label">Pawns get promoted to</label>
+          <select class="govuk-select" id="promote">
+              <option value="q" selected="">Queen</option>
+              <option value="r">Rook</option>
+              <option value="b">Bishop</option>
+              <option value="n">Knight</option>
+          </select>
+        </div>
+        <div class="govuk-form-group">
+          <input type="hidden" id="timeInc" value="2" />
+          <input type="hidden" id="timeBase" value="5" />
+          <button type="button" class="govuk-button" onclick="init()">New Game</button>
+        </div>
+        <h3 class="govuk-heading-m">Help</h3>
+        <div class="govuk-inset-text">
+          <p>If you need some help with the rules or how to play Chess you can use the link below</p>
+          <a href="#" target="_blank" class="govuk-button">Help wih Chess</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+
+
+
+<script src="/public/javascript/games/chess/jquery-1.12.4.min.js"></script>
+
+<!-- chess -->
+<script src="/public/javascript/games/chess/chess.js" type="text/javascript"></script>
+<script src="/public/javascript/games/chess/chessboard.js" type="text/javascript"></script>
+<script src="/public/javascript/games/chess/enginegame.js" type="text/javascript"></script>
+
+<script>
+    var game = engineGame();
+    var baseTime = parseFloat($('#timeBase').val()) * 60;
+    var skillLevel = $('#skillLevel');
+    var contemptLevel = $('#contemptLevel');
+    var inc = parseFloat($('#timeInc').val());
+
+    skillLevel.on("change", function () {
+        game.setSkillLevel(parseInt(this.value, 10));
+    });
+
+    contemptLevel.on("change", function () {
+        game.setContempt(parseInt(this.value));
+    });
+
+    function setDisplay(skill, contempt, promote) {
+        $('#skillLevelDisplay').html(skill);
+        $('#contemptLevelDisplay').html(contempt);
+        $('#promoteLevelDisplay').html(promote);
+    }
+
+    function init() {
+        game.reset();
+        game.setTime(baseTime, inc);
+        game.setSkillLevel(skillLevel.val());
+        game.setContempt(contemptLevel.val());
+        // game.setThreads(2);
+        // game.setMinimumThinkingTime(100);
+        game.setDisplayScore();
+        game.setPlayerColor($('#color-white').hasClass('active') ? 'white' : 'white');
+        game.setDisplayScore($('#showScore').is(':checked'));
+        setDisplay(skillLevel.val(), contemptLevel.val(), $('#promote :selected').text());
+        game.start();
+    }
+    init();
+</script>
+
+
+
+{% endblock %}
