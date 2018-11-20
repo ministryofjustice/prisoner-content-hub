@@ -2,7 +2,8 @@
   video: "icon-movie",
   page: "icon-document",
   pdf: "icon-document",
-  radio: "icon-music"
+  radio: "icon-music",
+  game: "icon-game"
 }
 %}
 
@@ -10,17 +11,19 @@
   video: "Watch",
   page: "Read",
   pdf: "Read",
-  radio: "Listen"
+  radio: "Listen",
+  game: "Play"
 }%}
 
 {% set linkIcon = {
   video: "icon-play",
   page: "icon-link",
   pdf: "icon-link",
-  radio: "icon-play"
+  radio: "icon-play",
+  game: "icon-link"
 }%}
 
-<a data-featured-id="{{ params.id }}" class="govuk-hub-featured-link" href="/content/{{ params.id }}" {% if params.contentType === 'pdf' %} target="_blank" {% endif %}>
+<a data-featured-id="{{ params.id }}" class="govuk-hub-featured-link" href="{{params.baseUrl}}/{{ params.id }}" {% if params.contentType === 'pdf' %} target="_blank" {% endif %}>
   <article class="govuk-hub-featured-content-item {{ params.size }}">
       <div data-featured-item-background class="govuk-hub-featured-content-item__image" style="background-image:url({{ params.graphic.url }})">
         <div class="govuk-hub-featured-content-item__overlay">

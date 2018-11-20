@@ -45,15 +45,6 @@ function hubFeaturedContentRepository(httpClient) {
     });
   }
 
-  function games() {
-    return hubContentFor({
-      query: {
-        _number: 3,
-        _category: 647,
-      },
-    });
-  }
-
   function musicAndGames() {
     return hubContentFor({
       query: {
@@ -97,6 +88,29 @@ function hubFeaturedContentRepository(httpClient) {
         _category: 786,
       },
     });
+  }
+
+  function games() {
+    return [
+      {
+        id: 'chess',
+        title: 'Chess',
+        contentType: 'game',
+        summary: '',
+        image: {
+          url: '/public/images/chessboard.png',
+        },
+      },
+      {
+        id: 'sudoku',
+        title: 'Sudoku',
+        contentType: 'game',
+        summary: '',
+        image: {
+          url: '/public/images/sudoku.png',
+        },
+      },
+    ];
   }
 
 
