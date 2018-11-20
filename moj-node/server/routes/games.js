@@ -20,5 +20,16 @@ module.exports = function createGamesRouter({ logger }) {
     });
   });
 
+  router.get('/sudoku', (req, res) => {
+    logger.info('GET /games/sudoku');
+
+    return res.render('pages/sudoku', {
+      data: {
+        title: 'Sudoku',
+      },
+      config,
+    });
+  });
+
   return router;
 };
