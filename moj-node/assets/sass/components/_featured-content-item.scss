@@ -1,6 +1,7 @@
 $trans: rgba(0, 0, 0, 0);
 $fifityPerecntBlack: rgba(0, 0, 0, 0.75);
 $fortyPerecntBlack: rgba(0, 0, 0, 0.4);
+$mauve: #6F72AF;
 
 $gradient: $trans, $fifityPerecntBlack;
 $hub-grey: #494c4e;
@@ -172,7 +173,7 @@ $hub-grey: #494c4e;
 }
 
 .govuk-hub-legal-and-your-rights {
-  background-color: govuk-colour("bright-purple");
+  background-color: $mauve;
 }
 
 .govuk-hub-healthy-mind-body {

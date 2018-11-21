@@ -9,6 +9,39 @@
   var currentOffset = 8;
   var paginateOffset = 8;
 
+  var iconType = {
+    video: "icon-movie",
+    page: "icon-document",
+    pdf: "icon-document",
+    radio: "icon-music",
+    game: "icon-game"
+  }
+
+  var linkText = {
+    video: "Watch",
+    page: "Read",
+    pdf: "Read",
+    radio: "Listen",
+    game: "Play"
+  }
+
+  var linkIcon = {
+    video: "icon-play",
+    page: "icon-link",
+    pdf: "icon-link",
+    radio: "icon-play",
+    game: "icon-link"
+  }
+
+  function enhanceData(data) {
+    return data.map(function(item){
+      return Object.assign(item, {
+        linkText: linkText[item.contentType],
+        linkIcon: linkIcon[item.contentType],
+        iconType: iconType[item.contentType]
+      })
+    });
+  }
 
   // Mustache stuff;
   Mustache.parse(template);
@@ -64,9 +97,9 @@
       }
 
       try {
-        const data = JSON.parse(response.responseText);
+        var data = JSON.parse(response.responseText);
 
-        updateTemplate(data);
+        updateTemplate(enhanceData(data));
 
         return true;
       } catch (error) {

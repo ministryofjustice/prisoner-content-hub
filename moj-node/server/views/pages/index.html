@@ -57,7 +57,8 @@
     columnNumber: "govuk-grid-column-one-quarter",
     data: newsAndEvents,
     size: "small",
-    contentType: "news-events"
+    contentType: "news-events",
+    baseUrl: "/content"
   }) }}
 
 {{ hubFeaturedContent({
@@ -66,7 +67,8 @@
     columnNumber: "govuk-grid-column-one-quarter",
     data: dayToDay,
     size: "small",
-    contentType: "Day-to-day"
+    contentType: "Day-to-day",
+    baseUrl: "/content"
   }) }}
 
   {# {{ hubFeaturedContent({
@@ -79,7 +81,8 @@
     columnNumber: "govuk-grid-column-one-quarter",
     data: healthyMindAndBody,
     size: "small",
-    contentType: "healthy-mind-body"
+    contentType: "healthy-mind-body",
+    baseUrl: "/content"
   }) }}
 
 
@@ -89,7 +92,8 @@
     columnNumber: "govuk-grid-column-one-quarter",
     data: legalAndYourRights,
     size: "small",
-    contentType: "legal-and-your-rights"
+    contentType: "legal-and-your-rights",
+    baseUrl: "/content"
   }) }}
 
   {{ hubFeaturedContent({
@@ -98,7 +102,8 @@
     columnNumber: "govuk-grid-column-one-quarter",
     data: inspiration,
     size: "small",
-    contentType: "inspiration"
+    contentType: "inspiration",
+    baseUrl: "/content"
   }) }}
 
 
@@ -108,7 +113,8 @@
     columnNumber: "govuk-grid-column-one-quarter",
     data: scienceAndNature,
     size: "small",
-    contentType: "science-nature"
+    contentType: "science-nature",
+    baseUrl: "/content"
   }) }}
 
   {{ hubFeaturedContent({
@@ -117,7 +123,8 @@
     columnNumber: "govuk-grid-column-one-quarter",
     data: artAndCulture,
     size: "small",
-    contentType: "art-culture"
+    contentType: "art-culture",
+    baseUrl: "/content"
   }) }}
 
   {# {{ hubFeaturedContent({
@@ -135,9 +142,18 @@
     columnNumber: "govuk-grid-column-one-quarter",
     data: musicAndGames,
     size: "small",
-    contentType: "music-games"
+    contentType: "music-games",
+    baseUrl: "/content"
   }) }}
 
+  {# {{ hubFeaturedContent({
+    categoryTitle: "Games",
+    columnNumber: "govuk-grid-column-one-third",
+    data: games,
+    size: "medium",
+    baseUrl: "/games",
+    contentType: "games"
+  }) }} #}
 {% endblock %}
 
 

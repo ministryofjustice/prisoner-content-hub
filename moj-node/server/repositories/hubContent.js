@@ -65,6 +65,7 @@ module.exports = function hubContentRepository(httpClient) {
       _number: perPage,
       _offset: offset,
     });
+
     return parseHubContentResponse(response);
   }
 

@@ -4,7 +4,6 @@ module.exports = function createHubFeaturedContentService(repository) {
       const [
         newsAndEvents,
         dayToDay,
-        games,
         musicAndGames,
         healthyMindAndBody,
         inspiration,
@@ -15,7 +14,6 @@ module.exports = function createHubFeaturedContentService(repository) {
       ] = await Promise.all([
         repository.newsAndEvents(),
         repository.dayToDay(),
-        repository.games(),
         repository.musicAndGames(),
         repository.healthyMindAndBody(),
         repository.inspiration(),
@@ -28,7 +26,6 @@ module.exports = function createHubFeaturedContentService(repository) {
       return {
         newsAndEvents,
         dayToDay,
-        games,
         musicAndGames,
         healthyMindAndBody,
         inspiration,
@@ -36,6 +33,7 @@ module.exports = function createHubFeaturedContentService(repository) {
         artAndCulture,
         history,
         legalAndYourRights,
+        games: repository.games(),
       };
     } catch (ex) {
       return null;
