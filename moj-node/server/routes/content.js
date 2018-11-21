@@ -46,6 +46,7 @@ module.exports = function createContentRouter({
             backHomeEnabled: true,
           });
         case 'pdf': {
+          logger.info('Sending PDF to client from:', data.url);
           const stream = requestClient.get(data.url);
 
           // X-Download-Options prevents Internet Explorer from executing downloads
