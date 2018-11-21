@@ -50,8 +50,9 @@ module.exports = function createContentRouter({
           let stream;
 
           if (appConfig.production) {
-            const url = data.url.replace('http://digital-hub.bwi.dpn.gov.uk:11002', appConfig.hubEndpoint);
-            logger.debug('Sending PDF to client from:', url);
+            const urlRegex = /^https?:\/\/[^/]+/;
+            const url = data.url.replace(urlRegex, appConfig.hubEndpoint);
+            logger.debug('PROD - Sending PDF to client from:', url);
             stream = requestClient.get(url);
           } else {
             logger.debug('Sending PDF to client from:', data.url);
