@@ -1,7 +1,7 @@
 const { prop } = require('ramda');
 const express = require('express');
 const request = require('superagent');
-const config = require('../config');
+const appConfig = require('../config');
 
 
 module.exports = function createContentRouter({
@@ -50,8 +50,8 @@ module.exports = function createContentRouter({
           logger.debug('Sending PDF to client from:', data.url);
           let stream;
 
-          if (config.production) {
-            const url = data.url.replace('http://digital-hub.bwi.dpn.gov.uk:11002', config.hubEndpoint);
+          if (appConfig.production) {
+            const url = data.url.replace('http://digital-hub.bwi.dpn.gov.uk:11002', appConfig.hubEndpoint);
             stream = requestClient.get(url);
           } else {
             stream = requestClient.get(data.url);
