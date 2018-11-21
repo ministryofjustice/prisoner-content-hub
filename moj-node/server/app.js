@@ -1,7 +1,7 @@
 const express = require('express');
 const addRequestId = require('express-request-id')();
 const compression = require('compression');
-const helmet = require('helmet');
+// const helmet = require('helmet');
 const log = require('bunyan-request-logger')();
 const nunjucks = require('nunjucks');
 const path = require('path');
