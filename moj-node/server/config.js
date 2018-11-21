@@ -9,6 +9,7 @@ module.exports = {
   production: isProduction,
   motamoUrl: getEnv('MATOMO_URL', { requireInProduction: true }),
   cookieSecret: getEnv('COOKIE_SECRET', 'keyboard cat'),
+  hubEndpoint,
   api: {
     hubHealth: `${hubEndpoint}/api/health`,
     hubContent: `${hubEndpoint}/v1/api/content`,

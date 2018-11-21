@@ -1,6 +1,7 @@
 const { prop } = require('ramda');
 const express = require('express');
 const request = require('superagent');
+const config = require('../config');
 
 
 module.exports = function createContentRouter({
@@ -46,8 +47,15 @@ module.exports = function createContentRouter({
             backHomeEnabled: true,
           });
         case 'pdf': {
-          logger.info('Sending PDF to client from:', data.url);
-          const stream = requestClient.get(data.url);
+          logger.debug('Sending PDF to client from:', data.url);
+          let stream;
+
+          if (config.production) {
+            const url = data.url.replace('http://digital-hub.bwi.dpn.gov.uk:11002', config.hubEndpoint);
+            stream = requestClient.get(url);
+          } else {
+            stream = requestClient.get(data.url);
+          }
 
           // X-Download-Options prevents Internet Explorer from executing downloads
           // in your site’s context. We don't want that
