@@ -1,9 +1,9 @@
 /* eslint-env browser */
 
-const navMenu = document.getElementById('nav-menu');
-const todaysDate = document.querySelector('[data-target-id="todays-date"]');
-const todaysTime = document.querySelector('[data-target-id="todays-time"]');
-const months = [
+var navMenu = document.getElementById('nav-menu');
+var todaysDate = document.querySelector('[data-target-id="todays-date"]');
+var todaysTime = document.querySelector('[data-target-id="todays-time"]');
+var months = [
   'January',
   'February',
   'March',
@@ -18,7 +18,7 @@ const months = [
   'December'
 ];
 
-const days = [
+var days = [
   'Sunday',
   'Monday',
   'Tuesday',
@@ -27,11 +27,6 @@ const days = [
   'Friday',
   'Saturday',
 ];
-
-// IE Polyfill
-if (!Element.prototype.matches) {
-  Element.prototype.matches = Element.prototype.msMatchesSelector;
-}
 
 // Navigation menu
 if (navMenu) {
@@ -67,11 +62,11 @@ if (navMenu) {
 // update the time
 if(todaysTime) {
   setInterval(function() {
-    const date = new Date();
-    const currentTime = todaysTime.textContent.trim();
-    const minutes = date.getMinutes();
-    const hours = date.getHours();
-    const nextTime =  formateTime(hours) + ":" + formateTime(minutes);
+    var date = new Date();
+    var currentTime = todaysTime.textContent.trim();
+    var minutes = date.getMinutes();
+    var hours = date.getHours();
+    var nextTime =  formateTime(hours) + ":" + formateTime(minutes);
     if (currentTime !== nextTime) {
       todaysTime.textContent = nextTime;
     }
@@ -81,9 +76,9 @@ if(todaysTime) {
 // update the date
 if(todaysDate) {
   setInterval(function() {
-    const date = new Date();
-    const currentDate = todaysDate.textContent.trim();
-    const nextDate = days[date.getDay()] + " " + date.getDate() + " " + months[date.getMonth()];
+    var date = new Date();
+    var currentDate = todaysDate.textContent.trim();
+    var nextDate = days[date.getDay()] + " " + date.getDate() + " " + months[date.getMonth()];
     if (currentDate !== nextDate) {
       todaysDate.textContent = nextDate
     }

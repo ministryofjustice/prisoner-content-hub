@@ -97,7 +97,7 @@
       }
 
       try {
-        const data = JSON.parse(response.responseText);
+        var data = JSON.parse(response.responseText);
 
         updateTemplate(enhanceData(data));
 
