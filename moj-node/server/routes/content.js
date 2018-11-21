@@ -47,13 +47,14 @@ module.exports = function createContentRouter({
             backHomeEnabled: true,
           });
         case 'pdf': {
-          logger.debug('Sending PDF to client from:', data.url);
           let stream;
 
           if (appConfig.production) {
             const url = data.url.replace('http://digital-hub.bwi.dpn.gov.uk:11002', appConfig.hubEndpoint);
+            logger.debug('Sending PDF to client from:', url);
             stream = requestClient.get(url);
           } else {
+            logger.debug('Sending PDF to client from:', data.url);
             stream = requestClient.get(data.url);
           }
 
