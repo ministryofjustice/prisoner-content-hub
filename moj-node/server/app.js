@@ -53,7 +53,7 @@ module.exports = function createApp({
   // Secure code best practice - see:
   // 1. https://expressjs.com/en/advanced/best-practice-security.html,
   // 2. https://www.npmjs.com/package/helmet
-  app.use(helmet());
+  // app.use(helmet());
 
   app.use(addRequestId);
 
@@ -137,7 +137,7 @@ module.exports = function createApp({
 
 
   // Don't cache dynamic resources
-  app.use(helmet.noCache());
+  // app.use(helmet.noCache());
 
   // feature toggle
   app.use(featureToggleMiddleware(config.features));
