@@ -58,7 +58,7 @@ describe('App', () => {
       });
   });
 
-  it('contains the correct security headers per request', () => request(app())
+  xit('contains the correct security headers per request', () => request(app())
     .get('/')
     .expect(200)
     .then((res) => {
