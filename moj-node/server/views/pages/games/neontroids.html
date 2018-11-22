@@ -1,0 +1,55 @@
+{% from "../../components/header/macro.njk" import govukHeaderWithBack %}
+{% extends "../../components/template.njk" %}
+
+{% block pageTitle %}
+  {{ data.title }}
+{% endblock %}
+
+{% block head %}
+  <!--[if !IE 8]><!-->
+  <link href="/public/stylesheets/application.css" rel="stylesheet" />
+  <!--<![endif]-->
+
+  {# For Internet Explorer 8, you need to compile specific stylesheet #}
+  {# see https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md #}
+  <!--[if IE 8]>
+    <link href="/govuk-frontend/all-ie8.css" rel="stylesheet" />
+  <![endif]-->
+
+  {# For older browsers to allow them to recognise HTML5 elements such as `<header>` #}
+  <!--[if lt IE 9]>
+    <script src="/html5-shiv/html5shiv.js"></script>
+  <![endif]-->
+  <link href="/public/javascript/games/neontroids/neontroids.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block header %}
+  {{ govukHeaderWithBack({
+    mainMenu: mainMenu,
+    topicsMenu: topicsMenu,
+    appName: envVars.APP_NAME,
+    features: features
+  }) }}
+{% endblock %}
+
+{% block main %}
+  <main class="neontroids">
+      <canvas id='canvas' class="canvas"></canvas>
+
+      <script>
+        document.documentElement.classList.add('full-dimensions');
+        document.body.classList.add('full-dimensions');
+        document.body.classList.add('noscroll');
+      </script>
+      <script src="/public/javascript/games/neontroids/sound-fx.js"></script>
+      <script src="/public/javascript/games/neontroids/keyboard-io.js"></script>
+      <script src="/public/javascript/games/neontroids/collisions.js"></script>
+      <script src="/public/javascript/games/neontroids/asteroids-sprites.js"></script>
+      <script src="/public/javascript/games/neontroids/asteroids-polygon.js"></script>
+      <script src="/public/javascript/games/neontroids/display-text.js"></script>
+      <script src="/public/javascript/games/neontroids/asteroids.js"></script>
+  </main>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

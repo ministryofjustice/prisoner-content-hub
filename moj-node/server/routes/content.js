@@ -50,8 +50,8 @@ module.exports = function createContentRouter({
           let stream;
 
           if (appConfig.production) {
-            const urlRegex = /^https?:\/\/[^/]+/;
-            const url = data.url.replace(urlRegex, appConfig.hubEndpoint);
+            const urlSchemeAndAuthorityRegex = /^https?:\/\/[^/]+/;
+            const url = data.url.replace(urlSchemeAndAuthorityRegex, appConfig.hubEndpoint);
             logger.debug('PROD - Sending PDF to client from:', url);
             stream = requestClient.get(url);
           } else {

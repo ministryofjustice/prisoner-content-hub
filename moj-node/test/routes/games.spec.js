@@ -40,4 +40,22 @@ describe('GET /games', () => {
         });
     });
   });
+
+  describe('/neontroids', () => {
+    it('renders a neontroids game page', () => {
+      const router = createGamesRouter({ logger });
+      const app = setupBasicApp();
+
+      app.use('/games', router);
+
+      return request(app)
+        .get('/games/neontroids')
+        .expect('Content-Type', /text\/html/)
+        .expect(200)
+        .then((response) => {
+          const $ = cheerio.load(response.text);
+          expect($('title').text()).to.match(/Neontroids/);
+        });
+    });
+  });
 });

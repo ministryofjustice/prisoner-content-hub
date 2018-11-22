@@ -110,6 +110,15 @@ function hubFeaturedContentRepository(httpClient) {
           url: '/public/images/sudoku.png',
         },
       },
+      {
+        id: 'neontroids',
+        title: 'Neontroids',
+        contentType: 'game',
+        summary: '',
+        image: {
+          url: '/public/images/neontroids.png',
+        },
+      },
     ];
   }
 
