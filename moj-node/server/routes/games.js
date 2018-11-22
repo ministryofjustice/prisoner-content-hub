@@ -12,7 +12,7 @@ module.exports = function createGamesRouter({ logger }) {
   router.get('/chess', (req, res) => {
     logger.info('GET /games/chess');
 
-    return res.render('pages/chess', {
+    return res.render('pages/games/chess', {
       data: {
         title: 'Chess',
       },
@@ -23,12 +23,29 @@ module.exports = function createGamesRouter({ logger }) {
   router.get('/sudoku', (req, res) => {
     logger.info('GET /games/sudoku');
 
-    return res.render('pages/sudoku', {
+    return res.render('pages/games/sudoku', {
       data: {
         title: 'Sudoku',
       },
       config,
     });
+  });
+
+  router.get('/neontroids', (req, res) => {
+    logger.info('GET /games/neontroids');
+
+    return res.render('pages/games/neontroids', {
+      data: {
+        title: 'Neontroids',
+      },
+      config,
+    });
+  });
+
+  router.get('/neontroids-game', (req, res) => {
+    logger.info('GET /games/neontroids');
+
+    return res.render('pages/games/neontroids-full');
   });
 
   return router;
