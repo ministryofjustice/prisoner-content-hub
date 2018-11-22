@@ -1,7 +1,7 @@
 $trans: rgba(0, 0, 0, 0);
-$fifityPerecntBlack: rgba(0, 0, 0, 0.50);
+$seventyFivePercentBlack: rgba(0, 0, 0, 0.75);
 
-$gradient: $trans, $fifityPerecntBlack;
+$gradient: $trans, $seventyFivePercentBlack;
 
 .govuk-hub-promoted-content {
     position: relative;
@@ -50,7 +50,10 @@ $gradient: $trans, $fifityPerecntBlack;
 }
 
 .govuk-hub-promoted-content__overlay {
+    background: $seventyFivePercentBlack;
+    background: -ms-linear-gradient(right, rgba(0,0,0,0), rgba(0, 0, 0, 1)); /* IE 11 */
     @include gradient(right, $gradient);
+  
     min-height: 300px;
 }
 
