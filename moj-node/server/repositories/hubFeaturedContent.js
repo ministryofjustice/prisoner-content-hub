@@ -45,7 +45,7 @@ function hubFeaturedContentRepository(httpClient) {
     });
   }
 
-  function musicAndGames() {
+  function music() {
     return hubContentFor({
       query: {
         _number: 4,
@@ -130,7 +130,7 @@ function hubFeaturedContentRepository(httpClient) {
     artAndCulture,
     healthyMindAndBody,
     games,
-    musicAndGames,
+    music,
     inspiration,
     scienceAndNature,
     history,

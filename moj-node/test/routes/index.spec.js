@@ -22,7 +22,7 @@ describe('GET /', () => {
   const hubFeaturedContentService = {
     hubFeaturedContent: sinon.stub().returns({
       newsAndEvents: [{ ...featuredItem, title: 'News story', id: 0 }],
-      musicAndGames: [{ ...featuredItem, title: 'Foo radio show' }],
+      music: [{ ...featuredItem, title: 'Foo radio show', id: 1 }],
       healthyMindAndBody: [{ ...featuredItem, id: 2 }],
       inspiration: [{ ...featuredItem, id: 3 }],
       scienceAndNature: [{ ...featuredItem, id: 4 }],
@@ -87,8 +87,7 @@ describe('GET /', () => {
       .then((response) => {
         const $ = cheerio.load(response.text);
         const radioItemSelector = '[data-featured-item-id="featured-content-1"]';
-
-        expect($('[data-featured-item-id]').length).to.equal(7, '7 featured items should be rendered');
+        expect($('[data-featured-item-id]').length).to.equal(8, '8 featured items should be rendered');
         expect($(radioItemSelector).text()).to.include('Foo radio show', 'Correct title rendered');
         expect($(radioItemSelector).text()).to.include('foo summary', 'Correct description rendered');
         expect($(`${radioItemSelector} [data-featured-item-background]`).attr('style')).to.include('image.url.com', 'Correct image rendered');
