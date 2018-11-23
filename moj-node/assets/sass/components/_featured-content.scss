@@ -18,14 +18,7 @@
 .govuk-hub-featured-content__category-link {
     @include govuk-font($size: 24);
     display: inline-block;
-
-    .icon-chevron {
-        &:before{
-            position: relative;
-            top: 2px;
-        }
-    }
-
+    
     &:link,
     &:visited,
     &:active,
@@ -36,6 +29,14 @@
     &:hover {
         color: govuk-colour("white");
     }
+}
+
+.govuk-hub-chevron-link {
+    font-size: 2em; 
+    display: inline-block; 
+    top: 5px; 
+    position: relative
+
 }
 
 .govuk-hub-featured-link {
