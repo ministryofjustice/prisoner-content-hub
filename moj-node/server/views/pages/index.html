@@ -31,7 +31,8 @@
   "Day-to-day": "/content/3663",
   "art-culture": "/content/3661",
   "healthy-mind-body": "/content/3657",
-  "music-games": "/content/3662",
+  "history": "/content/3699",
+  "music": "/content/3662",
   "inspiration": "/content/3659",
   "science-nature": "/content/3660",
   "legal-and-your-rights": "/content/3658"
@@ -127,22 +128,23 @@
     baseUrl: "/content"
   }) }}
 
-  {# {{ hubFeaturedContent({
+  {{ hubFeaturedContent({
     categoryTitle: "History",
-    categoryLink: "/",
+    categoryLink: categoryLinks["history"],
     columnNumber: "govuk-grid-column-one-quarter",
     data: history,
     size: "small",
-    contentType: "history"
-  }) }} #}
+    contentType: "history",
+    baseUrl: "/content"
+  }) }}
 
   {{ hubFeaturedContent({
     categoryTitle: "Music",
-    categoryLink: categoryLinks["music-games"],
+    categoryLink: categoryLinks["music"],
     columnNumber: "govuk-grid-column-one-quarter",
-    data: musicAndGames,
+    data: music,
     size: "small",
-    contentType: "music-games",
+    contentType: "music",
     baseUrl: "/content"
   }) }}
 
