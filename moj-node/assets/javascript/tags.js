@@ -69,7 +69,8 @@
     });
 
     request.open("GET", url + "?perPage=8&offset=" + query.offset);
-    request.responseType = "application/json";
+    request.setRequestHeader('Accept', 'application/json');
+
     request.send();
 
     loader.removeAttribute('hidden');
