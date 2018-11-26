@@ -24,7 +24,7 @@
   }
 
   a {
-    @extend .govuk-link;
+    @extend .govuk-link, .govuk-link--no-visited-state;
   }
 
   table { 
