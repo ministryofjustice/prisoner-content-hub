@@ -4,6 +4,7 @@ module.exports.idFrom = R.view(R.lensPath(['nid', 0, 'value']));
 module.exports.tagIdFrom = R.view(R.lensPath(['tid', 0, 'value']));
 module.exports.titleFrom = R.view(R.lensPath(['title', 0, 'value']));
 module.exports.contentTypeFrom = R.view(R.lensPath(['type', 0, 'target_id']));
+module.exports.vocabularyType = R.view(R.lensPath(['vid', 0, 'target_id']));
 module.exports.descriptionValueFrom = R.view(R.lensPath(['field_moj_description', 0, 'value']));
 module.exports.descriptionProcessedFrom = R.view(R.lensPath(['field_moj_description', 0, 'processed']));
 module.exports.termDescriptionValueFrom = R.view(R.lensPath(['description', 0, 'value']));

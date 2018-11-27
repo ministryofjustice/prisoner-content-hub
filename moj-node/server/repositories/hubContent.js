@@ -7,6 +7,7 @@ const { parseHubContentResponse } = require('../utils/index');
 
 const {
   idFrom,
+  tagIdFrom,
   titleFrom,
   contentTypeFrom,
   descriptionValueFrom,
@@ -27,6 +28,7 @@ const {
   landingFeaturedContentIdFrom,
   categoryIdFrom,
   pdfUrlFrom,
+  vocabularyType,
 } = require('../selectors/hub');
 
 
@@ -39,7 +41,6 @@ module.exports = function hubContentRepository(httpClient) {
 
   async function termFor(id) {
     const response = await httpClient.get(`${config.api.hubTerm}/${id}`);
-
     return parseTermResponse(response);
   }
 
@@ -72,6 +73,8 @@ module.exports = function hubContentRepository(httpClient) {
   function parseTermResponse(data) {
     if (data === null) return null;
     return {
+      id: tagIdFrom(data),
+      type: vocabularyType(data),
       name: nameFrom(data),
       description: {
         raw: termDescriptionValueFrom(data),
@@ -146,7 +149,7 @@ module.exports = function hubContentRepository(httpClient) {
       },
       media: type === 'radio' ? audioFrom(data) : videoFrom(data),
       duration: durationFrom(data),
-      thumbnail: {
+      image: {
         alt: imageAltFrom(data),
         url: imageUrlFrom(data),
       },
@@ -169,7 +172,7 @@ module.exports = function hubContentRepository(httpClient) {
         summary: summaryValueFrom(data),
       },
       standFirst: standFirstFrom(data),
-      thumbnail: {
+      image: {
         alt: imageAltFrom(data),
         url: imageUrlFrom(data),
       },

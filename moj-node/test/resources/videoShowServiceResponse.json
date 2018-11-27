@@ -7,7 +7,7 @@
     "sanitized": "<p>Baz body</p>"
   },
   "media": "baz.mp4",
-  "thumbnail": {
+  "image": {
     "alt": "baz Bar",
     "url": "baz.png"
   },
@@ -20,7 +20,7 @@
       "episode": 1,
       "season": 1,
       "seriesId": 694,
-      "thumbnail": {
+      "image": {
         "alt": "baz.image.alt",
         "url": "baz.image.png"
       }
