@@ -7,7 +7,7 @@
     "sanitized": "<p>Foo body</p>"
   },
   "media": "foo.mp3",
-  "thumbnail": {
+  "image": {
     "alt": "foo Bar",
     "url": "foo.png"
   },
@@ -20,7 +20,7 @@
       "episode": 1,
       "season": 1,
       "seriesId": 694,
-      "thumbnail": {
+      "image": {
         "alt": "foo.image.alt",
         "url": "foo.image.png"
       }

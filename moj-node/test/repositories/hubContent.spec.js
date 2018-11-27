@@ -64,6 +64,8 @@ describe('hubContentRepository', () => {
       const content = await repository.termFor('id');
 
       expect(content).to.eql({
+        id: 1,
+        type: 'foo_type',
         name: 'Foo terms',
         description: {
           raw: '<p>foo description</p>',
@@ -140,7 +142,7 @@ function radioContent() {
     episode: 1,
     season: 1,
     seriesId: 665,
-    thumbnail: {
+    image: {
       alt: 'Foo Bar',
       url: 'http://foo.bar.com/image.png',
     },
@@ -162,7 +164,7 @@ function videoContent() {
     episode: 1,
     season: 1,
     seriesId: 665,
-    thumbnail: {
+    image: {
       alt: 'Foo Bar',
       url: 'http://foo.bar.com/image.png',
     },
@@ -179,7 +181,7 @@ function flatPageContent() {
       sanitized: '<p>Foo article description</p>',
       summary: '',
     },
-    thumbnail: {
+    image: {
       alt: undefined,
       url: undefined,
     },
@@ -203,7 +205,7 @@ function seasonContent() {
       episode: 1,
       season: 1,
       seriesId: 694,
-      thumbnail: {
+      image: {
         alt: '',
         url: 'foo.image.png',
       },
@@ -222,7 +224,7 @@ function seasonContent() {
       episode: 2,
       season: 1,
       seriesId: 694,
-      thumbnail: {
+      image: {
         alt: '',
         url: 'bar.img.png',
       },

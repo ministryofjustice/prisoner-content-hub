@@ -1,7 +1,7 @@
 {
     "tid": [
         {
-            "value": 651
+            "value": 1
         }
     ],
     "uuid": [
@@ -16,7 +16,7 @@
     ],
     "vid": [
         {
-            "target_id": "moj_categories",
+            "target_id": "foo_type",
             "target_type": "taxonomy_vocabulary",
             "target_uuid": "d7e7e479-0dcb-4b22-bad0-a48964c00be1"
         }
