@@ -5,6 +5,10 @@
 
 {% extends "../components/template.njk" %}
 
+{% block pageTitle %}
+  {{ data.name }}
+{% endblock %}
+
 {% block head %}
   <!--[if !IE 8]><!-->
     <link href="/public/stylesheets/application.css" rel="stylesheet" />
