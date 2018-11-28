@@ -19,8 +19,9 @@ describe('#hubContentService', () => {
         href: 'www.foo.com',
         type: 'radio',
         seriesId: 'seriesId',
+        tagsId: [12],
       }),
-      termFor: sinon.stub().returns({ name: 'foo series name' }),
+      termFor: sinon.stub().returns({ name: 'foo series name', id: 'foo' }),
       seasonFor: sinon.stub().returns([{ title: 'foo episode', id: 1 }, { id: 2, title: 'bar episode' }]),
     };
 
@@ -34,7 +35,9 @@ describe('#hubContentService', () => {
       type: 'radio',
       seriesId: 'seriesId',
       seriesName: 'foo series name',
+      tagsId: [12],
       season: [{ id: 2, title: 'bar episode' }], // hides the current episode from season
+      tags: [{ name: 'foo series name', id: 'foo' }],
     });
 
     expect(repository.termFor.lastCall.args[0]).to.equal('seriesId');
@@ -48,6 +51,7 @@ describe('#hubContentService', () => {
         title: 'foo',
         href: 'www.foo.com',
         type: 'video',
+        tagsId: [],
         seriesId: 'seriesId',
       }),
       termFor: sinon.stub().returns({ name: 'foo series name' }),
@@ -63,8 +67,10 @@ describe('#hubContentService', () => {
       href: 'www.foo.com',
       type: 'video',
       seriesId: 'seriesId',
+      tagsId: [],
       seriesName: 'foo series name',
       season: [{ id: 2, title: 'bar episode' }], // hides the current episode from season
+      tags: [],
     });
 
     expect(repository.termFor.lastCall.args[0]).to.equal('seriesId');

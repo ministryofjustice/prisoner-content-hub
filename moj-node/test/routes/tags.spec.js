@@ -54,7 +54,6 @@ describe('GET /tags', () => {
           const $ = cheerio.load(response.text);
 
           expect($('#title').text()).to.include(data.name, 'did not have correct header title');
-          expect($('#description').text()).to.include(data.description.sanitized, 'did not have correct header description');
           expect($('[data-featured-id]').length).to.equal(1, 'did not render the correct number of');
           expect($('[data-featured-id="foo"]').text()).to.include(data.relatedContent[0].title, 'did not render the correct related item title');
           expect($('[data-featured-id="foo"]').text()).to.include(data.relatedContent[0].summary, 'did not render the correct related item summary');

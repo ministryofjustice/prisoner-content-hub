@@ -50,6 +50,9 @@ describe('GET /content/:id', () => {
           expect($('#thumbnail').attr('src')).to.equal('foo.png', 'Page thumbnail src did not match');
           expect($('#thumbnail').attr('alt')).to.equal('foo Bar', 'Page thumbnail alt did not match');
 
+          // tags
+          expect($('#tags-list > li').length).to.equal(2);
+
           // episodes
           expect($('#next-episodes a').length).to.equal(1, 'The number of next episodes shows don\'t match');
           expect($('#next-episodes a').text()).to.include('Foo episode', 'The episode title doesn\'t match');
@@ -81,6 +84,9 @@ describe('GET /content/:id', () => {
           expect($('#videoPlayerContainer').attr('data-video')).to.equal('baz.mp4', 'Page media did not match');
           expect($('#thumbnail').attr('src')).to.equal('baz.png', 'Page thumbnail src did not match');
           expect($('#thumbnail').attr('alt')).to.equal('baz Bar', 'Page thumbnail alt did not match');
+
+          // tags
+          expect($('#tags-list li').length).to.equal(2);
 
           // episodes
           expect($('#next-episodes a').length).to.equal(1, 'The number of next episodes shows don\'t match');

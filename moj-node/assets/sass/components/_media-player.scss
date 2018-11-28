@@ -19,12 +19,10 @@
 }
 
 .govuk-hub-media-player__catgeory-link {
-
     &:link,
     &:visited,
     &:active,
     &:focus {
-        text-decoration: none;
         color: govuk-colour("white");
     }
     &:hover {
@@ -47,10 +45,6 @@
     a {
       color: govuk-colour("white");
     }
-}
-
-.govuk-hub-media-player-item-icon {
-
 }
 
 .govuk-hub-media-player-item__main-play {
