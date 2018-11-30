@@ -58,7 +58,7 @@
     <header class="govuk-hub-media-player__header">
       <img width="100" height="100" id="thumbnail" src="{{ data.image.url }}" alt="{{ data.image.alt }}" class="govuk-hub-media-player__show-tag" />
       <div class="govuk-hub-title-container">
-        <p class="govuk-hub-media-player__catgeory govuk-heading-m"><a href="/tags/{{data.seriesId}}" id="series" title="" class="govuk-link govuk-hub-media-player__catgeory-link">{{ data.seriesName }}</a></p>
+        <p class="govuk-hub-media-player__catgeory govuk-heading-m"><a href="/tags/{{data.seriesId}}" id="series" title="{{ data.seriesName }}" class="govuk-link govuk-hub-media-player__catgeory-link">{{ data.seriesName }}</a></p>
         <h1 id="title" class="govuk-hub-media-player__title govuk-heading-xl govuk-body govuk-!-font-size-36 govuk-body govuk-!-font-weight-bold">{{ data.title }}</h1>
       </div>
     </header>
@@ -77,16 +77,13 @@
     <ul id="tags-list" class="govuk-hub-navigation__list govuk-hub-navigation__list--linear govuk-!-margin-bottom-6">
       {% for tagItem in data.tags %}
         <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item-topic">
-          <a href="/tags/{{tagItem.id}}">{{tagItem.name}}</a>
+          <a title="{{tagItem.name}}" href="/tags/{{tagItem.id}}">{{tagItem.name}}</a>
         </li>
       {% endfor %}
     </ul>
 
     <div id="next-episodes" class="govuk-hub-media-player__watch-next">
-      {{ nextEpisodesContent({
-          data: data.season
-         })
-      }}
+      {{ nextEpisodesContent({ data: data.season }) }}
     </div>
   </div>
 </div>
