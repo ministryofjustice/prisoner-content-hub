@@ -81,5 +81,6 @@
           "target_uuid": "38b9cffb-241a-40f7-b187-e99c67897471",
           "url": "http://foo.bar.com/image.png"
       }
-  ]
+  ],
+  "field_moj_top_level_categories": []
 }

@@ -146,6 +146,7 @@ function radioContent() {
       alt: 'Foo Bar',
       url: 'http://foo.bar.com/image.png',
     },
+    tagsId: [646],
   };
 }
 
@@ -168,6 +169,7 @@ function videoContent() {
       alt: 'Foo Bar',
       url: 'http://foo.bar.com/image.png',
     },
+    tagsId: [],
   };
 }
 
@@ -209,6 +211,7 @@ function seasonContent() {
         alt: '',
         url: 'foo.image.png',
       },
+      tagsId: [648, 650],
     },
     {
       id: 2,
@@ -228,6 +231,7 @@ function seasonContent() {
         alt: '',
         url: 'bar.img.png',
       },
+      tagsId: [648, 650],
     },
   ];
 }

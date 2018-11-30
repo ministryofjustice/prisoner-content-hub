@@ -14,7 +14,7 @@
 
 .govuk-hub-navigation.is-open {
   display: block;
-  
+
 }
 
 .govuk-hub-navigation__content-container {
@@ -29,11 +29,22 @@
     -moz-columns: 4;
 }
 
+.govuk-hub-navigation__list--linear {
+  columns: unset;
+  -webkit-columns: unset;
+    -moz-columns: unset;
+}
+
 .govuk-hub-navigation__list-item {
     a {
         text-decoration: none;
     }
 }
+
+.govuk-hub-navigation__list--linear .govuk-hub-navigation__list-item {
+  display: inline-block;
+}
+
 
 .govuk-hub-navigation__list-item--with-chevron {
     margin-bottom: 15px;
@@ -60,7 +71,7 @@
 
     a {
         display: inline-block;
-        padding: 5px 10px;
+        padding: 5px 10px 0;
         background: govuk-colour("white");
         @include govuk-font($size: 19);
         color: govuk-colour("black");

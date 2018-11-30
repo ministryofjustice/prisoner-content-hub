@@ -29,6 +29,7 @@ const {
   categoryIdFrom,
   pdfUrlFrom,
   vocabularyType,
+  tagsIdsFrom,
 } = require('../selectors/hub');
 
 
@@ -156,6 +157,7 @@ module.exports = function hubContentRepository(httpClient) {
       episode: episodeFrom(data),
       season: seasonFrom(data),
       seriesId: seriesIdFrom(data),
+      tagsId: tagsIdsFrom(data),
     };
   }
 

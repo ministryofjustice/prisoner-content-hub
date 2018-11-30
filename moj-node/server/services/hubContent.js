@@ -3,6 +3,7 @@ const {
   filter,
   not,
   equals,
+  map,
 } = require('ramda');
 
 module.exports = function createHubContentService(repository) {
@@ -24,17 +25,22 @@ module.exports = function createHubContentService(repository) {
   async function media(data) {
     const id = prop('id', data);
     const seriesId = prop('seriesId', data);
+    const tagsId = prop('tagsId', data);
     const filterOutCurrentEpisode = filter(item => not(equals(prop('id', item), id)));
+    const tagsPromises = map(repository.termFor, tagsId);
 
     const [series, seasons] = await Promise.all([
       repository.termFor(seriesId),
       repository.seasonFor(seriesId),
     ]);
 
+    const tags = await Promise.all(tagsPromises);
+
     return {
       ...data,
       seriesName: prop('name', series),
       season: seasons ? filterOutCurrentEpisode(seasons) : seasons,
+      tags,
     };
   }
 
