@@ -34,7 +34,7 @@ services:
                         - ./moj-node/assets:/home/node/app/assets
 
         hub-fe:
-                image: mojdigitalstudio/digital-hub-fe
+                image: local/digital-hub-fe
                 depends_on:
                         - hub-be
                         - hub-memcache
@@ -44,7 +44,7 @@ services:
                 ports:
                         - 8181:80
                 volumes:
-                        - ./moj-fe/:/var/www/hub/
+                        - ./moj-fe/:/app
                 healthcheck:
                         test: ["CMD", "curl", "-f", "http://localhost"]
                         interval: 15s
