@@ -22,9 +22,9 @@ module.exports = function createContentRouter({
 
     try {
       const data = await hubContentService.contentFor(req.params.id);
-      const type = prop('type', data);
+      const contentType = prop('contentType', data);
 
-      switch (type) {
+      switch (contentType) {
         case 'radio':
           return res.render('pages/audio', {
             config,

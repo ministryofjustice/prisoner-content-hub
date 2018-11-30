@@ -17,7 +17,7 @@ describe('#hubContentService', () => {
         id: 1,
         title: 'foo',
         href: 'www.foo.com',
-        type: 'radio',
+        contentType: 'radio',
         seriesId: 'seriesId',
         tagsId: [12],
       }),
@@ -32,7 +32,7 @@ describe('#hubContentService', () => {
       id: 1,
       title: 'foo',
       href: 'www.foo.com',
-      type: 'radio',
+      contentType: 'radio',
       seriesId: 'seriesId',
       seriesName: 'foo series name',
       tagsId: [12],
@@ -50,7 +50,7 @@ describe('#hubContentService', () => {
         id: 1,
         title: 'foo',
         href: 'www.foo.com',
-        type: 'video',
+        contentType: 'video',
         tagsId: [],
         seriesId: 'seriesId',
       }),
@@ -65,7 +65,7 @@ describe('#hubContentService', () => {
       id: 1,
       title: 'foo',
       href: 'www.foo.com',
-      type: 'video',
+      contentType: 'video',
       seriesId: 'seriesId',
       tagsId: [],
       seriesName: 'foo series name',
@@ -81,7 +81,7 @@ describe('#hubContentService', () => {
   describe('landing page', () => {
     const content = {
       id: 'foo-id',
-      type: 'landing-page',
+      contentType: 'landing-page',
       featuredContentId: 'featuredContentId',
       categoryId: 'categoryId',
     };
@@ -101,7 +101,7 @@ describe('#hubContentService', () => {
       const service = createHubContentService(repository);
       const result = await service.contentFor(content.id);
 
-      expect(result).to.have.property('type', content.type);
+      expect(result).to.have.property('contentType', content.contentType);
       expect(result).to.have.property('featuredContentId', 'featuredContentId');
       expect(result).to.have.property('featuredContent', 'fooBar');
       expect(result).to.have.property('relatedContent', 'relatedContent');

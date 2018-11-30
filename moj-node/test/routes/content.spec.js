@@ -101,7 +101,7 @@ describe('GET /content/:id', () => {
       contentFor: sinon.stub().returns({
         id: 3491,
         title: 'Foo article',
-        type: 'page',
+        contentType: 'page',
         description: {
           sanitized: '<p>Foo article body</p>',
         },
@@ -133,7 +133,7 @@ describe('GET /content/:id', () => {
       contentFor: sinon.stub().returns({
         id: 1,
         title: 'foo pdf file',
-        type: 'pdf',
+        contentType: 'pdf',
         url: 'www.foo.bar/file.pdf',
       }),
     };
@@ -167,7 +167,7 @@ describe('GET /content/:id', () => {
     const serviceResponse = {
       id: 1,
       title: 'Foo Landing page',
-      type: 'landing-page',
+      contentType: 'landing-page',
       description: {
         sanitized: '<p>Foo landing page body</p>',
         summary: 'Some summary',

@@ -9,9 +9,9 @@ const {
 module.exports = function createHubContentService(repository) {
   async function contentFor(id) {
     const content = await repository.contentFor(id);
-    const type = prop('type', content);
+    const contentType = prop('contentType', content);
 
-    switch (type) {
+    switch (contentType) {
       case 'radio':
       case 'video':
         return media(content);

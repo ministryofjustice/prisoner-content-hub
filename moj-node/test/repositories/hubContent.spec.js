@@ -136,7 +136,7 @@ function radioContent() {
       sanitized: '<p>Hello world</p>',
       summary: 'hello world',
     },
-    type: 'radio',
+    contentType: 'radio',
     media: 'http://foo.bar.com/audio.mp3',
     duration: '1:35:27',
     episode: 1,
@@ -159,7 +159,7 @@ function videoContent() {
       sanitized: '<p>Hello world</p>',
       summary: 'hello world',
     },
-    type: 'video',
+    contentType: 'video',
     media: 'http://foo.bar.com/video.mp4',
     duration: '1:35:27',
     episode: 1,
@@ -177,7 +177,7 @@ function flatPageContent() {
   return {
     id: 3491,
     title: 'Foo article',
-    type: 'page',
+    contentType: 'page',
     description: {
       raw: '<p>Foo article description</p>',
       sanitized: '<p>Foo article description</p>',
@@ -201,7 +201,7 @@ function seasonContent() {
         sanitized: '<p>foo description</p>',
         summary: '',
       },
-      type: 'video',
+      contentType: 'video',
       media: 'http://foo/video/video.mp4',
       duration: '18:41',
       episode: 1,
@@ -221,7 +221,7 @@ function seasonContent() {
         sanitized: '<p>bar description</p>',
         summary: '',
       },
-      type: 'radio',
+      contentType: 'radio',
       media: 'http://foo/audio/audio.mp3',
       duration: '19:37',
       episode: 2,
@@ -241,7 +241,7 @@ function landingPageContent() {
     id: 1,
     categoryId: 655,
     title: 'Landing page title',
-    type: 'landing-page',
+    contentType: 'landing-page',
     featuredContentId: 3602,
     description: {
       raw: '<p>bar description</p>',
@@ -281,7 +281,7 @@ function pdfContent() {
   return {
     id: 1,
     title: 'Foo pdf',
-    type: 'pdf',
+    contentType: 'pdf',
     url: 'www.foo.bar/file.pdf',
   };
 }
