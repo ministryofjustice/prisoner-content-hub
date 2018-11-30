@@ -90,7 +90,7 @@ module.exports = function hubContentRepository(httpClient) {
     return {
       id: idFrom(data),
       title: titleFrom(data),
-      type: typeFrom(data),
+      contentType: typeFrom(data),
       featuredContentId: landingFeaturedContentIdFrom(data),
       description: {
         raw: descriptionValueFrom(data),
@@ -117,9 +117,9 @@ module.exports = function hubContentRepository(httpClient) {
   function parseResponse(data) {
     if (data === null) return null;
 
-    const type = typeFrom(data);
+    const contentType = typeFrom(data);
 
-    switch (type) {
+    switch (contentType) {
       case 'video':
       case 'radio':
         return parseMediaResponse(data);
@@ -137,18 +137,18 @@ module.exports = function hubContentRepository(httpClient) {
   function parseMediaResponse(data) {
     if (data === null) return null;
 
-    const type = typeFrom(data);
+    const contentType = typeFrom(data);
 
     return {
       id: idFrom(data),
       title: titleFrom(data),
-      type,
+      contentType,
       description: {
         raw: descriptionValueFrom(data),
         sanitized: descriptionProcessedFrom(data),
         summary: summaryValueFrom(data),
       },
-      media: type === 'radio' ? audioFrom(data) : videoFrom(data),
+      media: contentType === 'radio' ? audioFrom(data) : videoFrom(data),
       duration: durationFrom(data),
       image: {
         alt: imageAltFrom(data),
@@ -167,7 +167,7 @@ module.exports = function hubContentRepository(httpClient) {
     return {
       id: idFrom(data),
       title: titleFrom(data),
-      type: typeFrom(data),
+      contentType: typeFrom(data),
       description: {
         raw: descriptionValueFrom(data),
         sanitized: descriptionProcessedFrom(data),
@@ -187,7 +187,7 @@ module.exports = function hubContentRepository(httpClient) {
     return {
       id: idFrom(data),
       title: titleFrom(data),
-      type: typeFrom(data),
+      contentType: typeFrom(data),
       url: pdfUrlFrom(data),
     };
   }

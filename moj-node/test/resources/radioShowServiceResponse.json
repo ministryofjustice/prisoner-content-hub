@@ -1,5 +1,5 @@
 {
-  "type": "radio",
+  "contentType": "radio",
   "seriesName": "Foo series",
   "seriesId": "foo-id",
   "title": "Foo title",

@@ -1,5 +1,5 @@
 {
-  "type": "video",
+  "contentType": "video",
   "seriesName": "Baz series",
   "seriesId": "baz-id",
   "title": "Baz title",
