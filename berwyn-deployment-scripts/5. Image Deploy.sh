@@ -54,7 +54,7 @@ deploy_node() {
       -e APP_TIMEOUT=\"60.0\" \
       -e MATOMO_URL=\"${MATOMO_URL}\" \
       -e NODE_ENV=production \
-      -p 10002:3000 \
+      -p 10001:3000 \
       --restart always \
        mojdigitalstudio/digital-hub-node"
 }
