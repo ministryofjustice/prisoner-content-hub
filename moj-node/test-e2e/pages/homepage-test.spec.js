@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 
 const config = require('../config');
 
-describe('Home page', () => {
+xdescribe('Home page', () => {
   let browser;
   let page;
 
