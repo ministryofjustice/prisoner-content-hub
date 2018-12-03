@@ -65,7 +65,7 @@ services:
                         PHP_UPLOAD_MAX_FILE_SIZE: 500M
                         PHP_POST_MAX_SIZE: 500M
                         SIMPLETEST_DB: mysql://hubdb_user:hubdb_pass@localhost/hubdb
-                        XDEBUG_IP: 192.168.1.11 # Replace with your machines IP: $ ipconfig getifaddr en0 
+                        XDEBUG_IP: 127.0.0.1 # Replace with your machines IP: $ ipconfig getifaddr en0 
                 volumes:
                         - ./moj-be/:/var/www/html/
                 ports:
