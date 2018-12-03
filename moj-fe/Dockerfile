@@ -1,5 +1,4 @@
 FROM composer:1.6 as composer
-ENV port 8080
 RUN mkdir -p /composer
 COPY . /composer
 WORKDIR /composer
