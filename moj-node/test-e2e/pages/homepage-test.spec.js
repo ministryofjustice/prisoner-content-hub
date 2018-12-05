@@ -19,19 +19,19 @@ describe('Home page', () => {
     let promotedContent;
     before(async () => {
       await page.goto(config.appURL);
-      promotedContent = await page.$('[data-promoted-item-text]')
-    })
+      promotedContent = await page.$('[data-promoted-item-text]');
+    });
     it('contains promoted content text', async () => {
-      const promotedContentJshandle = await promotedContent.getProperty('textContent')
-      const text = await promotedContentJshandle.jsonValue()
+      const promotedContentJshandle = await promotedContent.getProperty('textContent');
+      const text = await promotedContentJshandle.jsonValue();
 
-      expect(text).to.match(/\w{10,}/,'expected promoted content to include text');
+      expect(text).to.match(/\w{10,}/, 'expected promoted content to include text');
     });
 
     it('contains a call to action for more content', async () => {
-      const callToAction = await promotedContent.$eval('[data-call-to-action]', el => el.href)
+      const callToAction = await promotedContent.$eval('[data-call-to-action]', el => el.href);
 
-      expect(callToAction).to.match(/\/content\//,'expected to have a link to promoted content');
+      expect(callToAction).to.match(/\/content\//, 'expected to have a link to promoted content');
     });
   });
 
