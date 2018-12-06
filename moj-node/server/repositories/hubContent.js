@@ -148,11 +148,11 @@ module.exports = function hubContentRepository(httpClient) {
         sanitized: descriptionProcessedFrom(data),
         summary: summaryValueFrom(data),
       },
-      media: contentType === 'radio' ? fixUrlForProduction(audioUrlFrom(data)) : fixUrlForProduction(videoUrlFrom(data)),
+      media: contentType === 'radio' ? fixUrlForProduction(audioUrlFrom(data), config.drupalAppUrl) : fixUrlForProduction(videoUrlFrom(data), config.drupalAppUrl),
       duration: durationFrom(data),
       image: {
         alt: imageAltFrom(data),
-        url: fixUrlForProduction(imageUrlFrom(data)),
+        url: fixUrlForProduction(imageUrlFrom(data), config.drupalAppUrl),
       },
       episode: episodeFrom(data),
       season: seasonFrom(data),
@@ -176,7 +176,7 @@ module.exports = function hubContentRepository(httpClient) {
       standFirst: standFirstFrom(data),
       image: {
         alt: imageAltFrom(data),
-        url: fixUrlForProduction(imageUrlFrom(data)),
+        url: fixUrlForProduction(imageUrlFrom(data), config.drupalAppUrl),
       },
     };
   }

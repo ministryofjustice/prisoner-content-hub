@@ -1,6 +1,8 @@
 const { getEnv, isProduction, isTest } = require('../utils/index');
 
 const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
+const drupalAppUrl = getEnv('DRUPAL_APP_URI', { requireInProduction: true });
+
 
 module.exports = {
   appName: getEnv('APP_NAME', 'Test application', { requireInProduction: true }),
@@ -10,6 +12,7 @@ module.exports = {
   motamoUrl: getEnv('MATOMO_URL', { requireInProduction: true }),
   cookieSecret: getEnv('COOKIE_SECRET', 'keyboard cat'),
   hubEndpoint,
+  drupalAppUrl,
   api: {
     hubHealth: `${hubEndpoint}/api/health`,
     hubContent: `${hubEndpoint}/v1/api/content`,

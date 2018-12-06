@@ -31,9 +31,9 @@ function parseHubContentResponse(data) {
   return Object
     .keys(data)
     .map((key) => {
-      const image = fixUrlForProduction(imageUrlFrom(data[key]))
+      const image = fixUrlForProduction(imageUrlFrom(data[key]), config.drupalAppUrl)
         ? {
-          url: fixUrlForProduction(imageUrlFrom(data[key])),
+          url: fixUrlForProduction(imageUrlFrom(data[key]), config.drupalAppUrl),
           alt: imageAltFrom(data[key]),
         }
         : {
