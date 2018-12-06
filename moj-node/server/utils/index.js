@@ -37,7 +37,7 @@ function parseHubContentResponse(data) {
           alt: imageAltFrom(data[key]),
         }
         : {
-          url: fixUrlForProduction(defaultThumbs[contentTypeFrom(data[key])]),
+          url: defaultThumbs[contentTypeFrom(data[key])],
           alt: defaultAlt[contentTypeFrom(data[key])],
         };
 
