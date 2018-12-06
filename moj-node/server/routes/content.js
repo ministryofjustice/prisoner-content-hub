@@ -1,8 +1,6 @@
 const { prop } = require('ramda');
 const express = require('express');
 const request = require('superagent');
-const appConfig = require('../config');
-
 
 module.exports = function createContentRouter({
   hubContentService,
@@ -47,16 +45,9 @@ module.exports = function createContentRouter({
             backHomeEnabled: true,
           });
         case 'pdf': {
-          let stream;
+          logger.debug('PROD - Sending PDF to client from:', data.url);
+          const stream = requestClient.get(data.url);
 
-          if (appConfig.production) {
-            const url = replaceURLWithDefinedEndpoint(data.url);
-            logger.debug('PROD - Sending PDF to client from:', url);
-            stream = requestClient.get(url);
-          } else {
-            logger.debug('Sending PDF to client from:', data.url);
-            stream = requestClient.get(data.url);
-          }
           // X-Download-Options prevents Internet Explorer from executing downloads
           // in your site’s context. We don't want that
           res.removeHeader('X-Download-Options');
@@ -77,11 +68,3 @@ module.exports = function createContentRouter({
 
   return router;
 };
-
-
-function replaceURLWithDefinedEndpoint(url) {
-  const urlSchemeAndAuthorityRegex = /^https?:\/\/[^/]+/;
-  const cleanUrl = url.replace(urlSchemeAndAuthorityRegex, appConfig.hubEndpoint);
-
-  return cleanUrl;
-}

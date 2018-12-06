@@ -1,4 +1,6 @@
 const { HUB_CONTENT_TYPES } = require('../constants/hub');
+const config = require('../config');
+
 const {
   idFrom,
   titleFrom,
@@ -29,13 +31,13 @@ function parseHubContentResponse(data) {
   return Object
     .keys(data)
     .map((key) => {
-      const image = imageUrlFrom(data[key])
+      const image = fixUrlForProduction(imageUrlFrom(data[key]))
         ? {
-          url: imageUrlFrom(data[key]),
+          url: fixUrlForProduction(imageUrlFrom(data[key])),
           alt: imageAltFrom(data[key]),
         }
         : {
-          url: defaultThumbs[contentTypeFrom(data[key])],
+          url: fixUrlForProduction(defaultThumbs[contentTypeFrom(data[key])]),
           alt: defaultAlt[contentTypeFrom(data[key])],
         };
 
@@ -50,6 +52,23 @@ function parseHubContentResponse(data) {
     });
 }
 
+
+function replaceURLWithDefinedEndpoint(url, alternateUrl = config.hubEndpoint) {
+  const urlSchemeAndAuthorityRegex = /^https?:\/\/[^/]+/;
+  const updatedUrl = url.replace(urlSchemeAndAuthorityRegex, alternateUrl);
+
+  return updatedUrl;
+}
+
+function fixUrlForProduction(url, alternateUrl = config.hubEndpoint) {
+  if (config.production) {
+    return replaceURLWithDefinedEndpoint(url, alternateUrl);
+  }
+  return url;
+}
+
 module.exports = {
   parseHubContentResponse,
+  replaceURLWithDefinedEndpoint,
+  fixUrlForProduction,
 };

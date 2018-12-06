@@ -2,7 +2,7 @@ const R = require('ramda');
 
 const config = require('../config');
 const { HUB_CONTENT_TYPES } = require('../constants/hub');
-const { parseHubContentResponse } = require('../utils/index');
+const { parseHubContentResponse, fixUrlForProduction } = require('../utils/index');
 
 
 const {
@@ -18,8 +18,8 @@ const {
   imageAltFrom,
   imageUrlFrom,
   durationFrom,
-  audioFrom,
-  videoFrom,
+  audioUrlFrom,
+  videoUrlFrom,
   seriesIdFrom,
   episodeFrom,
   seasonFrom,
@@ -148,11 +148,11 @@ module.exports = function hubContentRepository(httpClient) {
         sanitized: descriptionProcessedFrom(data),
         summary: summaryValueFrom(data),
       },
-      media: contentType === 'radio' ? audioFrom(data) : videoFrom(data),
+      media: contentType === 'radio' ? fixUrlForProduction(audioUrlFrom(data)) : fixUrlForProduction(videoUrlFrom(data)),
       duration: durationFrom(data),
       image: {
         alt: imageAltFrom(data),
-        url: imageUrlFrom(data),
+        url: fixUrlForProduction(imageUrlFrom(data)),
       },
       episode: episodeFrom(data),
       season: seasonFrom(data),
@@ -176,7 +176,7 @@ module.exports = function hubContentRepository(httpClient) {
       standFirst: standFirstFrom(data),
       image: {
         alt: imageAltFrom(data),
-        url: imageUrlFrom(data),
+        url: fixUrlForProduction(imageUrlFrom(data)),
       },
     };
   }
@@ -188,7 +188,7 @@ module.exports = function hubContentRepository(httpClient) {
       id: idFrom(data),
       title: titleFrom(data),
       contentType: typeFrom(data),
-      url: pdfUrlFrom(data),
+      url: fixUrlForProduction(pdfUrlFrom(data)),
     };
   }
 
