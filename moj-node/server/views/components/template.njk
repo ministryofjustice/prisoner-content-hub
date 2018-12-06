@@ -21,6 +21,7 @@
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
+      _paq.push(['enableJSErrorTracking']);
       (function() {
         var u="//{{envVars.MATOMO_URL}}/";
         _paq.push(['setTrackerUrl', u+'piwik.php']);
