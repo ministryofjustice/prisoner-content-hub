@@ -35,74 +35,81 @@ describe('Home page', () => {
     });
   });
 
-  xdescribe('News and event featured items', () => {
-    let container;
-
+  describe('Featured content', () => {
     before(async () => {
       await page.goto(config.appURL);
-      container = await page.$('[data-featured-section-id="news-events"]');
     });
 
-    it('renders the correct section title', async () => {
-      const sectionTitle = await container.$eval('[data-featured-section-title]', node => node.textContent);
 
-      expect(sectionTitle).to.equal('News and events');
+    it('renders featured content sections titles', () => {
+      const expectedSectionTitles = [
+        'News and events',
+        'Day-to-day',
+        'Healthy mind and body',
+        'Legal advice and your rights',
+        'Inspiration',
+        'Science and nature',
+        'Art and culture',
+        'History',
+        'Music',
+      ];
+
+      const tests = expectedSectionTitles.map(async (title) => {
+        const heading = await page.$eval(`[data-featured-section-title="${title}"]`, node => node.textContent);
+        expect(heading).to.equal(title);
+      });
+
+      return Promise.all(tests);
     });
 
-    it('renders the correct number of news and event featured items', async () => {
-      const featuredItemsCount = await container.$$eval('[data-featured-item-id]', node => node.length);
+    it('renders featured items for each featured content section', () => {
+      const featuredSection = [
 
-      expect(featuredItemsCount).to.equal(4);
+      ];
+
+      const tests = featuredSection.map(async () => {
+
+      });
+
+
+      return Promise.all(tests);
     });
 
-    it('navigates to the correct content for a featured event', async () => {
-      const featuredEvent = await container.$('[data-featured-item-id]:first-child');
-      const featuredId = await featuredEvent.$eval('[data-featured-id]', node => node.getAttribute('data-featured-id'));
-      const featuredTitle = await featuredEvent.$eval('[data-featured-title]', node => node.getAttribute('data-featured-title'));
-      const [response] = await Promise.all([
-        page.waitForNavigation(),
-        featuredEvent.click(),
-      ]);
+    it('navigates to the corrected featured item page', () => {
 
-      const responseText = await response.text();
-
-      expect(response.url()).to.contain(`/content/${featuredId}`);
-      expect(responseText).to.contain(featuredTitle);
-    });
-  });
-
-  describe('Radio shows and podcasts', () => {
-    let container;
-
-    before(async () => {
-      await page.goto(config.appURL);
-      container = await page.$('[data-featured-section-id="radio-podcasts"]');
     });
 
-    it('renders the correct section title', async () => {
-      const sectionTitle = await container.$eval('[data-featured-section-title]', node => node.textContent);
 
-      expect(sectionTitle).to.equal('Radio shows and podcasts');
-    });
+    // xdescribe('News and event featured items', () => {
+    //   it('renders the correct section title', async () => {
+    //     const sectionTitle = await container.$eval('[data-featured-section-title]', node => node.textContent);
 
-    it('renders the correct number of news and event featured items', async () => {
-      const featuredItemsCount = await container.$$eval('[data-featured-item-id]', node => node.length);
+    //     expect(sectionTitle).to.equal('News and events');
+    //   });
 
-      expect(featuredItemsCount).to.equal(8);
-    });
+    //   it('renders the correct number of news and event featured items', async () => {
+    //     const featuredItemsCount = await container.$$eval('[data-featured-item-id]', node => node.length);
 
-    it('navigates to the correct content for a featured event', async () => {
-      const featuredEvent = await container.$('[data-featured-item-id]:first-child');
-      const featuredId = await featuredEvent.$eval('[data-featured-id]', node => node.getAttribute('data-featured-id'));
-      const featuredTitle = await featuredEvent.$eval('[data-featured-title]', node => node.getAttribute('data-featured-title'));
-      const [response] = await Promise.all([
-        page.waitForNavigation(),
-        featuredEvent.click(),
-      ]);
-      const responseText = await response.text();
+    //     expect(featuredItemsCount).to.equal(4);
+    //   });
 
-      expect(response.url()).to.contain(`/content/${featuredId}`);
-      expect(responseText).to.contain(featuredTitle);
-    });
+    //   it('navigates to the correct content for a featured event', async () => {
+    //     const featuredEvent = await container.$('[data-featured-item-id]:first-child');
+
+
+    //     const featuredId = await featuredEvent.$eval('[data-featured-id]', node => node.getAttribute('data-featured-id'));
+    //     const featuredTitle = await featuredEvent.$eval('[data-featured-title]', node => node.getAttribute('data-featured-title'));
+
+    //     const [response] = await Promise.all([
+    //       page.waitForNavigation(),
+    //       featuredEvent.click(),
+    //     ]);
+
+    //     const responseText = await response.text();
+
+    //     expect(response.url()).to.contain(`/content/${featuredId}`);
+    //     expect(responseText).to.contain(featuredTitle);
+    //   });
+    // });
   });
 });
