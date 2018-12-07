@@ -52,31 +52,58 @@ describe('Home page', () => {
         'Art and culture',
         'History',
         'Music',
+        'Games',
       ];
 
       const tests = expectedSectionTitles.map(async (title) => {
-        const heading = await page.$eval(`[data-featured-section-title="${title}"]`, node => node.textContent);
-        expect(heading).to.equal(title);
+        const sectionTitle = await page.$eval(`[data-featured-section-title="${title}"]`, el => el.textContent);
+
+        expect(sectionTitle).to.equal(title);
+
+        return title;
       });
 
       return Promise.all(tests);
     });
 
     it('renders featured items for each featured content section', () => {
-      const featuredSection = [
-
+      const featuredSectionIds = [
+        'news-events',
+        'Day-to-day',
+        'healthy-mind-body',
+        'legal-and-your-rights',
+        'inspiration',
+        'science-nature',
+        'art-culture',
+        'history',
+        'music',
+        'games',
       ];
 
-      const tests = featuredSection.map(async () => {
+      const tests = featuredSectionIds.map(async (sectionId) => {
+        const featuredSection = await page.$(`[data-featured-section-id="${sectionId}"]`);
+        const featuredItems = await featuredSection.$$eval('[data-featured-item-id]', node => node.length);
 
+        expect(featuredItems).to.be.greaterThan(2);
       });
-
 
       return Promise.all(tests);
     });
 
-    it('navigates to the corrected featured item page', () => {
+    it('navigates to the correct content for a featured event', async () => {
+      const featuredItem = await page.$('[data-featured-item-id]:first-child');
+      const featuredId = await featuredItem.$eval('[data-featured-id]', node => node.getAttribute('data-featured-id'));
+      const featuredTitle = await featuredItem.$eval('[data-featured-title]', node => node.getAttribute('data-featured-title'));
 
+      const [response] = await Promise.all([
+        page.waitForNavigation(),
+        featuredItem.click(),
+      ]);
+
+      const responseText = await response.text();
+
+      expect(response.url()).to.contain(`/content/${featuredId}`);
+      expect(responseText).to.contain(featuredTitle);
     });
 
 
