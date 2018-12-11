@@ -31,12 +31,12 @@ studio_users:
     shell: /bin/bash
     update_password: on_create
 
-  - username: glenmailer
-    name: "Glen Mailer"
+  - username: jamesstanley
+    name: "James Stanley"
     groups:
       - admin
     ssh_key:
-      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDI0uAboNb1zywVbNOV+am7cBrm7EmkXsuqtIuekeqX9 touchbar macbook"
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFDX6wczpIffw6rqRSSSwOHvP1KKU+rFcKZRJEZvcSac jamesstanley@DESKTOP-26TT176"
     shell: /bin/bash
     update_password: on_create
 
