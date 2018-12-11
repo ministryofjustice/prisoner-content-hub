@@ -95,6 +95,15 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
+  - username: simonabraham
+    name: "Simon Abraham"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCqH23EG0eRNojwFizjP3yZyX3emtEV7FD6dXosKQcj sabe@sm.local"
+    shell: /bin/bash
+    update_password: on_create
+
   - username: lazzurs
     name: "Rob Lazzurs"
     groups:
@@ -341,6 +350,7 @@ users_deleted:
   - username: iangardener
   - username: ppaton
   - username: simoncross
+  - username: glenmailer
 
 nginx_extra_http_options: |
   ##
