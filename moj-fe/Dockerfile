@@ -22,6 +22,6 @@ COPY --from=node /node /app
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY fpm.conf /usr/local/etc/php-fpm.d/www.conf
-RUN chown -R www-data: /app
+RUN chown -R www-data:www-data /app
 CMD ["/usr/bin/supervisord"]
 EXPOSE 80/tcp
