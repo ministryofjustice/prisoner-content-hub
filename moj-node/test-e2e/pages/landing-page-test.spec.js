@@ -194,5 +194,32 @@ describe('Landing page', () => {
         expect(relatedContent).to.be.greaterThan(7);
       });
     });
+
+
+    describe('Landing page link', () => {
+      beforeEach(async () => {
+        await Promise.all([
+          page.waitForNavigation(), // The promise resolves after navigation has finished
+          page.click('[data-more-btn-id="music"]'), // Clicking the link will indirectly cause a navigation
+        ]);
+      });
+
+      context('when a related content item is clicked', () => {
+        it('navigate to the content page', async () => {
+          const relatedContent = await page.$('[data-featured-id]:first-child');
+
+          const relatedContentTitle = await relatedContent.$eval('[data-featured-title]', el => el.textContent);
+
+          await Promise.all([
+            page.waitForNavigation(), // The promise resolves after navigation has finished
+            page.click('[data-featured-id]:first-child'), // Clicking the link will indirectly cause a navigation
+          ]);
+
+          const pageTitle = await page.$eval('#title', el => el.textContent);
+
+          expect(pageTitle).to.equal(relatedContentTitle);
+        });
+      });
+    });
   });
 });
