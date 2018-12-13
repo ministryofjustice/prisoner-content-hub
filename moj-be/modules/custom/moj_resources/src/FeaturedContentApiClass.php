@@ -39,18 +39,18 @@ class FeaturedContentApiClass
      * Entitity Query object
      *
      * @var Drupal\Core\Entity\Query\QueryFactory
-     * 
-     * Instance of querfactory 
+     *
+     * Instance of querfactory
      */
     protected $entity_query;
     /**
-     * Class Constructor 
+     * Class Constructor
      *
      * @param EntityTypeManagerInterface $entityTypeManager
      * @param QueryFactory $entityQuery
      */
     public function __construct(
-        EntityTypeManagerInterface $entityTypeManager, 
+        EntityTypeManagerInterface $entityTypeManager,
         QueryFactory $entityQuery
     ) {
         $this->node_storage = $entityTypeManager->getStorage('node');
@@ -76,10 +76,10 @@ class FeaturedContentApiClass
      * TranslateNode function
      *
      * @param NodeInterface $node
-     * 
+     *
      * @return $node
      */
-    protected function translateNode(NodeInterface $node) 
+    protected function translateNode(NodeInterface $node)
     {
         return $node->hasTranslation($this->lang) ? $node->getTranslation($this->lang) : $node;
     }
@@ -90,32 +90,34 @@ class FeaturedContentApiClass
      */
     protected function getFeaturedContentNodeIds($category, $number, $prison = 0)
     {
+        $berwyn_prison_id = 792;
+        $wayland_prison_id = 793;
+
         $results = $this->entity_query->get('node')
             ->condition('status', 1)
             ->condition('promote', 1)
             ->accessCheck(false);
-        
-        # Berwyn 792
-        if ($prison == 792) 
+
+        if ($prison == $berwyn_prison_id)
         {
             $berwyn = $results
                 ->orConditionGroup()
-                ->condition('field_moj_prisons', $prison, '<>')
+                ->condition('field_moj_prisons', $wayland_prison_id, '!=')
                 ->notExists('field_moj_prisons');
             $results->condition($berwyn);
         }
-        # Wayland 793
-        if ($prison == 793) 
+
+        if ($prison == $wayland_prison_id)
         {
             $wayland = $results
                 ->orConditionGroup()
-                ->condition('field_moj_prisons', $prison, '<>')
+                ->condition('field_moj_prisons', $berwyn_prison_id, '!=')
                 ->notExists('field_moj_prisons');
             $results->condition($wayland);
-        }   
+        }
         if ($category !== 0) {
             $results->condition('field_moj_top_level_categories', $category);
-        };    
+        };
         $results->range(0, $number);
         return $results->execute();
     }
@@ -123,12 +125,12 @@ class FeaturedContentApiClass
      * Load full node details
      *
      * @param array $nids
-     * @return array 
+     * @return array
      */
     protected function loadNodesDetails(array $nids)
     {
         return array_filter(
-            $this->node_storage->loadMultiple($nids), function ($item) 
+            $this->node_storage->loadMultiple($nids), function ($item)
             {
                 return $item->access();
             }
@@ -161,7 +163,7 @@ class FeaturedContentApiClass
      * @param [type] $item
      * @return void
      */
-    protected function serialize($item) 
+    protected function serialize($item)
     {
         $serializer = \Drupal::service($item->getType().'.serializer.default'); // TODO: Inject dependency
         return $serializer->serialize($item, 'json', ['plugin_id' => 'entity']);
