@@ -43,6 +43,13 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *          description="ID of category to return, the default is to being back all categories.",
  *      ),
  *      @SWG\Parameter(
+ *          name="_prison",
+ *          in="query",
+ *          required=false,
+ *          type="integer",
+ *          description="ID of category to return, the default is to being back all categories.",
+ *      ),
+ *      @SWG\Parameter(
  *          name="_lang",
  *          in="query",
  *          required=false,
@@ -78,6 +85,8 @@ class FeaturedContentResource extends ResourceBase
 
     protected $paramater_category;
 
+    protected $paramater_prison;
+
     Protected $paramater_language_tag;
 
     Protected $paramater_number_results;
@@ -97,11 +106,13 @@ class FeaturedContentResource extends ResourceBase
         $this->languageManager = $languageManager;
         $this->availableLangs = $this->languageManager->getLanguages();
         $this->paramater_category = self::setCategory();
+        $this->paramater_prison = self::setPrison();
         $this->paramater_number_results = self::setNumberOfResults();
         $this->paramater_language_tag = self::setLanguage();
         self::checklanguageParameterIsValid();
         self::checkNumberOfResultsIsNumeric();
         self::checkCatgeoryIsNumeric();
+        self::checkPrisonIsNumeric();
         parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
     }
   
@@ -128,7 +139,8 @@ class FeaturedContentResource extends ResourceBase
         $featuredContent = $this->featuredContentApiClass->FeaturedContentApiEndpoint(
             $this->paramater_language_tag, 
             $this->paramater_category, 
-            $this->paramater_number_results
+            $this->paramater_number_results,
+            $this->paramater_prison
         );
         if (!empty($featuredContent)) {
             $response = new ResourceResponse($featuredContent);
@@ -165,6 +177,18 @@ class FeaturedContentResource extends ResourceBase
         );
     }
 
+    protected function checkPrisonIsNumeric()
+    {
+        if (is_numeric($this->paramater_category)) {
+            return true;
+        }
+        throw new NotFoundHttpException(
+            t('The prison parameter must be a numeric'),
+            null,
+            404
+        );
+    }
+
     protected function checkNumberOfResultsIsNumeric()
     {
         if (is_numeric($this->paramater_number_results)) {
@@ -182,7 +206,6 @@ class FeaturedContentResource extends ResourceBase
         return is_null($this->currentRequest->get('_lang')) ? 'en' : $this->currentRequest->get('_lang');
     }
 
-
     protected function setNumberOfResults()
     {
         return is_null($this->currentRequest->get('_number')) ? 1 : $this->currentRequest->get('_number');
@@ -191,6 +214,11 @@ class FeaturedContentResource extends ResourceBase
     protected function setCategory()
     {
         return is_null($this->currentRequest->get('_category')) ? 0 : $this->currentRequest->get('_category');
+    }
+
+    protected function setPrison()
+    {
+        return is_null($this->currentRequest->get('_prison')) ? 0 : $this->currentRequest->get('_prison');
     }
 }   
 
