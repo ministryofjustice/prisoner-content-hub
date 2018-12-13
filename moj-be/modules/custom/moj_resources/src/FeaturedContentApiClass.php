@@ -62,11 +62,12 @@ class FeaturedContentApiClass
      * @param [string] $lang
      * @return array
      */
-    public function FeaturedContentApiEndpoint($lang, $category, $number)
+    public function FeaturedContentApiEndpoint($lang, $category, $number, $prison)
     {
         $this->lang = $lang;
-        $this->nids = self::getFeaturedContentNodeIds($category, $number);
+        $this->nids = self::getFeaturedContentNodeIds($category, $number, $prison);
         $this->nodes = self::loadNodesDetails($this->nids);
+        // $this->nodes = self::filterPrison($this->nodes, $prison);
         usort($this->nodes, 'self::sortByWeightDescending');
         return array_map('self::translateNode', $this->nodes);
         // return array_map('self::serialize', $translatedNodes);
@@ -87,18 +88,35 @@ class FeaturedContentApiClass
      *
      * @return void
      */
-    protected function getFeaturedContentNodeIds($category, $number)
+    protected function getFeaturedContentNodeIds($category, $number, $prison = 0)
     {
         $results = $this->entity_query->get('node')
             ->condition('status', 1)
             ->condition('promote', 1)
-            ->range(0, $number)
             ->accessCheck(false);
-
+        
+        # Berwyn 792
+        if ($prison == 792) 
+        {
+            $berwyn = $results
+                ->orConditionGroup()
+                ->condition('field_moj_prisons', $prison, '<>')
+                ->notExists('field_moj_prisons');
+            $results->condition($berwyn);
+        }
+        # Wayland 793
+        if ($prison == 793) 
+        {
+            $wayland = $results
+                ->orConditionGroup()
+                ->condition('field_moj_prisons', $prison, '<>')
+                ->notExists('field_moj_prisons');
+            $results->condition($wayland);
+        }   
         if ($category !== 0) {
             $results->condition('field_moj_top_level_categories', $category);
-        };
-        
+        };    
+        $results->range(0, $number);
         return $results->execute();
     }
     /**
@@ -113,6 +131,19 @@ class FeaturedContentApiClass
             $this->node_storage->loadMultiple($nids), function ($item) 
             {
                 return $item->access();
+            }
+        );
+    }
+
+    protected function filterPrison(array $nodes, $prisonId)
+    {
+        return array_filter(
+            $nodes, function ($item)
+            {
+                if($item->field_moj_prisons[0]->target_id === $prisonId)
+                {
+                    return $item;
+                }
             }
         );
     }
