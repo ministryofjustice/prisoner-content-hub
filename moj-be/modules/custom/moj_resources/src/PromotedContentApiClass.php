@@ -17,7 +17,7 @@ class PromotedContentApiClass
      * @var array
      */
     protected $nids = array();
-    
+
     /**
      * Nodes
      *
@@ -40,24 +40,22 @@ class PromotedContentApiClass
      * Entitity Query object
      *
      * @var Drupal\Core\Entity\Query\QueryFactory
-     * 
-     * Instance of querfactory 
+     *
+     * Instance of querfactory
      */
     protected $entity_query;
     /**
-     * Class Constructor 
+     * Class Constructor
      *
      * @param EntityTypeManagerInterface $entityTypeManager
      * @param QueryFactory $entityQuery
      */
     public function __construct(
-        EntityTypeManagerInterface $entityTypeManager, 
+        EntityTypeManagerInterface $entityTypeManager,
         QueryFactory $entityQuery
     ) {
         $this->node_storage = $entityTypeManager->getStorage('node');
         $this->entity_query = $entityQuery;
-        $this->nids = self::getPromotedContentNodeIds();
-        $this->nodes = self::loadNodesDetails($this->nids);
     }
     /**
      * API resource function
@@ -65,19 +63,21 @@ class PromotedContentApiClass
      * @param [string] $lang
      * @return array
      */
-    public function PromotedContentApiEndpoint($lang)
-    {   
+    public function PromotedContentApiEndpoint($lang, $prison)
+    {
+        $nids = self::getPromotedContentNodeIds($prison);
         $this->lang = $lang;
+        $this->nodes = self::loadNodesDetails($nids);
         return array_map('self::translateNode', $this->nodes);
     }
     /**
      * TranslateNode function
      *
      * @param NodeInterface $node
-     * 
+     *
      * @return $node
      */
-    protected function translateNode(NodeInterface $node) 
+    protected function translateNode(NodeInterface $node)
     {
         return $node->hasTranslation($this->lang) ? $node->getTranslation($this->lang) : $node;
     }
@@ -86,26 +86,52 @@ class PromotedContentApiClass
      *
      * @return void
      */
-    protected function getPromotedContentNodeIds()
+    protected function getPromotedContentNodeIds($prison)
     {
-        return $this->entity_query->get('node')
+        $berwyn_prison_id = 792;
+        $wayland_prison_id = 793;
+
+        $results = $this->entity_query->get('node')
             ->condition('status', 1)
             ->condition('sticky', 1)
-            ->sort('changed', 'DESC')
-            ->range(0, 1)
-            ->accessCheck(false)
-            ->execute();
+            ->sort('changed', 'DESC');
+
+        if ($prison == $berwyn_prison_id)
+        {
+          $berwyn = $results
+              ->orConditionGroup()
+              ->condition('field_moj_prisons', $berwyn_prison_id, '=')
+              ->notExists('field_moj_prisons');
+
+          $results->condition($berwyn);
+        }
+
+        if ($prison == $wayland_prison_id)
+        {
+          $wayland = $results
+            ->orConditionGroup()
+            ->condition('field_moj_prisons', $wayland_prison_id, '=')
+            ->notExists('field_moj_prisons');
+
+            $results->condition($wayland);
+        }
+
+        $results
+          ->range(0, 1)
+          ->accessCheck(false);
+
+        return $results->execute();
     }
     /**
      * Load full node details
      *
      * @param array $nids
-     * @return array 
+     * @return array
      */
     protected function loadNodesDetails(array $nids)
     {
         return array_filter(
-            $this->node_storage->loadMultiple($nids), function ($item) 
+            $this->node_storage->loadMultiple($nids), function ($item)
             {
                 return $item->access();
             }
@@ -117,7 +143,7 @@ class PromotedContentApiClass
      * @param [type] $item
      * @return void
      */
-    protected function serialize($item) 
+    protected function serialize($item)
     {
         $serializer = \Drupal::service($item->getType().'.serializer.default'); // TODO: Inject dependency
         return $serializer->serialize($item, 'json', ['plugin_id' => 'entity']);

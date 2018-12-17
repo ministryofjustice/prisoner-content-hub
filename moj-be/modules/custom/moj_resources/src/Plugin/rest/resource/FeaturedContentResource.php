@@ -56,7 +56,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *          type="string",
  *          description="The language tag to translate results, if there is no translation available then the site default is returned, the default is 'en' (English). Options are 'en' (English) or 'cy' (Welsh).",
  *      ),
- *      
+ *
  *     @SWG\Response(response="200", description="Hub featured content resource")
  * )
  */
@@ -100,7 +100,7 @@ class FeaturedContentResource extends ResourceBase
         FeaturedContentApiClass $FeaturedContentApiClass,
         Request $currentRequest,
         LanguageManager $languageManager
-    ) {        
+    ) {
         $this->featuredContentApiClass = $FeaturedContentApiClass;
         $this->currentRequest = $currentRequest;
         $this->languageManager = $languageManager;
@@ -115,11 +115,11 @@ class FeaturedContentResource extends ResourceBase
         self::checkPrisonIsNumeric();
         parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
     }
-  
+
     public static function create(
         ContainerInterface $container,
-        array $configuration, 
-        $plugin_id, 
+        array $configuration,
+        $plugin_id,
         $plugin_definition
     ) {
         return new static(
@@ -132,13 +132,13 @@ class FeaturedContentResource extends ResourceBase
             $container->get('request_stack')->getCurrentRequest(),
             $container->get('language_manager')
         );
-    }   
+    }
 
-    public function get() 
+    public function get()
     {
         $featuredContent = $this->featuredContentApiClass->FeaturedContentApiEndpoint(
-            $this->paramater_language_tag, 
-            $this->paramater_category, 
+            $this->paramater_language_tag,
+            $this->paramater_category,
             $this->paramater_number_results,
             $this->paramater_prison
         );
@@ -150,13 +150,13 @@ class FeaturedContentResource extends ResourceBase
         throw new NotFoundHttpException(t('No featured content found'));
     }
 
-    protected function checklanguageParameterIsValid() 
+    protected function checklanguageParameterIsValid()
     {
         foreach($this->availableLangs as $lang)
         {
             if ($lang->getid() === $this->paramater_language_tag) {
                 return true;
-            } 
+            }
         }
         throw new NotFoundHttpException(
             t('The language tag invalid or translation for this tag is not avilable'),
@@ -220,6 +220,6 @@ class FeaturedContentResource extends ResourceBase
     {
         return is_null($this->currentRequest->get('_prison')) ? 0 : $this->currentRequest->get('_prison');
     }
-}   
+}
 
 

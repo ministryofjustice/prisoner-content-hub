@@ -35,7 +35,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *          type="string",
  *          description="The language tag to translate results, if there is no translation available then the site default is returned, the default is 'en' (English). Options are 'en' (English) or 'cy' (Welsh).",
  *      ),
- *      
+ *
  *     @SWG\Response(response="200", description="Hub featured content resource")
  * )
  */
@@ -66,6 +66,7 @@ class PromotedContentResource extends ResourceBase
 
     Protected $paramater_language_tag;
 
+    protected $paramater_prison;
 
     public function __construct(
       array $configuration,
@@ -76,21 +77,22 @@ class PromotedContentResource extends ResourceBase
       PromotedContentApiClass $promotedContentApiClass,
       Request $currentRequest,
       LanguageManager $languageManager
-    ) {        
+    ) {
         $this->promotedContentApiClass = $promotedContentApiClass;
         $this->currentRequest = $currentRequest;
         $this->languageManager = $languageManager;
         $this->availableLangs = $this->languageManager->getLanguages();
         $this->paramater_language_tag = self::setLanguage();
+        $this->paramater_prison = self::setPrison();
         self::checklanguageParameterIsValid();
-       
+
         parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
     }
-  
+
     public static function create(
         ContainerInterface $container,
-        array $configuration, 
-        $plugin_id, 
+        array $configuration,
+        $plugin_id,
         $plugin_definition
     ) {
         return new static(
@@ -103,12 +105,15 @@ class PromotedContentResource extends ResourceBase
             $container->get('request_stack')->getCurrentRequest(),
             $container->get('language_manager')
         );
-    }   
+    }
 
-    public function get() 
+    public function get()
     {
         $lang = $this->currentRequest->get('_lang');
-        $promoted = $this->promotedContentApiClass->PromotedContentApiEndpoint($lang);
+        $promoted = $this->promotedContentApiClass->PromotedContentApiEndpoint(
+          $lang,
+          $this->paramater_prison
+        );
         if (!empty($promoted)) {
             $response = new ResourceResponse($promoted);
             $response->addCacheableDependency($promoted);
@@ -117,13 +122,13 @@ class PromotedContentResource extends ResourceBase
         throw new NotFoundHttpException(t('No promoted content found'));
     }
 
-    protected function checklanguageParameterIsValid() 
+    protected function checklanguageParameterIsValid()
     {
         foreach($this->availableLangs as $lang)
         {
             if ($lang->getid() === $this->paramater_language_tag) {
                 return true;
-            } 
+            }
         }
         throw new NotFoundHttpException(
             t('The language tag invalid or translation for this tag is not avilable'),
@@ -135,6 +140,11 @@ class PromotedContentResource extends ResourceBase
     protected function setLanguage()
     {
         return is_null($this->currentRequest->get('_lang')) ? 'en' : $this->currentRequest->get('_lang');
+    }
+
+    protected function setPrison()
+    {
+        return is_null($this->currentRequest->get('_prison')) ? 0 : $this->currentRequest->get('_prison');
     }
 }
 
