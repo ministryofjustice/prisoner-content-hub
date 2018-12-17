@@ -17,7 +17,7 @@ module.exports = {
   production: isProduction,
   motamoUrl: getEnv('MATOMO_URL', { requireInProduction: true }),
   cookieSecret: getEnv('COOKIE_SECRET', 'keyboard cat'),
-  establishmentId: getEstablishmentId(getEnv('ESTABLISHMENT_NAME', 'berwyn', { requireInProduction: true })),
+  establishmentId: getEstablishmentId(getEnv('ESTABLISHMENT_NAME', 'berwyn')),
   hubEndpoint,
   drupalAppUrl,
   api: {
