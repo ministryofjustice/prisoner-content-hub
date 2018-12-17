@@ -1,5 +1,5 @@
 module.exports = function createHubFeaturedContentService(repository) {
-  async function hubFeaturedContent() {
+  async function hubFeaturedContent({ establishmentId } = { establishmentId: 0 }) {
     try {
       const [
         newsAndEvents,
@@ -12,15 +12,15 @@ module.exports = function createHubFeaturedContentService(repository) {
         history,
         legalAndYourRights,
       ] = await Promise.all([
-        repository.newsAndEvents(),
-        repository.dayToDay(),
-        repository.music(),
-        repository.healthyMindAndBody(),
-        repository.inspiration(),
-        repository.scienceAndNature(),
-        repository.artAndCulture(),
-        repository.history(),
-        repository.legalAndYourRights(),
+        repository.newsAndEvents({ establishmentId }),
+        repository.dayToDay({ establishmentId }),
+        repository.music({ establishmentId }),
+        repository.healthyMindAndBody({ establishmentId }),
+        repository.inspiration({ establishmentId }),
+        repository.scienceAndNature({ establishmentId }),
+        repository.artAndCulture({ establishmentId }),
+        repository.history({ establishmentId }),
+        repository.legalAndYourRights({ establishmentId }),
       ]);
 
       return {

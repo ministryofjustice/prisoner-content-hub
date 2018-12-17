@@ -9,83 +9,92 @@ function hubFeaturedContentRepository(httpClient) {
     return parseHubContentResponse(response);
   }
 
-  function newsAndEvents() {
+  function newsAndEvents({ establishmentId }) {
     return hubContentFor({
       query: {
         _number: 4,
         _category: 644,
+        _prison: establishmentId,
       },
     });
   }
 
-  function dayToDay() {
+  function dayToDay({ establishmentId }) {
     return hubContentFor({
       query: {
         _number: 4,
         _category: 787,
+        _prison: establishmentId,
       },
     });
   }
 
-  function artAndCulture() {
+  function artAndCulture({ establishmentId }) {
     return hubContentFor({
       query: {
         _number: 4,
         _category: 651,
+        _prison: establishmentId,
       },
     });
   }
 
-  function healthyMindAndBody() {
+  function healthyMindAndBody({ establishmentId }) {
     return hubContentFor({
       query: {
         _number: 4,
         _category: 648,
+        _prison: establishmentId,
       },
     });
   }
 
-  function music() {
+  function music({ establishmentId }) {
     return hubContentFor({
       query: {
         _number: 4,
         _category: 785,
+        _prison: establishmentId,
       },
     });
   }
 
-  function inspiration() {
+  function inspiration({ establishmentId }) {
     return hubContentFor({
       query: {
         _number: 4,
         _category: 649,
+        _prison: establishmentId,
       },
     });
   }
 
-  function scienceAndNature() {
+  function scienceAndNature({ establishmentId }) {
     return hubContentFor({
       query: {
         _number: 4,
         _category: 650,
+        _prison: establishmentId,
       },
     });
   }
 
-  function history() {
+  function history({ establishmentId }) {
     return hubContentFor({
       query: {
         _number: 4,
         _category: 643,
+        _prison: establishmentId,
       },
     });
   }
 
-  function legalAndYourRights() {
+  function legalAndYourRights({ establishmentId }) {
     return hubContentFor({
       query: {
         _number: 4,
         _category: 786,
+        _prison: establishmentId,
       },
     });
   }

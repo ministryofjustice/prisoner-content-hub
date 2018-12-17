@@ -18,6 +18,7 @@ const createTagRouter = require('./routes/tags');
 const createGamesRouter = require('./routes/games');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
+const establishmentToggle = require('./middleware/establishmentToggle');
 
 const version = Date.now().toString();
 
@@ -141,6 +142,9 @@ module.exports = function createApp({
 
   // feature toggle
   app.use(featureToggleMiddleware(config.features));
+
+  // establishment toggle
+  app.use(establishmentToggle);
 
   // Health end point
   app.use('/health', createHealthRouter({ appInfo, healthService }));

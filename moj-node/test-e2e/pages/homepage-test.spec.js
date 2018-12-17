@@ -37,11 +37,8 @@ describe('Home page', () => {
 
     it('navigates to the correct content for a featured event', async () => {
       const featuredEvent = await container.$('[data-featured-item-id]:first-child');
-
-
       const featuredId = await featuredEvent.$eval('[data-featured-id]', node => node.getAttribute('data-featured-id'));
       const featuredTitle = await featuredEvent.$eval('[data-featured-title]', node => node.getAttribute('data-featured-title'));
-
       const [response] = await Promise.all([
         page.waitForNavigation(),
         featuredEvent.click(),
@@ -62,7 +59,6 @@ describe('Home page', () => {
       container = await page.$('[data-featured-section-id="radio-podcasts"]');
     });
 
-
     it('renders the correct section title', async () => {
       const sectionTitle = await container.$eval('[data-featured-section-title]', node => node.textContent);
 
@@ -77,16 +73,12 @@ describe('Home page', () => {
 
     it('navigates to the correct content for a featured event', async () => {
       const featuredEvent = await container.$('[data-featured-item-id]:first-child');
-
-
       const featuredId = await featuredEvent.$eval('[data-featured-id]', node => node.getAttribute('data-featured-id'));
       const featuredTitle = await featuredEvent.$eval('[data-featured-title]', node => node.getAttribute('data-featured-title'));
-
       const [response] = await Promise.all([
         page.waitForNavigation(),
         featuredEvent.click(),
       ]);
-
       const responseText = await response.text();
 
       expect(response.url()).to.contain(`/content/${featuredId}`);

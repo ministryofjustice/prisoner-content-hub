@@ -1,4 +1,10 @@
-const { getEnv, isProduction, isTest } = require('../utils/index');
+const {
+  getEnv,
+  isProduction,
+  isTest,
+} = require('../utils/index');
+
+const { getEstablishmentId } = require('./utils');
 
 const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
 const drupalAppUrl = getEnv('DRUPAL_APP_URI', { requireInProduction: true });
@@ -11,6 +17,7 @@ module.exports = {
   production: isProduction,
   motamoUrl: getEnv('MATOMO_URL', { requireInProduction: true }),
   cookieSecret: getEnv('COOKIE_SECRET', 'keyboard cat'),
+  establishmentId: getEstablishmentId(getEnv('ESTABLISHMENT_NAME', 'berwyn', { requireInProduction: true })),
   hubEndpoint,
   drupalAppUrl,
   api: {

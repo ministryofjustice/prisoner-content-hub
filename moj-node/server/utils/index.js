@@ -25,6 +25,15 @@ const defaultAlt = {
   page: 'Document file',
 };
 
+function getEstablishmentId(name) {
+  const prisons = {
+    berwyn: 792,
+    wayland: 793,
+  };
+
+  return prisons[name] || 0;
+}
+
 function parseHubContentResponse(data) {
   if (!data) return {};
 
@@ -71,4 +80,5 @@ module.exports = {
   parseHubContentResponse,
   replaceURLWithDefinedEndpoint,
   fixUrlForProduction,
+  getEstablishmentId,
 };
