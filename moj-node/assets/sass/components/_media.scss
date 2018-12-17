@@ -29,3 +29,31 @@ $center-big-play-button: true; // true default
   margin-left: -1.5em;
   margin-top: -0.75em;
 }
+
+
+.govuk-hub-media-audio {
+  .webPlayer {
+    height: 226px;
+    width: 100%;
+  }
+
+  .playerScreen {
+    background-image: url("/public/images/radio-player-background.jpg");
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 206px;
+  }
+
+  .webPlayer .playerScreen .video-play {
+    bottom: 0;
+    background-position: center 70%;
+  }
+
+  .webPlayer .controls {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+}
+

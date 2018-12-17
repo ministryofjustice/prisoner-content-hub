@@ -4,6 +4,11 @@
 {% from "../components/sub-menu/macro.njk" import hubSubMenu %}
 {% from "../components/series/macro.njk" import hubSeries %}
 
+
+{% block pageTitle %}
+  {{envVars.APP_NAME}}
+{% endblock %}
+
 {% block head %}
   <!--[if !IE 8]><!-->
     <link href="/public/stylesheets/application.css" rel="stylesheet" />
@@ -21,9 +26,21 @@
   <![endif]-->
 {% endblock %}
 
+{% set categoryLinks = {
+  "news-events": "/content/3632",
+  "Day-to-day": "/content/3663",
+  "art-culture": "/content/3661",
+  "healthy-mind-body": "/content/3657",
+  "history": "/content/3699",
+  "music": "/content/3662",
+  "inspiration": "/content/3659",
+  "science-nature": "/content/3660",
+  "legal-and-your-rights": "/content/3658"
+} %}
+
 {% block promotedContent %}
   {{ hubPromotedContent({
-    data: promotalcontentdata
+    data: promotionalContent
   }) }}
 {% endblock %}
 
@@ -36,48 +53,122 @@
 {% block content %}
 
   {{ hubFeaturedContent({
-    data: newseventsData
+    categoryTitle: "News and events",
+    categoryLink: categoryLinks["news-events"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: newsAndEvents,
+    size: "small",
+    contentType: "news-events",
+    baseUrl: "/content"
   }) }}
 
-  {{ hubFeaturedContent({
+{{ hubFeaturedContent({
+    categoryTitle: "Day-to-day",
+    categoryLink: categoryLinks["Day-to-day"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: dayToDay,
+    size: "small",
+    contentType: "Day-to-day",
+    baseUrl: "/content"
+  }) }}
+
+  {# {{ hubFeaturedContent({
     data: gamedata
-  }) }}
-  
+  }) }} #}
+
   {{ hubFeaturedContent({
-    data: radiopodcastsdata
+    categoryTitle: "Healthy mind and body",
+    categoryLink: categoryLinks["healthy-mind-body"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: healthyMindAndBody,
+    size: "small",
+    contentType: "healthy-mind-body",
+    baseUrl: "/content"
+  }) }}
+
+
+  {{ hubFeaturedContent({
+    categoryTitle: "Legal advice and your rights",
+    categoryLink: categoryLinks["legal-and-your-rights"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: legalAndYourRights,
+    size: "small",
+    contentType: "legal-and-your-rights",
+    baseUrl: "/content"
   }) }}
 
   {{ hubFeaturedContent({
-    data: healthymindbodydata
+    categoryTitle: "Inspiration",
+    categoryLink: categoryLinks["inspiration"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: inspiration,
+    size: "small",
+    contentType: "inspiration",
+    baseUrl: "/content"
+  }) }}
+
+
+  {{ hubFeaturedContent({
+    categoryTitle: "Science and nature",
+    categoryLink: categoryLinks["science-nature"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: scienceAndNature,
+    size: "small",
+    contentType: "science-nature",
+    baseUrl: "/content"
   }) }}
 
   {{ hubFeaturedContent({
-    data: inspirationdata
+    categoryTitle: "Art and culture",
+    categoryLink: categoryLinks["art-culture"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: artAndCulture,
+    size: "small",
+    contentType: "art-culture",
+    baseUrl: "/content"
   }) }}
 
   {{ hubFeaturedContent({
-    data: sciencenaturedata
+    categoryTitle: "History",
+    categoryLink: categoryLinks["history"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: history,
+    size: "small",
+    contentType: "history",
+    baseUrl: "/content"
   }) }}
 
   {{ hubFeaturedContent({
-    data: artculturedata
+    categoryTitle: "Music",
+    categoryLink: categoryLinks["music"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: music,
+    size: "small",
+    contentType: "music",
+    baseUrl: "/content"
   }) }}
 
   {{ hubFeaturedContent({
-    data: historydata
+    categoryTitle: "Games",
+    columnNumber: "govuk-grid-column-one-third",
+    data: games,
+    size: "medium",
+    baseUrl: "/games",
+    contentType: "games"
   }) }}
-  
 {% endblock %}
 
 
 {% block postscript %}
-  <div class="govuk-width-container govuk-!-margin-top-6">
-      <main class="govuk-main-wrapper" id="main-content" role="main">
+  {% if features.showBrowseBySeries %}
+  <div id="browser-by-series" class="govuk-width-container govuk-!-margin-top-6">
+      <div class="govuk-main-wrapper" id="postscript-content">
         {{ hubSeries({
-          data: seriesdata
+          data: seriesMenu
         }) }}
-      </main>
+      </div>
     </div>
+  {% endif %}
 {% endblock %}
 
 

@@ -1,124 +1,47 @@
 const express = require('express');
 
-module.exports = function Index({ logger, demoDataService }) {
+module.exports = function Index({
+  logger,
+  hubFeaturedContentService,
+  hubPromotedContentService,
+  hubMenuService,
+}) {
   const router = express.Router();
 
-  router.get('/', (req, res) => {
-    logger.info('GET index');
-
-    const promotalcontentdata = demoDataService.getPromotalContentData();
-    const submenudata = demoDataService.getSubMenuData();
-    const inspirationdata = demoDataService.getInspirationData();
-    const gamedata = demoDataService.getGamesData();
-    const newseventsData = demoDataService.getNewsEventsData();
-    const seriesdata = demoDataService.geSeriesData();
-    const radiopodcastsdata = demoDataService.getRadioPodcastsData();
-    const healthymindbodydata = demoDataService.getHealthyMindBodyData();
-    const sciencenaturedata = demoDataService.getScienceNatureData();
-    const artculturedata = demoDataService.getArtCultureData();
-    const historydata = demoDataService.getHistoryData();
-    
-
-    const config = {
-      content: true,
-      header: true,
-      postscript: true,
-    }
-
-    res.render('pages/index', {
-      inspirationdata,
-      gamedata,
-      submenudata,
-      newseventsData,
-      promotalcontentdata,
-      seriesdata,
-      radiopodcastsdata,
-      healthymindbodydata,
-      sciencenaturedata,
-      artculturedata,
-      historydata,
-      config
-    });
-  });
-
-  router.get('/content/:contentName', (req, res) => {
+  router.get('/', async (req, res, next) => {
     try {
-      const contentPath = `../data/content/${req.params.contentName}`;
-      const content = require(contentPath); // eslint-disable-line
-      res.render('pages/flat-content', content);
-    } catch (exp) {
-      res.status(404);
-      res.send('Page not found');
-    }
-  });
+      logger.info('GET index');
 
-  router.get('/landing', (req, res) => {
-    try {
-      const landingpagesubmenudata = demoDataService.getLandingPageSubMenuData();
-      const youmightlikedata = demoDataService.getYouMightLike();
+      const [
+        featuredContent,
+        [promotionalContent],
+        seriesMenu,
+      ] = await Promise.all([
+        hubFeaturedContentService.hubFeaturedContent({
+          establishmentId: res.locals.establishmentId,
+        }),
+        hubPromotedContentService.hubPromotedContent({
+          establishmentId: res.locals.establishmentId,
+        }),
+        hubMenuService.seriesMenu(),
+      ]);
+
       const config = {
         content: true,
         header: true,
-        postscript: false,
-      }
-      const data = {
-        headerClass: 'healthy-mind-body', 
+        postscript: true,
       };
-      res.render('pages/landing', {
-        data,
+
+      res.render('pages/index', {
+        ...featuredContent,
+        promotionalContent,
+        seriesMenu,
         config,
-        landingpagesubmenudata,
-        youmightlikedata
       });
-    } catch (exp) {
-      res.status(404);
-      res.send('Page not found');
+    } catch (exception) {
+      next(exception);
     }
   });
 
-  router.get('/video', (req, res) => {
-    try {
-      const watchnextdata = demoDataService.getWatchNextData();
-      const youmightlikedata = demoDataService.getYouMightLike();
-      const youmightlikesmalldata = demoDataService.getYouMightLikeSmallData();
-      const config = {
-        content: true,
-        header: false,
-        postscript: false,
-      }
-      res.render('pages/video', {
-        config,
-        watchnextdata,
-        youmightlikedata,
-        youmightlikesmalldata,
-      });
-    } catch (exp) {
-      res.status(404);
-      res.send('Page not found');
-    }
-  });
-
-  router.get('/audio', (req, res) => {
-    try {
-      const listennextdata = demoDataService.getListenNextData();
-      const youmightlikedata = demoDataService.getYouMightLike();
-      const youmightlikesmalldata = demoDataService.getYouMightLikeSmallData();
-      const config = {
-        content: true,
-        header: false,
-        postscript: false,
-      }
-      res.render('pages/audio', {
-        config,
-        listennextdata,
-        youmightlikedata,
-        youmightlikesmalldata,
-      });
-    } catch (exp) {
-      res.status(404);
-      res.send('Page not found');
-    }
-  });
-  
   return router;
 };

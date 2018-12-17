@@ -7,23 +7,31 @@
 <html lang="{{ htmlLang | default('en') }}" class="govuk-template {{ htmlClasses }}">
   <head>
     <meta charset="utf-8" />
-    <title>{% block pageTitle %}GOV.UK - The best place to find government services and information{% endblock %}</title>
+    <title>{% block pageTitle %}{{envVars.APP_NAME}}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="{{ themeColor | default('#0b0c0c') }}" /> {# Hardcoded value of $govuk-black #}
-
-    {% block headIcons %}
-      <link rel="shortcut icon" href="{{ assetPath | default('/assets') }}/images/favicon.ico" type="image/x-icon" />
-      <link rel="mask-icon" href="{{ assetPath | default('/assets') }}/images/govuk-mask-icon.svg" color="{{ themeColor | default('#0b0c0c') }}"> {# Hardcoded value of $govuk-black #}
-      <link rel="apple-touch-icon" sizes="180x180" href="{{ assetPath | default('/assets') }}/images/govuk-apple-touch-icon-180x180.png">
-      <link rel="apple-touch-icon" sizes="167x167" href="{{ assetPath | default('/assets') }}/images/govuk-apple-touch-icon-167x167.png">
-      <link rel="apple-touch-icon" sizes="152x152" href="{{ assetPath | default('/assets') }}/images/govuk-apple-touch-icon-152x152.png">
-      <link rel="apple-touch-icon" href="{{ assetPath | default('/assets') }}/images/govuk-apple-touch-icon.png">
-    {% endblock %}
 
     {% block head %}{% endblock %}
 
     {# The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback #}
     <meta property="og:image" content="{{ assetPath | default('/assets') }}/images/govuk-opengraph-image.png">
+    <!-- Matomo -->
+    <script type="text/javascript">
+      var _paq = _paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      _paq.push(['enableJSErrorTracking']);
+      (function() {
+        var u="//{{envVars.MATOMO_URL}}/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', '1']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- End Matomo Code -->
+    <script src="/public/javascript/polyfills.js"></script>
   </head>
   <body class="govuk-template__body {{ bodyClasses }}">
     <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
@@ -37,8 +45,11 @@
     {% endblock %}
 
     {% block header %}
-      {{ govukHeader({ 
-        navMenu: navMenu 
+      {{ govukHeader({
+        mainMenu: mainMenu,
+        topicsMenu: topicsMenu,
+        appName: envVars.APP_NAME,
+        features: features
       }) }}
     {% endblock %}
 
@@ -46,26 +57,25 @@
       <div class="govuk-hub-header__background {{ data.headerClass }}">
         <div class="govuk-width-container">
           {% block beforeContent %}{% endblock %}
-          <main class="govuk-main-wrapper govuk-!-padding-top-8" id="header-content" role="header">
+          <header class="govuk-main-wrapper" id="header-content">
             {% block promotedContent %}{% endblock %}
-            {% block landingpageheader %}{% endblock %}
             {% block subMenu %}{% endblock %}
-          </main>
-        </div>
-      </div>
-    {% endif %}
-    
-    {% if config.content %}
-      <div class="black-background govuk-!-margin-bottom-0 govuk-!-padding-top-9">
-        <div class="govuk-width-container">
-          <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main">
-            {% block content %}{% endblock %}
-          </main>
+          </header>
         </div>
       </div>
     {% endif %}
 
     {% block main %}{% endblock %}
+
+    {% if config.content %}
+      <div class="black-background govuk-!-margin-bottom-0 govuk-!-padding-top-9">
+        <div class="govuk-width-container">
+          <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content">
+            {% block content %}{% endblock %}
+          </main>
+        </div>
+      </div>
+    {% endif %}
 
     {% if config.postscript %}
       {% block postscript %}{% endblock %}

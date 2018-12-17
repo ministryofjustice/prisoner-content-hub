@@ -1,8 +1,9 @@
 $trans: rgba(0, 0, 0, 0);
-$fifityPerecntBlack: rgba(0, 0, 0, 0.75);
-
-$gradient: $trans, $fifityPerecntBlack;
-
+$seventyFivePercentBlack: rgba(0, 0, 0, 0.75);
+$fortyPercentBlack: rgba(0, 0, 0, 0.4);
+$gradient: $trans, $seventyFivePercentBlack;
+$hub-grey: #494c4e;
+$mauve: #6F72AF;
 
 .govuk-hub-featured-content-item__overlay,
 .govuk-hub-featured-content-item__image {
@@ -41,7 +42,7 @@ $gradient: $trans, $fifityPerecntBlack;
         box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.75);
 
         .govuk-hub-featured-content-item__overlay {
-            background: $fifityPerecntBlack;
+            background: $seventyFivePercentBlack;
 
         }
         .govuk-hub-featured-content-item__header {
@@ -77,6 +78,12 @@ $gradient: $trans, $fifityPerecntBlack;
     opacity: 0;
 }
 
+.space {
+  margin-left: govuk-spacing(1);
+  display: inline-block;
+  text-decoration: underline;
+}
+
 .govuk-hub-featured-content-item__main-play {
     position: absolute;
     bottom: 25px;
@@ -89,11 +96,6 @@ $gradient: $trans, $fifityPerecntBlack;
         top: 5px;
     }
 
-    .space {
-        margin-left: govuk-spacing(1);
-        display: inline-block;
-        text-decoration: underline;
-    }
     &:link,
     &:visited,
     &:active,
@@ -135,11 +137,14 @@ $gradient: $trans, $fifityPerecntBlack;
 }
 
 .govuk-hub-featured-content-item__overlay {
+    $fortyPercentBlack: rgba(0, 0, 0, 0.4);
+    background: $seventyFivePercentBlack;
+    background: -ms-linear-gradient(bottom, rgba(0,0,0,0), rgba(0, 0, 0, 1)); /* IE 11 */
     @include gradient(bottom, $gradient);
+   
 }
 
 .govuk-hub-featured-content-item__category-stripe {
-
     height: 5px;
     width: 100%;
     display: inline-block;
@@ -150,37 +155,50 @@ $gradient: $trans, $fifityPerecntBlack;
     &.none {
         display: none;
     }
-
-    &.news-events {
-        background: govuk-colour("red");
-    }
-
-    &.games {
-        background: govuk-colour("orange");
-    }
-
-    &.radio-podcasts {
-        background: govuk-colour("bright-purple");
-    }
-
-    &.healthy-mind-body {
-        background: govuk-colour("turquoise");
-    }
-
-    &.inspiration {
-        background: govuk-colour("yellow");
-    }
-
-    &.science-nature {
-        background: govuk-colour("green");
-    }
-
-    &.art-culture {
-        background: govuk-colour("light-pink");
-    }
-
-    &.history {
-        background: govuk-colour("brown");
-    }
-
 }
+
+.govuk-hub-news-events {
+  background-color: govuk-colour("red");
+}
+
+.govuk-hub-Day-to-day {
+  background-color: govuk-colour("blue");
+  }
+
+.govuk-hub-games {
+  background-color: govuk-colour("orange");
+}
+
+.govuk-hub-music{
+  background-color: govuk-colour("bright-purple");
+}
+
+.govuk-hub-legal-and-your-rights {
+  background-color: $mauve;
+}
+
+.govuk-hub-healthy-mind-body {
+  background-color: govuk-colour("turquoise");
+}
+
+.govuk-hub-inspiration {
+  background-color: govuk-colour("yellow");
+}
+
+.govuk-hub-science-nature {
+  background-color: govuk-colour("green");
+}
+
+.govuk-hub-art-culture {
+  background-color: govuk-colour("light-pink");
+}
+
+.govuk-hub-history {
+  background-color: govuk-colour("brown");
+}
+
+.govuk-hub-dark {
+  background-color: $hub-grey;
+}
+
+

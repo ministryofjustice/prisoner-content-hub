@@ -1,0 +1,33 @@
+{
+  "contentType": "video",
+  "seriesName": "Baz series",
+  "seriesId": "baz-id",
+  "title": "Baz title",
+  "description": {
+    "sanitized": "<p>Baz body</p>"
+  },
+  "media": "baz.mp4",
+  "image": {
+    "alt": "baz Bar",
+    "url": "baz.png"
+  },
+  "season": [
+    {
+      "id": 98,
+      "title": "Baz episode",
+      "type": "audio",
+      "duration": "18:41",
+      "episode": 1,
+      "season": 1,
+      "seriesId": 694,
+      "image": {
+        "alt": "baz.image.alt",
+        "url": "baz.image.png"
+      }
+    }
+  ],
+  "tags": [
+    { "id": 0, "name": "foo" },
+    { "id": 1, "name": "bar" }
+  ]
+}

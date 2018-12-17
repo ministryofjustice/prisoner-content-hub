@@ -1,15 +1,44 @@
-<article class="govuk-hub-featured-content-item {%- if params.size %} {{ params.size }}{% endif -%}" >
-  <div class="govuk-hub-featured-content-item__image" style="background-image:url({{ assetPath | default('/public') }}{%- if params.graphic %}{{ params.graphic }}{% endif -%})">
-    <div class="govuk-hub-featured-content-item__overlay">
-      <header class="govuk-hub-featured-content-item__header">
-        <h3 class="govuk-hub-featured-content-item__header-title govuk-heading-m govuk-!-font-size-24">{%- if params.title %} {{ params.title }}{% endif -%}</h3>
-      </header>
-      <main class="govuk-hub-featured-content-item__main">
-        <p class="govuk-hub-featured-content-item__description govuk-body">{%- if params.description %} {{ params.description }}{% endif -%}</p>
-        <a href="{%- if params.link %} {{ params.link }}{% endif -%}" title="Play" class="govuk-hub-featured-content-item-icon govuk-hub-featured-content-item__main-play govuk-link"><span class="{%- if params.linkclass %} {{ params.linkclass }}{% endif -%}"><span class="path1"></span><span class="path2"></span></span><span class="space">{%- if params.linktext %} {{ params.linktext }}{% endif -%}</span></a>
-        <span class="govuk-hub-featured-content-item__main-icon {%- if params.icon %} {{ params.icon }}{% endif -%}"><span class="govuk-body govuk-hub-featured-content-item__main-duration">{%- if params.duration %} {{ params.duration }}{% endif -%}</span></span>
-      </main>
-      <div class="govuk-hub-featured-content-item__category-stripe {%- if params.type %} {{ params.type }}{% endif -%}"></div>
-    </div>
-  </div>
-</article>
+{%  set icon = {
+  video: "icon-movie",
+  page: "icon-document",
+  pdf: "icon-document",
+  radio: "icon-music",
+  game: "icon-game"
+}
+%}
+
+{% set linkText = {
+  video: "Watch",
+  page: "Read",
+  pdf: "Read",
+  radio: "Listen",
+  game: "Play"
+}%}
+
+{% set linkIcon = {
+  video: "icon-play",
+  page: "icon-link",
+  pdf: "icon-link",
+  radio: "icon-play",
+  game: "icon-link"
+}%}
+
+<a data-featured-id="{{ params.id }}" class="govuk-hub-featured-link" href="{{params.baseUrl}}/{{ params.id }}" {% if params.contentType === 'pdf' %} target="_blank" {% endif %}>
+  <article class="govuk-hub-featured-content-item {{ params.size }}">
+      <div data-featured-item-background class="govuk-hub-featured-content-item__image" style="background-image:url({{ params.graphic.url }})">
+        <div class="govuk-hub-featured-content-item__overlay">
+          <header class="govuk-hub-featured-content-item__header">
+            <h3 data-featured-title="{{ params.title }}" class="govuk-hub-featured-content-item__header-title govuk-heading-m govuk-!-font-size-24">{{ params.title }}</h3>
+          </header>
+          <div class="govuk-hub-featured-content-item__main">
+            <p class="govuk-hub-featured-content-item__description govuk-body">{{ params.summary }}</p>
+            <div title="{{ linkText[params.contentType] }}" class="govuk-hub-featured-content-item-icon govuk-hub-featured-content-item__main-play govuk-link"><span class="{{ linkIcon[params.contentType] }}"><span class="path1"></span><span class="path2"></span></span><span class="space">{{ linkText[params.contentType] }}</span></div>
+            <span class="govuk-hub-featured-content-item__main-icon {{ icon[params.contentType] }}">
+              <span data-featured-item-duration="{{ params.duration }}" class="govuk-body govuk-hub-featured-content-item__main-duration">{%- if params.duration %} {{ params.duration }}{% endif -%}</span>
+            </span>
+          </div>
+          <div class="govuk-hub-featured-content-item__category-stripe govuk-hub-{{ params.type }}"></div>
+        </div>
+      </div>
+  </article>
+</a>

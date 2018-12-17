@@ -1,17 +1,36 @@
-const production = process.env.NODE_ENV === 'production';
+const {
+  getEnv,
+  isProduction,
+  isTest,
+} = require('../utils/index');
 
-function get(name, fallback, options = {}) {
-  if (process.env[name]) {
-    return process.env[name];
-  }
-  if (fallback !== undefined && (!production || !options.requireInProduction)) {
-    return fallback;
-  }
-  throw new Error(`Missing env var ${name}`);
-}
+const { getEstablishmentId } = require('./utils');
+
+const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
+const drupalAppUrl = getEnv('DRUPAL_APP_URI', { requireInProduction: true });
+
 
 module.exports = {
-  dev: !production,
-  production,
-  sessionSecret: get('SESSION_SECRET', 'app-insecure-default-session', { requireInProduction: true }),
+  appName: getEnv('APP_NAME', 'Test application', { requireInProduction: true }),
+  dev: !isProduction && !isTest,
+  test: isTest,
+  production: isProduction,
+  motamoUrl: getEnv('MATOMO_URL', { requireInProduction: true }),
+  cookieSecret: getEnv('COOKIE_SECRET', 'keyboard cat'),
+  establishmentId: getEstablishmentId(getEnv('ESTABLISHMENT_NAME', 'berwyn')),
+  hubEndpoint,
+  drupalAppUrl,
+  api: {
+    hubHealth: `${hubEndpoint}/api/health`,
+    hubContent: `${hubEndpoint}/v1/api/content`,
+    hubMenu: `${hubEndpoint}/v1/api/menu`,
+    hubTerm: `${hubEndpoint}/v1/api/term`,
+    series: `${hubEndpoint}/v1/api/content/series`,
+    tags: `${hubEndpoint}/v1/api/vocabulary/tags`,
+  },
+  features: [
+    'showLandingPageMenu',
+    'showPageMenu',
+    'showBrowseBySeries',
+  ],
 };

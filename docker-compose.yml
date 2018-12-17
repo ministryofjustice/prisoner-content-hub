@@ -21,8 +21,11 @@ services:
                 depends_on:
                         - hub-be
                 environment:
-                        API_URI: http://hub-be/
+                        HUB_API_ENDPOINT: http://hub-be/v1/api
                         APP_TIMEOUT: 60.0
+                        PORT: 3000
+                        APP_NAME: HMP Berwyn
+                        MATOMO_URL: //hub-matomo/
                 ports:
                         - 8183:3000
                 volumes:
@@ -41,7 +44,7 @@ services:
                 ports:
                         - 8181:80
                 volumes:
-                        - ./moj-fe/:/var/www/hub/
+                        - ./moj-fe/:/app
                 healthcheck:
                         test: ["CMD", "curl", "-f", "http://localhost"]
                         interval: 15s
@@ -104,3 +107,33 @@ services:
                 entrypoint:
                         - drupal
                         - '--root=/var/www/html/'
+        hub-api-docs:
+                image: mojdigitalstudio/digital-hub-api-docs
+                depends_on:
+                        - hub-db
+                        - hub-be
+                environment:
+                        API_URL: ./config/swagger.json
+                volumes:
+                        - ./moj-api-docs/config:/var/www/html/config
+                ports:
+                        - 8184:8080
+        hub-matomo:
+                image: matomo:3-apache
+                depends_on:
+                        - hub-matomo-db
+                ports:
+                        - 8185:80
+                links:
+                        - hub-matomo-db
+                volumes:
+                        - ./moj-reporting/config:/var/www/html/config:rw
+                        - ./moj-reporting/digital-hub-matmomo-db/var/lib/mysql/data:/var/lib/mysql/data
+                        - ./logs:/var/www/html/logs
+        hub-matomo-db:
+                image: mariadb
+                environment:
+                        MYSQL_ROOT_PASSWORD: password
+                        MYSQL_DATABASE: matomo
+                        MYSQL_USER: matomo_user
+                        MYSQL_PASSWORD: matomo_pass

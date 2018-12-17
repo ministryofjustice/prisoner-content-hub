@@ -15,27 +15,13 @@ RUN npm install
 RUN npm run prod
 RUN npm run snyk-protect
 
-FROM php:5.6-apache
-#Apache configuraton
-RUN a2enmod rewrite
-RUN a2enmod proxy
-RUN a2enmod proxy_http
-RUN a2enmod headers
-RUN rm -f /etc/apache2/sites-enabled/*
-COPY ./apache/* /etc/apache2/sites-enabled/
-#PHP configuration
-RUN apt-get update && apt-get upgrade -y && apt-get install libmcrypt-dev libpng-dev libmemcached-dev zlib1g-dev curl -y
-#RUN pecl install memcached
-#RUN docker-php-ext-enable memcached
-#Copy the app and set permissions
-RUN mkdir /var/www/hub
-COPY --from=node /node /var/www/hub/
-RUN ls -lathr /var/www/hub
-RUN chown -R www-data:www-data /var/www/hub/public
-RUN chown -R www-data:www-data /var/www/hub/bootstrap
-RUN chown -R www-data:www-data /var/www/hub/app
-RUN chown -R www-data:www-data /var/www/hub/config
-RUN chown -R www-data:www-data /var/www/hub/resources
-RUN chown -R www-data:www-data /var/www/hub/storage
-RUN chown -R www-data:www-data /var/www/hub/server.php
-RUN chown www-data:www-data /var/www/hub
+FROM php:7-fpm-stretch
+RUN apt-get update && apt-get install -y supervisor nginx-full
+RUN mkdir -p /app
+COPY --from=node /node /app
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY fpm.conf /usr/local/etc/php-fpm.d/www.conf
+RUN chown -R www-data:www-data /app
+CMD ["/usr/bin/supervisord"]
+EXPOSE 80/tcp

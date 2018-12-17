@@ -1,32 +1,37 @@
 const express = require('express');
 const addRequestId = require('express-request-id')();
-const csurf = require('csurf');
 const compression = require('compression');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
-const cookieSession = require('cookie-session');
 const helmet = require('helmet');
 const log = require('bunyan-request-logger')();
 const nunjucks = require('nunjucks');
 const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
+const session = require('express-session');
+const MemoryStore = require('memorystore')(session);
 
 const config = require('../server/config');
-const logger = require('../log.js');
 
-const createMenuRouter = require('./routes/menu');
 const createIndexRouter = require('./routes/index');
 const createHealthRouter = require('./routes/health');
+const createContentRouter = require('./routes/content');
+const createTagRouter = require('./routes/tags');
+const createGamesRouter = require('./routes/games');
 
-const topicLinks = require('./data/topic-link.json');
+const featureToggleMiddleware = require('./middleware/featureToggle');
+const establishmentToggle = require('./middleware/establishmentToggle');
 
 const version = Date.now().toString();
 
 module.exports = function createApp({
   appInfo,
-  demoDataService,
-  menuService,
-}) { // eslint-disable-line no-shadow
+  logger,
+  hubFeaturedContentService,
+  hubPromotedContentService,
+  hubMenuService,
+  hubContentService,
+  hubTagsService,
+  healthService,
+}) {
   const app = express();
 
   // View Engine Configuration
@@ -53,20 +58,6 @@ module.exports = function createApp({
 
   app.use(addRequestId);
 
-  app.use(cookieSession({
-    name: 'session',
-    keys: [config.sessionSecret],
-    maxAge: 60 * 60 * 1000,
-    secure: config.https,
-    httpOnly: true,
-    signed: true,
-    overwrite: true,
-    sameSite: 'lax',
-  }));
-
-  // Request Processing Configuration
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
 
   app.use(log.requestLogger());
 
@@ -104,6 +95,16 @@ module.exports = function createApp({
   //  Static Resources Configuration
   const cacheControl = { maxAge: config.staticResourceCacheDuration * 1000 };
 
+  app.use(session({
+    store: config.test ? null : new MemoryStore({
+      checkPeriod: 300000, // prune expired entries every 5 minutes
+    }),
+    secret: config.cookieSecret,
+    resave: false,
+    saveUninitialized: true,
+  }));
+
+
   [
     '../public',
     '../assets',
@@ -112,6 +113,9 @@ module.exports = function createApp({
     '../node_modules/govuk_frontend_toolkit',
     '../node_modules/govuk-frontend/',
     '../node_modules/video.js/dist',
+    '../node_modules/jplayer/dist',
+    '../node_modules/jquery/dist',
+    '../node_modules/mustache',
   ].forEach((dir) => {
     app.use('/public', express.static(path.join(__dirname, dir), cacheControl));
   });
@@ -127,57 +131,97 @@ module.exports = function createApp({
 
   // GovUK Template Configuration
   app.locals.asset_path = '/public/';
+  app.locals.envVars = {
+    MATOMO_URL: config.motamoUrl,
+    APP_NAME: config.appName,
+  };
 
-  // Temporary menu
-  app.use((req, res, next) => {
-    res.locals.navMenu = topicLinks;
-    next();
-  });
-
-  function addTemplateVariables(req, res, next) {
-    res.locals.user = req.user;
-    next();
-  }
-
-  app.use(addTemplateVariables);
 
   // Don't cache dynamic resources
   app.use(helmet.noCache());
 
+  // feature toggle
+  app.use(featureToggleMiddleware(config.features));
 
-  // CSRF protection
-  app.use(cookieParser());
-  app.use(csurf({ cookie: true }));
+  // establishment toggle
+  app.use(establishmentToggle);
+
+  // Health end point
+  app.use('/health', createHealthRouter({ appInfo, healthService }));
+
+  // Navigation menu middleware
+  app.use(async (req, res, next) => {
+    if (req.session.mainMenu && req.session.topicsMenu) {
+      res.locals.mainMenu = req.session.mainMenu;
+      res.locals.topicsMenu = req.session.topicsMenu;
+
+      return next();
+    }
+    try {
+      const {
+        mainMenu,
+        topicsMenu,
+      } = await hubMenuService.navigationMenu();
+
+      req.session.mainMenu = mainMenu;
+      res.locals.mainMenu = mainMenu;
+
+      req.session.topicsMenu = topicsMenu;
+      res.locals.topicsMenu = topicsMenu;
+
+      return next();
+    } catch (ex) {
+      return next(ex);
+    }
+  });
 
   // Routing
-  app.use('/', createIndexRouter({ logger, demoDataService }));
-  app.use('/menu', createMenuRouter({ logger, menuService }));
-  app.use('/health', createHealthRouter({ appInfo }));
+  app.use('/', createIndexRouter({
+    logger,
+    hubFeaturedContentService,
+    hubPromotedContentService,
+    hubMenuService,
+  }));
 
-  app.use(handleKnownErrors);
+  app.use('/content', createContentRouter({
+    logger,
+    hubContentService,
+  }));
+
+  app.use('/tags', createTagRouter({
+    logger,
+    hubTagsService,
+  }));
+
+  app.use('/games', createGamesRouter({ logger }));
+
+  app.use('*', (req, res) => {
+    res.status(404);
+    res.render('pages/404');
+  });
+
   app.use(renderErrors);
+
+  // eslint-disable-next-line no-unused-vars
+  function renderErrors(error, req, res, next) {
+    logger.error(error, 'Unhandled error');
+
+    res.status(error.status || 500);
+
+    const locals = {
+      message: 'Something went wrong.',
+      req_id: req.id,
+      stack: '',
+    };
+    if (error.expose || config.dev) {
+      locals.message = error.message;
+    }
+    if (config.dev) {
+      locals.stack = error.stack;
+    }
+
+    res.render('pages/error', locals);
+  }
 
   return app;
 };
-
-// eslint-disable-next-line no-unused-vars
-function handleKnownErrors(err, req, res, next) {
-  logger.error(err);
-  // code to handle errors
-}
-
-// eslint-disable-next-line no-unused-vars
-function renderErrors(err, req, res, next) {
-  logger.error(err);
-
-  // code to handle unknown errors
-
-  res.locals.error = err;
-  res.locals.stack = config.production ? null : err.stack;
-  res.locals.message = config.production
-    ? 'Something went wrong. The error has been logged. Please try again' : err.message;
-
-  res.status(err.status || 500);
-
-  res.render('pages/error');
-}

@@ -1,6 +1,7 @@
 @import "node_modules/govuk-frontend/all";
 
 @import "general";
+@import "player";
 @import "fonts";
 
 @import "components/tools";
@@ -9,17 +10,14 @@
 @import "components/sub-menu";
 @import "components/language-toggle";
 @import "components/promoted-content";
-@import "components/featured-content";
-@import "components/featured-content-item";
 @import "components/series";
 @import "components/navigation-menu";
 @import "components/landing-page-header";
 @import "components/utils";
-@import "components/you-might-like";
+@import "components/related-content";
 @import "components/media-player";
-@import "components/video-content";
-@import "components/video-content-item";
-@import "components/audio-content";
-@import "components/audio-content-item";
+@import "components/episode-content-item";
+@import "components/featured-content";
+@import "components/featured-content-item";
 
 @import "pages/flat-content";

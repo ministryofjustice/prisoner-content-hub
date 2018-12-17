@@ -9,6 +9,7 @@ RUN apt-get update && apt-get upgrade -y && apt-get install unzip libpng-dev lib
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir
 RUN docker-php-ext-install gd
+RUN docker-php-ext-install opcache && docker-php-ext-enable opcache
 RUN pecl install xdebug-2.5.5 && docker-php-ext-enable xdebug
 COPY /php/xdebug.ini /usr/local/etc/php/conf.d/
 

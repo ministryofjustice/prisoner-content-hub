@@ -65,7 +65,22 @@ class MenuApiClass
      *
      * @var string
      */
-    protected $menuName = 'main';
+    protected $menuName;
+    
+    /**
+     * pageIdsInMenu
+     *
+     * @var array
+     */
+    protected $pageIdsInMenu;
+
+    /**
+     * pageIds
+     * 
+     * @var array
+     */
+
+    protected $pageIds = array();
     
     /**
      * Paramaters
@@ -95,14 +110,20 @@ class MenuApiClass
      * @param int $current
      * @return void
      */
-    public function MenuApiEndpoint($lang, $current)
+    public function MenuApiEndpoint($lang, $current, $menu)
     {
         $this->lang = $lang;
         $this->current = $current;
-        $this->currentLink = self::loadCurrentLink();
-        $this->tree = self::LoadMenuTree($this->menuName);
-        $menu = $this->menuLinkTree->build($this->tree);
-        return self::createMenuArray($menu);
+        $this->menuName = $menu;
+        $this->pageIdsInMenu = self::getPageIdInMenu($this->menuName);
+
+        if (in_array($this->current, $this->pageIdsInMenu) || $this->current === 0) {
+            $this->currentLink = self::loadCurrentLink();
+            $this->tree = self::LoadMenuTree($this->menuName);
+            $menu = $this->menuLinkTree->build($this->tree);
+            return self::createMenuArray($menu);
+        }
+        return null;
     }
 
     /**
@@ -143,6 +164,19 @@ class MenuApiClass
         self::setParameters();
         return $this->menuLinkTree->load($menu, $this->parameters);
     }
+    
+    protected function getPageIdInMenu($menu_name) 
+    {
+        $storage = \Drupal::entityManager()->getStorage('menu_link_content');
+        $menu_links = $storage->loadByProperties(['menu_name' => $menu_name]);
+        if (empty($menu_links)) {
+            return $links;
+        }
+        foreach ($menu_links as $mlid => $menu_link) {
+            $this->pageIds[] = ltrim($menu_link->link->uri, 'entity:node/');
+        }
+        return $this->pageIds;
+      }
 
     /**
      * Create menu array function
