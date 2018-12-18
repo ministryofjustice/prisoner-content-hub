@@ -84,6 +84,7 @@ describe('#hubContentService', () => {
       contentType: 'landing-page',
       featuredContentId: 'featuredContentId',
       categoryId: 'categoryId',
+      establishmentId: 'establishmentId',
     };
 
     const createRepository = () => ({
@@ -121,9 +122,9 @@ describe('#hubContentService', () => {
       const repository = createRepository();
       const service = createHubContentService(repository);
 
-      await service.contentFor(content.id);
+      await service.contentFor(content.id, content.establishmentId);
 
-      expect(repository.relatedContentFor.lastCall.lastArg).to.eql({ id: 'categoryId' }, `the categoryId was supposed to be "${content.categoryId}"`);
+      expect(repository.relatedContentFor.lastCall.lastArg).to.eql({ id: 'categoryId', establishmentId: 'establishmentId' }, `the categoryId was supposed to be "${content.categoryId}"`);
     });
 
     it('call for a menu', async () => {
