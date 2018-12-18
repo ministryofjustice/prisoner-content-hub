@@ -11,6 +11,8 @@ function setupBasicApp() {
     autoescape: true,
   });
 
+  app.locals.envVars = {};
+
   return app;
 }
 

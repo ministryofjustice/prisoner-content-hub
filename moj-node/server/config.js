@@ -12,6 +12,7 @@ const drupalAppUrl = getEnv('DRUPAL_APP_URI', { requireInProduction: true });
 
 module.exports = {
   appName: getEnv('APP_NAME', 'Test application', { requireInProduction: true }),
+  featureTogglesEnabled: Boolean(getEnv('ENABLE_FEATURE_TOGGLES', true)),
   dev: !isProduction && !isTest,
   test: isTest,
   production: isProduction,

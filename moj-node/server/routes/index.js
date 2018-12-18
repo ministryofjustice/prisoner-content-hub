@@ -12,7 +12,7 @@ module.exports = function Index({
     try {
       logger.info('GET index');
 
-      const { establishmentId } = res.locals;
+      const { establishmentId } = req.app.locals.envVars;
 
       const [
         featuredContent,

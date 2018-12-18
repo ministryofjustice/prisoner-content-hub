@@ -128,18 +128,21 @@ module.exports = function createApp({
   app.locals.envVars = {
     MATOMO_URL: config.motamoUrl,
     APP_NAME: config.appName,
+    establishmentId: config.establishmentId,
   };
 
 
   // Don't cache dynamic resources
   app.use(helmet.noCache());
 
-  // feature toggle
-  app.use(featureToggleMiddleware(config.features));
 
-  // establishment toggle
-  app.use(establishmentToggle);
+  // feature toggles
+  if (config.featureTogglesEnabled) {
+    app.use(featureToggleMiddleware(config.features));
 
+    // establishment toggle
+    app.use(establishmentToggle);
+  }
 
   // Health end point
   app.use('/health', createHealthRouter({ appInfo, healthService }));

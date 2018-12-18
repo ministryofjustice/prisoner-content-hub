@@ -18,7 +18,7 @@ module.exports = function createContentRouter({
       postscript: false,
     };
 
-    const { establishmentId } = res.locals;
+    const { establishmentId } = req.app.locals.envVars;
 
     try {
       const data = await hubContentService.contentFor(req.params.id, establishmentId);

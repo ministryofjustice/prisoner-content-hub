@@ -1,12 +1,8 @@
-const { getEstablishmentId } = require('../utils');
-
-function capitalizeFirstLetter(string = '') {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+const { getEstablishmentId, getEstablishmentName } = require('../utils');
 
 module.exports = function establishmentToggle(req, res, next) {
-  if (!req.session.prison && req.query.prison) {
-    req.session.prison = req.query.prison;
+  if (!req.session.prison) {
+    req.session.prison = req.app.locals.envVars.establishmentId;
   }
 
   if (req.query.prison) {
@@ -15,8 +11,8 @@ module.exports = function establishmentToggle(req, res, next) {
 
   const establishmentId = getEstablishmentId(req.session.prison);
 
-  res.locals.establishmentId = establishmentId;
-  req.app.locals.envVars.APP_NAME = `HMP ${establishmentId !== 0 ? capitalizeFirstLetter(req.session.prison) : 'Berwyn'}`;
+  req.app.locals.envVars.establishmentId = establishmentId;
+  req.app.locals.envVars.APP_NAME = getEstablishmentName(establishmentId);
 
   next();
 };

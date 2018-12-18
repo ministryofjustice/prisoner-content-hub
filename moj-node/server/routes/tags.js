@@ -11,7 +11,7 @@ module.exports = function Tags({
       const { id } = req.params;
 
       logger.info(`GET /tags/${id}`);
-      const { establishmentId } = res.locals;
+      const { establishmentId } = req.app.locals.envVars;
       const data = await hubTagsService.termFor(id, establishmentId);
 
       const config = {
@@ -33,7 +33,7 @@ module.exports = function Tags({
   router.get('/related-content/:id', async (req, res) => {
     try {
       logger.info(`GET /tags/${req.params.id}/related-content`);
-      const { establishmentId } = res.locals;
+      const { establishmentId } = req.app.locals.envVars;
 
       const data = await hubTagsService.relatedContentFor({
         id: req.params.id,
