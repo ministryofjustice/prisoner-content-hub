@@ -6,9 +6,7 @@ const log = require('bunyan-request-logger')();
 const nunjucks = require('nunjucks');
 const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
-const session = require('express-session');
-const MemoryStore = require('memorystore')(session);
-
+const session = require('cookie-session');
 const config = require('../server/config');
 
 const createIndexRouter = require('./routes/index');
@@ -96,14 +94,10 @@ module.exports = function createApp({
   const cacheControl = { maxAge: config.staticResourceCacheDuration * 1000 };
 
   app.use(session({
-    store: config.test ? null : new MemoryStore({
-      checkPeriod: 300000, // prune expired entries every 5 minutes
-    }),
     secret: config.cookieSecret,
     resave: false,
     saveUninitialized: true,
   }));
-
 
   [
     '../public',
@@ -146,34 +140,35 @@ module.exports = function createApp({
   // establishment toggle
   app.use(establishmentToggle);
 
+
   // Health end point
   app.use('/health', createHealthRouter({ appInfo, healthService }));
 
   // Navigation menu middleware
-  app.use(async (req, res, next) => {
-    if (req.session.mainMenu && req.session.topicsMenu) {
-      res.locals.mainMenu = req.session.mainMenu;
-      res.locals.topicsMenu = req.session.topicsMenu;
+  // app.use(async (req, res, next) => {
+  //   if (req.session.mainMenu && req.session.topicsMenu) {
+  //     res.locals.mainMenu = req.session.mainMenu;
+  //     res.locals.topicsMenu = req.session.topicsMenu;
 
-      return next();
-    }
-    try {
-      const {
-        mainMenu,
-        topicsMenu,
-      } = await hubMenuService.navigationMenu();
+  //     return next();
+  //   }
+  //   try {
+  //     const {
+  //       mainMenu,
+  //       topicsMenu,
+  //     } = await hubMenuService.navigationMenu();
 
-      req.session.mainMenu = mainMenu;
-      res.locals.mainMenu = mainMenu;
+  //     req.session.mainMenu = mainMenu;
+  //     res.locals.mainMenu = mainMenu;
 
-      req.session.topicsMenu = topicsMenu;
-      res.locals.topicsMenu = topicsMenu;
+  //     req.session.topicsMenu = topicsMenu;
+  //     res.locals.topicsMenu = topicsMenu;
 
-      return next();
-    } catch (ex) {
-      return next(ex);
-    }
-  });
+  //     return next();
+  //   } catch (ex) {
+  //     return next(ex);
+  //   }
+  // });
 
   // Routing
   app.use('/', createIndexRouter({
