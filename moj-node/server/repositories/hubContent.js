@@ -61,11 +61,17 @@ module.exports = function hubContentRepository(httpClient) {
     return parseHubContentResponse(response);
   }
 
-  async function relatedContentFor({ id, perPage = 8, offset = 0 }) {
+  async function relatedContentFor({
+    id,
+    establishmentId,
+    perPage = 8,
+    offset = 0,
+  }) {
     const response = await httpClient.get(`${config.api.hubContent}/related`, {
       _category: id,
       _number: perPage,
       _offset: offset,
+      _prison: establishmentId,
     });
 
     return parseHubContentResponse(response);

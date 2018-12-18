@@ -18,8 +18,10 @@ module.exports = function createContentRouter({
       postscript: false,
     };
 
+    const { establishmentId } = res.locals;
+
     try {
-      const data = await hubContentService.contentFor(req.params.id);
+      const data = await hubContentService.contentFor(req.params.id, establishmentId);
       const contentType = prop('contentType', data);
 
       switch (contentType) {

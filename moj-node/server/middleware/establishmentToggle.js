@@ -5,11 +5,18 @@ function capitalizeFirstLetter(string = '') {
 }
 
 module.exports = function establishmentToggle(req, res, next) {
-  const { prison } = req.query;
-  const establishmentId = getEstablishmentId(prison);
+  if (!req.session.prison && req.query.prison) {
+    req.session.prison = req.query.prison;
+  }
 
-  res.locals.establishmentId = getEstablishmentId(prison);
-  req.app.locals.envVars.APP_NAME = `HMP ${establishmentId !== 0 ? capitalizeFirstLetter(prison) : 'Berwyn'}`;
+  if (req.query.prison) {
+    req.session.prison = req.query.prison;
+  }
+
+  const establishmentId = getEstablishmentId(req.session.prison);
+
+  res.locals.establishmentId = establishmentId;
+  req.app.locals.envVars.APP_NAME = `HMP ${establishmentId !== 0 ? capitalizeFirstLetter(req.session.prison) : 'Berwyn'}`;
 
   next();
 };

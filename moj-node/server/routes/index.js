@@ -12,17 +12,15 @@ module.exports = function Index({
     try {
       logger.info('GET index');
 
+      const { establishmentId } = res.locals;
+
       const [
         featuredContent,
         [promotionalContent],
         seriesMenu,
       ] = await Promise.all([
-        hubFeaturedContentService.hubFeaturedContent({
-          establishmentId: res.locals.establishmentId,
-        }),
-        hubPromotedContentService.hubPromotedContent({
-          establishmentId: res.locals.establishmentId,
-        }),
+        hubFeaturedContentService.hubFeaturedContent({ establishmentId }),
+        hubPromotedContentService.hubPromotedContent({ establishmentId }),
         hubMenuService.seriesMenu(),
       ]);
 

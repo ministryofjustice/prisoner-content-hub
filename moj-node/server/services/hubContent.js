@@ -7,7 +7,7 @@ const {
 } = require('ramda');
 
 module.exports = function createHubContentService(repository) {
-  async function contentFor(id) {
+  async function contentFor(id, establishmentId) {
     const content = await repository.contentFor(id);
     const contentType = prop('contentType', content);
 
@@ -16,7 +16,7 @@ module.exports = function createHubContentService(repository) {
       case 'video':
         return media(content);
       case 'landing-page':
-        return landingPage(content);
+        return landingPage(content, establishmentId);
       default:
         return content;
     }
@@ -44,7 +44,7 @@ module.exports = function createHubContentService(repository) {
     };
   }
 
-  async function landingPage(data) {
+  async function landingPage(data, establishmentId) {
     const id = prop('id', data);
     const featuredContentId = prop('featuredContentId', data);
     const categoryId = prop('categoryId', data);
@@ -55,7 +55,7 @@ module.exports = function createHubContentService(repository) {
       menu,
     ] = await Promise.all([
       repository.contentFor(featuredContentId),
-      repository.relatedContentFor({ id: categoryId }),
+      repository.relatedContentFor({ id: categoryId, establishmentId }),
       repository.menuFor(id),
     ]);
 
