@@ -6,6 +6,8 @@ const {
   map,
 } = require('ramda');
 
+const { sortByIdDesc } = require('../utils');
+
 module.exports = function createHubContentService(repository) {
   async function contentFor(id, establishmentId) {
     const content = await repository.contentFor(id);
@@ -62,7 +64,7 @@ module.exports = function createHubContentService(repository) {
     return {
       ...data,
       featuredContent,
-      relatedContent,
+      relatedContent: relatedContent.sort(sortByIdDesc),
       menu,
     };
   }

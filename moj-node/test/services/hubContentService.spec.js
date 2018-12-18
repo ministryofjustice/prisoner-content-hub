@@ -88,7 +88,7 @@ describe('#hubContentService', () => {
     };
 
     const createRepository = () => ({
-      relatedContentFor: sinon.stub().returns('relatedContent'),
+      relatedContentFor: sinon.stub().returns([]),
       contentFor: sinon.stub()
         .onFirstCall()
         .returns(content)
@@ -105,7 +105,7 @@ describe('#hubContentService', () => {
       expect(result).to.have.property('contentType', content.contentType);
       expect(result).to.have.property('featuredContentId', 'featuredContentId');
       expect(result).to.have.property('featuredContent', 'fooBar');
-      expect(result).to.have.property('relatedContent', 'relatedContent');
+      expect(result).to.have.property('relatedContent');
       expect(result).to.have.property('menu', 'fooMenu');
     });
 

@@ -124,7 +124,7 @@ class RelatedContentApiClass
         }
 
         return $results
-          ->sort('changed', 'DESC')
+          ->sort('created', 'DESC')
           ->range($offset, $number)
           ->execute();
     }

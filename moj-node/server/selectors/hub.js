@@ -24,3 +24,4 @@ module.exports.landingFeaturedContentIdFrom = R.view(R.lensPath(['field_moj_land
 module.exports.categoryIdFrom = R.view(R.lensPath(['field_moj_landing_page_term', 0, 'target_id']));
 module.exports.pdfUrlFrom = R.view(R.lensPath(['field_moj_pdf', 0, 'url']));
 module.exports.tagsIdsFrom = R.compose(R.map(R.prop('target_id')), R.prop('field_moj_top_level_categories'));
+module.exports.createdAtFrom = R.view(R.lensPath(['created', 0, 'value']));
