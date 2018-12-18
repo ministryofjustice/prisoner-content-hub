@@ -100,7 +100,7 @@ class PromotedContentApiClass
         {
           $berwyn = $results
               ->orConditionGroup()
-              ->condition('field_moj_prisons', $berwyn_prison_id, '=')
+              ->condition('field_moj_prisons', $prison, '=')
               ->notExists('field_moj_prisons');
 
           $results->condition($berwyn);
@@ -110,7 +110,7 @@ class PromotedContentApiClass
         {
           $wayland = $results
             ->orConditionGroup()
-            ->condition('field_moj_prisons', $wayland_prison_id, '=')
+            ->condition('field_moj_prisons', $prison, '=')
             ->notExists('field_moj_prisons');
 
             $results->condition($wayland);

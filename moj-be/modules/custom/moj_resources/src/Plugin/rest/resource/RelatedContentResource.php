@@ -56,7 +56,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *          type="string",
  *          description="The language tag to translate results, if there is no translation available then the site default is returned, the default is 'en' (English). Options are 'en' (English) or 'cy' (Welsh).",
  *      ),
- *      
+ *
  *     @SWG\Response(response="200", description="Hub featured content resource")
  * )
  */
@@ -93,6 +93,8 @@ class RelatedContentResource extends ResourceBase
 
     Protected $paramater_number_results;
 
+    protected $paramater_prison;
+
     public function __construct(
         array $configuration,
         $plugin_id,
@@ -102,7 +104,7 @@ class RelatedContentResource extends ResourceBase
         RelatedContentApiClass $RelatedContentApiClass,
         Request $currentRequest,
         LanguageManager $languageManager
-    ) {        
+    ) {
         $this->relatedContentApiClass = $RelatedContentApiClass;
         $this->currentRequest = $currentRequest;
         $this->languageManager = $languageManager;
@@ -111,17 +113,18 @@ class RelatedContentResource extends ResourceBase
         $this->paramater_language_tag = self::setLanguage();
         $this->paramater_number = self::setNumberOfResults();
         $this->paramater_offset = self::setOffsetOfResults();
+        $this->paramater_prison = self::setPrison();
         self::checklanguageParameterIsValid();
         self::checkCategoryIsNumeric();
         self::checkNumberOfResultsIsNumeric();
         self::checkOffsetOfResultsIsNumeric();
         parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
     }
-  
+
     public static function create(
         ContainerInterface $container,
-        array $configuration, 
-        $plugin_id, 
+        array $configuration,
+        $plugin_id,
         $plugin_definition
     ) {
         return new static(
@@ -134,15 +137,16 @@ class RelatedContentResource extends ResourceBase
             $container->get('request_stack')->getCurrentRequest(),
             $container->get('language_manager')
         );
-    }   
+    }
 
-    public function get() 
+    public function get()
     {
         $relatedContent = $this->relatedContentApiClass->RelatedContentApiEndpoint(
-            $this->paramater_language_tag, 
+            $this->paramater_language_tag,
             $this->paramater_category,
             $this->paramater_number,
-            $this->paramater_offset
+            $this->paramater_offset,
+            $this->paramater_prison
         );
         if (!empty($relatedContent)) {
             $response = new ResourceResponse($relatedContent);
@@ -152,13 +156,13 @@ class RelatedContentResource extends ResourceBase
         throw new NotFoundHttpException(t('No related content found'));
     }
 
-    protected function checklanguageParameterIsValid() 
+    protected function checklanguageParameterIsValid()
     {
         foreach($this->availableLangs as $lang)
         {
             if ($lang->getid() === $this->paramater_language_tag) {
                 return true;
-            } 
+            }
         }
         throw new NotFoundHttpException(
             t('The language tag invalid or translation for this tag is not avilable'),
@@ -222,6 +226,11 @@ class RelatedContentResource extends ResourceBase
     {
         return is_null($this->currentRequest->get('_offset')) ? 0 : $this->currentRequest->get('_offset');
     }
-}   
+
+    protected function setPrison()
+    {
+        return is_null($this->currentRequest->get('_prison')) ? 0 : $this->currentRequest->get('_prison');
+    }
+}
 
 
