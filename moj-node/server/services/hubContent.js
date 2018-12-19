@@ -20,8 +20,9 @@ module.exports = function createHubContentService(repository) {
 
     switch (contentType) {
       case 'radio':
-      case 'video':
+      case 'video': {
         return media(content);
+      }
       case 'landing-page':
         return landingPage(content, establishmentId);
       default:
@@ -80,7 +81,7 @@ module.exports = function createHubContentService(repository) {
 };
 
 function canAccessContent(establishmentId, prisonId) {
-  if (!prisonId) return true;
+  if (!prisonId || !establishmentId) return true;
 
   if (establishmentId === prisonId) {
     return true;
