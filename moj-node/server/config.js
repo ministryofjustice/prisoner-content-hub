@@ -17,6 +17,7 @@ module.exports = {
   test: isTest,
   production: isProduction,
   motamoUrl: getEnv('MATOMO_URL', { requireInProduction: true }),
+  oldHubUrl: getEnv('OLD_HUB_URL', { requireInProduction: true }),
   cookieSecret: getEnv('COOKIE_SECRET', 'keyboard cat'),
   establishmentId: getEstablishmentId(getEnv('ESTABLISHMENT_NAME', 'berwyn')),
   hubEndpoint,

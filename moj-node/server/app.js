@@ -127,6 +127,7 @@ module.exports = function createApp({
   app.locals.asset_path = '/public/';
   app.locals.envVars = {
     MATOMO_URL: config.motamoUrl,
+    OLD_HUB_URL: config.oldHubUrl,
     APP_NAME: config.appName,
     establishmentId: config.establishmentId,
   };
