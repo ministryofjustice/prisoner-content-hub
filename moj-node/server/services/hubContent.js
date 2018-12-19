@@ -12,6 +12,11 @@ module.exports = function createHubContentService(repository) {
   async function contentFor(id, establishmentId) {
     const content = await repository.contentFor(id);
     const contentType = prop('contentType', content);
+    const prisonId = prop('establishmentId', content);
+
+    if (!canAccessContent(establishmentId, prisonId)) {
+      return {};
+    }
 
     switch (contentType) {
       case 'radio':
@@ -73,3 +78,13 @@ module.exports = function createHubContentService(repository) {
     contentFor,
   };
 };
+
+function canAccessContent(establishmentId, prisonId) {
+  if (!prisonId) return true;
+
+  if (establishmentId === prisonId) {
+    return true;
+  }
+
+  return false;
+}

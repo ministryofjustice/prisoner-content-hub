@@ -89,5 +89,13 @@
           "target_uuid": "cc2b69b2-843b-4c77-b1ad-07d9a9acced4",
           "url": "/taxonomy/term/646"
       }
+    ],
+    "field_moj_prisons": [
+      {
+          "target_id": 792,
+          "target_type": "taxonomy_term",
+          "target_uuid": "fd1e1db7-d0be-424a-a3a6-3b0f49e33293",
+          "url": "/taxonomy/term/792"
+      }
     ]
 }

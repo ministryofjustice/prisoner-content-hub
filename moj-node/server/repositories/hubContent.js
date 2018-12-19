@@ -30,6 +30,7 @@ const {
   pdfUrlFrom,
   vocabularyType,
   tagsIdsFrom,
+  establishmentIdFrom,
 } = require('../selectors/hub');
 
 
@@ -164,6 +165,7 @@ module.exports = function hubContentRepository(httpClient) {
       season: seasonFrom(data),
       seriesId: seriesIdFrom(data),
       tagsId: tagsIdsFrom(data),
+      establishmentId: establishmentIdFrom(data),
     };
   }
 
@@ -184,6 +186,7 @@ module.exports = function hubContentRepository(httpClient) {
         alt: imageAltFrom(data),
         url: fixUrlForProduction(imageUrlFrom(data), config.drupalAppUrl),
       },
+      establishmentId: establishmentIdFrom(data),
     };
   }
 
@@ -195,6 +198,7 @@ module.exports = function hubContentRepository(httpClient) {
       title: titleFrom(data),
       contentType: typeFrom(data),
       url: fixUrlForProduction(pdfUrlFrom(data)),
+      establishmentId: establishmentIdFrom(data),
     };
   }
 

@@ -9,6 +9,7 @@ const {
   imageAltFrom,
   imageUrlFrom,
   durationFrom,
+  establishmentIdFrom,
 } = require('../selectors/hub');
 
 const defaultThumbs = {
@@ -67,6 +68,7 @@ function parseHubContentResponse(data) {
         summary: summaryValueFrom(data[key]),
         image,
         duration: durationFrom(data[key]),
+        establishmentId: establishmentIdFrom(data[key]),
       });
     });
 }

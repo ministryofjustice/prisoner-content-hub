@@ -147,6 +147,7 @@ function radioContent() {
       url: 'http://foo.bar.com/image.png',
     },
     tagsId: [646],
+    establishmentId: 792,
   };
 }
 
@@ -170,6 +171,7 @@ function videoContent() {
       url: 'http://foo.bar.com/image.png',
     },
     tagsId: [],
+    establishmentId: 792,
   };
 }
 
@@ -188,6 +190,7 @@ function flatPageContent() {
       url: undefined,
     },
     standFirst: 'Foo article stand first',
+    establishmentId: undefined,
   };
 }
 
@@ -212,6 +215,7 @@ function seasonContent() {
         url: 'foo.image.png',
       },
       tagsId: [648, 650],
+      establishmentId: undefined,
     },
     {
       id: 2,
@@ -232,6 +236,7 @@ function seasonContent() {
         url: 'bar.img.png',
       },
       tagsId: [648, 650],
+      establishmentId: undefined,
     },
   ];
 }
@@ -262,6 +267,7 @@ function relatedContent() {
       alt: '',
     },
     duration: '51:20',
+    establishmentId: undefined,
   },
   {
     id: 3341,
@@ -273,6 +279,7 @@ function relatedContent() {
       alt: '',
     },
     duration: '51:04',
+    establishmentId: undefined,
   }];
 }
 
@@ -283,5 +290,6 @@ function pdfContent() {
     title: 'Foo pdf',
     contentType: 'pdf',
     url: 'www.foo.bar/file.pdf',
+    establishmentId: 792,
   };
 }

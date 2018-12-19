@@ -124,6 +124,7 @@ function contentFor(contentType) {
       url: 'image.url.com',
     },
     duration: '40:00',
+    establishmentId: undefined,
   }];
 }
 
@@ -203,6 +204,7 @@ function contentWithSummaryFor(contentType) {
       url: 'image.url.com',
     },
     duration: '40:00',
+    establishmentId: undefined,
   }];
 }
 
@@ -217,5 +219,6 @@ function contentWithNoImageFor(contentType) {
       url: defaultThumbs[contentType],
     },
     duration: '40:00',
+    establishmentId: undefined,
   }];
 }

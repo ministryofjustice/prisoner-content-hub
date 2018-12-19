@@ -106,5 +106,6 @@ function contentFor(contentType) {
       url: 'image.url.com',
     },
     duration: '40:00',
+    establishmentId: undefined,
   }];
 }
