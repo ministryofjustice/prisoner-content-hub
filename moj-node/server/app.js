@@ -18,6 +18,9 @@ const createGamesRouter = require('./routes/games');
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const establishmentToggle = require('./middleware/establishmentToggle');
 
+const { getEstablishmentId } = require('./utils');
+
+
 const version = Date.now().toString();
 
 module.exports = function createApp({
@@ -129,7 +132,7 @@ module.exports = function createApp({
     MATOMO_URL: config.motamoUrl,
     OLD_HUB_URL: config.oldHubUrl,
     APP_NAME: config.appName,
-    establishmentId: config.establishmentId,
+    establishmentId: getEstablishmentId(config.establishmentName),
   };
 
 

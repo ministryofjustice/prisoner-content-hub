@@ -2,6 +2,9 @@ const request = require('superagent');
 const logger = require('../../log');
 const config = require('../config');
 
+const { getEstablishmentId } = require('../utils');
+
+
 class HubContentClient {
   constructor(client = request) {
     this.client = client;
@@ -11,7 +14,7 @@ class HubContentClient {
     const newQuery = {
       _format: 'json',
       _lang: 'en',
-      _prison: config.establishmentId,
+      _prison: getEstablishmentId(config.establishmentName),
       ...query,
     };
     return this.client
