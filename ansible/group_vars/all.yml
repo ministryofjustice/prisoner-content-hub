@@ -165,6 +165,15 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
+  - username: richdakin
+    name: "Richard Dakin"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILYDkXgBeAdUohTvGydVPXV8euPTwhz/oUtpq3Mx5POv rich@DESKTOP-P53LC3C"
+    shell: /bin/bash
+    update_password: on_create
+
   - username: oliveryoung
     name: Oliver Young
     groups:
