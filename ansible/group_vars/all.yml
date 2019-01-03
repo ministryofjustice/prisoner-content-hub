@@ -365,6 +365,24 @@ dxc_users:
     shell: /bin/bash
     update_password: on_create
 
+  - username: jonnield
+    name: "Jon Nield"
+    groups:
+      - admin
+    ssh_key:
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILtzhwLCa0ghnxTi7zNDu5SsSup7V+ndiyI4r+ltbJoy jonnield"
+    shell: /bin/bash
+    update_password: on_create
+
+  - username: laurendarby
+    name: "Lauren Darby"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC4QmWo5XJvGn+o3f3/yfLcabu6G0gJ3B7k5o3ZlhpzJ1HdGqALzOeGXFYAiDHXHACzCyh7qxVQxkw7sXUNz0PTDAPzldh/dxo7OLNhMfBB265BrIEpWOjgfc5yk0r+aXaOHWbQj/U0ksUp9JC0y7Krz/7sSFSQOgZxsKxiBx9fdodZgfNnkHkdC4sdboICA3vgcSGfmfwo+C3R90I678ko1hlgVEpoos5stdUUqcU73KMyh9k5udY+14CJccR3Aa6D2k9+opqkGvHCTe0egZcaB+wWOPD3XqhFFfHTV4cCwUW/+BwDafYffhN99cTszlBKFLnIre+A4hn8cVYexo0UpEM9xUpFCmRZylpqRZjDnloI24hZL5jIKMZTUHJ+4xOwt4xzL5mCmatCFordRcgfw/m9KPdBSvX3vsySuPg4SI3AmcZMJC5QNu/Da9ksr911/7amRY0RGs1EWuyUqnxCjP/8GQjMcN0vyuGUt1HzVtQU4RSJlVisEBamhlp1wI1+vmkJdhdf7PnRTvz4twuEBMGVpYCbz7f/yTe25NpQKVC5tfAjl0l9+bReXAe5fRcXcEE4EJzqOmkRIf/Z7xamCTLYrer5u+MyHaraFwfE8GH10c8CwCaHUjrHw4a4Vb5RWpdNg2CGSoUuk5UdYqxR9DEuZAX/nGvxtyCh7+e1FQ== lauren.darby@digital.justice.gov.uk"
+    shell: /bin/bash
+    update_password: on_create
+
 users: "{{ studio_users }}"
 
 users_deleted:
