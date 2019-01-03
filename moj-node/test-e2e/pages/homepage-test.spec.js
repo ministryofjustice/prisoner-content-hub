@@ -40,7 +40,6 @@ describe('Home page', () => {
       await page.goto(config.appURL);
     });
 
-
     it('renders featured content sections titles', () => {
       const expectedSectionTitles = [
         'News and events',
@@ -85,6 +84,8 @@ describe('Home page', () => {
         const featuredItems = await featuredSection.$$eval('[data-featured-item-id]', node => node.length);
 
         expect(featuredItems).to.be.greaterThan(2);
+
+        return sectionId;
       });
 
       return Promise.all(tests);
