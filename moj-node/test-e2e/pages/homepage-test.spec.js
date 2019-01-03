@@ -15,70 +15,92 @@ describe('Home page', () => {
     await browser.close();
   });
 
-  describe('News and event featured items', () => {
-    let container;
-
+  describe('promoted content', () => {
+    let promotedContent;
     before(async () => {
       await page.goto(config.appURL);
-      container = await page.$('[data-featured-section-id="news-events"]');
+      promotedContent = await page.$('[data-promoted-item-text]');
+    });
+    it('contains promoted content text', async () => {
+      const promotedContentJshandle = await promotedContent.getProperty('textContent');
+      const text = await promotedContentJshandle.jsonValue();
+
+      expect(text).to.match(/\w{10,}/, 'expected promoted content to include text');
     });
 
-    it('renders the correct section title', async () => {
-      const sectionTitle = await container.$eval('[data-featured-section-title]', node => node.textContent);
+    it('contains a call to action for more content', async () => {
+      const callToAction = await promotedContent.$eval('[data-call-to-action]', el => el.href);
 
-      expect(sectionTitle).to.equal('News and events');
-    });
-
-    it('renders the correct number of news and event featured items', async () => {
-      const featuredItemsCount = await container.$$eval('[data-featured-item-id]', node => node.length);
-
-      expect(featuredItemsCount).to.equal(4);
-    });
-
-    it('navigates to the correct content for a featured event', async () => {
-      const featuredEvent = await container.$('[data-featured-item-id]:first-child');
-      const featuredId = await featuredEvent.$eval('[data-featured-id]', node => node.getAttribute('data-featured-id'));
-      const featuredTitle = await featuredEvent.$eval('[data-featured-title]', node => node.getAttribute('data-featured-title'));
-      const [response] = await Promise.all([
-        page.waitForNavigation(),
-        featuredEvent.click(),
-      ]);
-
-      const responseText = await response.text();
-
-      expect(response.url()).to.contain(`/content/${featuredId}`);
-      expect(responseText).to.contain(featuredTitle);
+      expect(callToAction).to.match(/\/content\//, 'expected to have a link to promoted content');
     });
   });
 
-  describe('Radio shows and podcasts', () => {
-    let container;
-
+  describe('Featured content', () => {
     before(async () => {
       await page.goto(config.appURL);
-      container = await page.$('[data-featured-section-id="radio-podcasts"]');
     });
 
-    it('renders the correct section title', async () => {
-      const sectionTitle = await container.$eval('[data-featured-section-title]', node => node.textContent);
+    it('renders featured content sections titles', () => {
+      const expectedSectionTitles = [
+        'News and events',
+        'Day-to-day',
+        'Healthy mind and body',
+        'Legal advice and your rights',
+        'Inspiration',
+        'Science and nature',
+        'Art and culture',
+        'History',
+        'Music',
+        'Games',
+      ];
 
-      expect(sectionTitle).to.equal('Radio shows and podcasts');
+      const tests = expectedSectionTitles.map(async (title) => {
+        const sectionTitle = await page.$eval(`[data-featured-section-title="${title}"]`, el => el.textContent);
+
+        expect(sectionTitle).to.equal(title);
+
+        return title;
+      });
+
+      return Promise.all(tests);
     });
 
-    it('renders the correct number of news and event featured items', async () => {
-      const featuredItemsCount = await container.$$eval('[data-featured-item-id]', node => node.length);
+    it('renders featured items for each featured content section', () => {
+      const featuredSectionIds = [
+        'news-events',
+        'Day-to-day',
+        'healthy-mind-body',
+        'legal-and-your-rights',
+        'inspiration',
+        'science-nature',
+        'art-culture',
+        'history',
+        'music',
+        'games',
+      ];
 
-      expect(featuredItemsCount).to.equal(8);
+      const tests = featuredSectionIds.map(async (sectionId) => {
+        const featuredSection = await page.$(`[data-featured-section-id="${sectionId}"]`);
+        const featuredItems = await featuredSection.$$eval('[data-featured-item-id]', node => node.length);
+
+        expect(featuredItems).to.be.greaterThan(2);
+
+        return sectionId;
+      });
+
+      return Promise.all(tests);
     });
 
     it('navigates to the correct content for a featured event', async () => {
-      const featuredEvent = await container.$('[data-featured-item-id]:first-child');
-      const featuredId = await featuredEvent.$eval('[data-featured-id]', node => node.getAttribute('data-featured-id'));
-      const featuredTitle = await featuredEvent.$eval('[data-featured-title]', node => node.getAttribute('data-featured-title'));
+      const featuredItem = await page.$('[data-featured-item-id]:first-child');
+      const featuredId = await featuredItem.$eval('[data-featured-id]', node => node.getAttribute('data-featured-id'));
+      const featuredTitle = await featuredItem.$eval('[data-featured-title]', node => node.getAttribute('data-featured-title'));
+
       const [response] = await Promise.all([
         page.waitForNavigation(),
-        featuredEvent.click(),
+        featuredItem.click(),
       ]);
+
       const responseText = await response.text();
 
       expect(response.url()).to.contain(`/content/${featuredId}`);
