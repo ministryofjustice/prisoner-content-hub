@@ -121,6 +121,15 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
+  - username: stevemerrills
+    name: "Steve Merrills"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDF9Zs5wJnlfJrBKap4uxlR6sGRnzoSL4Y2v0k8oLvoGr1hoxLzNIUxTvYK5DLlwDZN6MfSxDLkiVksSRKDjX6SbabBHrsVboGICce+eH9am2fuxI0t8ny2xw3YjQk/wXP56OkGTlQRbQwfqnK181S8AC08U5R1wni7Nb3K0LvCPbOsgM/59uLeWYP4XRViSRZQOsxg/wDx1iYOMnmprT9bFLCURHPc+pdPo9sg0j5oAGHEiFRF1tKxeKABVw5NYugZC9r+HTqCNfNtrvW+Myee3ahliaRftqpODzPK9aSZ+RnjafpNLRZD5qDWGUSajJCVUfU/NjHnUMZLY1NyWm1ayPxoxQjfpHqVx6z0FZ1DWpK0nGkBv/cWxGxJhx7/dE0Tu+fE1j+seteWhmdReSPbcja/W84UuhNAuP10nwLXXSUjKqmcRtc9lJ0OTmKcCE+6jUdFLhpuznlwfSiN14buwPXvHcipSGC2vWML7zyi3ykFBIE4uEXps5NqL0kjzd6HnhWr9O4eBoLyNSgWQHBv2s7dU0PAsPUXLTE1wajWMKQhp9KrZ+0U1uPHUvJaNYT5HKXbI6ZDhMjsSxjm8SvUb9hkPPrOK8r6WE2+KZ1yZSu4AnVSMurAwBCvyAYjYCIGw/t9K5ejk+F1/kBAPb8SSulfoKHCUa1cpNX8FYzb5Q== steven.merrills@digitaljustice.gov.uk"
+    shell: /bin/bash
+    update_password: on_create
+
   - username: lazzurs
     name: "Rob Lazzurs"
     groups:
