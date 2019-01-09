@@ -6,8 +6,6 @@ const {
   map,
 } = require('ramda');
 
-const { sortByIdDesc } = require('../utils');
-
 module.exports = function createHubContentService(repository) {
   async function contentFor(id, establishmentId) {
     const content = await repository.contentFor(id);
@@ -53,9 +51,15 @@ module.exports = function createHubContentService(repository) {
   }
 
   async function landingPage(data, establishmentId) {
+    let sortOrder;
     const id = prop('id', data);
     const featuredContentId = prop('featuredContentId', data);
     const categoryId = prop('categoryId', data);
+
+    if (id === 3632) {
+      // news sort order needs to be in a different order
+      sortOrder = 'DESC';
+    }
 
     const [
       featuredContent,
@@ -63,14 +67,14 @@ module.exports = function createHubContentService(repository) {
       menu,
     ] = await Promise.all([
       repository.contentFor(featuredContentId),
-      repository.relatedContentFor({ id: categoryId, establishmentId }),
+      repository.relatedContentFor({ id: categoryId, establishmentId, sortOrder }),
       repository.menuFor(id),
     ]);
 
     return {
       ...data,
       featuredContent,
-      relatedContent: relatedContent.sort(sortByIdDesc),
+      relatedContent,
       menu,
     };
   }

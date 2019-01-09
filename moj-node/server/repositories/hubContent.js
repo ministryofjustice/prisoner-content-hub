@@ -67,12 +67,14 @@ module.exports = function hubContentRepository(httpClient) {
     establishmentId,
     perPage = 8,
     offset = 0,
+    sortOrder = 'ASC',
   }) {
     const response = await httpClient.get(`${config.api.hubContent}/related`, {
       _category: id,
       _number: perPage,
       _offset: offset,
       _prison: establishmentId,
+      _sort_order: sortOrder,
     });
 
     return parseHubContentResponse(response);

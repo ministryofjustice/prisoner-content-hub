@@ -124,7 +124,7 @@ describe('#hubContentService', () => {
 
       await service.contentFor(content.id, content.establishmentId);
 
-      expect(repository.relatedContentFor.lastCall.lastArg).to.eql({ id: 'categoryId', establishmentId: 'establishmentId' }, `the categoryId was supposed to be "${content.categoryId}"`);
+      expect(repository.relatedContentFor.lastCall.lastArg).to.eql({ id: 'categoryId', establishmentId: 'establishmentId', sortOrder: undefined }, `the categoryId was supposed to be "${content.categoryId}"`);
     });
 
     it('call for a menu', async () => {

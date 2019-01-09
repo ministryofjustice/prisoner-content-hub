@@ -1,5 +1,3 @@
-const { sortByIdDesc } = require('../utils');
-
 module.exports = function createHubTagsService(repository) {
   async function termFor(id, establishmentId) {
     const content = await repository.termFor(id);
@@ -16,7 +14,7 @@ module.exports = function createHubTagsService(repository) {
 
     return {
       ...content,
-      relatedContent: relatedContent.sort(sortByIdDesc),
+      relatedContent,
     };
   }
 
@@ -27,7 +25,7 @@ module.exports = function createHubTagsService(repository) {
       id, establishmentId, perPage, offset,
     });
 
-    return result.sort(sortByIdDesc);
+    return result;
   }
 
   return {

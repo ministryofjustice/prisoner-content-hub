@@ -88,16 +88,10 @@ function fixUrlForProduction(url, alternateUrl = config.hubEndpoint) {
   return url;
 }
 
-function sortByIdDesc(a, b) {
-  return b.id - a.id;
-}
-
-
 module.exports = {
   parseHubContentResponse,
   replaceURLWithDefinedEndpoint,
   fixUrlForProduction,
   getEstablishmentId,
   getEstablishmentName,
-  sortByIdDesc,
 };

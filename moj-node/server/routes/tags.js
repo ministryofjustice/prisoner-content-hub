@@ -34,12 +34,12 @@ module.exports = function Tags({
     try {
       logger.info(`GET /tags/${req.params.id}/related-content`);
       const { establishmentId } = req.app.locals.envVars;
-
       const data = await hubTagsService.relatedContentFor({
         id: req.params.id,
         establishmentId,
         ...req.query,
       });
+
       res.json(data);
     } catch (exp) {
       res.json(null);

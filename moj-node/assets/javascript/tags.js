@@ -3,7 +3,7 @@
   var relatedContents = document.getElementById('related-contents');
   var contentId = relatedContents.getAttribute('data-content-id');
   var loader = document.querySelector('.ajax-loader');
-
+  var sortOrder = contentId == 644  ? 'DESC' : 'ASC'; // 644 news and events
   var url = "/tags/related-content/" + contentId;
   var customTags = [ '<%', '%>' ];
   var currentOffset = 8;
@@ -68,7 +68,7 @@
       loader.setAttribute('hidden', true);
     });
 
-    request.open("GET", url + "?perPage=8&offset=" + query.offset);
+    request.open("GET", url + "?perPage=8&offset=" + query.offset + "&sortOrder=" + sortOrder);
     request.setRequestHeader('Accept', 'application/json');
 
     request.send();
@@ -99,6 +99,11 @@
 
       try {
         var data = JSON.parse(response.responseText);
+
+        if (!data) {
+          currentOffset = null;
+          return false;
+        }
 
         updateTemplate(enhanceData(data));
 
