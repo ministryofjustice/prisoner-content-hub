@@ -19,10 +19,10 @@ module.exports = function createHubTagsService(repository) {
   }
 
   async function relatedContentFor({
-    id, establishmentId, perPage, offset,
+    id, establishmentId, perPage, offset, sortOrder,
   }) {
     const result = await repository.relatedContentFor({
-      id, establishmentId, perPage, offset,
+      id, establishmentId, perPage, offset, sortOrder,
     });
 
     return result;
