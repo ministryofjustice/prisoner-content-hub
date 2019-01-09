@@ -124,7 +124,7 @@ class RelatedContentApiClass
         }
 
         return $results
-          ->sort('created', $sort_order)
+          ->sort('nid', $sort_order)
           ->range($offset, $number)
           ->execute();
     }
