@@ -62,10 +62,10 @@ class RelatedContentApiClass
      * @param [string] $lang
      * @return array
      */
-    public function RelatedContentApiEndpoint($lang, $category, $number, $offset, $prison)
+    public function RelatedContentApiEndpoint($lang, $category, $number, $offset, $prison, $sort_order)
     {
         $this->lang = $lang;
-        $this->nids = self::getRelatedContentNodeIds($category, $number, $offset, $prison);
+        $this->nids = self::getRelatedContentNodeIds($category, $number, $offset, $prison, $sort_order);
         $this->nodes = self::loadNodesDetails($this->nids);
         // usort($this->nodes, 'self::sortByWeightDescending');
         return array_map('self::translateNode', $this->nodes);
@@ -86,7 +86,7 @@ class RelatedContentApiClass
      *
      * @return void
      */
-    protected function getRelatedContentNodeIds($category, $number, $offset, $prison)
+    protected function getRelatedContentNodeIds($category, $number, $offset, $prison, $sort_order = 'ASC')
     {
         $berwyn_prison_id = 792;
         $wayland_prison_id = 793;
@@ -124,7 +124,7 @@ class RelatedContentApiClass
         }
 
         return $results
-          ->sort('created', 'DESC')
+          ->sort('created', $sort_order)
           ->range($offset, $number)
           ->execute();
     }
