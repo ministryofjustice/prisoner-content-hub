@@ -98,3 +98,47 @@
   @include govuk-font($size: 24);
   font-weight: 600;
 }
+
+.govuk-hub-main_navigation {
+
+    padding: 0;
+    margin-bottom: 0px;
+
+    li {
+        left: 0;
+        color: #005ea5;
+        font-weight: 600;
+        display: inline-block;
+        padding: 20px 20px 0;
+        margin-bottom: 0px;
+        font-size: 1.5rem;
+        
+    }
+
+    li a:hover {
+        text-decoration: underline;
+    }
+
+    a {
+        text-decoration: none;
+    }
+    
+}
+
+.govuk-hub-main_navigation_banner {
+
+    border-bottom: #bfc1c3 solid 1px;
+
+}
+
+.govuk-hub-main_navigation_current_page  {
+    border-bottom: 5px solid #005ea5 !important;
+}
+
+
+
+
+
+
+
+
