@@ -25,3 +25,35 @@
     display: none;
   }
 }
+
+.govuk-hub-landing-page-header-underline {
+    margin-bottom: 20px;
+}
+
+.govuk-hub-landing-page-header-underline::after {
+  content:"";
+  background: black;
+  height: 4px;
+  width: 40%;
+  display: block;
+  margin-top: 0.75em;
+}
+
+.govuk-hub-content-section-menu {
+    ul {
+        margin: 0;
+        padding: 0;
+        columns: 2;
+        -webkit-columns: 2;
+        -moz-columns: 2;
+
+        li {
+            display: block;
+            margin: 0 0 govuk-spacing(4) 0;
+            a {
+              @include govuk-font($size: 19);
+            }
+        }
+    }
+
+}
