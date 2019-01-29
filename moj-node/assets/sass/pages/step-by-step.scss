@@ -1,0 +1,29 @@
+.app-step-nav__step {
+  position: relative;
+  padding-left: 45px;
+  list-style: none;
+}
+
+.app-step-nav--large .app-step-nav__step {
+  padding-left: 60px;
+
+  .app-step-nav--large .app-step-nav__step:after {
+    left: 0;
+    margin-left: 16px;
+    border-width: 3px;
+    top: 30px;
+}
+
+.app-step-nav__step:after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    width: 0;
+    height: 100%;
+    border-left: solid 2px #bfc1c3;
+    background: #fff;
+    left: 0;
+    margin-left: 12px;
+    top: 15px;
+}
+}
