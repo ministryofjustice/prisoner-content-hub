@@ -102,16 +102,16 @@
 .govuk-hub-main_navigation {
 
     padding: 0;
-    margin-bottom: 0px;
+    margin-bottom: 5px;
 
     li {
         left: 0;
         color: #005ea5;
         font-weight: 600;
         display: inline-block;
-        padding: 20px 20px 0;
+        padding: 20px 40px 0px 0px;
         margin-bottom: 0px;
-        font-size: 1.5rem;
+        font-size: 24px;
         
     }
 
@@ -131,8 +131,17 @@
 
 }
 
-.govuk-hub-main_navigation_current_page  {
-    border-bottom: 5px solid #005ea5 !important;
+.govuk-hub-main_navigation_current_page .govuk-link {
+    position: relative;
+}
+
+.govuk-hub-main_navigation_current_page .govuk-link::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    background-color: #005ea5;
 }
 
 
