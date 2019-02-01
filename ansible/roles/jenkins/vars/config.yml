@@ -3,7 +3,7 @@ AZURE_TENANT_ID: 747381f4-e81f-4a43-bf68-ced6a1e14edf
 AZURE_AD_OAUTH_ENABLE: "true"
 CERTBOT_REG_EMAIL: noms-studio-webops@digital.justice.gov.uk
 ENABLE_FULL_ADMIN: "true"
-SEEDJOB_GIT_REPO: git@github.com:ministryofjustice/digital-studio-operations-pipelines.git
+SEEDJOB_GIT_REPO: git@github.com:ministryofjustice/digital-hub-pipelines.git
 PIPELINE_SHARED_LIBRARY_REPO: git@github.com:ministryofjustice/dso-jenkins-shared-library.git
 SERVER_ENVIRONMENT: devtest
 docker_image: mojdigitalstudio/digital-studio-platform-jenkins:latest
