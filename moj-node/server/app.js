@@ -14,6 +14,7 @@ const createHealthRouter = require('./routes/health');
 const createContentRouter = require('./routes/content');
 const createTagRouter = require('./routes/tags');
 const createGamesRouter = require('./routes/games');
+const createStepByStepRouter = require('./routes/stepByStep');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const establishmentToggle = require('./middleware/establishmentToggle');
@@ -212,6 +213,12 @@ module.exports = function createApp({
   );
 
   app.use('/games', createGamesRouter({ logger }));
+
+ /**** step by step router */
+
+  app.use('/step-by-step', createStepByStepRouter({ logger }));
+
+/*** end */
 
   app.use('*', (req, res) => {
     res.status(404);

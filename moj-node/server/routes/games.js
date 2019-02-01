@@ -20,19 +20,6 @@ module.exports = function createGamesRouter({ logger }) {
     });
   });
 
-  //new page route
-
-
-  router.get('/step-by-step', (req, res) => {
-    logger.info('GET /step-by-step');
-
-    return res.render('pages/step-by-step', {
-      data: {
-        title: 'step-by-step',
-      },
-    });
-  });
-
   router.get('/sudoku', (req, res) => {
     logger.info('GET /games/sudoku');
 
