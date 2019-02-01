@@ -1,0 +1,12 @@
+- name: reload jenkinsstack
+  service:
+    name: jenkinsstack
+    enabled: yes
+    state: restarted
+
+- name: reload jenkins
+  shell: "docker pull {{ docker_image }}; docker stack deploy -c /opt/docker/jenkins-stack.yml jenkins; docker service update jenkins_jenkins --force"
+
+- name: reload systemd
+  command: systemctl daemon-reload
+

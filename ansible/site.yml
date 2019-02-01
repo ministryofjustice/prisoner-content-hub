@@ -15,6 +15,11 @@
     - geerlingguy.nginx
     - geerlingguy.firewall
 
+- hosts: ci
+  roles:
+    - docker
+    - jenkins
+
 - hosts: hub
   roles:
     - hub-containers
