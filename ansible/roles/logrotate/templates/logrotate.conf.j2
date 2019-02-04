@@ -1,3 +1,5 @@
+# {{ ansible_managed }}
+
 {% for env in envs %}/var/log/docker-logs/{{ env }}.log {% endfor %} {
   rotate 5
   daily
