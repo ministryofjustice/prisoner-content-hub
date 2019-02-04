@@ -5,7 +5,7 @@
 .app-step-nav-header {
   position: relative;
   padding: 10px;
-  background: govuk-colour("grey-4");
+  background: govuk-colour('grey-4');
   border-top: solid 1px $govuk-border-colour;
   border-bottom: solid 1px $govuk-border-colour;
   @include govuk-media-query($from: tablet) {
@@ -14,13 +14,13 @@
 }
 
 .app-step-nav-header__part-of {
-  @include govuk-font(16, $weight: bold)
+  @include govuk-font(16, $weight: bold);
   display: block;
   padding-bottom: 0.2em;
 }
 
 .app-step-nav-header__title {
-  @include govuk-font(24, $weight: bold)
+  @include govuk-font(24, $weight: bold);
 }
 
 .app-step-nav-related {
@@ -29,13 +29,13 @@
 }
 
 .app-step-nav-related__heading {
-  @include govuk-font(19, $weight: bold)
+  @include govuk-font(19, $weight: bold);
   margin-top: 15px;
   margin-bottom: 10px;
 }
 
 .app-step-nav-related__links {
-  @include govuk-font(16, $weight: bold)
+  @include govuk-font(16, $weight: bold);
   margin: 0;
   padding: 0;
 }
@@ -44,7 +44,7 @@
   margin-bottom: 13px;
 
   .app-step-nav-related__heading {
-    @include govuk-font(19, $weight: bold)
+    @include govuk-font(19, $weight: bold);
     margin-top: 20px;
   }
 
@@ -102,20 +102,19 @@
 }
 
 .app-step-nav__button--title {
-  @include govuk-font(19, $weight: bold)
+  @include govuk-font(19, $weight: bold);
   display: inline-block;
   padding: 0;
   text-align: left;
-  color: govuk-colour("black");
+  color: govuk-colour('black');
 
   .app-step-nav--large & {
-    @include govuk-font(24, $weight: bold)
+    @include govuk-font(24, $weight: bold);
   }
-
 }
 
 .app-step-nav__button--controls {
-  @include govuk-font(14)
+  @include govuk-font(14);
   position: relative;
   z-index: 1; // this and relative position stops focus outline underlap with border of accordion
   padding: 0.5em 0;
@@ -126,7 +125,7 @@
   }
 
   .app-step-nav--large & {
-    @include govuk-font(16)
+    @include govuk-font(16);
   }
 }
 
@@ -142,7 +141,7 @@
 }
 
 .app-step-nav__step:after {
-  content: "";
+  content: '';
   position: absolute;
   z-index: 2;
   width: 0;
@@ -168,7 +167,7 @@
 }
 
 .app-step-nav__step:last-child:before {
-  content: "";
+  content: '';
   position: absolute;
   z-index: 6;
   bottom: 0;
@@ -205,7 +204,7 @@
 .app-step-nav__step--active .app-step-nav__substep:after,
 .app-step-nav__step--active:after,
 .app-step-nav__step--active:last-child:before {
-  border-color: govuk-colour("black");
+  border-color: govuk-colour('black');
 }
 
 .app-step-nav__circle {
@@ -218,7 +217,7 @@
   left: 0;
   width: 26px;
   height: 26px;
-  color: govuk-colour("black");
+  color: govuk-colour('black');
   background: #fff;
   border-radius: 100px;
   text-align: center;
@@ -233,7 +232,7 @@
 }
 
 .app-step-nav__circle--number {
-  @include govuk-font(16, $weight: bold)
+  @include govuk-font(16, $weight: bold);
   line-height: 23px;
   border: solid 2px $govuk-border-colour;
 }
@@ -246,7 +245,7 @@
 }
 
 .app-step-nav--large .app-step-nav__circle--number {
-  @include govuk-font(16, $weight: bold)
+  @include govuk-font(16, $weight: bold);
   line-height: 23px;
 }
 
@@ -264,7 +263,7 @@
 }
 
 .app-step-nav__circle--logic {
-  @include govuk-font(16, $weight: bold)
+  @include govuk-font(16, $weight: bold);
   line-height: 28px;
 }
 @include govuk-media-query($from: tablet) {
@@ -275,7 +274,7 @@
 }
 
 .app-step-nav--large .app-step-nav__circle--logic {
-  @include govuk-font(16, $weight: bold)
+  @include govuk-font(16, $weight: bold);
   line-height: 28px;
 }
 
@@ -297,7 +296,7 @@
 
 .app-step-nav__header {
   padding: 15px 0;
-  border-top: solid 2px govuk-colour("grey-3");
+  border-top: solid 2px govuk-colour('grey-3');
 }
 
 .app-step-nav--active .app-step-nav__header {
@@ -320,7 +319,7 @@
 }
 
 .app-step-nav__title {
-  @include govuk-font(19, $weight: bold)
+  @include govuk-font(19, $weight: bold);
   line-height: 1.4;
   margin: 0;
 }
@@ -333,7 +332,7 @@
 }
 
 .app-step-nav--large .app-step-nav__title {
-  @include govuk-font(19, $weight: bold)
+  @include govuk-font(19, $weight: bold);
   line-height: 1.4;
 }
 
@@ -345,14 +344,14 @@
 }
 
 .app-step-nav__toggle-link {
-  @include govuk-font(16)
+  @include govuk-font(16);
   line-height: 1.2;
   display: block;
   color: $govuk-link-colour;
 }
 
 .app-step-nav--large .app-step-nav__toggle-link {
-  @include govuk-font(16)
+  @include govuk-font(16);
   line-height: 1.2;
 }
 
@@ -364,7 +363,7 @@
 }
 
 .app-step-nav__panel {
-  @include govuk-font(16)
+  @include govuk-font(16);
   line-height: 1.25;
   .js-enabled &.js-hidden {
     display: none;
@@ -378,7 +377,7 @@
 }
 
 .app-step-nav--large .app-step-nav__panel {
-  @include govuk-font(19)
+  @include govuk-font(19);
 }
 
 .app-step-nav__heading,
@@ -429,7 +428,9 @@
   left: -45px;
 }
 @include govuk-media-query($from: tablet) {
-  .app-step-nav--large .app-step-nav__list--choice .app-step-nav__list-item--active:before {
+  .app-step-nav--large
+    .app-step-nav__list--choice
+    .app-step-nav__list-item--active:before {
     left: -80px;
   }
 }
@@ -447,7 +448,7 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  content: "";
+  content: '';
   position: absolute;
   z-index: 5;
   top: 0.6em;
@@ -456,7 +457,7 @@
   width: 16px;
   height: 16px;
   margin-top: -8px;
-  background: govuk-colour("black");
+  background: govuk-colour('black');
   border: solid 2px #fff;
   border-radius: 100px;
 }
@@ -468,14 +469,14 @@
 }
 
 .app-step-nav__list-item--active .app-step-nav__link {
-  color: govuk-colour("black");
+  color: govuk-colour('black');
   text-decoration: none;
 }
 
 .app-step-nav__list-item--active .app-step-nav__link:active,
 .app-step-nav__list-item--active .app-step-nav__link:link,
 .app-step-nav__list-item--active .app-step-nav__link:visited {
-  color: govuk-colour("black");
+  color: govuk-colour('black');
 }
 
 .app-step-nav__context {
@@ -485,17 +486,17 @@
 }
 
 .app-step-nav__context:before {
-  content: " \2013\00a0";
+  content: ' \2013\00a0';
 }
 
 .app-step-nav__help {
   position: relative;
   padding: 15px 0;
-  border-top: solid 2px govuk-colour("grey-3");
+  border-top: solid 2px govuk-colour('grey-3');
 }
 
 .app-step-nav__help:after {
-  content: "";
+  content: '';
   position: absolute;
   z-index: 2;
   width: 0;
@@ -532,11 +533,11 @@
 .app-step-nav__substep {
   position: relative;
   padding-top: 15px;
-  border-top: solid 2px govuk-colour("grey-3");
+  border-top: solid 2px govuk-colour('grey-3');
 }
 
 .app-step-nav__substep:after {
-  content: "";
+  content: '';
   position: absolute;
   z-index: 2;
   width: 0;
@@ -566,4 +567,3 @@
 .app-step-nav__substep--optional:after {
   border-left-style: dotted;
 }
-

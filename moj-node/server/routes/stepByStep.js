@@ -3,15 +3,7 @@ const express = require('express');
 module.exports = function createStepByStepRouter({ logger }) {
   const router = express.Router();
 
-  const config = {
-    content: false,
-    header: false,
-    postscript: false,
-  };
-  
-  //**** new page route for step by step
-
-  router.get('/step-by-step', (req, res) => {
+  router.get('/', (req, res) => {
     logger.info('GET /step-by-step');
 
     return res.render('pages/step-by-step', {
@@ -21,11 +13,7 @@ module.exports = function createStepByStepRouter({ logger }) {
     });
   });
 
-  //****
-
-  //**** new page route for step by step navigtion page 
-
-  router.get('/step-by-step-side-bar', (req, res) => {
+  router.get('/side-bar', (req, res) => {
     logger.info('GET /step-by-step-side-bar');
 
     return res.render('pages/step-by-step-side-bar', {
@@ -34,8 +22,6 @@ module.exports = function createStepByStepRouter({ logger }) {
       },
     });
   });
-
-  //****
 
   return router;
 };

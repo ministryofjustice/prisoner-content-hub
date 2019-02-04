@@ -213,12 +213,7 @@ module.exports = function createApp({
   );
 
   app.use('/games', createGamesRouter({ logger }));
-
- /**** step by step router */
-
   app.use('/step-by-step', createStepByStepRouter({ logger }));
-
-/*** end */
 
   app.use('*', (req, res) => {
     res.status(404);
