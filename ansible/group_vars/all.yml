@@ -31,15 +31,6 @@ studio_users:
     shell: /bin/bash
     update_password: on_create
 
-  - username: georgesadathian
-    name: "George Sadathian"
-    groups:
-      - admin
-    ssh_key:
-      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHa5LiQwdSqhH/4l/r7AuysLpleXDValXi8WaorYk3sk v-gesada@MININT-OEIPK57"
-    shell: /bin/bash
-    update_password: on_create
-
   - username: nbartle
     name: "Nick Bartle"
     groups:
@@ -127,6 +118,24 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
       - studio
     ssh_key:
       - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDF9Zs5wJnlfJrBKap4uxlR6sGRnzoSL4Y2v0k8oLvoGr1hoxLzNIUxTvYK5DLlwDZN6MfSxDLkiVksSRKDjX6SbabBHrsVboGICce+eH9am2fuxI0t8ny2xw3YjQk/wXP56OkGTlQRbQwfqnK181S8AC08U5R1wni7Nb3K0LvCPbOsgM/59uLeWYP4XRViSRZQOsxg/wDx1iYOMnmprT9bFLCURHPc+pdPo9sg0j5oAGHEiFRF1tKxeKABVw5NYugZC9r+HTqCNfNtrvW+Myee3ahliaRftqpODzPK9aSZ+RnjafpNLRZD5qDWGUSajJCVUfU/NjHnUMZLY1NyWm1ayPxoxQjfpHqVx6z0FZ1DWpK0nGkBv/cWxGxJhx7/dE0Tu+fE1j+seteWhmdReSPbcja/W84UuhNAuP10nwLXXSUjKqmcRtc9lJ0OTmKcCE+6jUdFLhpuznlwfSiN14buwPXvHcipSGC2vWML7zyi3ykFBIE4uEXps5NqL0kjzd6HnhWr9O4eBoLyNSgWQHBv2s7dU0PAsPUXLTE1wajWMKQhp9KrZ+0U1uPHUvJaNYT5HKXbI6ZDhMjsSxjm8SvUb9hkPPrOK8r6WE2+KZ1yZSu4AnVSMurAwBCvyAYjYCIGw/t9K5ejk+F1/kBAPb8SSulfoKHCUa1cpNX8FYzb5Q== steven.merrills@digitaljustice.gov.uk"
+    shell: /bin/bash
+    update_password: on_create
+
+  - username: catrinaknight
+    name: "Catrina Knight"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDdcXgHUv94gV6yWWHKC8i8b5LJ0KGhP3AwQswQKu0Cbkz/mmSFzibPElDGF/sMuJtm1CKLb8ffRT1L+52Uft+vaDaMCcu9Eq/QpnDVcWXSoJ4lqliLr/fQ8z8AaRA8aPK9L5Kcz+L8QQync2RCpgA8SQm6PiRP8upuAp15FB+pEyjWOsdxk1Xhpo2Q75otBsh300bVolZSBxHWgKeGp2yHRY8wfMBgZ45O1A7RcBBXnDnWkbI+1qnl0l/yAFUFZ9+MfZOlCE3/pl3wgG9IVQT+MDLuUMWieHtMGr2RY0zxh/H8WyKmg9K+SPhFvo1HuXmUAvhQ3Z1L8pYDnNm4ulcnO8c+F6W13rw3IfD11aPrMdqeEp2S/3Gl3dRtVHHmfjGBuX74xm/k8++1WgH6cUCnpV4kES44ikId6+AqKIPlc318Xv3DowOdBK8TW/F51/Y9NPEwPvz9uvD+XjgOb0JPT3fHpTFGtNMq1xP/z/UaFN8i6C1F4sacOWuDao/22214IMip76FO6R7iq/TFb/ra8vMJp00fY9RAYaTDvQqLOTURhPiZ2rxmJKs03KkEVtYoGwa1mltbfw0WAwSYc0C77vxWIZVH+QtSHe8mPQHoD74kKKm2gDQhsIfXxJeIUpq5MGrqHNiNotf32B+XmLMyfrDbsqylS+YMC98hM/fewQ== catrina.knight@digital.justice.gov.uk"
+    shell: /bin/bash
+    update_password: on_create
+
+  - username: chrisrichardson
+    name: "Christopher Richardson"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDZ38GGLupZZVR8oKOTArb7q9NXMsRST1AJ9cJNsoWZxmXVc6QEnsQgzkSvYQiGYGpNLjxzWTHWjWiRcjhV8YLHHVcDWERovENap7AdIEw/vx5OmgKi+KoVPq/y4TViZzgv6VMCbuhSL32zeRtNLl3U2sj31gMG2F5EhAc4T3AGo2tconhHZ3UDKZOpGKeKTuph4HIrZwTRtuTzSQ1pqLiOtWEFN+aNjdfV5wEv4GQCyECPzRKFzZciJDVvDGxxQrcVWWE9qWQnxatqf8LCt4AbgawwfYadXkcQoVr87+/7Q9jAGlnnzBuFeFOn88X3m2swDxrmZqftHh3HhegzoxnSU6lRnO/dD3nOSYiJsjLYtI9PKSxWV3Fx3TnHc/zdaV0bMJ1MoAkIMxg91y3C1SHJFIGloxWIhVHbKMrFbbTsFdGeCLL6o98TPeowyS3oNp2FG1/dsu7qu7vPzlusma43BZ6va4+QRL3RAwylM6YmPNO/8u5dxmXXqYjwgacDT3a6ibLLbkZSt4nqbTHkeL/Uuhpckh2qCMvtaQVvct85jk33PoRJ5Zj8PnxO4htSeVvU1OMCxSP7Jh/pc+nVJMjkYsnhR0DHH422k9hoGFRS8MPq+tUpCIhJTWByodJ+yQNz8fKH9LOannbD3cyANiFzk/gZNOf/KgAGx6YKM6q6WQ== christopher.richardson@digital.justice.gov.uk"
     shell: /bin/bash
     update_password: on_create
 
@@ -244,6 +253,7 @@ users_deleted:
   - username: kquinlan
   - username: dgauld
   - username: kebblewhite
+  - username: georgesadathian
 
 nginx_extra_http_options: |
   ##
