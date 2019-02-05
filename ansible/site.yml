@@ -14,7 +14,6 @@
   roles:
     - geerlingguy.nginx
     - geerlingguy.firewall
-    - logrotate
 
 - hosts: hub
   roles:
