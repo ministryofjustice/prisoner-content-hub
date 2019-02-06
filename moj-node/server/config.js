@@ -32,5 +32,6 @@ module.exports = {
     'showLandingPageMenu',
     'showPageMenu',
     'showBrowseBySeries',
+    'showFeedback',
   ],
 };

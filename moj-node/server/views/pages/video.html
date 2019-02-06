@@ -59,6 +59,7 @@
   }) }}
 {% endblock %}
 
+
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-two-thirds govuk-hub-media-player">
@@ -75,6 +76,25 @@
       <div id="videoPlayer" class="webPlayer light">
         <div id="videoPlayerContainer" class="videoPlayer" data-video="{{ data.media }}"></div>
       </div>
+      {% if (features.showFeedback)%}
+        <div class="govuk-hub-feedback">
+          <div 
+            class="govuk-hub-square govuk-hub-square--blue" 
+            data-item-feedback
+            data-item-category="{{data.contentType}}" 
+            data-item-name="{{ data.title }}"
+            data-item-action="LIKE"
+          ></div>
+
+          <div 
+            class="govuk-hub-square govuk-hub-square--red" 
+            data-item-feedback
+            data-item-category="{{data.contentType}}" 
+            data-item-name="{{ data.title }}"
+            data-item-action="DISLIKE"
+          ></div>
+        </div>
+      {% endif %}
     </div>
 
     <div class="govuk-hub-media-player__description">
@@ -105,6 +125,7 @@
     }) }}
   </div>
 </div> #}
+<script src="/public/javascript/feedback-tracking.js" type="text/javascript"></script>
 
 
 {% endblock %}
