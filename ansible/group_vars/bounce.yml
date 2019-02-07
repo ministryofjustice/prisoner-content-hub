@@ -4,7 +4,7 @@ users: "{{ studio_users }}"
 nginx_upstreams:
   - name: berwyn_hub
     servers: {
-      "berwyn.mycloudgateway.co.uk:10002"
+      "berwyn.mycloudgateway.co.uk:10001"
     }
   - name: wayland_hub
     servers: {
