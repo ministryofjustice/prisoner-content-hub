@@ -114,6 +114,7 @@ class RelatedContentResource extends ResourceBase
         $this->paramater_number = self::setNumberOfResults();
         $this->paramater_offset = self::setOffsetOfResults();
         $this->paramater_prison = self::setPrison();
+        $this->paramater_sort_order = self::setSortOrder();
         self::checklanguageParameterIsValid();
         self::checkCategoryIsNumeric();
         self::checkNumberOfResultsIsNumeric();
@@ -146,7 +147,8 @@ class RelatedContentResource extends ResourceBase
             $this->paramater_category,
             $this->paramater_number,
             $this->paramater_offset,
-            $this->paramater_prison
+            $this->paramater_prison,
+            $this->paramater_sort_order
         );
         if (!empty($relatedContent)) {
             $response = new ResourceResponse($relatedContent);
@@ -230,6 +232,11 @@ class RelatedContentResource extends ResourceBase
     protected function setPrison()
     {
         return is_null($this->currentRequest->get('_prison')) ? 0 : $this->currentRequest->get('_prison');
+    }
+
+    protected function setSortOrder()
+    {
+        return is_null($this->currentRequest->get('_sort_order')) ? 'ASC' : $this->currentRequest->get('_sort_order');
     }
 }
 
