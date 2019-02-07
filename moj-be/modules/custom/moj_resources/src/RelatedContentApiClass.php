@@ -62,7 +62,7 @@ class RelatedContentApiClass
      * @param [string] $lang
      * @return array
      */
-    public function RelatedContentApiEndpoint($lang, $category, $number, $offset, $prison, $sort_order)
+    public function RelatedContentApiEndpoint($lang, $category, $number, $offset, $prison, $sort_order = 'ASC')
     {
         $this->lang = $lang;
         $this->nids = self::getRelatedContentNodeIds($category, $number, $offset, $prison, $sort_order);
