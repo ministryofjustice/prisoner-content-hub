@@ -1,0 +1,66 @@
+---
+#- name: Include some secret vars
+#  include_vars:
+#    file: "secrets-{{ zone_name }}.yml"
+
+- name: Include some jenkins vars
+  include_vars:
+    file: "config.yml"
+
+- name: Make docker config dir under /opt
+  file:
+    path: /opt/docker
+    state: directory
+
+- name: install jenkins config file
+  template:
+    src: jenkins.config.env.j2
+    dest: /opt/docker/jenkins-config.env
+  notify:
+    - reload jenkins
+
+#- docker_secret:
+#    name: "AZURE_SP_CLIENT_ID"
+#    data: "{{ AZURE_SP_CLIENT_ID }}"
+#    state: present
+
+#- docker_secret:
+#    name: "AZURE_SP_SECRET"
+#    data: "{{ AZURE_SP_SECRET }}"
+#    state: present
+
+#- docker_secret:
+#    name: "GITHUB_DEPLOY_KEY"
+#    data: "{{ GITHUB_DEPLOY_KEY }}"
+#    state: present
+
+#- docker_secret:
+#    name: "SLACK_WEBHOOK_TOKEN"
+#    data: "{{ SLACK_WEBHOOK_TOKEN }}"
+#    state: present
+
+- name: Jenkins data directory
+  file:
+    path: '{{ jenkins_data_disk }}'
+    mode: 0777
+    state: directory
+
+- name: install docker-stack.yml for jenkins stack
+  template:
+    src: docker-stack.yml.j2
+    dest: /opt/docker/jenkins-stack.yml
+  notify:
+    - reload jenkinsstack
+
+- name: Add systemd unit to control prometheus stack via docker swarm
+  template:
+    src: systemd.jenkinsstack.service.j2
+    dest: /etc/systemd/system/jenkinsstack.service
+  notify:
+    - reload systemd
+
+- name: Start services
+  service:
+      name: jenkinsstack
+      state: started
+

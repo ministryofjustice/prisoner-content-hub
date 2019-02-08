@@ -1,0 +1,2 @@
+jenkins_port: 8080
+jenkins_data_disk: /opt/jenkins_home
