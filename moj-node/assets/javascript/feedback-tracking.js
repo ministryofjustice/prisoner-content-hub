@@ -12,7 +12,8 @@ document.body.addEventListener('click', function(event) {
         var details = {
             name: event.target.getAttribute('data-item-name'),
             category: types[event.target.getAttribute('data-item-category')],
-            action: event.target.getAttribute('data-item-action')
+            action: event.target.getAttribute('data-item-action'),
+            value: event.target.getAttribute('data-item-value')
         };
 
 
@@ -43,9 +44,10 @@ document.body.addEventListener('submit', function(event) {
         var details = {
             name: event.target.getAttribute('data-item-name'),
             category: event.target.getAttribute('data-item-category'),
-            action: event.target.getAttribute('data-item-action'),
-            value: event.target.querySelector('textarea').value
+            action: event.target.querySelector('textarea').value,
+            value: event.target.getAttribute('data-item-value')
         };
+        
 
         sendFeebackEvent(details);
         disableFormSubmit(event.target)
@@ -89,7 +91,8 @@ function sendFeebackEvent(config) {
 }
 
 function sendUnSelectFeedbackEvent(config) {
-    var newConfig = Object.assign(config, { action: "UN" + config.action });
+    var newConfig = Object.assign(config, { action: "UN" + config.action, value: '0' });
+    
     sendFeebackEvent(newConfig);
 }
 
@@ -101,6 +104,7 @@ function updateCommentBoxDetails(details) {
     commentBoxForm.setAttribute('data-item-name', details.name);
     commentBoxForm.setAttribute('data-item-category', details.category);
     commentBoxForm.setAttribute('data-item-action', details.action);
+    commentBoxForm.setAttribute('data-item-value', details.value);
 }
 
 function revealCommentBoxForm() {
