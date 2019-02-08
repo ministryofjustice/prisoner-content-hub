@@ -1,13 +1,20 @@
 var commentBox = document.querySelector('[data-item-comment-box]');
 var feedbackText = document.querySelector('[data-item-feedback-text]');
+var types = {
+    video: "video",
+    radio: "audio",
+    page: "article"
+};
+
 
 document.body.addEventListener('click', function(event) {
     if (event.target.matches('[data-item-feedback]')) {
         var details = {
             name: event.target.getAttribute('data-item-name'),
-            category: event.target.getAttribute('data-item-category'),
+            category: types[event.target.getAttribute('data-item-category')],
             action: event.target.getAttribute('data-item-action')
         };
+
 
         var isActive = event.target.classList.contains('is-selected');
 
@@ -20,7 +27,6 @@ document.body.addEventListener('click', function(event) {
         }  else {
             deselectThumbs();
             updateFeedbacktext(details.action, details.category)
-
             sendFeebackEvent(details);
             selectThumb(event.target);
             updateCommentBoxDetails(details);
@@ -42,8 +48,10 @@ document.body.addEventListener('submit', function(event) {
         };
 
         sendFeebackEvent(details);
+        disableFormSubmit(event.target)
         setTimeout(function() {
             hideCommentBoxForm();
+            enableFormSubmit(event.target);
         }, 1500);
     }
 
@@ -130,16 +138,18 @@ function clearFeedbacktext() {
 }
 
 function updateFeedbacktext(feedback, type) {
-    var types = {
-        video: "video",
-        radio: "audio",
-        page: "article"
-    };
-
     if (feedback === 'LIKE') {
-        feedbackText.textContent = "I like this " + types[type];
+        feedbackText.textContent = "I like this " + type;
     } else {
-        feedbackText.textContent = "I do not like this " + types[type];
+        feedbackText.textContent = "I do not like this " + type;
     }
 
+}
+
+function disableFormSubmit(element) {
+    element.querySelector('button').setAttribute('disabled', 'true');
+}
+
+function enableFormSubmit(element) {
+    element.querySelector('button').removeAttribute('disabled');
 }

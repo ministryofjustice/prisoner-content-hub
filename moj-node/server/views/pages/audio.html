@@ -1,6 +1,7 @@
 {% from "../components/header/macro.njk" import govukHeaderWithBack %}
 {% from "../components/next-episodes-content/macro.njk" import nextEpisodesContent %}
 {% from "../components/related-content/macro.njk" import hubRelatedContent %}
+{% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 
 {% extends "../components/template.njk" %}
 
@@ -53,7 +54,7 @@
 
 {% block content %}
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds govuk-hub-media-player">
+  <div class="govuk-grid-column-three-quarters govuk-hub-media-player">
 
     <header class="govuk-hub-media-player__header">
       <img width="100" height="100" id="thumbnail" src="{{ data.image.url }}" alt="{{ data.image.alt }}" class="govuk-hub-media-player__show-tag" />
@@ -68,6 +69,13 @@
         <div id="audioPlayerContainer" class="videoPlayer" data-audio="{{ data.media }}"></div>
       </div>
     </div>
+
+      {% if (features.showFeedback)%}
+        {{ hubFeedbackWidget({
+          title: data.title,
+          contentType: data.contentType
+        })}}
+      {% endif %}
 
     <div class="govuk-hub-media-player__description">
       <div id="body" class="govuk-body">{{ data.description.sanitized | safe }}</div>

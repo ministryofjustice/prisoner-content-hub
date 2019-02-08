@@ -37,8 +37,8 @@
 .govuk-hub-thumbs {
     height: 39px;
     width: 44px;
-    margin-right: 20px;
-    display: inline-block;
+    margin-right: 10px;
+    float: left;
     cursor: pointer;
 }
 
@@ -46,17 +46,12 @@
     background-image: url("/public/images/icon-thumbs/thumbs-up-white.svg");
 }
 
-.govuk-hub-thumbs--up.is-selected {
-    background-image: url("/public/images/icon-thumbs/thumbs-up-selected.svg");
-}
-
 .govuk-hub-thumbs--down {
     background-image: url("/public/images/icon-thumbs/thumbs-down-white.svg");
+    margin-top: 12px;
 }
 
-.govuk-hub-thumbs--down.is-selected {
-    background-image: url("/public/images/icon-thumbs/thumbs-down-selected.svg");
-}
+
 
 .govuk-u-hidden {
     display: none;
@@ -67,10 +62,16 @@
     @include govuk-font($size: 19);
 }
 
-.govuk-hub-comment-form__footer::after {
+.govuk-hub-comment-form__footer::after,
+.govuk-hub-feedback::after {
     content: "";
     display: table;
     clear: both;
+}
+
+
+.govuk-hub-feedback {
+    margin-bottom: 15px;
 }
 
 
@@ -78,4 +79,37 @@
     @include govuk-font($size: 19);
     color: govuk-colour("white");
     margin-bottom: 20px;
+}
+
+.govuk-hub-article-feedback {
+    border-top: solid 1px $govuk-border-colour;
+    padding-top: 30px;
+}
+
+.govuk-hub-article-feedback .govuk-hub-feedback-text {
+    color: govuk-colour("black");
+}
+
+.govuk-hub-article-feedback .govuk-hub-comment-form .govuk-hint {
+    color: govuk-colour("black");
+}
+
+.govuk-hub-article-feedback .govuk-hub-comment-form {
+    color: govuk-colour("black");
+}
+
+.govuk-hub-article-feedback .govuk-hub-thumbs--up {
+    background-image: url("/public/images/icon-thumbs/thumbs-up-grey.svg");
+}
+
+.govuk-hub-article-feedback .govuk-hub-thumbs--down {
+    background-image: url("/public/images/icon-thumbs/thumbs-down-grey.svg");
+}
+
+.govuk-hub-thumbs--down.is-selected {
+    background-image: url("/public/images/icon-thumbs/thumbs-down-selected.svg");
+}
+
+.govuk-hub-thumbs--up.is-selected {
+    background-image: url("/public/images/icon-thumbs/thumbs-up-selected.svg");
 }
