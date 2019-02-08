@@ -1,4 +1,5 @@
 {% from "../components/header/macro.njk" import govukHeaderWithBack %}
+{% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 
 {% extends "../components/template.njk" %}
 
@@ -44,6 +45,16 @@
           </div>
         </div>
       </div>
+
+      {% if (features.showFeedback)%}
+      <div class="govuk-hub-article-feedback">
+        <p class="govuk-body">Tell us what you think:</p>
+        {{ hubFeedbackWidget({
+          title: data.title,
+          contentType: data.contentType
+        })}}
+      </div>
+      {% endif %}
 
       {% if backHomeEnabled %}
         <div>
