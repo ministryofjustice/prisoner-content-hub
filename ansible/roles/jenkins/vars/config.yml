@@ -13,9 +13,10 @@ DOCKER_SLAVE_TERRAFORM_IMAGE: mojdigitalstudio/jenkins-slave-terraform:latest
 DOCKER_SLAVE_BASE_IMAGE: mojdigitalstudio/jenkins-slave-base:latest
 DOCKER_SLAVE_DOCKER_IMAGE: mojdigitalstudio/jenkins-slave-docker:latest
 DOCKER_SLAVE_PACKER_IMAGE: mojdigitalstudio/jenkins-slave-packer:latest
-AZURE_VAULT_NAME: webops-jenkins-dev
+AZURE_VAULT_NAME: digital-hub-jenkins
 SLACK_NOTIFY_CHANNEL: "#dso_alerts_devtest"
 JENKINS_URL: http://127.0.0.1:8000/
 JENKINS_ADMIN_EMAIL: jenkins@mgmt-devtest.hmpps.dsd.io
 AZURE_FNG_SUBSCRIPTION_ID: b1f3cebb-4988-4ff9-9259-f02ad7744fcb
 AZURE_STUDIO_SUBSCRIPTION_ID: c27cfedb-f5e9-45e6-9642-0fad1a5c94e7
+AZURE_VAULT_SECRETS: '["azure-sp-clientid","azure-sp-clientid","dockerhub-automation-password","dockerhub-automation-username","mysql-root-pass", "mysql-user-pass"]'
