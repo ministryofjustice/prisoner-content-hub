@@ -1,0 +1,222 @@
+#!/usr/bin/env node
+
+/* eslint-disable no-console, camelcase */
+require('dotenv').config();
+
+const request = require('superagent');
+
+const { startOfToday, format: formatDate } = require('date-fns');
+const Json2csvParser = require('json2csv').Parser;
+const fs = require('fs');
+const mkdirp = require('mkdirp');
+
+const { getEnv } = require('../utils');
+
+const token = getEnv('MATOMO_TOKEN');
+
+const today = `${formatDate(startOfToday(), 'YYYY-MM-DD')}`;
+const dateRange = process.argv[2] || `${today},${today}`;
+const writePath = (process.argv[3] || './csv-exports').replace(/[/]+$/, '');
+
+const exampleData = [
+  {
+    label: 'LIKE',
+    nb_uniq_visitors: 3,
+    nb_visits: 4,
+    nb_events: 6,
+    nb_events_with_value: 6,
+    sum_event_value: 6,
+    min_event_value: 1,
+    max_event_value: 1,
+    avg_event_value: 1,
+    idsubdatatable: 2,
+    segment: 'eventAction==LIKE',
+    subtable: [
+      {
+        label:
+          'Foo title|/content/foo|LIKE|1330515905123|video|Times|0.56|1234',
+        nb_uniq_visitors: 1,
+        nb_visits: 2,
+        nb_events: 3,
+        nb_events_with_value: 3,
+        sum_event_value: 3,
+        min_event_value: 1,
+        max_event_value: 1,
+        avg_event_value: 1,
+      },
+      {
+        label:
+          'Bar title|/content/bar|DISLIKE|1220515905123|video|New|0.60|1234',
+        nb_uniq_visitors: 1,
+        nb_visits: 1,
+        nb_events: 1,
+        nb_events_with_value: 1,
+        sum_event_value: 1,
+        min_event_value: 1,
+        max_event_value: 1,
+        avg_event_value: 1,
+      },
+      {
+        label:
+          'Baz title|/content/baz|LIKE|1550515905123|podcast|Roman|0.50|1234',
+        nb_uniq_visitors: 1,
+        nb_visits: 1,
+        nb_events: 2,
+        nb_events_with_value: 2,
+        sum_event_value: 2,
+        min_event_value: 1,
+        max_event_value: 1,
+        avg_event_value: 1,
+      },
+    ],
+  },
+  {
+    label: 'LIKE - Something something dark side',
+    nb_uniq_visitors: 3,
+    nb_visits: 4,
+    nb_events: 6,
+    nb_events_with_value: 6,
+    sum_event_value: 6,
+    min_event_value: 1,
+    max_event_value: 1,
+    avg_event_value: 1,
+    idsubdatatable: 2,
+    segment: 'eventAction==LIKE',
+    subtable: [
+      {
+        label: 'Bat title|/content/bat|LIKE|1880515905123|video|Blue|0.56|1234',
+        nb_uniq_visitors: 1,
+        nb_visits: 2,
+        nb_events: 3,
+        nb_events_with_value: 3,
+        sum_event_value: 3,
+        min_event_value: 1,
+        max_event_value: 1,
+        avg_event_value: 1,
+      },
+    ],
+  },
+];
+
+console.log('Downloading data:');
+
+request
+  .get('http://digital-hub.bwi.dpn.gov.uk:12002/index.php')
+  .query({
+    date: dateRange,
+    expanded: '1',
+    filter_limit: '-1',
+    filter_pattern: 'like',
+    format: 'JSON',
+    idSite: '1',
+    method: 'Events.getAction',
+    module: 'API',
+    period: 'range',
+    token_auth: token,
+  })
+  .then(({ body }) => {
+    const data = body;
+    // const results = parseResponse(data);
+    const results = parseResponse(exampleData);
+    const csvData = generateCSVData(results);
+
+    return generateCSVFile(csvData);
+  })
+  .then(() => {
+    console.log('Done!');
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+
+function generateCSVFile(data) {
+  return new Promise((resolve, reject) => {
+    mkdirp(writePath, (error) => {
+      if (error) {
+        reject(error);
+      } else {
+        fs.writeFileSync(`${writePath}/${dateRange}.csv`, data);
+        resolve(true);
+      }
+    });
+  });
+}
+
+function parseResponse(data) {
+  if (!Array.isArray(data)) throw new Error('Invalid data received');
+  return data
+    .map((item) => {
+      const action = extractCommentFromAction(item.label);
+
+      return item.subtable.map((sItem) => {
+        const stData = getDataFromLabel(sItem.label);
+
+        return {
+          ...stData,
+          number_of_events: sItem.nb_events,
+          comments: action.comments,
+        };
+      });
+    })
+    .reduce((acc, currentValue) => acc.concat(currentValue), []);
+}
+
+function extractCommentFromAction(str) {
+  const regex = /^([^\s]+)(?:\s-\s)?(.+)?/g;
+  const results = [];
+  str.replace(regex, (match, cg1, cg2) => {
+    results.push(cg1);
+    results.push(cg2);
+  });
+
+  return {
+    action: results[0],
+    comments: results[1] || 'N/A',
+  };
+}
+
+function getDataFromLabel(label) {
+  // title | PageURL | Like/DISLIKE | Time/Date | ContentType | Series | Time take react | visitor ID
+  const [
+    title,
+    page_url,
+    action,
+    date,
+    content_type,
+    series,
+    time_spent,
+    visitor_id,
+  ] = label.split('|');
+
+  return {
+    title,
+    page_url,
+    action,
+    date: formatDate(new Date(+date), 'DD MMMM YYYY, HH:mm a'),
+    content_type,
+    series,
+    time_spent,
+    visitor_id,
+  };
+}
+
+function generateCSVData(data) {
+  const fields = [
+    'title',
+    'action',
+    'number_of_events',
+    'comments',
+    'page_url',
+    'date',
+    'content_type',
+    'series',
+    'time_spent',
+    'visitor_id',
+  ];
+  const json2csvParser = new Json2csvParser({ fields });
+  const csv = json2csvParser.parse(data);
+
+  return csv;
+}
