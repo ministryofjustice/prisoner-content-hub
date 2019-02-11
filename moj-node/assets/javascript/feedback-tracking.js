@@ -2,7 +2,7 @@ var commentBox = document.querySelector('[data-item-comment-box]');
 var feedbackText = document.querySelector('[data-item-feedback-text]');
 var types = {
     video: "video",
-    radio: "audio",
+    radio: "podcast",
     page: "article"
 };
 
@@ -41,10 +41,12 @@ document.body.addEventListener('click', function(event) {
 document.body.addEventListener('submit', function(event) {
     if (event.target.matches('[data-item-comment]')) {
         event.preventDefault();
+        var action = event.target.getAttribute('data-item-action');
+        var comment = event.target.querySelector('textarea').value;
         var details = {
             name: event.target.getAttribute('data-item-name'),
             category: event.target.getAttribute('data-item-category'),
-            action: event.target.querySelector('textarea').value,
+            action: action + " - " + comment,
             value: event.target.getAttribute('data-item-value')
         };
         
