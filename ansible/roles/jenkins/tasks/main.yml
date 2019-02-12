@@ -52,7 +52,7 @@
   notify:
     - reload jenkinsstack
 
-- name: Add systemd unit to control prometheus stack via docker swarm
+- name: Add systemd unit to control Jenkins stack via docker swarm
   template:
     src: systemd.jenkinsstack.service.j2
     dest: /etc/systemd/system/jenkinsstack.service
