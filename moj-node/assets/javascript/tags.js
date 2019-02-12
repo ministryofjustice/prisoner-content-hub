@@ -1,45 +1,45 @@
-;(function() {
+(function() {
   var template = document.getElementById('template').innerHTML;
   var relatedContents = document.getElementById('related-contents');
   var contentId = relatedContents.getAttribute('data-content-id');
   var loader = document.querySelector('.ajax-loader');
-  var sortOrder = contentId == 644  ? 'DESC' : 'ASC'; // 644 news and events
-  var url = "/tags/related-content/" + contentId;
-  var customTags = [ '<%', '%>' ];
+  var sortOrder = contentId == 644 ? 'DESC' : 'ASC'; // 644 news and events
+  var url = '/tags/related-content/' + contentId;
+  var customTags = ['<%', '%>'];
   var currentOffset = 8;
   var paginateOffset = 8;
 
   var iconType = {
-    video: "icon-movie",
-    page: "icon-document",
-    pdf: "icon-document",
-    radio: "icon-music",
-    game: "icon-game"
-  }
+    video: 'icon-movie',
+    page: 'icon-document',
+    pdf: 'icon-document',
+    radio: 'icon-music',
+    game: 'icon-game',
+  };
 
   var linkText = {
-    video: "Watch",
-    page: "Read",
-    pdf: "Read",
-    radio: "Listen",
-    game: "Play"
-  }
+    video: 'Watch',
+    page: 'Read',
+    pdf: 'Read',
+    radio: 'Listen',
+    game: 'Play',
+  };
 
   var linkIcon = {
-    video: "icon-play",
-    page: "icon-link",
-    pdf: "icon-link",
-    radio: "icon-play",
-    game: "icon-link"
-  }
+    video: 'icon-play',
+    page: 'icon-link',
+    pdf: 'icon-link',
+    radio: 'icon-play',
+    game: 'icon-link',
+  };
 
   function enhanceData(data) {
-    return data.map(function(item){
+    return data.map(function(item) {
       return Object.assign(item, {
         linkText: linkText[item.contentType],
         linkIcon: linkIcon[item.contentType],
-        iconType: iconType[item.contentType]
-      })
+        iconType: iconType[item.contentType],
+      });
     });
   }
 
@@ -64,11 +64,14 @@
       callback(true, undefined);
     });
 
-    request.addEventListener("loadend", function() {
+    request.addEventListener('loadend', function() {
       loader.setAttribute('hidden', true);
     });
 
-    request.open("GET", url + "?perPage=8&offset=" + query.offset + "&sortOrder=" + sortOrder);
+    request.open(
+      'GET',
+      url + '?perPage=8&offset=' + query.offset + '&sortOrder=' + sortOrder,
+    );
     request.setRequestHeader('Accept', 'application/json');
 
     request.send();
@@ -77,22 +80,26 @@
   }
 
   function updateTemplate(data) {
-    var rendered = Mustache.render(template, {relatedContent: data }, {}, customTags);
+    var rendered = Mustache.render(
+      template,
+      { relatedContent: data },
+      {},
+      customTags,
+    );
     var docFrag = document.createRange().createContextualFragment(rendered);
 
     relatedContents.appendChild(docFrag);
-  };
-
+  }
 
   function addContent(offset) {
-    return getContent({ offset: offset}, function(err, response) {
+    return getContent({ offset: offset }, function(err, response) {
       if (err) {
         currentOffset = null;
         return false;
       }
 
       // handle edge case of an empty response
-      if (response.responseText.replace(/\s/) === "{}") {
+      if (response.responseText.replace(/\s/) === '{}') {
         currentOffset = null;
         return false;
       }

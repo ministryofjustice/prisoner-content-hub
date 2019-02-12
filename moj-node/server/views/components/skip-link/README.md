@@ -135,7 +135,7 @@ Below is an example setup using express configure views:
 
 ## Contribution
 
-Guidelines can be found at [on our Github repository.](https://github.com/alphagov/govuk-frontend/blob/master/CONTRIBUTING.md "link to contributing guidelines on our github repository")
+Guidelines can be found at [on our Github repository.](https://github.com/alphagov/govuk-frontend/blob/master/CONTRIBUTING.md 'link to contributing guidelines on our github repository')
 
 ## License
 

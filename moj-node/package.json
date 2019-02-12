@@ -14,7 +14,7 @@
     "test": "NODE_ENV=test mocha test",
     "test:e2e": "NODE_ENV=test mocha test-e2e",
     "record-build-info": "node ./bin/record-build-info",
-    "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|scss|md|html)\"",
+    "prettier": "prettier \"**/*.+(js|jsx|json|yml|yaml|css|scss|md)\"",
     "verify": "npm run lint && npm run prettier -- --list-different && npm run flow && npm run test",
     "format": "npm run prettier -- --write"
   },

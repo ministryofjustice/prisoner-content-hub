@@ -5,7 +5,6 @@ const createIndexRouter = require('../../server/routes/index');
 const featureToggleMiddleWare = require('../../server/middleware/featureToggle');
 const { setupBasicApp, logger } = require('../test-helpers');
 
-
 describe('GET /', () => {
   const featuredItem = {
     id: 1,
@@ -33,18 +32,22 @@ describe('GET /', () => {
   };
 
   const hubPromotedContentService = {
-    hubPromotedContent: sinon.stub().returns([{
-      ...featuredItem,
-      title: 'foo promoted content',
-      summary: 'foo promoted summary',
-    }]),
+    hubPromotedContent: sinon.stub().returns([
+      {
+        ...featuredItem,
+        title: 'foo promoted content',
+        summary: 'foo promoted summary',
+      },
+    ]),
   };
 
   const hubMenuService = {
-    seriesMenu: sinon.stub().returns([
-      { linkText: 'Foo', href: '/content/1', id: '1' },
-      { linkText: 'Bar', href: '/content/2', id: '2' },
-    ]),
+    seriesMenu: sinon
+      .stub()
+      .returns([
+        { linkText: 'Foo', href: '/content/1', id: '1' },
+        { linkText: 'Bar', href: '/content/2', id: '2' },
+      ]),
   };
 
   it('renders promoted content', () => {
@@ -61,12 +64,21 @@ describe('GET /', () => {
     return request(app)
       .get('/')
       .expect(200)
-      .then((response) => {
+      .then(response => {
         const $ = cheerio.load(response.text);
 
-        expect($('[data-promoted-item-text]').text()).to.include('foo promoted content', 'Correct title rendered');
-        expect($('[data-promoted-item-text]').text()).to.include('foo promoted summary', 'Correct description rendered');
-        expect($('[data-promoted-item-background]').attr('style')).to.include('image.url.com', 'Correct image rendered');
+        expect($('[data-promoted-item-text]').text()).to.include(
+          'foo promoted content',
+          'Correct title rendered',
+        );
+        expect($('[data-promoted-item-text]').text()).to.include(
+          'foo promoted summary',
+          'Correct description rendered',
+        );
+        expect($('[data-promoted-item-background]').attr('style')).to.include(
+          'image.url.com',
+          'Correct image rendered',
+        );
       });
   });
 
@@ -84,14 +96,30 @@ describe('GET /', () => {
     return request(app)
       .get('/')
       .expect(200)
-      .then((response) => {
+      .then(response => {
         const $ = cheerio.load(response.text);
-        const radioItemSelector = '[data-featured-item-id="featured-content-1"]';
-        expect($('[data-featured-item-id]').length).to.equal(8, '8 featured items should be rendered');
-        expect($(radioItemSelector).text()).to.include('Foo radio show', 'Correct title rendered');
-        expect($(radioItemSelector).text()).to.include('foo summary', 'Correct description rendered');
-        expect($(`${radioItemSelector} [data-featured-item-background]`).attr('style')).to.include('image.url.com', 'Correct image rendered');
-        expect($(`${radioItemSelector} [data-featured-item-duration]`).text()).to.include('40:00', 'Correct duration rendered');
+        const radioItemSelector =
+          '[data-featured-item-id="featured-content-1"]';
+        expect($('[data-featured-item-id]').length).to.equal(
+          8,
+          '8 featured items should be rendered',
+        );
+        expect($(radioItemSelector).text()).to.include(
+          'Foo radio show',
+          'Correct title rendered',
+        );
+        expect($(radioItemSelector).text()).to.include(
+          'foo summary',
+          'Correct description rendered',
+        );
+        expect(
+          $(`${radioItemSelector} [data-featured-item-background]`).attr(
+            'style',
+          ),
+        ).to.include('image.url.com', 'Correct image rendered');
+        expect(
+          $(`${radioItemSelector} [data-featured-item-duration]`).text(),
+        ).to.include('40:00', 'Correct duration rendered');
       });
   });
 
@@ -130,10 +158,13 @@ describe('GET /', () => {
       return request(app)
         .get('/')
         .expect(200)
-        .then((response) => {
+        .then(response => {
           const $ = cheerio.load(response.text);
 
-          expect($('#browser-by-series').length).to.equal(0, 'should not have rendered browse by series section');
+          expect($('#browser-by-series').length).to.equal(
+            0,
+            'should not have rendered browse by series section',
+          );
         });
     });
   });
@@ -156,11 +187,16 @@ describe('GET /', () => {
       return request(app)
         .get('/')
         .query({ showBrowseBySeries: 'true' })
-        .then((response) => {
+        .then(response => {
           const $ = cheerio.load(response.text);
 
-          expect($('#browser-by-series h1').text()).to.equal('Browse by series');
-          expect($('#browser-by-series .govuk-hub-series li').length).to.equal(2, 'Correct number of menu items');
+          expect($('#browser-by-series h1').text()).to.equal(
+            'Browse by series',
+          );
+          expect($('#browser-by-series .govuk-hub-series li').length).to.equal(
+            2,
+            'Correct number of menu items',
+          );
         });
     });
   });

@@ -10,13 +10,15 @@ const { setupBasicApp, logger } = require('../test-helpers');
 const radioShowResponse = require('../resources/radioShowServiceResponse.json');
 const videoShowResponse = require('../resources/videoShowServiceResponse.json');
 
-
 describe('GET /content/:id', () => {
   it('returns a 404 when incorrect data is returned', () => {
     const invalidService = {
       contentFor: () => ({ type: 'invalid' }),
     };
-    const router = createHubContentRouter({ logger, hubContentService: invalidService });
+    const router = createHubContentRouter({
+      logger,
+      hubContentService: invalidService,
+    });
     const app = setupBasicApp();
 
     app.use('/content', router);
@@ -40,23 +42,50 @@ describe('GET /content/:id', () => {
       return request(app)
         .get('/content/1')
         .expect(200)
-        .then((response) => {
+        .then(response => {
           const $ = cheerio.load(response.text);
 
-          expect($('#title').text()).to.equal('Foo title', 'Page title did not match');
-          expect($('#body').text()).to.equal('Foo body', 'Page body did not match');
-          expect($('#series').text()).to.equal('Foo series', 'Page title did not match');
-          expect($('#audioPlayerContainer').attr('data-audio')).to.equal('foo.mp3', 'Page media did not match');
-          expect($('#thumbnail').attr('src')).to.equal('foo.png', 'Page thumbnail src did not match');
-          expect($('#thumbnail').attr('alt')).to.equal('foo Bar', 'Page thumbnail alt did not match');
+          expect($('#title').text()).to.equal(
+            'Foo title',
+            'Page title did not match',
+          );
+          expect($('#body').text()).to.equal(
+            'Foo body',
+            'Page body did not match',
+          );
+          expect($('#series').text()).to.equal(
+            'Foo series',
+            'Page title did not match',
+          );
+          expect($('#audioPlayerContainer').attr('data-audio')).to.equal(
+            'foo.mp3',
+            'Page media did not match',
+          );
+          expect($('#thumbnail').attr('src')).to.equal(
+            'foo.png',
+            'Page thumbnail src did not match',
+          );
+          expect($('#thumbnail').attr('alt')).to.equal(
+            'foo Bar',
+            'Page thumbnail alt did not match',
+          );
 
           // tags
           expect($('#tags-list > li').length).to.equal(2);
 
           // episodes
-          expect($('#next-episodes a').length).to.equal(1, 'The number of next episodes shows don\'t match');
-          expect($('#next-episodes a').text()).to.include('Foo episode', 'The episode title doesn\'t match');
-          expect($('#episode-thumbnail').attr('style')).to.include('foo.image.png', 'The episode thumbnail doesn\'t match');
+          expect($('#next-episodes a').length).to.equal(
+            1,
+            "The number of next episodes shows don't match",
+          );
+          expect($('#next-episodes a').text()).to.include(
+            'Foo episode',
+            "The episode title doesn't match",
+          );
+          expect($('#episode-thumbnail').attr('style')).to.include(
+            'foo.image.png',
+            "The episode thumbnail doesn't match",
+          );
         });
     });
   });
@@ -75,23 +104,50 @@ describe('GET /content/:id', () => {
       return request(app)
         .get('/content/1')
         .expect(200)
-        .then((response) => {
+        .then(response => {
           const $ = cheerio.load(response.text);
 
-          expect($('#title').text()).to.equal('Baz title', 'Page title did not match');
-          expect($('#body').text()).to.equal('Baz body', 'Page body did not match');
-          expect($('#series').text()).to.equal('Baz series', 'Page title did not match');
-          expect($('#videoPlayerContainer').attr('data-video')).to.equal('baz.mp4', 'Page media did not match');
-          expect($('#thumbnail').attr('src')).to.equal('baz.png', 'Page thumbnail src did not match');
-          expect($('#thumbnail').attr('alt')).to.equal('baz Bar', 'Page thumbnail alt did not match');
+          expect($('#title').text()).to.equal(
+            'Baz title',
+            'Page title did not match',
+          );
+          expect($('#body').text()).to.equal(
+            'Baz body',
+            'Page body did not match',
+          );
+          expect($('#series').text()).to.equal(
+            'Baz series',
+            'Page title did not match',
+          );
+          expect($('#videoPlayerContainer').attr('data-video')).to.equal(
+            'baz.mp4',
+            'Page media did not match',
+          );
+          expect($('#thumbnail').attr('src')).to.equal(
+            'baz.png',
+            'Page thumbnail src did not match',
+          );
+          expect($('#thumbnail').attr('alt')).to.equal(
+            'baz Bar',
+            'Page thumbnail alt did not match',
+          );
 
           // tags
           expect($('#tags-list li').length).to.equal(2);
 
           // episodes
-          expect($('#next-episodes a').length).to.equal(1, 'The number of next episodes shows don\'t match');
-          expect($('#next-episodes a').text()).to.include('Baz episode', 'The episode title doesn\'t match');
-          expect($('#episode-thumbnail').attr('style')).to.include('baz.image.png', 'The episode thumbnail doesn\'t match');
+          expect($('#next-episodes a').length).to.equal(
+            1,
+            "The number of next episodes shows don't match",
+          );
+          expect($('#next-episodes a').text()).to.include(
+            'Baz episode',
+            "The episode title doesn't match",
+          );
+          expect($('#episode-thumbnail').attr('style')).to.include(
+            'baz.image.png',
+            "The episode thumbnail doesn't match",
+          );
         });
     });
   });
@@ -118,12 +174,21 @@ describe('GET /content/:id', () => {
       return request(app)
         .get('/content/1')
         .expect(200)
-        .then((response) => {
+        .then(response => {
           const $ = cheerio.load(response.text);
 
-          expect($('#title').text()).to.include('Foo article', 'Page title did not match');
-          expect($('#stand-first').text()).to.include('Foo article stand first', 'Article stand first did not match');
-          expect($('#body').text()).to.include('Foo article body', 'Article body did not match');
+          expect($('#title').text()).to.include(
+            'Foo article',
+            'Page title did not match',
+          );
+          expect($('#stand-first').text()).to.include(
+            'Foo article stand first',
+            'Article stand first did not match',
+          );
+          expect($('#body').text()).to.include(
+            'Foo article body',
+            'Article body did not match',
+          );
         });
     });
   });
@@ -140,7 +205,10 @@ describe('GET /content/:id', () => {
 
     const stream = {
       on: sinon.stub(),
-      pipe: res => fs.createReadStream(path.resolve(__dirname, '../resources/foo.pdf')).pipe(res),
+      pipe: res =>
+        fs
+          .createReadStream(path.resolve(__dirname, '../resources/foo.pdf'))
+          .pipe(res),
     };
 
     const requestClient = {
@@ -148,7 +216,11 @@ describe('GET /content/:id', () => {
     };
 
     it('returns a PDF', () => {
-      const router = createHubContentRouter({ logger, hubContentService, requestClient });
+      const router = createHubContentRouter({
+        logger,
+        hubContentService,
+        requestClient,
+      });
       const app = setupBasicApp();
 
       app.use('/content', router);
@@ -158,7 +230,9 @@ describe('GET /content/:id', () => {
         .expect(200)
         .expect('Content-Type', 'application/pdf')
         .then(() => {
-          expect(requestClient.get.lastCall.args[0]).to.equal('www.foo.bar/file.pdf');
+          expect(requestClient.get.lastCall.args[0]).to.equal(
+            'www.foo.bar/file.pdf',
+          );
         });
     });
   });
@@ -219,12 +293,21 @@ describe('GET /content/:id', () => {
       return request(app)
         .get('/content/1')
         .expect(200)
-        .then((response) => {
+        .then(response => {
           const $ = cheerio.load(response.text);
 
-          expect($('#title').text()).to.include('Foo Landing page', 'Page title did not match');
-          expect($('.content-items .item').length).to.equal(2, 'it did not render the correct number of related items');
-          expect($('#sub-menu a').length).to.equal(0, 'show have not rendered a sub menu');
+          expect($('#title').text()).to.include(
+            'Foo Landing page',
+            'Page title did not match',
+          );
+          expect($('.content-items .item').length).to.equal(
+            2,
+            'it did not render the correct number of related items',
+          );
+          expect($('#sub-menu a').length).to.equal(
+            0,
+            'show have not rendered a sub menu',
+          );
         });
     });
 
@@ -242,9 +325,12 @@ describe('GET /content/:id', () => {
         return request(app)
           .get('/content/1')
           .query({ showLandingPageMenu: 'true' })
-          .then((response) => {
+          .then(response => {
             const $ = cheerio.load(response.text);
-            expect($('#sub-menu > a').length).to.equal(2, 'it did not render the correct number of menu items');
+            expect($('#sub-menu > a').length).to.equal(
+              2,
+              'it did not render the correct number of menu items',
+            );
           });
       });
     });

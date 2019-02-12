@@ -1,117 +1,117 @@
 {
   "nid": [
-      {
-          "value": 3491
-      }
+    {
+      "value": 3491
+    }
   ],
   "uuid": [
-      {
-          "value": "7e1086c2-a347-4d41-b501-2b124fc24673"
-      }
+    {
+      "value": "7e1086c2-a347-4d41-b501-2b124fc24673"
+    }
   ],
   "vid": [
-      {
-          "value": 3491
-      }
+    {
+      "value": 3491
+    }
   ],
   "langcode": [
-      {
-          "value": "en"
-      }
+    {
+      "value": "en"
+    }
   ],
   "type": [
-      {
-          "target_id": "page",
-          "target_type": "node_type",
-          "target_uuid": "2a0fd1a2-181b-4638-b6f0-9356b1a84dca"
-      }
+    {
+      "target_id": "page",
+      "target_type": "node_type",
+      "target_uuid": "2a0fd1a2-181b-4638-b6f0-9356b1a84dca"
+    }
   ],
   "revision_timestamp": [
-      {
-          "value": 1535553401
-      }
+    {
+      "value": 1535553401
+    }
   ],
   "revision_uid": [
-      {
-          "target_id": 1,
-          "target_type": "user",
-          "target_uuid": "8056d7e0-7e59-4e89-8bda-533ae78b2808",
-          "url": "/user/1"
-      }
+    {
+      "target_id": 1,
+      "target_type": "user",
+      "target_uuid": "8056d7e0-7e59-4e89-8bda-533ae78b2808",
+      "url": "/user/1"
+    }
   ],
   "revision_log": [],
   "status": [
-      {
-          "value": true
-      }
+    {
+      "value": true
+    }
   ],
   "title": [
-      {
-          "value": "Foo article"
-      }
+    {
+      "value": "Foo article"
+    }
   ],
   "uid": [
-      {
-          "target_id": 1,
-          "target_type": "user",
-          "target_uuid": "8056d7e0-7e59-4e89-8bda-533ae78b2808",
-          "url": "/user/1"
-      }
+    {
+      "target_id": 1,
+      "target_type": "user",
+      "target_uuid": "8056d7e0-7e59-4e89-8bda-533ae78b2808",
+      "url": "/user/1"
+    }
   ],
   "created": [
-      {
-          "value": 1535553204
-      }
+    {
+      "value": 1535553204
+    }
   ],
   "changed": [
-      {
-          "value": 1535553401
-      }
+    {
+      "value": 1535553401
+    }
   ],
   "promote": [
-      {
-          "value": false
-      }
+    {
+      "value": false
+    }
   ],
   "sticky": [
-      {
-          "value": false
-      }
+    {
+      "value": false
+    }
   ],
   "default_langcode": [
-      {
-          "value": true
-      }
+    {
+      "value": true
+    }
   ],
   "revision_translation_affected": [
-      {
-          "value": true
-      }
+    {
+      "value": true
+    }
   ],
   "content_translation_source": [
-      {
-          "value": "und"
-      }
+    {
+      "value": "und"
+    }
   ],
   "content_translation_outdated": [
-      {
-          "value": false
-      }
+    {
+      "value": false
+    }
   ],
   "field_moj_description": [
-      {
-          "value": "<p>Foo article description</p>",
-          "format": "basic_html",
-          "processed": "<p>Foo article description</p>",
-          "summary": ""
-      }
+    {
+      "value": "<p>Foo article description</p>",
+      "format": "basic_html",
+      "processed": "<p>Foo article description</p>",
+      "summary": ""
+    }
   ],
   "field_moj_secondary_tags": [],
   "field_moj_series": [],
   "field_moj_stand_first": [
-      {
-          "value": "Foo article stand first"
-      }
+    {
+      "value": "Foo article stand first"
+    }
   ],
   "field_moj_top_level_categories": []
 }

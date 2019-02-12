@@ -7,7 +7,9 @@ module.exports = function createHealthService(client = superagent) {
     try {
       logger.info('Requested', config.api.hubHealth);
 
-      const hubHealthResponse = await client.get(`${config.api.hubHealth}?_format=json`);
+      const hubHealthResponse = await client.get(
+        `${config.api.hubHealth}?_format=json`,
+      );
       const hubStatus = hubHealthResponse.ok ? 'OK' : 'DOWN';
 
       return {
@@ -26,7 +28,6 @@ module.exports = function createHealthService(client = superagent) {
       };
     }
   }
-
 
   return { status };
 };

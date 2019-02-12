@@ -1,75 +1,73 @@
 .govuk-hub-media-player {
-    margin: 0 auto;
-    float: none;
-    display: table;
+  margin: 0 auto;
+  float: none;
+  display: table;
 }
 
 .govuk-hub-media-player__header {
-    margin-bottom: govuk-spacing(4);
+  margin-bottom: govuk-spacing(4);
 }
 .govuk-hub-media-player__show-tag {
-    float: left;
-    margin-right: govuk-spacing(4);
+  float: left;
+  margin-right: govuk-spacing(4);
 }
 
 .govuk-hub-media-player__catgeory,
-.govuk-hub-media-player__title, {
-    color: govuk-colour("white");
-    margin-bottom: govuk-spacing(2);
+.govuk-hub-media-player__title {
+  color: govuk-colour('white');
+  margin-bottom: govuk-spacing(2);
 }
 
 .govuk-hub-media-player__catgeory-link {
-    &:link,
-    &:visited,
-    &:active,
-    &:focus {
-        color: govuk-colour("white");
-    }
-    &:hover {
-        color: govuk-colour("white");
-    }
+  &:link,
+  &:visited,
+  &:active,
+  &:focus {
+    color: govuk-colour('white');
+  }
+  &:hover {
+    color: govuk-colour('white');
+  }
 }
 
 .govuk-hub-media-player__player {
-    display: block;
-    margin-bottom: 10px;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .govuk-hub-media-player__description {
+  margin: govuk-spacing(6) 0;
 
-    margin: govuk-spacing(6) 0;
+  p {
+    color: govuk-colour('white');
+  }
 
-    p {
-        color: govuk-colour("white");
-    }
-
-    a {
-      color: govuk-colour("white");
-    }
+  a {
+    color: govuk-colour('white');
+  }
 }
 
 .govuk-hub-media-player-item__main-play {
+  .icon-play,
+  .icon-link {
+    font-size: 30px;
+    position: relative;
+    top: 5px;
+  }
 
-    .icon-play,
-    .icon-link {
-        font-size: 30px;
-        position: relative;
-        top: 5px;
-    }
-
-    .space {
-        margin-left: govuk-spacing(1);
-        display: inline-block;
-        text-decoration: underline;
-    }
-    &:link,
-    &:visited,
-    &:active,
-    &:focus {
-        text-decoration: none;
-        color: govuk-colour("white");
-    }
-    &:hover {
-        color: govuk-colour("white");
-    }
+  .space {
+    margin-left: govuk-spacing(1);
+    display: inline-block;
+    text-decoration: underline;
+  }
+  &:link,
+  &:visited,
+  &:active,
+  &:focus {
+    text-decoration: none;
+    color: govuk-colour('white');
+  }
+  &:hover {
+    color: govuk-colour('white');
+  }
 }

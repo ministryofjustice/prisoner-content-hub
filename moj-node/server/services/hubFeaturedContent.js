@@ -1,5 +1,7 @@
 module.exports = function createHubFeaturedContentService(repository) {
-  async function hubFeaturedContent({ establishmentId } = { establishmentId: 0 }) {
+  async function hubFeaturedContent(
+    { establishmentId } = { establishmentId: 0 },
+  ) {
     try {
       const [
         newsAndEvents,

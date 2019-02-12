@@ -9,7 +9,10 @@ module.exports = function createHubTagsService(repository) {
         relatedContent = await repository.seasonFor(id);
         break;
       default:
-        relatedContent = await repository.relatedContentFor({ id, establishmentId });
+        relatedContent = await repository.relatedContentFor({
+          id,
+          establishmentId,
+        });
     }
 
     return {
@@ -19,10 +22,18 @@ module.exports = function createHubTagsService(repository) {
   }
 
   async function relatedContentFor({
-    id, establishmentId, perPage, offset, sortOrder,
+    id,
+    establishmentId,
+    perPage,
+    offset,
+    sortOrder,
   }) {
     const result = await repository.relatedContentFor({
-      id, establishmentId, perPage, offset, sortOrder,
+      id,
+      establishmentId,
+      perPage,
+      offset,
+      sortOrder,
     });
 
     return result;

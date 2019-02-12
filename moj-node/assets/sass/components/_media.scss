@@ -1,20 +1,16 @@
 img {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 video {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 
-
 $primary-foreground-color: #fff; // #fff default
-$primary-background-color: #D53880;  // #2B333F default
+$primary-background-color: #d53880; // #2B333F default
 $center-big-play-button: true; // true default
-
-
-
 
 .vjs-default-skin .vjs-big-play-button {
   font-size: 3em;
@@ -22,14 +18,13 @@ $center-big-play-button: true; // true default
   height: 1.5em;
   width: 1.5em;
   border: none;
-  background-color: #D53880;
+  background-color: #d53880;
   border-radius: 0;
   left: 50%;
   top: 50%;
   margin-left: -1.5em;
   margin-top: -0.75em;
 }
-
 
 .govuk-hub-media-audio {
   .webPlayer {
@@ -38,7 +33,7 @@ $center-big-play-button: true; // true default
   }
 
   .playerScreen {
-    background-image: url("/public/images/radio-player-background.jpg");
+    background-image: url('/public/images/radio-player-background.jpg');
     position: absolute;
     top: 0;
     width: 100%;
@@ -56,4 +51,3 @@ $center-big-play-button: true; // true default
     width: 100%;
   }
 }
-

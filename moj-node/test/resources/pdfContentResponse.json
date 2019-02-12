@@ -135,10 +135,10 @@
   "field_related_prisons": [],
   "field_moj_prisons": [
     {
-        "target_id": 792,
-        "target_type": "taxonomy_term",
-        "target_uuid": "fd1e1db7-d0be-424a-a3a6-3b0f49e33293",
-        "url": "/taxonomy/term/792"
+      "target_id": 792,
+      "target_type": "taxonomy_term",
+      "target_uuid": "fd1e1db7-d0be-424a-a3a6-3b0f49e33293",
+      "url": "/taxonomy/term/792"
     }
   ]
 }

@@ -1,9 +1,6 @@
 const express = require('express');
 
-module.exports = function Tags({
-  logger,
-  hubTagsService,
-}) {
+module.exports = function Tags({ logger, hubTagsService }) {
   const router = express.Router();
 
   router.get('/:id', async (req, res, next) => {

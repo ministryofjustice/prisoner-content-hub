@@ -4,10 +4,9 @@
 }
 
 .govuk-hub-featured-content__category-title,
-.govuk-hub-featured-content__category-link
-{
-    color: govuk-colour("white");
-    margin: govuk-spacing(4) 0;
+.govuk-hub-featured-content__category-link {
+  color: govuk-colour('white');
+  margin: govuk-spacing(4) 0;
 }
 
 .govuk-hub-featured-content__category-title {
@@ -16,41 +15,39 @@
 }
 
 .govuk-hub-featured-content__category-link {
-    @include govuk-font($size: 24);
-    display: inline-block;
-    
-    
-    &:link,
-    &:visited,
-    &:active,
-    &:focus {
-        color: govuk-colour("white");
-        text-decoration: none;
-        line-height: 0.7em;
-    }
-    &:hover {
-        color: govuk-colour("white");
-    }
+  @include govuk-font($size: 24);
+  display: inline-block;
+
+  &:link,
+  &:visited,
+  &:active,
+  &:focus {
+    color: govuk-colour('white');
+    text-decoration: none;
+    line-height: 0.7em;
+  }
+  &:hover {
+    color: govuk-colour('white');
+  }
 }
 
 .govuk-hub-chevron-link {
-    font-size: 2em; 
-    display: inline-block; 
-    top: 5px; 
-    position: relative
-
+  font-size: 2em;
+  display: inline-block;
+  top: 5px;
+  position: relative;
 }
 
 .govuk-hub-featured-link {
-    color: govuk-colour("white");
+  color: govuk-colour('white');
 }
 
 .content-items {
-    padding-left: govuk-spacing(3);
-    padding-right: govuk-spacing(3);
+  padding-left: govuk-spacing(3);
+  padding-right: govuk-spacing(3);
 
-    .item {
-        margin-bottom: govuk-spacing(6);
-        padding: 0 govuk-spacing(1);
-    }
+  .item {
+    margin-bottom: govuk-spacing(6);
+    padding: 0 govuk-spacing(1);
+  }
 }
