@@ -7,12 +7,16 @@ const mkdirp = require('mkdirp');
 const production = process.env.NODE_ENV === 'production';
 const test = process.env.NODE_ENV === 'test';
 
-module.exports.recordBuildInfoTo = function recordBuildInfoTo(target, contents, callback) {
+module.exports.recordBuildInfoTo = function recordBuildInfoTo(
+  target,
+  contents,
+  callback,
+) {
   writeFile(target, JSON.stringify(contents, null, 2), callback);
 };
 
 function writeFile(path, contents, callback) {
-  mkdirp(dirname(path), (err) => {
+  mkdirp(dirname(path), err => {
     if (err) return callback(err);
 
     fs.writeFile(path, contents, callback);

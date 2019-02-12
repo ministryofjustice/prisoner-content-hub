@@ -1,4 +1,4 @@
-# GOVUK startkit
+# Hub node app
 
 A simple starter kit to start writing node app with the gov uk front end toolkit.
 
