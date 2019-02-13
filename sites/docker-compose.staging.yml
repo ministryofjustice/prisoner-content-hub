@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+    hub-be:
+        volumes:
+            - /content/moj_dhub_prod001_app/usr/share/nginx/html/moj_be/sites/default/files:/var/www/html/sites/default/files
+
+    hub-db:
+        volumes:
+            - /data/hub-db:/var/lib/mysql:rw
+
+    hub-matomo:
+        volumes:
+            - /data/moj_dhub_matomo_config:/var/www/html/config:rw
