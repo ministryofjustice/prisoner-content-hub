@@ -7,7 +7,9 @@ describe('Home page', () => {
   let page;
 
   before(async () => {
-    browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+    browser = await puppeteer.launch({
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
     page = await browser.newPage();
   });
 
@@ -22,16 +24,27 @@ describe('Home page', () => {
       promotedContent = await page.$('[data-promoted-item-text]');
     });
     it('contains promoted content text', async () => {
-      const promotedContentJshandle = await promotedContent.getProperty('textContent');
+      const promotedContentJshandle = await promotedContent.getProperty(
+        'textContent',
+      );
       const text = await promotedContentJshandle.jsonValue();
 
-      expect(text).to.match(/\w{10,}/, 'expected promoted content to include text');
+      expect(text).to.match(
+        /\w{10,}/,
+        'expected promoted content to include text',
+      );
     });
 
     it('contains a call to action for more content', async () => {
-      const callToAction = await promotedContent.$eval('[data-call-to-action]', el => el.href);
+      const callToAction = await promotedContent.$eval(
+        '[data-call-to-action]',
+        el => el.href,
+      );
 
-      expect(callToAction).to.match(/\/content\//, 'expected to have a link to promoted content');
+      expect(callToAction).to.match(
+        /\/content\//,
+        'expected to have a link to promoted content',
+      );
     });
   });
 
@@ -54,8 +67,11 @@ describe('Home page', () => {
         'Games',
       ];
 
-      const tests = expectedSectionTitles.map(async (title) => {
-        const sectionTitle = await page.$eval(`[data-featured-section-title="${title}"]`, el => el.textContent);
+      const tests = expectedSectionTitles.map(async title => {
+        const sectionTitle = await page.$eval(
+          `[data-featured-section-title="${title}"]`,
+          el => el.textContent,
+        );
 
         expect(sectionTitle).to.equal(title);
 
@@ -79,9 +95,14 @@ describe('Home page', () => {
         'games',
       ];
 
-      const tests = featuredSectionIds.map(async (sectionId) => {
-        const featuredSection = await page.$(`[data-featured-section-id="${sectionId}"]`);
-        const featuredItems = await featuredSection.$$eval('[data-featured-item-id]', node => node.length);
+      const tests = featuredSectionIds.map(async sectionId => {
+        const featuredSection = await page.$(
+          `[data-featured-section-id="${sectionId}"]`,
+        );
+        const featuredItems = await featuredSection.$$eval(
+          '[data-featured-item-id]',
+          node => node.length,
+        );
 
         expect(featuredItems).to.be.greaterThan(2);
 
@@ -93,8 +114,13 @@ describe('Home page', () => {
 
     it('navigates to the correct content for a featured event', async () => {
       const featuredItem = await page.$('[data-featured-item-id]:first-child');
-      const featuredId = await featuredItem.$eval('[data-featured-id]', node => node.getAttribute('data-featured-id'));
-      const featuredTitle = await featuredItem.$eval('[data-featured-title]', node => node.getAttribute('data-featured-title'));
+      const featuredId = await featuredItem.$eval('[data-featured-id]', node =>
+        node.getAttribute('data-featured-id'),
+      );
+      const featuredTitle = await featuredItem.$eval(
+        '[data-featured-title]',
+        node => node.getAttribute('data-featured-title'),
+      );
 
       const [response] = await Promise.all([
         page.waitForNavigation(),

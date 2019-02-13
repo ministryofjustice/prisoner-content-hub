@@ -4,27 +4,35 @@ describe('Hub promoted content', () => {
   describe('#hubPromotedContent', () => {
     context('when promoted content is available', () => {
       it('returns a radio promoted content', async () => {
-        const repository = hubPromotedContentRepository(generatePromotedContentClientFor('moj_radio_item'));
+        const repository = hubPromotedContentRepository(
+          generatePromotedContentClientFor('moj_radio_item'),
+        );
         const content = await repository.hubPromotedContent();
 
         expect(content).to.eql(contentFor('radio'));
       });
 
       it('returns a video promoted content', async () => {
-        const repository = hubPromotedContentRepository(generatePromotedContentClientFor('moj_video_item'));
+        const repository = hubPromotedContentRepository(
+          generatePromotedContentClientFor('moj_video_item'),
+        );
         const content = await repository.hubPromotedContent();
 
         expect(content).to.eql(contentFor('video'));
       });
 
       it('returns a pdf promoted content', async () => {
-        const repository = hubPromotedContentRepository(generatePromotedContentClientFor('moj_pdf_item'));
+        const repository = hubPromotedContentRepository(
+          generatePromotedContentClientFor('moj_pdf_item'),
+        );
         const content = await repository.hubPromotedContent();
 
         expect(content).to.eql(contentFor('pdf'));
       });
       it('returns a page promoted content', async () => {
-        const repository = hubPromotedContentRepository(generatePromotedContentClientFor('page'));
+        const repository = hubPromotedContentRepository(
+          generatePromotedContentClientFor('page'),
+        );
         const content = await repository.hubPromotedContent();
 
         expect(content).to.eql(contentFor('page'));
@@ -32,7 +40,9 @@ describe('Hub promoted content', () => {
     });
     context('when promoted content is missing', () => {
       it('returns an empty null for the missing content', async () => {
-        const repository = hubPromotedContentRepository(generateNoContentClientFor());
+        const repository = hubPromotedContentRepository(
+          generateNoContentClientFor(),
+        );
         const response = await repository.hubPromotedContent();
 
         expect(response).to.eql([]);
@@ -40,7 +50,6 @@ describe('Hub promoted content', () => {
     });
   });
 });
-
 
 function generateNoContentClientFor() {
   const httpClient = {
@@ -96,16 +105,18 @@ function generatePromotedContentClientFor(contentType) {
 }
 
 function contentFor(contentType) {
-  return [{
-    id: 1,
-    title: 'foo title',
-    contentType,
-    summary: 'foo summary',
-    image: {
-      alt: 'Foo image alt text',
-      url: 'image.url.com',
+  return [
+    {
+      id: 1,
+      title: 'foo title',
+      contentType,
+      summary: 'foo summary',
+      image: {
+        alt: 'Foo image alt text',
+        url: 'image.url.com',
+      },
+      duration: '40:00',
+      establishmentId: undefined,
     },
-    duration: '40:00',
-    establishmentId: undefined,
-  }];
+  ];
 }

@@ -3,27 +3,35 @@ const hubFeaturedContentRepository = require('../../server/repositories/hubFeatu
 describe('hubFeaturedRepository', () => {
   describe('#hubContentFor', () => {
     it('returns a radio featured content', async () => {
-      const repository = hubFeaturedContentRepository(generateFeatureContentClientFor('moj_radio_item'));
+      const repository = hubFeaturedContentRepository(
+        generateFeatureContentClientFor('moj_radio_item'),
+      );
       const content = await repository.hubContentFor();
 
       expect(content).to.eql(contentFor('radio'));
     });
 
     it('returns a video featured content', async () => {
-      const repository = hubFeaturedContentRepository(generateFeatureContentClientFor('moj_video_item'));
+      const repository = hubFeaturedContentRepository(
+        generateFeatureContentClientFor('moj_video_item'),
+      );
       const content = await repository.hubContentFor();
 
       expect(content).to.eql(contentFor('video'));
     });
 
     it('returns a pdf featured content', async () => {
-      const repository = hubFeaturedContentRepository(generateFeatureContentClientFor('moj_pdf_item'));
+      const repository = hubFeaturedContentRepository(
+        generateFeatureContentClientFor('moj_pdf_item'),
+      );
       const content = await repository.hubContentFor();
 
       expect(content).to.eql(contentFor('pdf'));
     });
     it('returns a page featured content', async () => {
-      const repository = hubFeaturedContentRepository(generateFeatureContentClientFor('page'));
+      const repository = hubFeaturedContentRepository(
+        generateFeatureContentClientFor('page'),
+      );
       const content = await repository.hubContentFor();
 
       expect(content).to.eql(contentFor('page'));
@@ -31,7 +39,9 @@ describe('hubFeaturedRepository', () => {
 
     context('When there is a summary available', () => {
       it('uses the summary text instead of the sanitized description', async () => {
-        const repository = hubFeaturedContentRepository(generateFeatureContentWithSummaryClientFor('page'));
+        const repository = hubFeaturedContentRepository(
+          generateFeatureContentWithSummaryClientFor('page'),
+        );
         const content = await repository.hubContentFor();
 
         expect(content).to.eql(contentWithSummaryFor('page'));
@@ -39,25 +49,33 @@ describe('hubFeaturedRepository', () => {
     });
     context('When there is no thumbnail available', () => {
       it('uses the default document thumbnail', async () => {
-        const repository = hubFeaturedContentRepository(generateFeaturedContnetWithNoImageClientFor('page'));
+        const repository = hubFeaturedContentRepository(
+          generateFeaturedContnetWithNoImageClientFor('page'),
+        );
         const content = await repository.hubContentFor();
 
         expect(content).to.eql(contentWithNoImageFor('page'));
       });
       it('uses the default pdf thumbnail', async () => {
-        const repository = hubFeaturedContentRepository(generateFeaturedContnetWithNoImageClientFor('moj_pdf_item'));
+        const repository = hubFeaturedContentRepository(
+          generateFeaturedContnetWithNoImageClientFor('moj_pdf_item'),
+        );
         const content = await repository.hubContentFor();
 
         expect(content).to.eql(contentWithNoImageFor('pdf'));
       });
       it('uses the default video thumbnail', async () => {
-        const repository = hubFeaturedContentRepository(generateFeaturedContnetWithNoImageClientFor('moj_video_item'));
+        const repository = hubFeaturedContentRepository(
+          generateFeaturedContnetWithNoImageClientFor('moj_video_item'),
+        );
         const content = await repository.hubContentFor();
 
         expect(content).to.eql(contentWithNoImageFor('video'));
       });
       it('uses the default audio thumbnail', async () => {
-        const repository = hubFeaturedContentRepository(generateFeaturedContnetWithNoImageClientFor('moj_radio_item'));
+        const repository = hubFeaturedContentRepository(
+          generateFeaturedContnetWithNoImageClientFor('moj_radio_item'),
+        );
         const content = await repository.hubContentFor();
 
         expect(content).to.eql(contentWithNoImageFor('radio'));
@@ -114,18 +132,20 @@ const defaultAlt = {
 };
 
 function contentFor(contentType) {
-  return [{
-    id: 1,
-    title: 'foo title',
-    contentType,
-    summary: 'foo summary',
-    image: {
-      alt: 'Foo image alt text',
-      url: 'image.url.com',
+  return [
+    {
+      id: 1,
+      title: 'foo title',
+      contentType,
+      summary: 'foo summary',
+      image: {
+        alt: 'Foo image alt text',
+        url: 'image.url.com',
+      },
+      duration: '40:00',
+      establishmentId: undefined,
     },
-    duration: '40:00',
-    establishmentId: undefined,
-  }];
+  ];
 }
 
 function generateFeatureContentClientFor(contentType) {
@@ -139,7 +159,6 @@ function generateFeatureContentClientFor(contentType) {
           },
         ],
       },
-
     }),
   };
 
@@ -194,31 +213,35 @@ function generateFeaturedContnetWithNoImageClientFor(contentType) {
 }
 
 function contentWithSummaryFor(contentType) {
-  return [{
-    id: 1,
-    title: 'foo title',
-    contentType,
-    summary: 'foo summary',
-    image: {
-      alt: 'Foo image alt text',
-      url: 'image.url.com',
+  return [
+    {
+      id: 1,
+      title: 'foo title',
+      contentType,
+      summary: 'foo summary',
+      image: {
+        alt: 'Foo image alt text',
+        url: 'image.url.com',
+      },
+      duration: '40:00',
+      establishmentId: undefined,
     },
-    duration: '40:00',
-    establishmentId: undefined,
-  }];
+  ];
 }
 
 function contentWithNoImageFor(contentType) {
-  return [{
-    id: 1,
-    title: 'foo title',
-    contentType,
-    summary: 'foo summary',
-    image: {
-      alt: defaultAlt[contentType],
-      url: defaultThumbs[contentType],
+  return [
+    {
+      id: 1,
+      title: 'foo title',
+      contentType,
+      summary: 'foo summary',
+      image: {
+        alt: defaultAlt[contentType],
+        url: defaultThumbs[contentType],
+      },
+      duration: '40:00',
+      establishmentId: undefined,
     },
-    duration: '40:00',
-    establishmentId: undefined,
-  }];
+  ];
 }

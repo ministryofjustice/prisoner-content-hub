@@ -113,11 +113,12 @@ describe('hubContentRepository', () => {
       ];
 
       expect(content).to.eql(expected);
-      expect(JSON.stringify(client.get.lastCall.args[1])).to.eql(JSON.stringify({ _parent: 'id', _menu: 'main' }));
+      expect(JSON.stringify(client.get.lastCall.args[1])).to.eql(
+        JSON.stringify({ _parent: 'id', _menu: 'main' }),
+      );
     });
   });
 });
-
 
 function generateClient(response) {
   const httpClient = {
@@ -257,32 +258,33 @@ function landingPageContent() {
 }
 
 function relatedContent() {
-  return [{
-    id: 3018,
-    title: 'Foobar bar',
-    contentType: 'radio',
-    summary: '',
-    image: {
-      url: 'http://foo.bar.jpg',
-      alt: '',
+  return [
+    {
+      id: 3018,
+      title: 'Foobar bar',
+      contentType: 'radio',
+      summary: '',
+      image: {
+        url: 'http://foo.bar.jpg',
+        alt: '',
+      },
+      duration: '51:20',
+      establishmentId: undefined,
     },
-    duration: '51:20',
-    establishmentId: undefined,
-  },
-  {
-    id: 3341,
-    title: 'Baz bar',
-    contentType: 'radio',
-    summary: '',
-    image: {
-      url: 'http://foo.bar.jpg',
-      alt: '',
+    {
+      id: 3341,
+      title: 'Baz bar',
+      contentType: 'radio',
+      summary: '',
+      image: {
+        url: 'http://foo.bar.jpg',
+        alt: '',
+      },
+      duration: '51:04',
+      establishmentId: undefined,
     },
-    duration: '51:04',
-    establishmentId: undefined,
-  }];
+  ];
 }
-
 
 function pdfContent() {
   return {

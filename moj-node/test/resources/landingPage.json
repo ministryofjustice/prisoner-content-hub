@@ -126,10 +126,10 @@
   ],
   "field_moj_landing_feature_contet": [
     {
-        "target_id": 3602,
-        "target_type": "node",
-        "target_uuid": "decf2e6a-30b3-4df7-83cc-0c0fc76e9466",
-        "url": "/node/3602"
+      "target_id": 3602,
+      "target_type": "node",
+      "target_uuid": "decf2e6a-30b3-4df7-83cc-0c0fc76e9466",
+      "url": "/node/3602"
     }
   ]
 }

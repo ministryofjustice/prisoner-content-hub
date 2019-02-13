@@ -27,15 +27,15 @@
     @extend .govuk-link, .govuk-link--no-visited-state;
   }
 
-  table { 
-    @extend .govuk-table; 
+  table {
+    @extend .govuk-table;
   }
 
-  th { 
-    @extend .govuk-table__header; 
+  th {
+    @extend .govuk-table__header;
   }
 
-  td { 
+  td {
     @extend .govuk-table__cell;
   }
 
@@ -43,14 +43,14 @@
     font-weight: bold;
   }
 
-  blockquote p  {
+  blockquote p {
     @extend .govuk-inset-text;
   }
 
-  figcaption  {
+  figcaption {
     @extend .govuk-body;
   }
-  
+
   img {
     display: block;
     width: auto;

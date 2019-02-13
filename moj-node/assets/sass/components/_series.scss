@@ -1,17 +1,17 @@
 .govuk-hub-series {
-    ul {
-        margin: 0;
-        padding: 0;
-        columns: 4;
-        -webkit-columns: 4;
-        -moz-columns: 4;
+  ul {
+    margin: 0;
+    padding: 0;
+    columns: 4;
+    -webkit-columns: 4;
+    -moz-columns: 4;
 
-        li {
-            display: block;
-            margin: 0 0 govuk-spacing(4) 0;
-            a {
-              @include govuk-font($size: 19);
-            }
-        }
+    li {
+      display: block;
+      margin: 0 0 govuk-spacing(4) 0;
+      a {
+        @include govuk-font($size: 19);
+      }
     }
+  }
 }

@@ -1,21 +1,21 @@
-@import "node_modules/govuk-frontend/settings/all";
-@import "node_modules/govuk-frontend/tools/all";
-@import "node_modules/govuk-frontend/helpers/all";
-@import "node_modules/govuk-frontend/helpers/typography";
+@import 'node_modules/govuk-frontend/settings/all';
+@import 'node_modules/govuk-frontend/tools/all';
+@import 'node_modules/govuk-frontend/helpers/all';
+@import 'node_modules/govuk-frontend/helpers/typography';
 
 .govuk-hub-header {
-    background: govuk-colour("white");
+  background: govuk-colour('white');
 }
 
 .govuk-hub-phase-banner {
-    padding-top: govuk-spacing(2);
-    padding-bottom: govuk-spacing(2);
-    border-bottom: 1px solid #bfc1c3;
-    margin-bottom: govuk-spacing(6);
+  padding-top: govuk-spacing(2);
+  padding-bottom: govuk-spacing(2);
+  border-bottom: 1px solid #bfc1c3;
+  margin-bottom: govuk-spacing(6);
 }
 
 .govuk-hub-header__topbar {
-    background: govuk-colour("black");
+  background: govuk-colour('black');
 }
 
 .govuk-hub-align-items-center {
@@ -27,12 +27,12 @@
 .govuk-hub-header__title,
 .govuk-hub-header__date,
 .govuk-hub-header__time {
-    color: govuk-colour("white");
-    display: inline-block;
-    padding: govuk-spacing(2) govuk-spacing(1);
-    margin-bottom: 0;
-    @include govuk-font($size: 24);
-    font-weight: bold;
+  color: govuk-colour('white');
+  display: inline-block;
+  padding: govuk-spacing(2) govuk-spacing(1);
+  margin-bottom: 0;
+  @include govuk-font($size: 24);
+  font-weight: bold;
 }
 
 .govuk-hub-header__date {
@@ -40,92 +40,90 @@
 }
 
 .govuk-hub-header__time {
-    margin-right: govuk-spacing(1);
+  margin-right: govuk-spacing(1);
 }
 
 .govuk-hub-align-right {
-    text-align: right;
+  text-align: right;
 }
 
 .govuk-hub-start-menu {
-    @include govuk-font($size: 24);
+  @include govuk-font($size: 24);
 
-    vertical-align: baseline;
-    margin: 0;
-    padding: govuk-spacing(3)  govuk-spacing(4)  govuk-spacing(2)  govuk-spacing(4);
-    box-shadow: none;
-    -webkit-box-shadow: none;
-    margin-top: -3px;
+  vertical-align: baseline;
+  margin: 0;
+  padding: govuk-spacing(3) govuk-spacing(4) govuk-spacing(2) govuk-spacing(4);
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  margin-top: -3px;
 
-    &:link,
-    &:visited,
-    &:active,
-    &:focus {
-        background: $govuk-link-colour;
-    }
-    &:hover {
-        background: $govuk-link-hover-colour;
-    }
+  &:link,
+  &:visited,
+  &:active,
+  &:focus {
+    background: $govuk-link-colour;
+  }
+  &:hover {
+    background: $govuk-link-hover-colour;
+  }
 }
 
 .govuk-hub-header__back-link {
-    &:link,
-    &:visited,
-    &:active,
-    &:focus {
-        color: $govuk-link-colour;
-        border-bottom: 1px solid $govuk-link-colour;
-    }
-    &:hover {
-        color: $govuk-link-hover-colour;
-        border-bottom: 1px solid $govuk-link-hover-colour;
-    }
+  &:link,
+  &:visited,
+  &:active,
+  &:focus {
+    color: $govuk-link-colour;
+    border-bottom: 1px solid $govuk-link-colour;
+  }
+  &:hover {
+    color: $govuk-link-hover-colour;
+    border-bottom: 1px solid $govuk-link-hover-colour;
+  }
 }
 
 .govuk-hub-header__background {
+  h1,
+  p {
+    color: govuk-colour('white');
+  }
 
-    h1, p {
-        color: govuk-colour("white");
-    }
+  &.news-events {
+    background: govuk-colour('red');
+  }
 
-    &.news-events {
-        background: govuk-colour("red");
-    }
+  &.day-to-day {
+    background: govuk-colour('blue');
+  }
 
-    &.day-to-day {
-        background: govuk-colour("blue");
-    }
+  &.games {
+    background: govuk-colour('orange');
+  }
 
-    &.games {
-        background: govuk-colour("orange");
-    }
+  &.radio-podcasts {
+    background: govuk-colour('bright-purple');
+  }
 
-    &.radio-podcasts {
-        background: govuk-colour("bright-purple");
-    }
+  &.healthy-mind-body {
+    background: govuk-colour('turquoise');
+  }
 
-    &.healthy-mind-body {
-        background: govuk-colour("turquoise");
-    }
+  &.inspiration {
+    background: govuk-colour('yellow');
+  }
 
-    &.inspiration {
-        background: govuk-colour("yellow");
-    }
+  &.science-nature {
+    background: govuk-colour('green');
+  }
 
-    &.science-nature {
-        background: govuk-colour("green");
-    }
+  &.art-culture {
+    background: govuk-colour('light-pink');
+  }
 
-    &.art-culture {
-        background: govuk-colour("light-pink");
-    }
-
-    &.history {
-        background: govuk-colour("brown");
-    }
-
+  &.history {
+    background: govuk-colour('brown');
+  }
 }
-
 
 .govuk-hub-title-container {
   float: left;

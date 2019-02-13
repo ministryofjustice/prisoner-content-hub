@@ -16,7 +16,7 @@ describe('GET /games', () => {
         .get('/games/chess')
         .expect('Content-Type', /text\/html/)
         .expect(200)
-        .then((response) => {
+        .then(response => {
           const $ = cheerio.load(response.text);
           expect($('title').text()).to.match(/Chess/);
         });
@@ -34,7 +34,7 @@ describe('GET /games', () => {
         .get('/games/sudoku')
         .expect('Content-Type', /text\/html/)
         .expect(200)
-        .then((response) => {
+        .then(response => {
           const $ = cheerio.load(response.text);
           expect($('title').text()).to.match(/Sudoku/);
         });
@@ -52,7 +52,7 @@ describe('GET /games', () => {
         .get('/games/neontroids')
         .expect('Content-Type', /text\/html/)
         .expect(200)
-        .then((response) => {
+        .then(response => {
           const $ = cheerio.load(response.text);
           expect($('title').text()).to.match(/Neontroids/);
         });

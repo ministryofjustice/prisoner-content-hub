@@ -1,0 +1,5 @@
+node_modules
+assets/javascript/games
+**/*.min.js
+package-lock.json
+assets/stylesheets

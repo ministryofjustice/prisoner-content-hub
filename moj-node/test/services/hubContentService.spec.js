@@ -3,7 +3,9 @@ const createHubContentService = require('../../server/services/hubContent');
 describe('#hubContentService', () => {
   it('returns content for a given ID', async () => {
     const repository = {
-      contentFor: sinon.stub().returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
+      contentFor: sinon
+        .stub()
+        .returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
     };
     const service = createHubContentService(repository);
     const result = await service.contentFor('contentId');
@@ -22,7 +24,12 @@ describe('#hubContentService', () => {
         tagsId: [12],
       }),
       termFor: sinon.stub().returns({ name: 'foo series name', id: 'foo' }),
-      seasonFor: sinon.stub().returns([{ title: 'foo episode', id: 1 }, { id: 2, title: 'bar episode' }]),
+      seasonFor: sinon
+        .stub()
+        .returns([
+          { title: 'foo episode', id: 1 },
+          { id: 2, title: 'bar episode' },
+        ]),
     };
 
     const service = createHubContentService(repository);
@@ -55,7 +62,12 @@ describe('#hubContentService', () => {
         seriesId: 'seriesId',
       }),
       termFor: sinon.stub().returns({ name: 'foo series name' }),
-      seasonFor: sinon.stub().returns([{ title: 'foo episode', id: 1 }, { id: 2, title: 'bar episode' }]),
+      seasonFor: sinon
+        .stub()
+        .returns([
+          { title: 'foo episode', id: 1 },
+          { id: 2, title: 'bar episode' },
+        ]),
     };
 
     const service = createHubContentService(repository);
@@ -77,7 +89,6 @@ describe('#hubContentService', () => {
     expect(repository.seasonFor.lastCall.args[0]).to.equal('seriesId');
   });
 
-
   describe('landing page', () => {
     const content = {
       id: 'foo-id',
@@ -89,7 +100,8 @@ describe('#hubContentService', () => {
 
     const createRepository = () => ({
       relatedContentFor: sinon.stub().returns([]),
-      contentFor: sinon.stub()
+      contentFor: sinon
+        .stub()
         .onFirstCall()
         .returns(content)
         .onSecondCall()
@@ -115,7 +127,10 @@ describe('#hubContentService', () => {
 
       await service.contentFor(content.id);
 
-      expect(repository.contentFor.lastCall.lastArg).to.equal('featuredContentId', `the featuredContentId was supposed to be ${content.featuredContentId}`);
+      expect(repository.contentFor.lastCall.lastArg).to.equal(
+        'featuredContentId',
+        `the featuredContentId was supposed to be ${content.featuredContentId}`,
+      );
     });
 
     it('calls for the related content', async () => {
@@ -124,7 +139,14 @@ describe('#hubContentService', () => {
 
       await service.contentFor(content.id, content.establishmentId);
 
-      expect(repository.relatedContentFor.lastCall.lastArg).to.eql({ id: 'categoryId', establishmentId: 'establishmentId', sortOrder: undefined }, `the categoryId was supposed to be "${content.categoryId}"`);
+      expect(repository.relatedContentFor.lastCall.lastArg).to.eql(
+        {
+          id: 'categoryId',
+          establishmentId: 'establishmentId',
+          sortOrder: undefined,
+        },
+        `the categoryId was supposed to be "${content.categoryId}"`,
+      );
     });
 
     it('call for a menu', async () => {
@@ -133,7 +155,10 @@ describe('#hubContentService', () => {
 
       await service.contentFor(content.id);
 
-      expect(repository.menuFor.lastCall.lastArg).to.equal('foo-id', `the foo-id was supposed to be "${content.id}"`);
+      expect(repository.menuFor.lastCall.lastArg).to.equal(
+        'foo-id',
+        `the foo-id was supposed to be "${content.id}"`,
+      );
     });
   });
 });

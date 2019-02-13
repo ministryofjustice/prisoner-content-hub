@@ -11,7 +11,9 @@ const promotedContentRepositoryWithError = {
 describe('hub promoted content service', () => {
   describe('#hubPromotedContent', () => {
     it('returns featured content', async () => {
-      const service = createHubPromotedContentService(promotedContentRepository);
+      const service = createHubPromotedContentService(
+        promotedContentRepository,
+      );
       const response = await service.hubPromotedContent();
       const expectedResult = 'promotedContent';
 
@@ -20,7 +22,9 @@ describe('hub promoted content service', () => {
 
     context('when some promoted content are missing', () => {
       it('fails to return content', async () => {
-        const service = createHubPromotedContentService(promotedContentRepositoryWithError);
+        const service = createHubPromotedContentService(
+          promotedContentRepositoryWithError,
+        );
         const response = await service.hubPromotedContent();
         const expectedResult = null;
 

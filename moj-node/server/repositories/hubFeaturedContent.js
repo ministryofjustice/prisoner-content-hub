@@ -1,11 +1,12 @@
-
 const { parseHubContentResponse } = require('../utils/index');
 const config = require('../config');
 
-
 function hubFeaturedContentRepository(httpClient) {
   async function hubContentFor(opts = { query: {} }) {
-    const response = await httpClient.get(`${config.api.hubContent}/featured`, opts.query);
+    const response = await httpClient.get(
+      `${config.api.hubContent}/featured`,
+      opts.query,
+    );
     return parseHubContentResponse(response);
   }
 
@@ -131,7 +132,6 @@ function hubFeaturedContentRepository(httpClient) {
     ];
   }
 
-
   return {
     hubContentFor,
     newsAndEvents,
@@ -146,6 +146,5 @@ function hubFeaturedContentRepository(httpClient) {
     legalAndYourRights,
   };
 }
-
 
 module.exports = hubFeaturedContentRepository;

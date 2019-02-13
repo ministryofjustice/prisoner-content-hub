@@ -1,9 +1,9 @@
-# GOVUK startkit
+# Hub node app
 
 A simple starter kit to start writing node app with the gov uk front end toolkit.
 
-
 ## Getting started
+
 Install dependencies using `yarn install` ensure you are using >= `Node v8.4.0`
 
 Ensure you have a `.env` file containing all default env variables
@@ -13,6 +13,7 @@ Ensure you have a `.env` file containing all default env variables
 **Starting the app**
 
 ### Build assets
+
 `yarn build`
 
 ### Start the app.
@@ -21,7 +22,7 @@ Ensure you build assets first
 
 `yarn start`
 
-### Runing the app in dev mode**
+### Runing the app in dev mode\*\*
 
 `yarn start:dev`
 
@@ -33,8 +34,8 @@ Ensure you build assets first
 
 `yarn test`
 
-
 ## Gotchas
+
 If you get this error when starting the app:
 `Cannot find module './build/Release/DTraceProviderBindings'`
 

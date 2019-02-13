@@ -1,20 +1,23 @@
 const createHubFeaturedContentService = require('../../server/services/hubFeaturedContent');
 
-
 const hubRepository = {
   newsAndEvents: sinon.stub().returns({ newsAndEvents: 'newsAndEvents' }),
   dayToDay: sinon.stub().returns({ dayToDay: 'dayToDay' }),
   games: sinon.stub().returns({ games: 'games' }),
   music: sinon.stub().returns({ music: 'music' }),
-  healthyMindAndBody: sinon.stub().returns({ healthyMindAndBody: 'healthyMindAndBody' }),
+  healthyMindAndBody: sinon
+    .stub()
+    .returns({ healthyMindAndBody: 'healthyMindAndBody' }),
   inspiration: sinon.stub().returns({ inspiration: 'inspiration' }),
-  scienceAndNature: sinon.stub().returns({ scienceAndNature: 'scienceAndNature' }),
+  scienceAndNature: sinon
+    .stub()
+    .returns({ scienceAndNature: 'scienceAndNature' }),
   artAndCulture: sinon.stub().returns({ artAndCulture: 'artAndCulture' }),
   history: sinon.stub().returns({ history: 'history' }),
-  legalAndYourRights: sinon.stub().returns({ legalAndYourRights: 'legalAndYourRights' }),
-
+  legalAndYourRights: sinon
+    .stub()
+    .returns({ legalAndYourRights: 'legalAndYourRights' }),
 };
-
 
 describe('hubFeaturedService', () => {
   describe('#hubFeaturedContent', () => {

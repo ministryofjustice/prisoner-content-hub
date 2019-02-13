@@ -1,0 +1,10 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "extends": ["airbnb-base", "eslint-config-prettier"],
+  "rules": {
+    "no-use-before-define": "off"
+  }
+}

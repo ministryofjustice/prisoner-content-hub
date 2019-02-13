@@ -7,7 +7,9 @@ describe('Landing page', () => {
   let page;
 
   before(async () => {
-    browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+    browser = await puppeteer.launch({
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
     page = await browser.newPage();
   });
 
@@ -35,7 +37,10 @@ describe('Landing page', () => {
       });
 
       it('renders some related content', async () => {
-        const relatedContent = await page.$$eval('[data-featured-id]', node => node.length);
+        const relatedContent = await page.$$eval(
+          '[data-featured-id]',
+          node => node.length,
+        );
 
         expect(relatedContent).to.be.greaterThan(7);
       });
@@ -54,7 +59,10 @@ describe('Landing page', () => {
         expect(pageTitle).to.equal('Day-to-day');
       });
       it('renders some related content', async () => {
-        const relatedContent = await page.$$eval('[data-featured-id]', node => node.length);
+        const relatedContent = await page.$$eval(
+          '[data-featured-id]',
+          node => node.length,
+        );
 
         expect(relatedContent).to.be.greaterThan(4);
       });
@@ -74,7 +82,10 @@ describe('Landing page', () => {
       });
 
       it('renders some related content', async () => {
-        const relatedContent = await page.$$eval('[data-featured-id]', node => node.length);
+        const relatedContent = await page.$$eval(
+          '[data-featured-id]',
+          node => node.length,
+        );
 
         expect(relatedContent).to.be.greaterThan(7);
       });
@@ -93,7 +104,10 @@ describe('Landing page', () => {
         expect(pageTitle).to.equal('Legal advice and your rights');
       });
       it('renders some related content', async () => {
-        const relatedContent = await page.$$eval('[data-featured-id]', node => node.length);
+        const relatedContent = await page.$$eval(
+          '[data-featured-id]',
+          node => node.length,
+        );
 
         expect(relatedContent).to.be.greaterThan(7);
       });
@@ -113,7 +127,10 @@ describe('Landing page', () => {
       });
 
       it('renders some related content', async () => {
-        const relatedContent = await page.$$eval('[data-featured-id]', node => node.length);
+        const relatedContent = await page.$$eval(
+          '[data-featured-id]',
+          node => node.length,
+        );
 
         expect(relatedContent).to.be.greaterThan(7);
       });
@@ -132,7 +149,10 @@ describe('Landing page', () => {
         expect(pageTitle).to.equal('Science and nature');
       });
       it('renders some related content', async () => {
-        const relatedContent = await page.$$eval('[data-featured-id]', node => node.length);
+        const relatedContent = await page.$$eval(
+          '[data-featured-id]',
+          node => node.length,
+        );
 
         expect(relatedContent).to.be.greaterThan(7);
       });
@@ -151,7 +171,10 @@ describe('Landing page', () => {
         expect(pageTitle).to.equal('Art and culture');
       });
       it('renders some related content', async () => {
-        const relatedContent = await page.$$eval('[data-featured-id]', node => node.length);
+        const relatedContent = await page.$$eval(
+          '[data-featured-id]',
+          node => node.length,
+        );
 
         expect(relatedContent).to.be.greaterThan(7);
       });
@@ -170,7 +193,10 @@ describe('Landing page', () => {
         expect(pageTitle).to.equal('History');
       });
       it('renders some related content', async () => {
-        const relatedContent = await page.$$eval('[data-featured-id]', node => node.length);
+        const relatedContent = await page.$$eval(
+          '[data-featured-id]',
+          node => node.length,
+        );
 
         expect(relatedContent).to.be.greaterThan(7);
       });
@@ -189,12 +215,14 @@ describe('Landing page', () => {
         expect(pageTitle).to.equal('Music');
       });
       it('renders some related content', async () => {
-        const relatedContent = await page.$$eval('[data-featured-id]', node => node.length);
+        const relatedContent = await page.$$eval(
+          '[data-featured-id]',
+          node => node.length,
+        );
 
         expect(relatedContent).to.be.greaterThan(7);
       });
     });
-
 
     describe('Landing page link', () => {
       beforeEach(async () => {
@@ -208,7 +236,10 @@ describe('Landing page', () => {
         it('navigate to the content page', async () => {
           const relatedContent = await page.$('[data-featured-id]:first-child');
 
-          const relatedContentTitle = await relatedContent.$eval('[data-featured-title]', el => el.textContent);
+          const relatedContentTitle = await relatedContent.$eval(
+            '[data-featured-title]',
+            el => el.textContent,
+          );
 
           await Promise.all([
             page.waitForNavigation(), // The promise resolves after navigation has finished

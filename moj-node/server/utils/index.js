@@ -48,33 +48,39 @@ function getEstablishmentName(id) {
 function parseHubContentResponse(data) {
   if (!data) return {};
 
-  return Object
-    .keys(data)
-    .map((key) => {
-      const image = fixUrlForProduction(imageUrlFrom(data[key]), config.drupalAppUrl)
-        ? {
-          url: fixUrlForProduction(imageUrlFrom(data[key]), config.drupalAppUrl),
+  return Object.keys(data).map(key => {
+    const image = fixUrlForProduction(
+      imageUrlFrom(data[key]),
+      config.drupalAppUrl,
+    )
+      ? {
+          url: fixUrlForProduction(
+            imageUrlFrom(data[key]),
+            config.drupalAppUrl,
+          ),
           alt: imageAltFrom(data[key]),
         }
-        : {
+      : {
           url: defaultThumbs[contentTypeFrom(data[key])],
           alt: defaultAlt[contentTypeFrom(data[key])],
         };
 
-      return ({
-        id: idFrom(data[key]),
-        title: titleFrom(data[key]),
-        contentType: HUB_CONTENT_TYPES[contentTypeFrom(data[key])],
-        summary: summaryValueFrom(data[key]),
-        image,
-        duration: durationFrom(data[key]),
-        establishmentId: establishmentIdFrom(data[key]),
-      });
-    });
+    return {
+      id: idFrom(data[key]),
+      title: titleFrom(data[key]),
+      contentType: HUB_CONTENT_TYPES[contentTypeFrom(data[key])],
+      summary: summaryValueFrom(data[key]),
+      image,
+      duration: durationFrom(data[key]),
+      establishmentId: establishmentIdFrom(data[key]),
+    };
+  });
 }
 
-
-function replaceURLWithDefinedEndpoint(url = '', alternateUrl = config.hubEndpoint) {
+function replaceURLWithDefinedEndpoint(
+  url = '',
+  alternateUrl = config.hubEndpoint,
+) {
   const urlSchemeAndAuthorityRegex = /^https?:\/\/[^/]+/;
   const updatedUrl = url.replace(urlSchemeAndAuthorityRegex, alternateUrl);
 

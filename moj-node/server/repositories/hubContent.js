@@ -2,8 +2,10 @@ const R = require('ramda');
 
 const config = require('../config');
 const { HUB_CONTENT_TYPES } = require('../constants/hub');
-const { parseHubContentResponse, fixUrlForProduction } = require('../utils/index');
-
+const {
+  parseHubContentResponse,
+  fixUrlForProduction,
+} = require('../utils/index');
 
 const {
   idFrom,
@@ -33,7 +35,6 @@ const {
   establishmentIdFrom,
 } = require('../selectors/hub');
 
-
 module.exports = function hubContentRepository(httpClient) {
   async function contentFor(id) {
     const response = await httpClient.get(`${config.api.hubContent}/${id}`);
@@ -47,7 +48,10 @@ module.exports = function hubContentRepository(httpClient) {
   }
 
   async function menuFor(id) {
-    const response = await httpClient.get(config.api.hubMenu, { _parent: id, _menu: 'main' });
+    const response = await httpClient.get(config.api.hubMenu, {
+      _parent: id,
+      _menu: 'main',
+    });
     return parseMenuResponse(response);
   }
 
@@ -113,15 +117,12 @@ module.exports = function hubContentRepository(httpClient) {
   function parseMenuResponse(data = []) {
     if (data === null) return [];
 
-    return data.map(
-      menuItem => ({
-        linkText: R.prop('title', menuItem),
-        href: `/content/${R.prop('id', menuItem)}`,
-        id: R.prop('id', menuItem),
-      }),
-    );
+    return data.map(menuItem => ({
+      linkText: R.prop('title', menuItem),
+      href: `/content/${R.prop('id', menuItem)}`,
+      id: R.prop('id', menuItem),
+    }));
   }
-
 
   function parseResponse(data) {
     if (data === null) return null;
@@ -157,7 +158,10 @@ module.exports = function hubContentRepository(httpClient) {
         sanitized: descriptionProcessedFrom(data),
         summary: summaryValueFrom(data),
       },
-      media: contentType === 'radio' ? fixUrlForProduction(audioUrlFrom(data), config.drupalAppUrl) : fixUrlForProduction(videoUrlFrom(data), config.drupalAppUrl),
+      media:
+        contentType === 'radio'
+          ? fixUrlForProduction(audioUrlFrom(data), config.drupalAppUrl)
+          : fixUrlForProduction(videoUrlFrom(data), config.drupalAppUrl),
       duration: durationFrom(data),
       image: {
         alt: imageAltFrom(data),

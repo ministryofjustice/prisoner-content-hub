@@ -30,7 +30,7 @@ describe('/health', () => {
       .get('/health')
       .expect(200)
       .expect('Content-Type', /json/)
-      .then((res) => {
+      .then(res => {
         expect(res.body).eql({
           buildNumber: 'foo-number',
           gitRef: 'foo-ref',

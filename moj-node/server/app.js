@@ -20,7 +20,6 @@ const establishmentToggle = require('./middleware/establishmentToggle');
 
 const { getEstablishmentId } = require('./utils');
 
-
 const version = Date.now().toString();
 
 module.exports = function createApp({
@@ -59,7 +58,6 @@ module.exports = function createApp({
 
   app.use(addRequestId);
 
-
   app.use(log.requestLogger());
 
   // Resource Delivery Configuration
@@ -78,29 +76,34 @@ module.exports = function createApp({
   }
 
   if (config.production) {
-    app.use('/public', sassMiddleware({
-      src: path.join(__dirname, '../assets/sass'),
-      dest: path.join(__dirname, '../assets/stylesheets'),
-      debug: true,
-      outputStyle: 'compressed',
-      prefix: '/stylesheets/',
-      includePaths: [
-        'node_modules/govuk_frontend_toolkit/stylesheets',
-        'node_modules/govuk_template_jinja/assets/stylesheets',
-        'node_modules/govuk-elements-sass/public/sass',
-        'node_modules/video.js/dist',
-      ],
-    }));
+    app.use(
+      '/public',
+      sassMiddleware({
+        src: path.join(__dirname, '../assets/sass'),
+        dest: path.join(__dirname, '../assets/stylesheets'),
+        debug: true,
+        outputStyle: 'compressed',
+        prefix: '/stylesheets/',
+        includePaths: [
+          'node_modules/govuk_frontend_toolkit/stylesheets',
+          'node_modules/govuk_template_jinja/assets/stylesheets',
+          'node_modules/govuk-elements-sass/public/sass',
+          'node_modules/video.js/dist',
+        ],
+      }),
+    );
   }
 
   //  Static Resources Configuration
   const cacheControl = { maxAge: config.staticResourceCacheDuration * 1000 };
 
-  app.use(session({
-    secret: config.cookieSecret,
-    resave: false,
-    saveUninitialized: true,
-  }));
+  app.use(
+    session({
+      secret: config.cookieSecret,
+      resave: false,
+      saveUninitialized: true,
+    }),
+  );
 
   [
     '../public',
@@ -113,17 +116,23 @@ module.exports = function createApp({
     '../node_modules/jplayer/dist',
     '../node_modules/jquery/dist',
     '../node_modules/mustache',
-  ].forEach((dir) => {
+  ].forEach(dir => {
     app.use('/public', express.static(path.join(__dirname, dir), cacheControl));
   });
 
+  app.use(
+    '/assets',
+    express.static(
+      path.join(__dirname, '../node_modules/govuk-frontend/assets'),
+      cacheControl,
+    ),
+  );
 
-  app.use('/assets', express.static(path.join(__dirname, '../node_modules/govuk-frontend/assets'), cacheControl));
-
-  [
-    '../node_modules/govuk_frontend_toolkit/images',
-  ].forEach((dir) => {
-    app.use('/public/images/icons', express.static(path.join(__dirname, dir), cacheControl));
+  ['../node_modules/govuk_frontend_toolkit/images'].forEach(dir => {
+    app.use(
+      '/public/images/icons',
+      express.static(path.join(__dirname, dir), cacheControl),
+    );
   });
 
   // GovUK Template Configuration
@@ -135,10 +144,8 @@ module.exports = function createApp({
     establishmentId: getEstablishmentId(config.establishmentName),
   };
 
-
   // Don't cache dynamic resources
   app.use(helmet.noCache());
-
 
   // feature toggles
   if (config.featureTogglesEnabled) {
@@ -178,22 +185,31 @@ module.exports = function createApp({
   // });
 
   // Routing
-  app.use('/', createIndexRouter({
-    logger,
-    hubFeaturedContentService,
-    hubPromotedContentService,
-    hubMenuService,
-  }));
+  app.use(
+    '/',
+    createIndexRouter({
+      logger,
+      hubFeaturedContentService,
+      hubPromotedContentService,
+      hubMenuService,
+    }),
+  );
 
-  app.use('/content', createContentRouter({
-    logger,
-    hubContentService,
-  }));
+  app.use(
+    '/content',
+    createContentRouter({
+      logger,
+      hubContentService,
+    }),
+  );
 
-  app.use('/tags', createTagRouter({
-    logger,
-    hubTagsService,
-  }));
+  app.use(
+    '/tags',
+    createTagRouter({
+      logger,
+      hubTagsService,
+    }),
+  );
 
   app.use('/games', createGamesRouter({ logger }));
 

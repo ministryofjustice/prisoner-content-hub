@@ -1,25 +1,21 @@
 {
-    "restartable": "rs",
-    "ignore": [
-      ".git",
-      "node_modules/**/node_modules",
-      "assets/stylesheets/application.css"
-    ],
-    "verbose": true,
-    "execMap": {
-      "js": "node --harmony"
-    },
-    "events": {
-      "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'",
-      "start": "npm run build"
-    },
-    "watch": [
-      "assets",
-      "server"
-    ],
-    "env": {
-      "NODE_ENV": "development"
-    },
-    "ext": "js,json,css,scss,njk,html"
-    
-  }
+  "restartable": "rs",
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules",
+    "assets/stylesheets/application.css"
+  ],
+  "verbose": true,
+  "execMap": {
+    "js": "node --harmony"
+  },
+  "events": {
+    "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'",
+    "start": "npm run build"
+  },
+  "watch": ["assets", "server"],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js,json,css,scss,njk,html"
+}

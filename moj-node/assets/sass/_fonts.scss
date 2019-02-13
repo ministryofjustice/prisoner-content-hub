@@ -1,16 +1,16 @@
-
 @font-face {
   font-family: VideoJS;
   src: url('../fonts/videojs-webfont.woff2') format('woff2'),
-       url('../fonts/videojs-webfont.woff') format('woff'),
-       url('../fonts/videojs-webfont.ttf') format('truetype');
+    url('../fonts/videojs-webfont.woff') format('woff'),
+    url('../fonts/videojs-webfont.ttf') format('truetype');
   font-weight: normal;
-  font-style: normal;  }
+  font-style: normal;
+}
 
 @font-face {
   font-family: 'icomoon';
-  src:  url('../fonts/icomoon.eot?msvsc0');
-  src:  url('../fonts/icomoon.eot?msvsc0#iefix') format('embedded-opentype'),
+  src: url('../fonts/icomoon.eot?msvsc0');
+  src: url('../fonts/icomoon.eot?msvsc0#iefix') format('embedded-opentype'),
     url('../fonts/icomoon.ttf?msvsc0') format('truetype'),
     url('../fonts/icomoon.woff?msvsc0') format('woff'),
     url('../fonts/icomoon.svg?msvsc0#icomoon') format('svg');
@@ -18,7 +18,8 @@
   font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^='icon-'],
+[class*=' icon-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
   speak: none;
@@ -34,38 +35,38 @@
 }
 
 .icon-chevron:before {
-  content: "\e900";
+  content: '\e900';
 }
 .icon-document:before {
-  content: "\e901";
+  content: '\e901';
 }
 .icon-game:before {
-  content: "\e902";
+  content: '\e902';
 }
 .icon-link .path1:before {
-  content: "\e903";
+  content: '\e903';
   color: rgb(0, 93, 166);
 }
 .icon-link .path2:before {
-  content: "\e904";
+  content: '\e904';
   margin-left: -1em;
   color: rgb(255, 255, 255);
 }
 .icon-movie:before {
-  content: "\e905";
+  content: '\e905';
 }
 .icon-play .path1:before {
-  content: "\e906";
+  content: '\e906';
   color: rgb(213, 56, 128);
 }
 .icon-play .path2:before {
-  content: "\e907";
+  content: '\e907';
   margin-left: -1em;
   color: rgb(255, 255, 255);
 }
 .icon-volume:before {
-  content: "\e908";
+  content: '\e908';
 }
 .icon-music:before {
-  content: "\e909";
+  content: '\e909';
 }

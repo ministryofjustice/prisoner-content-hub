@@ -15,7 +15,7 @@ var months = [
   'September',
   'October',
   'November',
-  'December'
+  'December',
 ];
 
 var days = [
@@ -60,13 +60,13 @@ if (navMenu) {
 }
 
 // update the time
-if(todaysTime) {
+if (todaysTime) {
   setInterval(function() {
     var date = new Date();
     var currentTime = todaysTime.textContent.trim();
     var minutes = date.getMinutes();
     var hours = date.getHours();
-    var nextTime =  formateTime(hours) + ":" + formateTime(minutes);
+    var nextTime = formateTime(hours) + ':' + formateTime(minutes);
     if (currentTime !== nextTime) {
       todaysTime.textContent = nextTime;
     }
@@ -74,22 +74,26 @@ if(todaysTime) {
 }
 
 // update the date
-if(todaysDate) {
+if (todaysDate) {
   setInterval(function() {
     var date = new Date();
     var currentDate = todaysDate.textContent.trim();
-    var nextDate = days[date.getDay()] + " " + date.getDate() + " " + months[date.getMonth()];
+    var nextDate =
+      days[date.getDay()] +
+      ' ' +
+      date.getDate() +
+      ' ' +
+      months[date.getMonth()];
     if (currentDate !== nextDate) {
-      todaysDate.textContent = nextDate
+      todaysDate.textContent = nextDate;
     }
   }, 1000);
 }
 
-
 function matchesSelectorAll(target, selector) {
-  return target.matches(selector) || target.matches(selector + " *");
+  return target.matches(selector) || target.matches(selector + ' *');
 }
 
 function formateTime(time) {
-  return (time < 10) ? "0" + time : time
+  return time < 10 ? '0' + time : time;
 }

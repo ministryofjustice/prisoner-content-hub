@@ -20,33 +20,19 @@ const contentRepository = require('./repositories/hubContent');
 const buildInfo = config.dev ? null : require('../build-info.json'); // eslint-disable-line import/no-unresolved
 
 // pass in dependencies of service
-const hubMenuService = createHubMenuService(
-  hubMenuRepository(
-    new HubClient(),
-  ),
-);
+const hubMenuService = createHubMenuService(hubMenuRepository(new HubClient()));
 const hubFeaturedContentService = createHubFeaturedContentService(
-  featuredContentRepository(
-    new HubClient(),
-  ),
+  featuredContentRepository(new HubClient()),
 );
 const hubPromotedContentService = createHubPromotedContentService(
-  promotedContentRepository(
-    new HubClient(),
-  ),
+  promotedContentRepository(new HubClient()),
 );
 
 const hubContentService = createHubContentService(
-  contentRepository(
-    new HubClient(),
-  ),
+  contentRepository(new HubClient()),
 );
 
-const hubTagsService = createHubTagsService(
-  contentRepository(
-    new HubClient(),
-  ),
-);
+const hubTagsService = createHubTagsService(contentRepository(new HubClient()));
 
 const app = createApp({
   appInfo: appInfoService(buildInfo),
