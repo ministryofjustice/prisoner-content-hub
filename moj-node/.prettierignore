@@ -3,3 +3,4 @@ assets/javascript/games
 **/*.min.js
 package-lock.json
 assets/stylesheets
+assets/javascript/polyfills.js
