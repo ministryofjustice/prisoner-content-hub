@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server.js",
     "start:dev": "npm run build && DEBUG=gov-starter-server* nodemon server.js | bunyan -o short",
-    "build": "npm run css-build && webpack --config webpack.config.js",
+    "build": "npm run css-build",
     "build-production": "webpack --config webpack.config.js --mode=production",
     "css-build": "./bin/build-css",
     "clean": "rm -rf public/* .port.tmp *.log build/* uploads/* test-results.xml",
