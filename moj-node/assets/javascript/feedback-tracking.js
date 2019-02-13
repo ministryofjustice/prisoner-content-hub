@@ -113,6 +113,7 @@ function sendFeedbackEvent(config) {
 
 function sendUnSelectFeedbackEvent(config) {
   var newConfig = Object.assign(config, {
+    name: config.name.replace(/\|.*LIKE\|/g, '|' + 'UN' + config.action + '|'),
     action: 'UN' + config.action,
     value: '0',
   });
