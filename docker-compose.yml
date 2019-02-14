@@ -19,7 +19,7 @@ services:
                 depends_on:
                         - hub-be
                 environment:
-                        HUB_API_ENDPOINT: http://hub-be/v1/api
+                        HUB_API_ENDPOINT: http://hub-be/
                         APP_TIMEOUT: 60.0
                         PORT: 3000
                         APP_NAME: HMP Berwyn
@@ -48,18 +48,18 @@ services:
                 depends_on:
                         - hub-db
                 environment:
-                        HUB_DB_ENV_MYSQL_DATABASE: hubdb
-                        HUB_DB_ENV_MYSQL_USER: hubdb_user
-                        HUB_DB_ENV_MYSQL_PASSWORD: hubdb_pass
-                        HUB_DB_PORT_3306_TCP_ADDR: hub-db
-                        HUB_EXT_FILE_URL: http://localhost:8181/sites/default/files
-                        PHP_MEMORY_LIMIT: 500M
-                        PHP_UPLOAD_MAX_FILE_SIZE: 500M
-                        PHP_POST_MAX_SIZE: 500M
-                        SIMPLETEST_DB: mysql://hubdb_user:hubdb_pass@localhost/hubdb
-                        XDEBUG_IP: 127.0.0.1 # Replace with your machines IP: $ ipconfig getifaddr en0 
+                - HUB_DB_ENV_MYSQL_DATABASE=hubdb
+                - HUB_DB_ENV_MYSQL_USER=hubdb_user
+                - HUB_DB_ENV_MYSQL_PASSWORD
+                - HUB_DB_PORT_3306_TCP_ADDR=hub-db
+                - HUB_EXT_FILE_URL=http://localhost:8181/sites/default/files
+                - PHP_MEMORY_LIMIT=500M
+                - PHP_UPLOAD_MAX_FILE_SIZE=500M
+                - PHP_POST_MAX_SIZE=500M
+                - SIMPLETEST_DB=mysql://hubdb_user:hubdb_pass@localhost/hubdb
+                - XDEBUG_IP=127.0.0.1 # Replace with your machines IP: $ ipconfig getifaddr en0 
                 ports:
-                        - 8182:80
+                        - 11001:80
                 healthcheck:
                         test: ["CMD", "curl", "-f", "http://localhost"]
                         interval: 15s
@@ -71,7 +71,7 @@ services:
                 depends_on:
                         - hub-matomo-db
                 ports:
-                        - 8185:80
+                        - 1004:80
                 links:
                         - hub-matomo-db
 
