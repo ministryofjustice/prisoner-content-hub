@@ -1,6 +1,6 @@
 // IE Polyfill
 
-// Element.matchs polyfill
+// Element.matches polyfill
 if (!Element.prototype.matches) {
   Element.prototype.matches =
     Element.prototype.matchesSelector ||

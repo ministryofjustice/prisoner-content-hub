@@ -112,8 +112,10 @@ function sendFeedbackEvent(config) {
 }
 
 function sendUnSelectFeedbackEvent(config) {
+  var likeDislikeRegex = /\|(DIS)?LIKE\|/i;
+  const newAction = '|' + 'UN' + config.action + '|';
   var newConfig = Object.assign(config, {
-    name: config.name.replace(/\|.*LIKE\|/g, '|' + 'UN' + config.action + '|'),
+    name: config.name.replace(likeDislikeRegex, newAction),
     action: 'UN' + config.action,
     value: '0',
   });
