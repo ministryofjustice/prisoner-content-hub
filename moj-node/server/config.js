@@ -25,10 +25,5 @@ module.exports = {
     series: `${hubEndpoint}/v1/api/content/series`,
     tags: `${hubEndpoint}/v1/api/vocabulary/tags`,
   },
-  features: [
-    'showLandingPageMenu',
-    'showPageMenu',
-    'showBrowseBySeries',
-    'showFeedback',
-  ],
+  features: ['showLandingPageMenu', 'showPageMenu', 'showBrowseBySeries'],
 };

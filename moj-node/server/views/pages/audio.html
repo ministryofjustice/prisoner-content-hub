@@ -70,13 +70,11 @@
       </div>
     </div>
 
-      {% if (features.showFeedback)%}
-        {{ hubFeedbackWidget({
-          title: data.title,
-          contentType: data.contentType,
-          series: data.seriesName
-        })}}
-      {% endif %}
+    {{ hubFeedbackWidget({
+      title: data.title,
+      contentType: data.contentType,
+      series: data.seriesName
+    })}}
 
     <div class="govuk-hub-media-player__description">
       <div id="body" class="govuk-body">{{ data.description.sanitized | safe }}</div>

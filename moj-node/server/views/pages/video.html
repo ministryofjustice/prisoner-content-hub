@@ -77,13 +77,11 @@
       <div id="videoPlayer" class="webPlayer light">
         <div id="videoPlayerContainer" class="videoPlayer" data-video="{{ data.media }}"></div>
       </div>
-      {% if (features.showFeedback)%}
-        {{ hubFeedbackWidget({
-          title: data.title,
-          contentType: data.contentType,
-          series: data.seriesName
-        })}}
-      {% endif %}
+      {{ hubFeedbackWidget({
+        title: data.title,
+        contentType: data.contentType,
+        series: data.seriesName
+      })}}
     </div>
 
     <div class="govuk-hub-media-player__description">
