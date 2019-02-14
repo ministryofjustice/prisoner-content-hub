@@ -71,7 +71,7 @@ services:
                 depends_on:
                         - hub-matomo-db
                 ports:
-                        - 1004:80
+                        - 12001:80
                 links:
                         - hub-matomo-db
 
