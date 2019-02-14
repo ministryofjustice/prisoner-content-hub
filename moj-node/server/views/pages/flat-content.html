@@ -46,7 +46,6 @@
         </div>
       </div>
 
-      {% if (features.showFeedback)%}
       <div class="govuk-hub-article-feedback">
         <p class="govuk-body">Tell us what you think:</p>
         {{ hubFeedbackWidget({
@@ -54,7 +53,6 @@
           contentType: data.contentType
         })}}
       </div>
-      {% endif %}
 
       {% if backHomeEnabled %}
         <div>
