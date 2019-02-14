@@ -4,10 +4,10 @@ services:
         hub-db:
                 image: mojdigitalstudio/digital-hub-db
                 environment:
-                        MYSQL_ROOT_PASSWORD: password
-                        MYSQL_DATABASE: hubdb
-                        MYSQL_USER: hubdb_user
-                        MYSQL_PASSWORD: hubdb_pass
+                 - MYSQL_ROOT_PASSWORD
+                 - MYSQL_DATABASE="hubdb"
+                 - MYSQL_USER="hubdb_user"
+                 - MYSQL_PASSWORD
 
         hub-memcache:
                 image: memcached
