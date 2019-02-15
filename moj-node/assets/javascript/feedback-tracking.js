@@ -70,7 +70,7 @@ if (commentBox) {
 }
 
 function generateEventName(element) {
-  // title | PageURL | Like/DISLIKE | Time/Date | ContentType | Series | Time take react | visitor ID
+  // title | PageURL | Like/DISLIKE | Time/Date | ContentType | Series | Time take react | visitor ID | Establishment
   var name = [
     element.getAttribute('data-item-name'),
     window.location.pathname,
@@ -80,6 +80,7 @@ function generateEventName(element) {
     element.getAttribute('data-item-series'),
     calculateTimeToAction(),
     getVisitorId(),
+    element.getAttribute('data-item-establishment'),
   ];
 
   return name.join('|');

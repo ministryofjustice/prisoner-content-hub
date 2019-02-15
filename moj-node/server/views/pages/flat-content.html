@@ -50,7 +50,8 @@
         <p class="govuk-body">Tell us what you think:</p>
         {{ hubFeedbackWidget({
           title: data.title,
-          contentType: data.contentType
+          contentType: data.contentType,
+          establishment: envVars.APP_NAME
         })}}
       </div>
 

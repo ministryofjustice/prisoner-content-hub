@@ -97,7 +97,7 @@ function extractCommentFromAction(str) {
 }
 
 function getDataFromLabel(label) {
-  // title | PageURL | Like/DISLIKE | Time/Date | ContentType | Series | Time take react | visitor ID
+  // title | PageURL | Like/DISLIKE | Time/Date | ContentType | Series | Time take react | visitor ID | Establishment
   const [
     title,
     page_url,
@@ -107,6 +107,7 @@ function getDataFromLabel(label) {
     series,
     time_spent_to_action,
     visitor_id,
+    establishment,
   ] = label.split('|');
 
   return {
@@ -119,6 +120,7 @@ function getDataFromLabel(label) {
     time: formatDate(new Date(+date), 'HH:mm a'),
     time_spent_to_action,
     visitor_id,
+    establishment,
   };
 }
 
@@ -134,6 +136,7 @@ function generateCSVData(data) {
     'time',
     'time_spent_to_action',
     'visitor_id',
+    'establishment',
   ];
   const json2csvParser = new Json2csvParser({ fields });
   const csv = json2csvParser.parse(data);
