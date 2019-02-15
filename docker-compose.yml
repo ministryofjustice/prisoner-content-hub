@@ -19,7 +19,7 @@ services:
                 depends_on:
                         - hub-be
                 environment:
-                        HUB_API_ENDPOINT: http://hub-be/
+                        HUB_API_ENDPOINT: http://hub-be
                         APP_TIMEOUT: 60.0
                         PORT: 3000
                         APP_NAME: HMP Dev
@@ -33,7 +33,7 @@ services:
                         - hub-be
                         - hub-memcache
                 environment:
-                        API_URI: http://hub-be/
+                        API_URI: http://hub-be
                         APP_TIMEOUT: 60.0
                 ports:
                         - 10002:80
