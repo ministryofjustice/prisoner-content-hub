@@ -29,22 +29,39 @@
 
   table {
     @extend .govuk-table;
+    border: none;
+  }
+
+  tbody {
+    border: none;
+  }
+
+  tr {
+    border: none;
+    @extend .govuk-table__row !optional;
   }
 
   th {
     @extend .govuk-table__header;
+    border-top: none;
+    border-right: none;
+    border-left: none;
   }
 
   td {
     @extend .govuk-table__cell;
+    border-top: none;
+    border-right: none;
+    border-left: none;
   }
 
   strong {
     font-weight: bold;
   }
 
-  blockquote p {
+  blockquote {
     @extend .govuk-inset-text;
+    margin-left: 0;
   }
 
   figcaption {
