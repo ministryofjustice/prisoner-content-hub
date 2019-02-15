@@ -35,10 +35,16 @@ module.exports = function createApp({
 }) {
   const app = express();
 
+  const appViews = [
+    path.join(__dirname, '../node_modules/govuk-frontend/'),
+    path.join(__dirname, '../node_modules/govuk-frontend/components'),
+    path.join(__dirname, '/views/'),
+  ];
+
   // View Engine Configuration
   app.set('views', path.join(__dirname, '../server/views'));
   app.set('view engine', 'html');
-  nunjucks.configure('server/views', {
+  nunjucks.configure(appViews, {
     express: app,
     autoescape: true,
   });
@@ -213,7 +219,10 @@ module.exports = function createApp({
   );
 
   app.use('/games', createGamesRouter({ logger }));
-  app.use('/step-by-step', createStepByStepRouter({ logger }));
+  app.use(
+    '/step-by-step',
+    createStepByStepRouter({ logger, hubContentService }),
+  );
 
   app.use('*', (req, res) => {
     res.status(404);
