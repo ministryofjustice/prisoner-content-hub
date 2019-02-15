@@ -14,7 +14,7 @@ const createHealthRouter = require('./routes/health');
 const createContentRouter = require('./routes/content');
 const createTagRouter = require('./routes/tags');
 const createGamesRouter = require('./routes/games');
-const createStepByStepRouter = require('./routes/stepByStep');
+const createGettingAJobRouter = require('./routes/gettingAJob');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const establishmentToggle = require('./middleware/establishmentToggle');
@@ -220,8 +220,8 @@ module.exports = function createApp({
 
   app.use('/games', createGamesRouter({ logger }));
   app.use(
-    '/step-by-step',
-    createStepByStepRouter({ logger, hubContentService }),
+    '/getting-a-job',
+    createGettingAJobRouter({ logger, hubContentService }),
   );
 
   app.use('*', (req, res) => {

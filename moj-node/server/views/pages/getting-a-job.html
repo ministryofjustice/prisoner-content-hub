@@ -1,4 +1,4 @@
-{% from "../components/header/macro.njk" import govukHeaderWithBack %}
+{% from "../components/header/macro.njk" import pageHeaderWithBreadcrumbs %}
 {% from "../components/step-by-step-menu/macro.njk" import hubStepByStepMenu %}
 
 
@@ -26,11 +26,12 @@
 {% endblock %}
 
 {% block header %}
-  {{ govukHeaderWithBack({
+  {{ pageHeaderWithBreadcrumbs({
     mainMenu: mainMenu,
     topicsMenu: topicsMenu,
     appName: envVars.APP_NAME,
-    features: features
+    features: features,
+    breadcrumbs: breadcrumbs
   }) }}
 {% endblock %}
 
