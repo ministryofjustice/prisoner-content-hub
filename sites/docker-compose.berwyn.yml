@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+    hub-be:
+        environment:
+            HUB_DB_ENV_MYSQL_DATABASE: hubdb
+            HUB_DB_ENV_MYSQL_USER: hubdb_user_2y478gt
+            HUB_DB_PORT_3306_TCP_ADDR: hub-db
+            HUB_EXT_FILE_URL: http://digital-hub.bwi.dpn.gov.uk:11001/sites/default/files
+            PHP_MEMORY_LIMIT: 256M
+            PHP_UPLOAD_MAX_FILE_SIZE: 500M
+            PHP_POST_MAX_SIZE: 500M
+            PIWIK_URI: //digital-hub.bwi.dpn.gov.uk:12001
+
+        volumes:
+            - /content/moj_dhub_prod001_app/usr/share/nginx/html/moj_be/sites/default/files:/var/www/html/sites/default/files
+
+    hub-db:
+        volumes:
+            - /data/hub-db:/var/lib/mysql:rw
+
+    hub-matomo:
+        volumes:
+            - /data/moj_dhub_matomo_config:/var/www/html/config:rw
+
+    hub-matomo-db:
+        volumes:
+            - /data/moj_dhub_matomo_db/var/lib/mysql/:/var/lib/mysql/
+
+    hub-node:
+        environment:
+            APP_NAME: HMP Berwyn
+            ESTABLISHMENT_NAME: berwyn
+            NODE_ENV: production
+            OLD_HUB_URL: http://digital-hub.bwi.dpn.gov.uk:10002

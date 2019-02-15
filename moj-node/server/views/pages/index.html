@@ -40,7 +40,8 @@
 
 {% block promotedContent %}
   {{ hubPromotedContent({
-    data: promotionalContent
+    data: promotionalContent,
+    dayToDay: dayToDay
   }) }}
 {% endblock %}
 
@@ -61,18 +62,6 @@
     contentType: "news-events",
     baseUrl: "/content"
   }) }}
-
-
-{{ hubFeaturedContent({
-    categoryTitle: "Day-to-day",
-    categoryLink: categoryLinks["Day-to-day"],
-    columnNumber: "govuk-grid-column-one-quarter",
-    data: dayToDay,
-    size: "small",
-    contentType: "Day-to-day",
-    baseUrl: "/content"
-  }) }}
-
 
   {{ hubFeaturedContent({
     categoryTitle: "Healthy mind and body",

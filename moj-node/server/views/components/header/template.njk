@@ -17,7 +17,33 @@
   </div>
 </header>
 
-{% if false %}
+ <div class="govuk-width-container govuk-hub-phase-banner">
+    <p class="govuk-phase-banner__content" >
+      {# <span class="govuk-phase-banner__text"> #}
+        {# This is an early version of the new Hub. You can still #}
+        {# <a class="govuk-link govuk-link--no-visited-state" href="{{ params.oldHubUrl }}" target="_blank">access the old content.</a> #}
+      {# </span> #}
+    </p>
+
+    <nav class="govuk-hub-main_navigation_banner">
+      <ul class="govuk-hub-main_navigation">
+        <li class="govuk-hub-main_navigation_current_page">
+          <span class="govuk-link" >Home<span/>
+        </li>
+        <li>
+          <a class="govuk-link" href="/styles" data-topnav="Work and Education">Work and Education</a>
+        </li>
+        <li>
+          <a class="govuk-link" href="/components" data-topnav="Induction">Induction</a>
+        </li>
+        <li>
+          <a class="govuk-link" href="/patterns" data-topnav="Getting out">Getting out</a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+  {% if false %}
   <div class="govuk-hub-header__bottombar">
     <div class="govuk-width-container  govuk-!-margin-bottom-5">
       <div class="govuk-grid-row">

@@ -19,10 +19,10 @@ services:
                 depends_on:
                         - hub-be
                 environment:
-                        HUB_API_ENDPOINT: http://hub-be/
+                        HUB_API_ENDPOINT: http://hub-be
                         APP_TIMEOUT: 60.0
                         PORT: 3000
-                        APP_NAME: HMP Berwyn
+                        APP_NAME: HMP Dev
                         MATOMO_URL: //hub-matomo/
                 ports:
                         - 10001:3000
@@ -33,7 +33,7 @@ services:
                         - hub-be
                         - hub-memcache
                 environment:
-                        API_URI: http://hub-be/
+                        API_URI: http://hub-be
                         APP_TIMEOUT: 60.0
                 ports:
                         - 10002:80
@@ -48,16 +48,15 @@ services:
                 depends_on:
                         - hub-db
                 environment:
-                - HUB_DB_ENV_MYSQL_DATABASE=hubdb
-                - HUB_DB_ENV_MYSQL_USER=hubdb_user
-                - HUB_DB_ENV_MYSQL_PASSWORD
-                - HUB_DB_PORT_3306_TCP_ADDR=hub-db
-                - HUB_EXT_FILE_URL=http://localhost:8181/sites/default/files
-                - PHP_MEMORY_LIMIT=500M
-                - PHP_UPLOAD_MAX_FILE_SIZE=500M
-                - PHP_POST_MAX_SIZE=500M
-                - SIMPLETEST_DB=mysql://hubdb_user:hubdb_pass@localhost/hubdb
-                - XDEBUG_IP=127.0.0.1 # Replace with your machines IP: $ ipconfig getifaddr en0 
+                 - HUB_DB_ENV_MYSQL_DATABASE=hubdb
+                 - HUB_DB_ENV_MYSQL_USER=hubdb_user
+                 - HUB_DB_ENV_MYSQL_PASSWORD
+                 - HUB_DB_PORT_3306_TCP_ADDR=hub-db
+                 - HUB_EXT_FILE_URL=http://localhost:8181/sites/default/files
+                 - PHP_MEMORY_LIMIT=256M
+                 - PHP_UPLOAD_MAX_FILE_SIZE=500M
+                 - PHP_POST_MAX_SIZE=500M
+                 - XDEBUG_IP=127.0.0.1 # Replace with your machines IP: $ ipconfig getifaddr en0 
                 ports:
                         - 11001:80
                 healthcheck:
