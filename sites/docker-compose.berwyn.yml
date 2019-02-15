@@ -23,7 +23,11 @@ services:
     hub-matomo:
         volumes:
             - /data/moj_dhub_matomo_config:/var/www/html/config:rw
+
+    hub-matomo-db:
+        volumes:
             - /data/moj_dhub_matomo_db/var/lib/mysql/:/var/lib/mysql/
+
     hub-node:
         environment:
             APP_NAME: HMP Berwyn
