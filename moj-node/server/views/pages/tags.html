@@ -1,4 +1,4 @@
-{% from "../components/header/macro.njk" import govukHeaderWithBack %}
+{% from "../components/header/macro.njk" import pageHeaderWithBack %}
 {% from "../components/sub-menu/macro.njk" import hubSubMenu %}
 {% from "../components/landing-page-header/macro.njk" import hubLandingPageHeader %}
 {% from "../components/related-content/macro.njk" import hubRelatedContent %}
@@ -27,7 +27,7 @@
 {% endblock %}
 
 {% block header %}
-{{ govukHeaderWithBack({
+{{ pageHeaderWithBack({
         mainMenu: mainMenu,
         topicsMenu: topicsMenu,
         appName: envVars.APP_NAME,

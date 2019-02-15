@@ -1,4 +1,4 @@
-{% from "../../components/header/macro.njk" import govukHeaderWithBack %}
+{% from "../../components/header/macro.njk" import pageHeaderWithBack %}
 {% extends "../../components/template.njk" %}
 
 {% block pageTitle %}
@@ -25,7 +25,7 @@
 {% endblock %}
 
 {% block header %}
-  {{ govukHeaderWithBack({
+  {{ pageHeaderWithBack({
     mainMenu: mainMenu,
     topicsMenu: topicsMenu,
     appName: envVars.APP_NAME,
@@ -102,7 +102,7 @@
         </div>
           <h3 class="govuk-heading-m">How to play chess</h3>
         <div class="govuk-inset-text">
-          
+
           <a href="/content/3700" target="_blank" class="govuk-link govuk-link--no-visited-state">Download the rules of chess (PDF)</a>
         </div>
       </div>
