@@ -3,7 +3,6 @@ version: "3"
 services:
     hub-be:
         environment:
-            DRUPAL_APP_URI: https://drupal.digital-hub-stage.hmpps.dsd.io
             HUB_EXT_FILE_URL: https://drupal.digital-hub-stage.hmpps.dsd.io/sites/default/files
         volumes:
             - /content/moj_dhub_prod001_app/usr/share/nginx/html/moj_be/sites/default/files:/var/www/html/sites/default/files
@@ -15,3 +14,7 @@ services:
     hub-matomo:
         volumes:
             - /data/moj_dhub_matomo_config:/var/www/html/config:rw
+
+    hub-node:
+        environment:
+            APP_NAME: HMP Staging
