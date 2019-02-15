@@ -5,3 +5,8 @@ module.exports.HUB_CONTENT_TYPES = {
   landing_page: 'landing-page',
   page: 'page',
 };
+
+module.exports.ESTABLISHMENTS = {
+  792: 'Berwyn',
+  793: 'Wayland',
+};

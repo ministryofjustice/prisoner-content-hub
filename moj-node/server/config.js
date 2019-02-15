@@ -4,7 +4,7 @@ const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
 const drupalAppUrl = getEnv('DRUPAL_APP_URI', { requireInProduction: true });
 
 module.exports = {
-  appName: getEnv('APP_NAME', 'Test application', {
+  appName: getEnv('APP_NAME', 'HMP Hub Local', {
     requireInProduction: true,
   }),
   featureTogglesEnabled: Boolean(getEnv('ENABLE_FEATURE_TOGGLES', true)),

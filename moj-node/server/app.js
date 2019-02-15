@@ -1,13 +1,15 @@
+// eslint-disable-next-line import/order
+const config = require('../server/config');
+
 const express = require('express');
 const addRequestId = require('express-request-id')();
 const compression = require('compression');
 const helmet = require('helmet');
-const log = require('bunyan-request-logger')();
+const log = require('bunyan-request-logger')({ name: config.appName });
 const nunjucks = require('nunjucks');
 const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('cookie-session');
-const config = require('../server/config');
 
 const createIndexRouter = require('./routes/index');
 const createHealthRouter = require('./routes/health');
@@ -220,8 +222,8 @@ module.exports = function createApp({
 
   app.use('/games', createGamesRouter({ logger }));
   app.use(
-    '/getting-a-job',
-    createGettingAJobRouter({ logger, hubContentService }),
+    ['/working-in-wayland', '/working-in-berwyn'],
+    createGettingAJobRouter({ logger, hubContentService, hubMenuService }),
   );
 
   app.use('*', (req, res) => {

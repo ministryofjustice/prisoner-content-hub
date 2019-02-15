@@ -40,18 +40,12 @@
     <main class="govuk-main-wrapper govuk-body">
       <div class="govuk-grid-row govuk-!-margin-bottom-9">
         <div class="govuk-grid-column-two-thirds">
-          <h1 class="govuk-heading-l">Working in Berwyn</h1>
-            <p>Check what you need to do to get a job in Berwyn.</p>
+          <h1 class="govuk-heading-l">{{data.title}}</h1>
+          <p>{{data.standFirst}}</p>
 
-            {{ hubStepByStepMenu({ data: data.menu }) }}
+          {{ hubStepByStepMenu({ data: data.menu }) }}
         </div>
       </div>
-
-      {% if backHomeEnabled %}
-        <div>
-          <a href="/" class="govuk-button">Back to home</a>
-        </div>
-      {% endif %}
     </main>
   </div>
 {% endblock %}

@@ -2,6 +2,11 @@ const R = require('ramda');
 const config = require('../config');
 const { tagIdFrom, nameFrom } = require('../selectors/hub');
 
+const berwynNav = require('../data/berwyn-homepage-nav.json');
+const waylandNav = require('../data/wayland-homepage-nav.json');
+const berwynGAJMenu = require('../data/berwyn-step-by-step.json');
+const waylandGAJMenu = require('../data/wayland-step-by-step.json');
+
 function hubMenuRepository(httpClient) {
   async function mainMenu() {
     const response = await httpClient.get(config.api.hubMenu, {
@@ -20,6 +25,28 @@ function hubMenuRepository(httpClient) {
       _menu: 'series',
     });
     return parseMenuResponse(response);
+  }
+
+  function homepageMenu(prisonId) {
+    switch (prisonId) {
+      case 792:
+        return berwynNav;
+      case 793:
+        return waylandNav;
+      default:
+        return [];
+    }
+  }
+
+  function gettingAJobMenu(prisonId) {
+    switch (prisonId) {
+      case 792:
+        return berwynGAJMenu;
+      case 793:
+        return waylandGAJMenu;
+      default:
+        return [];
+    }
   }
 
   function parseMenuResponse(data = []) {
@@ -46,6 +73,8 @@ function hubMenuRepository(httpClient) {
     mainMenu,
     tagsMenu,
     seriesMenu,
+    homepageMenu,
+    gettingAJobMenu,
   };
 }
 

@@ -39,10 +39,24 @@
 } %}
 
 {% block promotedContent %}
+  <nav class="govuk-hub-main_navigation_banner">
+    <ul class="govuk-hub-main_navigation">
+      <li class="govuk-hub-main_navigation_current_page">
+        <span class="govuk-link" >Home<span/>
+      </li>
+      {%  for menuItem in homepageMenu %}
+        <li>
+          <a class="govuk-link govuk-link--no-visited-state" href="{{menuItem.href}}" data-topnav="{{menuItem.title}}">{{menuItem.title}}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+
   {{ hubPromotedContent({
     data: promotionalContent,
     dayToDay: dayToDay
   }) }}
+
 {% endblock %}
 
 {% block subMenu %}

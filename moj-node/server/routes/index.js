@@ -34,6 +34,7 @@ module.exports = function Index({
         ...featuredContent,
         promotionalContent,
         seriesMenu,
+        homepageMenu: hubMenuService.homepageMenu(establishmentId),
         config,
       });
     } catch (exception) {
