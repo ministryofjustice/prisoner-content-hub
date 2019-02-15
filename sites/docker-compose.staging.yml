@@ -17,4 +17,4 @@ services:
 
     hub-node:
         environment:
-            APP_NAME: HMP Staging
+            APP_NAME: Staging
