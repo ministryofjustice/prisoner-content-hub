@@ -30,4 +30,5 @@ services:
 
     hub-node:
         environment:
-            APP_NAME: Berwyn
+            APP_NAME: HMP Berwyn
+            ESTABLISHMENT_NAME: berwyn

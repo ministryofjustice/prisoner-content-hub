@@ -17,4 +17,5 @@ services:
 
     hub-node:
         environment:
-            APP_NAME: Staging
+            APP_NAME: HMP Staging
+            ESTABLISHMENT_NAME: berwyn
