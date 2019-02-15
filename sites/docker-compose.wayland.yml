@@ -30,3 +30,4 @@ services:
          environment:
              APP_NAME: HMP Wayland
              ESTABLISHMENT_NAME: wayland
+             OLD_HUB_URL: http://digital-hub.wli.dpn.gov.uk:10002

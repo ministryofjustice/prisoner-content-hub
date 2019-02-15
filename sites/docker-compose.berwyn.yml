@@ -12,7 +12,6 @@ services:
             PHP_POST_MAX_SIZE: 500M
             PIWIK_URI: //digital-hub.bwi.dpn.gov.uk:12001
 
-
         volumes:
             - /content/moj_dhub_prod001_app/usr/share/nginx/html/moj_be/sites/default/files:/var/www/html/sites/default/files
 
@@ -32,3 +31,5 @@ services:
         environment:
             APP_NAME: HMP Berwyn
             ESTABLISHMENT_NAME: berwyn
+            NODE_ENV: production
+            OLD_HUB_URL: http://digital-hub.bwi.dpn.gov.uk:10002
