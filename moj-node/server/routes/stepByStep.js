@@ -1,4 +1,5 @@
 const express = require('express');
+const brewynSbSMenu = require('../data/berwyn-step-by-step.json');
 
 module.exports = function createStepByStepRouter({ logger }) {
   const router = express.Router();
@@ -8,17 +9,19 @@ module.exports = function createStepByStepRouter({ logger }) {
 
     return res.render('pages/step-by-step', {
       data: {
-        title: 'step-by-step',
+        title: 'Working in Berwyn',
+        menu: brewynSbSMenu,
       },
     });
   });
 
-  router.get('/side-bar', (req, res) => {
-    logger.info('GET /step-by-step-side-bar');
+  router.get('/:id', (req, res) => {
+    logger.info(`GET /step-by-step/${req.params.id}`);
 
-    return res.render('pages/step-by-step-side-bar', {
+    return res.render('pages/step-by-step-content', {
       data: {
         title: 'step-by-step-side-bar',
+        menu: brewynSbSMenu,
       },
     });
   });
