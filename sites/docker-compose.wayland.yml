@@ -32,3 +32,4 @@ services:
              ESTABLISHMENT_NAME: wayland
              OLD_HUB_URL: http://digital-hub.wli.dpn.gov.uk:10002
              DRUPAL_APP_URI: http://digital-hub.wli.dpn.gov.uk:11001
+             MATOMO_URL: digital-hub.wli.dpn.gov.uk:12001
