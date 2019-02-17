@@ -294,6 +294,10 @@
   text-shadow: 0 -0.1em 0 #fff, 0.1em 0 0 #fff, 0 0.1em 0 #fff, -0.1em 0 0 #fff;
 }
 
+.app-step-nav__step:first-child .app-step-nav__header {
+  border-top: none;
+}
+
 .app-step-nav__header {
   padding: 15px 0;
   border-top: solid 2px govuk-colour('grey-3');
