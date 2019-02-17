@@ -4,3 +4,4 @@ assets/javascript/games
 package-lock.json
 assets/stylesheets
 assets/javascript/polyfills.js
+.vscode
