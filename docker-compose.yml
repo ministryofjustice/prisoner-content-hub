@@ -2,6 +2,7 @@ version: "3"
 
 services:
         hub-db:
+                container_name: hub-db
                 image: mojdigitalstudio/digital-hub-db
                 environment:
                  - MYSQL_ROOT_PASSWORD
@@ -13,6 +14,7 @@ services:
                 image: memcached
 
         hub-node:
+                container_name: hub-node
                 image: mojdigitalstudio/digital-hub-node
                 user: "node"
                 working_dir: /home/node/app
@@ -28,6 +30,7 @@ services:
                         - 10001:3000
 
         hub-fe:
+                container_name: hub-fe
                 image: mojdigitalstudio/digital-hub-fe
                 depends_on:
                         - hub-be
@@ -44,6 +47,7 @@ services:
                         retries: 1
 
         hub-be:
+                container_name: hub-be
                 image: mojdigitalstudio/digital-hub-be
                 depends_on:
                         - hub-db
@@ -66,6 +70,7 @@ services:
                         retries: 1
 
         hub-matomo:
+                container_name: hub-matomo
                 image: matomo:3-apache
                 depends_on:
                         - hub-matomo-db
@@ -75,6 +80,7 @@ services:
                         - hub-matomo-db
 
         hub-matomo-db:
+                container_name: hub-matomo-db
                 image: mariadb
                 environment:
                         MYSQL_ROOT_PASSWORD: password
