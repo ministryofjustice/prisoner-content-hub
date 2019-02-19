@@ -1,0 +1,193 @@
+const fromHTML = require('from-html/lib/from-html.js');
+const feedbackWidgetTemplate = require('./templates/feedbackWidget');
+
+const feedbackTracker = require('../../assets/javascript/feedback-tracking');
+
+function render() {
+  const { container: frag, thumbsUp, thumbsDown, feedbackForm } = fromHTML(
+    feedbackWidgetTemplate,
+  );
+  const container = document.createElement('DIV');
+
+  container.appendChild(frag);
+
+  feedbackTracker(container);
+
+  return {
+    container,
+    thumbsUp,
+    thumbsDown,
+    feedbackForm,
+  };
+}
+
+describe('Feedback tracker', () => {
+  beforeEach(() => {
+    global._paq = [];
+  });
+
+  afterEach(() => {
+    delete global._paq;
+  });
+
+  describe('when the thumbs up is clicked (LIKE)', () => {
+    it("enqueues an event to piwik's _paq", () => {
+      expect(_paq.length).to.equal(0);
+
+      const { thumbsUp } = render();
+
+      thumbsUp.click();
+
+      expect(_paq.length).to.equal(2);
+    });
+
+    it('correctly formats data to be sent to Piwik', () => {
+      expect(_paq.length).to.equal(0);
+
+      const { thumbsUp } = render();
+
+      thumbsUp.click();
+
+      const event = _paq[1];
+
+      testEventContents(event, {
+        eventAction: 'LIKE',
+        eventValue: '1',
+        action: 'LIKE',
+      });
+    });
+  });
+
+  describe('when the thumbs up is clicked (UNLIKE)', () => {
+    it('correctly formats data to be sent to Piwik', () => {
+      expect(_paq.length).to.equal(0);
+
+      const { thumbsUp } = render();
+
+      thumbsUp.click();
+      thumbsUp.click();
+
+      const event = _paq[3];
+
+      testEventContents(event, {
+        eventAction: 'UNLIKE',
+        eventValue: '0',
+        action: 'UNLIKE',
+      });
+    });
+  });
+
+  describe('when the thumbs down is clicked (DISLIKE)', () => {
+    it('correctly formats data to be sent to Piwik', () => {
+      expect(_paq.length).to.equal(0);
+
+      const { thumbsDown } = render();
+
+      thumbsDown.click();
+
+      const event = _paq[3];
+
+      testEventContents(event, {
+        eventAction: 'DISLIKE',
+        eventValue: '-1',
+        action: 'DISLIKE',
+      });
+    });
+  });
+
+  describe('when the thumbs down is clicked (UNDISLIKE)', () => {
+    it('correctly formats data to be sent to Piwik', () => {
+      expect(_paq.length).to.equal(0);
+
+      const { thumbsDown } = render();
+
+      thumbsDown.click();
+
+      const event = _paq[3];
+
+      testEventContents(event, {
+        eventAction: 'UNDISLIKE',
+        eventValue: '-1',
+        action: 'UNDISLIKE',
+      });
+    });
+  });
+});
+
+function testEventContents(event, expectedConfig) {
+  const expected = {
+    trackEvent: 'trackEvent',
+    eventCategory: 'video',
+    eventAction: 'LIKE',
+    eventValue: '0',
+    title: 'foo-name',
+    pageUrl: '/',
+    action: 'LIKE',
+    category: 'video',
+    series: 'foo-series',
+    timeSpentOfPage: '0',
+    visitorId: 'ID_NOT_FOUND',
+    establishment: 'foo-establishment',
+    ...expectedConfig,
+  };
+
+  const [trackEvent, eventCategory, eventAction, eventName, eventValue] = event;
+
+  expect(trackEvent).to.equal(expected.trackEvent, 'trackEvent did not match');
+  expect(eventCategory).to.equal(
+    expected.eventCategory,
+    'eventCategory did not match',
+  );
+  expect(eventAction).to.equal(
+    expected.eventAction,
+    'eventAction did not match',
+  );
+  expect(eventName.length).to.be.greaterThan(3, 'eventName was empty');
+  expect(eventValue).to.equal(expected.eventValue, 'eventValue did not match');
+
+  const [
+    title,
+    pageUrl,
+    action,
+    timestamp,
+    category,
+    series,
+    timeSpentOfPage,
+    visitorId,
+    establishment,
+  ] = eventName.split('|');
+
+  expect(title).to.equal(
+    expected.title,
+    'the title in eventName did not match',
+  );
+  expect(pageUrl).to.equal(
+    expected.pageUrl,
+    'the url in eventName did not match',
+  );
+  expect(action).to.equal('UNLIKE', 'the action in eventName did not match');
+  expect(timestamp).to.match(
+    /\w{13,}/,
+    'the timestamp in eventName was invalid',
+  );
+  expect(category).to.equal(
+    expected.category,
+    'the category in eventName did not match',
+  );
+  expect(series).to.equal(
+    expected.series,
+    'the series in eventName did not match',
+  );
+  expect(timeSpentOfPage).to.equal(
+    expected.timeSpentOfPage,
+    'the timeSpentOnPage in eventName did not match',
+  );
+  expect(visitorId).to.equal(
+    expected.visitorId,
+    'the visitorId in eventName did not match',
+  );
+  expect(establishment).to.equal(
+    expected.establishment,
+    'the establishment in eventName did not match',
+  );
+}
