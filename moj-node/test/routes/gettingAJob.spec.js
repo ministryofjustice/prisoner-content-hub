@@ -31,7 +31,7 @@ const setPrisonMiddleware = establishmentId => (req, res, next) => {
   next();
 };
 
-describe('GET /working-in-(berwyn|wayland)', () => {
+xdescribe('GET /working-in-(berwyn|wayland)', () => {
   describe('/', () => {
     const router = createGettingAJobRouter({
       logger,
