@@ -22,7 +22,7 @@ module.exports = `
       data-item-action="DISLIKE"
       data-item-value="-1"
       data-item-series="foo-series"
-      data-item-establishment="foo-establishemt"
+      data-item-establishment="foo-establishment"
     ></div>
   </div>
 
@@ -30,14 +30,14 @@ module.exports = `
     <strong data-item-feedback-text></strong>
   </div>
   <form class="govuk-u-hidden"
-    ref="feebackForm"
+    ref="feedbackForm"
     data-item-comment=""
     data-item-category=""
     data-item-name=""
     data-item-action=""
     data-item-value=""
     data-item-series=""
-    data-item-establishment="foo-establishemt">
+    data-item-establishment="foo-establishment">
     <textarea
       data-item-comment-box=""
       id="more-detail"

@@ -77,6 +77,28 @@ describe('Feedback tracker', () => {
     });
   });
 
+  describe('when you send feedback after liking content', () => {
+    it('correctly formats data to be sent to Piwik', () => {
+      expect(_paq.length).to.equal(0);
+
+      const { thumbsUp, feedbackForm } = render();
+
+      thumbsUp.click();
+
+      feedbackForm.querySelector('textarea').value = 'foo content';
+
+      feedbackForm.submit();
+
+      const event = _paq[2];
+
+      testEventContents(event, {
+        eventAction: 'LIKE - foo content',
+        eventValue: '1',
+        action: 'LIKE',
+      });
+    });
+  });
+
   describe('when the thumbs down is clicked (DISLIKE)', () => {
     it('correctly formats data to be sent to Piwik', () => {
       expect(_paq.length).to.equal(0);
@@ -85,7 +107,7 @@ describe('Feedback tracker', () => {
 
       thumbsDown.click();
 
-      const event = _paq[3];
+      const event = _paq[1];
 
       testEventContents(event, {
         eventAction: 'DISLIKE',
@@ -102,13 +124,36 @@ describe('Feedback tracker', () => {
       const { thumbsDown } = render();
 
       thumbsDown.click();
+      thumbsDown.click();
 
       const event = _paq[3];
 
       testEventContents(event, {
         eventAction: 'UNDISLIKE',
-        eventValue: '-1',
+        eventValue: '0',
         action: 'UNDISLIKE',
+      });
+    });
+  });
+
+  describe('when you send feedback after disliking content', () => {
+    it('correctly formats data to be sent to Piwik', () => {
+      expect(_paq.length).to.equal(0);
+
+      const { thumbsDown, feedbackForm } = render();
+
+      thumbsDown.click();
+
+      feedbackForm.querySelector('textarea').value = 'foo content';
+
+      feedbackForm.submit();
+
+      const event = _paq[2];
+
+      testEventContents(event, {
+        eventAction: 'DISLIKE - foo content',
+        eventValue: '-1',
+        action: 'DISLIKE',
       });
     });
   });
@@ -165,7 +210,10 @@ function testEventContents(event, expectedConfig) {
     expected.pageUrl,
     'the url in eventName did not match',
   );
-  expect(action).to.equal('UNLIKE', 'the action in eventName did not match');
+  expect(action).to.equal(
+    expected.action,
+    'the action in eventName did not match',
+  );
   expect(timestamp).to.match(
     /\w{13,}/,
     'the timestamp in eventName was invalid',

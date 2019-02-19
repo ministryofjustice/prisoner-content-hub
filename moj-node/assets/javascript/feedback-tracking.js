@@ -127,7 +127,7 @@
     }
 
     function handleTextBoxInput(event) {
-      var characterCountElem = document.querySelector('[data-item-counter]');
+      var characterCountElem = rootElement.querySelector('[data-item-counter]');
       var charCount = commentBox.value.length;
       var charMax = commentBox.getAttribute('maxlength');
 
@@ -135,7 +135,7 @@
     }
 
     function updateCommentBoxDetails(details) {
-      var commentBoxForm = document.querySelector('[data-item-comment]');
+      var commentBoxForm = rootElement.querySelector('[data-item-comment]');
 
       if (!commentBoxForm) return;
 
@@ -146,7 +146,7 @@
     }
 
     function revealCommentBoxForm() {
-      var commentBoxForm = document.querySelector('[data-item-comment]');
+      var commentBoxForm = rootElement.querySelector('[data-item-comment]');
 
       if (!commentBoxForm) return;
 
@@ -158,7 +158,7 @@
     }
 
     function deselectThumbs() {
-      var thumbs = document.querySelectorAll('[data-item-feedback]');
+      var thumbs = rootElement.querySelectorAll('[data-item-feedback]');
 
       Array.from(thumbs).forEach(function(thumb) {
         thumb.classList.remove('is-selected');
@@ -166,7 +166,7 @@
     }
 
     function hideCommentBoxForm() {
-      var commentBoxForm = document.querySelector('[data-item-comment]');
+      var commentBoxForm = rootElement.querySelector('[data-item-comment]');
 
       if (!commentBoxForm) return;
       commentBoxForm.querySelector('textarea').value = '';
