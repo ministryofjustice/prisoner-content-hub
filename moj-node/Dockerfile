@@ -16,13 +16,18 @@ RUN npm install
 # Bundle app source
 COPY . /home/node/app
 
+# Add curl
+RUN apk add --update \
+  curl \
+  && rm -rf /var/cache/apk/*
+
 # Generate styles
 RUN ./node_modules/node-sass/bin/node-sass $@ \
-    --include-path node_modules/govuk_frontend_toolkit/stylesheets \
-    --include-path node_modules/govuk_template_jinja/assets/stylesheets \
-    --include-path node_modules/govuk-elements-sass/public/sass \
-    /home/node/app/assets/sass/style.scss \
-    /home/node/app/assets/stylesheets/application.css
+  --include-path node_modules/govuk_frontend_toolkit/stylesheets \
+  --include-path node_modules/govuk_template_jinja/assets/stylesheets \
+  --include-path node_modules/govuk-elements-sass/public/sass \
+  /home/node/app/assets/sass/style.scss \
+  /home/node/app/assets/stylesheets/application.css
 
 # Run application verification
 RUN npm run verify
