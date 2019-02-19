@@ -22,7 +22,7 @@ const writePath = (process.argv[3] || './csv-exports').replace(/[/]+$/, '');
 console.log('Downloading data:');
 
 request
-  .get('http://digital-hub.bwi.dpn.gov.uk:12002/index.php')
+  .get('http://digital-hub.bwi.dpn.gov.uk:12001/index.php')
   .query({
     date: dateRange,
     expanded: '1',
@@ -117,8 +117,8 @@ function getDataFromLabel(label) {
     series,
     action,
     date: formatDate(new Date(+date), 'DD MMMM YYYY'),
-    time: formatDate(new Date(+date), 'HH:mm a'),
-    time_spent_to_action,
+    time: formatDate(new Date(+date), 'HH:mm'),
+    time_spent_to_action: fmtMSS(+time_spent_to_action || 0),
     visitor_id,
     establishment,
   };
@@ -142,4 +142,16 @@ function generateCSVData(data) {
   const csv = json2csvParser.parse(data);
 
   return csv;
+}
+
+function fmtMSS(s) {
+  const hours = padWithZero(Math.floor(s / 3600));
+  const minutes = padWithZero(Math.floor((s / 60) % 60));
+  const seconds = padWithZero(s % 60);
+
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+function padWithZero(n) {
+  return n < 10 ? `0${n}` : n;
 }
