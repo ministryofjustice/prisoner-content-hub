@@ -27,7 +27,7 @@ module.exports = `
   </div>
 
   <div>
-    <strong data-item-feedback-text></strong>
+    <strong ref="feedbackActionText" data-item-feedback-text></strong>
   </div>
   <form class="govuk-u-hidden"
     ref="feedbackForm"

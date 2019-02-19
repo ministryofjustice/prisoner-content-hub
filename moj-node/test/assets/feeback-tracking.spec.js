@@ -4,9 +4,13 @@ const feedbackWidgetTemplate = require('./templates/feedbackWidget');
 const feedbackTracker = require('../../assets/javascript/feedback-tracking');
 
 function render() {
-  const { container: frag, thumbsUp, thumbsDown, feedbackForm } = fromHTML(
-    feedbackWidgetTemplate,
-  );
+  const {
+    container: frag,
+    thumbsUp,
+    thumbsDown,
+    feedbackForm,
+    feedbackActionText,
+  } = fromHTML(feedbackWidgetTemplate);
   const container = document.createElement('DIV');
 
   container.appendChild(frag);
@@ -18,6 +22,7 @@ function render() {
     thumbsUp,
     thumbsDown,
     feedbackForm,
+    feedbackActionText,
   };
 }
 
@@ -55,6 +60,16 @@ describe('Feedback tracker', () => {
         eventValue: '1',
         action: 'LIKE',
       });
+    });
+
+    it('updates the user with information about the action', () => {
+      const { thumbsUp, feedbackActionText } = render();
+
+      expect(feedbackActionText.textContent).to.equal('');
+
+      thumbsUp.click();
+
+      expect(feedbackActionText.textContent).to.include('I like this');
     });
   });
 
@@ -114,6 +129,16 @@ describe('Feedback tracker', () => {
         eventValue: '-1',
         action: 'DISLIKE',
       });
+    });
+
+    it('updates the user with information about the action', () => {
+      const { thumbsDown, feedbackActionText } = render();
+
+      expect(feedbackActionText.textContent).to.equal('');
+
+      thumbsDown.click();
+
+      expect(feedbackActionText.textContent).to.include('I do not like this');
     });
   });
 
