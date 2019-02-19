@@ -41,6 +41,7 @@
 }
 
 .app-step-nav-related--singular {
+  margin-top: 85px;
   margin-bottom: 13px;
 
   .app-step-nav-related__heading {
@@ -304,16 +305,16 @@
 }
 
 .app-step-nav--active .app-step-nav__header {
-  cursor: pointer;
+  color: inherit;
 }
 
 .app-step-nav__header:hover .app-step-nav__button,
 .app-step-nav__header:hover .app-step-nav__circle {
-  color: $govuk-link-colour;
+  color: inherit;
 }
 
 .app-step-nav__header:hover .app-step-nav__toggle-link {
-  text-decoration: underline;
+  color: inherit;
 }
 
 @include govuk-media-query($from: tablet) {
@@ -351,7 +352,7 @@
   @include govuk-font(16);
   line-height: 1.2;
   display: block;
-  color: $govuk-link-colour;
+  // color: $govuk-link-colour;
 }
 
 .app-step-nav--large .app-step-nav__toggle-link {

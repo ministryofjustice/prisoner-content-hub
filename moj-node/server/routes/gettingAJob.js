@@ -12,6 +12,7 @@ module.exports = function createStepByStepRouter({
     logger.info(`GET ${req.originalUrl}`);
 
     const { establishmentId } = req.app.locals.envVars;
+
     const establishmentName = ESTABLISHMENTS[establishmentId];
     const title = `Working in ${establishmentName}`;
     const standFirst = {
