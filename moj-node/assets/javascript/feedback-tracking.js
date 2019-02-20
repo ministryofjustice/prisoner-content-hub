@@ -1,193 +1,203 @@
-var commentBox = document.querySelector('[data-item-comment-box]');
-var feedbackText = document.querySelector('[data-item-feedback-text]');
-var startTime = Date.now();
-var types = {
-  video: 'video',
-  radio: 'podcast',
-  page: 'article',
-};
-
-document.body.addEventListener('click', function(event) {
-  if (event.target.matches('[data-item-feedback]')) {
-    var details = {
-      name: generateEventName(event.target),
-      category: types[event.target.getAttribute('data-item-category')],
-      action: event.target.getAttribute('data-item-action'),
-      value: event.target.getAttribute('data-item-value'),
+(function() {
+  var feedbackTracker = function(rootElement) {
+    var commentBox = rootElement.querySelector('[data-item-comment-box]');
+    var feedbackText = rootElement.querySelector('[data-item-feedback-text]');
+    var startTime = Date.now();
+    var types = {
+      video: 'video',
+      radio: 'podcast',
+      page: 'article',
     };
 
-    var isActive = event.target.classList.contains('is-selected');
+    rootElement.addEventListener('click', function(event) {
+      if (event.target.matches('[data-item-feedback]')) {
+        var details = {
+          name: generateEventName(event.target),
+          category: types[event.target.getAttribute('data-item-category')],
+          action: event.target.getAttribute('data-item-action'),
+          value: event.target.getAttribute('data-item-value'),
+        };
 
-    clearFeedbackText();
+        var isActive = event.target.classList.contains('is-selected');
 
-    if (isActive) {
-      hideCommentBoxForm();
-      deselectThumbs();
-      sendUnSelectFeedbackEvent(details);
-    } else {
-      deselectThumbs();
-      updateFeedbackText(details.action, details.category);
-      sendFeedbackEvent(details);
-      selectThumb(event.target);
-      updateCommentBoxDetails(details);
-      revealCommentBoxForm();
+        clearFeedbackText();
+
+        if (isActive) {
+          hideCommentBoxForm();
+          deselectThumbs();
+          sendUnSelectFeedbackEvent(details);
+        } else {
+          deselectThumbs();
+          updateFeedbackText(details.action, details.category);
+          sendFeedbackEvent(details);
+          selectThumb(event.target);
+          updateCommentBoxDetails(details);
+          revealCommentBoxForm();
+        }
+      }
+
+      return false;
+    });
+
+    rootElement.addEventListener('submit', function(event) {
+      if (event.target.matches('[data-item-comment]')) {
+        event.preventDefault();
+        var action = event.target.getAttribute('data-item-action');
+        var comment = event.target.querySelector('textarea').value;
+        var details = {
+          name: event.target.getAttribute('data-item-name'),
+          category: event.target.getAttribute('data-item-category'),
+          action: action + ' - ' + comment,
+          value: event.target.getAttribute('data-item-value'),
+        };
+
+        sendFeedbackEvent(details);
+        disableFormSubmit(event.target);
+        setTimeout(function() {
+          hideCommentBoxForm();
+          enableFormSubmit(event.target);
+        }, 1500);
+      }
+
+      return false;
+    });
+
+    if (commentBox) {
+      commentBox.addEventListener('keyup', handleTextBoxInput);
+      commentBox.addEventListener('paste', function(event) {
+        setTimeout(function() {
+          handleTextBoxInput(event);
+        }, 1);
+      });
     }
-  }
 
-  return false;
-});
+    function generateEventName(element) {
+      // title | PageURL | Like/DISLIKE | Time/Date | ContentType | Series | Time take react | visitor ID | Establishment
+      var name = [
+        element.getAttribute('data-item-name'),
+        window.location.pathname,
+        element.getAttribute('data-item-action'),
+        Date.now(),
+        types[element.getAttribute('data-item-category')],
+        element.getAttribute('data-item-series'),
+        calculateTimeToAction(),
+        getVisitorId(),
+        element.getAttribute('data-item-establishment'),
+      ];
 
-document.body.addEventListener('submit', function(event) {
-  if (event.target.matches('[data-item-comment]')) {
-    event.preventDefault();
-    var action = event.target.getAttribute('data-item-action');
-    var comment = event.target.querySelector('textarea').value;
-    var details = {
-      name: event.target.getAttribute('data-item-name'),
-      category: event.target.getAttribute('data-item-category'),
-      action: action + ' - ' + comment,
-      value: event.target.getAttribute('data-item-value'),
-    };
+      return name.join('|');
+    }
 
-    sendFeedbackEvent(details);
-    disableFormSubmit(event.target);
-    setTimeout(function() {
-      hideCommentBoxForm();
-      enableFormSubmit(event.target);
-    }, 1500);
-  }
+    function calculateTimeToAction() {
+      return Math.floor((Date.now() - startTime) / 1000);
+    }
 
-  return false;
-});
+    function getVisitorId() {
+      var visitor_id;
+      _paq.push([
+        function() {
+          visitor_id = this.getVisitorId();
+        },
+      ]);
+      return visitor_id || 'ID_NOT_FOUND';
+    }
 
-if (commentBox) {
-  commentBox.addEventListener('keyup', handleTextBoxInput);
-  commentBox.addEventListener('paste', function(event) {
-    setTimeout(function() {
-      handleTextBoxInput(event);
-    }, 1);
-  });
-}
+    function sendFeedbackEvent(config) {
+      if (!_paq) return;
 
-function generateEventName(element) {
-  // title | PageURL | Like/DISLIKE | Time/Date | ContentType | Series | Time take react | visitor ID | Establishment
-  var name = [
-    element.getAttribute('data-item-name'),
-    window.location.pathname,
-    element.getAttribute('data-item-action'),
-    Date.now(),
-    types[element.getAttribute('data-item-category')],
-    element.getAttribute('data-item-series'),
-    calculateTimeToAction(),
-    getVisitorId(),
-    element.getAttribute('data-item-establishment'),
-  ];
+      var event = ['trackEvent', config.category, config.action, config.name];
 
-  return name.join('|');
-}
+      if (config.value) {
+        event.push(config.value);
+      }
 
-function calculateTimeToAction() {
-  return Math.floor((Date.now() - startTime) / 1000);
-}
+      _paq.push(event);
+    }
 
-function getVisitorId() {
-  var visitor_id;
-  _paq.push([
-    function() {
-      visitor_id = this.getVisitorId();
-    },
-  ]);
-  return visitor_id || 'ID_NOT_FOUND';
-}
+    function sendUnSelectFeedbackEvent(config) {
+      var likeDislikeRegex = /\|(DIS)?LIKE\|/i;
+      var newAction = '|' + 'UN' + config.action + '|';
+      var newConfig = Object.assign(config, {
+        name: config.name.replace(likeDislikeRegex, newAction),
+        action: 'UN' + config.action,
+        value: '0',
+      });
 
-function sendFeedbackEvent(config) {
-  if (!_paq) return;
+      sendFeedbackEvent(newConfig);
+    }
 
-  var event = ['trackEvent', config.category, config.action, config.name];
+    function handleTextBoxInput(event) {
+      var characterCountElem = rootElement.querySelector('[data-item-counter]');
+      var charCount = commentBox.value.length;
+      var charMax = commentBox.getAttribute('maxlength');
 
-  if (config.value) {
-    event.push(config.value);
-  }
+      characterCountElem.textContent = charMax - charCount;
+    }
 
-  _paq.push(event);
-}
+    function updateCommentBoxDetails(details) {
+      var commentBoxForm = rootElement.querySelector('[data-item-comment]');
 
-function sendUnSelectFeedbackEvent(config) {
-  var likeDislikeRegex = /\|(DIS)?LIKE\|/i;
-  const newAction = '|' + 'UN' + config.action + '|';
-  var newConfig = Object.assign(config, {
-    name: config.name.replace(likeDislikeRegex, newAction),
-    action: 'UN' + config.action,
-    value: '0',
-  });
+      if (!commentBoxForm) return;
 
-  sendFeedbackEvent(newConfig);
-}
+      commentBoxForm.setAttribute('data-item-name', details.name);
+      commentBoxForm.setAttribute('data-item-category', details.category);
+      commentBoxForm.setAttribute('data-item-action', details.action);
+      commentBoxForm.setAttribute('data-item-value', details.value);
+    }
 
-function handleTextBoxInput(event) {
-  var characterCountElem = document.querySelector('[data-item-counter]');
-  var charCount = commentBox.value.length;
-  var charMax = commentBox.getAttribute('maxlength');
+    function revealCommentBoxForm() {
+      var commentBoxForm = rootElement.querySelector('[data-item-comment]');
 
-  characterCountElem.textContent = charMax - charCount;
-}
+      if (!commentBoxForm) return;
 
-function updateCommentBoxDetails(details) {
-  var commentBoxForm = document.querySelector('[data-item-comment]');
+      commentBoxForm.classList.remove('govuk-u-hidden');
+    }
 
-  if (!commentBoxForm) return;
+    function selectThumb(element) {
+      element.classList.add('is-selected');
+    }
 
-  commentBoxForm.setAttribute('data-item-name', details.name);
-  commentBoxForm.setAttribute('data-item-category', details.category);
-  commentBoxForm.setAttribute('data-item-action', details.action);
-  commentBoxForm.setAttribute('data-item-value', details.value);
-}
+    function deselectThumbs() {
+      var thumbs = rootElement.querySelectorAll('[data-item-feedback]');
 
-function revealCommentBoxForm() {
-  var commentBoxForm = document.querySelector('[data-item-comment]');
+      Array.from(thumbs).forEach(function(thumb) {
+        thumb.classList.remove('is-selected');
+      });
+    }
 
-  if (!commentBoxForm) return;
+    function hideCommentBoxForm() {
+      var commentBoxForm = rootElement.querySelector('[data-item-comment]');
 
-  commentBoxForm.classList.remove('govuk-u-hidden');
-}
+      if (!commentBoxForm) return;
+      commentBoxForm.querySelector('textarea').value = '';
+      commentBoxForm.classList.add('govuk-u-hidden');
+      handleTextBoxInput();
+    }
 
-function selectThumb(element) {
-  element.classList.add('is-selected');
-}
+    function clearFeedbackText() {
+      feedbackText.textContent = '';
+    }
 
-function deselectThumbs() {
-  var thumbs = document.querySelectorAll('[data-item-feedback]');
+    function updateFeedbackText(feedback, type) {
+      if (feedback === 'LIKE') {
+        feedbackText.textContent = 'I like this ' + type;
+      } else {
+        feedbackText.textContent = 'I do not like this ' + type;
+      }
+    }
 
-  Array.from(thumbs).forEach(function(thumb) {
-    thumb.classList.remove('is-selected');
-  });
-}
+    function disableFormSubmit(element) {
+      element.querySelector('button').setAttribute('disabled', 'true');
+    }
 
-function hideCommentBoxForm() {
-  var commentBoxForm = document.querySelector('[data-item-comment]');
+    function enableFormSubmit(element) {
+      element.querySelector('button').removeAttribute('disabled');
+    }
+  };
 
-  if (!commentBoxForm) return;
-  commentBoxForm.querySelector('textarea').value = '';
-  commentBoxForm.classList.add('govuk-u-hidden');
-  handleTextBoxInput();
-}
-
-function clearFeedbackText() {
-  feedbackText.textContent = '';
-}
-
-function updateFeedbackText(feedback, type) {
-  if (feedback === 'LIKE') {
-    feedbackText.textContent = 'I like this ' + type;
+  if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = feedbackTracker;
   } else {
-    feedbackText.textContent = 'I do not like this ' + type;
+    window.feedbackTracker = feedbackTracker;
   }
-}
-
-function disableFormSubmit(element) {
-  element.querySelector('button').setAttribute('disabled', 'true');
-}
-
-function enableFormSubmit(element) {
-  element.querySelector('button').removeAttribute('disabled');
-}
+})();
