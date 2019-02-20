@@ -6,7 +6,14 @@ function setupBasicApp() {
   const app = express();
   app.set('views', path.join(__dirname, '../server/views'));
   app.set('view engine', 'html');
-  nunjucks.configure('server/views', {
+
+  const appViews = [
+    path.join(__dirname, '../node_modules/govuk-frontend/'),
+    path.join(__dirname, '../node_modules/govuk-frontend/components'),
+    path.join(__dirname, '../server/views/'),
+  ];
+
+  nunjucks.configure(appViews, {
     express: app,
     autoescape: true,
   });

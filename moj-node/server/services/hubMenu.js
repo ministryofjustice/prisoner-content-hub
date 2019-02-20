@@ -15,9 +15,19 @@ function createHubMenuService(repository) {
     return repository.seriesMenu();
   }
 
+  function homepageMenu(prisonId) {
+    return repository.homepageMenu(prisonId);
+  }
+
+  function gettingAJobMenu(prisonId) {
+    return repository.gettingAJobMenu(prisonId);
+  }
+
   return {
     navigationMenu,
     seriesMenu,
+    homepageMenu,
+    gettingAJobMenu,
   };
 }
 

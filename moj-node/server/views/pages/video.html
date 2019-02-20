@@ -1,4 +1,4 @@
-{% from "../components/header/macro.njk" import govukHeaderWithBack %}
+{% from "../components/header/macro.njk" import pageHeaderWithBack %}
 {% from "../components/next-episodes-content/macro.njk" import nextEpisodesContent %}
 {% from "../components/related-content/macro.njk" import hubRelatedContent %}
 {% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
@@ -52,7 +52,7 @@
 {% endblock %}
 
 {% block header %}
-  {{ govukHeaderWithBack({
+  {{ pageHeaderWithBack({
         mainMenu: mainMenu,
         topicsMenu: topicsMenu,
         appName: envVars.APP_NAME,

@@ -1,5 +1,5 @@
 {% from "components/skip-link/macro.njk" import govukSkipLink %}
-{% from "components/header/macro.njk" import govukHeader %}
+{% from "./header/macro.njk" import pageHeader %}
 {% from "components/footer/macro.njk" import govukFooter %}
 {% from "components/landing-page-header/macro.njk" import hubLandingPageHeader %}
 
@@ -45,7 +45,7 @@
     {% endblock %}
 
     {% block header %}
-      {{ govukHeader({
+      {{ pageHeader({
         mainMenu: mainMenu,
         topicsMenu: topicsMenu,
         appName: envVars.APP_NAME,

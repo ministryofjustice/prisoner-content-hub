@@ -48,6 +48,7 @@ describe('GET /', () => {
         { linkText: 'Foo', href: '/content/1', id: '1' },
         { linkText: 'Bar', href: '/content/2', id: '2' },
       ]),
+    homepageMenu: sinon.stub().returns([]),
   };
 
   it('renders promoted content', () => {

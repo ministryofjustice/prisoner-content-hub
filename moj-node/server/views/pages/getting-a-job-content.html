@@ -1,5 +1,6 @@
-{% from "../components/header/macro.njk" import pageHeaderWithBack %}
-{% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
+{% from "../components/header/macro.njk" import pageHeaderWithBreadcrumbs %}
+{% from "../components/step-by-step-menu/macro.njk" import hubStepByStepMenu %}
+{% from "breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
 {% extends "../components/template.njk" %}
 
@@ -25,41 +26,42 @@
 {% endblock %}
 
 {% block header %}
-  {{ pageHeaderWithBack({
+  {{ pageHeaderWithBreadcrumbs({
     mainMenu: mainMenu,
     topicsMenu: topicsMenu,
     appName: envVars.APP_NAME,
-    features: features
+    features: features,
+    breadcrumbs: breadcrumbs
   }) }}
+
+
 {% endblock %}
 
 {% block main %}
   <div class="govuk-width-container">
-    <main class="govuk-main-wrapper">
-      <div class="govuk-grid-row govuk-!-margin-bottom-9">
-        <div class="govuk-grid-column-two-thirds">
+    <main class="govuk-main-wrapper govuk-body">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds govuk-!-padding-right-9">
           <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">{{data.title}}</h1>
           <p id="stand-first" class="govuk-body-l">{{data.standFirst}}</p>
           <div id="body" class="gov-uk-dynamic-content">
             {{data.description.sanitized | safe }}
           </div>
         </div>
-      </div>
 
-      <div class="govuk-hub-article-feedback">
-        <p class="govuk-body">Tell us what you think:</p>
-        {{ hubFeedbackWidget({
-          title: data.title,
-          contentType: data.contentType,
-          establishment: envVars.APP_NAME
-        })}}
-      </div>
+        <div class="govuk-grid-column-one-third">
+          <div class="app-step-nav-related app-step-nav-related--singular">
+            <h2 class="app-step-nav-related__heading">
+              <span class="app-step-nav-related__pretitle">Back to</span>
+              <a class="govuk-link" href="{{data.rootPath.href}}">
+               {{data.rootPath.title}}
+              </a>
+            </h2>
+          </div>
 
-      {% if backHomeEnabled %}
-        <div>
-          <a href="/" class="govuk-button">Back to home</a>
+          {{ hubStepByStepMenu({ data: data.menu }) }}
         </div>
-      {% endif %}
+      </div>
     </main>
   </div>
 {% endblock %}

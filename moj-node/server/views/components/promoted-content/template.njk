@@ -20,24 +20,40 @@
   radio: "icon-play"
 }%}
 
-<section>
+<article data-promoted-item-text class="">
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-      <article data-promoted-item-text class="govuk-hub-promoted-content">
-        <a data-call-to-action="read-more" class="govuk-hub-promoted-content__no-link" href="/content/{{params.data.id}}">
-          <div data-promoted-item-background class="govuk-hub-promoted-content__grpahic" style="background-image:url({{ params.data.image.url }})">
-            <div class="govuk-hub-promoted-content__overlay">
+    <div class="govuk-grid-column-three-quarters">
+      <a data-call-to-action="read-more" class="govuk-hub-promoted-content__no-link" href="/content/{{params.data.id}}">
+        <div class="govuk-hub-promoted-content">
+          <div class="govuk-hub-promoted-content-row">
+            <div class="govuk-hub-promoted-content-image-container">
+              <div data-promoted-item-background class="govuk-hub-promoted-content__graphic" style="background-image:url({{ params.data.image.url }})">&nbsp;</div>
+            </div>
+
+            <div class="govuk-hub-promoted-content-container">
               <div class="govuk-hub-promoted-content__header">
-                <h1 class="govuk-hub-promoted-content__header-title govuk-heading-xl">{{ params.data.title }}</h1>
+                <h1 class="govuk-hub-promoted-content__header-title govuk-heading-m">{{ params.data.title }}</h1>
               </div>
               <div class="govuk-hub-promoted-content__main">
                 <p class="govuk-hub-promoted-content__description govuk-body">{{ params.data.summary }}</p>
-                <div><span class="{{ linkIcon[params.data.contentType] }}"><span class="path1"></span><span class="path2"></span></span><span class="space"><span class="govuk-hub-promoted-content__link govuk-link">{{ linkText[params.data.contentType] }}</span></span></div>
+                <div><span class="govuk-heading-s govuk-hub-no-link-decoration govuk-link govuk-link--no-visited-state">{{ linkText[params.data.contentType] }}</span></div>
               </div>
             </div>
           </div>
-        </a>
-      </article>
+        </div>
+      </a>
+    </div>
+
+    <div class="govuk-grid-column-one-quarter">
+      <div class="govuk-hub-day-to-day-menu">
+        <h3 class="govuk-heading-m">Day-to-day</h3>
+        <ul class="govuk-list">
+          {% for item in params.dayToDay %}
+          <li><a class="govuk-heading-s govuk-hub-no-link-decoration govuk-link govuk-link--no-visited-state" href="/content/{{item.id}}">{{item.title}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
     </div>
   </div>
-</section>
+</article>

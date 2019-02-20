@@ -1,19 +1,22 @@
+// eslint-disable-next-line import/order
+const config = require('../server/config');
+
 const express = require('express');
 const addRequestId = require('express-request-id')();
 const compression = require('compression');
 const helmet = require('helmet');
-const log = require('bunyan-request-logger')();
+const log = require('bunyan-request-logger')({ name: config.appName });
 const nunjucks = require('nunjucks');
 const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('cookie-session');
-const config = require('../server/config');
 
 const createIndexRouter = require('./routes/index');
 const createHealthRouter = require('./routes/health');
 const createContentRouter = require('./routes/content');
 const createTagRouter = require('./routes/tags');
 const createGamesRouter = require('./routes/games');
+const createGettingAJobRouter = require('./routes/gettingAJob');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const establishmentToggle = require('./middleware/establishmentToggle');
@@ -34,10 +37,16 @@ module.exports = function createApp({
 }) {
   const app = express();
 
+  const appViews = [
+    path.join(__dirname, '../node_modules/govuk-frontend/'),
+    path.join(__dirname, '../node_modules/govuk-frontend/components'),
+    path.join(__dirname, '/views/'),
+  ];
+
   // View Engine Configuration
   app.set('views', path.join(__dirname, '../server/views'));
   app.set('view engine', 'html');
-  nunjucks.configure('server/views', {
+  nunjucks.configure(appViews, {
     express: app,
     autoescape: true,
   });
@@ -212,6 +221,10 @@ module.exports = function createApp({
   );
 
   app.use('/games', createGamesRouter({ logger }));
+  app.use(
+    ['/working-in-wayland', '/working-in-berwyn'],
+    createGettingAJobRouter({ logger, hubContentService, hubMenuService }),
+  );
 
   app.use('*', (req, res) => {
     res.status(404);

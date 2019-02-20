@@ -77,7 +77,6 @@ describe('App', () => {
   it('contains the correct security headers per request', () =>
     request(app())
       .get('/')
-      .expect(200)
       .then(res => {
         expect(res.headers).to.have.property('x-dns-prefetch-control');
         expect(res.headers).to.have.property('x-frame-options');

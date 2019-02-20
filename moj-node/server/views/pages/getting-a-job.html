@@ -1,5 +1,6 @@
-{% from "../components/header/macro.njk" import pageHeaderWithBack %}
-{% from "../components/related-content/macro.njk" import hubRelatedContent %}
+{% from "../components/header/macro.njk" import pageHeaderWithBreadcrumbs %}
+{% from "../components/step-by-step-menu/macro.njk" import hubStepByStepMenu %}
+
 
 {% extends "../components/template.njk" %}
 
@@ -25,38 +26,26 @@
 {% endblock %}
 
 {% block header %}
-  {{ pageHeaderWithBack({
+  {{ pageHeaderWithBreadcrumbs({
     mainMenu: mainMenu,
     topicsMenu: topicsMenu,
     appName: envVars.APP_NAME,
-    features: features
+    features: features,
+    breadcrumbs: breadcrumbs
   }) }}
 {% endblock %}
 
 {% block main %}
-  {{ hubLandingPageHeader({
-      title: data.title,
-      description: data.description,
-      featuredContent: data.featuredContent,
-      categoryId: data.categoryId,
-      menu: data.menu,
-      features: features
-    })
-  }}
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper govuk-body">
+      <div class="govuk-grid-row govuk-!-margin-bottom-9">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-l">{{data.title}}</h1>
+          <p>{{data.standFirst}}</p>
+
+          {{ hubStepByStepMenu({ data: data.menu }) }}
+        </div>
+      </div>
+    </main>
+  </div>
 {% endblock %}
-
-{% block content %}
-  {# <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-      <h3 class="govuk-heading-m govuk-hub-related-content__title">You might like</h3>
-    </div>
-  </div> #}
-
-  {{ hubRelatedContent({
-    id: data.categoryId,
-    data: data.relatedContent
-  }) }}
-{% endblock %}
-
-
-

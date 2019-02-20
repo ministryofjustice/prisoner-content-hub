@@ -1,9 +1,9 @@
-{% extends "../components/template.njk" %}
 {% from "../components/promoted-content/macro.njk" import hubPromotedContent %}
 {% from "../components/featured-content/macro.njk" import hubFeaturedContent %}
 {% from "../components/sub-menu/macro.njk" import hubSubMenu %}
 {% from "../components/series/macro.njk" import hubSeries %}
 
+{% extends "../components/template.njk" %}
 
 {% block pageTitle %}
   {{envVars.APP_NAME}}
@@ -39,9 +39,24 @@
 } %}
 
 {% block promotedContent %}
+  <nav class="govuk-hub-main_navigation_banner">
+    <ul class="govuk-hub-main_navigation">
+      <li class="govuk-hub-main_navigation_current_page">
+        <span class="govuk-link" >Home<span/>
+      </li>
+      {%  for menuItem in homepageMenu %}
+        <li>
+          <a class="govuk-link govuk-link--no-visited-state" href="{{menuItem.href}}" data-topnav="{{menuItem.title}}">{{menuItem.title}}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+
   {{ hubPromotedContent({
-    data: promotionalContent
+    data: promotionalContent,
+    dayToDay: dayToDay
   }) }}
+
 {% endblock %}
 
 {% block subMenu %}
@@ -61,18 +76,6 @@
     contentType: "news-events",
     baseUrl: "/content"
   }) }}
-
-
-{{ hubFeaturedContent({
-    categoryTitle: "Day-to-day",
-    categoryLink: categoryLinks["Day-to-day"],
-    columnNumber: "govuk-grid-column-one-quarter",
-    data: dayToDay,
-    size: "small",
-    contentType: "Day-to-day",
-    baseUrl: "/content"
-  }) }}
-
 
   {{ hubFeaturedContent({
     categoryTitle: "Healthy mind and body",

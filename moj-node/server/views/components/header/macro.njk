@@ -1,8 +1,13 @@
-{% macro govukHeader(params) %}
+{% macro pageHeader(params) %}
   {%- include "./template.njk" -%}
 {% endmacro %}
 
 
-{% macro govukHeaderWithBack(params) %}
+{% macro pageHeaderWithBack(params) %}
   {%- include "./template-with-back.njk" -%}
+{% endmacro %}
+
+
+{% macro pageHeaderWithBreadcrumbs(params) %}
+  {%- include "./template-with-breadcrumbs.njk" -%}
 {% endmacro %}
