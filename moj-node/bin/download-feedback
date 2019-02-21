@@ -67,19 +67,10 @@ function generateCSVFile(data) {
 function parseResponse(data) {
   if (!Array.isArray(data)) throw new Error('Invalid data received');
   return data
-    .map(item => {
-      const action = extractCommentFromAction(item.label);
-
-      return item.subtable.map(sItem => {
-        const stData = getDataFromLabel(sItem.label);
-        return {
-          ...stData,
-          action: action.action,
-          comments: action.comments,
-        };
-      });
-    })
-    .reduce((acc, currentValue) => acc.concat(currentValue), []);
+    .map(extractEventData)
+    .reduce(flatten, [])
+    .sort(sortByDateDescending)
+    .map(decorateData);
 }
 
 function extractCommentFromAction(str) {
@@ -94,6 +85,19 @@ function extractCommentFromAction(str) {
     action: results[0],
     comments: sanitizer.escape(results[1] || 'N/A'),
   };
+}
+
+function extractEventData({ label, subtable }) {
+  const action = extractCommentFromAction(label);
+
+  return subtable.map(data => {
+    const eventData = getDataFromLabel(data.label);
+    return {
+      ...eventData,
+      action: action.action,
+      comments: action.comments,
+    };
+  });
 }
 
 function getDataFromLabel(label) {
@@ -116,11 +120,28 @@ function getDataFromLabel(label) {
     content_type,
     series,
     action,
-    date: formatDate(new Date(+date), 'DD MMMM YYYY'),
-    time: formatDate(new Date(+date), 'HH:mm'),
-    time_spent_to_action: fmtMSS(+time_spent_to_action || 0),
+    date,
+    time_spent_to_action,
     visitor_id,
     establishment,
+  };
+}
+
+function sortByDateDescending(a, b) {
+  return b.date - a.date;
+}
+
+function flatten(acc, currentValue) {
+  return acc.concat(currentValue);
+}
+
+function decorateData(data) {
+  return {
+    ...data,
+    action: data.comments !== 'N/A' ? `COMMENT-${data.action}` : data.action,
+    date: formatDate(new Date(+data.date), 'DD MMMM YYYY'),
+    time: formatDate(new Date(+data.date), 'HH:mm'),
+    time_spent_to_action: fmtMSS(+data.time_spent_to_action || 0),
   };
 }
 
