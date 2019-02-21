@@ -54,6 +54,7 @@ module.exports = function createStepByStepRouter({
         req.params.id,
         establishmentId,
       );
+
       const rootPath = {
         title: `Working in ${establishmentName}`,
         href: urlMap[establishmentId],

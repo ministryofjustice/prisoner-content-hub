@@ -1,0 +1,13 @@
+{
+  "id": 3802,
+  "title": "The jobs noticeboard",
+  "contentType": "page",
+  "description": {
+    "raw": "<p dir=\"ltr\">Foo paragraph</p>\r\n\r\n<h3>Foo subheading</h3>\r\n\r\n<p>Something foo-bar</p>\r\n",
+    "sanitized": "<p dir=\"ltr\">Foo paragraph</p>\r\n\r\n<h3>Foo subheading</h3>\r\n\r\n<p>Something foo-bar</p>\r\n",
+    "summary": ""
+  },
+  "standFirst": "Some incredible foo stand first",
+  "image": { "alt": null, "url": null },
+  "establishmentId": 792
+}
