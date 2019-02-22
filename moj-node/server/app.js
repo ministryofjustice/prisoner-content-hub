@@ -161,7 +161,9 @@ module.exports = function createApp({
     app.use(featureToggleMiddleware(config.features));
 
     // establishment toggle
-    app.use(establishmentToggle);
+    if (!config.production) {
+      app.use(establishmentToggle);
+    }
   }
 
   // Health end point
