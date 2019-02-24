@@ -74,4 +74,16 @@
     height: auto;
     max-width: 729px;
   }
+
+  panel {
+    @extend .govuk-panel, .govuk-panel--confirmation;
+    display: block;
+
+    p {
+      @extend .govuk-panel__body;
+      color: govuk-colour('white');
+      font-weight: bold;
+      margin-bottom: 0;
+    }
+  }
 }
