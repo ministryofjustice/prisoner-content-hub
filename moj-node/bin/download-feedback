@@ -4,8 +4,14 @@
 require('dotenv').config();
 
 const request = require('superagent');
+const PromiseBar = require('promise.bar');
 
-const { startOfToday, format: formatDate } = require('date-fns');
+const {
+  startOfToday,
+  format: formatDate,
+  differenceInCalendarDays,
+  addDays,
+} = require('date-fns');
 const Json2csvParser = require('json2csv').Parser;
 const sanitizer = require('sanitizer');
 const fs = require('fs');
@@ -19,37 +25,61 @@ const today = `${formatDate(startOfToday(), 'YYYY-MM-DD')}`;
 const dateRange = process.argv[2] || `${today},${today}`;
 const writePath = (process.argv[3] || './csv-exports').replace(/[/]+$/, '');
 
-console.log('Downloading data:');
+PromiseBar.enable();
 
-request
-  .get('http://digital-hub.bwi.dpn.gov.uk:12001/index.php')
-  .query({
-    date: dateRange,
-    expanded: '1',
-    filter_limit: '-1',
-    filter_pattern: 'like',
-    format: 'JSON',
-    idSite: '1',
-    method: 'Events.getAction',
-    module: 'API',
-    period: 'range',
-    token_auth: token,
-  })
-  .then(({ body }) => {
-    const data = body;
-    const results = parseResponse(data);
-    const csvData = generateCSVData(results);
+console.log('Downloading all data. Please wait...');
 
+// Run script
+PromiseBar.all(getAllAnalyticsData(dateRange), { label: 'Progress' })
+  .then(results => {
+    const flatResults = results.reduce(flatten, []);
+    const csvData = generateCSVData(flatResults);
     return generateCSVFile(csvData);
   })
   .then(() => {
-    console.log('Done!');
     process.exit(0);
   })
   .catch(error => {
     console.error(error);
     process.exit(1);
   });
+
+// Helper functions
+function getAnalyticsDataFrom(date) {
+  return request
+    .get('http://digital-hub.bwi.dpn.gov.uk:12001/index.php')
+    .query({
+      date,
+      expanded: '1',
+      filter_limit: '-1',
+      filter_pattern: 'like',
+      format: 'JSON',
+      idSite: '1',
+      method: 'Events.getAction',
+      module: 'API',
+      period: 'day',
+      token_auth: token,
+    })
+    .then(({ body }) => {
+      return parseResponse(body);
+    });
+}
+
+function getAllAnalyticsData(dates) {
+  const [startDate, endDate] = dates.split(',');
+  const differenceInDays = Math.abs(
+    differenceInCalendarDays(new Date(startDate), new Date(endDate)),
+  );
+
+  return new Array(differenceInDays)
+    .fill(undefined)
+    .map((elem, index) => {
+      const date = new Date(startDate);
+      const nextDate = addDays(date, index);
+      return formatDate(nextDate, 'YYYY-MM-DD');
+    })
+    .map(getAnalyticsDataFrom);
+}
 
 function generateCSVFile(data) {
   return new Promise((resolve, reject) => {

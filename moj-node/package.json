@@ -89,6 +89,7 @@
     "nock": "^10.0.6",
     "nodemon": "^1.18.9",
     "prettier": "^1.16.4",
+    "promise.bar": "^0.1.5",
     "puppeteer": "^1.11.0",
     "sass-middleware": "^0.0.3",
     "sinon": "^7.2.2",
