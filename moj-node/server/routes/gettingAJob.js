@@ -1,4 +1,5 @@
 const express = require('express');
+const { isEmpty } = require('ramda');
 const { ESTABLISHMENTS } = require('../constants/hub');
 
 module.exports = function createStepByStepRouter({
@@ -54,6 +55,10 @@ module.exports = function createStepByStepRouter({
         req.params.id,
         establishmentId,
       );
+
+      if (isEmpty(data)) {
+        return next();
+      }
 
       const rootPath = {
         title: `Working in ${establishmentName}`,
