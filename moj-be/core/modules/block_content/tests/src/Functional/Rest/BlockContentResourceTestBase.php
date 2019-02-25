@@ -29,7 +29,7 @@ abstract class BlockContentResourceTestBase extends EntityResourceTestBase {
    * {@inheritdoc}
    */
   protected static $patchProtectedFieldNames = [
-    'changed',
+    'changed' => NULL,
   ];
 
   /**
@@ -67,7 +67,7 @@ abstract class BlockContentResourceTestBase extends EntityResourceTestBase {
         'format' => 'plain_text',
       ],
     ])
-      ->setPublished(FALSE);
+      ->setUnpublished();
     $block_content->save();
     return $block_content;
   }
@@ -90,6 +90,11 @@ abstract class BlockContentResourceTestBase extends EntityResourceTestBase {
       'langcode' => [
         [
           'value' => 'en',
+        ],
+      ],
+      'reusable' => [
+        [
+          'value' => TRUE,
         ],
       ],
       'type' => [
@@ -161,7 +166,6 @@ abstract class BlockContentResourceTestBase extends EntityResourceTestBase {
     ];
   }
 
-
   /**
    * {@inheritdoc}
    */
@@ -176,9 +180,9 @@ abstract class BlockContentResourceTestBase extends EntityResourceTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function getExpectedUnauthorizedAccessCacheability() {
+  protected function getExpectedUnauthorizedEntityAccessCacheability($is_authenticated) {
     // @see \Drupal\block_content\BlockContentAccessControlHandler()
-    return parent::getExpectedUnauthorizedAccessCacheability()
+    return parent::getExpectedUnauthorizedEntityAccessCacheability($is_authenticated)
       ->addCacheTags(['block_content:1']);
   }
 

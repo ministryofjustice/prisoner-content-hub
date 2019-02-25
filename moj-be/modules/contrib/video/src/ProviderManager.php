@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\video\ProviderManager.
- */
-
 namespace Drupal\video;
 
 use Drupal\Component\Plugin\Mapper\MapperInterface;
@@ -61,7 +56,7 @@ class ProviderManager extends DefaultPluginManager implements ProviderManagerInt
     foreach ($definitions as $definition) {
       foreach($definition['regular_expressions'] as $reqular_expr){
         if (preg_match($reqular_expr, $user_input, $matches)) {
-          return array('definition' => $definition, 'matches' => $matches);
+          return ['definition' => $definition, 'matches' => $matches];
         }
       }
     }
@@ -71,7 +66,7 @@ class ProviderManager extends DefaultPluginManager implements ProviderManagerInt
   /**
    * {@inheritdoc}
    */
-  public function loadProviderFromStream($stream, $file, $metadata = array(), $settings = array()) {
+  public function loadProviderFromStream($stream, $file, $metadata = [], $settings = []) {
     $definitions = $this->getDefinitions();
     foreach ($definitions as $definition) {
       if($definition['stream_wrapper'] == $stream){

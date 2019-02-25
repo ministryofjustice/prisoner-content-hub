@@ -26,7 +26,7 @@ abstract class UserResourceTestBase extends EntityResourceTestBase {
    * {@inheritdoc}
    */
   protected static $patchProtectedFieldNames = [
-    'changed',
+    'changed' => NULL,
   ];
 
   /**
@@ -294,7 +294,7 @@ abstract class UserResourceTestBase extends EntityResourceTestBase {
     $response = $this->request('PATCH', $url, $request_options);
     // Ensure the email address has not changed.
     $this->assertEquals('admin@example.com', $this->entityStorage->loadUnchanged(1)->getEmail());
-    $this->assertResourceErrorResponse(403, "Access denied on updating field 'uid'.", $response);
+    $this->assertResourceErrorResponse(403, "Access denied on updating field 'uid'. The entity ID cannot be changed.", $response);
   }
 
   /**
@@ -309,9 +309,9 @@ abstract class UserResourceTestBase extends EntityResourceTestBase {
       case 'GET':
         return "The 'access user profiles' permission is required and the user must be active.";
       case 'PATCH':
-        return "You are not authorized to update this user entity.";
+        return "Users can only update their own account, unless they have the 'administer users' permission.";
       case 'DELETE':
-        return 'You are not authorized to delete this user entity.';
+        return "The 'cancel account' permission is required.";
       default:
         return parent::getExpectedUnauthorizedAccessMessage($method);
     }
@@ -320,9 +320,9 @@ abstract class UserResourceTestBase extends EntityResourceTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function getExpectedUnauthorizedAccessCacheability() {
+  protected function getExpectedUnauthorizedEntityAccessCacheability($is_authenticated) {
     // @see \Drupal\user\UserAccessControlHandler::checkAccess()
-    return parent::getExpectedUnauthorizedAccessCacheability()
+    return parent::getExpectedUnauthorizedEntityAccessCacheability($is_authenticated)
       ->addCacheTags(['user:3']);
   }
 

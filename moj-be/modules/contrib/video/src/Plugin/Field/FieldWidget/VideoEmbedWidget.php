@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\video\Plugin\Field\FieldWidget\VideoEmbedWidget.
- */
-
 namespace Drupal\video\Plugin\Field\FieldWidget;
 
 use Drupal\Core\Field\FieldItemListInterface;
@@ -44,11 +39,11 @@ class VideoEmbedWidget extends FileWidget {
    * {@inheritdoc}
    */
   public static function defaultSettings() {
-    $settings = array(
+    $settings = [
       'file_directory' => 'video-thumbnails/[date:custom:Y]-[date:custom:m]',
       'allowed_providers' => ["youtube" => "youtube"],
       'uri_scheme' => 'public'
-    );
+    ];
     return $settings;
   }
 
@@ -56,7 +51,7 @@ class VideoEmbedWidget extends FileWidget {
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
-    $element =  array();
+    $element = [];
     $settings = $this->getSettings();
     $provider_manager = \Drupal::service('video.provider_manager');
     $element['allowed_providers'] = [
@@ -65,23 +60,23 @@ class VideoEmbedWidget extends FileWidget {
       '#default_value' => $this->getSetting('allowed_providers'),
       '#options' => $provider_manager->getProvidersOptionList(),
     ];
-    $element['file_directory'] = array(
+    $element['file_directory'] = [
       '#type' => 'textfield',
       '#title' => t('Thumbnail directory'),
       '#default_value' => $settings['file_directory'],
       '#description' => t('Optional subdirectory within the upload destination where files will be stored. Do not include preceding or trailing slashes.'),
-      '#element_validate' => array(array(get_class($this), 'validateDirectory')),
+      '#element_validate' => [[get_class($this), 'validateDirectory']],
       '#weight' => 3,
-    );
+    ];
     $scheme_options = \Drupal::service('stream_wrapper_manager')->getNames(StreamWrapperInterface::WRITE_VISIBLE);
-    $element['uri_scheme'] = array(
+    $element['uri_scheme'] = [
       '#type' => 'radios',
       '#title' => t('Thumbnail destination'),
       '#options' => $scheme_options,
       '#default_value' => $this->getSetting('uri_scheme'),
       '#description' => t('Select where the final files should be stored. Private file storage has significantly more overhead than public files, but allows restricted access to files within this field.'),
       '#weight' => 6,
-    );
+    ];
     return $element;
   }
   
@@ -105,12 +100,12 @@ class VideoEmbedWidget extends FileWidget {
    * {@inheritdoc}
    */
   public function settingsSummary() {
-    $summary = array();
+    $summary = [];
     $summary[] = t('Providers : @allowed_providers<br/>Thumbnail directory : @file_directory', 
-    array(
+    [
       '@allowed_providers' => implode(', ', array_filter($this->getSetting('allowed_providers'))),
       '@file_directory' => $this->getSetting('uri_scheme') . '://' . $this->getSetting('file_directory'),
-    ));
+    ]);
     return $summary;
   }
   
@@ -147,7 +142,7 @@ class VideoEmbedWidget extends FileWidget {
     $title = $this->fieldDefinition->getLabel();
     $description = FieldFilteredMarkup::create(\Drupal::token()->replace($this->fieldDefinition->getDescription()));
 
-    $elements = array();
+    $elements = [];
 
     for ($delta = 0; $delta <= $max; $delta++) {
       // Add a new empty item if it doesn't exist yet at this delta.
@@ -179,15 +174,15 @@ class VideoEmbedWidget extends FileWidget {
         if ($is_multiple) {
           // We name the element '_weight' to avoid clashing with elements
           // defined by widget.
-          $element['_weight'] = array(
+          $element['_weight'] = [
             '#type' => 'weight',
-            '#title' => $this->t('Weight for row @number', array('@number' => $delta + 1)),
+            '#title' => $this->t('Weight for row @number', ['@number' => $delta + 1]),
             '#title_display' => 'invisible',
             // Note: this 'delta' is the FAPI #type 'weight' element's property.
             '#delta' => $max,
             '#default_value' => $items[$delta]->_weight ? : $delta,
             '#weight' => 100,
-          );
+          ];
         }
 
         $elements[$delta] = $element;
@@ -195,7 +190,7 @@ class VideoEmbedWidget extends FileWidget {
     }
 
     if ($elements) {
-      $elements += array(
+      $elements += [
         '#theme' => 'field_multiple_value_form',
         '#field_name' => $field_name,
         '#cardinality' => $cardinality,
@@ -204,28 +199,28 @@ class VideoEmbedWidget extends FileWidget {
         '#title' => $title,
         '#description' => $description,
         '#max_delta' => $max,
-      );
+      ];
 
       // Add 'add more' button, if not working with a programmed form.
       if ($cardinality == FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED && !$form_state->isProgrammed()) {
-        $id_prefix = implode('-', array_merge($parents, array($field_name)));
+        $id_prefix = implode('-', array_merge($parents, [$field_name]));
         $wrapper_id = Html::getUniqueId($id_prefix . '-add-more-wrapper');
         // $elements['#prefix'] = '<div id="' . $wrapper_id . '">';
         // $elements['#suffix'] = '</div>';
 
-        $elements['add_more'] = array(
+        $elements['add_more'] = [
           '#type' => 'submit',
           '#name' => strtr($id_prefix, '-', '_') . '_add_more',
           '#value' => t('Add another item'),
-          '#attributes' => array('class' => array('field-add-more-submit')),
-          '#limit_validation_errors' => array(array_merge($parents, array($field_name))),
-          '#submit' => array(array(get_class($this), 'addMoreSubmit')),
-          '#ajax' => array(
-            'callback' => array(get_class($this), 'addMoreAjax'),
+          '#attributes' => ['class' => ['field-add-more-submit']],
+          '#limit_validation_errors' => [array_merge($parents, [$field_name])],
+          '#submit' => [[get_class($this), 'addMoreSubmit']],
+          '#ajax' => [
+            'callback' => [get_class($this), 'addMoreAjax'],
             'effect' => 'fade',
-          ),
+          ],
           '#weight' => 1000
-        );
+        ];
       }
     }
 
@@ -233,7 +228,7 @@ class VideoEmbedWidget extends FileWidget {
       // The group of elements all-together need some extra functionality after
       // building up the full list (like draggable table rows).
       $elements['#file_upload_delta'] = $delta;
-      $elements['#process'] = array(array(get_class($this), 'processMultiple'));
+      $elements['#process'] = [[get_class($this), 'processMultiple']];
       $elements['#field_name'] = $field_name;
       $elements['#language'] = $items->getLangcode();
 
@@ -270,22 +265,22 @@ class VideoEmbedWidget extends FileWidget {
     foreach ($element_children as $delta => $key) {
       if ($delta != $element['#file_upload_delta']) {
         $description = static::getDescriptionFromElement($element[$key]);
-        $element[$key]['_weight'] = array(
+        $element[$key]['_weight'] = [
           '#type' => 'weight',
-          '#title' => $description ? t('Weight for @title', array('@title' => $description)) : t('Weight for new file'),
+          '#title' => $description ? t('Weight for @title', ['@title' => $description]) : t('Weight for new file'),
           '#title_display' => 'invisible',
           '#delta' => $count,
           '#default_value' => $delta,
-        );
+        ];
       }
       else {
         // The title needs to be assigned to the upload field so that validation
         // errors include the correct widget label.
         $element[$key]['#title'] = $element['#title'];
-        $element[$key]['_weight'] = array(
+        $element[$key]['_weight'] = [
           '#type' => 'hidden',
           '#default_value' => $delta,
-        );
+        ];
       }
     }
 
@@ -301,15 +296,19 @@ class VideoEmbedWidget extends FileWidget {
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    if(empty($items[$delta]->getValue())){
-      $element['value'] =  $element + array(
+    if (isset(NestedArray::getValue($form_state->getUserInput(), $element['#field_parents'])[$items->getName()][0]['value'])){
+      $value = NestedArray::getValue($form_state->getUserInput(), $element['#field_parents'])[$items->getName()][0]['value'];
+    }
+    if(empty($items[$delta]->getValue()) || !empty($value)){
+      $element['value'] =  $element + [
         '#type' => 'textfield',
         '#attributes' => ['class' => ['js-text-full', 'text-full']],
+          '#default_value' => empty($value) ? '' : $value,
         '#element_validate' => [
           [get_class($this), 'validateFormElement'],
         ],
         '#allowed_providers' => $this->getSetting('allowed_providers')
-      );
+      ];
     }
     else {
       $element += parent::formElement($items, $delta, $element, $form, $form_state);
@@ -360,7 +359,7 @@ class VideoEmbedWidget extends FileWidget {
   public function extractFormValues(FieldItemListInterface $items, array $form, FormStateInterface $form_state) {
     $field_name = $this->fieldDefinition->getName();
     // Extract the values from $form_state->getValues().
-    $path = array_merge($form['#parents'], array($field_name));
+    $path = array_merge($form['#parents'], [$field_name]);
     $key_exists = NULL;
     $values = NestedArray::getValue($form_state->getValues(), $path, $key_exists);
     if ($key_exists) {
@@ -405,13 +404,18 @@ class VideoEmbedWidget extends FileWidget {
                 ]);
               $file->save();
               unset($values[$delta]);
-              $values[] = array('fids' => array($file->id()), 'data' => serialize($matches));
+              $values[] = ['fids' => [$file->id()], 'data' => serialize($matches)];
             }
             else {
               unset($values[$delta]);
-              $values[] = array('fids' => array(reset($results)), 'data' => serialize($matches));
+              $values[] = ['fids' => [reset($results)], 'data' => serialize($matches)];
             }
           }
+        }
+
+        if (!isset($value['fids'])) {
+          // If fids is still not set, remove this value, otherwise massageFormValues() will fail.
+          unset($values[$delta]);
         }
       }
       $values = $this->massageFormValues($values, $form, $form_state);      

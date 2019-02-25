@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\video\StreamWrapper\FacebookStream.
- */
-
 namespace Drupal\video\StreamWrapper;
 
 use Drupal\Core\StreamWrapper\ReadOnlyStream;

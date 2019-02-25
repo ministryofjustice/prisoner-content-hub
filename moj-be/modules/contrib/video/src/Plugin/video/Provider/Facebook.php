@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\video\Plugin\video\Provider\Facebook.
- */
-
 namespace Drupal\video\Plugin\video\Provider;
 
 use Drupal\video\ProviderPluginBase;
@@ -34,7 +29,7 @@ class Facebook extends ProviderPluginBase {
     return [
       '#type' => 'html_tag',
       '#tag' => 'div',
-      '0' => array(
+      '0' => [
         '#type' => 'html_tag',
         '#tag' => 'script',
         '#value' => 'window.fbAsyncInit = function() {
@@ -49,17 +44,17 @@ class Facebook extends ProviderPluginBase {
 		js.src = "//connect.facebook.net/en_US/sdk.js";
 		fjs.parentNode.insertBefore(js, fjs);
 	}(document, \'script\', \'facebook-jssdk\'));',
-      ),
-      '1' => array(
+      ],
+      '1' => [
         '#type' => 'html_tag',
         '#tag' => 'div',
-        '#attributes' => array(
+        '#attributes' => [
           'class' => 'fb-video',
           'data-href' => sprintf('https://www.facebook.com/video.php?v=%s', $data['id']),
           'data-width' => $settings['width'],
           'data-autoplay' => $settings['autoplay'] ? 1 : 0
-        ),
-      ),
+        ],
+      ],
     ];
   }
   

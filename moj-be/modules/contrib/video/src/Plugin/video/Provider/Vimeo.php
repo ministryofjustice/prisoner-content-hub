@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\video\Plugin\video\Provider\Vimeo.
- */
-
 namespace Drupal\video\Plugin\video\Provider;
 
 use Drupal\video\ProviderPluginBase;
@@ -15,7 +10,7 @@ use Drupal\video\ProviderPluginBase;
  *   label = @Translation("Vimeo"),
  *   description = @Translation("Vimeo Video Provider"),
  *   regular_expressions = {
- *     "/^https?:\/\/(www\.)?vimeo.com\/(?<id>[0-9]*)$/",
+ *     "/^https?:\/\/(www\.)?vimeo.com\/(?<id>[0-9]*)/",
  *   },
  *   mimetype = "video/vimeo",
  *   stream_wrapper = "vimeo"
@@ -49,6 +44,9 @@ class Vimeo extends ProviderPluginBase {
   public function getRemoteThumbnailUrl() {
     $data = $this->getVideoMetadata();
     $video_data = json_decode(file_get_contents('http://vimeo.com/api/v2/video/' . $data['id'] . '.json'));
-    return $video_data[0]->thumbnail_large;
+    if (is_object($video_data[0])) {
+      return $video_data[0]->thumbnail_large;
+    }
+    return FALSE;
   }
 }

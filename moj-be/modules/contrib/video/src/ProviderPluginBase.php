@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\video\ProviderPluginBase
- */
-
 namespace Drupal\video;
 
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -30,14 +25,14 @@ abstract class ProviderPluginBase implements ProviderPluginInterface, ContainerF
    *
    * @var array
    */
-  protected $metadata = array();
+  protected $metadata = [];
 
   /**
    * Additional settings for the video widget
    *
    * @var array
    */
-  protected $settings = array();
+  protected $settings = [];
   
   /**
    * An http client.
@@ -127,8 +122,11 @@ abstract class ProviderPluginBase implements ProviderPluginInterface, ContainerF
     if (!file_exists($local_uri)) {
       $thumb_dir = $this->getUploadLocation();
       file_prepare_directory($thumb_dir, FILE_CREATE_DIRECTORY);
-      $thumbnail = $this->httpClient->request('GET', $this->getRemoteThumbnailUrl());
-      file_unmanaged_save_data((string) $thumbnail->getBody(), $local_uri);
+      $remote_url = $this->getRemoteThumbnailUrl();
+      if ($remote_url) {
+        $thumbnail = $this->httpClient->request('GET', $this->getRemoteThumbnailUrl());
+        file_unmanaged_save_data((string) $thumbnail->getBody(), $local_uri);
+      }
     }
   }
   

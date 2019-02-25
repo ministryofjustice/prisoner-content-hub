@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\video\StreamWrapper\VineStream.
- */
-
 namespace Drupal\video\StreamWrapper;
 
 use Drupal\Core\StreamWrapper\ReadOnlyStream;

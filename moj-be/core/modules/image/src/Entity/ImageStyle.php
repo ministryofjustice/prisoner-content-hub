@@ -4,6 +4,7 @@ namespace Drupal\image\Entity;
 
 use Drupal\Core\Cache\Cache;
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
 use Drupal\Core\Routing\RequestHelper;
@@ -14,7 +15,6 @@ use Drupal\image\ImageEffectInterface;
 use Drupal\image\ImageStyleInterface;
 use Drupal\Component\Utility\Crypt;
 use Drupal\Component\Utility\UrlHelper;
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Drupal\Core\Entity\Entity\EntityViewDisplay;
@@ -25,6 +25,13 @@ use Drupal\Core\Entity\Entity\EntityViewDisplay;
  * @ConfigEntityType(
  *   id = "image_style",
  *   label = @Translation("Image style"),
+ *   label_collection = @Translation("Image styles"),
+ *   label_singular = @Translation("image style"),
+ *   label_plural = @Translation("image styles"),
+ *   label_count = @PluralTranslation(
+ *     singular = "@count image style",
+ *     plural = "@count image styles",
+ *   ),
  *   handlers = {
  *     "form" = {
  *       "add" = "Drupal\image\Form\ImageStyleAddForm",
@@ -148,7 +155,7 @@ class ImageStyle extends ConfigEntityBase implements ImageStyleInterface, Entity
           }
         }
       }
-      foreach (EntityViewDisplay::loadMultiple() as $display) {
+      foreach (EntityFormDisplay::loadMultiple() as $display) {
         foreach ($display->getComponents() as $name => $options) {
           if (isset($options['type']) && $options['type'] == 'image_image' && $options['settings']['preview_image_style'] == $style->getOriginalId()) {
             $options['settings']['preview_image_style'] = $style->id();
@@ -348,7 +355,7 @@ class ImageStyle extends ConfigEntityBase implements ImageStyleInterface, Entity
     // Only support the URI if its extension is supported by the current image
     // toolkit.
     return in_array(
-      Unicode::strtolower(pathinfo($uri, PATHINFO_EXTENSION)),
+      mb_strtolower(pathinfo($uri, PATHINFO_EXTENSION)),
       $this->getImageFactory()->getSupportedExtensions()
     );
   }

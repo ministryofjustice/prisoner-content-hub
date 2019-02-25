@@ -2,7 +2,7 @@
 
 namespace Drupal\basic_auth\Authentication\Provider;
 
-use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Core\Authentication\AuthenticationProviderInterface;
 use Drupal\Core\Authentication\AuthenticationProviderChallengeInterface;
 use Drupal\Core\Cache\CacheableMetadata;
@@ -12,6 +12,7 @@ use Drupal\Core\Flood\FloodInterface;
 use Drupal\Core\Http\Exception\CacheableUnauthorizedHttpException;
 use Drupal\user\UserAuthInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 /**
  * HTTP Basic authentication provider.
@@ -129,7 +130,7 @@ class BasicAuth implements AuthenticationProviderInterface, AuthenticationProvid
   public function challengeException(Request $request, \Exception $previous) {
     $site_config = $this->configFactory->get('system.site');
     $site_name = $site_config->get('name');
-    $challenge = SafeMarkup::format('Basic realm="@realm"', [
+    $challenge = new FormattableMarkup('Basic realm="@realm"', [
       '@realm' => !empty($site_name) ? $site_name : 'Access restricted',
     ]);
 
@@ -155,7 +156,9 @@ class BasicAuth implements AuthenticationProviderInterface, AuthenticationProvid
     $cacheability = CacheableMetadata::createFromObject($site_config)
       ->addCacheTags(['config:user.role.anonymous'])
       ->addCacheContexts(['user.roles:anonymous']);
-    return new CacheableUnauthorizedHttpException($cacheability, (string) $challenge, 'No authentication credentials provided.', $previous);
+    return $request->isMethodCacheable()
+      ? new CacheableUnauthorizedHttpException($cacheability, (string) $challenge, 'No authentication credentials provided.', $previous)
+      : new UnauthorizedHttpException((string) $challenge, 'No authentication credentials provided.', $previous);
   }
 
 }

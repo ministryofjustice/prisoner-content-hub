@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\video\Plugin\Field\FieldFormatter\VideoPlayerListFormatter.
- */
-
 namespace Drupal\video\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
@@ -23,7 +18,7 @@ use Drupal\video\Plugin\Field\FieldFormatter\VideoPlayerFormatter;
  *
  * @FieldFormatter(
  *   id = "video_player_list",
- *   label = @Translation("HTML5 Video Player"),
+ *   label = @Translation("HTML5 Video Player Compact"),
  *   field_types = {
  *     "video"
  *   }
@@ -36,7 +31,7 @@ class VideoPlayerListFormatter extends VideoPlayerFormatter implements Container
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $elements = array();
+    $elements = [];
     $files = $this->getEntitiesToView($items, $langcode);
 
     // Early opt-out if the field is empty.
@@ -45,19 +40,20 @@ class VideoPlayerListFormatter extends VideoPlayerFormatter implements Container
     }
 
     // Collect cache tags to be added for each item in the field.
-    $video_items = array();
+    $video_items = [];
     foreach ($files as $delta => $file) {
       $video_uri = $file->getFileUri();
-      $video_items[] = Url::fromUri(file_create_url($video_uri));
+      $relative_url = file_url_transform_relative(file_create_url($video_uri));
+      $video_items[] = Url::fromUserInput($relative_url);
     }
-    $elements[] = array(
+    $elements[] = [
       '#theme' => 'video_player_formatter',
       '#items' => $video_items,
       '#player_attributes' => $this->getSettings(),
-    );
+    ];
     return $elements;
   }
-  
+
   /**
    * {@inheritdoc}
    */
@@ -68,9 +64,11 @@ class VideoPlayerListFormatter extends VideoPlayerFormatter implements Container
     else{
       $entity_form_display = entity_get_form_display($field_definition->getTargetEntityTypeId(), $field_definition->getTargetBundle(), 'default');
       $widget = $entity_form_display->getRenderer($field_definition->getName());
-      $widget_id = $widget->getBaseId();
-      if($field_definition->isList() && $widget_id == 'video_upload'){
-        return TRUE;
+      if ($widget) {
+        $widget_id = $widget->getBaseId();
+        if($field_definition->isList() && $widget_id == 'video_upload'){
+          return TRUE;
+        }
       }
     }
     return FALSE;

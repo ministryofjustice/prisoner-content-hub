@@ -5,8 +5,8 @@ package: Field types
 # core: 8.x
 dependencies:
   - file
-# Information added by Drupal.org packaging script on 2016-02-14
-version: '8.x-1.2'
+# Information added by Drupal.org packaging script on 2019-02-20
+version: '8.x-1.4'
 core: '8.x'
 project: 'video'
-datestamp: 1455470086
+datestamp: 1550683092

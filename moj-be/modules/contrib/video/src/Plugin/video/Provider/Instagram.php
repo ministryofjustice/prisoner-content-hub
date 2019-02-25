@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\video\Plugin\video\Provider\Instagram.
- */
-
 namespace Drupal\video\Plugin\video\Provider;
 
 use Drupal\video\ProviderPluginBase;
@@ -38,17 +33,17 @@ class Instagram extends ProviderPluginBase {
         'allowfullscreen' => 'allowfullscreen',
         'src' => sprintf('//instagram.com/p/%s/embed/?autoplay=%d', $data['id'], $settings['autoplay']),
       ],
-      '0' => array(
+      '0' => [
         '#type' => 'html_tag',
         '#tag' => 'script',
-        '#attributes' => array(
+        '#attributes' => [
              'type' => 'text/javascript',
              'src' => '//platform.instagram.com/en_US/embeds.js',
              'async',
              'defer'
-        ),
+        ],
         '#value' => '',
-      ),
+      ],
     ];
   }
   

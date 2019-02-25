@@ -63,7 +63,7 @@ class DatabaseStorageExpirable extends DatabaseStorage implements KeyValueStoreE
       'SELECT name, value FROM {' . $this->connection->escapeTable($this->table) . '} WHERE collection = :collection AND expire > :now',
       [
         ':collection' => $this->collection,
-        ':now' => REQUEST_TIME
+        ':now' => REQUEST_TIME,
       ])->fetchAllKeyed();
     return array_map([$this->serializer, 'decode'], $values);
   }
@@ -88,17 +88,11 @@ class DatabaseStorageExpirable extends DatabaseStorage implements KeyValueStoreE
    * {@inheritdoc}
    */
   public function setWithExpireIfNotExists($key, $value, $expire) {
-    $result = $this->connection->merge($this->table)
-      ->insertFields([
-        'collection' => $this->collection,
-        'name' => $key,
-        'value' => $this->serializer->encode($value),
-        'expire' => REQUEST_TIME + $expire,
-      ])
-      ->condition('collection', $this->collection)
-      ->condition('name', $key)
-      ->execute();
-    return $result == Merge::STATUS_INSERT;
+    if (!$this->has($key)) {
+      $this->setWithExpire($key, $value, $expire);
+      return TRUE;
+    }
+    return FALSE;
   }
 
   /**

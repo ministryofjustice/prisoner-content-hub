@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\video\Plugin\video\Provider\YouTube.
- */
-
 namespace Drupal\video\Plugin\video\Provider;
 
 use Drupal\video\ProviderPluginBase;
@@ -45,7 +40,7 @@ class YouTube extends ProviderPluginBase {
       ],
     ];
   }
-  
+
   /**
    * {@inheritdoc}
    */
@@ -65,15 +60,12 @@ class YouTube extends ProviderPluginBase {
     foreach ($img_urls as $url) {
       try {
         $this->httpClient->request('GET', $url);
+        return $url;
       }
       catch (ClientException $e) {
-        $e->getResponse();
-        if ($e->getCode() != 404) {
-          throw $e;
-        }
+        continue;
       }
     }
-
-    return $url;
+    return FALSE;
   }
 }

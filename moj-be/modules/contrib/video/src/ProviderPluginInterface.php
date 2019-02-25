@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\video\ProviderInterface.
- */
-
 namespace Drupal\video;
 
 /**

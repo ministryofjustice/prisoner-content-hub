@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\video\StreamWrapper\VideoRemoteStreamWrapper.
- */
-
 namespace Drupal\video\StreamWrapper;
 
 use Drupal\Core\StreamWrapper\ReadOnlyStream;
@@ -20,7 +15,7 @@ use Drupal\Component\Utility\UrlHelper;
 abstract class VideoRemoteStreamWrapper extends ReadOnlyStream {
   
   protected static $base_url = NULL;
-  protected $parameters = array();
+  protected $parameters = [];
   
   /**
    * {@inheritdoc}
@@ -50,7 +45,7 @@ abstract class VideoRemoteStreamWrapper extends ReadOnlyStream {
    */
   public function getExternalUrl() {
     $path = str_replace('\\', '/', $this->getTarget());
-    return static::baseUrl() . '/' . UrlHelper::encodePath($path);
+    return static::baseUrl() . '/' . $path;
   }
   
   /**

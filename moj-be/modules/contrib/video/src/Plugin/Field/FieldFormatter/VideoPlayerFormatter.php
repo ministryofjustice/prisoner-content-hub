@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\video\Plugin\Field\FieldFormatter\VidePlayerFormatter.
- */
-
 namespace Drupal\video\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
@@ -83,7 +78,7 @@ class VideoPlayerFormatter extends VideoPlayerFormatterBase implements Container
    * {@inheritdoc}
    */
   public static function defaultSettings() {
-    return array(
+    return [
       'width' => '854',
       'height' => '480',
       'controls' => TRUE,
@@ -91,7 +86,7 @@ class VideoPlayerFormatter extends VideoPlayerFormatterBase implements Container
       'loop' => FALSE,
       'muted' => FALSE,
       'preload' => 'none'
-    ) + parent::defaultSettings();
+    ] + parent::defaultSettings();
   }
 
   /**
@@ -134,11 +129,11 @@ class VideoPlayerFormatter extends VideoPlayerFormatterBase implements Container
       '#title' => t('Preload'),
       '#type' => 'select',
       '#default_value' => $this->getSetting('preload'),
-      '#options' => array(
+      '#options' => [
         'none' =>'none',
         'metadata' => 'metadata',
         'auto' => 'auto'
-      ),
+      ],
       '#description' => t('Hint to the browser about whether optimistic downloading of the video itself or its metadata is considered worthwhile.')
     ];
     return $element;
@@ -148,7 +143,7 @@ class VideoPlayerFormatter extends VideoPlayerFormatterBase implements Container
    * {@inheritdoc}
    */
   public function settingsSummary() {
-    $summary = array();
+    $summary = [];
     $summary[] = t('HTML5 Video (@widthx@height@controls@autoplay@loop@muted).', [
       '@width' => $this->getSetting('width'),
       '@height' => $this->getSetting('height'),
@@ -163,7 +158,7 @@ class VideoPlayerFormatter extends VideoPlayerFormatterBase implements Container
    * {@inheritdoc}
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
-    $elements = array();
+    $elements = [];
     $files = $this->getEntitiesToView($items, $langcode);
 
     // Early opt-out if the field is empty.
@@ -174,27 +169,28 @@ class VideoPlayerFormatter extends VideoPlayerFormatterBase implements Container
     // Collect cache tags to be added for each item in the field.
     foreach ($files as $delta => $file) {
       $video_uri = $file->getFileUri();
-      $elements[$delta] = array(
+      $relative_url = file_url_transform_relative(file_create_url($video_uri));
+      $elements[$delta] = [
         '#theme' => 'video_player_formatter',
-        '#items' => array(Url::fromUri(file_create_url($video_uri))),
+        '#items' => [Url::fromUserInput($relative_url)],
         '#player_attributes' => $this->getSettings(),
-      );
+      ];
     }
     return $elements;
   }
-  
+
   /**
    * {@inheritdoc}
    */
   public static function isApplicable(FieldDefinitionInterface $field_definition) {
-    if(empty($field_definition->getTargetBundle()) && !$field_definition->isList()){
+    if(empty($field_definition->getTargetBundle())){
       return TRUE;
     }
     else{
       $entity_form_display = entity_get_form_display($field_definition->getTargetEntityTypeId(), $field_definition->getTargetBundle(), 'default');
       $widget = $entity_form_display->getRenderer($field_definition->getName());
       $widget_id = $widget->getBaseId();
-      if(!$field_definition->isList() && $widget_id == 'video_upload'){
+      if($widget_id == 'video_upload'){
         return TRUE;
       }
     }

@@ -48,7 +48,7 @@ class FilterAPITest extends EntityKernelTestBase {
             'allowed_html' => '<p>',
           ],
         ],
-      ]
+      ],
     ]);
     $crazy_format->save();
 
@@ -183,10 +183,10 @@ class FilterAPITest extends EntityKernelTestBase {
                 'a' => ['href' => TRUE],
                 'em' => TRUE,
               ],
-            ]
+            ],
           ],
         ],
-      ]
+      ],
     ]);
     $very_restricted_html_format->save();
     $this->assertIdentical(
@@ -220,7 +220,7 @@ class FilterAPITest extends EntityKernelTestBase {
             'allowed_html' => '<a> <b class> <c class="*"> <d class="foo bar-* *">',
           ],
         ],
-      ]
+      ],
     ]);
     $nonsensical_restricted_html->save();
     $this->assertIdentical(
@@ -246,9 +246,9 @@ class FilterAPITest extends EntityKernelTestBase {
   /**
    * Tests the 'processed_text' element.
    *
-   * check_markup() is a wrapper for the 'processed_text' element, for use in
-   * simple scenarios; the 'processed_text' element has more advanced features:
-   * it lets filters attach assets, associate cache tags and define
+   * Function check_markup() is a wrapper for the 'processed_text' element, for
+   * use in simple scenarios; the 'processed_text' element has more advanced
+   * features: it lets filters attach assets, associate cache tags and define
    * #lazy_builder callbacks.
    * This test focuses solely on those advanced features.
    */
@@ -416,7 +416,7 @@ class FilterAPITest extends EntityKernelTestBase {
             'allowed_html' => '<p>',
           ],
         ],
-      ]
+      ],
     ]);
     $crazy_format->save();
     // Use config to directly load the configuration and check that only enabled
@@ -488,7 +488,7 @@ class FilterAPITest extends EntityKernelTestBase {
 
     drupal_static_reset('filter_formats');
     \Drupal::entityManager()->getStorage('filter_format')->resetCache();
-    $module_data = _system_rebuild_module_data();
+    $module_data = \Drupal::service('extension.list.module')->reset()->getList();
     $this->assertFalse(isset($module_data['filter_test']->info['required']), 'The filter_test module is required.');
 
     // Verify that a dependency exists on the module that provides the filter
@@ -507,6 +507,18 @@ class FilterAPITest extends EntityKernelTestBase {
     // existing plugins.
     $filters = $filter_format->get('filters');
     $this->assertFalse(isset($filters['filter_test_restrict_tags_and_attributes']), 'The filter plugin filter_test_restrict_tags_and_attributes is not configured by the filtered_html filter format.');
+  }
+
+  /**
+   * Tests that format entities are serialized without their plugin collection.
+   */
+  public function testSleep() {
+    $filter_format = FilterFormat::load('filtered_html');
+
+    $this->assertNull($filter_format->get('filterCollection'));
+    $vars = $filter_format->__sleep();
+    $this->assertContains('filters', $vars);
+    $this->assertNotContains('filterCollection', $vars);
   }
 
 }

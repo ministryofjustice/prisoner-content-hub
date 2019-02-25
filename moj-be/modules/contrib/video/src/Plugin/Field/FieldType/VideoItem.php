@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\video\Plugin\Field\FieldType\VideoItem.
- */
-
 namespace Drupal\video\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldDefinitionInterface;
@@ -14,6 +9,7 @@ use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\Core\TypedData\DataDefinition;
 use Drupal\file\Entity\File;
 use Drupal\file\Plugin\Field\FieldType\FileItem;
+use Drupal\Component\Utility\Random;
 
 /**
  * Plugin implementation of the 'video' field type.
@@ -34,7 +30,10 @@ use Drupal\file\Plugin\Field\FieldType\FileItem;
  *     },
  *   },
  *   list_class = "\Drupal\file\Plugin\Field\FieldType\FileFieldItemList",
- *   constraints = {"ReferenceAccess" = {}, "FileValidation" = {}}
+ *   constraints = {"ReferenceAccess" = {}, "FileValidation" = {}},
+ *   serialized_property_names = {
+ *     "data"
+ *   }
  * )
  */
 class VideoItem extends FileItem {
@@ -50,22 +49,22 @@ class VideoItem extends FileItem {
    * {@inheritdoc}
    */
   public static function defaultStorageSettings() {
-    return array(
-      'default_video' => array(
+    return [
+      'default_video' => [
         'uuid' => NULL,
         'data' => NULL
-      ),
-    ) + parent::defaultStorageSettings();
+      ],
+    ] + parent::defaultStorageSettings();
   }
 
   /**
    * {@inheritdoc}
    */
   public static function defaultFieldSettings() {
-    $settings = array(
+    $settings = [
       'file_extensions' => '',
       'file_directory' => 'videos/[date:custom:Y]-[date:custom:m]',
-    ) + parent::defaultFieldSettings();
+    ] + parent::defaultFieldSettings();
     // Remove field option.
     unset($settings['description_field']);
     return $settings;
@@ -75,29 +74,29 @@ class VideoItem extends FileItem {
    * {@inheritdoc}
    */
   public static function schema(FieldStorageDefinitionInterface $field_definition) {
-    return array(
-      'columns' => array(
-        'target_id' => array(
+    return [
+      'columns' => [
+        'target_id' => [
           'description' => 'The ID of the file entity.',
           'type' => 'int',
           'unsigned' => TRUE,
-        ),
-        'data' => array(
+        ],
+        'data' => [
           'description' => "Additional video metadata.",
           'type' => 'varchar',
           'length' => 512,
-        ),
-      ),
-      'indexes' => array(
-        'target_id' => array('target_id'),
-      ),
-      'foreign keys' => array(
-        'target_id' => array(
+        ],
+      ],
+      'indexes' => [
+        'target_id' => ['target_id'],
+      ],
+      'foreign keys' => [
+        'target_id' => [
           'table' => 'file_managed',
-          'columns' => array('target_id' => 'fid'),
-        ),
-      ),
-    );
+          'columns' => ['target_id' => 'fid'],
+        ],
+      ],
+    ];
   }
 
   /**
@@ -121,7 +120,7 @@ class VideoItem extends FileItem {
    * {@inheritdoc}
    */
   public function storageSettingsForm(array &$form, FormStateInterface $form_state, $has_data) {
-    $element = array();
+    $element = [];
     return $element;
   }
 
@@ -162,9 +161,9 @@ class VideoItem extends FileItem {
     $destination = $dirname . '/' . $random->name(10, TRUE) . '.mp4';
     $data = $random->paragraphs(3);
     $file = file_save_data($data, $destination, FILE_EXISTS_ERROR);
-    $values = array(
+    $values = [
       'target_id' => $file->id(),
-    );
+    ];
     return $values;
   }
 

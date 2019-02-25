@@ -3,6 +3,7 @@
 namespace Drupal\KernelTests\Core\Routing;
 
 use Drupal\Component\Utility\Html;
+use Drupal\Core\Cache\CacheableJsonResponse;
 use Drupal\KernelTests\KernelTestBase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -56,6 +57,7 @@ class ExceptionHandlingTest extends KernelTestBase {
     $this->assertEqual($response->getStatusCode(), Response::HTTP_FORBIDDEN);
     $this->assertEqual($response->headers->get('Content-type'), 'application/json');
     $this->assertEqual('{"message":""}', $response->getContent());
+    $this->assertInstanceOf(CacheableJsonResponse::class, $response);
   }
 
   /**
@@ -170,7 +172,7 @@ class ExceptionHandlingTest extends KernelTestBase {
     // Enable verbose error logging.
     $this->config('system.logging')->set('error_level', ERROR_REPORTING_DISPLAY_VERBOSE)->save();
 
-    // Using SafeMarkup::format().
+    // Using \Drupal\Component\Render\FormattableMarkup.
     $request = Request::create('/router_test/test24');
     $request->setFormat('html', ['text/html']);
 
