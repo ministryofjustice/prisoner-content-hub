@@ -20,6 +20,9 @@ const mkdirp = require('mkdirp');
 const { getEnv } = require('../utils');
 
 const token = getEnv('MATOMO_TOKEN');
+const siteUrl = getEnv('MATOMO_URL');
+
+console.log(siteUrl);
 
 const today = `${formatDate(startOfToday(), 'YYYY-MM-DD')}`;
 const dateRange = process.argv[2] || `${today},${today}`;
@@ -47,7 +50,7 @@ PromiseBar.all(getAllAnalyticsData(dateRange), { label: 'Progress' })
 // Helper functions
 function getAnalyticsDataFrom(date) {
   return request
-    .get('http://digital-hub.bwi.dpn.gov.uk:12001/index.php')
+    .get(siteUrl)
     .query({
       date,
       expanded: '1',
@@ -95,7 +98,10 @@ function generateCSVFile(data) {
 }
 
 function parseResponse(data) {
-  if (!Array.isArray(data)) throw new Error('Invalid data received');
+  if (!Array.isArray(data)) {
+    console.error(data);
+    throw new Error('Invalid data received');
+  }
   return data
     .map(extractEventData)
     .reduce(flatten, [])
