@@ -32,6 +32,12 @@
           {% endif %}
         </div>
 
+        {% if params.image %}
+          <div class="govuk-grid-column-one-half">
+            <img src="{{params.image.url}}">
+          </div>
+        {% endif %}
+
         {# <div class="govuk-grid-column-one-half">
           {{ hubFeaturedContentItem({
               id: params.featuredContent.id,

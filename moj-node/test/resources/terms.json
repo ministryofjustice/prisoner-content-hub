@@ -83,5 +83,17 @@
       "pid": null,
       "langcode": "en"
     }
+  ],
+  "field_featured_image": [
+    {
+      "target_id": 10343,
+      "alt": "foo image",
+      "title": "",
+      "width": 633,
+      "height": 330,
+      "target_type": "file",
+      "target_uuid": "622ae2ea-1a72-4bf4-a1c4-96907dfb8331",
+      "url": "http://foo.bar/image.png"
+    }
   ]
 }

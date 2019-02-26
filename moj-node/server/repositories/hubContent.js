@@ -19,6 +19,8 @@ const {
   summaryValueFrom,
   imageAltFrom,
   imageUrlFrom,
+  featuredImageUrlFrom,
+  featuredImageAltFrom,
   durationFrom,
   audioUrlFrom,
   videoUrlFrom,
@@ -94,6 +96,13 @@ module.exports = function hubContentRepository(httpClient) {
         raw: termDescriptionValueFrom(data),
         sanitized: termDescriptionProcessedFrom(data),
       },
+      image: {
+        alt: featuredImageAltFrom(data),
+        url: fixUrlForProduction(
+          featuredImageUrlFrom(data),
+          config.drupalAppUrl,
+        ),
+      },
     };
   }
 
@@ -109,6 +118,13 @@ module.exports = function hubContentRepository(httpClient) {
         raw: descriptionValueFrom(data),
         sanitized: descriptionProcessedFrom(data),
         summary: summaryValueFrom(data),
+      },
+      image: {
+        alt: featuredImageAltFrom(data),
+        url: fixUrlForProduction(
+          featuredImageUrlFrom(data),
+          config.drupalAppUrl,
+        ),
       },
       categoryId: categoryIdFrom(data),
     };

@@ -131,5 +131,17 @@
       "target_uuid": "decf2e6a-30b3-4df7-83cc-0c0fc76e9466",
       "url": "/node/3602"
     }
+  ],
+  "field_featured_image": [
+    {
+      "target_id": 10343,
+      "alt": "foo image",
+      "title": "",
+      "width": 633,
+      "height": 330,
+      "target_type": "file",
+      "target_uuid": "622ae2ea-1a72-4bf4-a1c4-96907dfb8331",
+      "url": "http://foo.bar/image.png"
+    }
   ]
 }

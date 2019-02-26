@@ -71,6 +71,10 @@ describe('hubContentRepository', () => {
           raw: '<p>foo description</p>',
           sanitized: '<p>foo description</p>',
         },
+        image: {
+          url: 'http://foo.bar/image.png',
+          alt: 'foo image',
+        },
       });
       expect(client.get.lastCall.args[0]).to.include('id');
     });
@@ -253,6 +257,10 @@ function landingPageContent() {
       raw: '<p>bar description</p>',
       sanitized: '<p>bar description</p>',
       summary: 'Foo bar summary',
+    },
+    image: {
+      url: 'http://foo.bar/image.png',
+      alt: 'foo image',
     },
   };
 }

@@ -26,6 +26,14 @@ module.exports.imageAltFrom = R.view(
 module.exports.imageUrlFrom = R.view(
   R.lensPath(['field_moj_thumbnail_image', 0, 'url']),
 );
+
+module.exports.featuredImageUrlFrom = R.view(
+  R.lensPath(['field_featured_image', 0, 'url']),
+);
+module.exports.featuredImageAltFrom = R.view(
+  R.lensPath(['field_featured_image', 0, 'alt']),
+);
+
 module.exports.durationFrom = R.view(
   R.lensPath(['field_moj_duration', 0, 'value']),
 );
