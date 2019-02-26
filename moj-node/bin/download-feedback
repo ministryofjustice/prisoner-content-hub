@@ -74,6 +74,10 @@ function getAllAnalyticsData(dates) {
     differenceInCalendarDays(new Date(startDate), new Date(endDate)),
   );
 
+  if (differenceInDays === 0) {
+    return [getAnalyticsDataFrom(startDate)];
+  }
+
   return new Array(differenceInDays)
     .fill(undefined)
     .map((elem, index) => {
