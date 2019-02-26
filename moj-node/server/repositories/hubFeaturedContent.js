@@ -23,7 +23,7 @@ function hubFeaturedContentRepository(httpClient) {
   function dayToDay({ establishmentId }) {
     return hubContentFor({
       query: {
-        _number: 4,
+        _number: 5,
         _category: 787,
         _prison: establishmentId,
       },
