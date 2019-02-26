@@ -1,6 +1,6 @@
 {% from "../components/header/macro.njk" import pageHeaderWithBack %}
 {% from "../components/sub-menu/macro.njk" import hubSubMenu %}
-{% from "../components/landing-page-header/macro.njk" import hubLandingPageHeader %}
+{% from "../components/secondary-tag-page-header/macro.njk" import secondaryTagPageHeader %}
 {% from "../components/related-content/macro.njk" import hubRelatedContent %}
 
 {% extends "../components/template.njk" %}
@@ -36,8 +36,9 @@
 {% endblock %}
 
 {% block main %}
-  {{ hubLandingPageHeader({
+  {{ secondaryTagPageHeader({
       title: data.name,
+      summary: data.summary,
       description: data.description,
       categoryId: tagId,
       image: data.image
