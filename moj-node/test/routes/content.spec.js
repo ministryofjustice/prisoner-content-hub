@@ -311,7 +311,7 @@ describe('GET /content/:id', () => {
         });
     });
 
-    describe('when the landing page feature is toggled', () => {
+    xdescribe('when the landing page feature is toggled', () => {
       it('renders a sub menu', () => {
         const hubContentService = {
           contentFor: sinon.stub().returns(serviceResponse),

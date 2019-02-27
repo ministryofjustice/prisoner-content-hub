@@ -21,9 +21,10 @@ module.exports = {
     hubHealth: `${hubEndpoint}/api/health`,
     hubContent: `${hubEndpoint}/v1/api/content`,
     hubMenu: `${hubEndpoint}/v1/api/menu`,
+    categoryMenu: `${hubEndpoint}/v1/api/category-menu`,
     hubTerm: `${hubEndpoint}/v1/api/term`,
     series: `${hubEndpoint}/v1/api/content/series`,
     tags: `${hubEndpoint}/v1/api/vocabulary/tags`,
   },
-  features: ['showLandingPageMenu', 'showPageMenu', 'showBrowseBySeries'],
+  features: ['showPageMenu', 'showBrowseBySeries'],
 };

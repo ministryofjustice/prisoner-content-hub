@@ -23,11 +23,16 @@ function createHubMenuService(repository) {
     return repository.gettingAJobMenu(prisonId);
   }
 
+  function categoryMenu({ category, prisonId }) {
+    return repository.categoryMenu({ category, prisonId });
+  }
+
   return {
     navigationMenu,
     seriesMenu,
     homepageMenu,
     gettingAJobMenu,
+    categoryMenu,
   };
 }
 

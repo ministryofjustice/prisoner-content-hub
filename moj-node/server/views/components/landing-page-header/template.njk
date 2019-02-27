@@ -21,49 +21,17 @@
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full govuk-!-padding-top-2">
           <h1 id="title" class="govuk-heading-xl govuk-hub-landing-page-header-underline">{{ params.title }}</h1>
-            {# <p class="govuk-heading-m">In this section</p>
+          <p class="govuk-heading-m">In this section</p>
 
-              <nav class="govuk-hub-content-section-menu">
-              <ul>
-                  <li><a href="" title="test" class="govuk-link govuk-link--no-visited-state">Healthcare</a></li>
-                  <li><a href="" title="test" class="govuk-link govuk-link--no-visited-state">Mindfulness</a></li>
-                  <li><a href="" title="test" class="govuk-link govuk-link--no-visited-state">Timewise</a></li>
-                  <li><a href="" title="test" class="govuk-link govuk-link--no-visited-state">About the gym</a></li>
-                  <li><a href="" title="test" class="govuk-link govuk-link--no-visited-state">Smoking and vaping</a></li>
-                  <li><a href="" title="test" class="govuk-link govuk-link--no-visited-state">Listeners</a></li>
-              </ul>
-            </nav> #}
-
-          {# {% if params.description.summary %}
-            <p id="summary" class="govuk-body-l">{{ params.description.summary}}</p>
-          {% endif %} #}
-
-          {# {% if params.description.sanitized %}
-            <div id="description" class="gov-uk-dynamic-content">
-              {{params.description.sanitized | safe }}
-            </div>
-          {% endif %} #}
+          <nav class="govuk-hub-content-section-menu">
+            <ul>
+              {% for menuItem in params.categoryMenu %}
+                <li><a href="/tags/{{menuItem.id}}" title="{{menuItem.name}}" class="govuk-link govuk-link--no-visited-state">{{menuItem.name}}</a></li>
+              {% endfor %}
+            </ul>
+          </nav>
         </div>
-
-        {# <div class="govuk-grid-column-one-half">
-          {{ hubFeaturedContentItem({
-              id: params.featuredContent.id,
-              title: params.featuredContent.title,
-              summary: params.featuredContent.description.summary,
-              size: 'large',
-              contentType: params.featuredContent.type,
-              graphic: params.featuredContent.thumbnail,
-              duration: params.featuredContent.duration
-            })
-          }}
-        </div> #}
       </div>
-      {% if (params.features.showLandingPageMenu)%}
-        {{ hubSubMenu({
-          data: params.menu,
-          theme: "white"
-        }) }}
-      {% endif %}
     </div>
   </div>
 </div>
