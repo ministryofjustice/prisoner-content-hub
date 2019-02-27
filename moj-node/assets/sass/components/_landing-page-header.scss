@@ -5,7 +5,7 @@
 
 .govuk-hub-landing-page-header--with-stripe::after {
   content: '';
-  background-color: inherit;
+  background-color: govuk-colour('grey-1');
   height: 20px;
   width: 100%;
   display: block;
