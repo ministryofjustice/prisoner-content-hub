@@ -12,7 +12,8 @@
   "650": "science-nature",
   "643": "history",
   "786": "legal-and-your-rights",
-  "785": "music"
+  "785": "music",
+  "645": "education"
 } %}
 
 <div id="category-{{params.categoryId}}" class="govuk-hub-landing-page-header">
@@ -26,7 +27,7 @@
           <nav class="govuk-hub-content-section-menu">
             <ul>
               {% for menuItem in params.categoryMenu %}
-                <li><a href="/tags/{{menuItem.id}}" title="{{menuItem.name}}" class="govuk-link govuk-link--no-visited-state">{{menuItem.name}}</a></li>
+                <li><a href="{{menuItem.href}}" title="{{menuItem.linkText}}" class="govuk-link govuk-link--no-visited-state">{{menuItem.linkText}}</a></li>
               {% endfor %}
             </ul>
           </nav>

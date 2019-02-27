@@ -1,6 +1,6 @@
 const R = require('ramda');
 const config = require('../config');
-const { tagIdFrom, nameFrom, vocabularyType } = require('../selectors/hub');
+const { tagIdFrom, nameFrom } = require('../selectors/hub');
 
 const berwynNav = require('../data/berwyn-homepage-nav.json');
 const waylandNav = require('../data/wayland-homepage-nav.json');
@@ -81,17 +81,10 @@ function hubMenuRepository(httpClient) {
   function parseCategoryMenu(data) {
     if (data === null) return [];
 
-    return Object.keys(data)
-      .map(key => {
-        return Object.keys(data[key]).map(childKey => {
-          return {
-            id: tagIdFrom(data[key][childKey]),
-            name: nameFrom(data[key][childKey]),
-            type: vocabularyType(data[key][childKey]),
-          };
-        });
-      })
-      .reduce((acc, item) => acc.concat(item), []);
+    const series = parseTagsResponse(data.series_ids);
+    const secondaryTags = parseTagsResponse(data.secondary_tag_ids);
+
+    return [...series, ...secondaryTags];
   }
 
   return {
