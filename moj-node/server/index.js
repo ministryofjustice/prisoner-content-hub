@@ -30,6 +30,7 @@ const hubPromotedContentService = createHubPromotedContentService(
 
 const hubContentService = createHubContentService(
   contentRepository(new HubClient()),
+  hubMenuRepository(new HubClient()),
 );
 
 const hubTagsService = createHubTagsService(contentRepository(new HubClient()));

@@ -89,7 +89,7 @@ describe('#hubContentService', () => {
     expect(repository.seasonFor.lastCall.args[0]).to.equal('seriesId');
   });
 
-  describe('landing page', () => {
+  xdescribe('landing page', () => {
     const content = {
       id: 'foo-id',
       contentType: 'landing-page',
