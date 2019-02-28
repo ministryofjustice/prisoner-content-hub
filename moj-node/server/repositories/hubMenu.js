@@ -82,9 +82,9 @@ function hubMenuRepository(httpClient) {
     if (data === null) return [];
 
     const series = parseTagsResponse(data.series_ids);
-    const secondaryTags = parseTagsResponse(data.secondary_tag_ids);
+    // const secondaryTags = parseTagsResponse(data.secondary_tag_ids);
 
-    return [...series, ...secondaryTags];
+    return series;
   }
 
   return {
