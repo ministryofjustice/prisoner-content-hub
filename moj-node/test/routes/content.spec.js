@@ -4,7 +4,6 @@ const fs = require('fs');
 const path = require('path');
 
 const createHubContentRouter = require('../../server/routes/content');
-const featureToggleMiddleWare = require('../../server/middleware/featureToggle');
 const { setupBasicApp, logger } = require('../test-helpers');
 
 const radioShowResponse = require('../resources/radioShowServiceResponse.json');
@@ -275,7 +274,7 @@ describe('GET /content/:id', () => {
           },
         },
       ],
-      menu: [
+      categoryMenu: [
         { linkText: 'Foo', href: '/content/1', id: '1' },
         { linkText: 'Bar', href: '/content/2', id: '2' },
       ],
@@ -304,35 +303,11 @@ describe('GET /content/:id', () => {
             2,
             'it did not render the correct number of related items',
           );
-          expect($('#sub-menu a').length).to.equal(
-            0,
-            'show have not rendered a sub menu',
+          expect($('.govuk-hub-content-section-menu a').length).to.equal(
+            2,
+            'show have rendered a category menu',
           );
         });
-    });
-
-    xdescribe('when the landing page feature is toggled', () => {
-      it('renders a sub menu', () => {
-        const hubContentService = {
-          contentFor: sinon.stub().returns(serviceResponse),
-        };
-        const router = createHubContentRouter({ logger, hubContentService });
-        const app = setupBasicApp();
-
-        app.use(featureToggleMiddleWare(['showLandingPageMenu']));
-        app.use('/content', router);
-
-        return request(app)
-          .get('/content/1')
-          .query({ showLandingPageMenu: 'true' })
-          .then(response => {
-            const $ = cheerio.load(response.text);
-            expect($('#sub-menu > a').length).to.equal(
-              2,
-              'it did not render the correct number of menu items',
-            );
-          });
-      });
     });
   });
 });

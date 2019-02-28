@@ -1,6 +1,7 @@
 const R = require('ramda');
 
 const config = require('../config');
+const logger = require('../../log');
 const { HUB_CONTENT_TYPES } = require('../constants/hub');
 const {
   parseHubContentResponse,
@@ -39,7 +40,12 @@ const {
 
 module.exports = function hubContentRepository(httpClient) {
   async function contentFor(id) {
-    const response = await httpClient.get(`${config.api.hubContent}/${id}`);
+    const endpoint = `${config.api.hubContent}/${id}`;
+    if (!id) {
+      logger.debug(`Requested ${endpoint} and got back`);
+      return null;
+    }
+    const response = await httpClient.get(endpoint);
 
     return parseResponse(response);
   }

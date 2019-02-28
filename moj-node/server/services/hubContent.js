@@ -61,9 +61,7 @@ module.exports = function createHubContentService(
     }
 
     const [featuredContent, relatedContent, categoryMenu] = await Promise.all([
-      featuredContentId
-        ? contentRepository.contentFor(featuredContentId)
-        : () => null,
+      contentRepository.contentFor(featuredContentId),
       contentRepository.relatedContentFor({
         id: categoryId,
         establishmentId,
