@@ -2,6 +2,18 @@ const express = require('express');
 const { isEmpty } = require('ramda');
 const { ESTABLISHMENTS } = require('../constants/hub');
 
+function addCurrentPageToMenu(url, menu) {
+  return menu.map(menuItem => {
+    const updatedLinks = menuItem.links.map(link => {
+      if (link.href === url) {
+        return { ...link, currentPage: true };
+      }
+      return link;
+    });
+    return { ...menuItem, links: updatedLinks };
+  });
+}
+
 module.exports = function createStepByStepRouter({
   logger,
   hubContentService,
@@ -16,6 +28,7 @@ module.exports = function createStepByStepRouter({
 
     const establishmentName = ESTABLISHMENTS[establishmentId];
     const title = `Working in ${establishmentName}`;
+    const menu = hubMenuService.gettingAJobMenu(establishmentId);
     const standFirst = {
       792: 'What you need to do to get or change your job in Berwyn.',
       793: 'How to do to get, or change, a job in this prison.',
@@ -35,7 +48,7 @@ module.exports = function createStepByStepRouter({
       breadcrumbs,
       data: {
         title,
-        menu: hubMenuService.gettingAJobMenu(establishmentId),
+        menu,
         standFirst: standFirst[establishmentId],
       },
     });
@@ -49,6 +62,7 @@ module.exports = function createStepByStepRouter({
     };
     const { establishmentId } = req.app.locals.envVars;
     const establishmentName = ESTABLISHMENTS[establishmentId];
+    const menu = hubMenuService.gettingAJobMenu(establishmentId);
 
     try {
       const data = await hubContentService.contentFor(
@@ -82,7 +96,7 @@ module.exports = function createStepByStepRouter({
       return res.render('pages/getting-a-job-content', {
         data: {
           ...data,
-          menu: hubMenuService.gettingAJobMenu(establishmentId),
+          menu: addCurrentPageToMenu(req.originalUrl, menu),
           rootPath,
         },
         breadcrumbs,
