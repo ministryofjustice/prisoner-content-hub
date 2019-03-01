@@ -221,6 +221,15 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
+  - username: jamiesabbatella
+    name: "Jamie Sabbatella"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPLuxIqqgtMroXSqg0Oq/WuswNg/eera+KVMjxkzDXjI jamie@ABA-JS"
+    shell: /bin/bash
+    update_password: on_create
+
 users: "{{ studio_users }}"
 
 users_deleted:
@@ -233,7 +242,6 @@ users_deleted:
   - username: ppaton
   - username: glenmailer
   - username: simoncross
-
   - username: draganletic
   - username: graemewood
   - username: brianaldridge
