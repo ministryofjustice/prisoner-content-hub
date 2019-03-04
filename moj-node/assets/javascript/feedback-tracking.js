@@ -7,6 +7,7 @@
       video: 'video',
       radio: 'podcast',
       page: 'article',
+      game: 'game',
     };
 
     rootElement.addEventListener('click', function(event) {
