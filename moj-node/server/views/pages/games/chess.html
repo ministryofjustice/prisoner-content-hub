@@ -1,4 +1,5 @@
 {% from "../../components/header/macro.njk" import pageHeaderWithBack %}
+{% from "../../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 {% extends "../../components/template.njk" %}
 
 {% block pageTitle %}
@@ -22,6 +23,11 @@
   <![endif]-->
 
   <link href="/public/javascript/games/chess/chessboard.css" rel="stylesheet" type="text/css"/>
+  <!-- chess -->
+  <script src="/public/javascript/games/chess/jquery.min.js" type="text/javascript"></script>
+  <script src="/public/javascript/games/chess/chess.min.js" type="text/javascript"></script>
+  <script src="/public/javascript/games/chess/chessboard.min.js" type="text/javascript"></script>
+
 {% endblock %}
 
 {% block header %}
@@ -35,129 +41,94 @@
 
 {% block main %}
 <div class="govuk-width-container">
-  <main class="govuk-main-wrapper">
+  <div class="govuk-main-wrapper">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">Chess</h1>
+        <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-4">Chess</h1>
       </div>
     </div>
-     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <div id="board" class="govuk-!-margin-bottom-4" style="width: 100%; max-width: 500px">
-          [GAME HERE]
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <div class="game-board-container">
+          <span class="govuk-heading-s govuk-!-margin-bottom-2" id="time1">0:05:00</span>
+          <div class="main-board" id="board"></div>
+          <div class="messages" id="messages"></div>
+          <span class="govuk-heading-s govuk-!-margin-bottom-2" id="time2">0:05:00</span>
+
+          <div class="govuk-form-group govuk-!-margin-bottom-0">
+            <button type="button" class="govuk-button govuk-!-margin-bottom-0" onclick="undo()">Undo move</button>
+          </div>
+
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+          <div class="engine-status" id="engineStatus">...</div>
         </div>
-
-        <p id="engineStatus" class="govuk-body-s govuk-hint govuk-!-margin-bottom-6"></p>
-
-        <div class="moves govuk-!-margin-bottom-4">
-          <h3 class="govuk-heading-m">Moves</h3>
-          <p class="govuk-body" id="pgn">No moves made.</p>
+        <div class="moves-container">
+          <span class="govuk-heading-s govuk-!-margin-bottom-2">Moves:</span>
+          <div class="move-lists" id="pgn">Waiting for the first move!</div>
         </div>
+        <div class="settings-container">
+          <span class="govuk-heading-s govuk-!-margin-bottom-2">Game settings:</span>
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="playerColor">
+              Play with
+            </label>
+            <select class="govuk-select govuk-hub-full-width" id="playerColor" name="playerColor">
+              <option value="white" selected>White</option>
+              <option value="black">Black</option>
+            </select>
+          </div>
 
-        {# <div id="chess-alert" class="govuk-!-margin-bottom-4" role="alert">
-          <h3 class="govuk-heading-m">chess skill settings</h3>
-          <p class="govuk-body">Skill level: <span id="skillLevelDisplay">-100</span></p>
-          <p class="govuk-body">Contempt level: <span id="contemptLevelDisplay">20</span></p>
-          <p class="govuk-body">Pawns get promoted to: <span id="promoteLevelDisplay">Queen</span></p>
-        </div> #}
+          <div class="govuk-form-group">
+            <label for="timeBase" class="govuk-label">Base time (min)</label>
+            <input type="number" class="govuk-input govuk-date-input__input" id="timeBase" value="5"></input>
+          </div>
 
-      </div>
+          <div class="govuk-form-group">
+            <label for="timeInc" class="govuk-label">Increment (sec)</label>
+            <input type="number" class="govuk-input govuk-date-input__input" id="timeInc" value="2"></input>
+          </div>
 
-      <div class="govuk-grid-column-one-third">
-        <div class="govuk-form-group">
-          <label class="govuk-label" for="contemptLevel">
-            Contempt Level (-100 to 100)
-          </label>
-          <input type="number" class="govuk-input govuk-!-margin-bottom-2" id="contemptLevel" value="-100" max="100" min="-100">
-          <details class="govuk-details">
-            <summary class="govuk-details__summary">
-              <span class="govuk-details__summary-text">
-                Help with contempt level
-              </span>
-            </summary>
-            <div class="govuk-details__text">
-              Roughly equivalent to "optimism." Positive values of contempt favor more "risky" play, while negative values will favor draws. Zero is neutral.
+          <div class="govuk-form-group">
+            <label for="skillLevel" class="govuk-label">Skill Level (0-20)</label>
+            <input type="number" class="govuk-input govuk-date-input__input" id="skillLevel" value="20"></input>
+          </div>
+
+          <div class="govuk-form-group">
+            <div class="govuk-checkboxes__item">
+              <input class="govuk-checkboxes__input" id="showScore" name="showScore" type="checkbox" value="1" checked>
+              <label class="govuk-label govuk-checkboxes__label" for="showScore">
+                Show score
+              </label>
             </div>
-          </details>
-        </div>
-        <div class="govuk-form-group">
-          <label class="govuk-label" for="skillLevel">
-            Skill Level (0 to 20)
-          </label>
-          <input type="number" class="govuk-input govuk-!-margin-bottom-2" id="skillLevel" value="20" max="20" min="0">
-        </div>
-        <div class="govuk-form-group">
-          <label for="color" class="govuk-label">Pawns get promoted to</label>
-          <select class="govuk-select" id="promote" style="width: 100%">
-              <option value="q" selected="">Queen</option>
-              <option value="r">Rook</option>
-              <option value="b">Bishop</option>
-              <option value="n">Knight</option>
-          </select>
-        </div>
-        <div class="govuk-form-group">
-          <input type="hidden" id="timeInc" value="0" />
-          <input type="hidden" id="timeBase" value="1" />
-          <button type="button" class="govuk-button" onclick="init()">New game</button>
-        </div>
-          <h3 class="govuk-heading-m">How to play chess</h3>
-        <div class="govuk-inset-text">
+          </div>
 
-          <a href="/content/3700" target="_blank" class="govuk-link govuk-link--no-visited-state">Download the rules of chess (PDF)</a>
+          <div class="govuk-form-group">
+            <button type="button" class="govuk-button" onclick="newGame()">New Game</button>
+          </div>
+
+          <h3 class="govuk-heading-m">How to play chess</h3>
+          <div class="govuk-inset-text">
+            <a href="/content/3700" target="_blank" class="govuk-link govuk-link--no-visited-state">Download the rules of chess (PDF)</a>
+          </div>
+        </div>
         </div>
       </div>
     </div>
-  </main>
+
+    <div class="govuk-hub-article-feedback govuk-!-margin-bottom-9">
+      <p class="govuk-body">Tell us what you think:</p>
+      {{ hubFeedbackWidget({
+        title: "Chess",
+        contentType: "game",
+        series: null,
+        establishment: envVars.APP_NAME
+      })}}
+    </div>
+  </div>
 </div>
 
 
-
-
-<script src="/public/jquery.min.js"></script>
-
-<!-- chess -->
-<script src="/public/javascript/games/chess/chess.js" type="text/javascript"></script>
-<script src="/public/javascript/games/chess/chessboard.js" type="text/javascript"></script>
-<script src="/public/javascript/games/chess/enginegame.js" type="text/javascript"></script>
-
-<script>
-    var game = engineGame();
-    var baseTime = parseFloat($('#timeBase').val()) * 60;
-    var skillLevel = $('#skillLevel');
-    var contemptLevel = $('#contemptLevel');
-    var inc = parseFloat($('#timeInc').val());
-
-
-    skillLevel.on("change", function () {
-        game.setSkillLevel(parseInt(this.value, 10));
-    });
-
-    contemptLevel.on("change", function () {
-        game.setContempt(parseInt(this.value));
-    });
-
-    {# function setDisplay(skill, contempt, promote) {
-        $('#skillLevelDisplay').html(skill);
-        $('#contemptLevelDisplay').html(contempt);
-        $('#promoteLevelDisplay').html(promote);
-    } #}
-
-    function init() {
-        game.reset();
-        game.setTime(baseTime, inc);
-        game.setSkillLevel(skillLevel.val());
-        game.setContempt(contemptLevel.val());
-        // game.setThreads(2);
-        // game.setMinimumThinkingTime(100);
-        game.setDisplayScore();
-        game.setPlayerColor($('#color-white').hasClass('active') ? 'white' : 'white');
-        game.setDisplayScore($('#showScore').is(':checked'));
-        // setDisplay(skillLevel.val(), contemptLevel.val(), $('#promote :selected').text());
-        game.start();
-    }
-    init();
-</script>
-
-
+<script src="/public/javascript/games/chess/enginegame.js"></script>
+<script src="/public/javascript/games/chess/game.js"></script>
 
 {% endblock %}

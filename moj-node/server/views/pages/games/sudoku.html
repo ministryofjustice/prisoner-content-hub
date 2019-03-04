@@ -1,4 +1,5 @@
 {% from "../../components/header/macro.njk" import pageHeaderWithBack %}
+{% from "../../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 {% extends "../../components/template.njk" %}
 
 {% block pageTitle %}
@@ -43,7 +44,7 @@
         <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">Sudoku</h1>
       </div>
     </div>
-    <div class="govuk-grid-row">
+    <div class="govuk-grid-row govuk-!-margin-bottom-6">
       <div class="govuk-grid-column-one-half">
         <div id="sudoku" class="sudoku-board js-sudoku-board" data-board-size="9"></div>
       </div>
@@ -54,6 +55,16 @@
         <p class="govuk-body">Each sudoku puzzle has only one correct solution.</p>
         <p><button id="new-game" class="govuk-button" title="Start a new game">Start a new game</button></p>
       </div>
+    </div>
+
+    <div class="govuk-hub-article-feedback">
+      <p class="govuk-body">Tell us what you think:</p>
+      {{ hubFeedbackWidget({
+          title: "Sudoku",
+          contentType: "game",
+          series: null,
+          establishment: envVars.APP_NAME
+        })}}
     </div>
   </main>
 </div>

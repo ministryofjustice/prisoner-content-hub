@@ -15,7 +15,7 @@
 
 /* board */
 .board-b72b1 {
-  border: 2px solid #404040;
+  border: 3px solid #938172;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
@@ -67,4 +67,91 @@
 .numeric-fc462 {
   top: 2px;
   left: 2px;
+}
+
+
+#stats {
+  font-weight: bold;
+}
+
+#moves {
+  font-weight: bold;
+}
+
+
+.clearfix::after {
+  display: block;
+  content: "";
+  clear: both;
+}
+
+
+.game-board-container {
+  float: left;
+  width: 486px;
+  position: relative;
+}
+
+.main-board {
+  border: 3px solid #938172;
+  width: 486px;
+  height: 486px;
+  margin-bottom: 20px;
+}
+
+.moves-container {
+  float: left;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 300px;
+  height: 470px;
+  position: relative;
+}
+
+.move-lists {
+  font-family: "nta", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  left: 0;
+  border: 1px solid #eee;
+  font-size: 16px;
+  width: 280px;
+  height: 100%;
+  overflow: hidden;
+  padding-top: 10px;
+  position: absolute;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.settings-container {
+  float: left;
+  width: 325px;
+}
+
+.govuk-hub-full-width {
+  width: 100%;
+}
+
+.engine-status {
+  font-family: "nta", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  margin-bottom: 40px;
+}
+
+.messages {
+  font-size: 1.50rem;
+  font-weight: 700;
+  line-height: 1.11111;
+  color: 	#fffacd;
+  font-family: "nta",Arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gameover {
+  position: absolute;
+  top: 245px;
+  background-color: rgba(0,0,0,0.7);
+  width: 451px;
+  text-align: center;
+  padding: 20px;
 }
