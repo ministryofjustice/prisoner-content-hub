@@ -57,22 +57,24 @@ function engineGame(options) {
 
   function displayClock(color, t) {
     var isRunning = false;
-    var display = '';
+    var display = 'Waiting for move...';
     if (time.startTime > 0 && color == time.clockColor) {
       t = Math.max(0, t + time.startTime - Date.now());
       isRunning = true;
     }
     var id = color == playerColor ? '#time2' : '#time1';
+
     var sec = Math.ceil(t / 1000);
     var min = Math.floor(sec / 60);
     sec -= min * 60;
     var hours = Math.floor(min / 60);
     min -= hours * 60;
-    var playerTurnText = id === '#time1' ? " (Computer's turn)" : " (Your turn)";
+    var playerTurnText = id === '#time1' ? "Computer's turn" : "Your turn";
     // var display = hours + ':' + ('0' + min).slice(-2) + ':' + ('0' + sec).slice(-2);
     if (isRunning) {
-      display += sec & 1 ? ' -->' : ' ->';
+      display = '';
       display += playerTurnText;
+      display += sec & 1 ? ' ...' : ' .';
     }
     $(id).text(display);
   }

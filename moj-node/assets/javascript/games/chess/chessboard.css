@@ -155,3 +155,11 @@
   text-align: center;
   padding: 20px;
 }
+
+.govuk-hub-computer {
+  color: #006435;
+}
+
+.govuk-hub-human {
+  color: 	#005ea5;
+}
