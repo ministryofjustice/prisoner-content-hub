@@ -9,6 +9,7 @@ function engineGame(options) {
   var playerColor = 'white';
   var clockTimeoutID = null;
   var isEngineRunning = false;
+  var timeoutMessage;
 
   // do not pick up pieces if the game is over
   // only pick up pieces for White
@@ -56,6 +57,7 @@ function engineGame(options) {
 
   function displayClock(color, t) {
     var isRunning = false;
+    var display = '';
     if (time.startTime > 0 && color == time.clockColor) {
       t = Math.max(0, t + time.startTime - Date.now());
       isRunning = true;
@@ -66,10 +68,10 @@ function engineGame(options) {
     sec -= min * 60;
     var hours = Math.floor(min / 60);
     min -= hours * 60;
-    var playerTurnText = id === '#time1' ? " (Computer's turn)" : " (Players turn)"
-    var display = hours + ':' + ('0' + min).slice(-2) + ':' + ('0' + sec).slice(-2);
+    var playerTurnText = id === '#time1' ? " (Computer's turn)" : " (Your turn)";
+    // var display = hours + ':' + ('0' + min).slice(-2) + ':' + ('0' + sec).slice(-2);
     if (isRunning) {
-      display += sec & 1 ? ' <--' : ' <-';
+      display += sec & 1 ? ' -->' : ' ->';
       display += playerTurnText;
     }
     $(id).text(display);
@@ -122,6 +124,14 @@ function engineGame(options) {
     updateClock();
     var turn = game.turn() == 'w' ? 'white' : 'black';
     if (!game.game_over()) {
+      if (game.in_check()) {
+        clearTimeout(timeoutMessage);
+        showMessage('Check');
+        timeoutMessage = setTimeout(function() {
+          removeMessage();
+        }, 1500)
+      }
+
       if (turn != playerColor) {
         var moves = '';
         var history = game.history({ verbose: true });
@@ -198,7 +208,7 @@ function engineGame(options) {
     var move = game.move({
       from: source,
       to: target,
-      promotion: 'q' // NOTE: always promote to a pawn for example simplicity
+      promotion: document.getElementById("promote").value
     });
 
     // illegal move

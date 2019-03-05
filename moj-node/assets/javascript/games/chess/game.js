@@ -6,12 +6,14 @@ function newGame() {
   var skill = parseInt($('#skillLevel').val());
   var playerColor = $('#playerColor').val();
   var showScore = $('#showScore').is(':checked') || true;
+  var contemptLevel = $('#contemptLevel').val();
 
   game.reset();
   game.setTime(baseTime, inc);
   game.setSkillLevel(skill);
   game.setPlayerColor(playerColor);
   game.setDisplayScore(showScore);
+  game.setContempt(contemptLevel);
   game.start();
 }
 

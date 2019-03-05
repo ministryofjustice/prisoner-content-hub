@@ -150,7 +150,7 @@
 .gameover {
   position: absolute;
   top: 245px;
-  background-color: rgba(0,0,0,0.7);
+  background-color: rgba(0,0,0,0.5);
   width: 451px;
   text-align: center;
   padding: 20px;
