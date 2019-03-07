@@ -42,22 +42,5 @@ module.exports = function createGamesRouter({ logger }) {
     });
   });
 
-  router.get('/neontroids-full', (req, res) => {
-    logger.info('GET /games/neontroids');
-
-    return res.render('pages/games/neontroids-full', {
-      data: {
-        title: 'Neontroids',
-      },
-      config,
-    });
-  });
-
-  router.get('/neontroids-game', (req, res) => {
-    logger.info('GET /games/neontroids');
-
-    return res.render('pages/games/neontroids-full');
-  });
-
   return router;
 };

@@ -1,6 +1,4 @@
 {% from "../../components/header/macro.njk" import pageHeaderWithBack %}
-{% from "../../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
-
 {% extends "../../components/template.njk" %}
 
 {% block pageTitle %}
@@ -22,6 +20,7 @@
   <!--[if lt IE 9]>
     <script src="/html5-shiv/html5shiv.js"></script>
   <![endif]-->
+  <link href="/public/javascript/games/neontroids/neontroids.css" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block header %}
@@ -34,30 +33,23 @@
 {% endblock %}
 
 {% block main %}
-  <div class="govuk-width-container">
-    <main class="govuk-main-wrapper">
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-          <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">Neontroids</h1>
-        </div>
-      </div>
-      <div class="govuk-grid-row govuk-!-margin-bottom-6">
-        <div class="govuk-grid-column-two-thirds">
-          <p class="govuk-body">A custom version of Atari's 1979 classic Asteroids arcade game.</p>
-          <a href="/games/neontroids-full" role="button" draggable="false" class="govuk-button govuk-button--start">Play game</a>
-        </div>
-      </div>
+  <div class="neontroids">
+      <canvas id='canvas' class="canvas"></canvas>
 
-      <div class="govuk-hub-article-feedback">
-        <p class="govuk-body">Tell us what you think:</p>
-        {{ hubFeedbackWidget({
-            title: "Neontroids",
-            contentType: "game",
-            series: null,
-            establishment: envVars.APP_NAME
-          })}}
-      </div>
-    </main>
+      <script>
+        document.documentElement.classList.add('full-dimensions');
+        document.body.classList.add('full-dimensions');
+        document.body.classList.add('noscroll');
+      </script>
+      <script src="/public/javascript/games/neontroids/sound-fx.js"></script>
+      <script src="/public/javascript/games/neontroids/keyboard-io.js"></script>
+      <script src="/public/javascript/games/neontroids/collisions.js"></script>
+      <script src="/public/javascript/games/neontroids/asteroids-sprites.js"></script>
+      <script src="/public/javascript/games/neontroids/asteroids-polygon.js"></script>
+      <script src="/public/javascript/games/neontroids/display-text.js"></script>
+      <script src="/public/javascript/games/neontroids/asteroids.js"></script>
   </div>
 {% endblock %}
 
+{% block footer %}
+{% endblock %}
