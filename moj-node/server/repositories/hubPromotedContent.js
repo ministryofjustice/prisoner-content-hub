@@ -18,7 +18,13 @@ function hubPromotedContentRepository(httpClient) {
 
   function parseResponse(response) {
     if (!response) return {};
-    const image = response.featured_image[0];
+    const image = R.view(R.lensPath(['featured_image', 0]), response);
+    const description = R.view(
+      R.lensPath(['description', 0, 'processed']),
+      response,
+    );
+    const summary = R.view(R.lensPath(['description', 0, 'summary']), response);
+
     const imageUrl = fixUrlForProduction(image.url, config.drupalAppUrl);
     const contentUrl =
       response.type === 'series' || response.type === 'tags'
@@ -29,9 +35,9 @@ function hubPromotedContentRepository(httpClient) {
       id: response.id,
       title: response.title,
       contentType: HUB_CONTENT_TYPES[response.type],
-      summary: stripTags(response.description[0].processed),
+      summary: stripTags(summary || description),
       image: {
-        ...response.featured_image[0],
+        ...image,
         url: imageUrl,
       },
       contentUrl,
