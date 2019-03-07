@@ -5,7 +5,6 @@ namespace Drupal\moj_resources;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\search_api\Item\Item;
 
 /**
  * PromotedContentApiClass
@@ -110,11 +109,11 @@ class PromotedContentApiClass
   {
     return array_map(function ($item) {
       $result = [];
-      $result['id'] = (isset($item->nid->value)) ? $item->nid->value : $item->tid->value;
-      $result['title'] = (isset($item->title->value)) ? $item->title->value : $item->name->value;
-      $result['type'] = (isset($item->vid->target_id)) ? $item->vid->target_id : $item->type->target_id;
-      $result['description'] = (isset($item->description)) ? $item->description : $item->field_moj_description;
-      $result['featured_image'] = (isset($item->field_featured_image)) ? $item->field_featured_image : $item->field_moj_thumbnail_image;
+      $result['id'] = $item->nid->value ? $item->nid->value : $item->tid->value;
+      $result['title'] = $item->title->value ? $item->title->value : $item->name->value;
+      $result['type'] = $item->vid->target_id ? $item->vid->target_id : $item->type->target_id;
+      $result['description'] = $item->description ? $item->description : $item->field_moj_description;
+      $result['featured_image'] = $item->field_featured_image ? $item->field_featured_image : $item->field_moj_thumbnail_image;
 
       if ($result['type'] == 'landing_page') {
         $result['featured_image'] = $item->field_image;
