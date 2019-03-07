@@ -5,147 +5,215 @@ namespace Drupal\moj_resources;
 use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+
 /**
  * PromotedContentApiClass
  */
 
 class PromotedContentApiClass
 {
-    /**
+  /**
      * Node IDs
      *
      * @var array
      */
-    protected $nids = array();
+  protected $nids = array();
 
-    /**
+  /**
      * Nodes
      *
      * @var array
      */
-    protected $nodes = array();
-    /**
+  protected $nodes = array();
+  /**
      * Language Tag
      *
      * @var string
      */
-    protected $lang;
-    /**
+  protected $lang;
+  /**
      * Node_storage object
      *
      * @var Drupal\Core\Entity\EntityManagerInterface
      */
-    protected $node_storage;
-    /**
+  protected $node_storage;
+  /**
      * Entitity Query object
      *
      * @var Drupal\Core\Entity\Query\QueryFactory
      *
-     * Instance of querfactory
+     * Instance of queryFactory
      */
-    protected $entity_query;
-    /**
+  protected $entity_query;
+
+  private $berwyn_prison_id = 792;
+  private $wayland_prison_id = 793;
+  /**
      * Class Constructor
      *
      * @param EntityTypeManagerInterface $entityTypeManager
      * @param QueryFactory $entityQuery
      */
-    public function __construct(
-        EntityTypeManagerInterface $entityTypeManager,
-        QueryFactory $entityQuery
-    ) {
-        $this->node_storage = $entityTypeManager->getStorage('node');
-        $this->entity_query = $entityQuery;
-    }
-    /**
+  public function __construct(
+    EntityTypeManagerInterface $entityTypeManager,
+    QueryFactory $entityQuery
+  ) {
+    $this->node_storage = $entityTypeManager->getStorage('node');
+    $this->term_storage = $entityTypeManager->getStorage('taxonomy_term');
+    $this->entity_query = $entityQuery;
+  }
+  /**
      * API resource function
      *
      * @param [string] $lang
      * @return array
      */
-    public function PromotedContentApiEndpoint($lang, $prison)
-    {
-        $nids = self::getPromotedContentNodeIds($prison);
-        $this->lang = $lang;
-        $this->nodes = self::loadNodesDetails($nids);
-        return array_map('self::translateNode', $this->nodes);
-    }
-    /**
+  public function PromotedContentApiEndpoint($lang, $prison)
+  {
+    return self::getPromotedContentNodeIds($prison);
+  }
+  /**
      * TranslateNode function
      *
      * @param NodeInterface $node
      *
      * @return $node
      */
-    protected function translateNode(NodeInterface $node)
-    {
-        return $node->hasTranslation($this->lang) ? $node->getTranslation($this->lang) : $node;
-    }
-    /**
+  protected function translateNode(NodeInterface $node)
+  {
+    return $node->hasTranslation($this->lang) ? $node->getTranslation($this->lang) : $node;
+  }
+  /**
      * Get nids
      *
      * @return void
      */
-    protected function getPromotedContentNodeIds($prison)
-    {
-        $berwyn_prison_id = 792;
-        $wayland_prison_id = 793;
+  protected function getPromotedContentNodeIds($prison)
+  {
+    $series = $this->promotedSeries();
+    $tags = $this->promotedTags();
+    $nodes = $this->loadNodesDetails($this->promotedNodes($prison));
 
-        $results = $this->entity_query->get('node')
-            ->condition('status', 1)
-            ->condition('sticky', 1)
-            ->sort('changed', 'DESC');
+    $results = array_merge($series, $tags, $nodes);
 
-        if ($prison == $berwyn_prison_id)
-        {
-          $berwyn = $results
-              ->orConditionGroup()
-              ->condition('field_moj_prisons', $prison, '=')
-              ->notExists('field_moj_prisons');
+    usort($results, function ($a, $b) {
+      return $b->changed->value - $a->changed->value;
+    });
 
-          $results->condition($berwyn);
-        }
+    $decoratedResults = $this->decoratePromotedContent($results);
 
-        if ($prison == $wayland_prison_id)
-        {
-          $wayland = $results
-            ->orConditionGroup()
-            ->condition('field_moj_prisons', $prison, '=')
-            ->notExists('field_moj_prisons');
+    return sizeof($decoratedResults) > 0 ? $decoratedResults[0] : array();
+  }
 
-            $results->condition($wayland);
-        }
+  private function decoratePromotedContent($data)
+  {
+    return array_map(function ($item) {
+      $result = [];
+      $result['id'] = $item->nid->value ? $item->nid->value : $item->tid->value;
+      $result['title'] = $item->title->value ? $item->title->value : $item->name->value;
+      $result['type'] = $item->vid->target_id ? $item->vid->target_id : $item->type->target_id;
+      $result['description'] = $item->description ? $item->description : $item->field_moj_description;
+      $result['featured_image'] = $item->field_featured_image ? $item->field_featured_image : $item->field_moj_thumbnail_image;
 
-        $results
-          ->range(0, 1)
-          ->accessCheck(false);
+      if ($result['type'] == 'landing_page') {
+        $result['featured_image'] = $item->field_image;
+      }
 
-        return $results->execute();
+      return $result;
+    }, $data);
+  }
+
+  private function promotedNodes($prison)
+  {
+    $results = $this->entity_query->get('node')
+      ->condition('status', 1)
+      ->condition('sticky', 1)
+      ->sort('changed', 'DESC');
+
+    if ($prison == $this->berwyn_prison_id) {
+      $berwyn = $results
+        ->orConditionGroup()
+        ->condition('field_moj_prisons', $prison, '=')
+        ->notExists('field_moj_prisons');
+
+      $results->condition($berwyn);
     }
-    /**
+
+    if ($prison == $this->wayland_prison_id) {
+      $wayland = $results
+        ->orConditionGroup()
+        ->condition('field_moj_prisons', $prison, '=')
+        ->notExists('field_moj_prisons');
+
+      $results->condition($wayland);
+    }
+
+    $results
+      ->range(0, 1)
+      ->accessCheck(false);
+
+    return $results->execute();
+  }
+
+  private function promotedSeries()
+  {
+    $series = $this->term_storage->loadTree('series');
+
+    return $this->promotedTerms($series);
+  }
+
+  private function promotedTags()
+  {
+    $tags = $this->term_storage->loadTree('tags');
+
+    return $this->promotedTerms($tags);
+  }
+
+  private function promotedTerms($data)
+  {
+    $termIds = [];
+
+    foreach ($data as $id => $item) {
+      $termIds[] = $item->tid;
+    }
+
+    $terms = $this->term_storage->loadMultiple($termIds);
+
+    $promotedTerms = array_filter($terms, function ($item) {
+      return $item->field_moj_promoted->value == true;
+    });
+
+    usort($promotedTerms, function ($a, $b) {
+      return $b->changed->value - $a->changed->value;
+    });
+
+    return $promotedTerms;
+  }
+
+  /**
      * Load full node details
      *
      * @param array $nids
      * @return array
      */
-    protected function loadNodesDetails(array $nids)
-    {
-        return array_filter(
-            $this->node_storage->loadMultiple($nids), function ($item)
-            {
-                return $item->access();
-            }
-        );
-    }
-    /**
+  protected function loadNodesDetails(array $nids)
+  {
+    return array_filter(
+      $this->node_storage->loadMultiple($nids),
+      function ($item) {
+        return $item->access();
+      }
+    );
+  }
+  /**
      * Sanitise node
      *
      * @param [type] $item
      * @return void
      */
-    protected function serialize($item)
-    {
-        $serializer = \Drupal::service($item->getType().'.serializer.default'); // TODO: Inject dependency
-        return $serializer->serialize($item, 'json', ['plugin_id' => 'entity']);
-    }
+  protected function serialize($item)
+  {
+    $serializer = \Drupal::service($item->getType() . '.serializer.default'); // TODO: Inject dependency
+    return $serializer->serialize($item, 'json', ['plugin_id' => 'entity']);
+  }
 }

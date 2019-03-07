@@ -2,28 +2,36 @@
   video: "icon-movie",
   page: "icon-document",
   pdf: "icon-document",
-  radio: "icon-music"
-}
-%}
+  radio: "icon-music",
+  landing_page: "icon-document",
+  series: "icon-document",
+  tags: "icon-tags"
+}%}
 
 {% set linkText = {
   video: "Watch",
   page: "Read more",
   pdf: "Read more",
-  radio: "Listen"
+  radio: "Listen",
+  landing_page: "Read more",
+  series: "Read more",
+  tags: "Read more"
 }%}
 
 {% set linkIcon = {
   video: "icon-play",
   page: "icon-link",
   pdf: "icon-link",
-  radio: "icon-play"
+  radio: "icon-play",
+  landing_page: "icon-link",
+  series: "icon-link",
+  tags: "icon-link"
 }%}
 
 <article data-promoted-item-text class="">
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
-      <a data-call-to-action="read-more" class="govuk-hub-promoted-content__no-link" href="/content/{{params.data.id}}">
+      <a data-content-type="{{params.data.contentType}}" data-call-to-action="read-more" class="govuk-hub-promoted-content__no-link" href="{{params.data.contentUrl}}">
         <div class="govuk-hub-promoted-content">
           <div class="govuk-hub-promoted-content-row">
             <div class="govuk-hub-promoted-content-image-container">
