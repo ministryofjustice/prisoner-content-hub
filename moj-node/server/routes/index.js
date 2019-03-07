@@ -16,7 +16,7 @@ module.exports = function Index({
 
       const [
         featuredContent,
-        [promotionalContent],
+        promotionalContent,
         seriesMenu,
       ] = await Promise.all([
         hubFeaturedContentService.hubFeaturedContent({ establishmentId }),

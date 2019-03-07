@@ -4,6 +4,8 @@ module.exports.HUB_CONTENT_TYPES = {
   moj_video_item: 'video',
   landing_page: 'landing-page',
   page: 'page',
+  series: 'series',
+  tags: 'tags',
 };
 
 module.exports.ESTABLISHMENTS = {

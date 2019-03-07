@@ -37,6 +37,24 @@ describe('Hub promoted content', () => {
 
         expect(content).to.eql(contentFor('page'));
       });
+
+      it('returns a series promoted content', async () => {
+        const repository = hubPromotedContentRepository(
+          generatePromotedContentClientFor('series'),
+        );
+        const content = await repository.hubPromotedContent();
+
+        expect(content).to.eql(contentFor('series', '/tags'));
+      });
+
+      it('returns a tags promoted content', async () => {
+        const repository = hubPromotedContentRepository(
+          generatePromotedContentClientFor('tags'),
+        );
+        const content = await repository.hubPromotedContent();
+
+        expect(content).to.eql(contentFor('tags', '/tags'));
+      });
     });
     context('when promoted content is missing', () => {
       it('returns an empty null for the missing content', async () => {
@@ -63,60 +81,39 @@ function generateNoContentClientFor() {
 function generatePromotedContentClientFor(contentType) {
   const httpClient = {
     get: sinon.stub().returns({
-      3546: {
-        nid: [
-          {
-            value: 1,
-          },
-        ],
-        type: [
-          {
-            target_id: contentType,
-          },
-        ],
-        title: [
-          {
-            value: 'foo title',
-          },
-        ],
-        field_moj_description: [
-          {
-            value: '<p>foo description<p>\r\n',
-            processed: '<p>foo description<p>',
-            summary: 'foo summary',
-          },
-        ],
-        field_moj_thumbnail_image: [
-          {
-            alt: 'Foo image alt text',
-            url: 'image.url.com',
-          },
-        ],
-        field_moj_duration: [
-          {
-            value: '40:00',
-          },
-        ],
-      },
+      id: 1,
+      title: 'foo title',
+      type: contentType,
+      description: [
+        {
+          value: '<p>foo summary</p>\r\n',
+          format: 'basic_html',
+          processed: '<p>foo summary</p>',
+          summary: 'foo summary',
+        },
+      ],
+      featured_image: [
+        {
+          alt: 'Foo image alt text',
+          url: 'image.url.com',
+        },
+      ],
     }),
   };
 
   return httpClient;
 }
 
-function contentFor(contentType) {
-  return [
-    {
-      id: 1,
-      title: 'foo title',
-      contentType,
-      summary: 'foo summary',
-      image: {
-        alt: 'Foo image alt text',
-        url: 'image.url.com',
-      },
-      duration: '40:00',
-      establishmentId: undefined,
+function contentFor(contentType, contentUrl = '/content') {
+  return {
+    id: 1,
+    title: 'foo title',
+    contentType,
+    contentUrl: `${contentUrl}/1`,
+    summary: 'foo summary',
+    image: {
+      alt: 'Foo image alt text',
+      url: 'image.url.com',
     },
-  ];
+  };
 }

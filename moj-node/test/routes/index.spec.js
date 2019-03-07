@@ -32,13 +32,12 @@ describe('GET /', () => {
   };
 
   const hubPromotedContentService = {
-    hubPromotedContent: sinon.stub().returns([
-      {
-        ...featuredItem,
-        title: 'foo promoted content',
-        summary: 'foo promoted summary',
-      },
-    ]),
+    hubPromotedContent: sinon.stub().returns({
+      ...featuredItem,
+      title: 'foo promoted content',
+      summary: 'foo promoted summary',
+      contentUrl: 'foo.content.url',
+    }),
   };
 
   const hubMenuService = {
@@ -70,15 +69,20 @@ describe('GET /', () => {
 
         expect($('[data-promoted-item-text]').text()).to.include(
           'foo promoted content',
-          'Correct title rendered',
+          'Incorrect title rendered',
         );
         expect($('[data-promoted-item-text]').text()).to.include(
           'foo promoted summary',
-          'Correct description rendered',
+          'Incorrect description rendered',
         );
         expect($('[data-promoted-item-background]').attr('style')).to.include(
           'image.url.com',
-          'Correct image rendered',
+          'Incorrect image rendered',
+        );
+
+        expect($('[data-call-to-action]').attr('href')).to.include(
+          'foo.content.url',
+          'Incorrect content url rendered',
         );
       });
   });
