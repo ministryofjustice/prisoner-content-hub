@@ -64,6 +64,7 @@
     "nunjucks": "^3.1.6",
     "ramda": "^0.26.1",
     "sanitizer": "^0.1.3",
+    "striptags": "^3.1.1",
     "superagent": "^4.1.0",
     "video.js": "^7.4.1"
   },
@@ -93,7 +94,6 @@
     "puppeteer": "^1.11.0",
     "sass-middleware": "^0.0.3",
     "sinon": "^7.2.2",
-    "striptags": "^3.1.1",
     "superagent-nock": "^0.4.0",
     "supertest": "^3.3.0",
     "webpack": "^4.29.3",
