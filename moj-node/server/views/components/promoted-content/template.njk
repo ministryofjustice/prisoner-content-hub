@@ -57,7 +57,7 @@
         <h3 class="govuk-heading-m">Day-to-day</h3>
         <ul class="govuk-list">
           {% for item in params.dayToDay %}
-          <li><a class="govuk-heading-s govuk-hub-no-link-decoration govuk-link govuk-link--no-visited-state" href="/content/{{item.id}}">{{item.title}}</a></li>
+          <li><a class="govuk-heading-s govuk-hub-no-link-decoration govuk-link govuk-link--no-visited-state" href="{{item.contentUrl}}">{{item.title}}</a></li>
           {% endfor %}
         </ul>
       </div>

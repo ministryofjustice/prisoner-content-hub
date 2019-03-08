@@ -3,16 +3,19 @@
   page: "icon-document",
   pdf: "icon-document",
   radio: "icon-music",
-  game: "icon-game"
-}
-%}
+  landing_page: "icon-document",
+  series: "icon-document",
+  tags: "icon-tags"
+}%}
 
 {% set linkText = {
   video: "Watch",
-  page: "Read",
-  pdf: "Read",
+  page: "Read more",
+  pdf: "Read more",
   radio: "Listen",
-  game: "Play"
+  landing_page: "Read more",
+  series: "Read more",
+  tags: "Read more"
 }%}
 
 {% set linkIcon = {
@@ -20,10 +23,12 @@
   page: "icon-link",
   pdf: "icon-link",
   radio: "icon-play",
-  game: "icon-link"
+  landing_page: "icon-link",
+  series: "icon-link",
+  tags: "icon-link"
 }%}
 
-<a data-featured-id="{{ params.id }}" class="govuk-hub-featured-link" href="{{params.baseUrl}}/{{ params.id }}" {% if params.contentType === 'pdf' %} target="_blank" {% endif %}>
+<a data-featured-id="{{ params.id }}" class="govuk-hub-featured-link" href="{{ params.contentUrl }}" {% if params.contentType === 'pdf' %} target="_blank" {% endif %}>
   <article class="govuk-hub-featured-content-item {{ params.size }}">
       <div data-featured-item-background class="govuk-hub-featured-content-item__image" style="background-image:url({{ params.graphic.url }})">
         <div class="govuk-hub-featured-content-item__overlay">

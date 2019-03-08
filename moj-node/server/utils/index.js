@@ -1,3 +1,4 @@
+const R = require('ramda');
 const { HUB_CONTENT_TYPES } = require('../constants/hub');
 const config = require('../config');
 
@@ -43,6 +44,30 @@ function getEstablishmentName(id) {
     793: 'HMP Wayland',
   };
   return establishmentName[id];
+}
+
+function parseHubFeaturedContentResponse(response) {
+  if (!response) return {};
+  const image = R.view(R.lensPath(['featured_image', 0]), response);
+
+  const imageUrl = fixUrlForProduction(image.url, config.drupalAppUrl);
+  const contentUrl =
+    response.type === 'series' || response.type === 'tags'
+      ? `/tags/${response.id}`
+      : `/content/${response.id}`;
+
+  return {
+    id: response.id,
+    title: response.title,
+    contentType: HUB_CONTENT_TYPES[response.type],
+    summary: response.summary,
+    image: {
+      ...image,
+      url: imageUrl,
+    },
+    contentUrl,
+    duration: response.duration,
+  };
 }
 
 function parseHubContentResponse(data) {
@@ -96,6 +121,7 @@ function fixUrlForProduction(url, alternateUrl = config.hubEndpoint) {
 
 module.exports = {
   parseHubContentResponse,
+  parseHubFeaturedContentResponse,
   replaceURLWithDefinedEndpoint,
   fixUrlForProduction,
   getEstablishmentId,

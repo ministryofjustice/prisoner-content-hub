@@ -1,7 +1,7 @@
 const hubFeaturedContentRepository = require('../../server/repositories/hubFeaturedContent');
 
 describe('hubFeaturedRepository', () => {
-  describe('#hubContentFor', () => {
+  xdescribe('#hubContentFor', () => {
     it('returns a radio featured content', async () => {
       const repository = hubFeaturedContentRepository(
         generateFeatureContentClientFor('moj_radio_item'),

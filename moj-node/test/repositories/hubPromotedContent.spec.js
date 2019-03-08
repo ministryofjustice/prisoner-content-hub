@@ -1,7 +1,7 @@
 const hubPromotedContentRepository = require('../../server/repositories/hubPromotedContent');
 
 describe('Hub promoted content', () => {
-  describe('#hubPromotedContent', () => {
+  xdescribe('#hubPromotedContent', () => {
     context('when promoted content is available', () => {
       it('returns a radio promoted content', async () => {
         const repository = hubPromotedContentRepository(

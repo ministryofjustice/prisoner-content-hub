@@ -90,8 +90,8 @@ class PromotedContentApiClass
      */
   protected function getPromotedContentNodeIds($prison)
   {
-    $series = $this->promotedSeries();
-    $tags = $this->promotedTags();
+    $series = $this->promotedSeries($prison);
+    $tags = $this->promotedTags($prison);
     $nodes = $this->loadNodesDetails($this->promotedNodes($prison));
 
     $results = array_merge($series, $tags, $nodes);
@@ -112,8 +112,9 @@ class PromotedContentApiClass
       $result['id'] = $item->nid->value ? $item->nid->value : $item->tid->value;
       $result['title'] = $item->title->value ? $item->title->value : $item->name->value;
       $result['type'] = $item->vid->target_id ? $item->vid->target_id : $item->type->target_id;
-      $result['description'] = $item->description ? $item->description : $item->field_moj_description;
+      $result['summary'] = $item->field_content_summary ? $item->field_content_summary->value : $item->field_moj_description->summary;
       $result['featured_image'] = $item->field_featured_image ? $item->field_featured_image : $item->field_moj_thumbnail_image;
+      $result['duration'] = $item->field_moj_duration->value;
 
       if ($result['type'] == 'landing_page') {
         $result['featured_image'] = $item->field_image;
@@ -155,21 +156,21 @@ class PromotedContentApiClass
     return $results->execute();
   }
 
-  private function promotedSeries()
+  private function promotedSeries($prison)
   {
     $series = $this->term_storage->loadTree('series');
 
-    return $this->promotedTerms($series);
+    return $this->promotedTerms($series, $prison);
   }
 
-  private function promotedTags()
+  private function promotedTags($prison)
   {
     $tags = $this->term_storage->loadTree('tags');
 
-    return $this->promotedTerms($tags);
+    return $this->promotedTerms($tags, $prison);
   }
 
-  private function promotedTerms($data)
+  private function promotedTerms($data, $prison)
   {
     $termIds = [];
 
@@ -179,8 +180,10 @@ class PromotedContentApiClass
 
     $terms = $this->term_storage->loadMultiple($termIds);
 
-    $promotedTerms = array_filter($terms, function ($item) {
-      return $item->field_moj_promoted->value == true;
+    $promotedTerms = array_filter($terms, function ($item) use ($prison) {
+      if ($prison == 0) return false;
+
+      return $item->field_moj_promoted->value == true && $prison == $item->field_promoted_to_prison->target_id;
     });
 
     usort($promotedTerms, function ($a, $b) {
