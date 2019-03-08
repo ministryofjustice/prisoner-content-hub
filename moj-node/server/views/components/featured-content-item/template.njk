@@ -5,7 +5,8 @@
   radio: "icon-music",
   landing_page: "icon-document",
   series: "icon-document",
-  tags: "icon-tags"
+  tags: "icon-tags",
+  game: "icon-game"
 }%}
 
 {% set linkText = {
@@ -15,7 +16,8 @@
   radio: "Listen",
   landing_page: "Read more",
   series: "Read more",
-  tags: "Read more"
+  tags: "Read more",
+  game: "Play"
 }%}
 
 {% set linkIcon = {
@@ -25,7 +27,8 @@
   radio: "icon-play",
   landing_page: "icon-link",
   series: "icon-link",
-  tags: "icon-link"
+  tags: "icon-link",
+  game: "icon-link"
 }%}
 
 <a data-featured-id="{{ params.id }}" class="govuk-hub-featured-link" href="{{ params.contentUrl }}" {% if params.contentType === 'pdf' %} target="_blank" {% endif %}>

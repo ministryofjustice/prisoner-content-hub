@@ -113,6 +113,7 @@ function hubFeaturedContentRepository(httpClient) {
         image: {
           url: '/public/images/chessboard.png',
         },
+        contentUrl: '/games/chess',
       },
       {
         id: 'sudoku',
@@ -122,6 +123,7 @@ function hubFeaturedContentRepository(httpClient) {
         image: {
           url: '/public/images/sudoku.png',
         },
+        contentUrl: '/games/sudoku',
       },
       {
         id: 'neontroids',
@@ -131,6 +133,7 @@ function hubFeaturedContentRepository(httpClient) {
         image: {
           url: '/public/images/neontroids.png',
         },
+        contentUrl: '/games/neontroids',
       },
     ];
   }
