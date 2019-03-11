@@ -4,7 +4,7 @@
 .start.pid
 .port.tmp
 public
-assets/stylesheets/application.css
+assets/stylesheets
 lib/govuk_template.html
 govuk_modules
 node_modules/*

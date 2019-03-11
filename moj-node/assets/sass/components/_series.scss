@@ -1,16 +1,25 @@
-.govuk-hub-series {
+.govuk-hub-topics {
   ul {
-    margin: 0;
+    list-style: none;
+    margin: 20px 0;
     padding: 0;
-    columns: 4;
-    -webkit-columns: 4;
-    -moz-columns: 4;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
 
     li {
-      display: block;
-      margin: 0 0 govuk-spacing(4) 0;
+      width: 25%;
+      margin: 0 0 govuk-spacing(1) 0;
       a {
+        display: inline-block;
         @include govuk-font($size: 19);
+        color: white !important;
+        background-color: #005ea5;
+        padding: 5px 5px 2px 5px;
+        text-decoration: none;
+        font-weight: 900;
       }
     }
   }

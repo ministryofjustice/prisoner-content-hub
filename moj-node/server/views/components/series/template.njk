@@ -1,16 +1,23 @@
 <section>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-      <h1 class="govuk-heading-l">Browse by series</h1>
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Browse by topic</h1>
     </div>
   </div>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-      <nav class="govuk-hub-series">
+      <nav class="govuk-hub-topics">
         <ul>
-          {% for item in params.data %}
+          {# {% for item in params.data %}
             <li><a href="{{ item.href }}" title="{{ item.linkText }}" class="govuk-link govuk-link--no-visited-state">{{ item.linkText }}</a></li>
-          {% endfor %}
+          {% endfor %} #}
+
+          <li><a href="/content/11" title="Test link" class="govuk-link govuk-link--no-visited-state">Healthcare</a></li>
+          <li><a href="/content/11" title="Test link" class="govuk-link govuk-link--no-visited-state">Gym</a></li>
+          <li><a href="/content/11" title="Test link" class="govuk-link govuk-link--no-visited-state">Exercise</a></li>
+          <li><a href="/content/11" title="Test link" class="govuk-link govuk-link--no-visited-state">Timewise</a></li>
+          <li><a href="/content/11" title="Test link" class="govuk-link govuk-link--no-visited-state">Music</a></li>
+          <li><a href="/content/11" title="Test link" class="govuk-link govuk-link--no-visited-state">Mindfulness</a></li>
         </ul>
       </nav>
     </div>

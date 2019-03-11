@@ -148,7 +148,7 @@ describe('GET /', () => {
       .expect(500);
   });
 
-  describe('when the feature the showBrowseBySeries is not enabled', () => {
+  describe('when the feature the showBrowseByTopics is not enabled', () => {
     it('does not render browse by series menu', () => {
       const router = createIndexRouter({
         logger,
@@ -166,7 +166,7 @@ describe('GET /', () => {
         .then(response => {
           const $ = cheerio.load(response.text);
 
-          expect($('#browser-by-series').length).to.equal(
+          expect($('#browser-by-topic').length).to.equal(
             0,
             'should not have rendered browse by series section',
           );
@@ -174,7 +174,7 @@ describe('GET /', () => {
     });
   });
 
-  describe('when the feature the showBrowseBySeries is enabled', () => {
+  describe('when the feature the showBrowseByTopics is enabled', () => {
     it('show the browse by series menu', () => {
       const router = createIndexRouter({
         logger,
@@ -185,21 +185,19 @@ describe('GET /', () => {
 
       const app = setupBasicApp();
 
-      app.use(featureToggleMiddleWare(['showBrowseBySeries']));
+      app.use(featureToggleMiddleWare(['showBrowseByTopics']));
 
       app.use(router);
 
       return request(app)
         .get('/')
-        .query({ showBrowseBySeries: 'true' })
+        .query({ showBrowseByTopics: 'true' })
         .then(response => {
           const $ = cheerio.load(response.text);
 
-          expect($('#browser-by-series h1').text()).to.equal(
-            'Browse by series',
-          );
-          expect($('#browser-by-series .govuk-hub-series li').length).to.equal(
-            2,
+          expect($('#browser-by-topic h1').text()).to.equal('Browse by topic');
+          expect($('#browser-by-topic .govuk-hub-topics li').length).to.equal(
+            6,
             'Correct number of menu items',
           );
         });
