@@ -101,6 +101,7 @@ function parseHubContentResponse(data) {
       image,
       duration: durationFrom(data[key]),
       establishmentId: establishmentIdFrom(data[key]),
+      contentUrl: `/content/${idFrom(data[key])}`,
     };
   });
 }

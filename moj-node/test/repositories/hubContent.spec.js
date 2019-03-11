@@ -153,6 +153,7 @@ function radioContent() {
     },
     tagsId: [646],
     establishmentId: 792,
+    contentUrl: '/content/3546',
   };
 }
 
@@ -177,6 +178,7 @@ function videoContent() {
     },
     tagsId: [],
     establishmentId: 792,
+    contentUrl: '/content/3546',
   };
 }
 
@@ -196,6 +198,7 @@ function flatPageContent() {
     },
     standFirst: 'Foo article stand first',
     establishmentId: undefined,
+    contentUrl: '/content/3491',
   };
 }
 
@@ -221,6 +224,7 @@ function seasonContent() {
       },
       tagsId: [648, 650],
       establishmentId: undefined,
+      contentUrl: '/content/98',
     },
     {
       id: 2,
@@ -242,6 +246,7 @@ function seasonContent() {
       },
       tagsId: [648, 650],
       establishmentId: undefined,
+      contentUrl: '/content/2',
     },
   ];
 }
@@ -278,6 +283,7 @@ function relatedContent() {
       },
       duration: '51:20',
       establishmentId: undefined,
+      contentUrl: '/content/3018',
     },
     {
       id: 3341,
@@ -290,6 +296,7 @@ function relatedContent() {
       },
       duration: '51:04',
       establishmentId: undefined,
+      contentUrl: '/content/3341',
     },
   ];
 }
@@ -301,5 +308,6 @@ function pdfContent() {
     contentType: 'pdf',
     url: 'www.foo.bar/file.pdf',
     establishmentId: 792,
+    contentUrl: '/content/1',
   };
 }

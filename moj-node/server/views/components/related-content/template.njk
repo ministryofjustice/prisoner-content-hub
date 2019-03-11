@@ -13,7 +13,7 @@
           contentType: item.contentType,
           graphic: item.image,
           duration: item.duration,
-          baseUrl: "/content"
+          contentUrl: item.contentUrl
         })
       }}
     </div>
@@ -27,7 +27,7 @@
 <script id="template" type="x-tmpl-mustache">
   <% #relatedContent %>
     <div class="item govuk-grid-column-one-quarter">
-      <a data-featured-id="<% id %>" class="govuk-hub-featured-link" href="/content/<% id %>">
+      <a data-featured-id="<% id %>" class="govuk-hub-featured-link" href="<% contentUrl %>">
         <article class="govuk-hub-featured-content-item small">
             <div data-featured-item-background="<% image.url %>" class="govuk-hub-featured-content-item__image" style="background-image:url(<% image.url %>)">
               <div class="govuk-hub-featured-content-item__overlay">

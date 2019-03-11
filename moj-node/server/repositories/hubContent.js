@@ -194,6 +194,7 @@ module.exports = function hubContentRepository(httpClient) {
       seriesId: seriesIdFrom(data),
       tagsId: tagsIdsFrom(data),
       establishmentId: establishmentIdFrom(data),
+      contentUrl: `/content/${idFrom(data)}`,
     };
   }
 
@@ -215,6 +216,7 @@ module.exports = function hubContentRepository(httpClient) {
         url: fixUrlForProduction(imageUrlFrom(data), config.drupalAppUrl),
       },
       establishmentId: establishmentIdFrom(data),
+      contentUrl: `/content/${idFrom(data)}`,
     };
   }
 
@@ -227,6 +229,7 @@ module.exports = function hubContentRepository(httpClient) {
       contentType: typeFrom(data),
       url: fixUrlForProduction(pdfUrlFrom(data)),
       establishmentId: establishmentIdFrom(data),
+      contentUrl: `/content/${idFrom(data)}`,
     };
   }
 
