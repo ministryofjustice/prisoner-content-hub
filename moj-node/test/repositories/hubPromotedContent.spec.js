@@ -1,7 +1,7 @@
 const hubPromotedContentRepository = require('../../server/repositories/hubPromotedContent');
 
 describe('Hub promoted content', () => {
-  xdescribe('#hubPromotedContent', () => {
+  describe('#hubPromotedContent', () => {
     context('when promoted content is available', () => {
       it('returns a radio promoted content', async () => {
         const repository = hubPromotedContentRepository(
@@ -98,6 +98,8 @@ function generatePromotedContentClientFor(contentType) {
           url: 'image.url.com',
         },
       ],
+      duration: '1:00',
+      summary: 'foo summary',
     }),
   };
 
@@ -115,5 +117,6 @@ function contentFor(contentType, contentUrl = '/content') {
       alt: 'Foo image alt text',
       url: 'image.url.com',
     },
+    duration: '1:00',
   };
 }

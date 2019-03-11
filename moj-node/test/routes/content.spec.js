@@ -85,6 +85,11 @@ describe('GET /content/:id', () => {
             'foo.image.png',
             "The episode thumbnail doesn't match",
           );
+
+          expect($('#next-episodes a').attr('href')).to.include(
+            `/content/${radioShowResponse.season[0].id}`,
+            'did not render url',
+          );
         });
     });
   });
@@ -146,6 +151,11 @@ describe('GET /content/:id', () => {
           expect($('#episode-thumbnail').attr('style')).to.include(
             'baz.image.png',
             "The episode thumbnail doesn't match",
+          );
+
+          expect($('#next-episodes a').attr('href')).to.include(
+            `/content/${videoShowResponse.season[0].id}`,
+            'did not render url',
           );
         });
     });
@@ -263,6 +273,7 @@ describe('GET /content/:id', () => {
           graphic: {
             url: '',
           },
+          contentUrl: '/content/baz-id',
         },
         {
           id: 'bar-id',
@@ -272,6 +283,7 @@ describe('GET /content/:id', () => {
           graphic: {
             url: '',
           },
+          contentUrl: '/content/bar-id',
         },
       ],
       categoryMenu: [
@@ -306,6 +318,11 @@ describe('GET /content/:id', () => {
           expect($('.govuk-hub-content-section-menu a').length).to.equal(
             2,
             'show have rendered a category menu',
+          );
+
+          expect($('[data-featured-id="baz-id"]').attr('href')).to.include(
+            `/content/baz-id`,
+            'did not render url',
           );
         });
     });

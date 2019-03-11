@@ -38,6 +38,7 @@ describe('GET /tags', () => {
             image: {
               url: 'foo.png',
             },
+            contentUrl: '/content/foo',
           },
         ],
       };
@@ -76,6 +77,11 @@ describe('GET /tags', () => {
           expect($('[data-featured-item-background]').attr('style')).to.include(
             data.relatedContent[0].image.url,
             'did not render the correct related item image',
+          );
+
+          expect($('[data-featured-id="foo"]').attr('href')).to.include(
+            `/content/${data.relatedContent[0].id}`,
+            'did not render url',
           );
         });
     });

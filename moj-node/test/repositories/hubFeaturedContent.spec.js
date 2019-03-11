@@ -1,12 +1,13 @@
 const hubFeaturedContentRepository = require('../../server/repositories/hubFeaturedContent');
 
 describe('hubFeaturedRepository', () => {
-  xdescribe('#hubContentFor', () => {
+  describe('#hubContentFor', () => {
     it('returns a radio featured content', async () => {
       const repository = hubFeaturedContentRepository(
         generateFeatureContentClientFor('moj_radio_item'),
       );
-      const content = await repository.hubContentFor();
+
+      const content = await repository.hubContentFor(1);
 
       expect(content).to.eql(contentFor('radio'));
     });
@@ -15,7 +16,7 @@ describe('hubFeaturedRepository', () => {
       const repository = hubFeaturedContentRepository(
         generateFeatureContentClientFor('moj_video_item'),
       );
-      const content = await repository.hubContentFor();
+      const content = await repository.hubContentFor(1);
 
       expect(content).to.eql(contentFor('video'));
     });
@@ -24,54 +25,48 @@ describe('hubFeaturedRepository', () => {
       const repository = hubFeaturedContentRepository(
         generateFeatureContentClientFor('moj_pdf_item'),
       );
-      const content = await repository.hubContentFor();
+      const content = await repository.hubContentFor(1);
 
       expect(content).to.eql(contentFor('pdf'));
     });
+
     it('returns a page featured content', async () => {
       const repository = hubFeaturedContentRepository(
         generateFeatureContentClientFor('page'),
       );
-      const content = await repository.hubContentFor();
+      const content = await repository.hubContentFor(1);
 
       expect(content).to.eql(contentFor('page'));
     });
 
-    context('When there is a summary available', () => {
-      it('uses the summary text instead of the sanitized description', async () => {
-        const repository = hubFeaturedContentRepository(
-          generateFeatureContentWithSummaryClientFor('page'),
-        );
-        const content = await repository.hubContentFor();
-
-        expect(content).to.eql(contentWithSummaryFor('page'));
-      });
-    });
-    context('When there is no thumbnail available', () => {
+    describe('When there is no thumbnail available', () => {
       it('uses the default document thumbnail', async () => {
         const repository = hubFeaturedContentRepository(
           generateFeaturedContnetWithNoImageClientFor('page'),
         );
-        const content = await repository.hubContentFor();
+        const content = await repository.hubContentFor(1);
 
         expect(content).to.eql(contentWithNoImageFor('page'));
       });
+
       it('uses the default pdf thumbnail', async () => {
         const repository = hubFeaturedContentRepository(
           generateFeaturedContnetWithNoImageClientFor('moj_pdf_item'),
         );
-        const content = await repository.hubContentFor();
+        const content = await repository.hubContentFor(1);
 
         expect(content).to.eql(contentWithNoImageFor('pdf'));
       });
+
       it('uses the default video thumbnail', async () => {
         const repository = hubFeaturedContentRepository(
           generateFeaturedContnetWithNoImageClientFor('moj_video_item'),
         );
-        const content = await repository.hubContentFor();
+        const content = await repository.hubContentFor(1);
 
         expect(content).to.eql(contentWithNoImageFor('video'));
       });
+
       it('uses the default audio thumbnail', async () => {
         const repository = hubFeaturedContentRepository(
           generateFeaturedContnetWithNoImageClientFor('moj_radio_item'),
@@ -85,36 +80,17 @@ describe('hubFeaturedRepository', () => {
 });
 
 const responseData = {
-  3546: {
-    nid: [
-      {
-        value: 1,
-      },
-    ],
-    title: [
-      {
-        value: 'foo title',
-      },
-    ],
-    field_moj_description: [
-      {
-        value: '<p>foo description<p>\r\n',
-        processed: '<p>foo description<p>',
-        summary: 'foo summary',
-      },
-    ],
-    field_moj_thumbnail_image: [
-      {
-        alt: 'Foo image alt text',
-        url: 'image.url.com',
-      },
-    ],
-    field_moj_duration: [
-      {
-        value: '40:00',
-      },
-    ],
-  },
+  id: '1',
+  title: 'foo title',
+  type: 'series',
+  summary: 'foo summary',
+  featured_image: [
+    {
+      alt: 'Foo image alt text',
+      url: 'http://foo.bar/image.png',
+    },
+  ],
+  duration: '40:00',
 };
 
 const defaultThumbs = {
@@ -134,56 +110,28 @@ const defaultAlt = {
 function contentFor(contentType) {
   return [
     {
-      id: 1,
+      id: '1',
       title: 'foo title',
       contentType,
       summary: 'foo summary',
       image: {
         alt: 'Foo image alt text',
-        url: 'image.url.com',
+        url: 'http://foo.bar/image.png',
       },
       duration: '40:00',
-      establishmentId: undefined,
+      contentUrl: '/content/1',
     },
   ];
 }
 
 function generateFeatureContentClientFor(contentType) {
   const httpClient = {
-    get: sinon.stub().returns({
-      3546: {
-        ...responseData['3546'],
-        type: [
-          {
-            target_id: contentType,
-          },
-        ],
+    get: sinon.stub().returns([
+      {
+        ...responseData,
+        type: contentType,
       },
-    }),
-  };
-
-  return httpClient;
-}
-
-function generateFeatureContentWithSummaryClientFor(contentType) {
-  const httpClient = {
-    get: sinon.stub().returns({
-      3546: {
-        ...responseData['3546'],
-        type: [
-          {
-            target_id: contentType,
-          },
-        ],
-        field_moj_description: [
-          {
-            value: '<p>foo description<p>\r\n',
-            processed: '<p>foo description<p>',
-            summary: 'foo summary',
-          },
-        ],
-      },
-    }),
+    ]),
   };
 
   return httpClient;
@@ -191,48 +139,22 @@ function generateFeatureContentWithSummaryClientFor(contentType) {
 
 function generateFeaturedContnetWithNoImageClientFor(contentType) {
   const httpClient = {
-    get: sinon.stub().returns({
-      3546: {
-        ...responseData['3546'],
-        type: [
-          {
-            target_id: contentType,
-          },
-        ],
-        field_moj_thumbnail_image: [
-          {
-            alt: '',
-            url: '',
-          },
-        ],
+    get: sinon.stub().returns([
+      {
+        ...responseData,
+        type: contentType,
+        featured_image: [],
       },
-    }),
+    ]),
   };
 
   return httpClient;
 }
 
-function contentWithSummaryFor(contentType) {
-  return [
-    {
-      id: 1,
-      title: 'foo title',
-      contentType,
-      summary: 'foo summary',
-      image: {
-        alt: 'Foo image alt text',
-        url: 'image.url.com',
-      },
-      duration: '40:00',
-      establishmentId: undefined,
-    },
-  ];
-}
-
 function contentWithNoImageFor(contentType) {
   return [
     {
-      id: 1,
+      id: '1',
       title: 'foo title',
       contentType,
       summary: 'foo summary',
@@ -241,7 +163,7 @@ function contentWithNoImageFor(contentType) {
         url: defaultThumbs[contentType],
       },
       duration: '40:00',
-      establishmentId: undefined,
+      contentUrl: '/content/1',
     },
   ];
 }

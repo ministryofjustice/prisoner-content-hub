@@ -13,18 +13,25 @@ const {
   establishmentIdFrom,
 } = require('../selectors/hub');
 
-const defaultThumbs = {
-  moj_radio_item: '/public/images/default_audio.png',
-  moj_pdf_item: '/public/images/default_document.png',
-  moj_video_item: '/public/images/default_video.png',
-  page: '/public/images/default_document.png',
+const defaultThumbs = type => {
+  const thumbs = {
+    moj_radio_item: '/public/images/default_audio.png',
+    moj_pdf_item: '/public/images/default_document.png',
+    moj_video_item: '/public/images/default_video.png',
+    page: '/public/images/default_document.png',
+  };
+
+  return thumbs[type] || thumbs.page;
 };
 
-const defaultAlt = {
-  moj_radio_item: 'Audio file',
-  moj_pdf_item: 'Document file',
-  moj_video_item: 'Video file',
-  page: 'Document file',
+const defaultAlt = type => {
+  const alt = {
+    moj_radio_item: 'Audio file',
+    moj_pdf_item: 'Document file',
+    moj_video_item: 'Video file',
+    page: 'Document file',
+  };
+  return alt[type] || alt.page;
 };
 
 function getEstablishmentId(name) {
@@ -49,25 +56,28 @@ function getEstablishmentName(id) {
 function parseHubFeaturedContentResponse(response) {
   if (!response) return {};
 
-  const image = R.view(R.lensPath(['featured_image', 0]), response);
-  const imageUrl = fixUrlForProduction(
-    R.prop('url', image),
-    config.drupalAppUrl,
-  );
   const type = R.prop('type', response);
   const id = R.prop('id', response);
   const contentUrl =
     type === 'series' || type === 'tags' ? `/tags/${id}` : `/content/${id}`;
+
+  const imageObj = R.view(R.lensPath(['featured_image', 0]), response);
+  const image = imageObj
+    ? {
+        url: fixUrlForProduction(R.prop('url', imageObj), config.drupalAppUrl),
+        alt: R.prop('alt', imageObj),
+      }
+    : {
+        url: defaultThumbs(type),
+        alt: defaultAlt(type),
+      };
 
   return {
     id,
     title: response.title,
     contentType: HUB_CONTENT_TYPES[type],
     summary: response.summary,
-    image: {
-      ...image,
-      url: imageUrl,
-    },
+    image,
     contentUrl,
     duration: response.duration,
   };
@@ -77,10 +87,7 @@ function parseHubContentResponse(data) {
   if (!data) return {};
 
   return Object.keys(data).map(key => {
-    const image = fixUrlForProduction(
-      imageUrlFrom(data[key]),
-      config.drupalAppUrl,
-    )
+    const image = imageUrlFrom(data[key])
       ? {
           url: fixUrlForProduction(
             imageUrlFrom(data[key]),
@@ -89,8 +96,8 @@ function parseHubContentResponse(data) {
           alt: imageAltFrom(data[key]),
         }
       : {
-          url: defaultThumbs[contentTypeFrom(data[key])],
-          alt: defaultAlt[contentTypeFrom(data[key])],
+          url: defaultThumbs(contentTypeFrom(data[key])),
+          alt: defaultAlt(contentTypeFrom(data[key])),
         };
 
     return {
