@@ -143,7 +143,7 @@ class FeaturedContentApiClass
 
   private function promotedSeries($category, $prison)
   {
-    $nids = $this->allNodes($category, $prison);
+    $nids = $this->allNodes($category);
     $nodes = $this->loadNodesDetails($nids);
     $series = $this->extractSeriesIdsFrom($nodes);
 
@@ -183,27 +183,12 @@ class FeaturedContentApiClass
     return $this->loadNodesDetails($nodes);
   }
 
-  private function allNodes($category, $prison)
+  private function allNodes($category)
   {
     $results = $this->entity_query->get('node')
       ->condition('status', 1)
       ->accessCheck(false);
 
-    if ($prison == $this->berwyn_prison_id) {
-      $berwyn = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $this->wayland_prison_id, '!=')
-        ->notExists('field_moj_prisons');
-      $results->condition($berwyn);
-    }
-
-    if ($prison == $this->wayland_prison_id) {
-      $wayland = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $this->berwyn_prison_id, '!=')
-        ->notExists('field_moj_prisons');
-      $results->condition($wayland);
-    }
     if ($category !== 0) {
       $results->condition('field_moj_top_level_categories', $category);
     };
