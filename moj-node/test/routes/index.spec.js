@@ -148,7 +148,7 @@ describe('GET /', () => {
       .expect(500);
   });
 
-  describe('when the feature the showBrowseBySeries is not enabled', () => {
+  describe('when the feature the showBrowseByTopics is not enabled', () => {
     it('does not render browse by series menu', () => {
       const router = createIndexRouter({
         logger,
@@ -174,7 +174,7 @@ describe('GET /', () => {
     });
   });
 
-  describe('when the feature the showBrowseBySeries is enabled', () => {
+  describe('when the feature the showBrowseByTopics is enabled', () => {
     it('show the browse by series menu', () => {
       const router = createIndexRouter({
         logger,
@@ -185,13 +185,13 @@ describe('GET /', () => {
 
       const app = setupBasicApp();
 
-      app.use(featureToggleMiddleWare(['showBrowseBySeries']));
+      app.use(featureToggleMiddleWare(['showBrowseByTopics']));
 
       app.use(router);
 
       return request(app)
         .get('/')
-        .query({ showBrowseBySeries: 'true' })
+        .query({ showBrowseByTopics: 'true' })
         .then(response => {
           const $ = cheerio.load(response.text);
 
