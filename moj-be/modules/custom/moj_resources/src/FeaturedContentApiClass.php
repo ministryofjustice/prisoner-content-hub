@@ -215,9 +215,13 @@ class FeaturedContentApiClass
   {
     $terms = $this->term_storage->loadMultiple($termIds);
     $promotedTerms = array_filter($terms, function ($item) use ($prison) {
-      if ($prison == 0) return false;
-
-      return $item->field_promoted_feature->value == true && $prison == $item->field_promoted_to_prison->target_id;
+      if ($item->field_promoted_feature->value == true && $prison == $item->field_promoted_to_prison->target_id) {
+        return true;
+      } elseif ($item->field_promoted_feature->value == true && !$item->field_promoted_to_prison->target_id) {
+        return true;
+      } else {
+        return false;
+      }
     });
 
     usort($promotedTerms, function ($a, $b) {
