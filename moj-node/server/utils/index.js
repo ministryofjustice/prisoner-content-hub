@@ -48,18 +48,21 @@ function getEstablishmentName(id) {
 
 function parseHubFeaturedContentResponse(response) {
   if (!response) return {};
-  const image = R.view(R.lensPath(['featured_image', 0]), response);
 
-  const imageUrl = fixUrlForProduction(image.url, config.drupalAppUrl);
+  const image = R.view(R.lensPath(['featured_image', 0]), response);
+  const imageUrl = fixUrlForProduction(
+    R.prop('url', image),
+    config.drupalAppUrl,
+  );
+  const type = R.prop('type', response);
+  const id = R.prop('id', response);
   const contentUrl =
-    response.type === 'series' || response.type === 'tags'
-      ? `/tags/${response.id}`
-      : `/content/${response.id}`;
+    type === 'series' || type === 'tags' ? `/tags/${id}` : `/content/${id}`;
 
   return {
-    id: response.id,
+    id,
     title: response.title,
-    contentType: HUB_CONTENT_TYPES[response.type],
+    contentType: HUB_CONTENT_TYPES[type],
     summary: response.summary,
     image: {
       ...image,
