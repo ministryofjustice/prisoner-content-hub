@@ -19,14 +19,29 @@ const mkdirp = require('mkdirp');
 
 const { getEnv } = require('../utils');
 
-const token = getEnv('MATOMO_TOKEN');
-const siteUrl = getEnv('MATOMO_URL');
+if (process.argv.length < 4) {
+  console.log(
+    '*****Please ensure you enter the command in the below format:*****',
+  );
+  console.log(
+    './bin/download-feedback "YYYY-MM-DD,YYYY-MM-DD" [establishment name]',
+  );
 
-console.log(siteUrl);
+  process.exit(1);
+}
 
 const today = `${formatDate(startOfToday(), 'YYYY-MM-DD')}`;
 const dateRange = process.argv[2] || `${today},${today}`;
-const writePath = (process.argv[3] || './csv-exports').replace(/[/]+$/, '');
+const establishmentName = process.argv[3] || 'wayland';
+const writePath = (process.argv[4] || './csv-exports').replace(/[/]+$/, '');
+const token =
+  establishmentName === 'berwyn'
+    ? getEnv('MATOMO_TOKEN_BERWYN')
+    : getEnv('MATOMO_TOKEN_WAYLAND');
+const siteUrl =
+  establishmentName === 'berwyn'
+    ? getEnv('MATOMO_URL_BERWYN')
+    : getEnv('MATOMO_URL_WAYLAND');
 
 PromiseBar.enable();
 
@@ -94,7 +109,10 @@ function generateCSVFile(data) {
       if (error) {
         reject(error);
       } else {
-        fs.writeFileSync(`${writePath}/${dateRange}.csv`, data);
+        fs.writeFileSync(
+          `${writePath}/${dateRange}-${establishmentName}.csv`,
+          data,
+        );
         resolve(true);
       }
     });
