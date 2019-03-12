@@ -42,7 +42,7 @@ describe('hubFeaturedRepository', () => {
     describe('When there is no thumbnail available', () => {
       it('uses the default document thumbnail', async () => {
         const repository = hubFeaturedContentRepository(
-          generateFeaturedContnetWithNoImageClientFor('page'),
+          generateFeaturedContentWithNoImageClientFor('page'),
         );
         const content = await repository.hubContentFor(1);
 
@@ -51,7 +51,7 @@ describe('hubFeaturedRepository', () => {
 
       it('uses the default pdf thumbnail', async () => {
         const repository = hubFeaturedContentRepository(
-          generateFeaturedContnetWithNoImageClientFor('moj_pdf_item'),
+          generateFeaturedContentWithNoImageClientFor('moj_pdf_item'),
         );
         const content = await repository.hubContentFor(1);
 
@@ -60,7 +60,7 @@ describe('hubFeaturedRepository', () => {
 
       it('uses the default video thumbnail', async () => {
         const repository = hubFeaturedContentRepository(
-          generateFeaturedContnetWithNoImageClientFor('moj_video_item'),
+          generateFeaturedContentWithNoImageClientFor('moj_video_item'),
         );
         const content = await repository.hubContentFor(1);
 
@@ -69,11 +69,22 @@ describe('hubFeaturedRepository', () => {
 
       it('uses the default audio thumbnail', async () => {
         const repository = hubFeaturedContentRepository(
-          generateFeaturedContnetWithNoImageClientFor('moj_radio_item'),
+          generateFeaturedContentWithNoImageClientFor('moj_radio_item'),
         );
         const content = await repository.hubContentFor();
 
         expect(content).to.eql(contentWithNoImageFor('radio'));
+      });
+    });
+
+    describe('When there are no content is returned from the endpoint', () => {
+      it('returns no data', async () => {
+        const repository = hubFeaturedContentRepository(
+          generateNoDataResponse(),
+        );
+        const content = await repository.hubContentFor(1);
+
+        expect(content).to.eql([]);
       });
     });
   });
@@ -137,7 +148,7 @@ function generateFeatureContentClientFor(contentType) {
   return httpClient;
 }
 
-function generateFeaturedContnetWithNoImageClientFor(contentType) {
+function generateFeaturedContentWithNoImageClientFor(contentType) {
   const httpClient = {
     get: sinon.stub().returns([
       {
@@ -146,6 +157,16 @@ function generateFeaturedContnetWithNoImageClientFor(contentType) {
         featured_image: [],
       },
     ]),
+  };
+
+  return httpClient;
+}
+
+function generateNoDataResponse() {
+  const httpClient = {
+    get: sinon.stub().returns({
+      message: 'No featured content found',
+    }),
   };
 
   return httpClient;

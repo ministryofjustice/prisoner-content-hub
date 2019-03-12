@@ -54,8 +54,6 @@ function getEstablishmentName(id) {
 }
 
 function parseHubFeaturedContentResponse(response) {
-  if (!response) return {};
-
   const type = R.prop('type', response);
   const id = R.prop('id', response);
   const contentUrl =

@@ -10,6 +10,8 @@ function hubFeaturedContentRepository(httpClient) {
       opts.query,
     );
 
+    if (!Array.isArray(response)) return [];
+
     return R.map(parseHubFeaturedContentResponse, response);
   }
 
