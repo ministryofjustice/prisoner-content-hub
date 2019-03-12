@@ -24,7 +24,7 @@ if (process.argv.length < 4) {
     '*****Please ensure you enter the command in the below format:*****',
   );
   console.log(
-    './bin/download-feedback [Start date YYYYMMDD],[End date YYYYMMDD]  [Establishment Name lowercase]',
+    './bin/download-feedback "YYYY-MM-DD,YYYY-MM-DD" [establishment name]',
   );
 
   process.exit(1);
