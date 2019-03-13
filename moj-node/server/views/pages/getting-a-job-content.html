@@ -1,6 +1,8 @@
+{% from "breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
 {% from "../components/header/macro.njk" import pageHeaderWithBreadcrumbs %}
 {% from "../components/step-by-step-menu/macro.njk" import hubStepByStepMenu %}
-{% from "breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 
 {% extends "../components/template.njk" %}
 
@@ -46,6 +48,15 @@
           <p id="stand-first" class="govuk-body-l">{{data.standFirst}}</p>
           <div id="body" class="gov-uk-dynamic-content">
             {{data.description.sanitized | safe }}
+          </div>
+          <div class="govuk-hub-article-feedback govuk-!-margin-top-9">
+            <p class="govuk-body">Tell us what you think:</p>
+            {{ hubFeedbackWidget({
+              title: data.title,
+              contentType: 'step-by-step',
+              series: 'getting-a-job',
+              establishment: envVars.APP_NAME
+            })}}
           </div>
         </div>
 

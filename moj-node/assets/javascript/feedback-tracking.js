@@ -12,11 +12,14 @@
 
     rootElement.addEventListener('click', function(event) {
       if (event.target.matches('[data-item-feedback]')) {
+        var category = event.target.getAttribute('data-item-category');
+        var action = event.target.getAttribute('data-item-action');
+        var value = event.target.getAttribute('data-item-value');
         var details = {
           name: generateEventName(event.target),
-          category: types[event.target.getAttribute('data-item-category')],
-          action: event.target.getAttribute('data-item-action'),
-          value: event.target.getAttribute('data-item-value'),
+          category: types[category] || category,
+          action: action,
+          value: value,
         };
 
         var isActive = event.target.classList.contains('is-selected');
@@ -180,10 +183,13 @@
     }
 
     function updateFeedbackText(feedback, type) {
+      var whiteList = ['video', 'podcast', 'article', 'game'];
+      var typeText = whiteList.includes(type) ? type : '';
+
       if (feedback === 'LIKE') {
-        feedbackText.textContent = 'I like this ' + type;
+        feedbackText.textContent = 'I like this ' + typeText;
       } else {
-        feedbackText.textContent = 'I do not like this ' + type;
+        feedbackText.textContent = 'I do not like this ' + typeText;
       }
     }
 
