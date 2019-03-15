@@ -79,12 +79,8 @@
   }
 
   function updateTemplate(data) {
-    var rendered = Mustache.render(
-      template,
-      { relatedContent: data },
-      {},
-      customTags,
-    );
+    const relatedContent = { relatedContent: data };
+    var rendered = Mustache.render(template, relatedContent, {}, customTags);
     var docFrag = document.createRange().createContextualFragment(rendered);
 
     relatedContents.appendChild(docFrag);
