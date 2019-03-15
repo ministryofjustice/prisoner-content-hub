@@ -55,6 +55,8 @@
 
   function getContent(query, callback) {
     var request = new XMLHttpRequest();
+    var requestUrl =
+      url + '?perPage=8&offset=' + query.offset + '&sortOrder=' + sortOrder;
 
     request.addEventListener('load', function(response) {
       callback(undefined, response.target);
@@ -68,10 +70,7 @@
       loader.setAttribute('hidden', true);
     });
 
-    request.open(
-      'GET',
-      url + '?perPage=8&offset=' + query.offset + '&sortOrder=' + sortOrder,
-    );
+    request.open('GET', requestUrl);
     request.setRequestHeader('Accept', 'application/json');
 
     request.send();
