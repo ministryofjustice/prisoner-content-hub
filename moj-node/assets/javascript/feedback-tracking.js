@@ -76,13 +76,15 @@
     }
 
     function generateEventName(element) {
+      var itemCategory = element.getAttribute('data-item-category');
+      var category = types[itemCategory] || itemCategory;
       // title | PageURL | Like/DISLIKE | Time/Date | ContentType | Series | Time take react | visitor ID | Establishment
       var name = [
         element.getAttribute('data-item-name'),
         window.location.pathname,
         element.getAttribute('data-item-action'),
         Date.now(),
-        types[element.getAttribute('data-item-category')],
+        itemCategory,
         element.getAttribute('data-item-series'),
         calculateTimeToAction(),
         getVisitorId(),
