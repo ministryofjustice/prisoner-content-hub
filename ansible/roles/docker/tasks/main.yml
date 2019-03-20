@@ -1,4 +1,11 @@
 ---
+- name: Docker storage volume
+  mount:
+    src: UUID=37854a5e-5f25-42f9-9d20-848b490ab399
+    path: /var/lib/docker
+    state: mounted
+    fstype: ext4
+
 - name: Add Docker GPG key.
   rpm_key:
     key: https://download.docker.com/linux/centos/gpg
@@ -11,7 +18,7 @@
     id: 0EBFCD88
     state: present
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
-  
+
 - name: Add Docker repository.
   get_url:
     url: 'https://download.docker.com/linux/centos/docker-ce.repo'
@@ -23,7 +30,7 @@
 
 - apt_repository:
     repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
-    state: present    
+    state: present
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - name: Ensure docker is installed
