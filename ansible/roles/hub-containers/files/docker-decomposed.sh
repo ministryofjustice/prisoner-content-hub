@@ -1,1 +1,0 @@
-../../../../docker-decomposed.sh
