@@ -7,15 +7,14 @@ module.exports = function createHealthService(client = superagent) {
     try {
       logger.info('Requested', config.api.hubHealth);
 
-      const hubHealthResponse = await client.get(
-        `${config.api.hubHealth}?_format=json`,
-      );
-      const hubStatus = hubHealthResponse.ok ? 'OK' : 'DOWN';
+      const hubStatus = await getDrupalHealth(client);
+      const matomoStatus = await getMatomoHealth(client);
 
       return {
-        status: hubStatus,
+        status: allOk(hubStatus.drupal, matomoStatus.matomo),
         dependencies: {
-          hub: hubStatus,
+          ...hubStatus,
+          ...matomoStatus,
         },
       };
     } catch (exp) {
@@ -23,7 +22,8 @@ module.exports = function createHealthService(client = superagent) {
       return {
         status: 'DOWN',
         dependencies: {
-          hub: 'DOWN',
+          drupal: 'DOWN',
+          matomo: 'DOWN',
         },
       };
     }
@@ -31,3 +31,53 @@ module.exports = function createHealthService(client = superagent) {
 
   return { status };
 };
+
+function allOk(...args) {
+  const fn = status => status === 'OK';
+  const all = args.every(fn);
+  const some = args.some(fn);
+
+  if (all) {
+    return 'OK';
+  }
+
+  if (some) {
+    return 'PARTIALLY_DEGRADED';
+  }
+
+  return 'DOWN';
+}
+
+async function getDrupalHealth(client) {
+  const result = await fetchData(client, config.api.hubHealth, {
+    _format: 'json',
+  });
+
+  return {
+    drupal: result.ok ? 'OK' : 'DOWN',
+  };
+}
+
+async function getMatomoHealth(client) {
+  const result = await fetchData(client, config.api.matomo, {
+    module: 'API',
+    method: 'API.getPiwikVersion',
+    token_auth: config.matomoToken,
+  });
+
+  return {
+    matomo: result.ok ? 'OK' : 'DOWN',
+  };
+}
+
+async function fetchData(client, url, query = {}) {
+  try {
+    const result = await client.get(url).query(query);
+    return result;
+  } catch (e) {
+    console.error(e); // eslint-disable-line no-console
+    return {
+      ok: false,
+    };
+  }
+}
