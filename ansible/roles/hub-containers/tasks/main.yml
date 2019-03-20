@@ -8,16 +8,6 @@
 - debug:
     var: nginx_vhosts
 
-- name: copy over decomposed script
-  copy:
-    src: docker-decomposed.sh
-    dest: /usr/local/bin/docker-decomposed.sh
-    mode: 0755
-    owner: root
-    group: root
-  notify:
-    - redeploy containers
-
 - name: install deployment and tooling scripts
   template:
     src: "{{ item }}"
