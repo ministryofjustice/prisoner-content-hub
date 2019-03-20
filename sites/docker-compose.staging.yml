@@ -1,20 +1,25 @@
 version: "3"
 
 services:
-    hub-be:
-        environment:
-            HUB_EXT_FILE_URL: https://drupal.digital-hub-stage.hmpps.dsd.io/sites/default/files
-        volumes:
-            - /content/moj_dhub_prod001_app/usr/share/nginx/html/moj_be/sites/default/files:/var/www/html/sites/default/files
+  hub-be:
+    environment:
+      HUB_EXT_FILE_URL: https://drupal.digital-hub-stage.hmpps.dsd.io/sites/default/files
+    volumes:
+      - /content/moj_dhub_prod001_app/usr/share/nginx/html/moj_be/sites/default/files:/var/www/html/sites/default/files
 
-    hub-db:
-        volumes:
-            - /data/hub-db:/var/lib/mysql:rw
+  hub-db:
+    volumes:
+      - /data/hub-db:/var/lib/mysql:rw
 
-    hub-matomo:
-        volumes:
-            - /data/moj_dhub_matomo_config:/var/www/html/config:rw
+  hub-matomo:
+    volumes:
+      - /data/moj_dhub_matomo_config:/var/www/html/config:rw
 
-    hub-node:
-        environment:
-            APP_NAME: HMP Staging
+  hub-node:
+    environment:
+      APP_NAME: HMP Staging
+      NODE_ENV: production
+      OLD_HUB_URL: "http://foo.bar"
+      DRUPAL_APP_URI: http://drupal.digital-hub-stage.hmpps.dsd.io
+      MATOMO_URL: "http://foo.bar"
+      MATOMO_TOKEN: "foobar"
