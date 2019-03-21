@@ -31,6 +31,7 @@ services:
         environment:
             APP_NAME: HMP Berwyn
             ESTABLISHMENT_NAME: berwyn
+            MATOMO_TOKEN
             NODE_ENV: production
             OLD_HUB_URL: http://digital-hub.bwi.dpn.gov.uk:10002
             DRUPAL_APP_URI: http://digital-hub.bwi.dpn.gov.uk:11001
