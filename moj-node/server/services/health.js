@@ -33,12 +33,12 @@ module.exports = function createHealthService(client = superagent) {
 };
 
 function allOk(...args) {
-  const fn = status => status === 'OK';
+  const fn = status => status === 'UP';
   const all = args.every(fn);
   const some = args.some(fn);
 
   if (all) {
-    return 'OK';
+    return 'UP';
   }
 
   if (some) {
@@ -54,7 +54,7 @@ async function getDrupalHealth(client) {
   });
 
   return {
-    drupal: result.ok ? 'OK' : 'DOWN',
+    drupal: result.ok ? 'UP' : 'DOWN',
   };
 }
 
@@ -66,7 +66,7 @@ async function getMatomoHealth(client) {
   });
 
   return {
-    matomo: result.ok ? 'OK' : 'DOWN',
+    matomo: result.ok ? 'UP' : 'DOWN',
   };
 }
 

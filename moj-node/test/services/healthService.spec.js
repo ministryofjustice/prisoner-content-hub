@@ -11,10 +11,10 @@ describe('HealthService', () => {
 
       expect(client.get.callCount).to.equal(2);
       expect(status).to.eql({
-        status: 'OK',
+        status: 'UP',
         dependencies: {
-          drupal: 'OK',
-          matomo: 'OK',
+          drupal: 'UP',
+          matomo: 'UP',
         },
       });
     });
@@ -38,7 +38,7 @@ describe('HealthService', () => {
         status: 'PARTIALLY_DEGRADED',
         dependencies: {
           drupal: 'DOWN',
-          matomo: 'OK',
+          matomo: 'UP',
         },
       });
     });
