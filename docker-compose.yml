@@ -1,89 +1,90 @@
 version: "3"
 
 services:
-        hub-db:
-                container_name: hub-db
-                image: mojdigitalstudio/digital-hub-db
-                environment:
-                 - MYSQL_ROOT_PASSWORD
-                 - MYSQL_DATABASE="hubdb"
-                 - MYSQL_USER="hubdb_user"
-                 - MYSQL_PASSWORD
+  hub-db:
+    container_name: hub-db
+    image: mojdigitalstudio/digital-hub-db
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE="hubdb"
+      - MYSQL_USER="hubdb_user"
+      - MYSQL_PASSWORD
 
-        hub-memcache:
-                image: memcached
+  hub-memcache:
+    image: memcached
 
-        hub-node:
-                container_name: hub-node
-                image: mojdigitalstudio/digital-hub-node
-                user: "node"
-                working_dir: /home/node/app
-                depends_on:
-                        - hub-be
-                environment:
-                        HUB_API_ENDPOINT: http://hub-be
-                        APP_TIMEOUT: 60.0
-                        PORT: 3000
-                        APP_NAME: HMP Dev
-                        MATOMO_URL: //hub-matomo/
-                ports:
-                        - 10001:3000
+  hub-node:
+    container_name: hub-node
+    image: mojdigitalstudio/digital-hub-node
+    user: "node"
+    working_dir: /home/node/app
+    depends_on:
+      - hub-be
+      - hub-matomo
+    environment:
+      HUB_API_ENDPOINT: http://hub-be
+      APP_TIMEOUT: 60.0
+      PORT: 3000
+      APP_NAME: HMP Dev
+      MATOMO_URL: //hub-matomo/
+    ports:
+      - 10001:3000
 
-        hub-fe:
-                container_name: hub-fe
-                image: mojdigitalstudio/digital-hub-fe
-                depends_on:
-                        - hub-be
-                        - hub-memcache
-                environment:
-                        API_URI: http://hub-be
-                        APP_TIMEOUT: 60.0
-                ports:
-                        - 10002:80
-                healthcheck:
-                        test: ["CMD", "curl", "-f", "http://localhost"]
-                        interval: 15s
-                        timeout: 30s
-                        retries: 1
+  hub-fe:
+    container_name: hub-fe
+    image: mojdigitalstudio/digital-hub-fe
+    depends_on:
+      - hub-be
+      - hub-memcache
+    environment:
+      API_URI: http://hub-be
+      APP_TIMEOUT: 60.0
+    ports:
+      - 10002:80
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 15s
+      timeout: 30s
+      retries: 1
 
-        hub-be:
-                container_name: hub-be
-                image: mojdigitalstudio/digital-hub-be
-                depends_on:
-                        - hub-db
-                environment:
-                 - HUB_DB_ENV_MYSQL_DATABASE=hubdb
-                 - HUB_DB_ENV_MYSQL_USER=hubdb_user
-                 - HUB_DB_ENV_MYSQL_PASSWORD
-                 - HUB_DB_PORT_3306_TCP_ADDR=hub-db
-                 - HUB_EXT_FILE_URL=http://localhost:8181/sites/default/files
-                 - PHP_MEMORY_LIMIT=256M
-                 - PHP_UPLOAD_MAX_FILE_SIZE=500M
-                 - PHP_POST_MAX_SIZE=500M
-                 - XDEBUG_IP=127.0.0.1 # Replace with your machines IP: $ ipconfig getifaddr en0 
-                ports:
-                        - 11001:80
-                healthcheck:
-                        test: ["CMD", "curl", "-f", "http://localhost"]
-                        interval: 15s
-                        timeout: 30s
-                        retries: 1
+  hub-be:
+    container_name: hub-be
+    image: mojdigitalstudio/digital-hub-be
+    depends_on:
+      - hub-db
+    environment:
+      - HUB_DB_ENV_MYSQL_DATABASE=hubdb
+      - HUB_DB_ENV_MYSQL_USER=hubdb_user
+      - HUB_DB_ENV_MYSQL_PASSWORD
+      - HUB_DB_PORT_3306_TCP_ADDR=hub-db
+      - HUB_EXT_FILE_URL=http://localhost:8181/sites/default/files
+      - PHP_MEMORY_LIMIT=256M
+      - PHP_UPLOAD_MAX_FILE_SIZE=500M
+      - PHP_POST_MAX_SIZE=500M
+      - XDEBUG_IP=127.0.0.1 # Replace with your machines IP: $ ipconfig getifaddr en0
+    ports:
+      - 11001:80
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 15s
+      timeout: 30s
+      retries: 1
 
-        hub-matomo:
-                container_name: hub-matomo
-                image: matomo:3-apache
-                depends_on:
-                        - hub-matomo-db
-                ports:
-                        - 12001:80
-                links:
-                        - hub-matomo-db
+  hub-matomo:
+    container_name: hub-matomo
+    image: matomo:3-apache
+    depends_on:
+      - hub-matomo-db
+    ports:
+      - 12001:80
+    links:
+      - hub-matomo-db
 
-        hub-matomo-db:
-                container_name: hub-matomo-db
-                image: mariadb
-                environment:
-                        MYSQL_ROOT_PASSWORD: password
-                        MYSQL_DATABASE: matomo
-                        MYSQL_USER: matomo_user
-                        MYSQL_PASSWORD: matomo_pass
+  hub-matomo-db:
+    container_name: hub-matomo-db
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: matomo
+      MYSQL_USER: matomo_user
+      MYSQL_PASSWORD: matomo_pass

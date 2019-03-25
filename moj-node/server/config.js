@@ -3,6 +3,7 @@ const { getEnv, isProduction, isTest } = require('../utils/index');
 const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
 const drupalAppUrl = getEnv('DRUPAL_APP_URI', { requireInProduction: true });
 const matomoUrl = getEnv('MATOMO_URL', { requireInProduction: true });
+const matomoEndpoint = getEnv('MATOMO_API_URI', { requireInProduction: true });
 
 module.exports = {
   appName: getEnv('APP_NAME', 'HMP Hub Local', {
@@ -13,13 +14,12 @@ module.exports = {
   test: isTest,
   production: isProduction,
   matomoUrl,
-  oldHubUrl: getEnv('OLD_HUB_URL', { requireInProduction: true }),
   cookieSecret: getEnv('COOKIE_SECRET', 'keyboard cat'),
   establishmentName: getEnv('ESTABLISHMENT_NAME', 'berwyn'),
   hubEndpoint,
   drupalAppUrl,
   api: {
-    matomo: `${matomoUrl}/index.php`,
+    matomo: `${matomoEndpoint}/index.php`,
     hubHealth: `${hubEndpoint}/api/health`,
     hubContent: `${hubEndpoint}/v1/api/content`,
     hubMenu: `${hubEndpoint}/v1/api/menu`,
