@@ -20,7 +20,7 @@ services:
       APP_NAME: HMP Staging
       NODE_ENV: production
       DRUPAL_APP_URI: http://drupal.digital-hub-stage.hmpps.dsd.io
-      MATOMO_URL: "http://foo.bar"
+      MATOMO_URL: "foo.bar"
       MATOMO_TOKEN: "foobar"
       MATOMO_API_URI: http://hub-matomo
       ENABLE_PRISON_SWITCH: "true"

@@ -1,8 +1,9 @@
-const superagent = require('superagent');
+const R = require('ramda');
+
 const logger = require('../../log');
 const config = require('../config');
 
-module.exports = function createHealthService(client = superagent) {
+module.exports = function createHealthService(client) {
   async function status() {
     try {
       logger.info('Requested', config.api.hubHealth);
@@ -49,35 +50,23 @@ function allOk(...args) {
 }
 
 async function getDrupalHealth(client) {
-  const result = await fetchData(client, config.api.hubHealth, {
+  const result = await client.get(config.api.hubHealth, {
     _format: 'json',
   });
 
   return {
-    drupal: result.ok ? 'UP' : 'DOWN',
+    drupal: R.prop('ok', result) ? 'UP' : 'DOWN',
   };
 }
 
 async function getMatomoHealth(client) {
-  const result = await fetchData(client, config.api.matomo, {
+  const result = await client.get(config.api.matomo, {
     module: 'API',
     method: 'API.getPiwikVersion',
     token_auth: config.matomoToken,
   });
 
   return {
-    matomo: result.ok ? 'UP' : 'DOWN',
+    matomo: R.prop('ok', result) ? 'UP' : 'DOWN',
   };
-}
-
-async function fetchData(client, url, query = {}) {
-  try {
-    const result = await client.get(url).query(query);
-    return result;
-  } catch (e) {
-    console.error(e); // eslint-disable-line no-console
-    return {
-      ok: false,
-    };
-  }
 }
