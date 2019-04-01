@@ -43,6 +43,20 @@ describe('Homepage', () => {
           .should('contain', 'Education and work')
           .should('contain', 'Getting out');
       });
+
+      it(`navigates to the 'Education and work' page`, () => {
+        const workingInBerwynLink = `${cssNav} > :nth-child(2) > .govuk-link`;
+
+        cy.get(workingInBerwynLink).click();
+        cy.location('pathname').should('include', '/content/3630');
+      });
+
+      it(`navigates to the 'Getting out' page`, () => {
+        const gettingOutLink = `${cssNav} > :nth-child(3) > .govuk-link`;
+
+        cy.get(gettingOutLink).click();
+        cy.location('pathname').should('include', '/content/3631');
+      });
     });
   });
 });
