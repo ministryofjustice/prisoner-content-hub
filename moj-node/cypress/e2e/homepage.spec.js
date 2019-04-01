@@ -45,23 +45,58 @@ describe('Homepage', () => {
       });
 
       it(`navigates to the 'Education and work' page`, () => {
-        const workingInBerwynLink = `${cssNav} > :nth-child(2) > .govuk-link`;
+        cy.get(`${cssNav} > :nth-child(2) > .govuk-link`).as(
+          'workingInBerwynLink',
+        );
 
-        cy.get(workingInBerwynLink).click();
+        cy.get('@workingInBerwynLink').click();
         cy.location('pathname').should('include', '/content/3630');
       });
 
       it(`navigates to the 'Getting out' page`, () => {
-        const gettingOutLink = `${cssNav} > :nth-child(3) > .govuk-link`;
+        cy.get(`${cssNav} > :nth-child(3) > .govuk-link`).as('gettingOutLink');
 
-        cy.get(gettingOutLink).click();
+        cy.get('@gettingOutLink').click();
         cy.location('pathname').should('include', '/content/3631');
       });
     });
   });
-});
 
-// it('renders featured content titles', () => {
-//     // https://on.cypress.io/should
-//     cy.get('data-featured-section-title').should('contain', 'News and events');
-// });
+  describe('Featured content and landing pages', () => {
+    const featuredSectionIds = [
+      'news-events',
+      'healthy-mind-body',
+      'legal-and-your-rights',
+      'inspiration',
+      'science-nature',
+      'art-culture',
+      'history',
+      'music',
+    ];
+
+    beforeEach(() => {
+      cy.visit('/');
+    });
+
+    featuredSectionIds.forEach(id => {
+      it(`renders featured section correctly for ${id}`, () => {
+        cy.log('Check featured content items are rendered');
+
+        cy.get(
+          `[data-featured-section-id="${id}"] [data-featured-item-id]`,
+        ).should('have.length.greaterThan', 2);
+
+        cy.get(
+          `[data-featured-section-id="${id}"] [data-featured-section-title]`,
+        ).then(el => {
+          const title = Cypress.$(el).attr('data-featured-section-title');
+          cy.log(`Navigating to ${title} page`);
+          cy.get(
+            `[data-featured-section-id="${id}"] [data-more-btn-id]`,
+          ).click();
+          cy.get('#title').should('have.text', title);
+        });
+      });
+    });
+  });
+});

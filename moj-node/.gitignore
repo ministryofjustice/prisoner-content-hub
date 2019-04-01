@@ -24,3 +24,5 @@ build-info.json
 csv-exports
 .vscode
 cypress/integration/examples
+cypress/screenshots/
+cypress/videos/
