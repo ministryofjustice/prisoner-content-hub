@@ -103,6 +103,10 @@ jobs:
           command: |
             cd moj-node && \
             npm run build && \
+            BUILD_NUMBER="$CIRCLE_BUILD_NUM" \
+            GIT_REF="$CIRCLE_SHA1" \
+            GIT_DATE="$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1)" \
+            npm run record-build-info && \
             APP_NAME="HMP Local" \
             NODE_ENV=production \
             MATOMO_URL="foo.bar" \
