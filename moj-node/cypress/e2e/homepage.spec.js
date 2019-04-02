@@ -88,9 +88,9 @@ describe('Homepage', () => {
 
         cy.get(
           `[data-featured-section-id="${id}"] [data-featured-section-title]`,
-        ).then(el => {
-          const title = Cypress.$(el).attr('data-featured-section-title');
-          cy.log(`Navigating to ${title} page`);
+        ).then($el => {
+          const title = $el.attr('data-featured-section-title');
+          cy.log(`Navigating to ${title} landing page`);
           cy.get(
             `[data-featured-section-id="${id}"] [data-more-btn-id]`,
           ).click();
