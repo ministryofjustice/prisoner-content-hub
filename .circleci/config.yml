@@ -118,7 +118,6 @@ workflows:
     jobs:
       - build
       - run_e2e_test:
-          type: approval
           requires:
             - build
       - build_db:
