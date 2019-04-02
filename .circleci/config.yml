@@ -103,7 +103,12 @@ jobs:
           command: |
             cd moj-node && \
             npm run build && \
+            APP_NAME="HMP Local" \
             NODE_ENV=production \
+            MATOMO_URL="foo.bar" \
+            MATOMO_TOKEN="foobar" \
+            MATOMO_API_URI="http://hub-matomo" \
+            ENABLE_PRISON_SWITCH="true" \
             HUB_API_ENDPOINT="https://drupal.digital-hub-stage.hmpps.dsd.io" \
             DRUPAL_APP_URI="https://drupal.digital-hub-stage.hmpps.dsd.io" \
             npm run test:e2e:run
