@@ -107,6 +107,10 @@ jobs:
             HUB_API_ENDPOINT="https://drupal.digital-hub-stage.hmpps.dsd.io" \
             DRUPAL_APP_URI="https://drupal.digital-hub-stage.hmpps.dsd.io" \
             npm run test:e2e:run
+      - store_test_results:
+          path: ./reports
+      - store_artifacts:
+          path: ./reports
 
 workflows:
   version: 2
