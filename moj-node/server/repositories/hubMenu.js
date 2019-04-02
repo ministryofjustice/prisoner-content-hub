@@ -44,7 +44,7 @@ function hubMenuRepository(httpClient) {
       _prison: prisonId,
     });
 
-    return parseCategoryMenu(response, prisonId);
+    return parseCategoryMenu(response, prisonId, categoryId);
   }
 
   function gettingAJobMenu(prisonId) {
@@ -78,14 +78,14 @@ function hubMenuRepository(httpClient) {
     }));
   }
 
-  function parseCategoryMenu(data, prisonId) {
+  function parseCategoryMenu(data, prisonId, categoryId) {
     if (data === null) return [];
 
     const series = parseTagsResponse(data.series_ids);
     // const secondaryTags = parseTagsResponse(data.secondary_tag_ids);
 
     // inject extra link
-    if (prisonId === 793) {
+    if (prisonId === 793 && categoryId === 645) {
       const link = {
         id: 'working-in-wayland',
         linkText: 'Working in Wayland',
