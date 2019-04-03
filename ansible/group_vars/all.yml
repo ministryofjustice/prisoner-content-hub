@@ -48,15 +48,6 @@ studio_users:
     shell: /bin/bash
     update_password: on_create
 
-  - username: ajasinski
-    name: "Adam Jasinski"
-    groups:
-      - admin
-    ssh_key:
-      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFVpsxyzmI1cy9xiLikWZaJAHSS/phnQydCz9yqCmRn ajasinski@ELITEBOOK"
-    shell: /bin/bash
-    update_password: on_create
-
   - username: ttaylor
     name: "Tim Taylor"
     groups:
@@ -235,35 +226,8 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
 users: "{{ studio_users }}"
 
 users_deleted:
-  - username: jamesglossop
-  - username: awalker
-  - username: sean
-  - username: aharris
-  - username: ppatton
-  - username: iangardener
-  - username: ppaton
-  - username: glenmailer
-  - username: simoncross
-  - username: draganletic
-  - username: graemewood
-  - username: brianaldridge
-  - username: jamiekirkwood
-  - username: garybartram
-  - username: geoffbuchan
-  - username: davidgauld
-  - username: arronruecroft
-  - username: paulross
-  - username: vickifoster
-  - username: blairjones
-  - username: iangardner
-  - username: philwilliams
-  - username: zkarim
-  - username: gburkett
-  - username: pkay
-  - username: kquinlan
-  - username: dgauld
-  - username: kebblewhite
   - username: georgesadathian
+  - username: ajasinski
 
 nginx_extra_http_options: |
   ##
