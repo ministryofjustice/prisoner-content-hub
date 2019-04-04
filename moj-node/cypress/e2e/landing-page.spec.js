@@ -2,8 +2,8 @@ describe('Landing page', () => {
   const landingPages = {
     newsAndEvents: '/content/3632',
     heathyMindAndBody: '/content/3657',
-    // TODO: uncomment when the following ticket is done https://github.com/cypress-io/cypress/issues/311
-    // legalAndYourRights: '/content/3658',
+    // TODO: change Test Suite to electron when the following ticket is done https://github.com/cypress-io/cypress/issues/311
+    legalAndYourRights: '/content/3658',
     inspiration: '/content/3659',
     scienceAndNature: '/content/3660',
     artAndCultures: '/content/3661',
