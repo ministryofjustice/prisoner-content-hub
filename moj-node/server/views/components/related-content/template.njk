@@ -1,7 +1,7 @@
 {% from "../featured-content-item/macro.njk" import hubFeaturedContentItem %}
 
-<div data-content-id="{{params.id}}" id="related-contents" class="govuk-grid-row content-items">
-  {% for item in params.data %}
+<div data-content-type="{{params.data.contentType}}" data-content-id="{{params.id}}" id="related-contents" class="govuk-grid-row content-items">
+  {% for item in params.data.data %}
     <div class="item govuk-grid-column-one-quarter">
       {{
         hubFeaturedContentItem({

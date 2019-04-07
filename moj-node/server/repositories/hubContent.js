@@ -63,8 +63,12 @@ module.exports = function hubContentRepository(httpClient) {
     return parseMenuResponse(response);
   }
 
-  async function seasonFor(id) {
-    const response = await httpClient.get(`${config.api.series}/${id}`);
+  async function seasonFor({ id, establishmentId, perPage = 8, offset = 0 }) {
+    const response = await httpClient.get(`${config.api.series}/${id}`, {
+      _number: perPage,
+      _offset: offset,
+      _prison: establishmentId,
+    });
 
     return parseSeasonResponse(response);
   }

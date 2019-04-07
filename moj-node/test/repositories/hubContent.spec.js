@@ -84,10 +84,15 @@ describe('hubContentRepository', () => {
     it('returns formated data for a season', async () => {
       const client = generateClient(seasonResponse);
       const repository = hubContentRepository(client);
-      const content = await repository.seasonFor('id');
+      const content = await repository.seasonFor({
+        id: 'id',
+        establishmentId: 'fooBarQuery',
+      });
+      const requestQueryString = JSON.stringify(client.get.lastCall.args[1]);
 
       expect(content).to.eql(seasonContent());
       expect(client.get.lastCall.args[0]).to.include('id');
+      expect(requestQueryString).to.include('fooBarQuery');
     });
   });
 
@@ -95,10 +100,15 @@ describe('hubContentRepository', () => {
     it('returns formated data for related content', async () => {
       const client = generateClient(relatedContentResponse);
       const repository = hubContentRepository(client);
-      const content = await repository.relatedContentFor({ id: 'id' });
+      const content = await repository.relatedContentFor({
+        id: 'id',
+        establishmentId: 'fooBarQuery',
+      });
+      const requestQueryString = JSON.stringify(client.get.lastCall.args[1]);
 
       expect(content).to.eql(relatedContent());
-      expect(JSON.stringify(client.get.lastCall.args[1])).to.include('id');
+      expect(requestQueryString).to.include('id');
+      expect(requestQueryString).to.include('fooBarQuery');
     });
   });
 

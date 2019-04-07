@@ -2,6 +2,7 @@
   var template = document.getElementById('template').innerHTML;
   var relatedContents = document.getElementById('related-contents');
   var contentId = relatedContents.getAttribute('data-content-id');
+  var contentType = relatedContents.getAttribute('data-content-type');
   var loader = document.querySelector('.ajax-loader');
   var sortOrder = contentId == 644 ? 'DESC' : 'ASC'; // 644 news and events
   var url = '/tags/related-content/' + contentId;
@@ -56,7 +57,13 @@
   function getContent(query, callback) {
     var request = new XMLHttpRequest();
     var requestUrl =
-      url + '?perPage=8&offset=' + query.offset + '&sortOrder=' + sortOrder;
+      url +
+      '?perPage=8&offset=' +
+      query.offset +
+      '&sortOrder=' +
+      sortOrder +
+      '&contentType=' +
+      contentType;
 
     request.addEventListener('load', function(response) {
       callback(undefined, response.target);
