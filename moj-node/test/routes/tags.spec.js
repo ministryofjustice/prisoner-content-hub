@@ -31,7 +31,7 @@ describe('GET /tags', () => {
         },
         relatedContent: {
           contentType: 'foo',
-          relatedContent: [
+          data: [
             {
               id: 'foo',
               type: 'radio',
@@ -69,21 +69,21 @@ describe('GET /tags', () => {
             'did not render the correct number of',
           );
           expect($('[data-featured-id="foo"]').text()).to.include(
-            data.relatedContent.relatedContent[0].title,
+            data.relatedContent.data[0].title,
             'did not render the correct related item title',
           );
           expect($('[data-featured-id="foo"]').text()).to.include(
-            data.relatedContent.relatedContent[0].summary,
+            data.relatedContent.data[0].summary,
             'did not render the correct related item summary',
           );
 
           expect($('[data-featured-item-background]').attr('style')).to.include(
-            data.relatedContent.relatedContent[0].image.url,
+            data.relatedContent.data[0].image.url,
             'did not render the correct related item image',
           );
 
           expect($('[data-featured-id="foo"]').attr('href')).to.include(
-            `/content/${data.relatedContent.relatedContent[0].id}`,
+            `/content/${data.relatedContent.data[0].id}`,
             'did not render url',
           );
         });

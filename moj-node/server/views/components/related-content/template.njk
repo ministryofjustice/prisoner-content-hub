@@ -51,4 +51,30 @@
 </script>
 
 <script src="/public/mustache.min.js"></script>
-<script src="/public/javascript/tags.js"></script>
+<script src="/public/javascript/relatedContentLoader.js"></script>
+<script src="/public/javascript/renderFeaturedItem.js"></script>
+
+{# {% set sortOrder = param.id == 644 ? 'DESC' : 'ASC' %} #}
+{% if param.id == 644 %}
+  {% set sortOrder = 'DESC' %}
+{%else%}
+  {% set sortOrder = 'ASC' %}
+{% endif %}
+
+<script>
+  var template = document.getElementById('template').innerHTML;
+  var rootElement = document.getElementById('related-contents');
+  var updateTemplate = createRenderer(template, rootElement);
+
+  window.addEventListener('DOMContentLoaded', function() {
+    relatedContentLoader({
+      template: document.getElementById('template').innerHTML,
+      rootElement: document.getElementById('related-contents'),
+      loader: document.querySelector('.ajax-loader'),
+      endpointUrl: '/tags/related-content/{{params.id}}?sortOrder={{sortOrder}}&contentType={{params.data.contentType}}&perPage=8',
+      initialOffset: 8,
+      perPage: 8,
+      onUpdate: updateTemplate
+    });
+  });
+</script>

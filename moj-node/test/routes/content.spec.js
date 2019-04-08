@@ -266,7 +266,7 @@ describe('GET /content/:id', () => {
       },
       relatedContent: {
         contentType: 'foo',
-        relatedContent: [
+        data: [
           {
             id: 'baz-id',
             title: 'baz-feature-title',
