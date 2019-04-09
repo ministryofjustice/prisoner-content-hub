@@ -64,7 +64,7 @@
 <script>
   var template = document.getElementById('template').innerHTML;
   var rootElement = document.getElementById('related-contents');
-  var updateTemplate = createRenderer(template, rootElement);
+  var renderFeaturedItems = createRenderer(template, rootElement);
 
   window.addEventListener('DOMContentLoaded', function() {
     relatedContentLoader({
@@ -72,7 +72,7 @@
       endpointUrl: '/tags/related-content/{{params.id}}?sortOrder={{sortOrder}}&contentType={{params.data.contentType}}&perPage=8',
       initialOffset: 8,
       perPage: 8,
-      onUpdate: updateTemplate
+      onUpdate: renderFeaturedItems
     });
   });
 </script>

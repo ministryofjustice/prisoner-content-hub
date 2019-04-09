@@ -61,7 +61,7 @@
       options.loader.removeAttribute('hidden');
     }
 
-    function enhanceData(data) {
+    function addContentIconData(data) {
       return data.map(function(item) {
         return Object.assign(item, {
           linkText: linkText[item.contentType],
@@ -92,7 +92,7 @@
             return false;
           }
 
-          options.onUpdate(enhanceData(data), currentOffset);
+          options.onUpdate(addContentIconData(data));
 
           return true;
         } catch (error) {
