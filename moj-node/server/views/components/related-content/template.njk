@@ -1,7 +1,7 @@
 {% from "../featured-content-item/macro.njk" import hubFeaturedContentItem %}
 
-<div data-content-id="{{params.id}}" id="related-contents" class="govuk-grid-row content-items">
-  {% for item in params.data %}
+<div data-content-type="{{params.data.contentType}}" data-content-id="{{params.id}}" id="related-contents" class="govuk-grid-row content-items">
+  {% for item in params.data.data %}
     <div class="item govuk-grid-column-one-quarter">
       {{
         hubFeaturedContentItem({
@@ -51,4 +51,28 @@
 </script>
 
 <script src="/public/mustache.min.js"></script>
-<script src="/public/javascript/tags.js"></script>
+<script src="/public/javascript/relatedContentLoader.js"></script>
+<script src="/public/javascript/renderFeaturedItem.js"></script>
+
+{# {% set sortOrder = param.id == 644 ? 'DESC' : 'ASC' %} #}
+{% if param.id == 644 %}
+  {% set sortOrder = 'DESC' %}
+{%else%}
+  {% set sortOrder = 'ASC' %}
+{% endif %}
+
+<script>
+  var template = document.getElementById('template').innerHTML;
+  var rootElement = document.getElementById('related-contents');
+  var renderFeaturedItems = createRenderer(template, rootElement);
+
+  window.addEventListener('DOMContentLoaded', function() {
+    relatedContentLoader({
+      loader: document.querySelector('.ajax-loader'),
+      endpointUrl: '/tags/related-content/{{params.id}}?sortOrder={{sortOrder}}&contentType={{params.data.contentType}}&perPage=8',
+      initialOffset: 8,
+      perPage: 8,
+      onUpdate: renderFeaturedItems
+    });
+  });
+</script>

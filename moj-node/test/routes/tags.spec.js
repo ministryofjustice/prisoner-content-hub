@@ -29,18 +29,21 @@ describe('GET /tags', () => {
         description: {
           sanitized: 'foo description',
         },
-        relatedContent: [
-          {
-            id: 'foo',
-            type: 'radio',
-            title: 'foo related content',
-            summary: 'Foo body',
-            image: {
-              url: 'foo.png',
+        relatedContent: {
+          contentType: 'foo',
+          data: [
+            {
+              id: 'foo',
+              type: 'radio',
+              title: 'foo related content',
+              summary: 'Foo body',
+              image: {
+                url: 'foo.png',
+              },
+              contentUrl: '/content/foo',
             },
-            contentUrl: '/content/foo',
-          },
-        ],
+          ],
+        },
       };
       const hubTagsService = {
         termFor: sinon.stub().returns(data),
@@ -66,21 +69,21 @@ describe('GET /tags', () => {
             'did not render the correct number of',
           );
           expect($('[data-featured-id="foo"]').text()).to.include(
-            data.relatedContent[0].title,
+            data.relatedContent.data[0].title,
             'did not render the correct related item title',
           );
           expect($('[data-featured-id="foo"]').text()).to.include(
-            data.relatedContent[0].summary,
+            data.relatedContent.data[0].summary,
             'did not render the correct related item summary',
           );
 
           expect($('[data-featured-item-background]').attr('style')).to.include(
-            data.relatedContent[0].image.url,
+            data.relatedContent.data[0].image.url,
             'did not render the correct related item image',
           );
 
           expect($('[data-featured-id="foo"]').attr('href')).to.include(
-            `/content/${data.relatedContent[0].id}`,
+            `/content/${data.relatedContent.data[0].id}`,
             'did not render url',
           );
         });
