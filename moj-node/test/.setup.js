@@ -7,7 +7,7 @@ const chaiAsPromised = require('chai-as-promised');
 const sinon = require('sinon');
 const chaiString = require('chai-string');
 const expect = require('chai').expect;
-var sinonChai = require('sinon-chai');
+const sinonChai = require('sinon-chai');
 
 const { JSDOM } = jsdom;
 // Test Assertion libraries
