@@ -6,11 +6,13 @@ const chaiAsPromised = require('chai-as-promised');
 const sinon = require('sinon');
 const chaiString = require('chai-string');
 const expect = require('chai').expect;
+var sinonChai = require('sinon-chai');
 
 const { JSDOM } = jsdom;
 // Test Assertion libraries
 chai.use(chaiAsPromised);
 chai.use(chaiString);
+chai.use(sinonChai);
 
 // JSDOM
 const exposedProperties = [
@@ -21,8 +23,8 @@ const exposedProperties = [
   'sessionStorage',
 ];
 const { document } = new JSDOM(``, {
-  url: 'https://example.org/',
-  referrer: 'https://example.com/',
+  url: 'http://example.org/',
+  referrer: 'http://example.com/',
   contentType: 'text/html',
   includeNodeLocations: true,
   storageQuota: 10000000,

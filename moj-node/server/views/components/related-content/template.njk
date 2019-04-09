@@ -68,8 +68,6 @@
 
   window.addEventListener('DOMContentLoaded', function() {
     relatedContentLoader({
-      template: document.getElementById('template').innerHTML,
-      rootElement: document.getElementById('related-contents'),
       loader: document.querySelector('.ajax-loader'),
       endpointUrl: '/tags/related-content/{{params.id}}?sortOrder={{sortOrder}}&contentType={{params.data.contentType}}&perPage=8',
       initialOffset: 8,
