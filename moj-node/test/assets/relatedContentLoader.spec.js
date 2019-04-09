@@ -3,10 +3,7 @@ const fromHTML = require('from-html/lib/from-html.js');
 const relatedContentLoader = require('../../assets/javascript/relatedContentLoader.js');
 const MutationObserver = require('mutation-observer');
 
-const renderFeaturedItem = require('../../assets/javascript/renderFeaturedItem.js');
-const template = require('./templates/relatedContent.tmpl.js');
-
-const { container, loader } = fromHTML(`
+const { loader } = fromHTML(`
   <div ref="container">
     <span class="ajax-loader" ref="loader" hidden>
   </div>
@@ -21,11 +18,9 @@ describe('relatedContentLoader', () => {
         .reply(200, [{ contentType: 'radio' }]);
     });
 
-    afterEach(() => {
-      scope.restore();
-    });
+    it('calls the onUpdate method on initialization', function(done) {
+      this.timeout(500);
 
-    it('calls the onUpdate method on initialization', done => {
       relatedContentLoader({
         loader,
         endpointUrl: '/server?test=1',
@@ -67,23 +62,57 @@ describe('relatedContentLoader', () => {
         onUpdate: () => {
           // set timeout hack because it's the only way to have the these running on the next tick
           setTimeout(() => {
-            expect(spy.callCount).to.equal(2);
+            try {
+              expect(spy.callCount).to.equal(2);
 
-            const mutation1Element = spy.firstCall.args[0];
-            const mutationElement = spy.secondCall.args[0];
+              const mutation1Element = spy.firstCall.args[0];
+              const mutation2Element = spy.secondCall.args[0];
 
-            expect(mutation1Element.hidden).to.equal(
-              false,
-              'The loader should have been become visible at some point',
-            );
-            expect(mutationElement.hidden).to.equal(
-              true,
-              'The loader should have become hidden after becoming visible',
-            );
+              expect(mutation1Element.hidden).to.equal(
+                false,
+                'The loader should have been become visible at some point',
+              );
+              expect(mutation2Element.hidden).to.equal(
+                true,
+                'The loader should have become hidden after becoming visible',
+              );
 
-            observer.disconnect();
-            done();
+              done();
+            } catch (exp) {
+              done(exp);
+            } finally {
+              observer.disconnect();
+            }
           }, 1);
+        },
+      });
+    });
+
+    it('provides data on update', function(done) {
+      this.timeout(500);
+
+      relatedContentLoader({
+        loader,
+        endpointUrl: '/server?test=1',
+        initialOffset: 1,
+        perPage: 1,
+        onUpdate: data => {
+          try {
+            expect(data).to.be.eql(
+              [
+                {
+                  contentType: 'radio',
+                  iconType: 'icon-music',
+                  linkIcon: 'icon-play',
+                  linkText: 'Listen',
+                },
+              ],
+              'data was not provided on update',
+            );
+            done();
+          } catch (exp) {
+            done(exp);
+          }
         },
       });
     });

@@ -2,6 +2,7 @@ require('dotenv').config({ path: '.env-test' });
 
 const jsdom = require('jsdom');
 const chai = require('chai');
+const Mustache = require('mustache');
 const chaiAsPromised = require('chai-as-promised');
 const sinon = require('sinon');
 const chaiString = require('chai-string');
@@ -42,6 +43,29 @@ Object.keys(document.defaultView).forEach(property => {
   }
 });
 
+// Document createRange Polyfill
+document.createRange = () => ({
+  setStart: () => {},
+  setEnd: () => {},
+  commonAncestorContainer: {
+    nodeName: 'BODY',
+    ownerDocument: document,
+  },
+  createContextualFragment: html => {
+    const fromHTML = require('from-html/lib/from-html.js');
+
+    const frag = document.createDocumentFragment();
+    const decoratedHTML = `<div ref="container">${html}</div>`;
+    const { container } = fromHTML(decoratedHTML);
+
+    for (const child of [...container.children]) {
+      frag.appendChild(child);
+    }
+
+    return frag;
+  },
+});
+
 global.navigator = {
   userAgent: 'node.js',
 };
@@ -49,3 +73,5 @@ global.navigator = {
 global.expect = chai.expect;
 global.sinon = sinon;
 global.expect = expect;
+
+global.Mustache = Mustache;

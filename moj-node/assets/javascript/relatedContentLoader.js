@@ -92,7 +92,7 @@
             return false;
           }
 
-          options.onUpdate(enhanceData(data));
+          options.onUpdate(enhanceData(data), currentOffset);
 
           return true;
         } catch (error) {

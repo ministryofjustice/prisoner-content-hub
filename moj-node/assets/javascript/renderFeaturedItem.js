@@ -13,8 +13,8 @@
     };
   }
 
-  if (typeof module !== 'undefined' && typeof module.exports !== undefined) {
-    module.export = createRenderer;
+  if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
+    module.exports = createRenderer;
   } else {
     window.createRenderer = createRenderer;
   }
