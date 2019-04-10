@@ -9,7 +9,7 @@ module.exports = {
   appName: getEnv('APP_NAME', 'HMP Hub Local', {
     requireInProduction: true,
   }),
-  featureTogglesEnabled: Boolean(getEnv('ENABLE_FEATURE_TOGGLES', true)),
+  featureTogglesEnabled: getEnv('ENABLE_FEATURE_TOGGLES', 'true'),
   dev: !isProduction && !isTest,
   test: isTest,
   production: isProduction,
@@ -29,6 +29,6 @@ module.exports = {
     tags: `${hubEndpoint}/v1/api/vocabulary/tags`,
   },
   matomoToken: getEnv('MATOMO_TOKEN', 'faketoken'),
-  features: ['showPageMenu'],
+  features: ['showPageMenu', 'showBrowseByTopics'],
   enablePrisonSwitch: getEnv('ENABLE_PRISON_SWITCH', 'false'),
 };

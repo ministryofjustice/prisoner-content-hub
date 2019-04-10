@@ -14,13 +14,17 @@ module.exports = function Index({
 
       const { establishmentId } = req.app.locals.envVars;
 
-      const [featuredContent, promotionalContent, tagsMenu] = await Promise.all(
-        [
-          hubFeaturedContentService.hubFeaturedContent({ establishmentId }),
-          hubPromotedContentService.hubPromotedContent({ establishmentId }),
-          hubMenuService.tagsMenu(),
-        ],
-      );
+      const [
+        featuredContent,
+        promotionalContent,
+        tagsMenu,
+        homepageMenu,
+      ] = await Promise.all([
+        hubFeaturedContentService.hubFeaturedContent({ establishmentId }),
+        hubPromotedContentService.hubPromotedContent({ establishmentId }),
+        hubMenuService.tagsMenu(),
+        hubMenuService.homepageMenu(establishmentId),
+      ]);
 
       const config = {
         content: true,
@@ -32,7 +36,7 @@ module.exports = function Index({
         ...featuredContent,
         promotionalContent,
         tagsMenu,
-        homepageMenu: hubMenuService.homepageMenu(establishmentId),
+        homepageMenu,
         config,
       });
     } catch (exception) {
