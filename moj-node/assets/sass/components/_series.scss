@@ -3,14 +3,12 @@
     list-style: none;
     margin: 20px 0;
     padding: 0;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+    -ms-column-count: 4;
+    -webkit-column-count: 4;
+    -moz-column-count: 4;
+    column-count: 4;
 
     li {
-      width: 25%;
       margin: 0 0 govuk-spacing(1) 0;
       a {
         display: inline-block;

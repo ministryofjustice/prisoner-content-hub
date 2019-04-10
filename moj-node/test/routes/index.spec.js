@@ -41,13 +41,18 @@ describe('GET /', () => {
   };
 
   const hubMenuService = {
-    seriesMenu: sinon
+    tagsMenu: sinon
       .stub()
       .returns([
-        { linkText: 'Foo', href: '/content/1', id: '1' },
-        { linkText: 'Bar', href: '/content/2', id: '2' },
+        { linkText: 'Some Foo Link', href: '/content/someFooLink' },
+        { linkText: 'Bar', href: '/content/2' },
       ]),
-    homepageMenu: sinon.stub().returns([]),
+    homepageMenu: sinon.stub().returns([
+      {
+        title: 'Some cool content link',
+        href: '/content/someId',
+      },
+    ]),
   };
 
   it('renders promoted content', () => {
@@ -128,6 +133,40 @@ describe('GET /', () => {
       });
   });
 
+  it('renders a homepage menu', () => {
+    const router = createIndexRouter({
+      logger,
+      hubFeaturedContentService,
+      hubPromotedContentService,
+      hubMenuService,
+    });
+    const app = setupBasicApp();
+
+    app.use(router);
+
+    return request(app)
+      .get('/')
+      .expect(200)
+      .then(response => {
+        const $ = cheerio.load(response.text);
+
+        expect($('#homepage-navigation li').length).to.equal(
+          2,
+          'should have rendered a homepage navigation',
+        );
+
+        expect($('#homepage-navigation').text()).to.include(
+          'Some cool content link',
+          'should have rendered the correct content on the homepage navigation',
+        );
+
+        expect($('#homepage-navigation').html()).to.include(
+          '/content/someId',
+          'should have rendered the correct links on the homepage navigation',
+        );
+      });
+  });
+
   it('render a 500 when there is an error', () => {
     const hubFeaturedContentServiceFailure = {
       hubFeaturedContent: sinon.stub().throws('boom'),
@@ -175,7 +214,7 @@ describe('GET /', () => {
   });
 
   describe('when the feature the showBrowseByTopics is enabled', () => {
-    it('show the browse by series menu', () => {
+    it('show the browse by topics menu', () => {
       const router = createIndexRouter({
         logger,
         hubFeaturedContentService,
@@ -197,8 +236,18 @@ describe('GET /', () => {
 
           expect($('#browser-by-topic h1').text()).to.equal('Browse by topic');
           expect($('#browser-by-topic .govuk-hub-topics li').length).to.equal(
-            6,
+            2,
             'Correct number of menu items',
+          );
+
+          expect($('#browser-by-topic').text()).to.include(
+            'Some Foo Link',
+            'Should have rendered the correct text data on the tags menu',
+          );
+
+          expect($('#browser-by-topic').html()).to.include(
+            '/content/someFooLink',
+            'Should have rendered the correct links data on the tags menu',
           );
         });
     });

@@ -26,6 +26,9 @@ describe('App', () => {
         hubPromotedContentService: {
           hubPromotedContent: sinon.stub().rejects(error),
         },
+        hubMenuService: {
+          tagsMenu: sinon.stub(),
+        },
       }),
     )
       .get('/')
@@ -52,6 +55,10 @@ describe('App', () => {
       app({
         hubPromotedContentService: {
           hubPromotedContent: sinon.stub().rejects(error),
+        },
+        hubMenuService: {
+          tagsMenu: sinon.stub(),
+          homepageMenu: sinon.stub(),
         },
       }),
     )

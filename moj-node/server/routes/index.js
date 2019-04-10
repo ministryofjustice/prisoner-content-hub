@@ -17,11 +17,13 @@ module.exports = function Index({
       const [
         featuredContent,
         promotionalContent,
-        seriesMenu,
+        tagsMenu,
+        homepageMenu,
       ] = await Promise.all([
         hubFeaturedContentService.hubFeaturedContent({ establishmentId }),
         hubPromotedContentService.hubPromotedContent({ establishmentId }),
-        hubMenuService.seriesMenu(),
+        hubMenuService.tagsMenu(),
+        hubMenuService.homepageMenu(establishmentId),
       ]);
 
       const config = {
@@ -33,8 +35,8 @@ module.exports = function Index({
       res.render('pages/index', {
         ...featuredContent,
         promotionalContent,
-        seriesMenu,
-        homepageMenu: hubMenuService.homepageMenu(establishmentId),
+        tagsMenu,
+        homepageMenu,
         config,
       });
     } catch (exception) {

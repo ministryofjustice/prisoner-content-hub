@@ -71,11 +71,22 @@ function hubMenuRepository(httpClient) {
   function parseTagsResponse(data) {
     if (data === null) return [];
 
-    return Object.keys(data).map(key => ({
+    const tags = Object.keys(data).map(key => ({
       id: tagIdFrom(data[key]),
       linkText: nameFrom(data[key]),
       href: `/tags/${tagIdFrom(data[key])}`,
     }));
+
+    const sortAlphabetically = (a, b) => {
+      if (
+        a.linkText.charAt(0).toLowerCase() > b.linkText.charAt(0).toLowerCase()
+      ) {
+        return 1;
+      }
+      return -1;
+    };
+
+    return tags.sort(sortAlphabetically);
   }
 
   function parseCategoryMenu(data, prisonId, categoryId) {

@@ -1,7 +1,7 @@
 {% from "../components/promoted-content/macro.njk" import hubPromotedContent %}
 {% from "../components/featured-content/macro.njk" import hubFeaturedContent %}
 {% from "../components/sub-menu/macro.njk" import hubSubMenu %}
-{% from "../components/series/macro.njk" import hubSeries %}
+{% from "../components/topics/macro.njk" import hubTopics %}
 
 {% extends "../components/template.njk" %}
 
@@ -39,7 +39,7 @@
 } %}
 
 {% block promotedContent %}
-  <nav class="govuk-hub-main_navigation_banner">
+  <nav id="homepage-navigation" class="govuk-hub-main_navigation_banner">
     <ul class="govuk-hub-main_navigation">
       <li class="govuk-hub-main_navigation_current_page">
         <span class="govuk-link" >Home<span/>
@@ -159,12 +159,12 @@
 {% block postscript %}
   {% if features.showBrowseByTopics %}
   <div id="browser-by-topic" class="govuk-width-container govuk-!-margin-top-6">
-      <div class="govuk-main-wrapper" id="postscript-content">
-        {{ hubSeries({
-          data: seriesMenu
-        }) }}
-      </div>
+    <div class="govuk-main-wrapper" id="postscript-content">
+      {{ hubTopics({
+        data: tagsMenu
+      }) }}
     </div>
+  </div>
   {% endif %}
 {% endblock %}
 

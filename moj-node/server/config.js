@@ -9,7 +9,7 @@ module.exports = {
   appName: getEnv('APP_NAME', 'HMP Hub Local', {
     requireInProduction: true,
   }),
-  featureTogglesEnabled: Boolean(getEnv('ENABLE_FEATURE_TOGGLES', true)),
+  featureTogglesEnabled: getEnv('ENABLE_FEATURE_TOGGLES', 'true'),
   dev: !isProduction && !isTest,
   test: isTest,
   production: isProduction,
