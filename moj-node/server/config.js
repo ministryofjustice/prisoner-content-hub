@@ -29,6 +29,6 @@ module.exports = {
     tags: `${hubEndpoint}/v1/api/vocabulary/tags`,
   },
   matomoToken: getEnv('MATOMO_TOKEN', 'faketoken'),
-  features: ['showPageMenu', 'showBrowseByTopics'],
+  features: ['showPageMenu'],
   enablePrisonSwitch: getEnv('ENABLE_PRISON_SWITCH', 'false'),
 };
