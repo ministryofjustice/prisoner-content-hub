@@ -24,14 +24,38 @@
   <!--[if lt IE 9]>
     <script src="/html5-shiv/html5shiv.js"></script>
   <![endif]-->
+
+  <script src="/public/jquery.min.js"></script>
+  <script src="/public/jplayer/jquery.jplayer.min.js"></script>
+  <script src="/public/javascript/jplayer.cleanskin.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#videoPlayer').videoPlayer({
+        name: '{{ data.title }}',
+        controlbar: false,
+        size: {
+          width: '100%',
+          height: 'auto'
+        },
+        media: {
+          preload: 'metadata',
+          m4v: '{{ data.video.url }}',
+          supplied: "m4v",
+          poster: "{{data.image.url}}"
+        }
+      });
+    });
+	</script>
+
 {% endblock %}
 
 {% block header %}
 {{ pageHeaderWithBack({
-        mainMenu: mainMenu,
-        topicsMenu: topicsMenu,
-        appName: envVars.APP_NAME,
-        features: features
+  mainMenu: mainMenu,
+  topicsMenu: topicsMenu,
+  appName: envVars.APP_NAME,
+  features: features
   }) }}
 {% endblock %}
 
@@ -41,7 +65,8 @@
       summary: data.summary,
       description: data.description,
       categoryId: tagId,
-      image: data.image
+      image: data.image,
+      video: data.video
     })
   }}
 {% endblock %}

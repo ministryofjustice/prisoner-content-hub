@@ -95,5 +95,14 @@
       "target_uuid": "622ae2ea-1a72-4bf4-a1c4-96907dfb8331",
       "url": "http://foo.bar/image.png"
     }
+  ],
+  "field_featured_video": [
+    {
+      "target_id": 10683,
+      "data": null,
+      "target_type": "file",
+      "target_uuid": "43365ff1-a143-4fd7-b4e6-b600502f3f3c",
+      "url": "http://foo.bar/video.mp4"
+    }
   ]
 }

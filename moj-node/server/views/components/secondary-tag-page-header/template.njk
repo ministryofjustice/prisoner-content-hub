@@ -18,10 +18,16 @@
           {% endif %}
         </div>
 
-        {% if params.image.url %}
-        <div class="govuk-grid-column-one-half">
-          <div class="govuk-hub-landing-page-header__content-image" style="background-image: url({{params.image.url}});"></div>
-        </div>
+        {% if params.video.url %}
+          <div class="govuk-grid-column-one-half">
+            <div id="videoPlayer" class="webPlayer light">
+              <div id="videoPlayerContainer" class="videoPlayer" data-video="{{ params.video.url }}" data-poster="{{params.image.url}}"></div>
+            </div>
+          </div>
+        {% elif params.image.url %}
+          <div class="govuk-grid-column-one-half">
+            <div data-page-featured-image class="govuk-hub-landing-page-header__content-image" style="background-image: url({{params.image.url}});"></div>
+          </div>
         {% endif %}
       </div>
     </div>

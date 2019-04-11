@@ -9,13 +9,13 @@ module.exports = function Tags({ logger, hubTagsService }) {
 
       logger.info(`GET /tags/${id}`);
       const { establishmentId } = req.app.locals.envVars;
-      const data = await hubTagsService.termFor(id, establishmentId);
-
       const config = {
         content: true,
         header: false,
         postscript: false,
       };
+
+      const data = await hubTagsService.termFor(id, establishmentId);
 
       res.render('pages/tags', {
         tagId: id,

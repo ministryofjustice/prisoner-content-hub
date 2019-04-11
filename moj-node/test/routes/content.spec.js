@@ -56,7 +56,7 @@ describe('GET /content/:id', () => {
             'Foo series',
             'Page title did not match',
           );
-          expect($('#audioPlayerContainer').attr('data-audio')).to.equal(
+          expect($('#audioPlayer').attr('data-media')).to.equal(
             'foo.mp3',
             'Page media did not match',
           );
