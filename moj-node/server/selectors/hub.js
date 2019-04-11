@@ -34,6 +34,10 @@ module.exports.featuredImageAltFrom = R.view(
   R.lensPath(['field_featured_image', 0, 'alt']),
 );
 
+module.exports.featuredVideoUrlFrom = R.view(
+  R.lensPath(['field_featured_video', 0, 'url']),
+);
+
 module.exports.durationFrom = R.view(
   R.lensPath(['field_moj_duration', 0, 'value']),
 );

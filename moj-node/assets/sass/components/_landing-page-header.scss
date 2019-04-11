@@ -68,3 +68,26 @@
     }
   }
 }
+
+.govuk-hub-landing-page-header .webPlayer {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  overflow: hidden;
+}
+
+.govuk-hub-landing-page-header .controls {
+  position: absolute;
+  width: 97.1%;
+  bottom: -100px;
+  transition: bottom ease-in-out 300ms;
+}
+
+.govuk-hub-landing-page-header .jp-state-playing:hover .controls {
+  bottom: 0;
+}
+
+.govuk-hub-landing-page-header .webPlayer .playerScreen .video-play {
+  bottom: 24px;
+  opacity: 0.9;
+  background-color: rgba(0, 0, 0, 0.7);
+}

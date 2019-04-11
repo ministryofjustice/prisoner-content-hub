@@ -22,6 +22,7 @@ const {
   imageUrlFrom,
   featuredImageUrlFrom,
   featuredImageAltFrom,
+  featuredVideoUrlFrom,
   durationFrom,
   audioUrlFrom,
   videoUrlFrom,
@@ -110,6 +111,12 @@ module.exports = function hubContentRepository(httpClient) {
         alt: featuredImageAltFrom(data),
         url: fixUrlForProduction(
           featuredImageUrlFrom(data),
+          config.drupalAppUrl,
+        ),
+      },
+      video: {
+        url: fixUrlForProduction(
+          featuredVideoUrlFrom(data),
           config.drupalAppUrl,
         ),
       },
