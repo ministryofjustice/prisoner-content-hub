@@ -70,8 +70,8 @@
     relatedContentLoader({
       loader: document.querySelector('.ajax-loader'),
       endpointUrl: '/tags/related-content/{{params.id}}?sortOrder={{sortOrder}}&contentType={{params.data.contentType}}&perPage=8',
-      initialOffset: 8,
-      perPage: 8,
+      initialOffset: Number('{{ params.data.data | length}}'),
+      perPage: Number('{{ params.data.data | length}}'),
       onUpdate: renderFeaturedItems
     });
   });

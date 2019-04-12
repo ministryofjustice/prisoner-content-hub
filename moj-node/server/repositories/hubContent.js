@@ -64,7 +64,7 @@ module.exports = function hubContentRepository(httpClient) {
     return parseMenuResponse(response);
   }
 
-  async function seasonFor({ id, establishmentId, perPage = 8, offset = 0 }) {
+  async function seasonFor({ id, establishmentId, perPage = 40, offset = 0 }) {
     const response = await httpClient.get(`${config.api.series}/${id}`, {
       _number: perPage,
       _offset: offset,
