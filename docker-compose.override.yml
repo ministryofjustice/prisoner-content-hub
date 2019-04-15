@@ -1,22 +1,49 @@
 version: "3"
 
 services:
-    hub-node:
-        volumes:
-            - ./moj-node/server:/home/node/app/server
-            - ./moj-node/test:/home/node/app/test
-            - ./moj-node/assets:/home/node/app/assets
+  hub-db:
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_PASSWORD=hubdb_pass
+      - MYSQL_DATABASE=hubdb
+      - MYSQL_USER=hubdb_user
+    ports:
+      - 3306:3306
 
-    hub-fe:
-        volumes:
-            - ./moj-fe/:/app
+  hub-node:
+    volumes:
+      - ./moj-node/server:/home/node/app/server
+      - ./moj-node/test:/home/node/app/test
+      - ./moj-node/assets:/home/node/app/assets
 
-    hub-be:
-        volumes:
-            - ./moj-be/:/var/www/html/
+  hub-fe:
+    volumes:
+      - ./moj-fe/:/app
 
-    hub-matomo:
-        volumes:
-            - ./moj-reporting/config:/var/www/html/config:rw
-            - ./moj-reporting/digital-hub-matmomo-db/var/lib/mysql/data:/var/lib/mysql/data
-            - ./logs:/var/www/html/logs
+  hub-be:
+    environment:
+      - HUB_DB_ENV_MYSQL_PASSWORD=hubdb_pass
+    volumes:
+      - ./moj-be/:/var/www/html/
+
+  hub-matomo:
+    volumes:
+      - ./moj-reporting/config:/var/www/html/config:rw
+      - ./moj-reporting/digital-hub-matmomo-db/var/lib/mysql/data:/var/lib/mysql/data
+      - ./logs:/var/www/html/logs
+
+  hub-drush:
+    image: drupaldocker/drush
+    depends_on:
+      - hub-be
+      - hub-db
+    environment:
+      HUB_DB_ENV_MYSQL_DATABASE: hubdb
+      HUB_DB_ENV_MYSQL_USER: hubdb_user
+      HUB_DB_ENV_MYSQL_PASSWORD: hubdb_pass
+      HUB_DB_PORT_3306_TCP_ADDR: hub-db
+    volumes:
+      - ./moj-be/:/var/www/html/
+    entrypoint:
+      - drush
+      - "--root=/var/www/html/"
