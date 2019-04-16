@@ -84,7 +84,7 @@
         window.location.pathname,
         element.getAttribute('data-item-action'),
         Date.now(),
-        itemCategory,
+        category,
         element.getAttribute('data-item-series'),
         calculateTimeToAction(),
         getVisitorId(),

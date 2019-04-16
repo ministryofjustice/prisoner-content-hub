@@ -3,29 +3,6 @@ const feedbackWidgetTemplate = require('./templates/feedbackWidget');
 
 const feedbackTracker = require('../../assets/javascript/feedback-tracking');
 
-function render() {
-  const {
-    container: frag,
-    thumbsUp,
-    thumbsDown,
-    feedbackForm,
-    feedbackActionText,
-  } = fromHTML(feedbackWidgetTemplate);
-  const container = document.createElement('DIV');
-
-  container.appendChild(frag);
-
-  feedbackTracker(container);
-
-  return {
-    container,
-    thumbsUp,
-    thumbsDown,
-    feedbackForm,
-    feedbackActionText,
-  };
-}
-
 describe('Feedback tracker', () => {
   beforeEach(() => {
     global._paq = [];
@@ -49,7 +26,7 @@ describe('Feedback tracker', () => {
     it('correctly formats data to be sent to Piwik', () => {
       expect(_paq.length).to.equal(0);
 
-      const { thumbsUp } = render();
+      const { thumbsUp } = render({ category: 'radio' });
 
       thumbsUp.click();
 
@@ -59,6 +36,8 @@ describe('Feedback tracker', () => {
         eventAction: 'LIKE',
         eventValue: '1',
         action: 'LIKE',
+        eventCategory: 'podcast',
+        category: 'podcast',
       });
     });
 
@@ -96,7 +75,7 @@ describe('Feedback tracker', () => {
     it('correctly formats data to be sent to Piwik', () => {
       expect(_paq.length).to.equal(0);
 
-      const { thumbsUp, feedbackForm } = render();
+      const { thumbsUp, feedbackForm } = render({ category: 'page' });
 
       thumbsUp.click();
 
@@ -110,6 +89,8 @@ describe('Feedback tracker', () => {
         eventAction: 'LIKE - foo content',
         eventValue: '1',
         action: 'LIKE',
+        eventCategory: 'article',
+        category: 'article',
       });
     });
   });
@@ -118,7 +99,7 @@ describe('Feedback tracker', () => {
     it('correctly formats data to be sent to Piwik', () => {
       expect(_paq.length).to.equal(0);
 
-      const { thumbsDown } = render();
+      const { thumbsDown } = render({ category: 'game' });
 
       thumbsDown.click();
 
@@ -128,6 +109,8 @@ describe('Feedback tracker', () => {
         eventAction: 'DISLIKE',
         eventValue: '-1',
         action: 'DISLIKE',
+        eventCategory: 'game',
+        category: 'game',
       });
     });
 
@@ -263,4 +246,27 @@ function testEventContents(event, expectedConfig) {
     expected.establishment,
     'the establishment in eventName did not match',
   );
+}
+
+function render({ category = 'video' } = {}) {
+  const {
+    container: frag,
+    thumbsUp,
+    thumbsDown,
+    feedbackForm,
+    feedbackActionText,
+  } = fromHTML(feedbackWidgetTemplate({ category }));
+  const container = document.createElement('DIV');
+
+  container.appendChild(frag);
+
+  feedbackTracker(container);
+
+  return {
+    container,
+    thumbsUp,
+    thumbsDown,
+    feedbackForm,
+    feedbackActionText,
+  };
 }
