@@ -223,6 +223,15 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
+  - username: johnmansell
+    name: "John Mansell"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGP8v9hmjAw0SabuuTHE1ieA7cxLjRUjv9c98R+JLxnQ JoNo@BITS-JTM"
+    shell: /bin/bash
+    update_password: on_create
+
 users: "{{ studio_users }}"
 
 users_deleted:
