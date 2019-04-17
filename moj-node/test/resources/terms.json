@@ -104,5 +104,15 @@
       "target_uuid": "43365ff1-a143-4fd7-b4e6-b600502f3f3c",
       "url": "http://foo.bar/video.mp4"
     }
+  ],
+  "field_featured_audio": [
+    {
+      "target_id": 10728,
+      "display": true,
+      "description": "",
+      "target_type": "file",
+      "target_uuid": "5c385589-5dae-492c-b973-9d9fa13a05b0",
+      "url": "http://foo.bar/audio.mp3"
+    }
   ]
 }
