@@ -187,32 +187,6 @@ describe('GET /', () => {
       .expect(500);
   });
 
-  describe('when the feature the showBrowseByTopics is not enabled', () => {
-    it('does not render browse by series menu', () => {
-      const router = createIndexRouter({
-        logger,
-        hubFeaturedContentService,
-        hubPromotedContentService,
-        hubMenuService,
-      });
-      const app = setupBasicApp();
-
-      app.use(router);
-
-      return request(app)
-        .get('/')
-        .expect(200)
-        .then(response => {
-          const $ = cheerio.load(response.text);
-
-          expect($('#browser-by-topic').length).to.equal(
-            0,
-            'should not have rendered browse by series section',
-          );
-        });
-    });
-  });
-
   describe('when the feature the showBrowseByTopics is enabled', () => {
     it('show the browse by topics menu', () => {
       const router = createIndexRouter({
