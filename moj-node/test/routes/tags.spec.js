@@ -110,12 +110,12 @@ describe('GET /tags', () => {
             .then(response => {
               const $ = cheerio.load(response.text);
 
-              expect($('#audioPlayer').attr('data-media')).to.include(
+              expect($('#audioPlayerScript').html()).to.include(
                 'foo.bar/audio.mp3',
                 'did not load audio',
               );
 
-              expect($('#audioPlayer').attr('data-poster')).to.include(
+              expect($('#audioPlayerScript').html()).to.include(
                 data.image.url,
                 'did not render a poster for the audio player',
               );
@@ -144,12 +144,12 @@ describe('GET /tags', () => {
             .then(response => {
               const $ = cheerio.load(response.text);
 
-              expect($('#videoPlayerContainer').attr('data-video')).to.include(
+              expect($('#videoPlayerScript').html()).to.include(
                 'foo.bar/video.mp4',
                 'did not render a video',
               );
 
-              expect($('#videoPlayerContainer').attr('data-poster')).to.include(
+              expect($('#videoPlayerScript').html()).to.include(
                 data.image.url,
                 'did not render a poster for the video',
               );

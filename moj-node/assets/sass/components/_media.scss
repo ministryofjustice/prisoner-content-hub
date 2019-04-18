@@ -42,7 +42,7 @@ $center-big-play-button: true; // true default
 
   .webPlayer .playerScreen .video-play {
     bottom: 0;
-    background-position: center 70%;
+    background-position: center;
   }
 
   .webPlayer .controls {
@@ -53,10 +53,6 @@ $center-big-play-button: true; // true default
 }
 
 .govuk-hub-media-audio--series-header {
-  .playerScreen {
-    background-image: none;
-  }
-
   .webPlayer {
     height: auto;
   }
@@ -65,5 +61,14 @@ $center-big-play-button: true; // true default
     padding: 5px 0px;
     box-sizing: border-box;
     height: 50px;
+  }
+
+  .webPlayer .controls {
+    position: absolute;
+    width: 100%;
+  }
+
+  .webPlayer .video-play {
+    background-position: center;
   }
 }

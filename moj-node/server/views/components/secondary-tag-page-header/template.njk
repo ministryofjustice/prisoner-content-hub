@@ -20,13 +20,12 @@
         {% if params.video.url %}
           <div class="govuk-grid-column-one-half">
             <div id="videoPlayer" class="webPlayer light">
-              <div id="videoPlayerContainer" class="videoPlayer" data-video="{{ params.video.url }}" data-poster="{{params.image.url}}"></div>
+              <div id="videoPlayerContainer" class="videoPlayer"></div>
             </div>
           </div>
-          <script type="text/javascript">
+          <script id="videoPlayerScript" type="text/javascript">
             $('#videoPlayer').videoPlayer({
               name: '{{ params.title }}',
-              controlbar: false,
               size: {
                 width: '100%',
                 height: 'auto'
@@ -40,27 +39,36 @@
             });
           </script>
         {% elif params.audio.url %}
+          <style scoped>
+            .govuk-hub-media-audio--series-header .playerScreen {
+              background-image: url({{ params.image.url }});
+              height: 395px;
+              background-size: contain;
+            }
+          </style>
           <div class="govuk-grid-column-one-half">
             <div class="govuk-hub-media-player__player govuk-hub-media-audio govuk-hub-media-audio--series-header">
-              <div id="audioPlayer" class="webPlayer light" data-title="{{params.title}}" data-media="{{params.audio.url}}" data-poster="{{params.image.url}}">
+              <div id="audioPlayer" class="webPlayer light">
                 <div id="audioPlayerContainer" class="videoPlayer"></div>
               </div>
             </div>
           </div>
-          <script type="text/javascript">
+          <script id="audioPlayerScript" type="text/javascript">
             $('#audioPlayer').videoPlayer({
-              name: '{{ params.title }}',    
+              name: '{{ params.title }}',
               size: {
                 width: '100%',
-                height: 'auto',
+                height: '330px',
               },
               media: {
                 preload: 'metadata',
-                mp3: '{{ params.audio.url }}',
+                m4v: '{{ params.audio.url }}',
+                supplied: "mp3",
                 poster: '{{ params.image.url }}',
               },
             });
           </script>
+
         {% elif params.image.url %}
           <div class="govuk-grid-column-one-half">
             <div data-page-featured-image class="govuk-hub-landing-page-header__content-image" style="background-image: url({{params.image.url}});"></div>
