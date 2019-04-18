@@ -51,3 +51,13 @@ $center-big-play-button: true; // true default
     width: 100%;
   }
 }
+
+.govuk-hub-media-audio--series-header {
+  .playerScreen {
+    background-image: none;
+  }
+
+  .webPlayer {
+    height: auto;
+  }
+}

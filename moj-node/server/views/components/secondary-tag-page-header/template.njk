@@ -25,9 +25,10 @@
             </div>
           </div>
         {% elif params.audio.url %}
+          <script src="/public/javascript/audioPlayer.js" type="text/javascript"></script>
           <div class="govuk-grid-column-one-half">
-            <div class="govuk-hub-media-player__player govuk-hub-media-audio">
-              <div id="audioPlayer" class="webPlayer light" data-title="{{params.audio.title}}" data-media="{{params.audio.url}}" data-poster="{{params.image.url}}">
+            <div class="govuk-hub-media-player__player govuk-hub-media-audio govuk-hub-media-audio--series-header">
+              <div id="audioPlayer" class="webPlayer light audioPlayer" data-title="{{params.title}}" data-media="{{params.audio.url}}" data-poster="{{params.image.url}}">
                 <div id="audioPlayerContainer" class="videoPlayer"></div>
               </div>
             </div>
