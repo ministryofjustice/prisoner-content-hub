@@ -169,6 +169,15 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
+  - username: lucascairns
+    name: "Lucas Cairns"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDCKESEcZSsl5oHiiby8dHKl8YhErSXy7Q5FTjWsrpa0w3xi2jsGvASrbNpGCytXz9Dkz270mJ0mZO99q3HI9zRfjYc01CZ45785JVxKAPG7FdayrxQ4CxGgCCJ/WE8574k2zvUZN1XIe8MSgOO+Y7MfFvuSVMMQXBKQzmxJjj4V5pAQazajckjrlxJpAeTaugRSqd8WRE5qVhgOZp1W0uuUbMvZbp07z3crevAvMAf4vFsKd1Aol7nwWjXIxf2nmdMLqDXBMOe26Oh704HiZdGQX/VtujxSwd9tdBLr38SvOyjp7r6nuueFux7Z86pC2E2hQOlx9vUTT+qKz9mIJFJGOj1o0rkGiB3qNCMG4GTUlme0Tt9gUFJyT3QcQyEr7tooyPe1Nrz98+TtJkt4dTokBp6ZFNYgpt7JBGNSP7vpSs978xSISZUWCVG96oD0DXFlgD9dzFlWIZ1r+fEdJz3zlEjI4Nq6RPv+YagCaoIdEcAGWRS/izKw51Eii+SVh+pf2mgH7NIWYVKHuxZut19NsNcwcGPTlD3k0RimeWYWxQdcTmsOVl3XtSy7+MTGnmBXCBvKK6QP0eZWosTXeoqyG3uB8WOOV5+MXennEaxBBKxM/nLVidz6Iz66/TXCqh4X25oJ96DUoxjnBlppsfsPNv17RVkhy6lyFzOFO1xJQ== lucas.cairns@gmail.com"
+    shell: /bin/bash
+    update_password: on_create
+
   - username: stevenbapaga
     name: "Steven Bapaga"
     groups:
