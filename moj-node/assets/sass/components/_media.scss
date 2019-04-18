@@ -42,12 +42,33 @@ $center-big-play-button: true; // true default
 
   .webPlayer .playerScreen .video-play {
     bottom: 0;
-    background-position: center 70%;
+    background-position: center;
   }
 
   .webPlayer .controls {
     position: absolute;
     bottom: 0;
     width: 100%;
+  }
+}
+
+.govuk-hub-media-audio--series-header {
+  .webPlayer {
+    height: auto;
+  }
+
+  .controls {
+    padding: 5px 0px;
+    box-sizing: border-box;
+    height: 50px;
+  }
+
+  .webPlayer .controls {
+    position: absolute;
+    width: 100%;
+  }
+
+  .webPlayer .video-play {
+    background-position: center;
   }
 }

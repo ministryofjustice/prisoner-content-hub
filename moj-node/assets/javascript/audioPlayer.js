@@ -8,9 +8,14 @@ $(document).ready(function() {
 
   $('#audioPlayer').videoPlayer({
     name: audio.attr('data-title'),
+    size: {
+      width: '100%',
+      height: 'auto',
+    },
     media: {
       preload: 'metadata',
       mp3: audio.attr('data-media'),
+      poster: audio.attr('data-poster'),
     },
     timeupdate: function(event) {
       var percentage = Math.round(event.jPlayer.status.currentPercentAbsolute);

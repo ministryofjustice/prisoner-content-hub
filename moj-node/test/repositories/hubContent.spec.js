@@ -78,6 +78,9 @@ describe('hubContentRepository', () => {
         video: {
           url: 'http://foo.bar/video.mp4',
         },
+        audio: {
+          url: 'http://foo.bar/audio.mp3',
+        },
       });
       expect(client.get.lastCall.args[0]).to.include('id');
     });

@@ -88,6 +88,40 @@ describe('GET /tags', () => {
             });
         });
 
+        it('correctly renders a page header with a audio', () => {
+          const hubTagsService = {
+            termFor: sinon.stub().returns({
+              ...data,
+              audio: {
+                url: 'foo.bar/audio.mp3',
+              },
+            }),
+          };
+          const router = createHubTagsRouter({
+            logger,
+            hubTagsService,
+          });
+          const app = setupBasicApp();
+
+          app.use('/tags', router);
+
+          return request(app)
+            .get('/tags/1')
+            .then(response => {
+              const $ = cheerio.load(response.text);
+
+              expect($('#audioPlayerScript').html()).to.include(
+                'foo.bar/audio.mp3',
+                'did not load audio',
+              );
+
+              expect($('#audioPlayerScript').html()).to.include(
+                data.image.url,
+                'did not render a poster for the audio player',
+              );
+            });
+        });
+
         it('correctly renders a page header with a video', () => {
           const hubTagsService = {
             termFor: sinon.stub().returns({
@@ -110,12 +144,12 @@ describe('GET /tags', () => {
             .then(response => {
               const $ = cheerio.load(response.text);
 
-              expect($('#videoPlayerContainer').attr('data-video')).to.include(
+              expect($('#videoPlayerScript').html()).to.include(
                 'foo.bar/video.mp4',
                 'did not render a video',
               );
 
-              expect($('#videoPlayerContainer').attr('data-poster')).to.include(
+              expect($('#videoPlayerScript').html()).to.include(
                 data.image.url,
                 'did not render a poster for the video',
               );

@@ -75,11 +75,13 @@
   overflow: hidden;
 }
 
-.govuk-hub-landing-page-header .controls {
+.govuk-hub-landing-page-header .controls,
+.govuk-hub-landing-page-header .govuk-hub-media-audio .controls {
   position: absolute;
-  width: 97.1%;
   bottom: -100px;
   transition: bottom ease-in-out 300ms;
+  width: 100%;
+  padding: 5px 0;
 }
 
 .govuk-hub-landing-page-header .jp-state-playing:hover .controls {

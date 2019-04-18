@@ -27,27 +27,7 @@
 
   <script src="/public/jquery.min.js"></script>
   <script src="/public/jplayer/jquery.jplayer.min.js"></script>
-  <script src="/public/javascript/jplayer.cleanskin.min.js"></script>
-
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $('#videoPlayer').videoPlayer({
-        name: '{{ data.title }}',
-        controlbar: false,
-        size: {
-          width: '100%',
-          height: 'auto'
-        },
-        media: {
-          preload: 'metadata',
-          m4v: '{{ data.video.url }}',
-          supplied: "m4v",
-          poster: "{{data.image.url}}"
-        }
-      });
-    });
-	</script>
-
+  <script src="/public/javascript/jplayer.cleanskin.min.js"></script>  
 {% endblock %}
 
 {% block header %}
@@ -66,6 +46,7 @@
       description: data.description,
       categoryId: tagId,
       image: data.image,
+      audio: data.audio,
       video: data.video
     })
   }}
