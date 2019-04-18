@@ -60,4 +60,10 @@ $center-big-play-button: true; // true default
   .webPlayer {
     height: auto;
   }
+
+  .controls {
+    padding: 5px 0px;
+    box-sizing: border-box;
+    height: 50px;
+  }
 }
