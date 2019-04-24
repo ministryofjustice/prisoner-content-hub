@@ -34,7 +34,9 @@ describe('App', () => {
       .get('/')
       .expect(500)
       .then(res => {
-        expect(res.text).to.contain('Something went wrong.');
+        expect(res.text).to.contain(
+          'Sorry, there is a problem with this service',
+        );
         expect(res.text).to.contain(
           '<code></code>',
           'The code block is not empty',
@@ -66,7 +68,9 @@ describe('App', () => {
       .expect(500)
       .then(res => {
         expect(res.text).to.contain('Broken kittens');
-        expect(res.text).to.not.contain('Something went wrong.');
+        expect(res.text).to.not.contain(
+          'Sorry, there is a problem with this service',
+        );
         expect(res.text).to.not.contain(
           '<code></code>',
           'The code block should not be empty',

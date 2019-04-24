@@ -241,8 +241,7 @@ module.exports = function createApp({
     res.status(error.status || 500);
 
     const locals = {
-      message: 'Something went wrong.',
-      req_id: req.id,
+      message: 'Sorry, there is a problem with this service',
       stack: '',
     };
     if (error.expose || config.dev) {
@@ -250,6 +249,7 @@ module.exports = function createApp({
     }
     if (config.dev) {
       locals.stack = error.stack;
+      locals.req_id = req.id;
     }
 
     res.render('pages/error', locals);

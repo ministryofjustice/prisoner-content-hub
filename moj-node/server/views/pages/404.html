@@ -33,16 +33,20 @@
 {% endblock %}
 
 {% block main %}
-  <div class="govuk-width-container">
-    <main class="govuk-main-wrapper">
-      <div class="govuk-grid-row govuk-!-margin-bottom-9">
-        <div class="govuk-grid-column-two-thirds">
-          <h1 id="title" class="govuk-heading-l govuk-!-margin-bottom-6">The page you are looking for could not be found</h1>
-          <div>
-            <a href="/" class="govuk-button">Back to home</a>
-          </div>
-        </div>
+<div class="govuk-width-container">
+  <main class="govuk-main-wrapper govuk-main-wrapper--l" id="main-content" role="main">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-xl">Page not found</h1>
+          <p class="govuk-body">
+            This page either no longer exists or the link we have given you is wrong.
+          </p>
+          <p class="govuk-body">
+            Go back to the 
+            <a class="govuk-link" href="/">home page</a>
+          </p>
       </div>
-    </main>
-  </div>
+    </div>  
+  </main>
+</div>
 {% endblock %}
