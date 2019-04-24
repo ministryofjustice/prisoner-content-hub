@@ -44,7 +44,7 @@ function hubMenuRepository(httpClient) {
       _prison: prisonId,
     });
 
-    return parseCategoryMenu(response, prisonId);
+    return parseCategoryMenu(response, prisonId, categoryId);
   }
 
   function gettingAJobMenu(prisonId) {
@@ -71,21 +71,32 @@ function hubMenuRepository(httpClient) {
   function parseTagsResponse(data) {
     if (data === null) return [];
 
-    return Object.keys(data).map(key => ({
+    const tags = Object.keys(data).map(key => ({
       id: tagIdFrom(data[key]),
       linkText: nameFrom(data[key]),
       href: `/tags/${tagIdFrom(data[key])}`,
     }));
+
+    const sortAlphabetically = (a, b) => {
+      if (
+        a.linkText.charAt(0).toLowerCase() > b.linkText.charAt(0).toLowerCase()
+      ) {
+        return 1;
+      }
+      return -1;
+    };
+
+    return tags.sort(sortAlphabetically);
   }
 
-  function parseCategoryMenu(data, prisonId) {
+  function parseCategoryMenu(data, prisonId, categoryId) {
     if (data === null) return [];
 
     const series = parseTagsResponse(data.series_ids);
     // const secondaryTags = parseTagsResponse(data.secondary_tag_ids);
 
     // inject extra link
-    if (prisonId === 793) {
+    if (prisonId === 793 && categoryId === 645) {
       const link = {
         id: 'working-in-wayland',
         linkText: 'Working in Wayland',

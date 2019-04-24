@@ -13,7 +13,6 @@
 - hosts: bounce
   roles:
     - geerlingguy.nginx
-    - geerlingguy.firewall
 
 - hosts: ci
   roles:
@@ -24,5 +23,4 @@
   roles:
     - hub-containers
     - geerlingguy.nginx
-    - geerlingguy.firewall
     - letsencrypt

@@ -22,6 +22,8 @@ const {
   imageUrlFrom,
   featuredImageUrlFrom,
   featuredImageAltFrom,
+  featuredVideoUrlFrom,
+  featuredAudioUrlFrom,
   durationFrom,
   audioUrlFrom,
   videoUrlFrom,
@@ -63,8 +65,12 @@ module.exports = function hubContentRepository(httpClient) {
     return parseMenuResponse(response);
   }
 
-  async function seasonFor(id) {
-    const response = await httpClient.get(`${config.api.series}/${id}`);
+  async function seasonFor({ id, establishmentId, perPage = 40, offset = 0 }) {
+    const response = await httpClient.get(`${config.api.series}/${id}`, {
+      _number: perPage,
+      _offset: offset,
+      _prison: establishmentId,
+    });
 
     return parseSeasonResponse(response);
   }
@@ -106,6 +112,18 @@ module.exports = function hubContentRepository(httpClient) {
         alt: featuredImageAltFrom(data),
         url: fixUrlForProduction(
           featuredImageUrlFrom(data),
+          config.drupalAppUrl,
+        ),
+      },
+      video: {
+        url: fixUrlForProduction(
+          featuredVideoUrlFrom(data),
+          config.drupalAppUrl,
+        ),
+      },
+      audio: {
+        url: fixUrlForProduction(
+          featuredAudioUrlFrom(data),
           config.drupalAppUrl,
         ),
       },

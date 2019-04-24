@@ -1,11 +1,11 @@
-module.exports = `
+module.exports = ({ category }) => `
 <div ref="container" id="feedback-widget">
   <div>
     <div
       ref="thumbsUp"
       class=""
       data-item-feedback
-      data-item-category="video"
+      data-item-category="${category}"
       data-item-name="foo-name"
       data-item-action="LIKE"
       data-item-value="1"
@@ -17,7 +17,7 @@ module.exports = `
       ref="thumbsDown"
       class=""
       data-item-feedback
-      data-item-category="video"
+      data-item-category="${category}"
       data-item-name="foo-name"
       data-item-action="DISLIKE"
       data-item-value="-1"

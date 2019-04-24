@@ -16,7 +16,7 @@ module.exports = function createHubContentService(
     switch (contentType) {
       case 'radio':
       case 'video': {
-        return media(content);
+        return media(establishmentId, content);
       }
       case 'landing-page':
         return landingPage(content, establishmentId);
@@ -25,7 +25,7 @@ module.exports = function createHubContentService(
     }
   }
 
-  async function media(data) {
+  async function media(establishmentId, data) {
     const id = prop('id', data);
     const seriesId = prop('seriesId', data);
     const tagsId = prop('tagsId', data);
@@ -36,7 +36,12 @@ module.exports = function createHubContentService(
 
     const [series, seasons] = await Promise.all([
       contentRepository.termFor(seriesId),
-      contentRepository.seasonFor(seriesId),
+      contentRepository.seasonFor({
+        id: seriesId,
+        establishmentId,
+        perPage: 30,
+        offset: 0,
+      }),
     ]);
 
     const tags = await Promise.all(tagsPromises);
@@ -76,7 +81,7 @@ module.exports = function createHubContentService(
     return {
       ...data,
       featuredContent,
-      relatedContent,
+      relatedContent: { contentType: 'default', data: relatedContent },
       categoryMenu,
     };
   }

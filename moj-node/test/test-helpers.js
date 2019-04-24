@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const nunjucks = require('nunjucks');
+const chance = require('chance')();
 
 function setupBasicApp() {
   const app = express();
@@ -30,7 +31,23 @@ const logger = {
   warn: sinon.stub(),
 };
 
+function createFeaturedItem() {
+  return {
+    id: chance.integer({ min: 1, max: 100 }),
+    title: chance.profession({ rank: true }),
+    contentType: chance.pickone(['radio', 'video', 'pdf', 'article']),
+    summary: chance.paragraph({ sentences: 1 }),
+    image: {
+      alt: chance.word(),
+      url: chance.avatar({ fileExtension: 'jpg' }),
+    },
+    duration: `${chance.minute()}:${chance.second()}`,
+    contentUrl: `/content/${chance.integer()}`,
+  };
+}
+
 module.exports = {
   setupBasicApp,
   logger,
+  createFeaturedItem,
 };

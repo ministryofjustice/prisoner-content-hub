@@ -49,7 +49,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *          type="string",
  *          description="The language tag to translate results, if there is no translation available then the site default is returned, the default is 'en' (English). Options are 'en' (English) or 'cy' (Welsh).",
  *      ),
- *      
+ *
  *     @SWG\Response(response="200", description="Hub featured content resource")
  * )
  */
@@ -68,125 +68,137 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SeriesContentResource extends ResourceBase
 {
-    protected $seriesContentApiController;
+  protected $seriesContentApiController;
 
-    protected $currentRequest;
+  protected $currentRequest;
 
-    protected $availableLangs;
+  protected $availableLangs;
 
-    protected $languageManager;
+  protected $languageManager;
 
-    protected $paramater_category;
+  protected $paramater_category;
 
-    Protected $paramater_language_tag;
+  protected $paramater_language_tag;
 
-    Protected $paramater_number_results;
+  protected $paramater_number_results;
 
-    public function __construct(
-        array $configuration,
-        $plugin_id,
-        $plugin_definition,
-        array $serializer_formats,
-        LoggerInterface $logger,
-        SeriesContentApiClass $SeriesContentApiClass,
-        Request $currentRequest,
-        LanguageManager $languageManager
-    ) {        
-        $this->seriesContentApiClass = $SeriesContentApiClass;
-        $this->currentRequest = $currentRequest;
-        $this->languageManager = $languageManager;
-        $this->availableLangs = $this->languageManager->getLanguages();
-        //$this->paramater_category = self::setCategory();
-        $this->paramater_number_results = self::setNumberOfResults();
-        $this->paramater_language_tag = self::setLanguage();
-        self::checklanguageParameterIsValid();
-        self::checkNumberOfResultsIsNumeric();
-        // self::checkCatgeoryIsNumeric();
-        parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    array $serializer_formats,
+    LoggerInterface $logger,
+    SeriesContentApiClass $SeriesContentApiClass,
+    Request $currentRequest,
+    LanguageManager $languageManager
+  ) {
+    $this->seriesContentApiClass = $SeriesContentApiClass;
+    $this->currentRequest = $currentRequest;
+    $this->languageManager = $languageManager;
+    $this->availableLangs = $this->languageManager->getLanguages();
+    //$this->paramater_category = self::setCategory();
+    $this->paramater_number_results = self::setNumberOfResults();
+    $this->paramater_language_tag = self::setLanguage();
+    $this->paramater_offset = self::setOffsetOfResults();
+    $this->paramater_prison = self::setPrison();
+
+    self::checklanguageParameterIsValid();
+    self::checkNumberOfResultsIsNumeric();
+    // self::checkCatgeoryIsNumeric();
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
+  }
+
+  public static function create(
+    ContainerInterface $container,
+    array $configuration,
+    $plugin_id,
+    $plugin_definition
+  ) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->getParameter('serializer.formats'),
+      $container->get('logger.factory')->get('rest'),
+      $container->get('moj_resources.series_content_api_class'),
+      $container->get('request_stack')->getCurrentRequest(),
+      $container->get('language_manager')
+    );
+  }
+
+  public function get()
+  {
+    $seriesContent = $this->seriesContentApiClass->SeriesContentApiEndpoint(
+      $this->paramater_language_tag,
+      $this->currentRequest->get('id'),
+      $this->paramater_number_results,
+      $this->paramater_offset,
+      $this->paramater_prison
+    );
+    if (!empty($seriesContent)) {
+      $response = new ResourceResponse($seriesContent);
+      $response->addCacheableDependency($seriesContent);
+      return $response;
     }
-  
-    public static function create(
-        ContainerInterface $container,
-        array $configuration, 
-        $plugin_id, 
-        $plugin_definition
-    ) {
-        return new static(
-            $configuration,
-            $plugin_id,
-            $plugin_definition,
-            $container->getParameter('serializer.formats'),
-            $container->get('logger.factory')->get('rest'),
-            $container->get('moj_resources.series_content_api_class'),
-            $container->get('request_stack')->getCurrentRequest(),
-            $container->get('language_manager')
-        );
-    }   
+    throw new NotFoundHttpException(t('No featured content found'));
+  }
 
-    public function get() 
-    {
-        $seriesContent = $this->seriesContentApiClass->SeriesContentApiEndpoint(
-            $this->paramater_language_tag, 
-            $this->currentRequest->get('id'), 
-            $this->paramater_number_results
-        );
-        if (!empty($seriesContent)) {
-            $response = new ResourceResponse($seriesContent);
-            $response->addCacheableDependency($seriesContent);
-            return $response;
-        }
-        throw new NotFoundHttpException(t('No featured content found'));
+  protected function checklanguageParameterIsValid()
+  {
+    foreach ($this->availableLangs as $lang) {
+      if ($lang->getid() === $this->paramater_language_tag) {
+        return true;
+      }
     }
+    throw new NotFoundHttpException(
+      t('The language tag invalid or translation for this tag is not avilable'),
+      null,
+      404
+    );
+  }
 
-    protected function checklanguageParameterIsValid() 
-    {
-        foreach($this->availableLangs as $lang)
-        {
-            if ($lang->getid() === $this->paramater_language_tag) {
-                return true;
-            } 
-        }
-        throw new NotFoundHttpException(
-            t('The language tag invalid or translation for this tag is not avilable'),
-            null,
-            404
-        );
+  protected function checkCatgeoryIsNumeric()
+  {
+    if (is_numeric($this->paramater_category)) {
+      return true;
     }
+    throw new NotFoundHttpException(
+      t('The category parameter must be a numeric'),
+      null,
+      404
+    );
+  }
 
-    protected function checkCatgeoryIsNumeric()
-    {
-        if (is_numeric($this->paramater_category)) {
-            return true;
-        }
-        throw new NotFoundHttpException(
-            t('The category parameter must be a numeric'),
-            null,
-            404
-        );
+  protected function checkNumberOfResultsIsNumeric()
+  {
+    if (is_numeric($this->paramater_number_results)) {
+      return true;
     }
+    throw new NotFoundHttpException(
+      t('The number of results parameter must be a numeric'),
+      null,
+      404
+    );
+  }
 
-    protected function checkNumberOfResultsIsNumeric()
-    {
-        if (is_numeric($this->paramater_number_results)) {
-            return true;
-        }
-        throw new NotFoundHttpException(
-            t('The number of results parameter must be a numeric'),
-            null,
-            404
-        );
-    }
-
-    protected function setLanguage()
-    {
-        return is_null($this->currentRequest->get('_lang')) ? 'en' : $this->currentRequest->get('_lang');
-    }
+  protected function setLanguage()
+  {
+    return is_null($this->currentRequest->get('_lang')) ? 'en' : $this->currentRequest->get('_lang');
+  }
 
 
-    protected function setNumberOfResults()
-    {
-        return is_null($this->currentRequest->get('_number')) ? 0 : $this->currentRequest->get('_number');
-    }
-}   
+  protected function setNumberOfResults()
+  {
+    return is_null($this->currentRequest->get('_number')) ? 0 : $this->currentRequest->get('_number');
+  }
 
+  protected function setOffsetOfResults()
+  {
+    return is_null($this->currentRequest->get('_offset')) ? 0 : $this->currentRequest->get('_offset');
+  }
 
+  protected function setPrison()
+  {
+    return is_null($this->currentRequest->get('_prison')) ? 0 : $this->currentRequest->get('_prison');
+  }
+}

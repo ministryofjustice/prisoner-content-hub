@@ -4,7 +4,7 @@ describe('HealthService', () => {
   context('when the all services are up', () => {
     it('returns status of the application', async () => {
       const client = {
-        get: sinon.stub().returns({ query: () => ({ ok: true }) }),
+        get: sinon.stub().returns({ ok: true }),
       };
       const service = createHealthService(client);
       const status = await service.status();
@@ -25,10 +25,9 @@ describe('HealthService', () => {
       const client = {
         get: sinon
           .stub()
-          .onFirstCall()
-          .returns({ query: () => ({ ok: false }) })
+          .returns(null)
           .onSecondCall()
-          .returns({ query: () => ({ ok: true }) }),
+          .returns({ ok: true }),
       };
       const service = createHealthService(client);
       const status = await service.status();
@@ -47,7 +46,7 @@ describe('HealthService', () => {
   context('when the all services are down', () => {
     it('returns status of the application', async () => {
       const client = {
-        get: sinon.stub().returns({ query: () => ({ ok: false }) }),
+        get: sinon.stub().returns({ ok: false }),
       };
       const service = createHealthService(client);
       const status = await service.status();

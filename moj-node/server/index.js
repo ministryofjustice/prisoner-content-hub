@@ -3,6 +3,7 @@ const logger = require('../log');
 const config = require('./config');
 
 const HubClient = require('./clients/hub');
+const StandardClient = require('./clients/standard');
 
 const appInfoService = require('./services/appInfo');
 const createHubMenuService = require('./services/hubMenu');
@@ -37,7 +38,7 @@ const hubTagsService = createHubTagsService(contentRepository(new HubClient()));
 
 const app = createApp({
   appInfo: appInfoService(buildInfo),
-  healthService: createHealthService(),
+  healthService: createHealthService(new StandardClient()),
   logger,
   hubFeaturedContentService,
   hubPromotedContentService,

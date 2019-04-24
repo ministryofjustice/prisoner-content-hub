@@ -147,8 +147,7 @@ module.exports = function createApp({
   // GovUK Template Configuration
   app.locals.asset_path = '/public/';
   app.locals.envVars = {
-    MATOMO_URL: config.matamoUrl,
-    OLD_HUB_URL: config.oldHubUrl,
+    MATOMO_URL: config.matomoUrl,
     APP_NAME: config.appName,
     establishmentId: getEstablishmentId(config.establishmentName),
   };
@@ -242,8 +241,7 @@ module.exports = function createApp({
     res.status(error.status || 500);
 
     const locals = {
-      message: 'Something went wrong.',
-      req_id: req.id,
+      message: 'Sorry, there is a problem with this service',
       stack: '',
     };
     if (error.expose || config.dev) {
@@ -251,6 +249,7 @@ module.exports = function createApp({
     }
     if (config.dev) {
       locals.stack = error.stack;
+      locals.req_id = req.id;
     }
 
     res.render('pages/error', locals);

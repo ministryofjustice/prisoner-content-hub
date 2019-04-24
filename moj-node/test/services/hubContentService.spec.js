@@ -47,8 +47,15 @@ describe('#hubContentService', () => {
       tags: [{ name: 'foo series name', id: 'foo' }],
     });
 
-    expect(contentRepository.termFor.lastCall.args[0]).to.equal('seriesId');
-    expect(contentRepository.seasonFor.lastCall.args[0]).to.equal('seriesId');
+    expect(contentRepository.termFor.lastCall.args[0]).to.equal(
+      'seriesId',
+      'The termFor method was called incorrectly',
+    );
+    expect(contentRepository.seasonFor.lastCall.args[0]).to.have.property(
+      'id',
+      'seriesId',
+      'The seasonFor method was called incorrectly',
+    );
   });
 
   it('returns video show content', async () => {
@@ -86,7 +93,11 @@ describe('#hubContentService', () => {
     });
 
     expect(contentRepository.termFor.lastCall.args[0]).to.equal('seriesId');
-    expect(contentRepository.seasonFor.lastCall.args[0]).to.equal('seriesId');
+    expect(contentRepository.seasonFor.lastCall.args[0]).to.have.property(
+      'id',
+      'seriesId',
+      'The seasonFor method was called incorrectly',
+    );
   });
 
   describe('landing page', () => {

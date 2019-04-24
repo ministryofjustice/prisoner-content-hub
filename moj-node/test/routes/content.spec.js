@@ -56,7 +56,7 @@ describe('GET /content/:id', () => {
             'Foo series',
             'Page title did not match',
           );
-          expect($('#audioPlayerContainer').attr('data-audio')).to.equal(
+          expect($('#audioPlayer').attr('data-media')).to.equal(
             'foo.mp3',
             'Page media did not match',
           );
@@ -264,28 +264,31 @@ describe('GET /content/:id', () => {
           url: '',
         },
       },
-      relatedContent: [
-        {
-          id: 'baz-id',
-          title: 'baz-feature-title',
-          description: { summary: 'baz-feature-summary' },
-          contentType: 'radio-show',
-          graphic: {
-            url: '',
+      relatedContent: {
+        contentType: 'foo',
+        data: [
+          {
+            id: 'baz-id',
+            title: 'baz-feature-title',
+            description: { summary: 'baz-feature-summary' },
+            contentType: 'radio-show',
+            graphic: {
+              url: '',
+            },
+            contentUrl: '/content/baz-id',
           },
-          contentUrl: '/content/baz-id',
-        },
-        {
-          id: 'bar-id',
-          title: 'bar-feature-title',
-          description: { summary: 'bar-feature-summary' },
-          contentType: 'radio-show',
-          graphic: {
-            url: '',
+          {
+            id: 'bar-id',
+            title: 'bar-feature-title',
+            description: { summary: 'bar-feature-summary' },
+            contentType: 'radio-show',
+            graphic: {
+              url: '',
+            },
+            contentUrl: '/content/bar-id',
           },
-          contentUrl: '/content/bar-id',
-        },
-      ],
+        ],
+      },
       categoryMenu: [
         { linkText: 'Foo', href: '/content/1', id: '1' },
         { linkText: 'Bar', href: '/content/2', id: '2' },

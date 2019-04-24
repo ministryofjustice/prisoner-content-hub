@@ -1,0 +1,7 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "integrationFolder": "cypress/e2e",
+  "viewportWidth": 1280,
+  "viewportHeight": 768,
+  "chromeWebSecurity": false
+}

@@ -24,14 +24,18 @@
   <!--[if lt IE 9]>
     <script src="/html5-shiv/html5shiv.js"></script>
   <![endif]-->
+
+  <script src="/public/jquery.min.js"></script>
+  <script src="/public/jplayer/jquery.jplayer.min.js"></script>
+  <script src="/public/javascript/jplayer.cleanskin.min.js"></script>  
 {% endblock %}
 
 {% block header %}
 {{ pageHeaderWithBack({
-        mainMenu: mainMenu,
-        topicsMenu: topicsMenu,
-        appName: envVars.APP_NAME,
-        features: features
+  mainMenu: mainMenu,
+  topicsMenu: topicsMenu,
+  appName: envVars.APP_NAME,
+  features: features
   }) }}
 {% endblock %}
 
@@ -41,7 +45,9 @@
       summary: data.summary,
       description: data.description,
       categoryId: tagId,
-      image: data.image
+      image: data.image,
+      audio: data.audio,
+      video: data.video
     })
   }}
 {% endblock %}
