@@ -5,10 +5,9 @@ services:
     container_name: hub-db
     image: mojdigitalstudio/digital-hub-db
     environment:
-      - MYSQL_ROOT_PASSWORD
+      - MYSQL_ALLOW_EMPTY_PASSWORD="true"
       - MYSQL_DATABASE="hubdb"
       - MYSQL_USER="hubdb_user"
-      - MYSQL_PASSWORD
 
   hub-memcache:
     image: memcached
