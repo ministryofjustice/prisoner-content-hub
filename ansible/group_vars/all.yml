@@ -98,6 +98,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     name: "Simon Abraham"
     groups:
       - studio
+      - admin
     ssh_key:
       - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCqH23EG0eRNojwFizjP3yZyX3emtEV7FD6dXosKQcj sabe@sm.local"
     shell: /bin/bash
@@ -191,6 +192,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     name: "Richard Dakin"
     groups:
       - studio
+      - admin
     ssh_key:
       - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILYDkXgBeAdUohTvGydVPXV8euPTwhz/oUtpq3Mx5POv rich@DESKTOP-P53LC3C"
     shell: /bin/bash
