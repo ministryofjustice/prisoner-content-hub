@@ -16,10 +16,12 @@ describe('Landing page', () => {
       cy.visit(landingPages[key]);
 
       cy.log('Should have some navigation menu items');
-      cy.get('.govuk-hub-content-section-menu li').should(
-        'have.length.greaterThan',
-        2,
-      );
+      cy.get('.govuk-hub-content-section-menu li').then($el => {
+        expect($el.length).to.be.at.least(
+          2,
+          'Should have at least 2 menu items',
+        );
+      });
 
       cy.log('Check that related content are rendered on the page');
       cy.get('[data-featured-id]').then($el => {
