@@ -18,6 +18,10 @@ module.exports = {
   establishmentName: getEnv('ESTABLISHMENT_NAME', 'berwyn'),
   hubEndpoint,
   drupalAppUrl,
+  ldap: {
+    domain: getEnv('FQDN', 'MYDOMAIN'),
+    domainController: `ldap://${getEnv('FQDN', 'myad.example')}`,
+  },
   api: {
     matomo: `${matomoEndpoint}/index.php`,
     hubHealth: `${hubEndpoint}/api/health`,
