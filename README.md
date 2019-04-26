@@ -6,7 +6,7 @@ Digital Hub for Prisons
 This repo contains two directories.
 
     moj-be/ - Backend CMS based on Drupal
-    moj-fe/ - Frontend based on Laravel
+    moj-node/ - Frontend based on Node
 
 Together these make the Digital Hub for prisons service.
 
@@ -19,14 +19,14 @@ The Docker Compose file in this repo should provide a fully working system.
 
 As the development version is designed to mount your local directory to allow live editing of the code you will need to install the dependencies. To do this run the following commands.
 
-    cd moj-fe && make build-deps && cd ..
+    cd moj-node && make build-deps && cd ..
     cd moj-be && make build-deps && cd ..
 
 The base containers are now published in our Docker Hub organisation here https://hub.docker.com/u/mojdigitalstudio/. If you wish to see a working version run
 
      docker-compose up
 
-You can then visit the local version on http://localhost:8181 and the Drupal backend on http://localhost:8182
+You can then visit the local version on http://localhost:10001 and the Drupal backend on http://localhost:11001
 
 You will need to change the Drupal admin password to login which you can do with
 
@@ -43,7 +43,7 @@ If you are on macOS and have Homebrew installed you will need to run the followi
 
 This will install all of the packages you will need to do development on the project or you can inspect the Brewfile in the root and see what packages you will need.
 
-To build either the Laravel frontend container or Drupal backend container change into the relevant directory and run
+To build either the Node frontend container or Drupal backend container change into the relevant directory and run
 
     make build
 

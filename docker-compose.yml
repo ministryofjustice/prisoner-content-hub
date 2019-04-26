@@ -30,23 +30,6 @@ services:
     ports:
       - 10001:3000
 
-  hub-fe:
-    container_name: hub-fe
-    image: mojdigitalstudio/digital-hub-fe
-    depends_on:
-      - hub-be
-      - hub-memcache
-    environment:
-      API_URI: http://hub-be
-      APP_TIMEOUT: 60.0
-    ports:
-      - 10002:80
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost"]
-      interval: 15s
-      timeout: 30s
-      retries: 1
-
   hub-be:
     container_name: hub-be
     image: mojdigitalstudio/digital-hub-be
@@ -57,7 +40,7 @@ services:
       - HUB_DB_ENV_MYSQL_USER=hubdb_user
       - HUB_DB_ENV_MYSQL_PASSWORD
       - HUB_DB_PORT_3306_TCP_ADDR=hub-db
-      - HUB_EXT_FILE_URL=http://localhost:8181/sites/default/files
+      - HUB_EXT_FILE_URL=http://localhost:11001/sites/default/files
       - PHP_MEMORY_LIMIT=256M
       - PHP_UPLOAD_MAX_FILE_SIZE=500M
       - PHP_POST_MAX_SIZE=500M
