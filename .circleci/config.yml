@@ -81,11 +81,11 @@ jobs:
             fi
 
   run_e2e_test:
-    docker:
-      - image: circleci/node:latest-browsers
-    working_directory: /home/circleci/app
+    <<: *defaults
     steps:
       - checkout
+      - setup_remote_docker:
+          reusable: true
       - run:
           name: Update npm
           command: "sudo npm install -g npm@latest"
