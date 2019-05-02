@@ -54,7 +54,8 @@
 
   {{ hubRelatedContent({
     id: data.categoryId,
-    data: data.relatedContent
+    data: data.relatedContent,
+    lazyLoadContent: false
   }) }}
 {% endblock %}
 

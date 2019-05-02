@@ -1,10 +1,10 @@
 const { prop, filter, not, equals, map } = require('ramda');
 
-module.exports = function createHubContentService(
+module.exports = function createHubContentService({
   contentRepository,
   menuRepository,
-  featuredContentRepository,
-) {
+  categoryFeaturedContentRepository,
+}) {
   async function contentFor(id, establishmentId) {
     const content = await contentRepository.contentFor(id);
     const contentType = prop('contentType', content);
@@ -61,7 +61,7 @@ module.exports = function createHubContentService(
 
     const [featuredContent, relatedContent, categoryMenu] = await Promise.all([
       contentRepository.contentFor(featuredContentId),
-      featuredContentRepository.hubContentFor({
+      categoryFeaturedContentRepository.hubContentFor({
         query: {
           _number: 8,
           _category: categoryId,

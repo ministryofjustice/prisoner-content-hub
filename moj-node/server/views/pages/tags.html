@@ -55,6 +55,7 @@
 {% block content %}
   {{ hubRelatedContent({
     id: tagId,
-    data: data.relatedContent
+    data: data.relatedContent,
+    lazyLoadContent: true
   }) }}
 {% endblock %}

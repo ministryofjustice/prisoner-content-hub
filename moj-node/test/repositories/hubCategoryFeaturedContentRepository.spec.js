@@ -1,10 +1,10 @@
-const hubFeaturedContentRepository = require('../../server/repositories/hubFeaturedContent');
+const hubCategoryFeaturedContentRepository = require('../../server/repositories/categoryFeaturedContent');
 
 describe('hubCategoryFeaturedContentRepository', () => {
   describe('#hubContentFor', () => {
     describe('When content is returned from the endpoint', () => {
       it('returns a featured content', async () => {
-        const repository = hubFeaturedContentRepository(
+        const repository = hubCategoryFeaturedContentRepository(
           generateFeatureContentClient(),
         );
 
@@ -31,7 +31,7 @@ describe('hubCategoryFeaturedContentRepository', () => {
 
     describe('When no content is returned from the endpoint', () => {
       it('returns no data', async () => {
-        const repository = hubFeaturedContentRepository(
+        const repository = hubCategoryFeaturedContentRepository(
           generateNoDataResponse(),
         );
         const content = await repository.hubContentFor(1);
