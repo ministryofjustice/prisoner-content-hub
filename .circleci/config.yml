@@ -82,7 +82,7 @@ jobs:
 
   run_e2e_test:
     docker:
-      - image: circleci/node:10.15.2-browsers
+      - image: circleci/node:10.15.3-browsers
     working_directory: /home/circleci/app
     steps:
       - checkout
