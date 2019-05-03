@@ -23,21 +23,13 @@ describe('Landing page', () => {
         );
       });
 
-      cy.log('Check that related content are rendered on the page');
+      cy.log('Check that featured content is rendered on the page');
       cy.get('[data-featured-id]').then($el => {
         const initialNumOfFeatured = $el.length;
 
-        expect(initialNumOfFeatured).to.be.at.least(8);
+        expect(initialNumOfFeatured).to.be.at.most(8);
 
-        cy.log('Ensure more related content are loaded');
-        cy.scrollTo('bottom');
-
-        cy.get('[data-featured-id]').should(
-          'have.length.greaterThan',
-          initialNumOfFeatured,
-        );
-
-        cy.log('Navigate to one of the related content');
+        cy.log('Navigate to one of the featured content');
 
         cy.get('[data-featured-id]')
           .last()
