@@ -1,4 +1,4 @@
-FROM node:9.11.1-alpine
+FROM node:10.15.3-alpine
 
 ARG BUILD_NUMBER
 ARG GIT_REF
