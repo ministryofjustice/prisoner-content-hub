@@ -15,6 +15,11 @@ To run Ansible you will need to have this installed on your system.
 
 ### Setup
 
+Install SSH Pass
+```
+brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb
+```
+
 ```
 ansible-galaxy install -r requirements.yml
 ```
