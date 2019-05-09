@@ -191,8 +191,102 @@ class ContentApiClass
   }
 
 
-  private function createEpisodeId($node)
+  << << <<< HEAD
+  private function createEpisodeId( $node)
   {
-    return ($node->field_moj_season->value * 1000) + ($node->field_moj_episode->value);
+    return ( $node->field_moj_season->value * 1000) + ( $node->field_moj_episode->value);
   }
+=======
+    /**
+     *
+     */
+    private function decorateContent( $node) {
+       $content_type =  $node->type->target_id;
+
+       $defaults =  $this->createItemResponse( $node);
+
+      switch( $content_type) {
+        case 'moj_radio_item':
+          return array_merge( $defaults,  $this->createAudioItemResponse( $node));
+        case 'moj_video_item':
+          return array_merge( $defaults,  $this->createVideoItemResponse( $node));
+        case 'moj_pdf_item':
+          return array_merge( $defaults,  $this->createPDFItemResponse( $node));
+        case 'page':
+          return array_merge( $defaults,  $this->createPageItemResponse( $node));
+        case 'landing_page':
+          return array_merge( $defaults,  $this->createLandingPageItemResponse( $node));
+
+        default:
+          return  $defaults;
+      }
+    }
+
+    private function createItemResponse( $node) {
+       $result = [];
+       $result ["content_type"] =  $node->type->target_id;
+       $result ["title"] =  $node->title->value;
+       $result ["id"] =  $node->nid->value;
+       $result ["image"] =  $node->field_moj_thumbnail_image[0];
+       $result ["description"] =  $node->field_moj_description[0];
+       $result ["categories"] =  $node->field_moj_top_level_categories;
+       $result ["secondary_tags"] =  $node->field_moj_tags;
+       $result ["prisons"] =  $node->field_moj_prisons;
+
+      return  $result;
+    }
+
+    private function createAudioItemResponse( $node) {
+       $result = [];
+
+       $result ['media'] =  $node->field_moj_audio[0];
+       $result ["episode_id"] =  $this->createEpisodeId( $node);
+       $result ["series_id"] =  $node->field_moj_series[0]->target_id;
+       $result ["season"] =  $node->field_moj_season->value;
+       $result ["episode"] =  $node->field_moj_episode->value;
+       $result ["duration"] =  $node->field_moj_duration->value;
+
+      return  $result;
+    }
+
+    private function createVideoItemResponse( $node) {
+       $result = [];
+
+       $result ['media'] =  $node->field_moj_video[0];
+       $result ["episode_id"] =  $this->createEpisodeId( $node);
+       $result ["series_id"] =  $node->field_moj_series[0]->target_id;
+       $result ["season"] =  $node->field_moj_season->value;
+       $result ["episode"] =  $node->field_moj_episode->value;
+       $result ["duration"] =  $node->field_moj_duration->value;
+
+      return  $result;
+    }
+
+    private function createPageItemResponse( $node) {
+       $result = [];
+       $result ['stand_first'] =  $node->field_moj_stand_first->value;
+      return  $result;
+    }
+
+    private function createPDFItemResponse( $node) {
+       $result = [];
+       $result ['media'] =  $node->field_moj_pdf[0];
+
+      return  $result;
+    }
+
+    private function createLandingPageItemResponse( $node) {
+       $result = [];
+       $result ['featured_content_id'] =  $node->field_moj_landing_feature_contet[0]->target_id;
+       $result ['category_id'] =  $node->field_moj_landing_page_term[0]->target_id;
+      return  $result;
+    }
+
+
+    private function createEpisodeId( $node) {
+      return ( $node->field_moj_season->value * 1000) + ( $node->field_moj_episode->value);
+    }
+
+>>>>>>> WIP: Add support for next episodes
 }
+

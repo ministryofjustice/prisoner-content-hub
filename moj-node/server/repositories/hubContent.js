@@ -3,6 +3,7 @@ const R = require('ramda');
 const config = require('../config');
 const logger = require('../../log');
 const {
+<<<<<<< HEAD
   contentResponseFrom,
   mediaResponseFrom,
   seasonResponseFrom,
@@ -12,6 +13,17 @@ const {
   typeFrom,
   pdfResponseFrom,
 } = require('../utils/adapters');
+=======
+  parseHubContentResponse,
+  parseMediaResponse,
+  parseSeasonResponse,
+  parseTermResponse,
+  parseLandingResponse,
+  parseFlatPageContent,
+  typeFrom,
+  parsePDFResponse,
+} = require('../utils/index');
+>>>>>>> WIP: Add support for next episodes
 
 module.exports = function hubContentRepository(httpClient) {
   async function contentFor(id) {
@@ -61,6 +73,21 @@ module.exports = function hubContentRepository(httpClient) {
     });
 
     return seasonResponseFrom(response);
+  }
+
+  async function nextEpisodesFor({
+    id,
+    establishmentId,
+    perPage = 3,
+    episodeId,
+  }) {
+    const response = await httpClient.get(`${config.api.series}/${id}/next`, {
+      _number: perPage,
+      _episode_id: episodeId,
+      _prison: establishmentId,
+    });
+
+    return parseSeasonResponse(response);
   }
 
   async function featuredContentFor(id) {
