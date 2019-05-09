@@ -73,10 +73,28 @@ class TermApiClass
   public function TermApiEndpoint($lang, $term_id)
   {
     $this->lang = $lang;
-    return $this->term_storage->load($term_id);
-    // $this->term = $this->term_storage->load($term_id);
-    // return array_map('self::translateNode', $this->term);
+    return $this->decorateResponse($this->term_storage->load($term_id));
   }
+  /**
+   * Decorate term response
+   *
+   * @param Node $term
+   * @return array
+   */
+  private function decorateResponse($term) {
+     $result = [];
+     $result['id'] = $term->tid->value;
+     $result['content_type'] = $term->vid[0]->target_id;
+     $result['title'] = $term->name->value;
+     $result['description'] = $term->description[0];
+     $result['summary'] = $term->field_content_summary->value;
+     $result['image'] = $term->field_featured_image[0];
+     $result['video'] = $term->field_featured_video[0];
+     $result['audio'] = $term->field_featured_audio[0];
+
+     return $result;
+  }
+  
   /**
      * TranslateNode function
      *

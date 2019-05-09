@@ -28,7 +28,9 @@ module.exports = function createHubContentService({
 
   async function media(establishmentId, data) {
     const id = prop('id', data);
+
     const seriesId = prop('seriesId', data);
+    const episodeId = prop('episodeId', data);
     const tagsId = prop('tagsId', data);
     const filterOutCurrentEpisode = filter(item =>
       not(equals(prop('id', item), id)),
@@ -37,11 +39,11 @@ module.exports = function createHubContentService({
 
     const [series, seasons] = await Promise.all([
       contentRepository.termFor(seriesId),
-      contentRepository.seasonFor({
+      contentRepository.nextEpisodesFor({
         id: seriesId,
         establishmentId,
-        perPage: 30,
-        offset: 0,
+        perPage: 3,
+        episodeId,
       }),
     ]);
 

@@ -2,43 +2,16 @@ const R = require('ramda');
 
 const config = require('../config');
 const logger = require('../../log');
-const { HUB_CONTENT_TYPES } = require('../constants/hub');
 const {
   parseHubContentResponse,
-  fixUrlForProduction,
+  parseMediaResponse,
+  parseSeasonResponse,
+  parseTermResponse,
+  parseLandingResponse,
+  parseFlatPageContent,
+  typeFrom,
+  parsePDFResponse,
 } = require('../utils/index');
-
-const {
-  idFrom,
-  tagIdFrom,
-  titleFrom,
-  contentTypeFrom,
-  descriptionValueFrom,
-  descriptionProcessedFrom,
-  termDescriptionValueFrom,
-  termDescriptionProcessedFrom,
-  summaryValueFrom,
-  imageAltFrom,
-  imageUrlFrom,
-  featuredImageUrlFrom,
-  featuredImageAltFrom,
-  featuredVideoUrlFrom,
-  featuredAudioUrlFrom,
-  durationFrom,
-  audioUrlFrom,
-  videoUrlFrom,
-  seriesIdFrom,
-  episodeFrom,
-  seasonFrom,
-  standFirstFrom,
-  nameFrom,
-  landingFeaturedContentIdFrom,
-  categoryIdFrom,
-  pdfUrlFrom,
-  vocabularyType,
-  tagsIdsFrom,
-  establishmentIdFrom,
-} = require('../selectors/hub');
 
 module.exports = function hubContentRepository(httpClient) {
   async function contentFor(id) {
@@ -75,6 +48,21 @@ module.exports = function hubContentRepository(httpClient) {
     return parseSeasonResponse(response);
   }
 
+  async function nextEpisodesFor({
+    id,
+    establishmentId,
+    perPage = 3,
+    episodeId,
+  }) {
+    const response = await httpClient.get(`${config.api.series}/${id}/next`, {
+      _number: perPage,
+      _episode_id: episodeId,
+      _prison: establishmentId,
+    });
+
+    return parseSeasonResponse(response);
+  }
+
   async function featuredContentFor(id) {
     const response = await httpClient.get(`${config.api.hubContent}/${id}`);
     return parseHubContentResponse(response);
@@ -98,62 +86,6 @@ module.exports = function hubContentRepository(httpClient) {
     return parseHubContentResponse(response);
   }
 
-  function parseTermResponse(data) {
-    if (data === null) return null;
-    return {
-      id: tagIdFrom(data),
-      type: vocabularyType(data),
-      name: nameFrom(data),
-      description: {
-        raw: termDescriptionValueFrom(data),
-        sanitized: termDescriptionProcessedFrom(data),
-      },
-      image: {
-        alt: featuredImageAltFrom(data),
-        url: fixUrlForProduction(
-          featuredImageUrlFrom(data),
-          config.drupalAppUrl,
-        ),
-      },
-      video: {
-        url: fixUrlForProduction(
-          featuredVideoUrlFrom(data),
-          config.drupalAppUrl,
-        ),
-      },
-      audio: {
-        url: fixUrlForProduction(
-          featuredAudioUrlFrom(data),
-          config.drupalAppUrl,
-        ),
-      },
-    };
-  }
-
-  function parseLandingResponse(data) {
-    if (data === null) return null;
-
-    return {
-      id: idFrom(data),
-      title: titleFrom(data),
-      contentType: typeFrom(data),
-      featuredContentId: landingFeaturedContentIdFrom(data),
-      description: {
-        raw: descriptionValueFrom(data),
-        sanitized: descriptionProcessedFrom(data),
-        summary: summaryValueFrom(data),
-      },
-      image: {
-        alt: featuredImageAltFrom(data),
-        url: fixUrlForProduction(
-          featuredImageUrlFrom(data),
-          config.drupalAppUrl,
-        ),
-      },
-      categoryId: categoryIdFrom(data),
-    };
-  }
-
   function parseMenuResponse(data = []) {
     if (data === null) return [];
 
@@ -167,7 +99,7 @@ module.exports = function hubContentRepository(httpClient) {
   function parseResponse(data) {
     if (data === null) return null;
 
-    const contentType = typeFrom(data);
+    const contentType = typeFrom(data.content_type);
 
     switch (contentType) {
       case 'video':
@@ -184,94 +116,11 @@ module.exports = function hubContentRepository(httpClient) {
     }
   }
 
-  function parseMediaResponse(data) {
-    if (data === null) return null;
-
-    const contentType = typeFrom(data);
-
-    return {
-      id: idFrom(data),
-      title: titleFrom(data),
-      contentType,
-      description: {
-        raw: descriptionValueFrom(data),
-        sanitized: descriptionProcessedFrom(data),
-        summary: summaryValueFrom(data),
-      },
-      media:
-        contentType === 'radio'
-          ? fixUrlForProduction(audioUrlFrom(data), config.drupalAppUrl)
-          : fixUrlForProduction(videoUrlFrom(data), config.drupalAppUrl),
-      duration: durationFrom(data),
-      image: {
-        alt: imageAltFrom(data),
-        url: fixUrlForProduction(imageUrlFrom(data), config.drupalAppUrl),
-      },
-      episode: episodeFrom(data),
-      season: seasonFrom(data),
-      seriesId: seriesIdFrom(data),
-      tagsId: tagsIdsFrom(data),
-      establishmentId: establishmentIdFrom(data),
-      contentUrl: `/content/${idFrom(data)}`,
-    };
-  }
-
-  function parseFlatPageContent(data) {
-    if (data === null) return null;
-
-    return {
-      id: idFrom(data),
-      title: titleFrom(data),
-      contentType: typeFrom(data),
-      description: {
-        raw: descriptionValueFrom(data),
-        sanitized: descriptionProcessedFrom(data),
-        summary: summaryValueFrom(data),
-      },
-      standFirst: standFirstFrom(data),
-      image: {
-        alt: imageAltFrom(data),
-        url: fixUrlForProduction(imageUrlFrom(data), config.drupalAppUrl),
-      },
-      establishmentId: establishmentIdFrom(data),
-      contentUrl: `/content/${idFrom(data)}`,
-    };
-  }
-
-  function parsePDFResponse(data) {
-    if (data === null) return null;
-
-    return {
-      id: idFrom(data),
-      title: titleFrom(data),
-      contentType: typeFrom(data),
-      url: fixUrlForProduction(pdfUrlFrom(data)),
-      establishmentId: establishmentIdFrom(data),
-      contentUrl: `/content/${idFrom(data)}`,
-    };
-  }
-
-  function parseSeasonResponse(data) {
-    if (data === null) return null;
-
-    const transform = R.map(key => parseMediaResponse(data[key]));
-
-    const season = R.pipe(
-      R.keys,
-      transform,
-    );
-
-    return season(data);
-  }
-
-  function typeFrom(data) {
-    return HUB_CONTENT_TYPES[contentTypeFrom(data)];
-  }
-
   return {
     contentFor,
     termFor,
     seasonFor,
+    nextEpisodesFor,
     featuredContentFor,
     relatedContentFor,
     menuFor,
