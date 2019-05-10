@@ -20,8 +20,15 @@ describe('Homepage', () => {
         cy.location('pathname').should('include', '/working-in-berwyn');
       });
 
+      it(`navigates to the 'Berwyn Life' page`, () => {
+        const berwynLife = `${cssNav} > :nth-child(3) > .govuk-link`;
+
+        cy.get(berwynLife).click();
+        cy.location('pathname').should('include', '/content/3626');
+      });
+
       it(`navigates to the 'Getting out' page`, () => {
-        const gettingOutLink = `${cssNav} > :nth-child(3) > .govuk-link`;
+        const gettingOutLink = `${cssNav} > :nth-child(4) > .govuk-link`;
 
         cy.get(gettingOutLink).click();
         cy.location('pathname').should('include', '/content/3631');
