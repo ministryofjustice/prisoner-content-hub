@@ -67,7 +67,7 @@ services:
     container_name: hub-matomo-db
     image: mariadb
     environment:
-      - MYSQL_ROOT_PASSWORD
+      - MYSQL_ROOT_PASSWORD=${HUB_MATOMO_MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=matomo
-      - MYSQL_USER
-      - MYSQL_PASSWORD
+      - MYSQL_USER=${HUB_MATOMO_MYSQL_USER_USERNAME}
+      - MYSQL_PASSWORD=${HUB_MATOMO_MYSQL_USER_PASSWORD}
