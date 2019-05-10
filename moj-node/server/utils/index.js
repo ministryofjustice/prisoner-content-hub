@@ -130,7 +130,7 @@ function parseMediaResponse(data) {
     image: {
       alt: R.path(['image', 'alt'], data),
       url: fixUrlForProduction(
-        R.path(['image', 'alt'], data),
+        R.path(['image', 'url'], data),
         config.drupalAppUrl,
       ),
     },

@@ -162,6 +162,7 @@ function radioContent() {
     duration: '1:35:27',
     episode: 1,
     season: 1,
+    episodeId: 1001,
     seriesId: 665,
     image: {
       alt: 'Foo Bar',

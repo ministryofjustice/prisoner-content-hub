@@ -1,101 +1,30 @@
 {
-  "nid": [
+  "content_type": "moj_radio_item",
+  "title": "Foo radio show",
+  "id": 3546,
+  "image": {
+    "alt": "Foo Bar",
+    "url": "http://foo.bar.com/image.png"
+  },
+  "description": {
+    "value": "<p>Hello world</p>\r\n",
+    "format": "basic_html",
+    "processed": "<p>Hello world</p>",
+    "summary": "hello world"
+  },
+  "categories": [
     {
-      "value": 3546
+      "target_id": 646
     }
   ],
-  "type": [
-    {
-      "target_id": "moj_radio_item",
-      "target_type": "node_type",
-      "target_uuid": "792973a0-b235-452a-a211-1705dab79732"
-    }
-  ],
-
-  "title": [
-    {
-      "value": "Foo radio show"
-    }
-  ],
-
-  "created": [
-    {
-      "value": 1534511339
-    }
-  ],
-  "field_moj_audio": [
-    {
-      "target_id": 9580,
-      "display": true,
-      "description": "",
-      "target_type": "file",
-      "target_uuid": "b6fee0ca-8e4d-4771-9f4e-1b43da854ee6",
-      "url": "http://foo.bar.com/audio.mp3"
-    }
-  ],
-  "field_moj_description": [
-    {
-      "value": "<p>Hello world</p>\r\n",
-      "format": "basic_html",
-      "processed": "<p>Hello world</p>",
-      "summary": "hello world"
-    }
-  ],
-  "field_moj_duration": [
-    {
-      "value": "1:35:27"
-    }
-  ],
-  "field_moj_episode": [
-    {
-      "value": 1
-    }
-  ],
-  "field_moj_season": [
-    {
-      "value": 1
-    }
-  ],
-  "field_moj_series": [
-    {
-      "target_id": 665,
-      "target_type": "taxonomy_term",
-      "target_uuid": "f086af47-6b38-4375-80c8-17f0294ef18e",
-      "url": "/taxonomy/term/665"
-    },
-    {
-      "target_id": 684,
-      "target_type": "taxonomy_term",
-      "target_uuid": "8b4c353e-601e-40fd-a656-8b822b04abb4",
-      "url": "/taxonomy/term/684"
-    }
-  ],
-  "field_moj_thumbnail_image": [
-    {
-      "target_id": 9582,
-      "alt": "Foo Bar",
-      "title": "",
-      "width": 2880,
-      "height": 1800,
-      "target_type": "file",
-      "target_uuid": "38b9cffb-241a-40f7-b187-e99c67897471",
-      "url": "http://foo.bar.com/image.png"
-    }
-  ],
-  "field_moj_top_level_categories": [
-    {
-      "target_id": 646,
-      "target_type": "taxonomy_term",
-      "target_uuid": "cc2b69b2-843b-4c77-b1ad-07d9a9acced4",
-      "url": "/taxonomy/term/646"
-    }
-  ],
-  "field_moj_prisons": [
-    {
-      "target_id": 792,
-      "target_type": "taxonomy_term",
-      "target_uuid": "fd1e1db7-d0be-424a-a3a6-3b0f49e33293",
-      "url": "/taxonomy/term/792"
-    }
-  ]
+  "secondary_tags": [],
+  "prisons": [{ "target_id": 792 }],
+  "media": {
+    "url": "http://foo.bar.com/audio.mp3"
+  },
+  "episode_id": 1001,
+  "series_id": 665,
+  "season": 1,
+  "episode": 1,
+  "duration": "1:35:27"
 }
