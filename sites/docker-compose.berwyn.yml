@@ -36,3 +36,4 @@ services:
       - "DRUPAL_APP_URI=http://digital-hub.bwi.dpn.gov.uk:11001"
       - "MATOMO_API_URI=http://hub-matomo"
       - "MATOMO_URL=digital-hub.bwi.dpn.gov.uk:12001"
+      - "FQDN=bwi.dpn.gov.uk"

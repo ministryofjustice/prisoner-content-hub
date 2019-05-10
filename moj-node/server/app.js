@@ -17,6 +17,7 @@ const createContentRouter = require('./routes/content');
 const createTagRouter = require('./routes/tags');
 const createGamesRouter = require('./routes/games');
 const createGettingAJobRouter = require('./routes/gettingAJob');
+const createAuthRouter = require('./routes/auth');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const establishmentToggle = require('./middleware/establishmentToggle');
@@ -226,6 +227,8 @@ module.exports = function createApp({
     ['/working-in-wayland', '/working-in-berwyn'],
     createGettingAJobRouter({ logger, hubContentService, hubMenuService }),
   );
+
+  app.use('/auth', createAuthRouter({ logger }));
 
   app.use('*', (req, res) => {
     res.status(404);

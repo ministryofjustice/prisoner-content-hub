@@ -23,16 +23,14 @@ pipeline {
     }
   
     stage ('Build') {
-      steps {
-        sh 'cd moj-fe && make build'
+      steps {        
         sh 'cd moj-be && make build'
         sh 'cd db && make build'
       }
     }
 
     stage ('Test') {
-      steps {
-        sh 'cd moj-fe && make test'
+      steps {        
         sh 'cd moj-be && make test'
       }
     }
@@ -41,8 +39,7 @@ pipeline {
       when {
         branch 'master'
       } 
-      steps {
-        sh 'cd moj-fe && make push'
+      steps {        
         sh 'cd moj-be && make push'
         sh 'cd db && make push'
         sshagent(['hub-env-dev-deploy']) {
