@@ -14,6 +14,7 @@ const createHealthService = require('./services/health');
 const createHubTagsService = require('./services/hubTags');
 
 const featuredContentRepository = require('./repositories/hubFeaturedContent');
+const categoryFeaturedContentRepository = require('./repositories/categoryFeaturedContent');
 const promotedContentRepository = require('./repositories/hubPromotedContent');
 const hubMenuRepository = require('./repositories/hubMenu');
 const contentRepository = require('./repositories/hubContent');
@@ -29,10 +30,13 @@ const hubPromotedContentService = createHubPromotedContentService(
   promotedContentRepository(new HubClient()),
 );
 
-const hubContentService = createHubContentService(
-  contentRepository(new HubClient()),
-  hubMenuRepository(new HubClient()),
-);
+const hubContentService = createHubContentService({
+  contentRepository: contentRepository(new HubClient()),
+  menuRepository: hubMenuRepository(new HubClient()),
+  categoryFeaturedContentRepository: categoryFeaturedContentRepository(
+    new HubClient(),
+  ),
+});
 
 const hubTagsService = createHubTagsService(contentRepository(new HubClient()));
 

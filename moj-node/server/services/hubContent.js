@@ -1,9 +1,10 @@
 const { prop, filter, not, equals, map } = require('ramda');
 
-module.exports = function createHubContentService(
+module.exports = function createHubContentService({
   contentRepository,
   menuRepository,
-) {
+  categoryFeaturedContentRepository,
+}) {
   async function contentFor(id, establishmentId) {
     const content = await contentRepository.contentFor(id);
     const contentType = prop('contentType', content);
@@ -55,22 +56,17 @@ module.exports = function createHubContentService(
   }
 
   async function landingPage(data, establishmentId) {
-    let sortOrder;
-    const id = prop('id', data);
     const featuredContentId = prop('featuredContentId', data);
     const categoryId = prop('categoryId', data);
 
-    if (id === 3632) {
-      // news sort order needs to be in a different order
-      sortOrder = 'DESC';
-    }
-
     const [featuredContent, relatedContent, categoryMenu] = await Promise.all([
       contentRepository.contentFor(featuredContentId),
-      contentRepository.relatedContentFor({
-        id: categoryId,
-        establishmentId,
-        sortOrder,
+      categoryFeaturedContentRepository.hubContentFor({
+        query: {
+          _number: 8,
+          _category: categoryId,
+          _prison: establishmentId,
+        },
       }),
       menuRepository.categoryMenu({
         categoryId,

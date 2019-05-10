@@ -7,7 +7,7 @@ describe('#hubContentService', () => {
         .stub()
         .returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
     };
-    const service = createHubContentService(contentRepository);
+    const service = createHubContentService({ contentRepository });
     const result = await service.contentFor('contentId');
 
     expect(result).to.eql({ title: 'foo', href: 'www.foo.com', type: 'foo' });
@@ -32,7 +32,7 @@ describe('#hubContentService', () => {
         ]),
     };
 
-    const service = createHubContentService(contentRepository);
+    const service = createHubContentService({ contentRepository });
     const result = await service.contentFor(1);
 
     expect(result).to.eql({
@@ -77,7 +77,7 @@ describe('#hubContentService', () => {
         ]),
     };
 
-    const service = createHubContentService(contentRepository);
+    const service = createHubContentService({ contentRepository });
     const result = await service.contentFor(1);
 
     expect(result).to.eql({
@@ -124,13 +124,24 @@ describe('#hubContentService', () => {
       categoryMenu: sinon.stub().returns('categoryMenu'),
     });
 
+    const createCategoryFeaturedContentRepository = () => ({
+      hubContentFor: sinon
+        .stub()
+        .onFirstCall()
+        .returns([content])
+        .onSecondCall()
+        .returns('fooBar'),
+    });
+
     it('returns landing page content', async () => {
       const contentRepository = createContentRepository();
+      const categoryFeaturedContentRepository = createCategoryFeaturedContentRepository();
       const menuRepository = createMenuRepository();
-      const service = createHubContentService(
+      const service = createHubContentService({
         contentRepository,
         menuRepository,
-      );
+        categoryFeaturedContentRepository,
+      });
       const result = await service.contentFor(content.id, establishmentId);
 
       expect(result).to.have.property('id', content.id);
@@ -146,11 +157,13 @@ describe('#hubContentService', () => {
 
     it('calls for the featured content', async () => {
       const contentRepository = createContentRepository();
+      const categoryFeaturedContentRepository = createCategoryFeaturedContentRepository();
       const menuRepository = createMenuRepository();
-      const service = createHubContentService(
+      const service = createHubContentService({
         contentRepository,
         menuRepository,
-      );
+        categoryFeaturedContentRepository,
+      });
 
       await service.contentFor(content.id, establishmentId);
 
@@ -160,21 +173,27 @@ describe('#hubContentService', () => {
       );
     });
 
-    it('calls for the related content', async () => {
+    it('calls for the categoryFeaturedContentRepository', async () => {
       const contentRepository = createContentRepository();
+      const categoryFeaturedContentRepository = createCategoryFeaturedContentRepository();
       const menuRepository = createMenuRepository();
-      const service = createHubContentService(
+      const service = createHubContentService({
         contentRepository,
         menuRepository,
-      );
+        categoryFeaturedContentRepository,
+      });
 
       await service.contentFor(content.id, establishmentId);
 
-      expect(contentRepository.relatedContentFor.lastCall.lastArg).to.eql(
+      expect(
+        categoryFeaturedContentRepository.hubContentFor.lastCall.lastArg,
+      ).to.eql(
         {
-          id: 'categoryId',
-          establishmentId: 'establishmentId',
-          sortOrder: undefined,
+          query: {
+            _category: 'categoryId',
+            _number: 8,
+            _prison: establishmentId,
+          },
         },
         `the categoryId was supposed to be "${content.categoryId}"`,
       );
@@ -182,11 +201,13 @@ describe('#hubContentService', () => {
 
     it('call for the categoryMenu', async () => {
       const contentRepository = createContentRepository();
+      const categoryFeaturedContentRepository = createCategoryFeaturedContentRepository();
       const menuRepository = createMenuRepository();
-      const service = createHubContentService(
+      const service = createHubContentService({
         contentRepository,
         menuRepository,
-      );
+        categoryFeaturedContentRepository,
+      });
 
       const expectedResult = {
         categoryId: content.categoryId,
