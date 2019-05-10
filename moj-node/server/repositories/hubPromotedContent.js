@@ -1,6 +1,6 @@
 const R = require('ramda');
 
-const { parseHubFeaturedContentResponse } = require('../utils/index');
+const { featuredContentResponseFrom } = require('../utils/index');
 const config = require('../config');
 
 function hubPromotedContentRepository(httpClient) {
@@ -11,7 +11,7 @@ function hubPromotedContentRepository(httpClient) {
     );
     if (R.prop('message', response) || response === null) return [];
 
-    return parseHubFeaturedContentResponse(response);
+    return featuredContentResponseFrom(response);
   }
 
   return {

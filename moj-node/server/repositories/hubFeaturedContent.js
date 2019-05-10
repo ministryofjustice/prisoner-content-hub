@@ -1,7 +1,7 @@
 const R = require('ramda');
 
 const config = require('../config');
-const { parseHubFeaturedContentResponse } = require('../utils/index');
+const { featuredContentResponseFrom } = require('../utils/index');
 
 function hubFeaturedContentRepository(httpClient) {
   async function hubContentFor(opts = { query: {} }) {
@@ -12,7 +12,7 @@ function hubFeaturedContentRepository(httpClient) {
 
     if (!Array.isArray(response)) return [];
 
-    return R.map(parseHubFeaturedContentResponse, response);
+    return R.map(featuredContentResponseFrom, response);
   }
 
   function newsAndEvents({ establishmentId }) {

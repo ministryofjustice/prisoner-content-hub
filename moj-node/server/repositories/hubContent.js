@@ -3,15 +3,15 @@ const R = require('ramda');
 const config = require('../config');
 const logger = require('../../log');
 const {
-  parseHubContentResponse,
-  parseMediaResponse,
-  parseSeasonResponse,
-  parseTermResponse,
-  parseLandingResponse,
-  parseFlatPageContent,
+  contentResponseFrom,
+  mediaResponseFrom,
+  seasonResponseFrom,
+  termResponseFrom,
+  landingResponseFrom,
+  flatPageContentFrom,
   typeFrom,
-  parsePDFResponse,
-} = require('../utils/index');
+  pdfResponseFrom,
+} = require('../utils/adapters');
 
 module.exports = function hubContentRepository(httpClient) {
   async function contentFor(id) {
@@ -27,7 +27,7 @@ module.exports = function hubContentRepository(httpClient) {
 
   async function termFor(id) {
     const response = await httpClient.get(`${config.api.hubTerm}/${id}`);
-    return parseTermResponse(response);
+    return termResponseFrom(response);
   }
 
   async function menuFor(id) {
@@ -45,7 +45,7 @@ module.exports = function hubContentRepository(httpClient) {
       _prison: establishmentId,
     });
 
-    return parseSeasonResponse(response);
+    return seasonResponseFrom(response);
   }
 
   async function nextEpisodesFor({
@@ -60,12 +60,12 @@ module.exports = function hubContentRepository(httpClient) {
       _prison: establishmentId,
     });
 
-    return parseSeasonResponse(response);
+    return seasonResponseFrom(response);
   }
 
   async function featuredContentFor(id) {
     const response = await httpClient.get(`${config.api.hubContent}/${id}`);
-    return parseHubContentResponse(response);
+    return contentResponseFrom(response);
   }
 
   async function relatedContentFor({
@@ -83,7 +83,7 @@ module.exports = function hubContentRepository(httpClient) {
       _sort_order: sortOrder,
     });
 
-    return parseHubContentResponse(response);
+    return contentResponseFrom(response);
   }
 
   function parseMenuResponse(data = []) {
@@ -104,13 +104,13 @@ module.exports = function hubContentRepository(httpClient) {
     switch (contentType) {
       case 'video':
       case 'radio':
-        return parseMediaResponse(data);
+        return mediaResponseFrom(data);
       case 'page':
-        return parseFlatPageContent(data);
+        return flatPageContentFrom(data);
       case 'landing-page':
-        return parseLandingResponse(data);
+        return landingResponseFrom(data);
       case 'pdf':
-        return parsePDFResponse(data);
+        return pdfResponseFrom(data);
       default:
         return null;
     }
