@@ -100,8 +100,8 @@ function videoContent() {
 
 function flatPageContent() {
   return {
-    id: 3491,
-    title: 'Foo article',
+    id: 'foo-id',
+    title: 'foo title',
     contentType: 'page',
     description: {
       raw: '<p>Foo article description</p>',
@@ -109,8 +109,8 @@ function flatPageContent() {
       summary: '',
     },
     image: {
-      alt: undefined,
-      url: undefined,
+      alt: 'foo alt',
+      url: 'http://foo.image.png',
     },
     standFirst: 'Foo article stand first',
     establishmentId: undefined,
