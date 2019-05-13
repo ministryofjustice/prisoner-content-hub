@@ -1,118 +1,18 @@
 {
-  "tid": [
-    {
-      "value": 1
-    }
-  ],
-  "uuid": [
-    {
-      "value": "556e218f-4155-4838-b5fa-9724f01d9ed3"
-    }
-  ],
-  "langcode": [
-    {
-      "value": "en"
-    }
-  ],
-  "vid": [
-    {
-      "target_id": "foo_type",
-      "target_type": "taxonomy_vocabulary",
-      "target_uuid": "d7e7e479-0dcb-4b22-bad0-a48964c00be1"
-    }
-  ],
-  "name": [
-    {
-      "value": "Foo terms"
-    }
-  ],
-  "description": [
-    {
-      "value": "<p>foo description</p>",
-      "format": "basic_html",
-      "processed": "<p>foo description</p>"
-    }
-  ],
-  "weight": [
-    {
-      "value": 0
-    }
-  ],
-  "parent": [],
-  "changed": [
-    {
-      "value": 1533809609
-    }
-  ],
-  "default_langcode": [
-    {
-      "value": true
-    }
-  ],
-  "content_translation_source": [
-    {
-      "value": "und"
-    }
-  ],
-  "content_translation_outdated": [
-    {
-      "value": false
-    }
-  ],
-  "content_translation_uid": [
-    {
-      "target_id": 202,
-      "target_type": "user",
-      "target_uuid": "77040a5f-5e45-497f-b640-e4e9d98ae927",
-      "url": "/user/202"
-    }
-  ],
-  "content_translation_status": [
-    {
-      "value": true
-    }
-  ],
-  "content_translation_created": [
-    {
-      "value": 1533809609
-    }
-  ],
-  "path": [
-    {
-      "alias": null,
-      "pid": null,
-      "langcode": "en"
-    }
-  ],
-  "field_featured_image": [
-    {
-      "target_id": 10343,
-      "alt": "foo image",
-      "title": "",
-      "width": 633,
-      "height": 330,
-      "target_type": "file",
-      "target_uuid": "622ae2ea-1a72-4bf4-a1c4-96907dfb8331",
-      "url": "http://foo.bar/image.png"
-    }
-  ],
-  "field_featured_video": [
-    {
-      "target_id": 10683,
-      "data": null,
-      "target_type": "file",
-      "target_uuid": "43365ff1-a143-4fd7-b4e6-b600502f3f3c",
-      "url": "http://foo.bar/video.mp4"
-    }
-  ],
-  "field_featured_audio": [
-    {
-      "target_id": 10728,
-      "display": true,
-      "description": "",
-      "target_type": "file",
-      "target_uuid": "5c385589-5dae-492c-b973-9d9fa13a05b0",
-      "url": "http://foo.bar/audio.mp3"
-    }
-  ]
+  "id": "678",
+  "content_type": "series",
+  "title": "Foo term",
+  "description": {
+    "value": "<p>Foo Term</p>\r\n",
+    "processed": "<p>Foo Term</p>"
+  },
+  "summary": "Foo Term summary",
+  "image": {
+    "alt": "Foo Term",
+    "url": "http://foo.bar/term/"
+  },
+  "video": null,
+  "audio": {
+    "url": "http://foo.bar/audio/foo.mp3"
+  }
 }

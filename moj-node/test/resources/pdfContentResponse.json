@@ -1,144 +1,24 @@
 {
-  "nid": [
+  "content_type": "moj_pdf_item",
+  "title": "Food and catering",
+  "id": "3456",
+  "image": {
+    "alt": "Food and catering",
+    "url": "http://foo.bar/images/foo.jpg"
+  },
+  "description": {
+    "value": "<p>Food and catering</p>\r\n",
+    "processed": "<p>Food and catering</p>",
+    "summary": "Food and catering summary"
+  },
+  "categories": [
     {
-      "value": 1
+      "target_id": 786
     }
   ],
-  "uuid": [
-    {
-      "value": "0f1fcdcb-9acf-47bd-a3d8-54df387d17dc"
-    }
-  ],
-  "vid": [
-    {
-      "value": 3647
-    }
-  ],
-  "langcode": [
-    {
-      "value": "en"
-    }
-  ],
-  "type": [
-    {
-      "target_id": "moj_pdf_item",
-      "target_type": "node_type",
-      "target_uuid": "f71b9bf8-c92a-4d35-a93f-bdd27cfc4300"
-    }
-  ],
-  "revision_timestamp": [
-    {
-      "value": 1539337631
-    }
-  ],
-  "revision_uid": [
-    {
-      "target_id": 202,
-      "target_type": "user",
-      "target_uuid": "77040a5f-5e45-497f-b640-e4e9d98ae927",
-      "url": "/user/202"
-    }
-  ],
-  "revision_log": [],
-  "status": [
-    {
-      "value": true
-    }
-  ],
-  "title": [
-    {
-      "value": "Foo pdf"
-    }
-  ],
-  "uid": [
-    {
-      "target_id": 202,
-      "target_type": "user",
-      "target_uuid": "77040a5f-5e45-497f-b640-e4e9d98ae927",
-      "url": "/user/202"
-    }
-  ],
-  "created": [
-    {
-      "value": 1539337511
-    }
-  ],
-  "changed": [
-    {
-      "value": 1539337759
-    }
-  ],
-  "promote": [
-    {
-      "value": false
-    }
-  ],
-  "sticky": [
-    {
-      "value": false
-    }
-  ],
-  "default_langcode": [
-    {
-      "value": true
-    }
-  ],
-  "revision_translation_affected": [
-    {
-      "value": true
-    }
-  ],
-  "content_translation_source": [
-    {
-      "value": "und"
-    }
-  ],
-  "content_translation_outdated": [
-    {
-      "value": false
-    }
-  ],
-  "field_moj_categories": [],
-  "field_moj_description": [
-    {
-      "value": "<p>The prison and Probation Ombudsman has published its Annual Report covering 2017 - 2018.</p>\r\n",
-      "format": "basic_html",
-      "processed": "<p>The prison and Probation Ombudsman has published its Annual Report covering 2017 - 2018.</p>",
-      "summary": "Published 11 October 2018"
-    }
-  ],
-  "field_moj_episode": [],
-  "field_moj_pdf": [
-    {
-      "target_id": 9898,
-      "display": true,
-      "description": "",
-      "target_type": "file",
-      "target_uuid": "70934eac-2f6d-433f-ab30-09d0a45a3798",
-      "url": "www.foo.bar/file.pdf"
-    }
-  ],
-  "field_moj_season": [],
-  "field_moj_secondary_tags": [],
-  "field_moj_series": [],
-  "field_moj_tags": [],
-  "field_moj_thumbnail_image": [],
-  "field_moj_top_level_categories": [
-    {
-      "target_id": 786,
-      "target_type": "taxonomy_term",
-      "target_uuid": "cd59b3be-d242-4d90-b474-1af98b80de73",
-      "url": "/taxonomy/term/786"
-    }
-  ],
-  "field_moj_weight": [],
-  "field_related_prisons": [],
-  "field_moj_prisons": [
-    {
-      "target_id": 792,
-      "target_type": "taxonomy_term",
-      "target_uuid": "fd1e1db7-d0be-424a-a3a6-3b0f49e33293",
-      "url": "/taxonomy/term/792"
-    }
-  ]
+  "secondary_tags": [],
+  "prisons": [],
+  "media": {
+    "url": "http://foo.bar/content/foo.pdf"
+  }
 }

@@ -3,9 +3,7 @@ module.exports = function createHubPromotedContentService(repository) {
     { establishmentId } = { establishmentId: 0 },
   ) {
     try {
-      return repository.hubPromotedContent({
-        query: { _prison: establishmentId },
-      });
+      return repository.hubPromotedContent({ establishmentId });
     } catch (ex) {
       return [];
     }

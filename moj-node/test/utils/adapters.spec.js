@@ -13,6 +13,7 @@ const {
 const radioShowResponse = require('../resources/radioShow.json');
 const videoShowResponse = require('../resources/videoShow.json');
 const termsResponse = require('../resources/terms.json');
+const featuredContentResponse = require('../resources/featured.json');
 const flatPageContentResponse = require('../resources/flatPageContent.json');
 const seasonResponse = require('../resources/season.json');
 const landingPageResponse = require('../resources/landingPage.json');
@@ -21,21 +22,35 @@ const pdfContentResponse = require('../resources/pdfContentResponse.json');
 
 describe('Adapters', () => {
   describe('.mediaResponseFrom', () => {
-    it('returns formated radio shows data', () => {
+    it('returns formated data for an audio item', () => {
       const result = mediaResponseFrom(radioShowResponse);
       expect(result).to.eql(radioContent());
     });
 
-    it('returns formated video shows data', () => {
+    it('returns formated data for a video item', () => {
       const result = mediaResponseFrom(videoShowResponse);
       expect(result).to.eql(videoContent());
     });
   });
 
   describe('.flatContentResponseFrom', () => {
-    it('return formated flat content data', () => {
+    it('return formated data for flat content', () => {
       const result = flatPageContentFrom(flatPageContentResponse);
       expect(result).to.eql(flatPageContent());
+    });
+  });
+
+  describe('.pdfResponseFrom', () => {
+    it('returns formated data for a pdf item', () => {
+      const result = pdfResponseFrom(pdfContentResponse);
+      expect(result).to.eql(pdfContent());
+    });
+  });
+
+  describe('.landingResponseFrom', () => {
+    it('returns formated data for a landing page', () => {
+      const result = landingResponseFrom(landingPageResponse);
+      expect(result).to.eql(landingPageContent());
     });
   });
 
@@ -43,6 +58,56 @@ describe('Adapters', () => {
     it('returns formated data for a season', () => {
       const result = seasonResponseFrom(seasonResponse);
       expect(result).to.eql(seasonContent());
+    });
+  });
+
+  describe('.contentResponseFrom', () => {
+    it('returns formated data for related content', () => {
+      const result = contentResponseFrom(relatedContentResponse);
+      expect(result).to.eql(relatedContent());
+    });
+  });
+
+  describe('.termResponseFrom', () => {
+    it('returns formated data for a term', () => {
+      const result = termResponseFrom(termsResponse);
+      expect(result).to.eql(termContent());
+    });
+  });
+
+  describe('.featuredContentResponseFrom', () => {
+    it('returns formated data for featured content', () => {
+      const result = featuredContentResponseFrom(featuredContentResponse);
+      expect(result).to.eql(featuredContent());
+    });
+  });
+
+  describe('.typeFrom', () => {
+    it('should return the correct type for an audio item', () => {
+      expect(typeFrom('moj_radio_item')).to.eql('radio');
+    });
+    it('should return the correct type for an video item', () => {
+      expect(typeFrom('moj_video_item')).to.eql('video');
+    });
+
+    it('should return the correct type for an pdf item', () => {
+      expect(typeFrom('moj_pdf_item')).to.eql('pdf');
+    });
+
+    it('should return the correct type for a landing page item', () => {
+      expect(typeFrom('landing_page')).to.eql('landing-page');
+    });
+
+    it('should return the correct type for a page', () => {
+      expect(typeFrom('page')).to.eql('page');
+    });
+
+    it('should return the correct type for a series', () => {
+      expect(typeFrom('series')).to.eql('series');
+    });
+
+    it('should return the correct type for a series', () => {
+      expect(typeFrom('tags')).to.eql('tags');
     });
   });
 });
@@ -76,6 +141,7 @@ function radioContent() {
 function videoContent() {
   return {
     id: 3546,
+    episodeId: 1002,
     title: 'Foo video show',
     description: {
       raw: '<p>Hello world</p>\r\n',
@@ -85,7 +151,7 @@ function videoContent() {
     contentType: 'video',
     media: 'http://foo.bar.com/video.mp4',
     duration: '1:35:27',
-    episode: 1,
+    episode: 2,
     season: 1,
     seriesId: 665,
     image: {
@@ -100,87 +166,89 @@ function videoContent() {
 
 function flatPageContent() {
   return {
-    id: 'foo-id',
+    id: 3456,
     title: 'foo title',
     contentType: 'page',
     description: {
-      raw: '<p>Foo article description</p>',
-      sanitized: '<p>Foo article description</p>',
-      summary: '',
+      raw: '<h2>foo text</h2>',
+      sanitized: '<h2>foo text</h2>',
+      summary: 'foo text',
     },
     image: {
       alt: 'foo alt',
       url: 'http://foo.image.png',
     },
-    standFirst: 'Foo article stand first',
+    standFirst: 'foo stand first',
     establishmentId: undefined,
-    contentUrl: '/content/3491',
+    contentUrl: '/content/3456',
   };
 }
 
 function seasonContent() {
   return [
     {
-      id: 98,
-      title: 'Foo episode',
+      contentType: 'radio',
+      contentUrl: '/content/3456',
       description: {
-        raw: '<p>foo description</p>',
-        sanitized: '<p>foo description</p>',
-        summary: '',
+        raw: '<p>Series radio item</p>\r\n',
+        sanitized: '<p>Series radio item</p>',
+        summary: 'Series radio item summary',
       },
-      contentType: 'video',
-      media: 'http://foo/video/video.mp4',
-      duration: '18:41',
-      episode: 1,
-      season: 1,
-      seriesId: 694,
+      duration: '12:34',
+      episode: '1',
+      episodeId: 1001,
+      id: '3456',
       image: {
         alt: '',
-        url: 'foo.image.png',
+        url: 'http://foo.bar/images/foo.jpg',
       },
-      tagsId: [648, 650],
+      media: 'http://foo.bar/audio/foo.mp3',
+      season: '1',
+      seriesId: 660,
+      tagsId: [646],
+      title: 'Radio Item 1',
       establishmentId: undefined,
-      contentUrl: '/content/98',
     },
     {
-      id: 2,
-      title: 'Bar episode',
-      description: {
-        raw: '<p>bar description</p>',
-        sanitized: '<p>bar description</p>',
-        summary: '',
-      },
       contentType: 'radio',
-      media: 'http://foo/audio/audio.mp3',
-      duration: '19:37',
-      episode: 2,
-      season: 1,
-      seriesId: 694,
+      contentUrl: '/content/3457',
+      description: {
+        raw: '<p>Series radio item</p>\r\n',
+        sanitized: '<p>Series radio item</p>',
+        summary: 'Series radio item summary',
+      },
+      duration: '45:12',
+      episode: '2',
+      episodeId: 1002,
+      id: '3457',
       image: {
         alt: '',
-        url: 'bar.img.png',
+        url: 'http://foo.bar/images/bar.jpg',
       },
-      tagsId: [648, 650],
+      media: 'http://foo.bar/audio/bar.mp3',
+      season: '1',
+      seriesId: 660,
+      tagsId: [785],
+      title: 'Radio Item 2',
       establishmentId: undefined,
-      contentUrl: '/content/2',
     },
   ];
 }
 
 function landingPageContent() {
   return {
-    id: 1,
-    categoryId: 655,
-    title: 'Landing page title',
+    id: '3456',
+    categoryId: '678',
+    title: 'Music',
     contentType: 'landing-page',
-    featuredContentId: 3602,
+    featuredContentId: '3456',
     description: {
-      raw: '<p>bar description</p>',
-      sanitized: '<p>bar description</p>',
-      summary: 'Foo bar summary',
+      raw: '<p>Landing page item</p>\r\n',
+      sanitized: '<p>Landing page item</p>',
+      summary: 'Landing page item summary',
     },
     image: {
-      url: 'http://foo.bar/image.png',
+      url: 'http://foo.bar/image/foo.jpg',
       alt: 'foo image',
     },
   };
@@ -219,11 +287,49 @@ function relatedContent() {
 
 function pdfContent() {
   return {
-    id: 1,
-    title: 'Foo pdf',
+    id: '3456',
+    title: 'Food and catering',
     contentType: 'pdf',
-    url: 'www.foo.bar/file.pdf',
-    establishmentId: 792,
-    contentUrl: '/content/1',
+    url: 'http://foo.bar/content/foo.pdf',
+    establishmentId: undefined,
+    contentUrl: '/content/3456',
+  };
+}
+
+function featuredContent() {
+  return {
+    id: '678',
+    title: 'Featured Item 1',
+    summary: 'Featured item summary',
+    image: {
+      alt: 'Featured Item 1',
+      url: 'http://foo.bar/images/foo.jpg',
+    },
+    duration: null,
+    contentType: 'series',
+    contentUrl: '/tags/678',
+  };
+}
+
+function termContent() {
+  return {
+    audio: {
+      url: 'http://foo.bar/audio/foo.mp3',
+    },
+    description: {
+      raw: '<p>Foo Term</p>\r\n',
+      sanitized: undefined,
+      summary: 'Foo Term summary',
+    },
+    id: '678',
+    image: {
+      alt: 'Foo Term',
+      url: 'http://foo.bar/term/',
+    },
+    name: 'Foo term',
+    type: 'series',
+    video: {
+      url: undefined,
+    },
   };
 }

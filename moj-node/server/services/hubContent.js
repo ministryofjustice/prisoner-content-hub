@@ -63,7 +63,7 @@ module.exports = function createHubContentService({
 
     const [featuredContent, relatedContent, categoryMenu] = await Promise.all([
       contentRepository.contentFor(featuredContentId),
-      categoryFeaturedContentRepository.hubContentFor({
+      categoryFeaturedContentRepository.contentFor({
         query: {
           _number: 8,
           _category: categoryId,

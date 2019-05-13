@@ -140,7 +140,7 @@ function flatPageContentFrom(data) {
     image: {
       alt: R.path(['image', 'alt'], data),
       url: fixUrlForProduction(
-        R.path(['image', 'alt'], data),
+        R.path(['image', 'url'], data),
         config.drupalAppUrl,
       ),
     },
@@ -191,8 +191,8 @@ function landingResponseFrom(data) {
     featuredContentId: data.featured_content_id,
     description: {
       raw: R.path(['description', 'value'], data),
-      sanitized: R.path(['description', 'sanitized'], data),
-      summary: data.summary,
+      sanitized: R.path(['description', 'processed'], data),
+      summary: R.path(['description', 'summary'], data),
     },
     image: {
       alt: R.path(['image', 'alt'], data),

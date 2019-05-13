@@ -1,9 +1,9 @@
 {
   "content_type": "page",
   "title": "foo title",
-  "id": "foo-id",
+  "id": 3456,
   "image": {
-    "alt": "What's new",
+    "alt": "foo alt",
     "url": "http://foo.image.png"
   },
   "description": {

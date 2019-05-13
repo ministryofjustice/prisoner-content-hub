@@ -1,402 +1,64 @@
-{
-  "98": {
-    "nid": [
+[
+  {
+    "episode_id": 1001,
+    "content_type": "moj_radio_item",
+    "title": "Radio Item 1",
+    "id": "3456",
+    "image": {
+      "alt": "",
+      "url": "http://foo.bar/images/foo.jpg"
+    },
+    "season": "1",
+    "episode": "1",
+    "duration": "12:34",
+    "series_id": 660,
+    "description": {
+      "value": "<p>Series radio item</p>\r\n",
+      "processed": "<p>Series radio item</p>",
+      "summary": "Series radio item summary"
+    },
+    "categories": [
       {
-        "value": 98
+        "target_id": 646
       }
     ],
-    "uuid": [
-      {
-        "value": "c63c4685-0db5-4863-9525-74cd68595aba"
-      }
-    ],
-    "vid": [
-      {
-        "value": 98
-      }
-    ],
-    "langcode": [
-      {
-        "value": "en"
-      }
-    ],
-    "type": [
-      {
-        "target_id": "moj_video_item",
-        "target_type": "node_type",
-        "target_uuid": "4096def5-bead-4574-9c09-9b5bde2f2f6f"
-      }
-    ],
-    "revision_timestamp": [
-      {
-        "value": 1474627051
-      }
-    ],
-    "revision_uid": [
-      {
-        "target_id": 1,
-        "target_type": "user",
-        "target_uuid": "8056d7e0-7e59-4e89-8bda-533ae78b2808",
-        "url": "/user/1"
-      }
-    ],
-    "revision_log": [],
-    "status": [
-      {
-        "value": true
-      }
-    ],
-    "title": [
-      {
-        "value": "Foo episode"
-      }
-    ],
-    "uid": [
-      {
-        "target_id": 1,
-        "target_type": "user",
-        "target_uuid": "8056d7e0-7e59-4e89-8bda-533ae78b2808",
-        "url": "/user/1"
-      }
-    ],
-    "created": [
-      {
-        "value": 1474626797
-      }
-    ],
-    "changed": [
-      {
-        "value": 1535468152
-      }
-    ],
-    "promote": [
-      {
-        "value": false
-      }
-    ],
-    "sticky": [
-      {
-        "value": false
-      }
-    ],
-    "default_langcode": [
-      {
-        "value": true
-      }
-    ],
-    "revision_translation_affected": [
-      {
-        "value": true
-      }
-    ],
-    "content_translation_source": [
-      {
-        "value": "und"
-      }
-    ],
-    "content_translation_outdated": [
-      {
-        "value": false
-      }
-    ],
-    "path": [
-      {
-        "alias": null,
-        "pid": null,
-        "langcode": "en"
-      }
-    ],
-    "menu_link": [],
-    "field_moj_categories": [
-      {
-        "target_id": 34
-      }
-    ],
-    "field_moj_description": [
-      {
-        "value": "<p>foo description</p>",
-        "format": "basic_html",
-        "processed": "<p>foo description</p>",
-        "summary": ""
-      }
-    ],
-    "field_moj_duration": [
-      {
-        "value": "18:41"
-      }
-    ],
-    "field_moj_episode": [
-      {
-        "value": 1
-      }
-    ],
-    "field_moj_season": [
-      {
-        "value": 1
-      }
-    ],
-    "field_moj_secondary_tags": [
-      {
-        "target_id": 744,
-        "target_type": "taxonomy_term",
-        "target_uuid": "41e2efcc-6ee5-433e-bdc9-180428cb9aa9",
-        "url": "/taxonomy/term/744"
-      },
-      {
-        "target_id": 733,
-        "target_type": "taxonomy_term",
-        "target_uuid": "79890821-1c6f-420a-a247-7341b1768d92",
-        "url": "/taxonomy/term/733"
-      }
-    ],
-    "field_moj_series": [
-      {
-        "target_id": 694,
-        "target_type": "taxonomy_term",
-        "target_uuid": "25c581de-ec5c-4011-89f9-3cef9426e58b",
-        "url": "/taxonomy/term/694"
-      }
-    ],
-    "field_moj_subtitles": [],
-    "field_moj_tags": [],
-    "field_moj_thumbnail_image": [
-      {
-        "target_id": 214,
-        "alt": "",
-        "title": "",
-        "width": 1280,
-        "height": 720,
-        "target_type": "file",
-        "target_uuid": "00fd5564-4878-4f0c-ab12-8f15ec9308d1",
-        "url": "foo.image.png"
-      }
-    ],
-    "field_moj_top_level_categories": [
-      {
-        "target_id": 648,
-        "target_type": "taxonomy_term",
-        "target_uuid": "8d9eaf09-a53e-42d9-a7be-2a2f04a0f315",
-        "url": "/taxonomy/term/648"
-      },
-      {
-        "target_id": 650,
-        "target_type": "taxonomy_term",
-        "target_uuid": "73408c5c-ec57-48e0-9036-091edc0d1e78",
-        "url": "/taxonomy/term/650"
-      }
-    ],
-    "field_moj_video": [
-      {
-        "target_id": 215,
-        "data": null,
-        "target_type": "file",
-        "target_uuid": "28986fc0-6ca5-4116-878a-6fc4bd5a02c0",
-        "url": "http://foo/video/video.mp4"
-      }
-    ],
-    "field_related_prisons": []
+    "secondary_tags": [],
+    "prisons": [],
+    "media": {
+      "url": "http://foo.bar/audio/foo.mp3"
+    }
   },
-  "100": {
-    "nid": [
+  {
+    "episode_id": 1002,
+    "content_type": "moj_radio_item",
+    "title": "Radio Item 2",
+    "id": "3457",
+    "image": {
+      "alt": "",
+      "url": "http://foo.bar/images/bar.jpg"
+    },
+    "season": "1",
+    "episode": "2",
+    "duration": "45:12",
+    "series_id": 660,
+    "description": {
+      "value": "<p>Series radio item</p>\r\n",
+      "processed": "<p>Series radio item</p>",
+      "summary": "Series radio item summary"
+    },
+    "categories": [
       {
-        "value": 2
+        "target_id": 785
       }
     ],
-    "uuid": [
+    "secondary_tags": [
       {
-        "value": "87e148a7-35ed-4f27-a9b3-a5559541c290"
+        "target_id": 761
       }
     ],
-    "vid": [
-      {
-        "value": 100
-      }
-    ],
-    "langcode": [
-      {
-        "value": "en"
-      }
-    ],
-    "type": [
-      {
-        "target_id": "moj_radio_item",
-        "target_type": "node_type",
-        "target_uuid": "4096def5-bead-4574-9c09-9b5bde2f2f6f"
-      }
-    ],
-    "revision_timestamp": [
-      {
-        "value": 1474628529
-      }
-    ],
-    "revision_uid": [
-      {
-        "target_id": 1,
-        "target_type": "user",
-        "target_uuid": "8056d7e0-7e59-4e89-8bda-533ae78b2808",
-        "url": "/user/1"
-      }
-    ],
-    "revision_log": [],
-    "status": [
-      {
-        "value": true
-      }
-    ],
-    "title": [
-      {
-        "value": "Bar episode"
-      }
-    ],
-    "uid": [
-      {
-        "target_id": 1,
-        "target_type": "user",
-        "target_uuid": "8056d7e0-7e59-4e89-8bda-533ae78b2808",
-        "url": "/user/1"
-      }
-    ],
-    "created": [
-      {
-        "value": 1474628460
-      }
-    ],
-    "changed": [
-      {
-        "value": 1535468152
-      }
-    ],
-    "promote": [
-      {
-        "value": false
-      }
-    ],
-    "sticky": [
-      {
-        "value": false
-      }
-    ],
-    "default_langcode": [
-      {
-        "value": true
-      }
-    ],
-    "revision_translation_affected": [
-      {
-        "value": true
-      }
-    ],
-    "content_translation_source": [
-      {
-        "value": "und"
-      }
-    ],
-    "content_translation_outdated": [
-      {
-        "value": false
-      }
-    ],
-    "path": [
-      {
-        "alias": null,
-        "pid": null,
-        "langcode": "en"
-      }
-    ],
-    "menu_link": [],
-    "field_moj_categories": [
-      {
-        "target_id": 34
-      }
-    ],
-    "field_moj_description": [
-      {
-        "value": "<p>bar description</p>",
-        "format": "basic_html",
-        "processed": "<p>bar description</p>",
-        "summary": ""
-      }
-    ],
-    "field_moj_duration": [
-      {
-        "value": "19:37"
-      }
-    ],
-    "field_moj_episode": [
-      {
-        "value": 2
-      }
-    ],
-    "field_moj_season": [
-      {
-        "value": 1
-      }
-    ],
-    "field_moj_secondary_tags": [
-      {
-        "target_id": 743,
-        "target_type": "taxonomy_term",
-        "target_uuid": "4c321c30-0d4c-4635-aa25-f1764e36d032",
-        "url": "/taxonomy/term/743"
-      },
-      {
-        "target_id": 733,
-        "target_type": "taxonomy_term",
-        "target_uuid": "79890821-1c6f-420a-a247-7341b1768d92",
-        "url": "/taxonomy/term/733"
-      },
-      {
-        "target_id": 744,
-        "target_type": "taxonomy_term",
-        "target_uuid": "41e2efcc-6ee5-433e-bdc9-180428cb9aa9",
-        "url": "/taxonomy/term/744"
-      }
-    ],
-    "field_moj_series": [
-      {
-        "target_id": 694,
-        "target_type": "taxonomy_term",
-        "target_uuid": "25c581de-ec5c-4011-89f9-3cef9426e58b",
-        "url": "/taxonomy/term/694"
-      }
-    ],
-    "field_moj_subtitles": [],
-    "field_moj_tags": [],
-    "field_moj_thumbnail_image": [
-      {
-        "target_id": 220,
-        "alt": "",
-        "title": "",
-        "width": 1280,
-        "height": 720,
-        "target_type": "file",
-        "target_uuid": "899e99d7-4333-466b-a395-303f397fa965",
-        "url": "bar.img.png"
-      }
-    ],
-    "field_moj_top_level_categories": [
-      {
-        "target_id": 648,
-        "target_type": "taxonomy_term",
-        "target_uuid": "8d9eaf09-a53e-42d9-a7be-2a2f04a0f315",
-        "url": "/taxonomy/term/648"
-      },
-      {
-        "target_id": 650,
-        "target_type": "taxonomy_term",
-        "target_uuid": "73408c5c-ec57-48e0-9036-091edc0d1e78",
-        "url": "/taxonomy/term/650"
-      }
-    ],
-    "field_moj_audio": [
-      {
-        "target_id": 221,
-        "data": null,
-        "target_type": "file",
-        "target_uuid": "2fd64933-6922-4302-9351-08cdd944323a",
-        "url": "http://foo/audio/audio.mp3"
-      }
-    ],
-    "field_related_prisons": []
+    "prisons": [],
+    "media": {
+      "url": "http://foo.bar/audio/bar.mp3"
+    }
   }
-}
+]
