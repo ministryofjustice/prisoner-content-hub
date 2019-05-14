@@ -1,107 +1,100 @@
 const R = require('ramda');
+const qs = require('querystring');
 
+const logger = require('../../log');
 const config = require('../config');
-const { parseHubFeaturedContentResponse } = require('../utils/index');
+const { featuredContentResponseFrom } = require('../utils/adapters');
 
 function hubFeaturedContentRepository(httpClient) {
-  async function hubContentFor(opts = { query: {} }) {
-    const response = await httpClient.get(
-      `${config.api.hubContent}/featured`,
-      opts.query,
-    );
+  async function contentFor({ categoryId, establishmentId, number = 4 } = {}) {
+    const endpoint = `${config.api.hubContent}/featured`;
+    const query = {
+      _number: number,
+      _category: categoryId,
+      _prison: establishmentId,
+    };
+
+    if (!categoryId) {
+      logger.error(`Requested ${endpoint}?${qs.stringify(query)}`);
+      return [];
+    }
+
+    const response = await httpClient.get(endpoint, query);
 
     if (!Array.isArray(response)) return [];
 
-    return R.map(parseHubFeaturedContentResponse, response);
+    return R.map(featuredContentResponseFrom, response);
   }
 
   function newsAndEvents({ establishmentId }) {
-    return hubContentFor({
-      query: {
-        _number: 4,
-        _category: 644,
-        _prison: establishmentId,
-      },
+    return contentFor({
+      number: 4,
+      categoryId: 644,
+      establishmentId,
     });
   }
 
   function dayToDay({ establishmentId }) {
-    return hubContentFor({
-      query: {
-        _number: 5,
-        _category: 787,
-        _prison: establishmentId,
-      },
+    return contentFor({
+      number: 5,
+      categoryId: 787,
+      prison: establishmentId,
     });
   }
 
   function artAndCulture({ establishmentId }) {
-    return hubContentFor({
-      query: {
-        _number: 4,
-        _category: 651,
-        _prison: establishmentId,
-      },
+    return contentFor({
+      number: 4,
+      categoryId: 651,
+      establishmentId,
     });
   }
 
   function healthyMindAndBody({ establishmentId }) {
-    return hubContentFor({
-      query: {
-        _number: 4,
-        _category: 648,
-        _prison: establishmentId,
-      },
+    return contentFor({
+      number: 4,
+      categoryId: 648,
+      establishmentId,
     });
   }
 
   function music({ establishmentId }) {
-    return hubContentFor({
-      query: {
-        _number: 4,
-        _category: 785,
-        _prison: establishmentId,
-      },
+    return contentFor({
+      number: 4,
+      categoryId: 785,
+      establishmentId,
     });
   }
 
   function inspiration({ establishmentId }) {
-    return hubContentFor({
-      query: {
-        _number: 4,
-        _category: 649,
-        _prison: establishmentId,
-      },
+    return contentFor({
+      number: 4,
+      categoryId: 649,
+      establishmentId,
     });
   }
 
   function scienceAndNature({ establishmentId }) {
-    return hubContentFor({
-      query: {
-        _number: 4,
-        _category: 650,
-        _prison: establishmentId,
-      },
+    return contentFor({
+      number: 4,
+      categoryId: 650,
+      establishmentId,
     });
   }
 
   function history({ establishmentId }) {
-    return hubContentFor({
-      query: {
-        _number: 4,
-        _category: 643,
-        _prison: establishmentId,
-      },
+    return contentFor({
+      number: 4,
+      categoryId: 643,
+      establishmentId,
     });
   }
 
   function legalAndYourRights({ establishmentId }) {
-    return hubContentFor({
-      query: {
-        _number: 4,
-        _category: 786,
-        _prison: establishmentId,
-      },
+    return contentFor({
+      number: 4,
+      categoryId: 786,
+      establishmentId,
     });
   }
 
@@ -141,7 +134,7 @@ function hubFeaturedContentRepository(httpClient) {
   }
 
   return {
-    hubContentFor,
+    contentFor,
     newsAndEvents,
     dayToDay,
     artAndCulture,

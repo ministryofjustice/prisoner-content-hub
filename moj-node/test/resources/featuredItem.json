@@ -1,0 +1,13 @@
+{
+  "id": "3456",
+  "title": "Featured Video 1",
+  "content_type": "moj_video_item",
+  "summary": "Featured video summary",
+  "featured_image": [
+    {
+      "alt": "Featured Video 1",
+      "url": "http://foo.bar/images/foo.jpg"
+    }
+  ],
+  "duration": null
+}

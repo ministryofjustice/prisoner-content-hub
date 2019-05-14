@@ -1,83 +1,119 @@
 const R = require('ramda');
+const qs = require('querystring');
 
 const config = require('../config');
 const logger = require('../../log');
-const { HUB_CONTENT_TYPES } = require('../constants/hub');
 const {
-  parseHubContentResponse,
-  fixUrlForProduction,
-} = require('../utils/index');
-
-const {
-  idFrom,
-  tagIdFrom,
-  titleFrom,
-  contentTypeFrom,
-  descriptionValueFrom,
-  descriptionProcessedFrom,
-  termDescriptionValueFrom,
-  termDescriptionProcessedFrom,
-  summaryValueFrom,
-  imageAltFrom,
-  imageUrlFrom,
-  featuredImageUrlFrom,
-  featuredImageAltFrom,
-  featuredVideoUrlFrom,
-  featuredAudioUrlFrom,
-  durationFrom,
-  audioUrlFrom,
-  videoUrlFrom,
-  seriesIdFrom,
-  episodeFrom,
-  seasonFrom,
-  standFirstFrom,
-  nameFrom,
-  landingFeaturedContentIdFrom,
-  categoryIdFrom,
-  pdfUrlFrom,
-  vocabularyType,
-  tagsIdsFrom,
-  establishmentIdFrom,
-} = require('../selectors/hub');
+  contentResponseFrom,
+  mediaResponseFrom,
+  seasonResponseFrom,
+  termResponseFrom,
+  landingResponseFrom,
+  flatPageContentFrom,
+  typeFrom,
+  pdfResponseFrom,
+} = require('../utils/adapters');
 
 module.exports = function hubContentRepository(httpClient) {
   async function contentFor(id) {
     const endpoint = `${config.api.hubContent}/${id}`;
+
     if (!id) {
-      logger.debug(`Requested ${endpoint} and got back`);
+      logger.debug(`Requested ${endpoint}`);
       return null;
     }
+
     const response = await httpClient.get(endpoint);
 
     return parseResponse(response);
   }
 
   async function termFor(id) {
-    const response = await httpClient.get(`${config.api.hubTerm}/${id}`);
-    return parseTermResponse(response);
+    const endpoint = `${config.api.hubTerm}/${id}`;
+
+    if (!id) {
+      logger.error(`Requested ${endpoint}`);
+      return null;
+    }
+
+    const response = await httpClient.get(endpoint);
+
+    return termResponseFrom(response);
   }
 
   async function menuFor(id) {
-    const response = await httpClient.get(config.api.hubMenu, {
+    const endpoint = config.api.hubMenu;
+    const query = {
       _parent: id,
       _menu: 'main',
-    });
+    };
+
+    if (!id) {
+      logger.error(`Requested ${endpoint}?${qs.stringify(query)}`);
+      return null;
+    }
+
+    const response = await httpClient.get(endpoint, query);
     return parseMenuResponse(response);
   }
 
-  async function seasonFor({ id, establishmentId, perPage = 40, offset = 0 }) {
-    const response = await httpClient.get(`${config.api.series}/${id}`, {
+  async function seasonFor({
+    id,
+    establishmentId,
+    perPage = 40,
+    offset = 0,
+  } = {}) {
+    const endpoint = `${config.api.series}/${id}`;
+    const query = {
       _number: perPage,
       _offset: offset,
       _prison: establishmentId,
-    });
+    };
 
-    return parseSeasonResponse(response);
+    if (!id) {
+      logger.error(`Requested ${endpoint}?${qs.stringify(query)}`);
+      return null;
+    }
+
+    const response = await httpClient.get(endpoint, query);
+
+    return seasonResponseFrom(response);
+  }
+
+  async function nextEpisodesFor({
+    id,
+    establishmentId,
+    perPage = 3,
+    episodeId,
+  } = {}) {
+    const endpoint = `${config.api.series}/${id}/next`;
+    const query = {
+      _number: perPage,
+      _episode_id: episodeId,
+      _prison: establishmentId,
+      _sort_order: 'ASC',
+    };
+
+    if (!id || !episodeId) {
+      logger.debug(`Requested ${endpoint}?${qs.stringify(query)}`);
+      return null;
+    }
+
+    const response = await httpClient.get(endpoint, query);
+
+    return seasonResponseFrom(response);
   }
 
   async function featuredContentFor(id) {
-    const response = await httpClient.get(`${config.api.hubContent}/${id}`);
-    return parseHubContentResponse(response);
+    const endpoint = `${config.api.hubContent}/${id}`;
+
+    if (!id) {
+      logger.debug(`Requested ${endpoint}`);
+      return null;
+    }
+
+    const response = await httpClient.get(endpoint);
+    return contentResponseFrom(response);
   }
 
   async function relatedContentFor({
@@ -86,72 +122,24 @@ module.exports = function hubContentRepository(httpClient) {
     perPage = 8,
     offset = 0,
     sortOrder = 'ASC',
-  }) {
-    const response = await httpClient.get(`${config.api.hubContent}/related`, {
+  } = {}) {
+    const endpoint = `${config.api.hubContent}/related`;
+    const query = {
       _category: id,
       _number: perPage,
       _offset: offset,
       _prison: establishmentId,
       _sort_order: sortOrder,
-    });
-
-    return parseHubContentResponse(response);
-  }
-
-  function parseTermResponse(data) {
-    if (data === null) return null;
-    return {
-      id: tagIdFrom(data),
-      type: vocabularyType(data),
-      name: nameFrom(data),
-      description: {
-        raw: termDescriptionValueFrom(data),
-        sanitized: termDescriptionProcessedFrom(data),
-      },
-      image: {
-        alt: featuredImageAltFrom(data),
-        url: fixUrlForProduction(
-          featuredImageUrlFrom(data),
-          config.drupalAppUrl,
-        ),
-      },
-      video: {
-        url: fixUrlForProduction(
-          featuredVideoUrlFrom(data),
-          config.drupalAppUrl,
-        ),
-      },
-      audio: {
-        url: fixUrlForProduction(
-          featuredAudioUrlFrom(data),
-          config.drupalAppUrl,
-        ),
-      },
     };
-  }
 
-  function parseLandingResponse(data) {
-    if (data === null) return null;
+    if (!id) {
+      logger.debug(`Requested ${endpoint}?${qs.stringify(query)}`);
+      return null;
+    }
 
-    return {
-      id: idFrom(data),
-      title: titleFrom(data),
-      contentType: typeFrom(data),
-      featuredContentId: landingFeaturedContentIdFrom(data),
-      description: {
-        raw: descriptionValueFrom(data),
-        sanitized: descriptionProcessedFrom(data),
-        summary: summaryValueFrom(data),
-      },
-      image: {
-        alt: featuredImageAltFrom(data),
-        url: fixUrlForProduction(
-          featuredImageUrlFrom(data),
-          config.drupalAppUrl,
-        ),
-      },
-      categoryId: categoryIdFrom(data),
-    };
+    const response = await httpClient.get(endpoint, query);
+
+    return contentResponseFrom(response);
   }
 
   function parseMenuResponse(data = []) {
@@ -167,111 +155,28 @@ module.exports = function hubContentRepository(httpClient) {
   function parseResponse(data) {
     if (data === null) return null;
 
-    const contentType = typeFrom(data);
+    const contentType = typeFrom(data.content_type);
 
     switch (contentType) {
       case 'video':
       case 'radio':
-        return parseMediaResponse(data);
+        return mediaResponseFrom(data);
       case 'page':
-        return parseFlatPageContent(data);
+        return flatPageContentFrom(data);
       case 'landing-page':
-        return parseLandingResponse(data);
+        return landingResponseFrom(data);
       case 'pdf':
-        return parsePDFResponse(data);
+        return pdfResponseFrom(data);
       default:
         return null;
     }
-  }
-
-  function parseMediaResponse(data) {
-    if (data === null) return null;
-
-    const contentType = typeFrom(data);
-
-    return {
-      id: idFrom(data),
-      title: titleFrom(data),
-      contentType,
-      description: {
-        raw: descriptionValueFrom(data),
-        sanitized: descriptionProcessedFrom(data),
-        summary: summaryValueFrom(data),
-      },
-      media:
-        contentType === 'radio'
-          ? fixUrlForProduction(audioUrlFrom(data), config.drupalAppUrl)
-          : fixUrlForProduction(videoUrlFrom(data), config.drupalAppUrl),
-      duration: durationFrom(data),
-      image: {
-        alt: imageAltFrom(data),
-        url: fixUrlForProduction(imageUrlFrom(data), config.drupalAppUrl),
-      },
-      episode: episodeFrom(data),
-      season: seasonFrom(data),
-      seriesId: seriesIdFrom(data),
-      tagsId: tagsIdsFrom(data),
-      establishmentId: establishmentIdFrom(data),
-      contentUrl: `/content/${idFrom(data)}`,
-    };
-  }
-
-  function parseFlatPageContent(data) {
-    if (data === null) return null;
-
-    return {
-      id: idFrom(data),
-      title: titleFrom(data),
-      contentType: typeFrom(data),
-      description: {
-        raw: descriptionValueFrom(data),
-        sanitized: descriptionProcessedFrom(data),
-        summary: summaryValueFrom(data),
-      },
-      standFirst: standFirstFrom(data),
-      image: {
-        alt: imageAltFrom(data),
-        url: fixUrlForProduction(imageUrlFrom(data), config.drupalAppUrl),
-      },
-      establishmentId: establishmentIdFrom(data),
-      contentUrl: `/content/${idFrom(data)}`,
-    };
-  }
-
-  function parsePDFResponse(data) {
-    if (data === null) return null;
-
-    return {
-      id: idFrom(data),
-      title: titleFrom(data),
-      contentType: typeFrom(data),
-      url: fixUrlForProduction(pdfUrlFrom(data)),
-      establishmentId: establishmentIdFrom(data),
-      contentUrl: `/content/${idFrom(data)}`,
-    };
-  }
-
-  function parseSeasonResponse(data) {
-    if (data === null) return null;
-
-    const transform = R.map(key => parseMediaResponse(data[key]));
-
-    const season = R.pipe(
-      R.keys,
-      transform,
-    );
-
-    return season(data);
-  }
-
-  function typeFrom(data) {
-    return HUB_CONTENT_TYPES[contentTypeFrom(data)];
   }
 
   return {
     contentFor,
     termFor,
     seasonFor,
+    nextEpisodesFor,
     featuredContentFor,
     relatedContentFor,
     menuFor,

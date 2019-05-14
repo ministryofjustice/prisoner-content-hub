@@ -1,4 +1,5 @@
 const request = require('superagent');
+const qs = require('querystring');
 const logger = require('../../log');
 const config = require('../config');
 
@@ -20,12 +21,12 @@ class HubContentClient {
       .get(endpoint)
       .query(newQuery)
       .then(res => {
-        logger.debug(`Requested ${endpoint}`, newQuery);
+        logger.debug(`Requested ${endpoint}?${qs.stringify(newQuery)}`);
 
         return res.body;
       })
       .catch(exp => {
-        logger.debug(`Requested ${endpoint} and got back`, newQuery);
+        logger.debug(`Requested ${endpoint}?${qs.stringify(newQuery)}`);
         logger.error(exp);
         return null;
       });

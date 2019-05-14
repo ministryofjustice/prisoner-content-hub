@@ -1,103 +1,77 @@
 const createHubContentService = require('../../server/services/hubContent');
 
 describe('#hubContentService', () => {
-  it('returns content for a given ID', async () => {
-    const contentRepository = {
-      contentFor: sinon
-        .stub()
-        .returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
-    };
-    const service = createHubContentService({ contentRepository });
-    const result = await service.contentFor('contentId');
+  describe('content', () => {
+    it('returns content for a given ID', async () => {
+      const contentRepository = {
+        contentFor: sinon
+          .stub()
+          .returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
+      };
+      const service = createHubContentService({ contentRepository });
+      const result = await service.contentFor('contentId');
 
-    expect(result).to.eql({ title: 'foo', href: 'www.foo.com', type: 'foo' });
-  });
-
-  it('returns radio show content', async () => {
-    const contentRepository = {
-      contentFor: sinon.stub().returns({
-        id: 1,
-        title: 'foo',
-        href: 'www.foo.com',
-        contentType: 'radio',
-        seriesId: 'seriesId',
-        tagsId: [12],
-      }),
-      termFor: sinon.stub().returns({ name: 'foo series name', id: 'foo' }),
-      seasonFor: sinon
-        .stub()
-        .returns([
-          { title: 'foo episode', id: 1 },
-          { id: 2, title: 'bar episode' },
-        ]),
-    };
-
-    const service = createHubContentService({ contentRepository });
-    const result = await service.contentFor(1);
-
-    expect(result).to.eql({
-      id: 1,
-      title: 'foo',
-      href: 'www.foo.com',
-      contentType: 'radio',
-      seriesId: 'seriesId',
-      seriesName: 'foo series name',
-      tagsId: [12],
-      season: [{ id: 2, title: 'bar episode' }], // hides the current episode from season
-      tags: [{ name: 'foo series name', id: 'foo' }],
+      expect(result).to.eql({ title: 'foo', href: 'www.foo.com', type: 'foo' });
     });
 
-    expect(contentRepository.termFor.lastCall.args[0]).to.equal(
-      'seriesId',
-      'The termFor method was called incorrectly',
-    );
-    expect(contentRepository.seasonFor.lastCall.args[0]).to.have.property(
-      'id',
-      'seriesId',
-      'The seasonFor method was called incorrectly',
-    );
-  });
+    ['radio', 'video'].forEach(contentType => {
+      it(`returns ${contentType} show content`, async () => {
+        const contentRepository = {
+          contentFor: sinon.stub().returns({
+            id: 1,
+            title: 'foo',
+            href: 'www.foo.com',
+            contentType,
+            seriesId: 'seriesId',
+            episodeId: 'episodeId',
+            tagsId: [12],
+          }),
+          termFor: sinon.stub().returns({ name: 'foo series name', id: 'foo' }),
+          nextEpisodesFor: sinon
+            .stub()
+            .returns([
+              { id: 1, title: 'foo episode' },
+              { id: 2, title: 'bar episode' },
+            ]),
+        };
 
-  it('returns video show content', async () => {
-    const contentRepository = {
-      contentFor: sinon.stub().returns({
-        id: 1,
-        title: 'foo',
-        href: 'www.foo.com',
-        contentType: 'video',
-        tagsId: [],
-        seriesId: 'seriesId',
-      }),
-      termFor: sinon.stub().returns({ name: 'foo series name' }),
-      seasonFor: sinon
-        .stub()
-        .returns([
-          { title: 'foo episode', id: 1 },
-          { id: 2, title: 'bar episode' },
-        ]),
-    };
+        const service = createHubContentService({ contentRepository });
+        const result = await service.contentFor(1);
 
-    const service = createHubContentService({ contentRepository });
-    const result = await service.contentFor(1);
+        expect(result).to.eql({
+          id: 1,
+          title: 'foo',
+          href: 'www.foo.com',
+          contentType,
+          seriesId: 'seriesId',
+          seriesName: 'foo series name',
+          episodeId: 'episodeId',
+          tagsId: [12],
+          season: [{ id: 2, title: 'bar episode' }], // hides the current episode from season
+          tags: [{ name: 'foo series name', id: 'foo' }],
+        });
 
-    expect(result).to.eql({
-      id: 1,
-      title: 'foo',
-      href: 'www.foo.com',
-      contentType: 'video',
-      seriesId: 'seriesId',
-      tagsId: [],
-      seriesName: 'foo series name',
-      season: [{ id: 2, title: 'bar episode' }], // hides the current episode from season
-      tags: [],
+        expect(contentRepository.termFor.lastCall.args[0]).to.equal(
+          'seriesId',
+          'The termFor method was called incorrectly',
+        );
+        expect(
+          contentRepository.nextEpisodesFor.lastCall.args[0],
+        ).to.have.property(
+          'id',
+          'seriesId',
+          'The nextEpisodeFor method was called incorrectly',
+        );
+
+        expect(
+          contentRepository.nextEpisodesFor.lastCall.args[0],
+        ).to.have.property(
+          'episodeId',
+          'episodeId',
+          'The nextEpisodeFor method was called incorrectly',
+        );
+      });
     });
-
-    expect(contentRepository.termFor.lastCall.args[0]).to.equal('seriesId');
-    expect(contentRepository.seasonFor.lastCall.args[0]).to.have.property(
-      'id',
-      'seriesId',
-      'The seasonFor method was called incorrectly',
-    );
   });
 
   describe('landing page', () => {
@@ -125,7 +99,7 @@ describe('#hubContentService', () => {
     });
 
     const createCategoryFeaturedContentRepository = () => ({
-      hubContentFor: sinon
+      contentFor: sinon
         .stub()
         .onFirstCall()
         .returns([content])
@@ -186,14 +160,11 @@ describe('#hubContentService', () => {
       await service.contentFor(content.id, establishmentId);
 
       expect(
-        categoryFeaturedContentRepository.hubContentFor.lastCall.lastArg,
+        categoryFeaturedContentRepository.contentFor.lastCall.lastArg,
       ).to.eql(
         {
-          query: {
-            _category: 'categoryId',
-            _number: 8,
-            _prison: establishmentId,
-          },
+          categoryId: 'categoryId',
+          establishmentId: 'establishmentId',
         },
         `the categoryId was supposed to be "${content.categoryId}"`,
       );

@@ -13,47 +13,47 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 class FeaturedContentApiClass
 {
   /**
-     * Node IDs
-     *
-     * @var array
-     */
+   * Node IDs
+   *
+   * @var array
+   */
   protected $nids = array();
   /**
-     * Nodes
-     *
-     * @var array
-     */
+   * Nodes
+   *
+   * @var array
+   */
   protected $nodes = array();
   /**
-     * Language Tag
-     *
-     * @var string
-     */
+   * Language Tag
+   *
+   * @var string
+   */
   protected $lang;
   /**
-     * Node_storage object
-     *
-     * @var Drupal\Core\Entity\EntityManagerInterface
-     */
+   * Node_storage object
+   *
+   * @var Drupal\Core\Entity\EntityManagerInterface
+   */
   protected $node_storage;
   /**
-     * Entitity Query object
-     *
-     * @var Drupal\Core\Entity\Query\QueryFactory
-     *
-     * Instance of querfactory
-     */
+   * Entitity Query object
+   *
+   * @var Drupal\Core\Entity\Query\QueryFactory
+   *
+   * Instance of querfactory
+   */
   protected $entity_query;
 
   private $berwyn_prison_id = 792;
   private $wayland_prison_id = 793;
 
   /**
-     * Class Constructor
-     *
-     * @param EntityTypeManagerInterface $entityTypeManager
-     * @param QueryFactory $entityQuery
-     */
+   * Class Constructor
+   *
+   * @param EntityTypeManagerInterface $entityTypeManager
+   * @param QueryFactory $entityQuery
+   */
   public function __construct(
     EntityTypeManagerInterface $entityTypeManager,
     QueryFactory $entityQuery
@@ -63,38 +63,32 @@ class FeaturedContentApiClass
     $this->entity_query = $entityQuery;
   }
   /**
-     * API resource function
-     *
-     * @param [string] $lang
-     * @return array
-     */
+   * API resource function
+   *
+   * @param [string] $lang
+   * @return array
+   */
   public function FeaturedContentApiEndpoint($lang, $category, $number, $prison)
   {
-    // $this->lang = $lang;
-    return self::getFeaturedContentNodeIds($category, $number, $prison);
-    // $this->nodes = self::loadNodesDetails($this->nids);
-    // $this->nodes = self::filterPrison($this->nodes, $prison);
-    // usort($this->nodes, 'self::sortByWeightDescending');
-    // return array_map('self::translateNode', $this->nodes);
-    // return array_map('self::serialize', $translatedNodes);
+    return $this->getFeaturedContentNodeIds($category, $number, $prison);
   }
   /**
-     * TranslateNode function
-     *
-     * @param NodeInterface $node
-     *
-     * @return $node
-     */
+   * TranslateNode function
+   *
+   * @param NodeInterface $node
+   *
+   * @return $node
+   */
   protected function translateNode(NodeInterface $node)
   {
     return $node->hasTranslation($this->lang) ? $node->getTranslation($this->lang) : $node;
   }
   /**
-     * Get nids
-     *
-     * @return void
-     */
-  protected function getFeaturedContentNodeIds($category, $number, $prison = 0)
+   * Get nids
+   *
+   * @return void
+   */
+  private function getFeaturedContentNodeIds($category, $number, $prison = 0)
   {
     $series = $this->promotedSeries($category, $prison);
     $nodes = $this->promotedNodes($category, $number, $prison);
@@ -105,29 +99,34 @@ class FeaturedContentApiClass
       return $b->changed->value - $a->changed->value;
     });
 
-    $decoratedResults = $this->decoratePromotedContent($results);
-
-    return array_slice($decoratedResults, 0, $number);
+    return array_slice($results, 0, $number);
   }
 
-
-
-  private function decoratePromotedContent($data)
+  private function decorateContent($node)
   {
-    return array_map(function ($item) {
-      $result = [];
-      $result['id'] = $item->nid->value ? $item->nid->value : $item->tid->value;
-      $result['title'] = $item->title->value ? $item->title->value : $item->name->value;
-      $result['type'] = $item->vid->target_id ? $item->vid->target_id : $item->type->target_id;
-      $result['summary'] = $item->field_content_summary ? $item->field_content_summary->value : $item->field_moj_description->summary;
-      $result['featured_image'] = $item->field_featured_image ? $item->field_featured_image : $item->field_moj_thumbnail_image;
-      $result['duration'] = $item->field_moj_duration->value;
-      if ($result['type'] == 'landing_page') {
-        $result['featured_image'] = $item->field_image;
-      }
+    $result = [];
+    $result['id'] = $node->nid->value;
+    $result['title'] = $node->title->value;
+    $result['content_type'] = $node->type->target_id;
+    $result['summary'] = $node->field_moj_description->summary;
+    $result['featured_image'] = $node->field_moj_thumbnail_image[0] ? $node->field_moj_thumbnail_image[0] : $node->field_image[0];
+    $result['duration'] = $node->field_moj_duration->value;
 
-      return $result;
-    }, $data);
+    return $result;
+  }
+
+  private function decorateTerm($term)
+  {
+    $result = [];
+    $result['id'] = $term->tid->value;
+    $result['title'] = $term->name->value;
+    $result['content_type'] = $term->vid->target_id;
+    $result['summary'] = $term->field_content_summary->value;
+    $result['featured_image'] = $term->field_featured_image[0];
+    $result['featured_audio'] = $term->field_featured_audio[0];
+    $result['featured_video'] = $term->field_featured_video[0];
+
+    return $result;
   }
 
   private function extractSeriesIdsFrom($nodes)
@@ -140,7 +139,6 @@ class FeaturedContentApiClass
     return $seriesIds;
   }
 
-
   private function promotedSeries($category, $prison)
   {
     $nids = $this->allNodes($category);
@@ -149,7 +147,6 @@ class FeaturedContentApiClass
 
     return $this->promotedTerms(array_unique($series), $prison);
   }
-
 
   private function promotedNodes($category, $number, $prison)
   {
@@ -180,7 +177,9 @@ class FeaturedContentApiClass
     $results->range(0, $number);
     $nodes = $results->execute();
 
-    return $this->loadNodesDetails($nodes);
+    $promotedContent = $this->loadNodesDetails($nodes);
+
+    return array_map(array($this, 'decorateContent'), $promotedContent);
   }
 
   private function allNodes($category)
@@ -213,16 +212,16 @@ class FeaturedContentApiClass
       return $b->changed->value - $a->changed->value;
     });
 
-    return $promotedTerms;
+    return array_map(array($this, 'decorateTerm'), $promotedTerms);
   }
 
 
   /**
-     * Load full node details
-     *
-     * @param array $nids
-     * @return array
-     */
+   * Load full node details
+   *
+   * @param array $nids
+   * @return array
+   */
   protected function loadNodesDetails(array $nids)
   {
     return array_filter(
@@ -245,19 +244,19 @@ class FeaturedContentApiClass
     );
   }
   /**
-     * sortByWeight
-     *
-     */
+   * sortByWeight
+   *
+   */
   protected function sortByWeightDescending($a, $b)
   {
     return (int)$a->field_moj_weight->value > (int)$b->field_moj_weight->value;
   }
   /**
-     * Sanitise node
-     *
-     * @param [type] $item
-     * @return void
-     */
+   * Sanitise node
+   *
+   * @param [type] $item
+   * @return void
+   */
   protected function serialize($item)
   {
     $serializer = \Drupal::service($item->getType() . '.serializer.default'); // TODO: Inject dependency

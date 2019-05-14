@@ -1,31 +1,50 @@
 const hubCategoryFeaturedContentRepository = require('../../server/repositories/categoryFeaturedContent');
 
 describe('hubCategoryFeaturedContentRepository', () => {
-  describe('#hubContentFor', () => {
+  describe('#contentFor', () => {
+    it('returns empty if no categoryId is passed', async () => {
+      const client = generateFeatureContentClient([
+        { contentType: 'moj_radio_item' },
+      ]);
+      const repository = hubCategoryFeaturedContentRepository(client);
+      const result = await repository.contentFor();
+
+      expect(client.get.callCount).to.equal(0);
+      expect(result).to.eql([]);
+    });
+
     describe('When content is returned from the endpoint', () => {
       it('returns a featured content', async () => {
-        const repository = hubCategoryFeaturedContentRepository(
-          generateFeatureContentClient(),
-        );
+        const client = generateFeatureContentClient([
+          { contentType: 'moj_radio_item' },
+        ]);
+        const repository = hubCategoryFeaturedContentRepository(client);
 
-        const expected = [
-          {
-            id: '1',
-            title: 'foo title',
-            contentType: 'radio',
-            summary: 'foo summary',
-            image: {
-              alt: 'Foo image alt text',
-              url: 'http://foo.bar/image.png',
-            },
-            duration: '40:00',
-            contentUrl: '/content/1',
-          },
+        const expectedKeys = [
+          'id',
+          'title',
+          'contentType',
+          'summary',
+          'image',
+          'duration',
+          'contentUrl',
         ];
 
-        const content = await repository.hubContentFor(1);
+        const result = await repository.contentFor({
+          categoryId: 'fooCategoryId',
+        });
 
-        expect(content).to.eql(expected);
+        const requestQueryString = JSON.stringify(client.get.lastCall.args[1]);
+
+        expect(requestQueryString).to.include('fooCategoryId');
+
+        expect(result.length).to.equal(1);
+
+        const keys = Object.keys(result[0]);
+
+        expectedKeys.forEach(key => {
+          expect(keys).to.include(key);
+        });
       });
     });
 
@@ -34,7 +53,7 @@ describe('hubCategoryFeaturedContentRepository', () => {
         const repository = hubCategoryFeaturedContentRepository(
           generateNoDataResponse(),
         );
-        const content = await repository.hubContentFor(1);
+        const content = await repository.contentFor(1);
 
         expect(content).to.eql([]);
       });
@@ -42,23 +61,9 @@ describe('hubCategoryFeaturedContentRepository', () => {
   });
 });
 
-function generateFeatureContentClient() {
+function generateFeatureContentClient(data) {
   const httpClient = {
-    get: sinon.stub().returns([
-      {
-        id: '1',
-        title: 'foo title',
-        summary: 'foo summary',
-        featured_image: [
-          {
-            alt: 'Foo image alt text',
-            url: 'http://foo.bar/image.png',
-          },
-        ],
-        duration: '40:00',
-        type: 'moj_radio_item',
-      },
-    ]),
+    get: sinon.stub().returns(data),
   };
 
   return httpClient;
@@ -66,9 +71,7 @@ function generateFeatureContentClient() {
 
 function generateNoDataResponse() {
   const httpClient = {
-    get: sinon.stub().returns({
-      message: 'No featured content found',
-    }),
+    get: sinon.stub().returns([]),
   };
 
   return httpClient;

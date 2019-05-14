@@ -1,147 +1,19 @@
 {
-  "nid": [
-    {
-      "value": 1
-    }
-  ],
-  "uuid": [
-    {
-      "value": "b3e1d020-1a95-4a3e-86d3-d020ebe93cab"
-    }
-  ],
-  "vid": [
-    {
-      "value": 1
-    }
-  ],
-  "langcode": [
-    {
-      "value": "en"
-    }
-  ],
-  "type": [
-    {
-      "target_id": "landing_page",
-      "target_type": "node_type",
-      "target_uuid": "a7cafddb-e4df-48e3-bb51-29fc9e566c33"
-    }
-  ],
-  "revision_timestamp": [
-    {
-      "value": 1538558990
-    }
-  ],
-  "revision_uid": [
-    {
-      "target_id": 201,
-      "target_type": "user",
-      "target_uuid": "2fd770cc-fb00-428b-8f8b-b73edd219ab3",
-      "url": "/user/201"
-    }
-  ],
-  "revision_log": [],
-  "status": [
-    {
-      "value": true
-    }
-  ],
-  "title": [
-    {
-      "value": "Landing page title"
-    }
-  ],
-  "uid": [
-    {
-      "target_id": 201,
-      "target_type": "user",
-      "target_uuid": "2fd770cc-fb00-428b-8f8b-b73edd219ab3",
-      "url": "/user/201"
-    }
-  ],
-  "created": [
-    {
-      "value": 1538558932
-    }
-  ],
-  "changed": [
-    {
-      "value": 1538558990
-    }
-  ],
-  "promote": [
-    {
-      "value": false
-    }
-  ],
-  "sticky": [
-    {
-      "value": false
-    }
-  ],
-  "default_langcode": [
-    {
-      "value": true
-    }
-  ],
-  "revision_translation_affected": [
-    {
-      "value": true
-    }
-  ],
-  "content_translation_source": [
-    {
-      "value": "und"
-    }
-  ],
-  "content_translation_outdated": [
-    {
-      "value": false
-    }
-  ],
-  "path": [
-    {
-      "alias": null,
-      "pid": null,
-      "langcode": "en"
-    }
-  ],
-  "menu_link": [],
-  "field_moj_description": [
-    {
-      "value": "<p>bar description</p>",
-      "format": "basic_html",
-      "processed": "<p>bar description</p>",
-      "summary": "Foo bar summary"
-    }
-  ],
-  "field_moj_secondary_tags": [],
-  "field_moj_series": [],
-  "field_moj_landing_page_term": [
-    {
-      "target_id": 655,
-      "target_type": "taxonomy_term",
-      "target_uuid": "afd2ad8c-4ece-4a66-bd9f-c2673c69c589",
-      "url": "/taxonomy/term/655"
-    }
-  ],
-  "field_moj_landing_feature_contet": [
-    {
-      "target_id": 3602,
-      "target_type": "node",
-      "target_uuid": "decf2e6a-30b3-4df7-83cc-0c0fc76e9466",
-      "url": "/node/3602"
-    }
-  ],
-  "field_featured_image": [
-    {
-      "target_id": 10343,
-      "alt": "foo image",
-      "title": "",
-      "width": 633,
-      "height": 330,
-      "target_type": "file",
-      "target_uuid": "622ae2ea-1a72-4bf4-a1c4-96907dfb8331",
-      "url": "http://foo.bar/image.png"
-    }
-  ]
+  "content_type": "landing_page",
+  "title": "Music",
+  "id": "3456",
+  "image": {
+    "url": "http://foo.bar/image/foo.jpg",
+    "alt": "foo image"
+  },
+  "description": {
+    "value": "<p>Landing page item</p>\r\n",
+    "processed": "<p>Landing page item</p>",
+    "summary": "Landing page item summary"
+  },
+  "categories": null,
+  "secondary_tags": null,
+  "prisons": [],
+  "featured_content_id": "3456",
+  "category_id": "678"
 }

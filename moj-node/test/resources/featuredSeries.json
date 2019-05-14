@@ -1,0 +1,13 @@
+{
+  "id": "678",
+  "title": "Featured Item 1",
+  "content_type": "series",
+  "summary": "Featured item summary",
+  "featured_image": [
+    {
+      "alt": "Featured Item 1",
+      "url": "http://foo.bar/images/foo.jpg"
+    }
+  ],
+  "duration": null
+}

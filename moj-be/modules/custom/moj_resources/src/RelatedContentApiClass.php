@@ -66,10 +66,11 @@ class RelatedContentApiClass
   public function RelatedContentApiEndpoint($lang, $category, $number, $offset, $prison, $sort_order = 'ASC')
   {
     $this->lang = $lang;
-    $this->nids = self::getRelatedContentNodeIds($category, $number, $offset, $prison, $sort_order);
-    $this->nodes = self::loadNodesDetails($this->nids);
-    // usort($this->nodes, 'self::sortByWeightDescending');
-    return array_map('self::translateNode', $this->nodes);
+    $nids = $this->getRelatedContentNodeIds($category, $number, $offset, $prison, $sort_order);
+    $nodes = $this->loadNodesDetails($nids);
+    $content = array_map([$this, 'translateNode'], $nodes);
+    
+    return array_map([$this, 'decorateContent'], array_values($content));
   }
   /**
    * TranslateNode function
@@ -78,7 +79,7 @@ class RelatedContentApiClass
    *
    * @return $node
    */
-  protected function translateNode(NodeInterface $node)
+  private function translateNode(NodeInterface $node)
   {
     return $node->hasTranslation($this->lang) ? $node->getTranslation($this->lang) : $node;
   }
@@ -87,7 +88,7 @@ class RelatedContentApiClass
    *
    * @return void
    */
-  protected function getRelatedContentNodeIds($category, $number, $offset, $prison, $sort_order = 'ASC')
+  private function getRelatedContentNodeIds($category, $number, $offset, $prison, $sort_order = 'ASC')
   {
     $berwyn_prison_id = 792;
     $wayland_prison_id = 793;
@@ -124,18 +125,40 @@ class RelatedContentApiClass
       $results->condition($wayland);
     }
 
-    return $results
+    $relatedContent = $results
       ->sort('nid', $sort_order)
       ->range($offset, $number)
       ->execute();
+
+    return $relatedContent;
   }
+
+  /**
+   * decorateContent
+   *
+   * @param Node $node
+   * @return array
+   */
+  private function decorateContent($node)
+  {
+    $result = [];
+    $result['id'] = $node->nid->value;
+    $result['title'] = $node->title->value;
+    $result['content_type'] = $node->type->target_id;
+    $result['summary'] = $node->field_moj_description->summary;
+    $result['featured_image'] = $node->field_moj_thumbnail_image[0] ? $node->field_moj_thumbnail_image[0] : $node->field_image[0];
+    $result['duration'] = $node->field_moj_duration->value;
+
+    return $result;
+  }
+
   /**
    * Load full node details
    *
    * @param array $nids
    * @return array
    */
-  protected function loadNodesDetails(array $nids)
+  private function loadNodesDetails(array $nids)
   {
     return array_filter(
       $this->node_storage->loadMultiple($nids),
@@ -143,13 +166,5 @@ class RelatedContentApiClass
         return $item->access();
       }
     );
-  }
-  /**
-   * sortByWeight
-   *
-   */
-  protected function sortByWeightDescending($a, $b)
-  {
-    return (int)$a->field_moj_weight->value > (int)$b->field_moj_weight->value;
   }
 }

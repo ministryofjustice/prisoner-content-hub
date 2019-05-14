@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\\moj_resources\Plugin\rest\resource\SeriesContentResource.
+ * Contains Drupal\\moj_resources\Plugin\rest\resource\SeriesNextEpisodeResource.
  */
 
 namespace Drupal\moj_resources\Plugin\rest\resource;
@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @SWG\Get(
- *     path="/api/content/series/{id}",
+ *     path="/api/content/series/{id}/next",
  *     tags={"Content"},
  *     @SWG\Parameter(
  *          name="_format",
@@ -55,18 +55,18 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 
 /**
- * Provides a Series Content Resource
+ * Provides a Series Next Episode Resource
  *
  * @RestResource(
- *   id = "series_content_resource",
- *   label = @Translation("Series Content resource"),
+ *   id = "series_next_episode_resource",
+ *   label = @Translation("Series Next Episode resource"),
  *   uri_paths = {
- *     "canonical" = "/v1/api/content/series/{id}"
+ *     "canonical" = "/v1/api/content/series/{id}/next"
  *   }
  * )
  */
 
-class SeriesContentResource extends ResourceBase
+class SeriesNextEpisodeResource extends ResourceBase
 {
   protected $seriesContentApiController;
 
@@ -76,7 +76,7 @@ class SeriesContentResource extends ResourceBase
 
   protected $languageManager;
 
-  protected $parameter_category;
+  protected $paramater_category;
 
   protected $parameter_language_tag;
 
@@ -95,18 +95,15 @@ class SeriesContentResource extends ResourceBase
     $this->seriesContentApiClass = $SeriesContentApiClass;
     $this->currentRequest = $currentRequest;
     $this->languageManager = $languageManager;
-    $this->availableLangs = $this->languageManager->getLanguages();
-    //$this->parameter_category = self::setCategory();
+    $this->availableLangs = $this->languageManager->getLanguages();    
     $this->parameter_number_results = self::setNumberOfResults();
     $this->parameter_language_tag = self::setLanguage();
-    $this->parameter_offset = self::setOffsetOfResults();
+    $this->parameter_episode_id = self::setEpisodeId();
     $this->parameter_prison = self::setPrison();
     $this->parameter_sort_order = self::setSortOrder();
 
-
-    self::checklanguageParameterIsValid();
-    self::checkNumberOfResultsIsNumeric();
-    // self::checkCatgeoryIsNumeric();
+    self::checkLanguageParameterIsValid();
+    self::checkNumberOfResultsIsNumeric();    
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
   }
 
@@ -130,23 +127,21 @@ class SeriesContentResource extends ResourceBase
 
   public function get()
   {
-    $seriesContent = $this->seriesContentApiClass->SeriesContentApiEndpoint(
+    $seriesContent = $this->seriesContentApiClass->SeriesNextEpisodeApiEndpoint(
       $this->parameter_language_tag,
       $this->currentRequest->get('id'),
       $this->parameter_number_results,
-      $this->parameter_offset,
+      $this->parameter_episode_id,
       $this->parameter_prison,
       $this->parameter_sort_order
     );
-    if (!empty($seriesContent)) {
-      $response = new ResourceResponse($seriesContent);
-      $response->addCacheableDependency($seriesContent);
-      return $response;
-    }
-    throw new NotFoundHttpException(t('No series content found'));
+
+    $response = new ResourceResponse($seriesContent);
+    $response->addCacheableDependency($seriesContent);
+    return $response;
   }
 
-  protected function checklanguageParameterIsValid()
+  protected function checkLanguageParameterIsValid()
   {
     foreach ($this->availableLangs as $lang) {
       if ($lang->getid() === $this->parameter_language_tag) {
@@ -160,9 +155,9 @@ class SeriesContentResource extends ResourceBase
     );
   }
 
-  protected function checkCatgeoryIsNumeric()
+  protected function checkCategoryIsNumeric()
   {
-    if (is_numeric($this->parameter_category)) {
+    if (is_numeric($this->paramater_category)) {
       return true;
     }
     throw new NotFoundHttpException(
@@ -195,9 +190,9 @@ class SeriesContentResource extends ResourceBase
     return is_null($this->currentRequest->get('_number')) ? 0 : $this->currentRequest->get('_number');
   }
 
-  protected function setOffsetOfResults()
+  protected function setEpisodeId()
   {
-    return is_null($this->currentRequest->get('_offset')) ? 0 : $this->currentRequest->get('_offset');
+    return is_null($this->currentRequest->get('_episode_id')) ? 0 : $this->currentRequest->get('_episode_id');
   }
 
   protected function setPrison()

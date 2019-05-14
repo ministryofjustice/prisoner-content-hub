@@ -29,6 +29,7 @@ module.exports = function createHubContentService({
   async function media(establishmentId, data) {
     const id = prop('id', data);
     const seriesId = prop('seriesId', data);
+    const episodeId = prop('episodeId', data);
     const tagsId = prop('tagsId', data);
     const filterOutCurrentEpisode = filter(item =>
       not(equals(prop('id', item), id)),
@@ -37,11 +38,11 @@ module.exports = function createHubContentService({
 
     const [series, seasons] = await Promise.all([
       contentRepository.termFor(seriesId),
-      contentRepository.seasonFor({
+      contentRepository.nextEpisodesFor({
         id: seriesId,
         establishmentId,
-        perPage: 30,
-        offset: 0,
+        perPage: 3,
+        episodeId,
       }),
     ]);
 
@@ -59,14 +60,15 @@ module.exports = function createHubContentService({
     const featuredContentId = prop('featuredContentId', data);
     const categoryId = prop('categoryId', data);
 
-    const [featuredContent, relatedContent, categoryMenu] = await Promise.all([
+    const [
+      featuredContent,
+      categoryFeaturedContent,
+      categoryMenu,
+    ] = await Promise.all([
       contentRepository.contentFor(featuredContentId),
-      categoryFeaturedContentRepository.hubContentFor({
-        query: {
-          _number: 8,
-          _category: categoryId,
-          _prison: establishmentId,
-        },
+      categoryFeaturedContentRepository.contentFor({
+        categoryId,
+        establishmentId,
       }),
       menuRepository.categoryMenu({
         categoryId,
@@ -77,7 +79,7 @@ module.exports = function createHubContentService({
     return {
       ...data,
       featuredContent,
-      relatedContent: { contentType: 'default', data: relatedContent },
+      relatedContent: { contentType: 'default', data: categoryFeaturedContent },
       categoryMenu,
     };
   }
