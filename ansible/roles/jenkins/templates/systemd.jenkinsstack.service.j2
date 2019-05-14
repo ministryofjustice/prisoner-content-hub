@@ -3,10 +3,13 @@ Description="Jenkins stack managed by docker-compose"
 After=docker.service
 Requires=docker.service
 
+# Note that we've put a timeout of 10 minutes in below against the docker pull as
+# it's been seen to hang indefinitely in the past, preventing Jenkins from starting.
+
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStartPre=/usr/bin/docker pull {{ docker_image }}
+ExecStartPre=/usr/bin/timeout 10m /usr/bin/docker pull {{ docker_image }}
 ExecStart=/usr/bin/docker stack deploy -c /opt/docker/jenkins-stack.yml jenkins
 ExecStop=/usr/bin/docker stack rm jenkins
 ExecStopPost=/bin/sleep 10
