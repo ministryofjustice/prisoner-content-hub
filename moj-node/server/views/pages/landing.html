@@ -45,18 +45,20 @@
   }}
 {% endblock %}
 
-{% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-      <h3 class="govuk-heading-m govuk-hub-related-content__title">Featured</h3>
+{% block content %}  
+  {% if data.relatedContent.data | length %}
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <h3 class="govuk-heading-m govuk-hub-related-content__title">Featured</h3>
+      </div>
     </div>
-  </div>
 
-  {{ hubRelatedContent({
-    id: data.categoryId,
-    data: data.relatedContent,
-    lazyLoadContent: false
-  }) }}
+    {{ hubRelatedContent({
+      id: data.categoryId,
+      data: data.relatedContent,
+      lazyLoadContent: false
+    }) }}
+  {% endif %}
 {% endblock %}
 
 

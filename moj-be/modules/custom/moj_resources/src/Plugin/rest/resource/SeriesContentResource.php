@@ -76,11 +76,11 @@ class SeriesContentResource extends ResourceBase
 
   protected $languageManager;
 
-  protected $paramater_category;
+  protected $parameter_category;
 
-  protected $paramater_language_tag;
+  protected $parameter_language_tag;
 
-  protected $paramater_number_results;
+  protected $parameter_number_results;
 
   public function __construct(
     array $configuration,
@@ -96,11 +96,13 @@ class SeriesContentResource extends ResourceBase
     $this->currentRequest = $currentRequest;
     $this->languageManager = $languageManager;
     $this->availableLangs = $this->languageManager->getLanguages();
-    //$this->paramater_category = self::setCategory();
-    $this->paramater_number_results = self::setNumberOfResults();
-    $this->paramater_language_tag = self::setLanguage();
-    $this->paramater_offset = self::setOffsetOfResults();
-    $this->paramater_prison = self::setPrison();
+    //$this->parameter_category = self::setCategory();
+    $this->parameter_number_results = self::setNumberOfResults();
+    $this->parameter_language_tag = self::setLanguage();
+    $this->parameter_offset = self::setOffsetOfResults();
+    $this->parameter_prison = self::setPrison();
+    $this->parameter_sort_order = self::setSortOrder();
+
 
     self::checklanguageParameterIsValid();
     self::checkNumberOfResultsIsNumeric();
@@ -129,11 +131,12 @@ class SeriesContentResource extends ResourceBase
   public function get()
   {
     $seriesContent = $this->seriesContentApiClass->SeriesContentApiEndpoint(
-      $this->paramater_language_tag,
+      $this->parameter_language_tag,
       $this->currentRequest->get('id'),
-      $this->paramater_number_results,
-      $this->paramater_offset,
-      $this->paramater_prison
+      $this->parameter_number_results,
+      $this->parameter_offset,
+      $this->parameter_prison,
+      $this->parameter_sort_order
     );
     if (!empty($seriesContent)) {
       $response = new ResourceResponse($seriesContent);
@@ -146,7 +149,7 @@ class SeriesContentResource extends ResourceBase
   protected function checklanguageParameterIsValid()
   {
     foreach ($this->availableLangs as $lang) {
-      if ($lang->getid() === $this->paramater_language_tag) {
+      if ($lang->getid() === $this->parameter_language_tag) {
         return true;
       }
     }
@@ -159,7 +162,7 @@ class SeriesContentResource extends ResourceBase
 
   protected function checkCatgeoryIsNumeric()
   {
-    if (is_numeric($this->paramater_category)) {
+    if (is_numeric($this->parameter_category)) {
       return true;
     }
     throw new NotFoundHttpException(
@@ -171,7 +174,7 @@ class SeriesContentResource extends ResourceBase
 
   protected function checkNumberOfResultsIsNumeric()
   {
-    if (is_numeric($this->paramater_number_results)) {
+    if (is_numeric($this->parameter_number_results)) {
       return true;
     }
     throw new NotFoundHttpException(
@@ -200,5 +203,10 @@ class SeriesContentResource extends ResourceBase
   protected function setPrison()
   {
     return is_null($this->currentRequest->get('_prison')) ? 0 : $this->currentRequest->get('_prison');
+  }
+
+  protected function setSortOrder()
+  {
+    return is_null($this->currentRequest->get('_sort_order')) ? 'DESC' : $this->currentRequest->get('_sort_order');
   }
 }

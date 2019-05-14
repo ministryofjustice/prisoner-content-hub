@@ -7,10 +7,10 @@ const config = require('../config');
 const { featuredContentResponseFrom } = require('../utils/adapters');
 
 function hubCategoryFeaturedContentRepository(httpClient) {
-  async function contentFor({ categoryId, establishmentId } = {}) {
+  async function contentFor({ categoryId, establishmentId, number = 8 } = {}) {
     const endpoint = `${config.api.hubCategory}/featured`;
     const query = {
-      _number: 8,
+      _number: number,
       _category: categoryId,
       _prison: establishmentId,
     };

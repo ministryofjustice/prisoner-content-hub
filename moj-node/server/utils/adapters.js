@@ -4,17 +4,6 @@ const config = require('../config');
 const { HUB_CONTENT_TYPES } = require('../constants/hub');
 const { fixUrlForProduction } = require('./index');
 
-const {
-  idFrom,
-  titleFrom,
-  contentTypeFrom,
-  summaryValueFrom,
-  imageAltFrom,
-  imageUrlFrom,
-  durationFrom,
-  establishmentIdFrom,
-} = require('../selectors/hub');
-
 const defaultThumbs = type => {
   const thumbs = {
     moj_radio_item: '/public/images/default_audio.png',
@@ -36,6 +25,18 @@ const defaultAlt = type => {
   return alt[type] || alt.page;
 };
 
+function imageOrDefaultFor(image, contentType) {
+  return image
+    ? {
+        url: fixUrlForProduction(image.url, config.drupalAppUrl),
+        alt: image.alt,
+      }
+    : {
+        url: defaultThumbs(contentType),
+        alt: defaultAlt(contentType),
+      };
+}
+
 function featuredContentResponseFrom(response) {
   const type = R.prop('type', response);
   const id = R.prop('id', response);
@@ -43,53 +44,30 @@ function featuredContentResponseFrom(response) {
     type === 'series' || type === 'tags' ? `/tags/${id}` : `/content/${id}`;
 
   const imageObj = R.view(R.lensPath(['featured_image', 0]), response);
-  const image = imageObj
-    ? {
-        url: fixUrlForProduction(R.prop('url', imageObj), config.drupalAppUrl),
-        alt: R.prop('alt', imageObj),
-      }
-    : {
-        url: defaultThumbs(type),
-        alt: defaultAlt(type),
-      };
 
   return {
     id,
     title: response.title,
     contentType: HUB_CONTENT_TYPES[type],
     summary: response.summary,
-    image,
+    image: imageOrDefaultFor(imageObj, type),
     contentUrl,
     duration: response.duration,
   };
 }
 
 function contentResponseFrom(data) {
-  if (!data) return {};
+  if (!data) return [];
 
-  return Object.keys(data).map(key => {
-    const image = imageUrlFrom(data[key])
-      ? {
-          url: fixUrlForProduction(
-            imageUrlFrom(data[key]),
-            config.drupalAppUrl,
-          ),
-          alt: imageAltFrom(data[key]),
-        }
-      : {
-          url: defaultThumbs(contentTypeFrom(data[key])),
-          alt: defaultAlt(contentTypeFrom(data[key])),
-        };
-
+  return data.map(item => {
     return {
-      id: idFrom(data[key]),
-      title: titleFrom(data[key]),
-      contentType: HUB_CONTENT_TYPES[contentTypeFrom(data[key])],
-      summary: summaryValueFrom(data[key]),
-      image,
-      duration: durationFrom(data[key]),
-      establishmentId: establishmentIdFrom(data[key]),
-      contentUrl: `/content/${idFrom(data[key])}`,
+      id: item.id,
+      title: item.title,
+      contentType: HUB_CONTENT_TYPES[item.content_type],
+      summary: item.summary,
+      image: imageOrDefaultFor(item.featured_image),
+      duration: item.duration,
+      contentUrl: `/content/${item.id}`,
     };
   });
 }
@@ -110,13 +88,7 @@ function mediaResponseFrom(data) {
       config.drupalAppUrl,
     ),
     duration: data.duration,
-    image: {
-      alt: R.path(['image', 'alt'], data),
-      url: fixUrlForProduction(
-        R.path(['image', 'url'], data),
-        config.drupalAppUrl,
-      ),
-    },
+    image: imageOrDefaultFor(data.image),
     episode: data.episode,
     season: data.season,
     seriesId: data.series_id,
@@ -137,13 +109,7 @@ function flatPageContentFrom(data) {
       summary: R.path(['description', 'summary'], data),
     },
     standFirst: data.stand_first,
-    image: {
-      alt: R.path(['image', 'alt'], data),
-      url: fixUrlForProduction(
-        R.path(['image', 'url'], data),
-        config.drupalAppUrl,
-      ),
-    },
+    image: imageOrDefaultFor(data.image),
     establishmentId: R.view(R.lensPath(['prisons', 0, 'target_id']))(data),
     contentUrl: `/content/${data.id}`,
   };
@@ -159,13 +125,7 @@ function termResponseFrom(data) {
       sanitized: R.path(['description', 'sanitized'], data),
       summary: data.summary,
     },
-    image: {
-      alt: R.path(['image', 'alt'], data),
-      url: fixUrlForProduction(
-        R.path(['image', 'url'], data),
-        config.drupalAppUrl,
-      ),
-    },
+    image: imageOrDefaultFor(data.image),
     video: {
       url: fixUrlForProduction(
         R.path(['video', 'url'], data),
@@ -194,13 +154,7 @@ function landingResponseFrom(data) {
       sanitized: R.path(['description', 'processed'], data),
       summary: R.path(['description', 'summary'], data),
     },
-    image: {
-      alt: R.path(['image', 'alt'], data),
-      url: fixUrlForProduction(
-        R.path(['image', 'url'], data),
-        config.drupalAppUrl,
-      ),
-    },
+    image: imageOrDefaultFor(data.image),
     categoryId: data.category_id,
   };
 }
@@ -223,6 +177,7 @@ function typeFrom(type) {
 }
 
 function seasonResponseFrom(data) {
+  if (!data) return [];
   return R.map(mediaResponseFrom, data);
 }
 

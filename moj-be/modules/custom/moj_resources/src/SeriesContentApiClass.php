@@ -68,14 +68,14 @@ class SeriesContentApiClass
    * @param [string] $lang
    * @return array
    */
-  public function SeriesContentApiEndpoint($lang, $series_id, $number, $offset, $prison)
+  public function SeriesContentApiEndpoint($lang, $series_id, $number, $offset, $prison, $sort_order)
   {
     $this->lang = $lang;
     $this->nids = $this->getSeriesContentNodeIds($series_id, $number, $offset, $prison);
     $this->nodes = $this->loadNodesDetails($this->nids);
 
     $series = $this->decorateSeries($this->nodes);
-    $series = $this->sortSeries($series);
+    $series = $this->sortSeries($series, $sort_order);
 
     return $series;
   }
@@ -85,14 +85,14 @@ class SeriesContentApiClass
    * @param [string] $lang
    * @return array
    */
-  public function SeriesNextEpisodeApiEndpoint($lang, $series_id, $number, $episode_id, $prison)
+  public function SeriesNextEpisodeApiEndpoint($lang, $series_id, $number, $episode_id, $prison, $sort_order)
   {
     $this->lang = $lang;
     $this->nids = $this->getSeriesContentNodeIds($series_id, null, null, $prison);
     $this->nodes = $this->loadNodesDetails($this->nids);
 
     $series = $this->decorateSeries($this->nodes);
-    $series = $this->sortSeries($series);
+    $series = $this->sortSeries($series, $sort_order);
     $series = $this->getNextEpisodes($episode_id, $series, $number);
 
     return $series;
@@ -136,10 +136,14 @@ class SeriesContentApiClass
    * sortSeries
    *
    */
-  private function sortSeries($series)
+  private function sortSeries($series, $sort_order)
   {
     usort($series, function($a, $b) {
-      return $a["episode_id"] - $b["episode_id"];
+      if ($sort_order == 'ASC') {
+        return $a["episode_id"] - $b["episode_id"];
+      }
+
+      return $b["episode_id"] - $a["episode_id"];
     });
     return $series;
   }

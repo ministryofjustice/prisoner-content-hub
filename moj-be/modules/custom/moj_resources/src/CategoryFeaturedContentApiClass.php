@@ -107,14 +107,11 @@ class CategoryFeaturedContentApiClass
     $result = [];
     $result['id'] = $node->nid->value;
     $result['title'] = $node->title->value;
-    $result['type'] = $node->vid->target_id;
-    $result['summary'] = $node->field_content_summary;
-    $result['featured_image'] = $node->field_featured_image;
+    $result['content_type'] = $node->type->target_id;
+    $result['summary'] = $node->field_moj_description->summary;
+    $result['featured_image'] = $node->field_moj_thumbnail_image[0] ? $node->field_moj_thumbnail_image[0] : $node->field_image[0];
     $result['duration'] = $node->field_moj_duration->value;
-    if ($result['type'] == 'landing_page') {
-      $result['featured_image'] = $node->field_image;
-    }
-
+    
     return $result;
   }
 
@@ -122,14 +119,14 @@ class CategoryFeaturedContentApiClass
   {
     $result = [];
     $result['id'] = $term->tid->value;
-    $result['title'] = $term->title->value;
-    $result['type'] = $term->type->target_id;
-    $result['summary'] = $term->field_moj_description->summary;
-    $result['featured_image'] = $term->field_moj_thumbnail_image;
-    $result['duration'] = $term->field_moj_duration->value;
-    if ($result['type'] == 'landing_page') {
-      $result['featured_image'] = $term->field_image;
-    }
+    $result['title'] = $term->name->value;
+    $result['content_type'] = $term->vid->target_id;
+    $result['summary'] = $term->field_content_summary->value;
+    $result['featured_image'] = $term->field_featured_image[0];
+    $result['featured_audio'] = $term->field_featured_audio[0];
+    $result['featured_video'] = $term->field_featured_video[0];
+
+    return $result;
   }
 
   private function extractSeriesIdsFrom($nodes)
@@ -182,7 +179,7 @@ class CategoryFeaturedContentApiClass
 
     $promotedContent = $this->loadNodesDetails($nodes);
 
-    return array_map('decorateContent', $promotedContent);
+    return array_map(array($this, 'decorateContent'), $promotedContent);
   }
 
   private function allNodes($category)
@@ -215,7 +212,7 @@ class CategoryFeaturedContentApiClass
       return $b->changed->value - $a->changed->value;
     });
 
-    return array_map('decorateTerm', $promotedTerms);
+    return array_map(array($this, 'decorateTerm'), $promotedTerms);
   }
 
   /**

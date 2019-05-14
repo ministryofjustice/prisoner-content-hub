@@ -59,6 +59,11 @@ describe('Adapters', () => {
       const result = seasonResponseFrom(seasonResponse);
       expect(result).to.eql(seasonContent());
     });
+
+    it('returns empty when a falsy is passed', () => {
+      const result = seasonResponseFrom(null);
+      expect(result).to.eql([]);
+    });
   });
 
   describe('.contentResponseFrom', () => {
@@ -257,30 +262,28 @@ function landingPageContent() {
 function relatedContent() {
   return [
     {
-      id: 3018,
-      title: 'Foobar bar',
-      contentType: 'radio',
-      summary: '',
+      id: '3456',
+      title: 'Video Item 1',
+      contentType: 'video',
+      summary: 'Item summary 1',
       image: {
-        url: 'http://foo.bar.jpg',
-        alt: '',
+        url: 'http://foo.bar/image/foo.jpg',
+        alt: 'Video Item 1 alt',
       },
-      duration: '51:20',
-      establishmentId: undefined,
-      contentUrl: '/content/3018',
+      duration: '12:34',
+      contentUrl: '/content/3456',
     },
     {
-      id: 3341,
-      title: 'Baz bar',
-      contentType: 'radio',
-      summary: '',
+      id: '3457',
+      title: 'Video Item 2',
+      contentType: 'video',
+      summary: 'Item summary 2',
       image: {
-        url: 'http://foo.bar.jpg',
-        alt: '',
+        url: 'http://foo.bar/image/bar.jpg',
+        alt: 'Video Item 2 alt',
       },
-      duration: '51:04',
-      establishmentId: undefined,
-      contentUrl: '/content/3341',
+      duration: '45:12',
+      contentUrl: '/content/3457',
     },
   ];
 }

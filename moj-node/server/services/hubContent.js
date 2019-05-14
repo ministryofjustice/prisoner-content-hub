@@ -61,14 +61,15 @@ module.exports = function createHubContentService({
     const featuredContentId = prop('featuredContentId', data);
     const categoryId = prop('categoryId', data);
 
-    const [featuredContent, relatedContent, categoryMenu] = await Promise.all([
+    const [
+      featuredContent,
+      categoryFeaturedContent,
+      categoryMenu,
+    ] = await Promise.all([
       contentRepository.contentFor(featuredContentId),
       categoryFeaturedContentRepository.contentFor({
-        query: {
-          _number: 8,
-          _category: categoryId,
-          _prison: establishmentId,
-        },
+        categoryId,
+        establishmentId,
       }),
       menuRepository.categoryMenu({
         categoryId,
@@ -79,7 +80,7 @@ module.exports = function createHubContentService({
     return {
       ...data,
       featuredContent,
-      relatedContent: { contentType: 'default', data: relatedContent },
+      relatedContent: { contentType: 'default', data: categoryFeaturedContent },
       categoryMenu,
     };
   }

@@ -100,6 +100,7 @@ class SeriesNextEpisodeResource extends ResourceBase
     $this->parameter_language_tag = self::setLanguage();
     $this->parameter_episode_id = self::setEpisodeId();
     $this->parameter_prison = self::setPrison();
+    $this->parameter_sort_order = self::setSortOrder();
 
     self::checkLanguageParameterIsValid();
     self::checkNumberOfResultsIsNumeric();    
@@ -131,7 +132,8 @@ class SeriesNextEpisodeResource extends ResourceBase
       $this->currentRequest->get('id'),
       $this->parameter_number_results,
       $this->parameter_episode_id,
-      $this->parameter_prison
+      $this->parameter_prison,
+      $this->parameter_sort_order
     );
 
     $response = new ResourceResponse($seriesContent);
@@ -196,5 +198,10 @@ class SeriesNextEpisodeResource extends ResourceBase
   protected function setPrison()
   {
     return is_null($this->currentRequest->get('_prison')) ? 0 : $this->currentRequest->get('_prison');
+  }
+
+  protected function setSortOrder()
+  {
+    return is_null($this->currentRequest->get('_sort_order')) ? 'DESC' : $this->currentRequest->get('_sort_order');
   }
 }

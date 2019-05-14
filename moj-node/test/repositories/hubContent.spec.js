@@ -144,7 +144,10 @@ describe('hubContentRepository', () => {
       expect(result).to.equal(null);
     });
     it('returns formated data for related content', async () => {
-      const client = generateClient({ 100: {}, 200: {} });
+      const client = generateClient([
+        { content_type: 'moj_radio_item' },
+        { content_type: 'moj_radio_item' },
+      ]);
       const repository = hubContentRepository(client);
 
       const result = await repository.relatedContentFor({
@@ -161,7 +164,6 @@ describe('hubContentRepository', () => {
         'summary',
         'image',
         'duration',
-        'establishmentId',
         'contentUrl',
       ];
 

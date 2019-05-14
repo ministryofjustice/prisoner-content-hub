@@ -163,11 +163,8 @@ describe('#hubContentService', () => {
         categoryFeaturedContentRepository.contentFor.lastCall.lastArg,
       ).to.eql(
         {
-          query: {
-            _category: 'categoryId',
-            _number: 8,
-            _prison: establishmentId,
-          },
+          categoryId: 'categoryId',
+          establishmentId: 'establishmentId',
         },
         `the categoryId was supposed to be "${content.categoryId}"`,
       );
