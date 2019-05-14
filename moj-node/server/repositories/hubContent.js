@@ -91,6 +91,7 @@ module.exports = function hubContentRepository(httpClient) {
       _number: perPage,
       _episode_id: episodeId,
       _prison: establishmentId,
+      _sort_order: 'ASC',
     };
 
     if (!id || !episodeId) {

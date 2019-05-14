@@ -90,10 +90,9 @@ class SeriesContentApiClass
     $this->lang = $lang;
     $this->nids = $this->getSeriesContentNodeIds($series_id, null, null, $prison);
     $this->nodes = $this->loadNodesDetails($this->nids);
-
     $series = $this->decorateSeries($this->nodes);
+    $series = $this->getNextEpisodes($episode_id, $series, $number);    
     $series = $this->sortSeries($series, $sort_order);
-    $series = $this->getNextEpisodes($episode_id, $series, $number);
 
     return $series;
   }
@@ -138,13 +137,18 @@ class SeriesContentApiClass
    */
   private function sortSeries($series, $sort_order)
   {
-    usort($series, function($a, $b) {
-      if ($sort_order == 'ASC') {
-        return $a["episode_id"] - $b["episode_id"];
+    usort($series, function($a, $b) use ($sort_order) {      
+      if ($a['episode_id'] == $b['episode_id']) {
+        return 0;
       }
 
-      return $b["episode_id"] - $a["episode_id"];
+      if ($sort_order == 'ASC') {
+        return ($a['episode_id'] < $b['episode_id']) ? -1 : 1;
+      }
+
+      return ($b['episode_id'] > $a['episode_id']) ? 1 : -1;
     });
+
     return $series;
   }
    /**

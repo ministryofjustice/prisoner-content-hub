@@ -59,7 +59,7 @@ describe('hubContentRepository', () => {
 
       const expectedKeys = [
         'id',
-        'type',
+        'contentType',
         'name',
         'description',
         'image',

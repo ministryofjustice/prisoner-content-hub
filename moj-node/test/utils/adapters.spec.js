@@ -13,7 +13,8 @@ const {
 const radioShowResponse = require('../resources/radioShow.json');
 const videoShowResponse = require('../resources/videoShow.json');
 const termsResponse = require('../resources/terms.json');
-const featuredContentResponse = require('../resources/featured.json');
+const featuredItemResponse = require('../resources/featuredItem.json');
+const featuredSeriesResponse = require('../resources/featuredSeries.json');
 const flatPageContentResponse = require('../resources/flatPageContent.json');
 const seasonResponse = require('../resources/season.json');
 const landingPageResponse = require('../resources/landingPage.json');
@@ -81,9 +82,14 @@ describe('Adapters', () => {
   });
 
   describe('.featuredContentResponseFrom', () => {
-    it('returns formated data for featured content', () => {
-      const result = featuredContentResponseFrom(featuredContentResponse);
-      expect(result).to.eql(featuredContent());
+    it('returns formated data for featured item', () => {
+      const result = featuredContentResponseFrom(featuredItemResponse);
+      expect(result).to.eql(featuredItem());
+    });
+
+    it('returns formated data for featured series', () => {
+      const result = featuredContentResponseFrom(featuredSeriesResponse);
+      expect(result).to.eql(featuredSeries());
     });
   });
 
@@ -299,7 +305,22 @@ function pdfContent() {
   };
 }
 
-function featuredContent() {
+function featuredItem() {
+  return {
+    id: '3456',
+    title: 'Featured Video 1',
+    summary: 'Featured video summary',
+    image: {
+      alt: 'Featured Video 1',
+      url: 'http://foo.bar/images/foo.jpg',
+    },
+    duration: null,
+    contentType: 'video',
+    contentUrl: '/content/3456',
+  };
+}
+
+function featuredSeries() {
   return {
     id: '678',
     title: 'Featured Item 1',
@@ -330,7 +351,7 @@ function termContent() {
       url: 'http://foo.bar/term/',
     },
     name: 'Foo term',
-    type: 'series',
+    contentType: 'series',
     video: {
       url: undefined,
     },

@@ -2,7 +2,7 @@ module.exports = function createHubTagsService(repository) {
   async function termFor(id, establishmentId) {
     const content = await repository.termFor(id);
 
-    switch (content.type) {
+    switch (content.contentType) {
       case 'series': {
         const data = await repository.seasonFor({ id, establishmentId });
         return {

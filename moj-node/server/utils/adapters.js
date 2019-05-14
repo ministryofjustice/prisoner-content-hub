@@ -38,7 +38,7 @@ function imageOrDefaultFor(image, contentType) {
 }
 
 function featuredContentResponseFrom(response) {
-  const type = R.prop('type', response);
+  const type = R.prop('content_type', response);
   const id = R.prop('id', response);
   const contentUrl =
     type === 'series' || type === 'tags' ? `/tags/${id}` : `/content/${id}`;
@@ -118,7 +118,7 @@ function flatPageContentFrom(data) {
 function termResponseFrom(data) {
   return {
     id: data.id,
-    type: data.content_type,
+    contentType: data.content_type,
     name: data.title,
     description: {
       raw: R.path(['description', 'value'], data),
