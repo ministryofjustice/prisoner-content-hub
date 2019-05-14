@@ -43,6 +43,23 @@ function featuredContentResponseFrom(response) {
   const contentUrl =
     type === 'series' || type === 'tags' ? `/tags/${id}` : `/content/${id}`;
 
+  return {
+    id,
+    title: response.title,
+    contentType: HUB_CONTENT_TYPES[type],
+    summary: response.summary,
+    image: imageOrDefaultFor(response.featured_image, type),
+    contentUrl,
+    duration: response.duration,
+  };
+}
+
+function promotedContentResponseFrom(response) {
+  const type = R.prop('content_type', response);
+  const id = R.prop('id', response);
+  const contentUrl =
+    type === 'series' || type === 'tags' ? `/tags/${id}` : `/content/${id}`;
+
   const imageObj = R.view(R.lensPath(['featured_image', 0]), response);
 
   return {
@@ -184,6 +201,7 @@ function seasonResponseFrom(data) {
 module.exports = {
   contentResponseFrom,
   featuredContentResponseFrom,
+  promotedContentResponseFrom,
   mediaResponseFrom,
   seasonResponseFrom,
   termResponseFrom,
