@@ -4,7 +4,7 @@
     "title": "Video Item 1",
     "content_type": "moj_video_item",
     "summary": "Item summary 1",
-    "featured_image": {
+    "image": {
       "alt": "Video Item 1 alt",
       "url": "http://foo.bar/image/foo.jpg"
     },
@@ -15,7 +15,7 @@
     "title": "Video Item 2",
     "content_type": "moj_video_item",
     "summary": "Item summary 2",
-    "featured_image": {
+    "image": {
       "alt": "Video Item 2 alt",
       "url": "http://foo.bar/image/bar.jpg"
     },

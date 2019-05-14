@@ -69,7 +69,7 @@ class RelatedContentApiClass
     $nids = $this->getRelatedContentNodeIds($category, $number, $offset, $prison, $sort_order);
     $nodes = $this->loadNodesDetails($nids);
     $content = array_map([$this, 'translateNode'], $nodes);
-    
+
     return array_map([$this, 'decorateContent'], array_values($content));
   }
   /**
@@ -146,7 +146,7 @@ class RelatedContentApiClass
     $result['title'] = $node->title->value;
     $result['content_type'] = $node->type->target_id;
     $result['summary'] = $node->field_moj_description->summary;
-    $result['featured_image'] = $node->field_moj_thumbnail_image[0] ? $node->field_moj_thumbnail_image[0] : $node->field_image[0];
+    $result['image'] = $node->field_moj_thumbnail_image[0] ? $node->field_moj_thumbnail_image[0] : $node->field_image[0];
     $result['duration'] = $node->field_moj_duration->value;
 
     return $result;

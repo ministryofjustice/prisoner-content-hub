@@ -13,47 +13,47 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 class PromotedContentApiClass
 {
   /**
-     * Node IDs
-     *
-     * @var array
-     */
+   * Node IDs
+   *
+   * @var array
+   */
   protected $nids = array();
 
   /**
-     * Nodes
-     *
-     * @var array
-     */
+   * Nodes
+   *
+   * @var array
+   */
   protected $nodes = array();
   /**
-     * Language Tag
-     *
-     * @var string
-     */
+   * Language Tag
+   *
+   * @var string
+   */
   protected $lang;
   /**
-     * Node_storage object
-     *
-     * @var Drupal\Core\Entity\EntityManagerInterface
-     */
+   * Node_storage object
+   *
+   * @var Drupal\Core\Entity\EntityManagerInterface
+   */
   protected $node_storage;
   /**
-     * Entitity Query object
-     *
-     * @var Drupal\Core\Entity\Query\QueryFactory
-     *
-     * Instance of queryFactory
-     */
+   * Entitity Query object
+   *
+   * @var Drupal\Core\Entity\Query\QueryFactory
+   *
+   * Instance of queryFactory
+   */
   protected $entity_query;
 
   private $berwyn_prison_id = 792;
   private $wayland_prison_id = 793;
   /**
-     * Class Constructor
-     *
-     * @param EntityTypeManagerInterface $entityTypeManager
-     * @param QueryFactory $entityQuery
-     */
+   * Class Constructor
+   *
+   * @param EntityTypeManagerInterface $entityTypeManager
+   * @param QueryFactory $entityQuery
+   */
   public function __construct(
     EntityTypeManagerInterface $entityTypeManager,
     QueryFactory $entityQuery
@@ -63,31 +63,31 @@ class PromotedContentApiClass
     $this->entity_query = $entityQuery;
   }
   /**
-     * API resource function
-     *
-     * @param [string] $lang
-     * @return array
-     */
+   * API resource function
+   *
+   * @param [string] $lang
+   * @return array
+   */
   public function PromotedContentApiEndpoint($lang, $prison)
   {
     return self::getPromotedContentNodeIds($prison);
   }
   /**
-     * TranslateNode function
-     *
-     * @param NodeInterface $node
-     *
-     * @return $node
-     */
+   * TranslateNode function
+   *
+   * @param NodeInterface $node
+   *
+   * @return $node
+   */
   protected function translateNode(NodeInterface $node)
   {
     return $node->hasTranslation($this->lang) ? $node->getTranslation($this->lang) : $node;
   }
   /**
-     * Get nids
-     *
-     * @return void
-     */
+   * Get nids
+   *
+   * @return void
+   */
   protected function getPromotedContentNodeIds($prison)
   {
     $series = $this->promotedSeries($prison);
@@ -113,11 +113,11 @@ class PromotedContentApiClass
       $result['title'] = $item->title->value ? $item->title->value : $item->name->value;
       $result['type'] = $item->vid->target_id ? $item->vid->target_id : $item->type->target_id;
       $result['summary'] = $item->field_content_summary ? $item->field_content_summary->value : $item->field_moj_description->summary;
-      $result['featured_image'] = $item->field_featured_image ? $item->field_featured_image : $item->field_moj_thumbnail_image;
+      $result['image'] = $item->field_featured_image ? $item->field_featured_image[0] : $item->field_moj_thumbnail_image[0];
       $result['duration'] = $item->field_moj_duration->value;
 
       if ($result['type'] == 'landing_page') {
-        $result['featured_image'] = $item->field_image;
+        $result['image'] = $item->field_image[0];
       }
 
       return $result;
@@ -198,11 +198,11 @@ class PromotedContentApiClass
   }
 
   /**
-     * Load full node details
-     *
-     * @param array $nids
-     * @return array
-     */
+   * Load full node details
+   *
+   * @param array $nids
+   * @return array
+   */
   protected function loadNodesDetails(array $nids)
   {
     return array_filter(
@@ -213,11 +213,11 @@ class PromotedContentApiClass
     );
   }
   /**
-     * Sanitise node
-     *
-     * @param [type] $item
-     * @return void
-     */
+   * Sanitise node
+   *
+   * @param [type] $item
+   * @return void
+   */
   protected function serialize($item)
   {
     $serializer = \Drupal::service($item->getType() . '.serializer.default'); // TODO: Inject dependency
