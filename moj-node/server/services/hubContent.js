@@ -28,7 +28,6 @@ module.exports = function createHubContentService({
 
   async function media(establishmentId, data) {
     const id = prop('id', data);
-
     const seriesId = prop('seriesId', data);
     const episodeId = prop('episodeId', data);
     const tagsId = prop('tagsId', data);

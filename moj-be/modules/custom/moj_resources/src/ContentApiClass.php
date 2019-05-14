@@ -66,6 +66,7 @@ class ContentApiClass
    */
   public function ContentApiEndpoint($lang, $nid)
   {
+    $this->lang = $lang;
     $node = $this->loadNodesDetails($nid);
 
     if (is_null($node)) {

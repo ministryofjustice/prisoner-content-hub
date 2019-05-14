@@ -168,12 +168,6 @@ class SeriesContentApiClass
     $episode_index = indexOf(function($value) use ($episode_id) {
       return $value['episode_id'] == $episode_id;
     }, $series);
-
-    // $episode_index = array_reduce($series, function($acc, $curr) use ($episode_id) {
-    //   if ($curr['episode_id'] == $episode_id) {
-    //    $episode_index = $key;
-    //   }
-    // });
     
     if (is_null($episode_index)) {      
       return array();

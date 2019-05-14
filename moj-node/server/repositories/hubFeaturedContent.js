@@ -60,7 +60,7 @@ function hubFeaturedContentRepository(httpClient) {
 
   function music({ establishmentId }) {
     return contentFor({
-      _number: 4,
+      number: 4,
       categoryId: 785,
       establishmentId,
     });
