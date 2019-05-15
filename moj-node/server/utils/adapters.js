@@ -25,6 +25,15 @@ const defaultAlt = type => {
   return alt[type] || alt.page;
 };
 
+function imageFor(image) {
+  return image
+    ? {
+        url: fixUrlForProduction(image.url, config.drupalAppUrl),
+        alt: image.alt,
+      }
+    : null;
+}
+
 function imageOrDefaultFor(image, contentType) {
   return image
     ? {
@@ -63,7 +72,7 @@ function contentResponseFrom(data) {
       title: item.title,
       contentType: HUB_CONTENT_TYPES[item.content_type],
       summary: item.summary,
-      image: imageOrDefaultFor(item.image),
+      image: imageFor(item.image),
       duration: item.duration,
       contentUrl: `/content/${item.id}`,
     };
@@ -123,7 +132,7 @@ function termResponseFrom(data) {
       sanitized: R.path(['description', 'sanitized'], data),
       summary: data.summary,
     },
-    image: imageOrDefaultFor(data.image),
+    image: imageFor(data.image),
     video: {
       url: fixUrlForProduction(
         R.path(['video', 'url'], data),
@@ -152,7 +161,7 @@ function landingResponseFrom(data) {
       sanitized: R.path(['description', 'processed'], data),
       summary: R.path(['description', 'summary'], data),
     },
-    image: imageOrDefaultFor(data.image),
+    image: imageFor(data.image),
     categoryId: data.category_id,
   };
 }

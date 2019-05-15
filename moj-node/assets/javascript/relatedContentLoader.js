@@ -87,8 +87,6 @@
         try {
           var data = JSON.parse(response.responseText);
 
-          console.log(data);
-
           if (!data.length) {
             currentOffset = null;
             return false;
