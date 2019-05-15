@@ -109,7 +109,7 @@ class FeaturedContentApiClass
     $result['title'] = $node->title->value;
     $result['content_type'] = $node->type->target_id;
     $result['summary'] = $node->field_moj_description->summary;
-    $result['featured_image'] = $node->field_moj_thumbnail_image[0] ? $node->field_moj_thumbnail_image[0] : $node->field_image[0];
+    $result['image'] = $node->field_moj_thumbnail_image ? $node->field_moj_thumbnail_image[0] : $node->field_image[0];
     $result['duration'] = $node->field_moj_duration->value;
 
     return $result;
@@ -122,9 +122,9 @@ class FeaturedContentApiClass
     $result['title'] = $term->name->value;
     $result['content_type'] = $term->vid->target_id;
     $result['summary'] = $term->field_content_summary->value;
-    $result['featured_image'] = $term->field_featured_image[0];
-    $result['featured_audio'] = $term->field_featured_audio[0];
-    $result['featured_video'] = $term->field_featured_video[0];
+    $result['image'] = $term->field_featured_image[0];
+    $result['audio'] = $term->field_featured_audio[0];
+    $result['video'] = $term->field_featured_video[0];
 
     return $result;
   }

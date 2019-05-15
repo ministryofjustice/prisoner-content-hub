@@ -25,6 +25,15 @@ const defaultAlt = type => {
   return alt[type] || alt.page;
 };
 
+function imageFor(image) {
+  return image
+    ? {
+        url: fixUrlForProduction(image.url, config.drupalAppUrl),
+        alt: image.alt,
+      }
+    : null;
+}
+
 function imageOrDefaultFor(image, contentType) {
   return image
     ? {
@@ -43,14 +52,12 @@ function featuredContentResponseFrom(response) {
   const contentUrl =
     type === 'series' || type === 'tags' ? `/tags/${id}` : `/content/${id}`;
 
-  const imageObj = R.view(R.lensPath(['featured_image', 0]), response);
-
   return {
     id,
     title: response.title,
     contentType: HUB_CONTENT_TYPES[type],
     summary: response.summary,
-    image: imageOrDefaultFor(imageObj, type),
+    image: imageOrDefaultFor(response.image, type),
     contentUrl,
     duration: response.duration,
   };
@@ -65,7 +72,7 @@ function contentResponseFrom(data) {
       title: item.title,
       contentType: HUB_CONTENT_TYPES[item.content_type],
       summary: item.summary,
-      image: imageOrDefaultFor(item.featured_image),
+      image: imageFor(item.image),
       duration: item.duration,
       contentUrl: `/content/${item.id}`,
     };
@@ -125,7 +132,7 @@ function termResponseFrom(data) {
       sanitized: R.path(['description', 'sanitized'], data),
       summary: data.summary,
     },
-    image: imageOrDefaultFor(data.image),
+    image: imageFor(data.image),
     video: {
       url: fixUrlForProduction(
         R.path(['video', 'url'], data),
@@ -154,7 +161,7 @@ function landingResponseFrom(data) {
       sanitized: R.path(['description', 'processed'], data),
       summary: R.path(['description', 'summary'], data),
     },
-    image: imageOrDefaultFor(data.image),
+    image: imageFor(data.image),
     categoryId: data.category_id,
   };
 }
