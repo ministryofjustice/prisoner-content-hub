@@ -96,7 +96,7 @@ function hubMenuRepository(httpClient) {
     // const secondaryTags = parseTagsResponse(data.secondary_tag_ids);
 
     // inject extra link
-    if (prisonId === 793 && categoryId === 645) {
+    if (Number(prisonId) === 793 && Number(categoryId) === 645) {
       const link = {
         id: 'working-in-wayland',
         linkText: 'Working in Wayland',
