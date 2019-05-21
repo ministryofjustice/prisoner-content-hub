@@ -98,7 +98,6 @@ module.exports = function createApp({
           'node_modules/govuk_frontend_toolkit/stylesheets',
           'node_modules/govuk_template_jinja/assets/stylesheets',
           'node_modules/govuk-elements-sass/public/sass',
-          'node_modules/video.js/dist',
         ],
       }),
     );
@@ -122,7 +121,6 @@ module.exports = function createApp({
     '../node_modules/govuk_template_jinja/assets',
     '../node_modules/govuk_frontend_toolkit',
     '../node_modules/govuk-frontend/',
-    '../node_modules/video.js/dist',
     '../node_modules/jplayer/dist',
     '../node_modules/jquery/dist',
     '../node_modules/mustache',

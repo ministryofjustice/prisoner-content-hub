@@ -1,4 +1,3 @@
-const chance = require('chance')();
 const { createFeaturedItem } = require('../test-helpers');
 const createRenderer = require('../../assets/javascript/renderFeaturedItem');
 const template = require('./templates/relatedContent.tmpl.js');
