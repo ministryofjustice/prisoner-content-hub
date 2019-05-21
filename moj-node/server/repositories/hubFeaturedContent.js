@@ -38,7 +38,7 @@ function hubFeaturedContentRepository(httpClient) {
     return contentFor({
       number: 5,
       categoryId: 787,
-      prison: establishmentId,
+      establishmentId,
     });
   }
 
