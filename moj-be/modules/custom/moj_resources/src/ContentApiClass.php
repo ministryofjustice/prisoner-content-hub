@@ -150,6 +150,7 @@ class ContentApiClass
     $result["season"] = $node->field_moj_season->value;
     $result["episode"] = $node->field_moj_episode->value;
     $result["duration"] = $node->field_moj_duration->value;
+    $result["programme_code"] = $node->field_moj_programme_code->value;
 
     return $result;
   }

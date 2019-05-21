@@ -15,6 +15,7 @@
         var category = event.target.getAttribute('data-item-category');
         var action = event.target.getAttribute('data-item-action');
         var value = event.target.getAttribute('data-item-value');
+
         var details = {
           name: generateEventName(event.target),
           category: types[category] || category,

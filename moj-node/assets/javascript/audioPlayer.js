@@ -1,10 +1,13 @@
 $(document).ready(function() {
   var audio = $('#audioPlayer');
+  var programmeCode = audio.data().programmeCode;
   var title = audio.data().title;
-  var evt25 = once(matomoAudioEvent({ action: '25%', name: title }));
-  var evt50 = once(matomoAudioEvent({ action: '50%', name: title }));
-  var evt75 = once(matomoAudioEvent({ action: '75%', name: title }));
-  var evt90 = once(matomoAudioEvent({ action: '90%', name: title }));
+  var name = title + '|' + programmeCode;
+
+  var evt25 = once(matomoAudioEvent({ action: '25%', name: name }));
+  var evt50 = once(matomoAudioEvent({ action: '50%', name: name }));
+  var evt75 = once(matomoAudioEvent({ action: '75%', name: name }));
+  var evt90 = once(matomoAudioEvent({ action: '90%', name: name }));
 
   $('#audioPlayer').videoPlayer({
     name: audio.attr('data-title'),

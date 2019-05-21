@@ -12,6 +12,7 @@
     "episode": "1",
     "duration": "12:34",
     "series_id": 660,
+    "programmeCode": "undefined",
     "description": {
       "value": "<p>Series radio item</p>\r\n",
       "processed": "<p>Series radio item</p>",
@@ -35,12 +36,14 @@
     "id": "3457",
     "image": {
       "alt": "",
-      "url": "http://foo.bar/images/bar.jpg"
+      "url": "http://foo.bar/images/bar.jpg",
+      "programmeCode": "undefined"
     },
     "season": "1",
     "episode": "2",
     "duration": "45:12",
     "series_id": 660,
+    "programmeCode": "undefined",
     "description": {
       "value": "<p>Series radio item</p>\r\n",
       "processed": "<p>Series radio item</p>",
