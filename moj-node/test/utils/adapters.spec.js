@@ -146,6 +146,7 @@ function radioContent() {
     tagsId: [646],
     establishmentId: 792,
     contentUrl: '/content/3546',
+    programmeCode: 'foo code',
   };
 }
 
@@ -172,6 +173,7 @@ function videoContent() {
     tagsId: [],
     establishmentId: 792,
     contentUrl: '/content/3546',
+    programmeCode: 'foo code',
   };
 }
 
@@ -219,6 +221,7 @@ function seasonContent() {
       tagsId: [646],
       title: 'Radio Item 1',
       establishmentId: undefined,
+      programmeCode: undefined,
     },
     {
       contentType: 'radio',
@@ -242,6 +245,7 @@ function seasonContent() {
       tagsId: [785],
       title: 'Radio Item 2',
       establishmentId: undefined,
+      programmeCode: undefined,
     },
   ];
 }

@@ -58,8 +58,9 @@
       title: data.title,
       contentType: data.contentType,
       series: data.seriesName,
-      establishment: envVars.APP_NAME
-    })}}
+      establishment: envVars.APP_NAME,
+      programmeCode: data.programmeCode
+    }) }}
 
     <div class="govuk-hub-media-player__description">
       <div id="body" class="govuk-body">{{ data.description.sanitized | safe }}</div>

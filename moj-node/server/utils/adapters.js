@@ -83,6 +83,7 @@ function mediaResponseFrom(data) {
   return {
     id: data.id,
     episodeId: data.episode_id,
+    programmeCode: data.programme_code,
     title: data.title,
     contentType: typeFrom(data.content_type),
     description: {

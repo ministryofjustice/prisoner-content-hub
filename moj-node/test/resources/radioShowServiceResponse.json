@@ -4,7 +4,8 @@
   "seriesId": "foo-id",
   "title": "Foo title",
   "description": {
-    "sanitized": "<p>Foo body</p>"
+    "sanitized": "<p>Foo body</p>",
+    "programmeCode": "foo code"
   },
   "media": "foo.mp3",
   "image": {
