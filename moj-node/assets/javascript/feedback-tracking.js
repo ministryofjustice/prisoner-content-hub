@@ -15,15 +15,12 @@
         var category = event.target.getAttribute('data-item-category');
         var action = event.target.getAttribute('data-item-action');
         var value = event.target.getAttribute('data-item-value');
-        var programmeCode = event.target.getAttribute(
-          'data-item-programme-code',
-        );
+
         var details = {
           name: generateEventName(event.target),
           category: types[category] || category,
           action: action,
           value: value,
-          programmeCode: programmeCode,
         };
 
         var isActive = event.target.classList.contains('is-selected');
@@ -82,7 +79,7 @@
     function generateEventName(element) {
       var itemCategory = element.getAttribute('data-item-category');
       var category = types[itemCategory] || itemCategory;
-      // title | PageURL | Like/DISLIKE | Time/Date | ContentType | Series | Time take react | visitor ID | Establishment | ProgrammeCode
+      // title | PageURL | Like/DISLIKE | Time/Date | ContentType | Series | Time take react | visitor ID | Establishment
       var name = [
         element.getAttribute('data-item-name'),
         window.location.pathname,
@@ -93,7 +90,6 @@
         calculateTimeToAction(),
         getVisitorId(),
         element.getAttribute('data-item-establishment'),
-        element.getAttribute('data-item-programme-code'),
       ];
 
       return name.join('|');
