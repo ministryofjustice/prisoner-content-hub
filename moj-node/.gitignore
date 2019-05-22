@@ -26,3 +26,4 @@ csv-exports
 cypress/integration/examples
 cypress/screenshots/
 cypress/videos/
+.cache
