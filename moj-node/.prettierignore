@@ -6,3 +6,4 @@ assets/stylesheets
 assets/javascript/polyfills.js
 .vscode
 .cache
+build-info.json
