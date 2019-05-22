@@ -32,6 +32,7 @@ services:
       - "APP_NAME=HMP Berwyn"
       - "ESTABLISHMENT_NAME=berwyn"
       - "MATOMO_TOKEN"
+      - "NOMIS_API_TOKEN"
       - "NODE_ENV=production"
       - "DRUPAL_APP_URI=http://digital-hub.bwi.dpn.gov.uk:11001"
       - "MATOMO_API_URI=http://hub-matomo"

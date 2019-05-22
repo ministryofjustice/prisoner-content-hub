@@ -31,6 +31,7 @@ services:
       - "APP_NAME=HMP Wayland"
       - "ESTABLISHMENT_NAME=wayland"
       - "MATOMO_TOKEN"
+      - "NOMIS_API_TOKEN"
       - "NODE_ENV=production"
       - "DRUPAL_APP_URI=http://digital-hub.wli.dpn.gov.uk:11001"
       - "MATOMO_API_URI=http://hub-matomo"
