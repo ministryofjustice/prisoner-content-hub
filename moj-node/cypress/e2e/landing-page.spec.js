@@ -34,18 +34,20 @@ describe('Landing page', () => {
             const title = $ref
               .find('[data-featured-title]')
               .attr('data-featured-title');
+            const url = $ref.attr('href');
+            const opensNewTab = $ref.attr('target');
 
             cy.log(`Navigating to ${title}`);
 
-            if ($ref.attr('target')) {
+            if (opensNewTab) {
               cy.log('Opening a pdf');
-              cy.request($ref.attr('href')).then(response => {
+              cy.request(url).then(response => {
                 expect(response.headers['content-type']).to.equal(
                   'application/pdf',
                 );
               });
             } else {
-              cy.request($ref.attr('href'))
+              cy.request(url)
                 .its('body')
                 .should('match', new RegExp(`<h1 .+>${title}</h1>`));
             }
