@@ -2,7 +2,6 @@ describe('Landing page', () => {
   const landingPages = {
     newsAndEvents: '/content/3632',
     heathyMindAndBody: '/content/3657',
-    // TODO: change Test Suite to electron when the following ticket is done https://github.com/cypress-io/cypress/issues/311
     legalAndYourRights: '/content/3658',
     inspiration: '/content/3659',
     scienceAndNature: '/content/3660',
@@ -37,17 +36,19 @@ describe('Landing page', () => {
               .attr('data-featured-title');
 
             cy.log(`Navigating to ${title}`);
-            cy.get('[data-featured-id]')
-              .last()
-              .click({ force: true });
 
-            cy.document().then(({ contentType }) => {
-              if (contentType === 'application/pdf') {
-                cy.log('PDF opened successfully');
-              } else {
-                cy.get('#title').should('have.text', title);
-              }
-            });
+            if ($ref.attr('target')) {
+              cy.log('Opening a pdf');
+              cy.request($ref.attr('href')).then(response => {
+                expect(response.headers['content-type']).to.equal(
+                  'application/pdf',
+                );
+              });
+            } else {
+              cy.request($ref.attr('href'))
+                .its('body')
+                .should('match', new RegExp(`<h1 .+>${title}</h1>`));
+            }
           });
       });
     });
