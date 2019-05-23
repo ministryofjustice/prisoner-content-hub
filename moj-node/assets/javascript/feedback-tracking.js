@@ -186,8 +186,8 @@
     }
 
     function updateFeedbackText(feedback, type) {
-      var whiteList = ['video', 'podcast', 'article', 'game'];
-      var typeText = whiteList.includes(type) ? type : 'series';
+      var whiteList = ['video', 'podcast', 'article', 'game', 'series'];
+      var typeText = whiteList.includes(type) ? type : '';
 
       if (feedback === 'LIKE') {
         feedbackText.textContent = 'I like this ' + typeText;
