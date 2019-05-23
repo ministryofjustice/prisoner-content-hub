@@ -72,6 +72,7 @@ describe('Feedback mechanism', () => {
         const labelValues = label.split('|');
 
         expect(labelValues.length).to.equal(9);
+        expect(labelValues.every(Boolean)).to.equal(true);
       });
 
       cy.get('.govuk-textarea').type('Hello, World');
@@ -90,6 +91,8 @@ describe('Feedback mechanism', () => {
         const labelValues = label.split('|');
 
         expect(labelValues.length).to.equal(9);
+
+        expect(labelValues.every(Boolean)).to.equal(true);
       });
     });
   });
