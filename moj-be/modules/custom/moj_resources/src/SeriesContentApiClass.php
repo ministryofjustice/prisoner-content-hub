@@ -91,8 +91,8 @@ class SeriesContentApiClass
     $this->nids = $this->getSeriesContentNodeIds($series_id, null, null, $prison);
     $this->nodes = $this->loadNodesDetails($this->nids);
     $series = $this->decorateSeries($this->nodes);
-    $series = $this->getNextEpisodes($episode_id, $series, $number);    
     $series = $this->sortSeries($series, $sort_order);
+    $series = $this->getNextEpisodes($episode_id, $series, $number);
 
     return $series;
   }
@@ -102,7 +102,7 @@ class SeriesContentApiClass
    */
   private function decorateSeries($node)
   {
-    $results = array_reduce($node, function($acc, $curr) {
+    $results = array_reduce($node, function ($acc, $curr) {
       $episode_id = ($curr->field_moj_season->value * 1000) + ($curr->field_moj_episode->value);
       $result = [];
       $result["episode_id"] = $episode_id;
@@ -117,7 +117,7 @@ class SeriesContentApiClass
       $result["categories"] = $curr->field_moj_top_level_categories;
       $result["secondary_tags"] = $curr->field_moj_tags;
       $result["prisons"] = $curr->field_moj_prisons;
-    
+
       if ($result["content_type"] === 'moj_radio_item') {
         $result["media"] = $curr->field_moj_audio[0];
       } else {
@@ -135,9 +135,9 @@ class SeriesContentApiClass
    * sortSeries
    *
    */
-  private function sortSeries($series, $sort_order)
+  private function sortSeries(&$series, $sort_order)
   {
-    usort($series, function($a, $b) use ($sort_order) {      
+    usort($series, function ($a, $b) use ($sort_order) {
       if ($a['episode_id'] == $b['episode_id']) {
         return 0;
       }
@@ -151,30 +151,31 @@ class SeriesContentApiClass
 
     return $series;
   }
-   /**
+  /**
    * getNextEpisodes
    *
    */
   private function getNextEpisodes($episode_id, $series, $number)
   {
-    function indexOf($comp, $array) {
-      foreach($array as $key => $value) {
+    function indexOf($comp, $array)
+    {
+      foreach ($array as $key => $value) {
         if ($comp($value)) {
           return $key;
         }
       }
     }
 
-    $episode_index = indexOf(function($value) use ($episode_id) {
+    $episode_index = indexOf(function ($value) use ($episode_id) {
       return $value['episode_id'] == $episode_id;
     }, $series);
-    
-    if (is_null($episode_index)) {      
+
+    if (is_null($episode_index)) {
       return array();
     }
-    
+
     $episode_offset = $episode_index + 1;
-    
+
     $episodes = array_slice($series, $episode_offset, $number);
 
     return $episodes;
@@ -223,7 +224,7 @@ class SeriesContentApiClass
     }
 
     if ($number) {
-        $results->range($offset, $number);
+      $results->range($offset, $number);
     }
 
     return $results
@@ -232,7 +233,7 @@ class SeriesContentApiClass
   /**
    * Load full node details
    *
-   * @param array $nids       
+   * @param array $nids
    * @return array
    */
   private function loadNodesDetails(array $nids)
