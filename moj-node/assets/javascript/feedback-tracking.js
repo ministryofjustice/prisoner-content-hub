@@ -8,6 +8,7 @@
       radio: 'podcast',
       page: 'article',
       game: 'game',
+      tags: 'topic',
     };
 
     rootElement.addEventListener('click', function(event) {
@@ -186,7 +187,14 @@
     }
 
     function updateFeedbackText(feedback, type) {
-      var whiteList = ['video', 'podcast', 'article', 'game'];
+      var whiteList = [
+        'video',
+        'podcast',
+        'article',
+        'game',
+        'series',
+        'topic',
+      ];
       var typeText = whiteList.includes(type) ? type : '';
 
       if (feedback === 'LIKE') {

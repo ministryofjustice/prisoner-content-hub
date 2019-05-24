@@ -2,6 +2,7 @@
 {% from "../components/sub-menu/macro.njk" import hubSubMenu %}
 {% from "../components/secondary-tag-page-header/macro.njk" import secondaryTagPageHeader %}
 {% from "../components/related-content/macro.njk" import hubRelatedContent %}
+{% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 
 {% extends "../components/template.njk" %}
 
@@ -58,4 +59,21 @@
     data: data.relatedContent,
     lazyLoadContent: true
   }) }}
+
+   <div class="govuk-form-group govuk-!-margin-bottom-2">
+      {% if data.contentType =='series'%}
+    <p class="govuk-hub-article-feedback govuk-hub-feedback-text">Tell us what you think about this series:</p>
+    {% endif %}
+
+      {% if data.contentType =='tags'%}
+    <p class="govuk-hub-article-feedback govuk-hub-feedback-text">Tell us what you think about this topic:</p>
+    {% endif %}
+      {{ hubFeedbackWidget({
+        title: data.title,
+        contentType: data.contentType,
+        series: data.name,
+        establishment: envVars.APP_NAME
+      })}}
+    </div>
+
 {% endblock %}
