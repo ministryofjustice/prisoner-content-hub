@@ -15,45 +15,45 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 class TermApiClass
 {
   /**
-     * Term
-     *
-     * @var array
-     */
+   * Term
+   *
+   * @var array
+   */
   protected $term;
   /**
-     * Language Tag
-     *
-     * @var string
-     */
+   * Language Tag
+   *
+   * @var string
+   */
   protected $lang;
   /**
-     * Node_storage object
-     *
-     * @var Drupal\Core\Entity\EntityTypeManager
-     */
+   * Node_storage object
+   *
+   * @var Drupal\Core\Entity\EntityTypeManager
+   */
   protected $node_storage;
   /**
-     * Entitity Query object
-     *
-     * @var Drupal\Core\Entity\Query\QueryFactory
-     *
-     * Instance of querfactory
-     */
+   * Entitity Query object
+   *
+   * @var Drupal\Core\Entity\Query\QueryFactory
+   *
+   * Instance of querfactory
+   */
   protected $entity_query;
 
   /**
-     * The custom serializer for terms.
-     *
-     * @var \Symfony\Component\Serializer\Serializer
-     */
+   * The custom serializer for terms.
+   *
+   * @var \Symfony\Component\Serializer\Serializer
+   */
   protected $termSerializer;
 
   /**
-     * Class Constructor
-     *
-     * @param EntityTypeManager $entityTypeManager
-     * @param QueryFactory $entityQuery
-     */
+   * Class Constructor
+   *
+   * @param EntityTypeManager $entityTypeManager
+   * @param QueryFactory $entityQuery
+   */
   public function __construct(
     EntityTypeManagerInterface $entityTypeManager,
     QueryFactory $entityQuery,
@@ -64,16 +64,17 @@ class TermApiClass
     $this->termSerializer = $termSerializer;
   }
   /**
-     * API resource function
-     *
-     * @param [string] $lang
-     * @param [string] $category
-     * @return array
-     */
+   * API resource function
+   *
+   * @param [string] $lang
+   * @param [string] $category
+   * @return array
+   */
   public function TermApiEndpoint($lang, $term_id)
   {
     $this->lang = $lang;
-    return $this->decorateResponse($this->term_storage->load($term_id));
+    $terms = $this->term_storage->load($term_id);
+    return $this->decorateResponse($terms);
   }
   /**
    * Decorate term response
@@ -81,27 +82,29 @@ class TermApiClass
    * @param Node $term
    * @return array
    */
-  private function decorateResponse($term) {
-     $result = [];
-     $result['id'] = $term->tid->value;
-     $result['content_type'] = $term->vid[0]->target_id;
-     $result['title'] = $term->name->value;
-     $result['description'] = $term->description[0];
-     $result['summary'] = $term->field_content_summary->value;
-     $result['image'] = $term->field_featured_image[0];
-     $result['video'] = $term->field_featured_video[0];
-     $result['audio'] = $term->field_featured_audio[0];
+  private function decorateResponse($term)
+  {
+    $result = [];
+    $result['id'] = $term->tid->value;
+    $result['content_type'] = $term->vid[0]->target_id;
+    $result['title'] = $term->name->value;
+    $result['description'] = $term->description[0];
+    $result['summary'] = $term->field_content_summary->value;
+    $result['image'] = $term->field_featured_image[0];
+    $result['video'] = $term->field_featured_video[0];
+    $result['audio'] = $term->field_featured_audio[0];
+    $result['programme_code'] = $term->field_feature_programme_code->value;
 
-     return $result;
+    return $result;
   }
-  
+
   /**
-     * TranslateNode function
-     *
-     * @param NodeInterface $term
-     *
-     * @return $term
-     */
+   * TranslateNode function
+   *
+   * @param NodeInterface $term
+   *
+   * @return $term
+   */
   protected function translateNode($term)
   {
     return $term->hasTranslation($this->lang) ? $term->getTranslation($this->lang) : $term;

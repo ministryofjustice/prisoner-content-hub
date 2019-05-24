@@ -6,6 +6,7 @@
     "value": "<p>Foo Term</p>\r\n",
     "processed": "<p>Foo Term</p>"
   },
+  "programme_code": "xyz",
   "summary": "Foo Term summary",
   "image": {
     "alt": "Foo Term",

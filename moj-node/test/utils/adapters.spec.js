@@ -343,6 +343,7 @@ function termContent() {
   return {
     audio: {
       url: 'http://foo.bar/audio/foo.mp3',
+      programmeCode: 'xyz',
     },
     description: {
       raw: '<p>Foo Term</p>\r\n',
