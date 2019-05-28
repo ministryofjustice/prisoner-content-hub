@@ -11,6 +11,10 @@ services:
     environment:
       HUB_EXT_FILE_URL: https://drupal.digital-hub-stage.hmpps.dsd.io/sites/default/files
     volumes:
+      - drupal_modules:/var/www/html/modules
+      - drupal_profiles:/var/www/html/profiles
+      - drupal_themes:/var/www/html/themes
+      - drupal_sites:/var/www/html/sites
       - /content/moj_dhub_prod001_app/usr/share/nginx/html/moj_be/sites/default/files:/var/www/html/sites/default/files
 
   hub-db:
@@ -48,3 +52,9 @@ services:
       MATOMO_TOKEN: "foobar"
       MATOMO_API_URI: http://hub-matomo
       ENABLE_PRISON_SWITCH: "true"
+
+volumes:
+  drupal_modules:
+  drupal_profiles:
+  drupal_themes:
+  drupal_sites:
