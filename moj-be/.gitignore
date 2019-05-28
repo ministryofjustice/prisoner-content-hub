@@ -46,6 +46,9 @@ sites/simpletest
 .DS_Store
 nbproject
 .idea
+.settings
+.vscode
+.project
 
 # Dev
 info.php
