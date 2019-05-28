@@ -9,3 +9,4 @@ modules/contrib/backup_migrate/vendor/psr/
 .project
 .settings
 moj-be/sites/default/settings.local.php
+moj-reporting
