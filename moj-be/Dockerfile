@@ -18,6 +18,6 @@ COPY ./modules/* /var/www/html/modules/
 COPY ./profiles/* /var/www/html/profiles/
 COPY ./sites/* /var/www/html/sites/
 
-RUN chown -R www-data:www-data sites modules themes
+RUN chown -R www-data:www-data /var/www/html/sites /var/www/html/modules /var/www/html/themes
 
 RUN composer require mhor/php-mediainfo
