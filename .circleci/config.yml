@@ -36,22 +36,6 @@ jobs:
                 cd moj-node && make push
             fi
 
-  build_db:
-    <<: *defaults
-    steps:
-      - checkout
-      - setup_remote_docker:
-          reusable: true
-      - run:
-          name: Build DB container
-          command: cd db && make build
-      - run:
-          name: push db to docker
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                cd db && make push
-            fi
-
   build_cms:
     <<: *defaults
     steps:
@@ -129,12 +113,9 @@ workflows:
       - run_e2e_test:
           requires:
             - build
-      - build_db:
-          requires:
-            - hold
       - build_cms:
           requires:
-            - hold
+            - build
 
       - hold:
           type: approval
