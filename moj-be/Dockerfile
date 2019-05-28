@@ -1,25 +1,18 @@
-FROM composer:1.6 as composer
-RUN mkdir -p /composer
-WORKDIR /composer
-COPY . /composer
-RUN composer install --ignore-platform-reqs
+FROM drupal:8.7-apache
 
-FROM php:7.1-apache as build
-RUN apt-get update && apt-get upgrade -y && apt-get install unzip libpng-dev libmemcached-dev zlib1g-dev libfreetype6-dev libjpeg62-turbo-dev mediainfo git -y
-RUN docker-php-ext-install pdo_mysql
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir
-RUN docker-php-ext-install gd
-RUN docker-php-ext-install opcache && docker-php-ext-enable opcache
-RUN pecl install xdebug-2.5.5 && docker-php-ext-enable xdebug
-COPY /php/xdebug.ini /usr/local/etc/php/conf.d/
+RUN apt-get update && apt-get install curl && apt-get install git-core -y
 
+RUN curl -s https://getcomposer.org/installer | php
 
-#RUN composer update
-#RUN pecl install memcached
-#RUN docker-php-ext-enable memcached
+RUN mv composer.phar /usr/local/bin/composer
+
 RUN echo "date.timezone = Europe/London" > /usr/local/etc/php/conf.d/timezone_set.ini
-RUN groupmod -g 80 www-data # temporary workaround to facilitate the uid used in the shared filesystem in berwyn
-RUN usermod -u 80 www-data
+
 RUN rm -f /etc/apache2/sites-enabled/*
 COPY ./apache/* /etc/apache2/sites-enabled/
-COPY --from=composer /composer /var/www/html
+
+COPY ./modules/* /var/www/html/modules/
+COPY ./profiles/* /var/www/html/profiles/
+COPY ./sites/* /var/www/html/sites/
+
+RUN composer require mhor/php-mediainfo
