@@ -1,7 +1,0 @@
-source 'https://rubygems.org'
-
-gem 'capybara'
-gem 'poltergeist'
-gem 'rake'
-gem 'json'
-gem 'json_pure'
