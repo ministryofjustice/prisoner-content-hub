@@ -145,6 +145,7 @@ function termResponseFrom(data) {
         R.path(['audio', 'url'], data),
         config.drupalAppUrl,
       ),
+      programmeCode: data.programme_code,
     },
   };
 }
