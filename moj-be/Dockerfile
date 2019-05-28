@@ -14,9 +14,9 @@ RUN usermod -u 80 www-data
 RUN rm -f /etc/apache2/sites-enabled/*
 COPY ./apache/* /etc/apache2/sites-enabled/
 
-COPY ./modules/* /var/www/html/modules/
-COPY ./profiles/* /var/www/html/profiles/
-COPY ./sites/* /var/www/html/sites/
+COPY ./modules /var/www/html/modules
+COPY ./profiles /var/www/html/profiles/profiles
+COPY ./sites /var/www/html/sites
 
 RUN chown -R www-data:www-data /var/www/html/sites /var/www/html/modules /var/www/html/themes
 
