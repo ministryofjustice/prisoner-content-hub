@@ -264,7 +264,9 @@ $config_directories['sync'] = 'sites/default/files/config/sync';
  *   ];
  * @endcode
  */
-$config_directories = [];
+$config_directories = [
+  CONFIG_SYNC_DIRECTORY => 'sites/default/files/config/sync'
+];
 
 /**
  * Settings:
