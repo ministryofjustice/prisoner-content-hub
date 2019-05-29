@@ -15,7 +15,7 @@ RUN rm -f /etc/apache2/sites-enabled/*
 COPY ./apache/* /etc/apache2/sites-enabled/
 
 COPY ./modules /var/www/html/modules
-COPY ./profiles /var/www/html/profiles/profiles
+COPY ./profiles /var/www/html/profiles
 COPY ./sites /var/www/html/sites
 
 RUN chown -R www-data:www-data /var/www/html/sites /var/www/html/modules /var/www/html/themes
