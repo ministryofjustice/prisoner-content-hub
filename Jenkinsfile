@@ -5,7 +5,7 @@ pipeline {
   environment {
     DOCKER_USERNAME = credentials('DOCKER_USERNAME')
     DOCKER_PASSWORD = credentials('DOCKER_PASSWORD')
-    HUB_ENV_URL = 'https://dev.hub.service.hmpps.dsd.io'    
+    HUB_ENV_URL = 'https://dev.hub.service.hmpps.dsd.io'
   }
   options {
     timeout(time: 30, unit: 'MINUTES')
@@ -21,16 +21,16 @@ pipeline {
         checkout scm
       }
     }
-  
+
     stage ('Build') {
-      steps {        
+      steps {
         sh 'cd moj-be && make build'
         sh 'cd db && make build'
       }
     }
 
     stage ('Test') {
-      steps {        
+      steps {
         sh 'cd moj-be && make test'
       }
     }
@@ -38,14 +38,13 @@ pipeline {
     stage ('Deploy') {
       when {
         branch 'master'
-      } 
-      steps {        
+      }
+      steps {
         sh 'cd moj-be && make push'
         sh 'cd db && make push'
         sshagent(['hub-env-dev-deploy']) {
           sh 'ssh deploy@dev.hub.service.hmpps.dsd.io "cd digital-hub && make prod-up"'
         }
-        sh 'cd capybara && bundle install && bundle exec rake test'
       }
     }
 
