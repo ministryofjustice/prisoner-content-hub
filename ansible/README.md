@@ -74,3 +74,13 @@ passwd [username]
 passwd -e [username]
 ```
 Send the password to the user, setting the `-e` will force the user to reset on first login.
+
+Updated Jenkins Credentials
+---------------------------
+
+So you've updated ansible/roles/jenkins/vars/config.xml to pull in a new Azure Key Vault as a variable in your pipelines, but you get an error saying it couldn't find the credential.  Chances are you haven't run ansible to apply the Jenkins changes needed to pull in this value.  To do this just run ansible:
+
+```
+git pull
+ansible-playbook -i prod -l ci -k site.yml
+```
