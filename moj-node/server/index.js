@@ -4,7 +4,9 @@ const config = require('./config');
 
 const HubClient = require('./clients/hub');
 const StandardClient = require('./clients/standard');
+const NomisClient = require('./clients/nomisClient');
 
+// Services
 const appInfoService = require('./services/appInfo');
 const createHubMenuService = require('./services/hubMenu');
 const createHubFeaturedContentService = require('./services/hubFeaturedContent');
@@ -12,16 +14,19 @@ const createHubPromotedContentService = require('./services/hubPromotedContent')
 const createHubContentService = require('./services/hubContent');
 const createHealthService = require('./services/health');
 const createHubTagsService = require('./services/hubTags');
+const createNomisBookingsService = require('./services/nomisBookings');
 
+// Repositories
 const featuredContentRepository = require('./repositories/hubFeaturedContent');
 const categoryFeaturedContentRepository = require('./repositories/categoryFeaturedContent');
 const promotedContentRepository = require('./repositories/hubPromotedContent');
 const hubMenuRepository = require('./repositories/hubMenu');
 const contentRepository = require('./repositories/hubContent');
+const nomisBookingsRepository = require('./repositories/nomisBookings');
 
 const buildInfo = config.dev ? null : require('../build-info.json'); // eslint-disable-line import/no-unresolved
 
-// pass in dependencies of service
+// Connect services with repositories
 const hubMenuService = createHubMenuService(hubMenuRepository(new HubClient()));
 const hubFeaturedContentService = createHubFeaturedContentService(
   featuredContentRepository(new HubClient()),
@@ -29,7 +34,6 @@ const hubFeaturedContentService = createHubFeaturedContentService(
 const hubPromotedContentService = createHubPromotedContentService(
   promotedContentRepository(new HubClient()),
 );
-
 const hubContentService = createHubContentService({
   contentRepository: contentRepository(new HubClient()),
   menuRepository: hubMenuRepository(new HubClient()),
@@ -37,8 +41,10 @@ const hubContentService = createHubContentService({
     new HubClient(),
   ),
 });
-
 const hubTagsService = createHubTagsService(contentRepository(new HubClient()));
+const nomisBookingService = createNomisBookingsService(
+  nomisBookingsRepository(new NomisClient()),
+);
 
 const app = createApp({
   appInfo: appInfoService(buildInfo),
@@ -49,6 +55,7 @@ const app = createApp({
   hubMenuService,
   hubContentService,
   hubTagsService,
+  nomisBookingService,
 });
 
 module.exports = app;

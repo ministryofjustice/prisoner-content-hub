@@ -18,6 +18,7 @@ const createTagRouter = require('./routes/tags');
 const createGamesRouter = require('./routes/games');
 const createGettingAJobRouter = require('./routes/gettingAJob');
 const createAuthRouter = require('./routes/auth');
+const createMeRouter = require('./routes/me');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const establishmentToggle = require('./middleware/establishmentToggle');
@@ -35,6 +36,7 @@ module.exports = function createApp({
   hubContentService,
   hubTagsService,
   healthService,
+  nomisBookingService,
 }) {
   const app = express();
 
@@ -167,32 +169,6 @@ module.exports = function createApp({
   // Health end point
   app.use('/health', createHealthRouter({ appInfo, healthService }));
 
-  // Navigation menu middleware
-  // app.use(async (req, res, next) => {
-  //   if (req.session.mainMenu && req.session.topicsMenu) {
-  //     res.locals.mainMenu = req.session.mainMenu;
-  //     res.locals.topicsMenu = req.session.topicsMenu;
-
-  //     return next();
-  //   }
-  //   try {
-  //     const {
-  //       mainMenu,
-  //       topicsMenu,
-  //     } = await hubMenuService.navigationMenu();
-
-  //     req.session.mainMenu = mainMenu;
-  //     res.locals.mainMenu = mainMenu;
-
-  //     req.session.topicsMenu = topicsMenu;
-  //     res.locals.topicsMenu = topicsMenu;
-
-  //     return next();
-  //   } catch (ex) {
-  //     return next(ex);
-  //   }
-  // });
-
   // Routing
   app.use(
     '/',
@@ -227,6 +203,8 @@ module.exports = function createApp({
   );
 
   app.use('/auth', createAuthRouter({ logger }));
+
+  app.use('/me', createMeRouter({ logger, nomisBookingService }));
 
   app.use('*', (req, res) => {
     res.status(404);
