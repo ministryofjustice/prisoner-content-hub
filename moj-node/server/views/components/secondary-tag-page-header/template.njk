@@ -48,29 +48,13 @@
           </style>
           <div class="govuk-grid-column-one-half">
             <div class="govuk-hub-media-player__player govuk-hub-media-audio govuk-hub-media-audio--series-header">
-              <div id="audioPlayer" class="webPlayer light" data-title="{{params.title}}" data-media="{{params.audio.url}}" data-programme-code="{{params.audio.programmeCode}}">
+              <div id="audioPlayer" class="webPlayer light" data-title="{{params.title}}" data-media="{{params.audio.url}}" data-programme-code="{{params.audio.programmeCode}}" data-poster="{{ params.image.url }}" data-width="100%" data-height="300px">
                 <div id="audioPlayerContainer" class="videoPlayer"></div>
               </div>
             </div>
           </div>
 
           <script defer src="/public/javascript/audioPlayer.js" type="text/javascript"></script>
-
-          <script id="audioPlayerScript" type="text/javascript">
-            $('#audioPlayer').videoPlayer({
-              name: '{{ params.title }}',
-              size: {
-                width: '100%',
-                height: '330px',
-              },
-              media: {
-                preload: 'metadata',
-                m4v: '{{ params.audio.url }}',
-                supplied: "mp3",
-                poster: '{{ params.image.url }}',
-              },
-            });
-          </script>
 
         {% elif params.image.url %}
           <div class="govuk-grid-column-one-half">
