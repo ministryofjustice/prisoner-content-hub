@@ -110,12 +110,13 @@ describe('GET /tags', () => {
             .then(response => {
               const $ = cheerio.load(response.text);
 
-              expect($('#audioPlayerScript').html()).to.include(
+              expect($('#audioPlayer').data().media).to.equal(
                 'foo.bar/audio.mp3',
                 'did not load audio',
               );
 
-              expect($('#audioPlayerScript').html()).to.include(
+              expect($('#audioPlayer').data().config.media).to.have.property(
+                'poster',
                 data.image.url,
                 'did not render a poster for the audio player',
               );
