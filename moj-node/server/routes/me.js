@@ -1,7 +1,6 @@
 const express = require('express');
-const NomisClient = require('../clients/nomisClient');
 
-module.exports = function createMeRouter({ logger }) {
+module.exports = function createMeRouter({ logger, nomisBookingService }) {
   const router = express.Router();
 
   const config = {
@@ -10,16 +9,19 @@ module.exports = function createMeRouter({ logger }) {
     postscript: false,
   };
 
-  router.get('/', async (req, res, next) => {
+  router.get('/:offenderNo?', async (req, res, next) => {
     logger.info('GET /me');
 
     try {
-      const client = new NomisClient();
-      const result = await client.get();
+      const { offenderNo } = req.params;
+      const result = await nomisBookingService.getIEPSummaryFor(
+        offenderNo || 'G0653GG',
+      );
 
       return res.render('pages/me', {
         data: {
-          title: JSON.stringify(result, null, 2),
+          title: 'Me',
+          data: JSON.stringify(result, null, 2),
         },
         config,
       });

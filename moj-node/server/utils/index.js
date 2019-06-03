@@ -36,17 +36,7 @@ function fixUrlForProduction(url, alternateUrl = config.hubEndpoint) {
   return url;
 }
 
-async function asyncWaterfall(fnArr) {
-  return fnArr.reduce((promise, fn) => {
-    return promise.then(async x => {
-      const result = await fn(x);
-      return result;
-    });
-  }, Promise.resolve(null));
-}
-
 module.exports = {
-  asyncWaterfall,
   replaceURLWithDefinedEndpoint,
   fixUrlForProduction,
   getEstablishmentId,

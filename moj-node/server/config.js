@@ -41,7 +41,7 @@ module.exports = {
     clientToken: getEnv('NOMIS_API_KEY', 'ADD_ME'),
     api: {
       auth: `${nomisEndpoint}/auth/oauth/token?grant_type=client_credentials`,
-      bookings: `${nomisAPIEndpoint}/bookings/offenderNo`,
+      bookings: `${nomisAPIEndpoint}/bookings`,
     },
   },
   matomoToken: getEnv('MATOMO_TOKEN', 'faketoken'),
