@@ -21,12 +21,12 @@ class HubContentClient {
       .get(endpoint)
       .query(newQuery)
       .then(res => {
-        logger.debug(`Requested ${endpoint}?${qs.stringify(newQuery)}`);
+        logger.info(`Requested ${endpoint}?${qs.stringify(newQuery)}`);
 
         return res.body;
       })
       .catch(exp => {
-        logger.debug(`Requested ${endpoint}?${qs.stringify(newQuery)}`);
+        logger.info(`Failed to request ${endpoint}?${qs.stringify(newQuery)}`);
         logger.error(exp);
         return null;
       });

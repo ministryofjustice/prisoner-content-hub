@@ -15,9 +15,17 @@ class NomisClient {
       .set('Accept', 'application/json')
       .set('Content-Length', 0)
       .then(res => {
-        logger.debug(`Requested ${config.nomis.api.auth}`);
+        logger.info(`Requested ${config.nomis.api.auth}`);
         this.authToken = res.body;
         return res.body;
+      })
+      .catch(exp => {
+        logger.info(`Failed to request ${config.nomis.api.auth}`);
+        logger.error(exp);
+
+        this.authToken = null;
+
+        return exp;
       });
   }
 
@@ -27,13 +35,13 @@ class NomisClient {
         .get(url)
         .set('Authorization', `Bearer ${this.authToken.access_token}`)
         .set('Accept', 'application/json');
-      logger.debug(`Requested ${url}`);
+      logger.info(`Requested ${url}`);
       return res.body;
     } catch (exp) {
       if (exp.status === 401) {
         this.authToken = null;
       }
-      logger.debug(`Failed to request ${url}`);
+      logger.info(`Failed to request ${url}`);
       logger.error(exp);
       return null;
     }

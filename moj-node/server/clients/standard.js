@@ -11,12 +11,12 @@ class StandardClient {
       .get(endpoint)
       .query(query)
       .then(res => {
-        logger.debug(`Requested ${endpoint}`, query);
+        logger.info(`Requested ${endpoint}`, query);
 
         return res;
       })
       .catch(exp => {
-        logger.debug(`Requested ${endpoint} and got back`, query);
+        logger.info(`Failed to request ${endpoint} and got back`, query);
         logger.error(exp);
         return null;
       });
