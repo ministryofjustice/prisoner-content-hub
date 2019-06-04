@@ -36,5 +36,5 @@ services:
       - "MATOMO_API_URI=http://hub-matomo"
       - "MATOMO_URL=digital-hub.wli.dpn.gov.uk:12001"
       - "FQDN=wli.dpn.gov.uk"
-      - "NOMIS_API_TOKEN=${HUB_NOMIS_API_KEY}"
+      - "NOMIS_API_TOKEN"
       - "NOMIS_API_ENDPOINT=https://gateway.prod.nomis-api.service.hmpps.dsd.io"
