@@ -26,22 +26,7 @@ describe('Secondary tag page', () => {
         cy.get('[data-featured-id]')
           .last()
           .then($ref => {
-            const title = $ref
-              .find('[data-featured-title]')
-              .attr('data-featured-title');
-
-            cy.log(`Navigating to ${title}`);
-            cy.get('[data-featured-id]')
-              .last()
-              .click({ force: true });
-
-            cy.document().then(({ contentType }) => {
-              if (contentType === 'application/pdf') {
-                cy.log('PDF opened successfully');
-              } else {
-                cy.get('#title').should('have.text', title);
-              }
-            });
+            cy.openLinkOrPDF($ref);
           });
       });
     });
