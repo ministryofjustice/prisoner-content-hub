@@ -48,5 +48,5 @@ services:
       - "MATOMO_TOKEN=foobar"
       - "MATOMO_API_URI=http://hub-matomo"
       - "ENABLE_PRISON_SWITCH=true"
-      - "NOMIS_API_TOKEN"
+      - NOMIS_API_TOKEN=${NOMIS_API_TOKEN}
       - "NOMIS_API_ENDPOINT=https://gateway.t3.nomis-api.hmpps.dsd.io"
