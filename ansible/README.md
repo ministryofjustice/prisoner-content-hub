@@ -84,3 +84,5 @@ So you've updated ansible/roles/jenkins/vars/config.xml to pull in a new Azure K
 git pull
 ansible-playbook -i prod -l ci -k site.yml
 ```
+
+Note that if this is a brand new environment variable that is being passed through to either the staging or prod docker containers then it will likely need sshd configuring to allow the new environment variable through.  See the existing AcceptEnv statements as an example.
