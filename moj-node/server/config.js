@@ -38,7 +38,7 @@ module.exports = {
     tags: `${hubEndpoint}/v1/api/vocabulary/tags`,
   },
   nomis: {
-    clientToken: getEnv('NOMIS_API_KEY', 'ADD_ME'),
+    clientToken: getEnv('NOMIS_API_TOKEN', 'ADD_ME'),
     api: {
       auth: `${nomisEndpoint}/auth/oauth/token?grant_type=client_credentials`,
       bookings: `${nomisAPIEndpoint}/bookings`,
