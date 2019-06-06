@@ -1,0 +1,62 @@
+[
+  {
+    "id": "5cf7a4532642e2f57a8ff5e4",
+    "title": "Zentury",
+    "contentType": "radio",
+    "summary": "Velit id sunt aliquip consequat veniam in cillum et eiusmod irure magna elit nisi. Dolor eiusmod consectetur in tempor officia elit laborum culpa veniam nisi nostrud duis. Esse laboris proident.\r\n",
+    "image": {
+      "url": "http://placehold.it/300x150",
+      "alt": "velit"
+    },
+    "duration": "53:20",
+    "contentUrl": "/content/3555"
+  },
+  {
+    "id": "5cf7a45301820f95104bc9a3",
+    "title": "Talkola",
+    "contentType": "radio",
+    "summary": "Pariatur ad elit tempor in et sit. Laboris do ut id nisi magna amet qui cupidatat mollit. Culpa velit proident sint pariatur tempor irure cillum minim commodo. Anim id reprehenderit ipsum occaecat irure eu ut sit ut minim ullamco.\r\n",
+    "image": {
+      "url": "http://placehold.it/300x150",
+      "alt": "labore"
+    },
+    "duration": "53:20",
+    "contentUrl": "/content/3555"
+  },
+  {
+    "id": "5cf7a45301ea1bba4903c4e8",
+    "title": "Furnigeer",
+    "contentType": "radio",
+    "summary": "Consequat mollit veniam irure cillum fugiat nisi cillum nulla sit ullamco. Laborum dolore aute commodo voluptate nulla cupidatat amet non. Eiusmod qui veniam amet incididunt.\r\n",
+    "image": {
+      "url": "http://placehold.it/300x150",
+      "alt": "deserunt"
+    },
+    "duration": "53:20",
+    "contentUrl": "/content/3555"
+  },
+  {
+    "id": "5cf7a4531b8fc716e59281f3",
+    "title": "Icology",
+    "contentType": "radio",
+    "summary": "Nisi excepteur nulla minim consequat sint. In velit magna ut id eiusmod sunt pariatur. Laborum aliquip voluptate ullamco qui cillum commodo reprehenderit qui aliquip in sit Lorem labore enim. Laboris Lorem ullamco eiusmod ex pariatur in ea enim laborum cillum dolore.\r\n",
+    "image": {
+      "url": "http://placehold.it/300x150",
+      "alt": "laboris"
+    },
+    "duration": "53:20",
+    "contentUrl": "/content/3555"
+  },
+  {
+    "id": "5cf7a453f7a24254ee9877d8",
+    "title": "Geekmosis",
+    "contentType": "radio",
+    "summary": "Eu cupidatat laborum ex id sit id exercitation exercitation proident cupidatat eiusmod. Tempor consequat voluptate velit pariatur id excepteur Lorem ex cupidatat veniam ipsum adipisicing. Aliqua quis amet nisi ut aliquip excepteur ut reprehenderit reprehenderit. Ut ad commodo consectetur et in cupidatat eiusmod aliquip eiusmod nisi officia velit esse. Adipisicing ullamco in et quis consequat dolore et. Occaecat ut ad quis incididunt et nostrud minim fugiat duis voluptate laboris aute enim qui. Adipisicing aliquip reprehenderit eu aliqua irure ut nostrud ad sit ipsum occaecat nostrud.\r\n",
+    "image": {
+      "url": "http://placehold.it/300x150",
+      "alt": "pariatur"
+    },
+    "duration": "53:20",
+    "contentUrl": "/content/3555"
+  }
+]

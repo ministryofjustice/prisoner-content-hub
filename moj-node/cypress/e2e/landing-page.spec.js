@@ -31,26 +31,7 @@ describe('Landing page', () => {
         cy.get('[data-featured-id]')
           .last()
           .then($ref => {
-            const title = $ref
-              .find('[data-featured-title]')
-              .attr('data-featured-title');
-            const url = $ref.attr('href');
-            const opensNewTab = $ref.attr('target');
-
-            cy.log(`Navigating to ${title}`);
-
-            if (opensNewTab) {
-              cy.log('Opening a pdf');
-              cy.request(url).then(response => {
-                expect(response.headers['content-type']).to.equal(
-                  'application/pdf',
-                );
-              });
-            } else {
-              cy.request(url)
-                .its('body')
-                .should('match', new RegExp(`<h1 .+>${title}</h1>`));
-            }
+            cy.openLinkOrPDF($ref);
           });
       });
     });
