@@ -1,54 +1,91 @@
-const request = require('superagent');
+const axios = require('axios');
+const retryAxios = require('retry-axios');
+const { path, prop } = require('ramda');
 const config = require('../config');
 const logger = require('../../log');
 
+axios.defaults.adapter = require('axios/lib/adapters/http');
+
 class NomisClient {
-  constructor(client = request) {
+  constructor(client = axios, token = null) {
     this.client = client;
-    this.authToken = null;
+
+    this.authToken = token;
+    this.getAuthToken = this.getAuthToken.bind(this);
   }
 
-  getAuthToken() {
-    return this.client
-      .post(config.nomis.api.auth)
-      .set('Authorization', `Basic ${config.nomis.clientToken}`)
-      .set('Accept', 'application/json')
-      .set('Content-Length', 0)
-      .then(res => {
-        logger.info(`Requested ${config.nomis.api.auth}`);
-        this.authToken = res.body;
-        return res.body;
-      })
-      .catch(exp => {
-        logger.info(`Failed to request ${config.nomis.api.auth}`);
-        logger.error(exp);
-
-        this.authToken = null;
-
-        return exp;
+  async getAuthToken() {
+    try {
+      const res = await this.client({
+        url: config.nomis.api.auth,
+        method: 'post',
+        headers: {
+          Authorization: `Basic ${config.nomis.clientToken}`,
+          Accept: 'application/json',
+          'Content-Length': 0,
+        },
       });
+      logger.info(`Requested ${config.nomis.api.auth}`);
+      this.authToken = res.data;
+      return res.data;
+    } catch (exp) {
+      logger.info(`Failed to request ${config.nomis.api.auth}`);
+      logger.error(exp);
+
+      this.authToken = null;
+      return null;
+    }
   }
 
   async makeGetRequest(url) {
     try {
-      const res = await this.client
-        .get(url)
-        .set('Authorization', `Bearer ${this.authToken.access_token}`)
-        .set('Accept', 'application/json');
       logger.info(`Requested ${url}`);
-      return res.body;
+
+      const client = this.client.create();
+      retryAxios.attach(client);
+
+      const res = await client({
+        method: 'GET',
+        url,
+        headers: {
+          Authorization: `Bearer ${this.authToken.access_token}`,
+          Accept: 'application/json',
+        },
+        raxConfig: {
+          instance: client,
+          statusCodesToRetry: [[401, 401], [500, 503]],
+          onRetryAttempt: async originalRequest => {
+            const retryConfig = retryAxios.getConfig(originalRequest);
+            const requestConfig = originalRequest.config;
+
+            logger.info(`Retry attempt #${retryConfig.currentRetryAttempt}`);
+
+            if (originalRequest.response.status >= 500) {
+              return Promise.resolve();
+            }
+
+            const authToken = await this.getAuthToken();
+
+            if (prop('access_token', authToken)) {
+              requestConfig.headers.Authorization = `Bearer ${
+                authToken.access_token
+              }`;
+              return Promise.resolve();
+            }
+
+            return Promise.reject(new Error('Failed to get access token'));
+          },
+        },
+      });
+      return res.data;
     } catch (exp) {
-      if (exp.status === 401) {
-        this.authToken = null;
-      }
-      logger.info(`Failed to request ${url}`);
       logger.error(exp);
       return null;
     }
   }
 
   async get(url) {
-    if (!this.authToken) {
+    if (!path(['authToken', 'access_token'], this)) {
       await this.getAuthToken();
     }
 

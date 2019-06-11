@@ -4,7 +4,7 @@ const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
 const drupalAppUrl = getEnv('DRUPAL_APP_URI', { requireInProduction: true });
 const matomoUrl = getEnv('MATOMO_URL', { requireInProduction: true });
 const matomoEndpoint = getEnv('MATOMO_API_URI', { requireInProduction: true });
-const nomisEndpoint = getEnv('NOMIS_API_ENDPOINT', {
+const nomisEndpoint = getEnv('NOMIS_API_ENDPOINT', 'https://api.nomis', {
   requireInProduction: true,
 });
 const nomisAPIEndpoint = `${nomisEndpoint}/elite2api/api`;
