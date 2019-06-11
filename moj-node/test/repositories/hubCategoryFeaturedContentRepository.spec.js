@@ -2,17 +2,6 @@ const hubCategoryFeaturedContentRepository = require('../../server/repositories/
 
 describe('hubCategoryFeaturedContentRepository', () => {
   describe('#contentFor', () => {
-    it('returns empty if no categoryId is passed', async () => {
-      const client = generateFeatureContentClient([
-        { contentType: 'moj_radio_item' },
-      ]);
-      const repository = hubCategoryFeaturedContentRepository(client);
-      const result = await repository.contentFor();
-
-      expect(client.get.callCount).to.equal(0);
-      expect(result).to.eql([]);
-    });
-
     describe('When content is returned from the endpoint', () => {
       it('returns a featured content', async () => {
         const client = generateFeatureContentClient([

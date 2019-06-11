@@ -1,4 +1,5 @@
 const hubContentRepository = require('../../server/repositories/hubContent');
+const termResponse = require('../resources/terms.json');
 
 describe('hubContentRepository', () => {
   describe('#contentFor', () => {
@@ -53,7 +54,7 @@ describe('hubContentRepository', () => {
       expect(result).to.equal(null);
     });
     it('returns terms data for a given id', async () => {
-      const client = generateClient({});
+      const client = generateClient(termResponse);
       const repository = hubContentRepository(client);
       const result = await repository.termFor('id');
 
@@ -76,13 +77,25 @@ describe('hubContentRepository', () => {
   });
 
   describe('#seasonFor', () => {
-    it('returns null if no id is passed', async () => {
+    it('returns empty if no id is passed', async () => {
       const client = generateClient({ response: 'data' });
       const repository = hubContentRepository(client);
-      const result = await repository.seasonFor();
+      const result = await repository.seasonFor({});
 
       expect(client.get.callCount).to.equal(0);
-      expect(result).to.equal(null);
+      expect(result).to.eql([]);
+    });
+
+    it('returns empty if response is invalid', async () => {
+      const client = generateClient({ response: 'data' });
+      const repository = hubContentRepository(client);
+      const result = await repository.seasonFor({ id: 1 });
+
+      expect(client.get.callCount).to.equal(
+        1,
+        'client should have been called',
+      );
+      expect(result).to.eql([]);
     });
     it('returns formated data for a season', async () => {
       const client = generateClient([
@@ -104,15 +117,25 @@ describe('hubContentRepository', () => {
   });
 
   describe('#nextEpisodesFor', () => {
-    it('returns null if no id is passed', async () => {
-      const client = generateClient({ response: 'data' });
+    it('returns empty if no id is passed', async () => {
+      const client = generateClient(null);
       const repository = hubContentRepository(client);
-      const result = await repository.nextEpisodesFor();
+      const result = await repository.nextEpisodesFor({});
 
       expect(client.get.callCount).to.equal(0);
-      expect(result).to.equal(null);
+      expect(result).to.eql([]);
     });
-    it('returns the next (n) episodes in the series', async () => {
+
+    it('returns empty if when invalid data is returned from the api call', async () => {
+      const client = generateClient({ response: 'invalid' });
+      const repository = hubContentRepository(client);
+      const result = await repository.nextEpisodesFor({ id: 1, episodeId: 1 });
+
+      expect(client.get.callCount).to.equal(1);
+      expect(result).to.eql([]);
+    });
+
+    it('returns the next episodes in the series', async () => {
       const client = generateClient([
         { content_type: 'moj_video_item' },
         { content_type: 'moj_radio_item' },
@@ -135,13 +158,22 @@ describe('hubContentRepository', () => {
   });
 
   describe('#relatedContentFor', () => {
-    it('returns null if no id is passed', async () => {
+    it('returns empty if no id is passed', async () => {
       const client = generateClient({ response: 'data' });
       const repository = hubContentRepository(client);
-      const result = await repository.relatedContentFor();
+      const result = await repository.relatedContentFor({});
 
       expect(client.get.callCount).to.equal(0);
-      expect(result).to.equal(null);
+      expect(result).to.eql([]);
+    });
+
+    it('returns empty when invalid data is returned from the api', async () => {
+      const client = generateClient({ response: 'data' });
+      const repository = hubContentRepository(client);
+      const result = await repository.relatedContentFor({ id: 1 });
+
+      expect(client.get.callCount).to.equal(1);
+      expect(result).to.eql([]);
     });
     it('returns formated data for related content', async () => {
       const client = generateClient([

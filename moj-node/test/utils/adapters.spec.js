@@ -60,11 +60,6 @@ describe('Adapters', () => {
       const result = seasonResponseFrom(seasonResponse);
       expect(result).to.eql(seasonContent());
     });
-
-    it('returns empty when a falsy is passed', () => {
-      const result = seasonResponseFrom(null);
-      expect(result).to.eql([]);
-    });
   });
 
   describe('.contentResponseFrom', () => {

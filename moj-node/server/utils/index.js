@@ -1,4 +1,7 @@
+const R = require('ramda');
 const config = require('../config');
+
+const isEmpty = val => R.isEmpty(val) || R.isNil(val);
 
 function getEstablishmentId(name) {
   if (typeof name === 'number') return name;
@@ -41,4 +44,5 @@ module.exports = {
   fixUrlForProduction,
   getEstablishmentId,
   getEstablishmentName,
+  isEmpty,
 };

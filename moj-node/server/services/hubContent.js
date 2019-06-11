@@ -6,6 +6,10 @@ module.exports = function createHubContentService({
   categoryFeaturedContentRepository,
 }) {
   async function contentFor(id, establishmentId) {
+    if (!id) {
+      return {};
+    }
+
     const content = await contentRepository.contentFor(id);
     const contentType = prop('contentType', content);
     const prisonId = prop('establishmentId', content);
