@@ -22,7 +22,9 @@ function hubCategoryFeaturedContentRepository(httpClient) {
 
     const response = await httpClient.get(endpoint, query);
 
-    if (!Array.isArray(response)) return [];
+    if (!Array.isArray(response)) {
+      return [];
+    }
 
     return R.map(featuredContentResponseFrom, response);
   }

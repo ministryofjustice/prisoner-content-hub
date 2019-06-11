@@ -3,6 +3,8 @@ const qs = require('querystring');
 
 const config = require('../config');
 const logger = require('../../log');
+const { isEmpty } = require('../utils');
+
 const {
   contentResponseFrom,
   mediaResponseFrom,
@@ -19,11 +21,15 @@ module.exports = function hubContentRepository(httpClient) {
     const endpoint = `${config.api.hubContent}/${id}`;
 
     if (!id) {
-      logger.debug(`Requested ${endpoint}`);
+      logger.error(`Requested ${endpoint}`);
       return null;
     }
 
     const response = await httpClient.get(endpoint);
+
+    if (isEmpty(response)) {
+      return null;
+    }
 
     return parseResponse(response);
   }
@@ -37,6 +43,11 @@ module.exports = function hubContentRepository(httpClient) {
     }
 
     const response = await httpClient.get(endpoint);
+
+    if (isEmpty(response)) {
+      logger.error(`Requested ${endpoint}`);
+      return null;
+    }
 
     return termResponseFrom(response);
   }
@@ -54,6 +65,9 @@ module.exports = function hubContentRepository(httpClient) {
     }
 
     const response = await httpClient.get(endpoint, query);
+
+    if (!Array.isArray(response)) return [];
+
     return parseMenuResponse(response);
   }
 
@@ -72,10 +86,14 @@ module.exports = function hubContentRepository(httpClient) {
 
     if (!id) {
       logger.error(`Requested ${endpoint}?${qs.stringify(query)}`);
-      return null;
+      return [];
     }
 
     const response = await httpClient.get(endpoint, query);
+
+    if (!Array.isArray(response)) {
+      return [];
+    }
 
     return seasonResponseFrom(response);
   }
@@ -95,11 +113,13 @@ module.exports = function hubContentRepository(httpClient) {
     };
 
     if (!id || !episodeId) {
-      logger.debug(`Requested ${endpoint}?${qs.stringify(query)}`);
-      return null;
+      logger.error(`Requested ${endpoint}?${qs.stringify(query)}`);
+      return [];
     }
 
     const response = await httpClient.get(endpoint, query);
+
+    if (!Array.isArray(response)) return [];
 
     return seasonResponseFrom(response);
   }
@@ -108,11 +128,14 @@ module.exports = function hubContentRepository(httpClient) {
     const endpoint = `${config.api.hubContent}/${id}`;
 
     if (!id) {
-      logger.debug(`Requested ${endpoint}`);
+      logger.error(`Requested ${endpoint}`);
       return null;
     }
 
     const response = await httpClient.get(endpoint);
+
+    if (!Array.isArray(response)) return [];
+
     return contentResponseFrom(response);
   }
 
@@ -133,18 +156,18 @@ module.exports = function hubContentRepository(httpClient) {
     };
 
     if (!id) {
-      logger.debug(`Requested ${endpoint}?${qs.stringify(query)}`);
-      return null;
+      logger.error(`Requested ${endpoint}?${qs.stringify(query)}`);
+      return [];
     }
 
     const response = await httpClient.get(endpoint, query);
+
+    if (!Array.isArray(response)) return [];
 
     return contentResponseFrom(response);
   }
 
   function parseMenuResponse(data = []) {
-    if (data === null) return [];
-
     return data.map(menuItem => ({
       linkText: R.prop('title', menuItem),
       href: `/content/${R.prop('id', menuItem)}`,
@@ -153,8 +176,6 @@ module.exports = function hubContentRepository(httpClient) {
   }
 
   function parseResponse(data) {
-    if (data === null) return null;
-
     const contentType = typeFrom(data.content_type);
 
     switch (contentType) {

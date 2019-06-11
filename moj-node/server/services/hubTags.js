@@ -1,6 +1,10 @@
+const { prop } = require('ramda');
+
 module.exports = function createHubTagsService(repository) {
   async function termFor(id, establishmentId) {
     const content = await repository.termFor(id);
+
+    if (!prop('contentType', content)) return null;
 
     switch (content.contentType) {
       case 'series': {

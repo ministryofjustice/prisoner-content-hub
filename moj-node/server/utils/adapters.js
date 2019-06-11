@@ -63,9 +63,7 @@ function featuredContentResponseFrom(response) {
   };
 }
 
-function contentResponseFrom(data) {
-  if (!data) return [];
-
+function contentResponseFrom(data = []) {
   return data.map(item => {
     return {
       id: item.id,
@@ -151,8 +149,6 @@ function termResponseFrom(data) {
 }
 
 function landingResponseFrom(data) {
-  if (data === null) return null;
-
   return {
     id: data.id,
     title: data.title,
@@ -169,8 +165,6 @@ function landingResponseFrom(data) {
 }
 
 function pdfResponseFrom(data) {
-  if (data === null) return null;
-
   return {
     id: data.id,
     title: data.title,
@@ -185,8 +179,7 @@ function typeFrom(type) {
   return HUB_CONTENT_TYPES[type];
 }
 
-function seasonResponseFrom(data) {
-  if (!data) return [];
+function seasonResponseFrom(data = []) {
   return R.map(mediaResponseFrom, data);
 }
 

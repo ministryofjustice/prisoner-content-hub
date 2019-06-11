@@ -10,7 +10,13 @@ module.exports = function createContentRouter({
   const router = express.Router();
 
   router.get('/:id', async (req, res, next) => {
-    logger.info(`GET /${req.params.id}`);
+    const { id } = req.params;
+
+    logger.info(`GET /${id}`);
+
+    if (!id) {
+      return next();
+    }
 
     const config = {
       content: true,
@@ -21,10 +27,7 @@ module.exports = function createContentRouter({
     const { establishmentId } = req.app.locals.envVars;
 
     try {
-      const data = await hubContentService.contentFor(
-        req.params.id,
-        establishmentId,
-      );
+      const data = await hubContentService.contentFor(id, establishmentId);
       const contentType = prop('contentType', data);
 
       switch (contentType) {
@@ -50,7 +53,7 @@ module.exports = function createContentRouter({
             backHomeEnabled: true,
           });
         case 'pdf': {
-          logger.debug('PROD - Sending PDF to client from:', data.url);
+          logger.info('PROD - Sending PDF to client from:', data.url);
           const stream = requestClient.get(data.url);
 
           // X-Download-Options prevents Internet Explorer from executing downloads

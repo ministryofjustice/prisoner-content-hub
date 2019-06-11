@@ -8,6 +8,11 @@ module.exports = function Tags({ logger, hubTagsService }) {
       const { id } = req.params;
 
       logger.info(`GET /tags/${id}`);
+
+      if (!id) {
+        return next();
+      }
+
       const { establishmentId } = req.app.locals.envVars;
       const config = {
         content: true,
@@ -17,19 +22,25 @@ module.exports = function Tags({ logger, hubTagsService }) {
 
       const data = await hubTagsService.termFor(id, establishmentId);
 
-      res.render('pages/tags', {
+      return res.render('pages/tags', {
         tagId: id,
         data,
         config,
       });
     } catch (exception) {
-      next(exception);
+      return next(exception);
     }
   });
 
-  router.get('/related-content/:id', async (req, res) => {
+  router.get('/related-content/:id', async (req, res, next) => {
+    const { id } = req.params;
+    logger.info(`GET /tags/${id}/related-content`);
+
+    if (!id) {
+      return next();
+    }
+
     try {
-      logger.info(`GET /tags/${req.params.id}/related-content`);
       const { establishmentId } = req.app.locals.envVars;
       const { contentType } = req.query;
       const method =
@@ -41,9 +52,9 @@ module.exports = function Tags({ logger, hubTagsService }) {
         ...req.query,
       });
 
-      res.json(data);
+      return res.json(data);
     } catch (exp) {
-      res.json(null);
+      return res.json(null);
     }
   });
 
