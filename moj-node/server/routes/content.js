@@ -2,11 +2,7 @@ const { prop } = require('ramda');
 const express = require('express');
 const request = require('superagent');
 
-module.exports = function createContentRouter({
-  hubContentService,
-  logger,
-  requestClient = request,
-}) {
+module.exports = function createContentRouter({ hubContentService, logger, requestClient = request }) {
   const router = express.Router();
 
   router.get('/:id', async (req, res, next) => {

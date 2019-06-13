@@ -28,23 +28,15 @@ const buildInfo = config.dev ? null : require('../build-info.json'); // eslint-d
 
 // Connect services with repositories
 const hubMenuService = createHubMenuService(hubMenuRepository(new HubClient()));
-const hubFeaturedContentService = createHubFeaturedContentService(
-  featuredContentRepository(new HubClient()),
-);
-const hubPromotedContentService = createHubPromotedContentService(
-  promotedContentRepository(new HubClient()),
-);
+const hubFeaturedContentService = createHubFeaturedContentService(featuredContentRepository(new HubClient()));
+const hubPromotedContentService = createHubPromotedContentService(promotedContentRepository(new HubClient()));
 const hubContentService = createHubContentService({
   contentRepository: contentRepository(new HubClient()),
   menuRepository: hubMenuRepository(new HubClient()),
-  categoryFeaturedContentRepository: categoryFeaturedContentRepository(
-    new HubClient(),
-  ),
+  categoryFeaturedContentRepository: categoryFeaturedContentRepository(new HubClient()),
 });
 const hubTagsService = createHubTagsService(contentRepository(new HubClient()));
-const nomisBookingService = createNomisBookingsService(
-  nomisBookingsRepository(new NomisClient()),
-);
+const nomisBookingService = createNomisBookingsService(nomisBookingsRepository(new NomisClient()));
 
 const app = createApp({
   appInfo: appInfoService(buildInfo),

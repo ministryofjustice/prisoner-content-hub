@@ -52,9 +52,7 @@ describe('Homepage', () => {
       });
 
       it(`navigates to the 'Education and work' page`, () => {
-        cy.get(`${cssNav} > :nth-child(2) > .govuk-link`).as(
-          'workingInBerwynLink',
-        );
+        cy.get(`${cssNav} > :nth-child(2) > .govuk-link`).as('workingInBerwynLink');
 
         cy.get('@workingInBerwynLink').click();
         cy.location('pathname').should('include', '/content/3630');
@@ -89,18 +87,12 @@ describe('Homepage', () => {
       it(`renders featured section correctly for ${id}`, () => {
         cy.log('Check featured content items are rendered');
 
-        cy.get(
-          `[data-featured-section-id="${id}"] [data-featured-item-id]`,
-        ).should('have.length.greaterThan', 2);
+        cy.get(`[data-featured-section-id="${id}"] [data-featured-item-id]`).should('have.length.greaterThan', 2);
 
-        cy.get(
-          `[data-featured-section-id="${id}"] [data-featured-section-title]`,
-        ).then($el => {
+        cy.get(`[data-featured-section-id="${id}"] [data-featured-section-title]`).then($el => {
           const title = $el.attr('data-featured-section-title');
           cy.log(`Navigating to ${title} landing page`);
-          cy.get(
-            `[data-featured-section-id="${id}"] [data-more-btn-id]`,
-          ).click();
+          cy.get(`[data-featured-section-id="${id}"] [data-more-btn-id]`).click();
           cy.get('#title').should('have.text', title);
         });
       });

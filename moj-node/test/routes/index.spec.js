@@ -43,10 +43,7 @@ describe('GET /', () => {
   const hubMenuService = {
     tagsMenu: sinon
       .stub()
-      .returns([
-        { linkText: 'Some Foo Link', href: '/content/someFooLink' },
-        { linkText: 'Bar', href: '/content/2' },
-      ]),
+      .returns([{ linkText: 'Some Foo Link', href: '/content/someFooLink' }, { linkText: 'Bar', href: '/content/2' }]),
     homepageMenu: sinon.stub().returns([
       {
         title: 'Some cool content link',
@@ -72,10 +69,7 @@ describe('GET /', () => {
       .then(response => {
         const $ = cheerio.load(response.text);
 
-        expect($('[data-promoted-item-text]').text()).to.include(
-          'foo promoted content',
-          'Incorrect title rendered',
-        );
+        expect($('[data-promoted-item-text]').text()).to.include('foo promoted content', 'Incorrect title rendered');
         expect($('[data-promoted-item-text]').text()).to.include(
           'foo promoted summary',
           'Incorrect description rendered',
@@ -85,10 +79,7 @@ describe('GET /', () => {
           'Incorrect image rendered',
         );
 
-        expect($('[data-call-to-action]').attr('href')).to.include(
-          'foo.content.url',
-          'Incorrect content url rendered',
-        );
+        expect($('[data-call-to-action]').attr('href')).to.include('foo.content.url', 'Incorrect content url rendered');
       });
   });
 
@@ -108,28 +99,18 @@ describe('GET /', () => {
       .expect(200)
       .then(response => {
         const $ = cheerio.load(response.text);
-        const radioItemSelector =
-          '[data-featured-item-id="featured-content-1"]';
-        expect($('[data-featured-item-id]').length).to.equal(
-          8,
-          '8 featured items should be rendered',
+        const radioItemSelector = '[data-featured-item-id="featured-content-1"]';
+        expect($('[data-featured-item-id]').length).to.equal(8, '8 featured items should be rendered');
+        expect($(radioItemSelector).text()).to.include('Foo radio show', 'Correct title rendered');
+        expect($(radioItemSelector).text()).to.include('foo summary', 'Correct description rendered');
+        expect($(`${radioItemSelector} [data-featured-item-background]`).attr('style')).to.include(
+          'image.url.com',
+          'Correct image rendered',
         );
-        expect($(radioItemSelector).text()).to.include(
-          'Foo radio show',
-          'Correct title rendered',
+        expect($(`${radioItemSelector} [data-featured-item-duration]`).text()).to.include(
+          '40:00',
+          'Correct duration rendered',
         );
-        expect($(radioItemSelector).text()).to.include(
-          'foo summary',
-          'Correct description rendered',
-        );
-        expect(
-          $(`${radioItemSelector} [data-featured-item-background]`).attr(
-            'style',
-          ),
-        ).to.include('image.url.com', 'Correct image rendered');
-        expect(
-          $(`${radioItemSelector} [data-featured-item-duration]`).text(),
-        ).to.include('40:00', 'Correct duration rendered');
       });
   });
 
@@ -150,10 +131,7 @@ describe('GET /', () => {
       .then(response => {
         const $ = cheerio.load(response.text);
 
-        expect($('#homepage-navigation li').length).to.equal(
-          2,
-          'should have rendered a homepage navigation',
-        );
+        expect($('#homepage-navigation li').length).to.equal(2, 'should have rendered a homepage navigation');
 
         expect($('#homepage-navigation').text()).to.include(
           'Some cool content link',
@@ -209,10 +187,7 @@ describe('GET /', () => {
           const $ = cheerio.load(response.text);
 
           expect($('#browser-by-topic h1').text()).to.equal('Browse by topic');
-          expect($('#browser-by-topic .govuk-hub-topics li').length).to.equal(
-            2,
-            'Correct number of menu items',
-          );
+          expect($('#browser-by-topic .govuk-hub-topics li').length).to.equal(2, 'Correct number of menu items');
 
           expect($('#browser-by-topic').text()).to.include(
             'Some Foo Link',

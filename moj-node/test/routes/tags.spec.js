@@ -72,14 +72,9 @@ describe('GET /tags', () => {
             .then(response => {
               const $ = cheerio.load(response.text);
 
-              expect($('#title').text()).to.include(
-                data.name,
-                'did not have correct header title',
-              );
+              expect($('#title').text()).to.include(data.name, 'did not have correct header title');
 
-              expect($('#description').text()).to.include(
-                data.description.sanitized,
-              );
+              expect($('#description').text()).to.include(data.description.sanitized);
 
               expect($('[data-page-featured-image]').attr('style')).to.include(
                 data.image.url,
@@ -110,10 +105,7 @@ describe('GET /tags', () => {
             .then(response => {
               const $ = cheerio.load(response.text);
 
-              expect($('#audioPlayer').data().media).to.equal(
-                'foo.bar/audio.mp3',
-                'did not load audio',
-              );
+              expect($('#audioPlayer').data().media).to.equal('foo.bar/audio.mp3', 'did not load audio');
 
               expect($('#audioPlayer').data().config.media).to.have.property(
                 'poster',
@@ -145,10 +137,7 @@ describe('GET /tags', () => {
             .then(response => {
               const $ = cheerio.load(response.text);
 
-              expect($('#videoPlayerScript').html()).to.include(
-                'foo.bar/video.mp4',
-                'did not render a video',
-              );
+              expect($('#videoPlayerScript').html()).to.include('foo.bar/video.mp4', 'did not render a video');
 
               expect($('#videoPlayerScript').html()).to.include(
                 data.image.url,
@@ -176,10 +165,7 @@ describe('GET /tags', () => {
             .then(response => {
               const $ = cheerio.load(response.text);
 
-              expect($('[data-featured-id]').length).to.equal(
-                1,
-                'did not render the correct number of',
-              );
+              expect($('[data-featured-id]').length).to.equal(1, 'did not render the correct number of');
 
               expect($('[data-featured-id="foo"]').text()).to.include(
                 data.relatedContent.data[0].title,
@@ -190,9 +176,7 @@ describe('GET /tags', () => {
                 'did not render the correct related item summary',
               );
 
-              expect(
-                $('[data-featured-item-background]').attr('style'),
-              ).to.include(
+              expect($('[data-featured-item-background]').attr('style')).to.include(
                 data.relatedContent.data[0].image.url,
                 'did not render the correct related item image',
               );

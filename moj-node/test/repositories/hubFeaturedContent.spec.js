@@ -3,9 +3,7 @@ const hubFeaturedContentRepository = require('../../server/repositories/hubFeatu
 describe('hubFeaturedContentRepository', () => {
   describe('#contentFor', () => {
     it('returns empty if no categoryId is passed', async () => {
-      const client = generateFeatureContentClient([
-        { contentType: 'moj_radio_item' },
-      ]);
+      const client = generateFeatureContentClient([{ contentType: 'moj_radio_item' }]);
       const repository = hubFeaturedContentRepository(client);
       const result = await repository.contentFor();
 
@@ -15,20 +13,10 @@ describe('hubFeaturedContentRepository', () => {
 
     describe('When content is returned from the endpoint', () => {
       it('returns a featured content', async () => {
-        const client = generateFeatureContentClient([
-          { contentType: 'moj_radio_item' },
-        ]);
+        const client = generateFeatureContentClient([{ contentType: 'moj_radio_item' }]);
         const repository = hubFeaturedContentRepository(client);
 
-        const expectedKeys = [
-          'id',
-          'title',
-          'contentType',
-          'summary',
-          'image',
-          'duration',
-          'contentUrl',
-        ];
+        const expectedKeys = ['id', 'title', 'contentType', 'summary', 'image', 'duration', 'contentUrl'];
 
         const result = await repository.contentFor({
           categoryId: 'fooCategoryId',
@@ -50,9 +38,7 @@ describe('hubFeaturedContentRepository', () => {
 
     describe('When no content is returned from the endpoint', () => {
       it('returns no data', async () => {
-        const repository = hubFeaturedContentRepository(
-          generateNoDataResponse(),
-        );
+        const repository = hubFeaturedContentRepository(generateNoDataResponse());
         const content = await repository.contentFor(1);
 
         expect(content).to.eql([]);

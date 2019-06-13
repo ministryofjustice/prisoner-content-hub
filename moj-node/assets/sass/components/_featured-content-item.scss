@@ -135,11 +135,7 @@ $mauve: #6f72af;
 .govuk-hub-featured-content-item__overlay {
   $fortyPercentBlack: rgba(0, 0, 0, 0.4);
   background: $seventyFivePercentBlack;
-  background: -ms-linear-gradient(
-    bottom,
-    rgba(0, 0, 0, 0),
-    rgba(0, 0, 0, 1)
-  ); /* IE 11 */
+  background: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)); /* IE 11 */
   @include gradient(bottom, $gradient);
 }
 

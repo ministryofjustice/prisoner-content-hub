@@ -49,8 +49,7 @@ function imageOrDefaultFor(image, contentType) {
 function featuredContentResponseFrom(response) {
   const type = R.prop('content_type', response);
   const id = R.prop('id', response);
-  const contentUrl =
-    type === 'series' || type === 'tags' ? `/tags/${id}` : `/content/${id}`;
+  const contentUrl = type === 'series' || type === 'tags' ? `/tags/${id}` : `/content/${id}`;
 
   return {
     id,
@@ -89,10 +88,7 @@ function mediaResponseFrom(data) {
       sanitized: R.path(['description', 'processed'], data),
       summary: R.path(['description', 'summary'], data),
     },
-    media: fixUrlForProduction(
-      R.path(['media', 'url'], data),
-      config.drupalAppUrl,
-    ),
+    media: fixUrlForProduction(R.path(['media', 'url'], data), config.drupalAppUrl),
     duration: data.duration,
     image: imageOrDefaultFor(data.image),
     episode: data.episode,
@@ -133,16 +129,10 @@ function termResponseFrom(data) {
     },
     image: imageFor(data.image),
     video: {
-      url: fixUrlForProduction(
-        R.path(['video', 'url'], data),
-        config.drupalAppUrl,
-      ),
+      url: fixUrlForProduction(R.path(['video', 'url'], data), config.drupalAppUrl),
     },
     audio: {
-      url: fixUrlForProduction(
-        R.path(['audio', 'url'], data),
-        config.drupalAppUrl,
-      ),
+      url: fixUrlForProduction(R.path(['audio', 'url'], data), config.drupalAppUrl),
       programmeCode: data.programme_code,
     },
   };

@@ -26,13 +26,7 @@
     "npm": ">=6.4.1"
   },
   "nodemonConfig": {
-    "ignore": [
-      ".circleci/*",
-      "migrations/*",
-      "node_modules/*",
-      "test/*",
-      "build-info.json"
-    ],
+    "ignore": [".circleci/*", "migrations/*", "node_modules/*", "test/*", "build-info.json"],
     "delay": "2500"
   },
   "husky": {

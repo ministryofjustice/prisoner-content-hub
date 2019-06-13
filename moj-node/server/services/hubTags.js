@@ -42,13 +42,7 @@ module.exports = function createHubTagsService(repository) {
     });
   }
 
-  function relatedContentFor({
-    id,
-    establishmentId,
-    perPage,
-    offset,
-    sortOrder,
-  }) {
+  function relatedContentFor({ id, establishmentId, perPage, offset, sortOrder }) {
     return repository.relatedContentFor({
       id,
       establishmentId,

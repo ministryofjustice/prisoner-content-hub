@@ -10,9 +10,7 @@ describe('App', () => {
       .get('/unknown-url')
       .expect(404)
       .then(res => {
-        expect(res.text).to.contain(
-          'The page you are looking for could not be found',
-        );
+        expect(res.text).to.contain('The page you are looking for could not be found');
       }));
 
   it('hides the stack trace on error pages', () => {
@@ -34,13 +32,8 @@ describe('App', () => {
       .get('/')
       .expect(500)
       .then(res => {
-        expect(res.text).to.contain(
-          'Sorry, there is a problem with this service',
-        );
-        expect(res.text).to.contain(
-          '<code></code>',
-          'The code block is not empty',
-        );
+        expect(res.text).to.contain('Sorry, there is a problem with this service');
+        expect(res.text).to.contain('<code></code>', 'The code block is not empty');
 
         // restore config
         config.dev = copy;
@@ -68,17 +61,9 @@ describe('App', () => {
       .expect(500)
       .then(res => {
         expect(res.text).to.contain('Broken kittens');
-        expect(res.text).to.not.contain(
-          'Sorry, there is a problem with this service',
-        );
-        expect(res.text).to.not.contain(
-          '<code></code>',
-          'The code block should not be empty',
-        );
-        expect(res.text).to.contain(
-          'at Context.it',
-          'there should be an error in the code block',
-        );
+        expect(res.text).to.not.contain('Sorry, there is a problem with this service');
+        expect(res.text).to.not.contain('<code></code>', 'The code block should not be empty');
+        expect(res.text).to.contain('at Context.it', 'there should be an error in the code block');
 
         // restore config
         config.dev = copy;

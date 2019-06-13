@@ -14,9 +14,7 @@ module.exports = function createMeRouter({ logger, nomisBookingService }) {
 
     try {
       const { offenderNo } = req.params;
-      const result = await nomisBookingService.getIEPSummaryFor(
-        offenderNo || 'G0653GG',
-      );
+      const result = await nomisBookingService.getIEPSummaryFor(offenderNo || 'G0653GG');
 
       return res.render('pages/me', {
         data: {

@@ -130,19 +130,10 @@ module.exports = function createApp({
     app.use('/public', express.static(path.join(__dirname, dir), cacheControl));
   });
 
-  app.use(
-    '/assets',
-    express.static(
-      path.join(__dirname, '../node_modules/govuk-frontend/assets'),
-      cacheControl,
-    ),
-  );
+  app.use('/assets', express.static(path.join(__dirname, '../node_modules/govuk-frontend/assets'), cacheControl));
 
   ['../node_modules/govuk_frontend_toolkit/images'].forEach(dir => {
-    app.use(
-      '/public/images/icons',
-      express.static(path.join(__dirname, dir), cacheControl),
-    );
+    app.use('/public/images/icons', express.static(path.join(__dirname, dir), cacheControl));
   });
 
   // GovUK Template Configuration

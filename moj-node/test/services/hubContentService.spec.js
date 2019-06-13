@@ -4,9 +4,7 @@ describe('#hubContentService', () => {
   describe('content', () => {
     it('returns content for a given ID', async () => {
       const contentRepository = {
-        contentFor: sinon
-          .stub()
-          .returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
+        contentFor: sinon.stub().returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
       };
       const service = createHubContentService({ contentRepository });
       const result = await service.contentFor('contentId');
@@ -27,12 +25,7 @@ describe('#hubContentService', () => {
             tagsId: [12],
           }),
           termFor: sinon.stub().returns({ name: 'foo series name', id: 'foo' }),
-          nextEpisodesFor: sinon
-            .stub()
-            .returns([
-              { id: 1, title: 'foo episode' },
-              { id: 2, title: 'bar episode' },
-            ]),
+          nextEpisodesFor: sinon.stub().returns([{ id: 1, title: 'foo episode' }, { id: 2, title: 'bar episode' }]),
         };
 
         const service = createHubContentService({ contentRepository });
@@ -55,17 +48,13 @@ describe('#hubContentService', () => {
           'seriesId',
           'The termFor method was called incorrectly',
         );
-        expect(
-          contentRepository.nextEpisodesFor.lastCall.args[0],
-        ).to.have.property(
+        expect(contentRepository.nextEpisodesFor.lastCall.args[0]).to.have.property(
           'id',
           'seriesId',
           'The nextEpisodeFor method was called incorrectly',
         );
 
-        expect(
-          contentRepository.nextEpisodesFor.lastCall.args[0],
-        ).to.have.property(
+        expect(contentRepository.nextEpisodesFor.lastCall.args[0]).to.have.property(
           'episodeId',
           'episodeId',
           'The nextEpisodeFor method was called incorrectly',
@@ -120,10 +109,7 @@ describe('#hubContentService', () => {
 
       expect(result).to.have.property('id', content.id);
       expect(result).to.have.property('contentType', content.contentType);
-      expect(result).to.have.property(
-        'featuredContentId',
-        content.featuredContentId,
-      );
+      expect(result).to.have.property('featuredContentId', content.featuredContentId);
       expect(result).to.have.property('featuredContent', 'fooBar');
       expect(result).to.have.property('relatedContent');
       expect(result).to.have.property('categoryMenu', 'categoryMenu');
@@ -159,9 +145,7 @@ describe('#hubContentService', () => {
 
       await service.contentFor(content.id, establishmentId);
 
-      expect(
-        categoryFeaturedContentRepository.contentFor.lastCall.lastArg,
-      ).to.eql(
+      expect(categoryFeaturedContentRepository.contentFor.lastCall.lastArg).to.eql(
         {
           categoryId: 'categoryId',
           establishmentId: 'establishmentId',
@@ -189,9 +173,7 @@ describe('#hubContentService', () => {
 
       expect(menuRepository.categoryMenu.lastCall.lastArg).to.eql(
         expectedResult,
-        `the call arguments were supposed to be "${JSON.stringify(
-          expectedResult,
-        )}"`,
+        `the call arguments were supposed to be "${JSON.stringify(expectedResult)}"`,
       );
     });
   });

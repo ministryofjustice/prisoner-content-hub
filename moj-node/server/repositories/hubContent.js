@@ -71,12 +71,7 @@ module.exports = function hubContentRepository(httpClient) {
     return parseMenuResponse(response);
   }
 
-  async function seasonFor({
-    id,
-    establishmentId,
-    perPage = 40,
-    offset = 0,
-  } = {}) {
+  async function seasonFor({ id, establishmentId, perPage = 40, offset = 0 } = {}) {
     const endpoint = `${config.api.series}/${id}`;
     const query = {
       _number: perPage,
@@ -98,12 +93,7 @@ module.exports = function hubContentRepository(httpClient) {
     return seasonResponseFrom(response);
   }
 
-  async function nextEpisodesFor({
-    id,
-    establishmentId,
-    perPage = 3,
-    episodeId,
-  } = {}) {
+  async function nextEpisodesFor({ id, establishmentId, perPage = 3, episodeId } = {}) {
     const endpoint = `${config.api.series}/${id}/next`;
     const query = {
       _number: perPage,
@@ -139,13 +129,7 @@ module.exports = function hubContentRepository(httpClient) {
     return contentResponseFrom(response);
   }
 
-  async function relatedContentFor({
-    id,
-    establishmentId,
-    perPage = 8,
-    offset = 0,
-    sortOrder = 'ASC',
-  } = {}) {
+  async function relatedContentFor({ id, establishmentId, perPage = 8, offset = 0, sortOrder = 'ASC' } = {}) {
     const endpoint = `${config.api.hubContent}/related`;
     const query = {
       _category: id,

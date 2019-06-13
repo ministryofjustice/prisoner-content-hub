@@ -67,9 +67,7 @@ class NomisClient {
             const authToken = await this.getAuthToken();
 
             if (prop('access_token', authToken)) {
-              requestConfig.headers.Authorization = `Bearer ${
-                authToken.access_token
-              }`;
+              requestConfig.headers.Authorization = `Bearer ${authToken.access_token}`;
               return Promise.resolve();
             }
 

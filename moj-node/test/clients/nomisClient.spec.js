@@ -62,10 +62,7 @@ describe('NomisClient', () => {
         const client = new NomisClient();
         const result = await client.get('https://api.nomis/test');
 
-        expect(authSpy.callCount).to.equal(
-          1,
-          'It should call the auth endpoint once',
-        );
+        expect(authSpy.callCount).to.equal(1, 'It should call the auth endpoint once');
 
         expect(result.foo).to.eql('bar');
       });
@@ -90,10 +87,7 @@ describe('NomisClient', () => {
         const client = new NomisClient(undefined, { access_token: token });
         const result = await client.get('https://api.nomis/test');
 
-        expect(authSpy.callCount).to.equal(
-          0,
-          'It should not call the auth endpoint',
-        );
+        expect(authSpy.callCount).to.equal(0, 'It should not call the auth endpoint');
 
         expect(result.foo).to.eql('bar');
       });
@@ -121,25 +115,16 @@ describe('NomisClient', () => {
           .get(/test/)
           .reply(200, function request() {
             apiSpy();
-            expect(this.req.headers.authorization).to.equal(
-              `Bearer ${token}`,
-              'The token should have updated',
-            );
+            expect(this.req.headers.authorization).to.equal(`Bearer ${token}`, 'The token should have updated');
             return { foo: 'bar' };
           });
 
         const client = new NomisClient(undefined, { access_token: 'foo.bar' });
         const result = await client.get('https://api.nomis/test');
 
-        expect(authSpy.callCount).to.equal(
-          1,
-          'It should have called the auth once',
-        );
+        expect(authSpy.callCount).to.equal(1, 'It should have called the auth once');
 
-        expect(apiSpy.callCount).to.equal(
-          2,
-          'It should have called the api twice',
-        );
+        expect(apiSpy.callCount).to.equal(2, 'It should have called the api twice');
 
         expect(result.foo).to.eql('bar');
       });
@@ -164,15 +149,9 @@ describe('NomisClient', () => {
         });
         const result = await client.get('https://api.nomis/test');
 
-        expect(authSpy.callCount).to.equal(
-          3,
-          'It should have called the auth endpoint 3 times',
-        );
+        expect(authSpy.callCount).to.equal(3, 'It should have called the auth endpoint 3 times');
 
-        expect(apiSpy.callCount).to.equal(
-          4,
-          'It should have called the api endpoint 4 times',
-        );
+        expect(apiSpy.callCount).to.equal(4, 'It should have called the api endpoint 4 times');
         expect(result).to.equal(null, 'Should not have returned data');
       });
     });
@@ -199,14 +178,8 @@ describe('NomisClient', () => {
         });
         const result = await client.get('https://api.nomis/test');
 
-        expect(authSpy.callCount).to.equal(
-          0,
-          'It should not refresh the token',
-        );
-        expect(apiSpy.callCount).to.equal(
-          2,
-          'It should have called the api endpoint twice',
-        );
+        expect(authSpy.callCount).to.equal(0, 'It should not refresh the token');
+        expect(apiSpy.callCount).to.equal(2, 'It should have called the api endpoint twice');
         expect(result).to.eql({ foo: 'bar' });
       });
     });
@@ -232,15 +205,9 @@ describe('NomisClient', () => {
         });
         const result = await client.get('https://api.nomis/test');
 
-        expect(authSpy.callCount).to.equal(
-          1,
-          'It should have called the auth endpoint once',
-        );
+        expect(authSpy.callCount).to.equal(1, 'It should have called the auth endpoint once');
 
-        expect(apiSpy.callCount).to.equal(
-          1,
-          'It should have called the api endpoint once',
-        );
+        expect(apiSpy.callCount).to.equal(1, 'It should have called the api endpoint once');
         expect(result).to.equal(null, 'Should not have returned data');
       });
     });

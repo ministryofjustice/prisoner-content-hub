@@ -16,13 +16,7 @@ chai.use(chaiString);
 chai.use(sinonChai);
 
 // JSDOM
-const exposedProperties = [
-  'window',
-  'navigator',
-  'document',
-  'localStorage',
-  'sessionStorage',
-];
+const exposedProperties = ['window', 'navigator', 'document', 'localStorage', 'sessionStorage'];
 const { document } = new JSDOM(``, {
   url: 'http://example.org/',
   referrer: 'http://example.com/',

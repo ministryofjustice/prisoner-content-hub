@@ -9,14 +9,7 @@ describe('Hub promoted content', () => {
 
         const result = await repository.hubPromotedContent();
 
-        const expectedKeys = [
-          'id',
-          'title',
-          'summary',
-          'contentType',
-          'image',
-          'duration',
-        ];
+        const expectedKeys = ['id', 'title', 'summary', 'contentType', 'image', 'duration'];
         const keys = Object.keys(result);
 
         expectedKeys.forEach(key => {

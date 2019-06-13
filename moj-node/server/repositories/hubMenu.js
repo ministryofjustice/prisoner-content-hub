@@ -78,9 +78,7 @@ function hubMenuRepository(httpClient) {
     }));
 
     const sortAlphabetically = (a, b) => {
-      if (
-        a.linkText.charAt(0).toLowerCase() > b.linkText.charAt(0).toLowerCase()
-      ) {
+      if (a.linkText.charAt(0).toLowerCase() > b.linkText.charAt(0).toLowerCase()) {
         return 1;
       }
       return -1;

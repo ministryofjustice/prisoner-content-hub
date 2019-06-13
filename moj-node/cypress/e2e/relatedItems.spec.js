@@ -58,10 +58,7 @@ describe('Secondary tag page related content', () => {
 
         cy.scrollTo('bottom');
 
-        cy.get('[data-featured-id]').should(
-          'have.length',
-          initialNumOfFeatured,
-        );
+        cy.get('[data-featured-id]').should('have.length', initialNumOfFeatured);
       });
     });
 
@@ -85,10 +82,7 @@ describe('Secondary tag page related content', () => {
 
         cy.scrollTo('bottom');
 
-        cy.get('[data-featured-id]').should(
-          'have.length',
-          initialNumOfFeatured,
-        );
+        cy.get('[data-featured-id]').should('have.length', initialNumOfFeatured);
       });
     });
   });

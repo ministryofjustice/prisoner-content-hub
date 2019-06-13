@@ -15,9 +15,7 @@ describe('Feedback mechanism', () => {
         .should('equal', 7);
 
       cy.window().then(({ _paq: piwikQueue }) => {
-        const [eventType, contentType, action, label] = piwikQueue[
-          piwikQueue.length - 1
-        ];
+        const [eventType, contentType, action, label] = piwikQueue[piwikQueue.length - 1];
 
         expect(eventType).to.equal('trackEvent');
         expect(contentType).to.equal('video');
@@ -33,9 +31,7 @@ describe('Feedback mechanism', () => {
       cy.get('.govuk-button').click();
 
       cy.window().then(({ _paq: piwikQueue }) => {
-        const [eventType, contentType, action, label] = piwikQueue[
-          piwikQueue.length - 1
-        ];
+        const [eventType, contentType, action, label] = piwikQueue[piwikQueue.length - 1];
 
         expect(eventType).to.equal('trackEvent');
         expect(contentType).to.equal('video');
@@ -61,9 +57,7 @@ describe('Feedback mechanism', () => {
         .should('equal', 7);
 
       cy.window().then(({ _paq: piwikQueue }) => {
-        const [eventType, contentType, action, label] = piwikQueue[
-          piwikQueue.length - 1
-        ];
+        const [eventType, contentType, action, label] = piwikQueue[piwikQueue.length - 1];
 
         expect(eventType).to.equal('trackEvent');
         expect(contentType).to.equal('video');
@@ -80,9 +74,7 @@ describe('Feedback mechanism', () => {
       cy.get('.govuk-button').click();
 
       cy.window().then(({ _paq: piwikQueue }) => {
-        const [eventType, contentType, action, label] = piwikQueue[
-          piwikQueue.length - 1
-        ];
+        const [eventType, contentType, action, label] = piwikQueue[piwikQueue.length - 1];
 
         expect(eventType).to.equal('trackEvent');
         expect(contentType).to.equal('video');

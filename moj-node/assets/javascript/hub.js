@@ -18,15 +18,7 @@ var months = [
   'December',
 ];
 
-var days = [
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-];
+var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 // Navigation menu
 if (navMenu) {
@@ -78,12 +70,7 @@ if (todaysDate) {
   setInterval(function() {
     var date = new Date();
     var currentDate = todaysDate.textContent.trim();
-    var nextDate =
-      days[date.getDay()] +
-      ' ' +
-      date.getDate() +
-      ' ' +
-      months[date.getMonth()];
+    var nextDate = days[date.getDay()] + ' ' + date.getDate() + ' ' + months[date.getMonth()];
     if (currentDate !== nextDate) {
       todaysDate.textContent = nextDate;
     }

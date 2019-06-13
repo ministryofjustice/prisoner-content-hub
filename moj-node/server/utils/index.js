@@ -22,10 +22,7 @@ function getEstablishmentName(id) {
   return establishmentName[id];
 }
 
-function replaceURLWithDefinedEndpoint(
-  url = '',
-  alternateUrl = config.hubEndpoint,
-) {
+function replaceURLWithDefinedEndpoint(url = '', alternateUrl = config.hubEndpoint) {
   const urlSchemeAndAuthorityRegex = /^https?:\/\/[^/]+/;
   const updatedUrl = url.replace(urlSchemeAndAuthorityRegex, alternateUrl);
 

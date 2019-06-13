@@ -54,10 +54,7 @@ describe('GET /working-in-(berwyn|wayland)', () => {
           .then(response => {
             const $ = cheerio.load(response.text);
 
-            expect($('h1').text()).to.include(
-              'Working in Berwyn',
-              'Correct title rendered',
-            );
+            expect($('h1').text()).to.include('Working in Berwyn', 'Correct title rendered');
           });
       });
     });
@@ -75,10 +72,7 @@ describe('GET /working-in-(berwyn|wayland)', () => {
           .then(response => {
             const $ = cheerio.load(response.text);
 
-            expect($('h1').text()).to.include(
-              'Working in Wayland',
-              'Correct title rendered',
-            );
+            expect($('h1').text()).to.include('Working in Wayland', 'Correct title rendered');
           });
       });
     });

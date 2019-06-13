@@ -16,10 +16,7 @@ describe('Secondary tag page', () => {
         cy.log('Ensure more related content are loaded');
         cy.scrollTo('bottom');
 
-        cy.get('[data-featured-id]').should(
-          'have.length.of.at.least',
-          initialNumOfFeatured,
-        );
+        cy.get('[data-featured-id]').should('have.length.of.at.least', initialNumOfFeatured);
 
         cy.log('Navigate to one of the related content');
 

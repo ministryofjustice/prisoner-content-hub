@@ -1,11 +1,6 @@
 const express = require('express');
 
-module.exports = function Index({
-  logger,
-  hubFeaturedContentService,
-  hubPromotedContentService,
-  hubMenuService,
-}) {
+module.exports = function Index({ logger, hubFeaturedContentService, hubPromotedContentService, hubMenuService }) {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -14,12 +9,7 @@ module.exports = function Index({
 
       const { establishmentId } = req.app.locals.envVars;
 
-      const [
-        featuredContent,
-        promotionalContent,
-        tagsMenu,
-        homepageMenu,
-      ] = await Promise.all([
+      const [featuredContent, promotionalContent, tagsMenu, homepageMenu] = await Promise.all([
         hubFeaturedContentService.hubFeaturedContent({ establishmentId }),
         hubPromotedContentService.hubPromotedContent({ establishmentId }),
         hubMenuService.tagsMenu(),

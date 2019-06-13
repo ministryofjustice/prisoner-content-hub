@@ -58,15 +58,7 @@ describe('hubContentRepository', () => {
       const repository = hubContentRepository(client);
       const result = await repository.termFor('id');
 
-      const expectedKeys = [
-        'id',
-        'contentType',
-        'name',
-        'description',
-        'image',
-        'video',
-        'audio',
-      ];
+      const expectedKeys = ['id', 'contentType', 'name', 'description', 'image', 'video', 'audio'];
       const keys = Object.keys(result);
 
       expect(client.get.lastCall.args[0]).to.include('id');
@@ -91,17 +83,11 @@ describe('hubContentRepository', () => {
       const repository = hubContentRepository(client);
       const result = await repository.seasonFor({ id: 1 });
 
-      expect(client.get.callCount).to.equal(
-        1,
-        'client should have been called',
-      );
+      expect(client.get.callCount).to.equal(1, 'client should have been called');
       expect(result).to.eql([]);
     });
     it('returns formated data for a season', async () => {
-      const client = generateClient([
-        { content_type: 'moj_video_item' },
-        { content_type: 'moj_radio_item' },
-      ]);
+      const client = generateClient([{ content_type: 'moj_video_item' }, { content_type: 'moj_radio_item' }]);
       const repository = hubContentRepository(client);
       const result = await repository.seasonFor({
         id: 'id',
@@ -136,10 +122,7 @@ describe('hubContentRepository', () => {
     });
 
     it('returns the next episodes in the series', async () => {
-      const client = generateClient([
-        { content_type: 'moj_video_item' },
-        { content_type: 'moj_radio_item' },
-      ]);
+      const client = generateClient([{ content_type: 'moj_video_item' }, { content_type: 'moj_radio_item' }]);
       const repository = hubContentRepository(client);
       const result = await repository.nextEpisodesFor({
         id: 'id',
@@ -176,10 +159,7 @@ describe('hubContentRepository', () => {
       expect(result).to.eql([]);
     });
     it('returns formated data for related content', async () => {
-      const client = generateClient([
-        { content_type: 'moj_radio_item' },
-        { content_type: 'moj_radio_item' },
-      ]);
+      const client = generateClient([{ content_type: 'moj_radio_item' }, { content_type: 'moj_radio_item' }]);
       const repository = hubContentRepository(client);
 
       const result = await repository.relatedContentFor({
@@ -189,15 +169,7 @@ describe('hubContentRepository', () => {
 
       const requestQueryString = JSON.stringify(client.get.lastCall.args[1]);
 
-      const expectedKeys = [
-        'id',
-        'title',
-        'contentType',
-        'summary',
-        'image',
-        'duration',
-        'contentUrl',
-      ];
+      const expectedKeys = ['id', 'title', 'contentType', 'summary', 'image', 'duration', 'contentUrl'];
 
       expect(requestQueryString).to.include('id');
       expect(requestQueryString).to.include('fooBarQuery');
@@ -234,9 +206,7 @@ describe('hubContentRepository', () => {
       ];
 
       expect(content).to.eql(expected);
-      expect(JSON.stringify(client.get.lastCall.args[1])).to.eql(
-        JSON.stringify({ _parent: 'id', _menu: 'main' }),
-      );
+      expect(JSON.stringify(client.get.lastCall.args[1])).to.eql(JSON.stringify({ _parent: 'id', _menu: 'main' }));
     });
   });
 });

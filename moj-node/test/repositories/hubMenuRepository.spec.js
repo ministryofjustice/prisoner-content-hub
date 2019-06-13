@@ -8,10 +8,7 @@ describe('hubMenuRepository', () => {
       const httpClient = {
         get: sinon
           .stub()
-          .returns([
-            { title: 'Foo', link: 'www.foo.com', id: '1' },
-            { title: 'Bar', link: 'www.bar.com', id: '2' },
-          ]),
+          .returns([{ title: 'Foo', link: 'www.foo.com', id: '1' }, { title: 'Bar', link: 'www.bar.com', id: '2' }]),
       };
 
       const repository = hubMenuRepository(httpClient);
@@ -44,10 +41,7 @@ describe('hubMenuRepository', () => {
       };
 
       const repository = hubMenuRepository(httpClient);
-      const expected = [
-        { linkText: 'Baz', href: '/tags/0', id: '0' },
-        { linkText: 'Bat', href: '/tags/1', id: '1' },
-      ];
+      const expected = [{ linkText: 'Baz', href: '/tags/0', id: '0' }, { linkText: 'Bat', href: '/tags/1', id: '1' }];
       const result = await repository.tagsMenu();
 
       expect(result).to.eql(expected);
@@ -70,10 +64,7 @@ describe('hubMenuRepository', () => {
       const httpClient = {
         get: sinon
           .stub()
-          .returns([
-            { title: 'Foo', link: 'www.foo.com', id: '1' },
-            { title: 'Bar', link: 'www.bar.com', id: '2' },
-          ]),
+          .returns([{ title: 'Foo', link: 'www.foo.com', id: '1' }, { title: 'Bar', link: 'www.bar.com', id: '2' }]),
       };
 
       const repository = hubMenuRepository(httpClient);

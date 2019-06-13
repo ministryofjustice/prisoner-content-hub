@@ -4,20 +4,10 @@ describe('hubCategoryFeaturedContentRepository', () => {
   describe('#contentFor', () => {
     describe('When content is returned from the endpoint', () => {
       it('returns a featured content', async () => {
-        const client = generateFeatureContentClient([
-          { contentType: 'moj_radio_item' },
-        ]);
+        const client = generateFeatureContentClient([{ contentType: 'moj_radio_item' }]);
         const repository = hubCategoryFeaturedContentRepository(client);
 
-        const expectedKeys = [
-          'id',
-          'title',
-          'contentType',
-          'summary',
-          'image',
-          'duration',
-          'contentUrl',
-        ];
+        const expectedKeys = ['id', 'title', 'contentType', 'summary', 'image', 'duration', 'contentUrl'];
 
         const result = await repository.contentFor({
           categoryId: 'fooCategoryId',
@@ -39,9 +29,7 @@ describe('hubCategoryFeaturedContentRepository', () => {
 
     describe('When no content is returned from the endpoint', () => {
       it('returns no data', async () => {
-        const repository = hubCategoryFeaturedContentRepository(
-          generateNoDataResponse(),
-        );
+        const repository = hubCategoryFeaturedContentRepository(generateNoDataResponse());
         const content = await repository.contentFor(1);
 
         expect(content).to.eql([]);

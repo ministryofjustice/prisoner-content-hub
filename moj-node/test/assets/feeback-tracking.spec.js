@@ -187,14 +187,8 @@ function testEventContents(event, expectedConfig) {
   const [trackEvent, eventCategory, eventAction, eventName, eventValue] = event;
 
   expect(trackEvent).to.equal(expected.trackEvent, 'trackEvent did not match');
-  expect(eventCategory).to.equal(
-    expected.eventCategory,
-    'eventCategory did not match',
-  );
-  expect(eventAction).to.equal(
-    expected.eventAction,
-    'eventAction did not match',
-  );
+  expect(eventCategory).to.equal(expected.eventCategory, 'eventCategory did not match');
+  expect(eventAction).to.equal(expected.eventAction, 'eventAction did not match');
   expect(eventName.length).to.be.greaterThan(3, 'eventName was empty');
   expect(eventValue).to.equal(expected.eventValue, 'eventValue did not match');
 
@@ -210,52 +204,21 @@ function testEventContents(event, expectedConfig) {
     establishment,
   ] = eventName.split('|');
 
-  expect(title).to.equal(
-    expected.title,
-    'the title in eventName did not match',
-  );
-  expect(pageUrl).to.equal(
-    expected.pageUrl,
-    'the url in eventName did not match',
-  );
-  expect(action).to.equal(
-    expected.action,
-    'the action in eventName did not match',
-  );
-  expect(timestamp).to.match(
-    /\w{13,}/,
-    'the timestamp in eventName was invalid',
-  );
-  expect(category).to.equal(
-    expected.category,
-    'the category in eventName did not match',
-  );
-  expect(series).to.equal(
-    expected.series,
-    'the series in eventName did not match',
-  );
-  expect(timeSpentOfPage).to.equal(
-    expected.timeSpentOfPage,
-    'the timeSpentOnPage in eventName did not match',
-  );
-  expect(visitorId).to.equal(
-    expected.visitorId,
-    'the visitorId in eventName did not match',
-  );
-  expect(establishment).to.equal(
-    expected.establishment,
-    'the establishment in eventName did not match',
-  );
+  expect(title).to.equal(expected.title, 'the title in eventName did not match');
+  expect(pageUrl).to.equal(expected.pageUrl, 'the url in eventName did not match');
+  expect(action).to.equal(expected.action, 'the action in eventName did not match');
+  expect(timestamp).to.match(/\w{13,}/, 'the timestamp in eventName was invalid');
+  expect(category).to.equal(expected.category, 'the category in eventName did not match');
+  expect(series).to.equal(expected.series, 'the series in eventName did not match');
+  expect(timeSpentOfPage).to.equal(expected.timeSpentOfPage, 'the timeSpentOnPage in eventName did not match');
+  expect(visitorId).to.equal(expected.visitorId, 'the visitorId in eventName did not match');
+  expect(establishment).to.equal(expected.establishment, 'the establishment in eventName did not match');
 }
 
 function render({ category = 'video' } = {}) {
-  const {
-    container: frag,
-    thumbsUp,
-    thumbsDown,
-    feedbackForm,
-    feedbackActionText,
-  } = fromHTML(feedbackWidgetTemplate({ category }));
+  const { container: frag, thumbsUp, thumbsDown, feedbackForm, feedbackActionText } = fromHTML(
+    feedbackWidgetTemplate({ category }),
+  );
   const container = document.createElement('DIV');
 
   container.appendChild(frag);

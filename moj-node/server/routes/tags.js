@@ -43,8 +43,7 @@ module.exports = function Tags({ logger, hubTagsService }) {
     try {
       const { establishmentId } = req.app.locals.envVars;
       const { contentType } = req.query;
-      const method =
-        contentType === 'series' ? 'relatedSeriesFor' : 'relatedContentFor';
+      const method = contentType === 'series' ? 'relatedSeriesFor' : 'relatedContentFor';
 
       const data = await hubTagsService[method]({
         id: req.params.id,

@@ -27,10 +27,7 @@ describe('relatedContentLoader', () => {
         initialOffset: 8,
         perPage: 8,
         onUpdate: () => {
-          expect(true).to.be.equal(
-            true,
-            'The on update method was not called on initialization',
-          );
+          expect(true).to.be.equal(true, 'The on update method was not called on initialization');
           done();
         },
       });

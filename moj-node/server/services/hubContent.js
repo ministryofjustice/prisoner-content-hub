@@ -35,9 +35,7 @@ module.exports = function createHubContentService({
     const seriesId = prop('seriesId', data);
     const episodeId = prop('episodeId', data);
     const tagsId = prop('tagsId', data);
-    const filterOutCurrentEpisode = filter(item =>
-      not(equals(prop('id', item), id)),
-    );
+    const filterOutCurrentEpisode = filter(item => not(equals(prop('id', item), id)));
     const tagsPromises = map(contentRepository.termFor, tagsId);
 
     const [series, seasons] = await Promise.all([
@@ -64,11 +62,7 @@ module.exports = function createHubContentService({
     const featuredContentId = prop('featuredContentId', data);
     const categoryId = prop('categoryId', data);
 
-    const [
-      featuredContent,
-      categoryFeaturedContent,
-      categoryMenu,
-    ] = await Promise.all([
+    const [featuredContent, categoryFeaturedContent, categoryMenu] = await Promise.all([
       contentRepository.contentFor(featuredContentId),
       categoryFeaturedContentRepository.contentFor({
         categoryId,

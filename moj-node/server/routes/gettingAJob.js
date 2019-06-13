@@ -14,11 +14,7 @@ function addCurrentPageToMenu(url, menu) {
   });
 }
 
-module.exports = function createStepByStepRouter({
-  logger,
-  hubContentService,
-  hubMenuService,
-}) {
+module.exports = function createStepByStepRouter({ logger, hubContentService, hubMenuService }) {
   const router = express.Router();
 
   router.get('/', (req, res) => {
@@ -65,10 +61,7 @@ module.exports = function createStepByStepRouter({
     const menu = hubMenuService.gettingAJobMenu(establishmentId);
 
     try {
-      const data = await hubContentService.contentFor(
-        req.params.id,
-        establishmentId,
-      );
+      const data = await hubContentService.contentFor(req.params.id, establishmentId);
 
       if (isEmpty(data)) {
         return next();
