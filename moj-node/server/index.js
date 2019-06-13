@@ -14,7 +14,7 @@ const createHubPromotedContentService = require('./services/hubPromotedContent')
 const createHubContentService = require('./services/hubContent');
 const createHealthService = require('./services/health');
 const createHubTagsService = require('./services/hubTags');
-const createNomisBookingsService = require('./services/nomisBookings');
+const createNomisOffenderService = require('./services/offender');
 
 // Repositories
 const featuredContentRepository = require('./repositories/hubFeaturedContent');
@@ -22,7 +22,7 @@ const categoryFeaturedContentRepository = require('./repositories/categoryFeatur
 const promotedContentRepository = require('./repositories/hubPromotedContent');
 const hubMenuRepository = require('./repositories/hubMenu');
 const contentRepository = require('./repositories/hubContent');
-const nomisBookingsRepository = require('./repositories/nomisBookings');
+const offenderRepository = require('./repositories/offender');
 
 const buildInfo = config.dev ? null : require('../build-info.json'); // eslint-disable-line import/no-unresolved
 
@@ -42,8 +42,8 @@ const hubContentService = createHubContentService({
   ),
 });
 const hubTagsService = createHubTagsService(contentRepository(new HubClient()));
-const nomisBookingService = createNomisBookingsService(
-  nomisBookingsRepository(new NomisClient()),
+const offenderService = createNomisOffenderService(
+  offenderRepository(new NomisClient()),
 );
 
 const app = createApp({
@@ -55,7 +55,7 @@ const app = createApp({
   hubMenuService,
   hubContentService,
   hubTagsService,
-  nomisBookingService,
+  offenderService,
 });
 
 module.exports = app;

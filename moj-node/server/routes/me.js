@@ -1,6 +1,6 @@
 const express = require('express');
 
-module.exports = function createMeRouter({ logger, nomisBookingService }) {
+module.exports = function createMeRouter({ logger, offenderService }) {
   const router = express.Router();
 
   const config = {
@@ -13,15 +13,19 @@ module.exports = function createMeRouter({ logger, nomisBookingService }) {
     logger.info('GET /me');
 
     try {
-      const { offenderNo } = req.params;
-      const result = await nomisBookingService.getIEPSummaryFor(
-        offenderNo || 'G0653GG',
-      );
+      const { offenderNo = 'G0653GG' } = req.params;
+      const [iePSummary, balances, keyWorker] = await Promise.all([
+        offenderService.getIEPSummaryFor(offenderNo),
+        offenderService.getBalancesFor(offenderNo),
+        offenderService.getKeyWorkerFor(offenderNo),
+      ]);
 
       return res.render('pages/me', {
         data: {
-          title: 'Me',
-          data: JSON.stringify(result, null, 2),
+          title: 'Your essential prison information',
+          iePSummary,
+          balances,
+          keyWorker,
         },
         config,
       });

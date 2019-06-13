@@ -1,3 +1,4 @@
+{% from "components/summary-list/macro.njk" import govukSummaryList %}
 {% from "../components/header/macro.njk" import pageHeaderWithBack %}
 {% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 {% extends "../components/template.njk" %}
@@ -35,7 +36,105 @@
 {% block main %}
 <div class="govuk-width-container">
   <div class="govuk-main-wrapper">
-    <h1>{{ data.data }}</h1>
+    <h2 class="govuk-heading-l">Your essential prison information</h2>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-one-half" id="money">
+        <h2 class="govuk-heading-m">Money</h2>
+        {{
+          govukSummaryList({
+            rows: [
+              {
+                key: {
+                  text: "Spends"
+                },
+                value: {
+                  html: '<strong data-state="hidden" class="govuk-tag u-clickable"> <span>' + data.balances.spends + ' ' + data.balances.currency + '</span> <span>View balance</span> </strong>'
+                }
+              },
+              {
+                key: {
+                  text: "Private"
+                },
+                value: {
+                  html: '<strong data-state="hidden" class="govuk-tag u-clickable"> <span>' + data.balances.cash + ' ' + data.balances.currency + '</span> <span>View balance</span> </strong>'
+                }
+              },
+              {
+                key: {
+                  text: "Savings"
+                },
+                value: {
+                  html: '<strong data-state="hidden" class="govuk-tag u-clickable"> <span>' + data.balances.savings + ' ' + data.balances.currency + '</span> <span>View balance</span> </strong>'
+                }
+              }
+            ]
+          })
+        }}
+      </div>
+
+      <div class="govuk-grid-column-one-half" id="iepSumary">
+        <h2 class="govuk-heading-m">IEP (Incentives and earned privilages)</h2>
+        {{
+          govukSummaryList({
+            rows: [
+              {
+                key: {
+                  text: "Current level"
+                },
+                value: {
+                  text: data.iePSummary.iepLevel
+                }
+              },
+              {
+                key: {
+                  text: "Review date"
+                },
+                value: {
+                  text: data.iePSummary.reviewDate
+                }
+              },
+              {
+                key: {
+                  text: "Last review"
+                },
+                value: {
+                  text: data.iePSummary.daysSinceReview
+                }
+              }
+            ]
+          })
+        }}
+      </div>
+
+      <div class="govuk-grid-column-one-half" id="keyWorker">
+        <h2 class="govuk-heading-m">Key worker</h2>
+        {{
+          govukSummaryList({
+            rows: [
+              {
+                key: {
+                  text: "Current key worker"
+                },
+                value: {
+                  text: data.keyWorker.current
+                }
+              },
+              {
+                key: {
+                  text: "Last meeting"
+                },
+                value: {
+                  text: data.keyWorker.lastMeeting
+                }
+              }
+            ]
+          })
+        }}
+      </div>
+    </div>
   </div>
 </div>
+
+<script src="/public/javascript/all.js"></script>
+
 {% endblock %}
