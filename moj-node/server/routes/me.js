@@ -14,10 +14,22 @@ module.exports = function createMeRouter({ logger, offenderService }) {
 
     try {
       const { offenderNo = 'G0653GG' } = req.params;
-      const [iePSummary, balances, keyWorker] = await Promise.all([
-        offenderService.getIEPSummaryFor(offenderNo),
-        offenderService.getBalancesFor(offenderNo),
+      const { bookingId } = await offenderService.getOffenderDetailsFor(
+        offenderNo,
+      );
+
+      const [
+        iePSummary,
+        balances,
+        keyWorker,
+        visits,
+        importantDates,
+      ] = await Promise.all([
+        offenderService.getIEPSummaryFor(bookingId),
+        offenderService.getBalancesFor(bookingId),
         offenderService.getKeyWorkerFor(offenderNo),
+        offenderService.getVisitsFor(bookingId),
+        offenderService.getImportantDatesFor(bookingId),
       ]);
 
       return res.render('pages/me', {
@@ -26,6 +38,8 @@ module.exports = function createMeRouter({ logger, offenderService }) {
           iePSummary,
           balances,
           keyWorker,
+          visits,
+          importantDates,
         },
         config,
       });

@@ -38,10 +38,11 @@
   <div class="govuk-main-wrapper">
     <h2 class="govuk-heading-l">Your essential prison information</h2>
     <div class="govuk-grid-row">
-      <div class="govuk-grid-column-one-half" id="money">
+      <div class="govuk-grid-column-two-thirds" id="money">
         <h2 class="govuk-heading-m">Money</h2>
         {{
           govukSummaryList({
+            classes: 'govuk-summary-list--no-border',
             rows: [
               {
                 key: {
@@ -70,12 +71,14 @@
             ]
           })
         }}
+        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
       </div>
 
-      <div class="govuk-grid-column-one-half" id="iepSumary">
+      <div class="govuk-grid-column-two-thirds" id="iepSumary">
         <h2 class="govuk-heading-m">IEP (Incentives and earned privilages)</h2>
         {{
           govukSummaryList({
+            classes: 'govuk-summary-list--no-border',
             rows: [
               {
                 key: {
@@ -104,12 +107,14 @@
             ]
           })
         }}
+        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
       </div>
 
-      <div class="govuk-grid-column-one-half" id="keyWorker">
+      <div class="govuk-grid-column-two-thirds" id="keyWorker">
         <h2 class="govuk-heading-m">Key worker</h2>
         {{
           govukSummaryList({
+            classes: 'govuk-summary-list--no-border',
             rows: [
               {
                 key: {
@@ -125,6 +130,78 @@
                 },
                 value: {
                   text: data.keyWorker.lastMeeting
+                }
+              }
+            ]
+          })
+        }}
+        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+      </div>
+
+      <div class="govuk-grid-column-two-thirds" id="visits">
+        <h2 class="govuk-heading-m">Visits</h2>
+        {{
+          govukSummaryList({
+            classes: 'govuk-summary-list--no-border',
+            rows: [
+              {
+                key: {
+                  text: "Next visit"
+                },
+                value: {
+                  text: data.visits.nextVisit
+                }
+              },
+              {
+                key: {
+                  text: "Last visit"
+                },
+                value: {
+                  text: data.visits.lastVisit
+                }
+              }
+            ]
+          })
+        }}
+        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+      </div>
+
+      <div class="govuk-grid-column-two-thirds" id="keyDates">
+        <h2 class="govuk-heading-m">Important Dates</h2>
+        {{
+          govukSummaryList({
+            classes: 'govuk-summary-list--no-border',
+            rows: [
+              {
+                key: {
+                  text: "Re-categorisation"
+                },
+                value: {
+                  text: data.importantDates.reCategorisationDate
+                }
+              },
+              {
+                key: {
+                  text: "HDC eligibility"
+                },
+                value: {
+                  text: data.importantDates.hdcEligibilityDate
+                }
+              },
+              {
+                key: {
+                  text: "Conditional release"
+                },
+                value: {
+                  text: data.importantDates.conditionalReleaseDate
+                }
+              },
+              {
+                key: {
+                  text: "Licence expires"
+                },
+                value: {
+                  text: data.importantDates.licenceExpiresDate
                 }
               }
             ]

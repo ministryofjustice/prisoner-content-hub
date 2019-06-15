@@ -53,27 +53,26 @@ class NomisClient {
         },
         raxConfig: {
           instance: client,
-          statusCodesToRetry: [[401, 401], [500, 503]],
+          statusCodesToRetry: [[100, 199], [401, 401], [429, 429], [500, 599]],
           onRetryAttempt: async originalRequest => {
             const retryConfig = retryAxios.getConfig(originalRequest);
             const requestConfig = originalRequest.config;
 
             logger.info(`Retry attempt #${retryConfig.currentRetryAttempt}`);
 
-            if (originalRequest.response.status >= 500) {
-              return Promise.resolve();
+            if (originalRequest.response.status === 401) {
+              const authToken = await this.getAuthToken();
+
+              if (prop('access_token', authToken)) {
+                requestConfig.headers.Authorization = `Bearer ${
+                  authToken.access_token
+                }`;
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error('Failed to get access token'));
             }
 
-            const authToken = await this.getAuthToken();
-
-            if (prop('access_token', authToken)) {
-              requestConfig.headers.Authorization = `Bearer ${
-                authToken.access_token
-              }`;
-              return Promise.resolve();
-            }
-
-            return Promise.reject(new Error('Failed to get access token'));
+            return Promise.resolve();
           },
         },
       });

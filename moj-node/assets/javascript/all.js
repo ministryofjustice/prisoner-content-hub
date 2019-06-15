@@ -3,17 +3,16 @@ document.body.addEventListener('click', event => {
     var element = getAncestorElementBySelector('[data-state]', event.target);
 
     if (element) {
-      element.setAttribute(
-        'data-state',
-        toggleShowing(element.getAttribute('data-state')),
-      );
+      var state = element.getAttribute('data-state');
+      var stateToggle = function() {
+        element.setAttribute('data-state', 'hidden');
+      };
+      element.setAttribute('data-state', toggleShowing(state));
 
-      setTimeout(function() {
-        element.setAttribute(
-          'data-state',
-          toggleShowing(element.getAttribute('data-state')),
-        );
-      }, 5000);
+      if (state == 'hidden') {
+        clearTimeout(stateToggle);
+      }
+      setTimeout(stateToggle, 5000);
     }
   }
 });
