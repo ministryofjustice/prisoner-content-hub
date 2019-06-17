@@ -36,7 +36,7 @@ module.exports = function createApp({
   hubContentService,
   hubTagsService,
   healthService,
-  nomisBookingService,
+  offenderService,
 }) {
   const app = express();
 
@@ -204,7 +204,7 @@ module.exports = function createApp({
 
   app.use('/auth', createAuthRouter({ logger }));
 
-  app.use('/me', createMeRouter({ logger, nomisBookingService }));
+  app.use('/me', createMeRouter({ logger, offenderService }));
 
   app.use('*', (req, res) => {
     res.status(404);

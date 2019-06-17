@@ -1,0 +1,19 @@
+.u-clickable {
+  cursor: pointer;
+}
+
+[data-state='hidden'] > span:first-child {
+  display: none;
+}
+
+[data-state='hidden'] > span:last-child {
+  display: block;
+}
+
+[data-state='showing'] > span:first-child {
+  display: block;
+}
+
+[data-state='showing'] > span:last-child {
+  display: none;
+}
