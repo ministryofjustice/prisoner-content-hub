@@ -9,11 +9,11 @@ module.exports = function createMeRouter({ logger, offenderService }) {
     postscript: false,
   };
 
-  router.get('/:offenderNo?', async (req, res, next) => {
+  router.get('/', async (req, res, next) => {
     logger.info('GET /me');
 
     try {
-      const { offenderNo = 'G0653GG' } = req.params;
+      const offenderNo = req.ntlm.UserName;
       const { bookingId } = await offenderService.getOffenderDetailsFor(
         offenderNo,
       );

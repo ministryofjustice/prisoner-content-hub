@@ -17,11 +17,11 @@ const createContentRouter = require('./routes/content');
 const createTagRouter = require('./routes/tags');
 const createGamesRouter = require('./routes/games');
 const createGettingAJobRouter = require('./routes/gettingAJob');
-const createAuthRouter = require('./routes/auth');
 const createMeRouter = require('./routes/me');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const establishmentToggle = require('./middleware/establishmentToggle');
+const authMiddleware = require('./middleware/auth');
 
 const { getEstablishmentId } = require('./utils');
 
@@ -202,9 +202,7 @@ module.exports = function createApp({
     createGettingAJobRouter({ logger, hubContentService, hubMenuService }),
   );
 
-  app.use('/auth', createAuthRouter({ logger }));
-
-  app.use('/me', createMeRouter({ logger, offenderService }));
+  app.use('/me', authMiddleware(), createMeRouter({ logger, offenderService }));
 
   app.use('*', (req, res) => {
     res.status(404);
