@@ -21,7 +21,7 @@ const createMeRouter = require('./routes/me');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const establishmentToggle = require('./middleware/establishmentToggle');
-const authMiddleware = require('./middleware/auth');
+const { authMiddleware, createUserSession } = require('./middleware/auth');
 
 const { getEstablishmentId } = require('./utils');
 
@@ -113,6 +113,7 @@ module.exports = function createApp({
       secret: config.cookieSecret,
       resave: false,
       saveUninitialized: true,
+      maxAge: 4.32e7,
     }),
   );
 
@@ -170,6 +171,10 @@ module.exports = function createApp({
   app.use('/health', createHealthRouter({ appInfo, healthService }));
 
   // Routing
+
+  // Authentication
+  app.use(authMiddleware(), createUserSession({ offenderService }));
+
   app.use(
     '/',
     createIndexRouter({
@@ -202,7 +207,7 @@ module.exports = function createApp({
     createGettingAJobRouter({ logger, hubContentService, hubMenuService }),
   );
 
-  app.use('/me', authMiddleware(), createMeRouter({ logger, offenderService }));
+  app.use('/me', createMeRouter({ logger, offenderService }));
 
   app.use('*', (req, res) => {
     res.status(404);

@@ -12,11 +12,12 @@ module.exports = function createMeRouter({ logger, offenderService }) {
   router.get('/', async (req, res, next) => {
     logger.info('GET /me');
 
+    if (!req.session.user) {
+      return res.redirect('/');
+    }
+
     try {
-      const offenderNo = req.ntlm.UserName;
-      const { bookingId } = await offenderService.getOffenderDetailsFor(
-        offenderNo,
-      );
+      const { offenderNo, bookingId } = req.session.user;
 
       const [
         iePSummary,

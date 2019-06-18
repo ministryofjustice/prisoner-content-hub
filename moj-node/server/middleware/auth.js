@@ -1,13 +1,13 @@
-const ntlm = require('express-ntlm');
+const expressNTLM = require('express-ntlm');
 const config = require('../config');
 const logger = require('../../log');
 
-module.exports = () => {
+module.exports.authMiddleware = ({ ntlm = expressNTLM }) => {
   if (config.mockAuth === 'true') {
     return (request, response, next) => {
       request.ntlm = {
         DomainName: 'MOCK_DOMAIN',
-        UserName: request.query.mockUser || 'G0653GG',
+        UserName: request.query.mockUser || 'G9542VP',
         Workstation: 'MOCK_WORKSTATION',
       };
       next();
@@ -19,6 +19,33 @@ module.exports = () => {
     },
     domain: config.ldap.domain,
     domaincontroller: config.ldap.domainController,
-    unauthorized: (request, response) => response.status(401).send(),
+    unauthorized: (request, response, next) => {
+      logger.error('Failed to authenticate');
+      next();
+    },
   });
+};
+
+module.exports.createUserSession = ({ offenderService }) => {
+  return async (request, response, next) => {
+    try {
+      const offenderNo = request.ntlm.UserName;
+
+      if (offenderNo && !request.session.user) {
+        const offenderDetails = await offenderService.getOffenderDetailsFor(
+          offenderNo,
+        );
+        const { bookingId, firstName, lastName } = offenderDetails;
+        request.session.user = {
+          offenderNo,
+          bookingId,
+          name: `${firstName} ${lastName}`,
+        };
+      }
+    } catch (error) {
+      logger.error(error);
+    } finally {
+      next();
+    }
+  };
 };
