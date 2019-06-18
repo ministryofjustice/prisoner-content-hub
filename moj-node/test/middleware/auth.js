@@ -17,7 +17,7 @@ describe('auth', () => {
         config.mockAuth = 'true';
         const ntlm = sinon.spy();
         const next = sinon.spy();
-        const middleware = authMiddleware({ ntlm });
+        const middleware = authMiddleware(ntlm);
 
         expect(ntlm.called).to.equal(false, 'ntlm should have NOT been called');
 
@@ -32,7 +32,7 @@ describe('auth', () => {
     describe('When configured to NOT mock authentication', () => {
       it('should use NTLM', () => {
         const ntlm = sinon.spy();
-        authMiddleware({ ntlm });
+        authMiddleware(ntlm);
 
         expect(ntlm.called).to.equal(true, 'ntlm should have been called');
         expect(ntlm.lastCall.args[0]).to.have.property(

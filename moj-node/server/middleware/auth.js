@@ -2,7 +2,7 @@ const expressNTLM = require('express-ntlm');
 const config = require('../config');
 const logger = require('../../log');
 
-module.exports.authMiddleware = ({ ntlm = expressNTLM }) => {
+module.exports.authMiddleware = (ntlm = expressNTLM) => {
   if (config.mockAuth === 'true') {
     return (request, response, next) => {
       request.ntlm = {
