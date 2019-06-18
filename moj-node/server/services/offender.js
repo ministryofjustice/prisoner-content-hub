@@ -3,12 +3,33 @@ const { propOr, prop } = require('ramda');
 
 const prettyDate = date => {
   if (!isValid(new Date(date))) return 'Unavailable';
-  return format(parse(date), 'dddd, MMMM YYYY');
+  return format(parse(date), 'dddd DD MMMM YYYY');
+};
+
+const capitalize = (str = '') => {
+  return str
+    .split('')
+    .map((letter, index) => {
+      if (index === 0) return letter.toUpperCase();
+      return letter.toLowerCase();
+    })
+    .join('');
 };
 
 module.exports = function createOffenderService(repository) {
-  function getOffenderDetailsFor(prisonerId) {
-    return repository.getOffenderDetailsFor(prisonerId);
+  async function getOffenderDetailsFor(prisonerId) {
+    const {
+      bookingId,
+      offenderNo,
+      firstName,
+      lastName,
+    } = await repository.getOffenderDetailsFor(prisonerId);
+
+    return {
+      bookingId,
+      offenderNo,
+      name: `${capitalize(firstName)} ${capitalize(lastName)}`,
+    };
   }
 
   async function getIEPSummaryFor(bookingId) {
@@ -44,7 +65,9 @@ module.exports = function createOffenderService(repository) {
     }
 
     return {
-      current: `${keyWorker.firstName} ${keyWorker.lastName}`,
+      current: `${capitalize(keyWorker.firstName)} ${capitalize(
+        keyWorker.lastName,
+      )}`,
       lastMeeting: 'Unavailable',
     };
   }
@@ -70,9 +93,7 @@ module.exports = function createOffenderService(repository) {
       conditionalReleaseDate: prettyDate(
         prop('conditionalReleaseDate', sentenceDetails),
       ),
-      licenceExpiresDate: prettyDate(
-        prop('licenceExpiryDate', sentenceDetails),
-      ),
+      licenceExpiryDate: prettyDate(prop('licenceExpiryDate', sentenceDetails)),
     };
   }
 
