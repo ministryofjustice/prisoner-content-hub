@@ -9,14 +9,15 @@ module.exports = function createMeRouter({ logger, offenderService }) {
     postscript: false,
   };
 
-  router.get('/:offenderNo?', async (req, res, next) => {
+  router.get('/', async (req, res, next) => {
     logger.info('GET /me');
 
+    if (!req.session.user) {
+      return res.redirect('/');
+    }
+
     try {
-      const { offenderNo = 'G0653GG' } = req.params;
-      const { bookingId } = await offenderService.getOffenderDetailsFor(
-        offenderNo,
-      );
+      const { offenderNo, bookingId } = req.session.user;
 
       const [
         iePSummary,

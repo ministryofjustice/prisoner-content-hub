@@ -17,11 +17,11 @@ const createContentRouter = require('./routes/content');
 const createTagRouter = require('./routes/tags');
 const createGamesRouter = require('./routes/games');
 const createGettingAJobRouter = require('./routes/gettingAJob');
-const createAuthRouter = require('./routes/auth');
 const createMeRouter = require('./routes/me');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const establishmentToggle = require('./middleware/establishmentToggle');
+const { authMiddleware, createUserSession } = require('./middleware/auth');
 
 const { getEstablishmentId } = require('./utils');
 
@@ -113,6 +113,7 @@ module.exports = function createApp({
       secret: config.cookieSecret,
       resave: false,
       saveUninitialized: true,
+      maxAge: 4.32e7, // 12 Hours
     }),
   );
 
@@ -170,6 +171,10 @@ module.exports = function createApp({
   app.use('/health', createHealthRouter({ appInfo, healthService }));
 
   // Routing
+
+  // Authentication
+  app.use(authMiddleware(), createUserSession({ offenderService }));
+
   app.use(
     '/',
     createIndexRouter({
@@ -201,8 +206,6 @@ module.exports = function createApp({
     ['/working-in-wayland', '/working-in-berwyn'],
     createGettingAJobRouter({ logger, hubContentService, hubMenuService }),
   );
-
-  app.use('/auth', createAuthRouter({ logger }));
 
   app.use('/me', createMeRouter({ logger, offenderService }));
 

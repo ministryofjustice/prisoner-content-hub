@@ -47,4 +47,5 @@ module.exports = {
   matomoToken: getEnv('MATOMO_TOKEN', 'faketoken'),
   features: ['showPageMenu', 'showBrowseByTopics'],
   enablePrisonSwitch: getEnv('ENABLE_PRISON_SWITCH', 'false'),
+  mockAuth: getEnv('MOCK_AUTH', 'false'),
 };

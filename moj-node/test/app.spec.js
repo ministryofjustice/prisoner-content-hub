@@ -5,6 +5,14 @@ const config = require('../server/config');
 const { logger } = require('./test-helpers');
 
 describe('App', () => {
+  const originalConfig = { ...config };
+  beforeEach(() => {
+    config.mockAuth = 'true';
+  });
+  afterEach(() => {
+    config.mockAuth = originalConfig.mockAuth;
+  });
+
   it('renders a 404 page correctly on invalid url', () =>
     request(app())
       .get('/unknown-url')
@@ -107,6 +115,7 @@ function app(opts) {
       seriesMenu: sinon.stub().returns([]),
     },
     hubContentService: { contentFor: sinon.stub().returns({}) },
+    offenderService: { getOffenderDetailsFor: sinon.stub() },
     logger,
     ...opts,
   };

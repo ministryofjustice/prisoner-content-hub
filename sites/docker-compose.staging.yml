@@ -30,3 +30,4 @@ services:
       - "ENABLE_PRISON_SWITCH=true"
       - NOMIS_API_TOKEN=${NOMIS_API_TOKEN}
       - "NOMIS_API_ENDPOINT=https://gateway.t3.nomis-api.hmpps.dsd.io"
+      - "MOCK_AUTH=true"
