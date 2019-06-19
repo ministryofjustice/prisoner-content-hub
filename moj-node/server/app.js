@@ -113,7 +113,7 @@ module.exports = function createApp({
       secret: config.cookieSecret,
       resave: false,
       saveUninitialized: true,
-      maxAge: 4.32e7,
+      maxAge: 4.32e7, // 12 Hours
     }),
   );
 
