@@ -82,8 +82,8 @@ describe('auth', () => {
         const offenderService = {
           getOffenderDetailsFor: sinon.stub().resolves({
             bookingId: '123456',
-            firstName: 'HE',
-            lastName: 'MAN',
+            offenderId: 'qwerty',
+            name: 'HE MAN',
           }),
         };
 

@@ -35,12 +35,7 @@ module.exports.createUserSession = ({ offenderService }) => {
         const offenderDetails = await offenderService.getOffenderDetailsFor(
           offenderNo,
         );
-        const { bookingId, firstName, lastName } = offenderDetails;
-        request.session.user = {
-          offenderNo,
-          bookingId,
-          name: `${firstName} ${lastName}`,
-        };
+        request.session.user = offenderDetails;
       }
     } catch (error) {
       logger.error(error);

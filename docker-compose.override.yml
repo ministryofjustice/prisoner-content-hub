@@ -2,6 +2,8 @@ version: "3"
 
 services:
   hub-node:
+    environment: 
+      MOCK_AUTH: 'true'
     volumes:
       - ./moj-node/server:/home/node/app/server
       - ./moj-node/test:/home/node/app/test
