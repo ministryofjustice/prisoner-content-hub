@@ -133,3 +133,30 @@
   float: left;
   max-width: 80%;
 }
+
+.hub-header-user-container {
+  display: inline-block;
+  background-color: govuk-colour('blue');
+  padding-left: govuk-spacing(4);
+  padding-right: govuk-spacing(4);
+  padding-top: govuk-spacing(3);
+  padding-bottom: govuk-spacing(2);
+  vertical-align: middle;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.hub-header-user-container span {
+  border-right: 1px solid govuk-colour('white');
+  margin-right: govuk-spacing(1);
+}
+
+.hub-header-user-container span:first-child {
+  padding-right: govuk-spacing(2);
+}
+
+.hub-header-user-container span:last-child {
+  border: none;
+  margin-right: 0;
+}

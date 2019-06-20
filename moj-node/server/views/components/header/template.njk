@@ -1,13 +1,22 @@
 <header class="govuk-header govuk-hub-page-header" data-module="header">
   <div class="govuk-header__container govuk-width-container govuk-!-padding-0">
-    <div class="govuk-grid-row govuk-hub-align-items-center">
+    <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-half">
-        <a href="/" class="govuk-hub-header__link govuk-hub-header__link--homepage">
-          <span class="govuk-hub-header__title govuk-body govuk-!-font-weight-bold">{{params.appName}}</span>
-        </a>
+        &nbsp;
+        {% if params.user %}
+          <div class="hub-header-user-container">
+            <span class="govuk-!-font-weight-bold">{{ params.user.name }}</span>
+            <span>{{ params.appName }}</span>
+          </div>
+        {% else %}
+          <a href="/" class="govuk-hub-header__link govuk-hub-header__link--homepage">
+            <span class="govuk-hub-header__title govuk-body govuk-!-font-weight-bold">HMP Berwyn</span>
+          </a>
+        {% endif %}
+
       </div>
       <div class="govuk-grid-column-one-half govuk-hub-align-right">
-        <span data-target-id="todays-date" class="govuk-hub-header__date govuk-body"></span>
+        <span data-target-id="todays-date" class="govuk-hub-header__date govuk-body">&nbsp;</span>
         <span data-target-id="todays-time" class="govuk-hub-header__time"></span>
       </div>
     </div>

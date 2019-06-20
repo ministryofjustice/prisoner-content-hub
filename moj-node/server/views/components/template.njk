@@ -6,10 +6,14 @@
 <!DOCTYPE html>
 <html lang="{{ htmlLang | default('en') }}" class="govuk-template {{ htmlClasses }}">
   <head>
-    <meta charset="utf-8" />
-    <title>{% block pageTitle %}{{envVars.APP_NAME}}{% endblock %}</title>
+    <meta charset="utf-8"/>
+    <title>
+      {% block pageTitle %}{{envVars.APP_NAME}}
+      {% endblock %}
+    </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="{{ themeColor | default('#0b0c0c') }}" /> {# Hardcoded value of $govuk-black #}
+    <meta name="theme-color" content="{{ themeColor | default('#0b0c0c') }}"/>
+    {# Hardcoded value of $govuk-black #}
 
     {% block head %}{% endblock %}
 
@@ -22,19 +26,34 @@
       _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
       _paq.push(['enableJSErrorTracking']);
-      (function() {
-        var u="//{{envVars.MATOMO_URL}}/";
-        _paq.push(['setTrackerUrl', u+'piwik.php']);
+      (function () {
+        var u = "//{{envVars.MATOMO_URL}}/";
+        _paq.push([
+          'setTrackerUrl', u + 'piwik.php'
+        ]);
         _paq.push(['setSiteId', '1']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        var d = document,
+          g = d.createElement('script'),
+          s = d.getElementsByTagName('script')[0];
+        g.type = 'text/javascript';
+        g.async = true;
+        g.defer = true;
+        g.src = u + 'piwik.js';
+        s
+          .parentNode
+          .insertBefore(g, s);
       })();
     </script>
     <!-- End Matomo Code -->
     <script src="/public/javascript/polyfills.js"></script>
   </head>
   <body class="govuk-template__body {{ bodyClasses }}">
-    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+    <script>
+      document.body.className = (
+        (document.body.className)
+        ? document.body.className + ' js-enabled'
+        : 'js-enabled');
+    </script>
     {% block bodyStart %}{% endblock %}
 
     {% block skipLink %}
@@ -44,14 +63,14 @@
       }) }}
     {% endblock %}
 
-    {% block header %}
-      {{ pageHeader({
+    {{ pageHeader({
         mainMenu: mainMenu,
         topicsMenu: topicsMenu,
         appName: envVars.APP_NAME,
-        features: features
+        features: features,
+        user: user
       }) }}
-    {% endblock %}
+    {% block header %}{% endblock %}
 
     {% if config.header %}
       <div class="govuk-hub-header__background {{ data.headerClass }}">
@@ -84,7 +103,6 @@
     {% block footer %}
       {{ govukFooter({}) }}
     {% endblock %}
-
 
     {% block bodyEnd %}{% endblock %}
     <script src="/public/javascript/hub.js"></script>
