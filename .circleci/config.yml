@@ -51,12 +51,6 @@ jobs:
           key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
           paths:
             - ./moj-be/vendor
-      # - run:
-      # name: Run Drupal backend tests
-      # command: cd moj-be && make test
-      - run:
-          name: Build DB container
-          command: cd db && make build
       - run:
           name: push be to docker
           command: |
@@ -116,6 +110,3 @@ workflows:
       - build_cms:
           requires:
             - build
-
-      - hold:
-          type: approval
