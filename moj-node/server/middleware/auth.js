@@ -36,10 +36,13 @@ module.exports.createUserSession = ({ offenderService }) => {
           offenderNo,
         );
         request.session.user = offenderDetails;
+      } else if (!offenderNo) {
+        delete request.session.user;
       }
     } catch (error) {
       logger.error(error);
     } finally {
+      response.locals.user = request.session.user;
       next();
     }
   };

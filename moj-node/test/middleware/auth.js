@@ -53,6 +53,7 @@ describe('auth', () => {
         const session = { user: 'TEST' };
         const ntlm = { UserName: 'CHANGED' };
         const request = { session, ntlm };
+        const response = { locals: {} };
         const next = sinon.spy();
         const offenderService = {
           getOffenderDetailsFor: sinon.spy(),
@@ -60,7 +61,7 @@ describe('auth', () => {
 
         const middleware = createUserSession({ offenderService });
 
-        await middleware(request, {}, next);
+        await middleware(request, response, next);
 
         expect(next.called).to.equal(true, 'next should have been called');
         expect(offenderService.getOffenderDetailsFor.called).to.equal(
@@ -71,6 +72,10 @@ describe('auth', () => {
           'TEST',
           'the session should NOT have been changed',
         );
+        expect(response.locals.user).to.equal(
+          request.session.user,
+          'the user should have been added to locals',
+        );
       });
     });
     describe('When the user is authenticated and there is no session', () => {
@@ -78,6 +83,7 @@ describe('auth', () => {
         const session = {};
         const ntlm = { UserName: 'TEST_USERNAME' };
         const request = { session, ntlm };
+        const response = { locals: {} };
         const next = sinon.spy();
         const offenderService = {
           getOffenderDetailsFor: sinon.stub().resolves({
@@ -89,7 +95,7 @@ describe('auth', () => {
 
         const middleware = createUserSession({ offenderService });
 
-        await middleware(request, {}, next);
+        await middleware(request, response, next);
 
         expect(offenderService.getOffenderDetailsFor.called).to.equal(
           true,
@@ -99,14 +105,16 @@ describe('auth', () => {
           'TEST_USERNAME',
         );
         expect(request.session.user).to.have.property('name', 'HE MAN');
+        expect(response.locals.user).to.have.property('name', 'HE MAN');
         expect(next.called).to.equal(true, 'next should have been called');
       });
     });
     describe('When there is no offender number', () => {
-      it('should store the user in the session and call next', async () => {
+      it('should invalidate the session', async () => {
         const session = { user: 'TEST' };
         const ntlm = { UserName: null };
         const request = { session, ntlm };
+        const response = { locals: {} };
         const next = sinon.spy();
         const offenderService = {
           getOffenderDetailsFor: sinon.spy(),
@@ -114,13 +122,20 @@ describe('auth', () => {
 
         const middleware = createUserSession({ offenderService });
 
-        await middleware(request, {}, next);
+        await middleware(request, response, next);
 
         expect(offenderService.getOffenderDetailsFor.called).to.equal(
           false,
           'offenderService.getOffenderDetailsFor should NOT have been called',
         );
-        expect(request.session.user).to.equal('TEST');
+        expect(request.session.user).to.equal(
+          undefined,
+          'there should be no user in the session',
+        );
+        expect(response.locals.user).to.equal(
+          undefined,
+          'there should be no user in locals',
+        );
         expect(next.called).to.equal(true, 'next should have been called');
       });
     });
