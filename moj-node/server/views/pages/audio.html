@@ -1,4 +1,5 @@
-{% from "../components/header/macro.njk" import pageHeaderWithBack %}
+{% from "../components/header/macro.njk" import pageHeader %}
+{% from "../components/back-button/macro.njk" import backButton %}
 {% from "../components/next-episodes-content/macro.njk" import nextEpisodesContent %}
 {% from "../components/related-content/macro.njk" import hubRelatedContent %}
 {% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
@@ -11,7 +12,7 @@
 
 {% block head %}
   <!--[if !IE 8]><!-->
-    <link href="/public/stylesheets/application.css" rel="stylesheet" />
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
   <!--<![endif]-->
 
   {# For Internet Explorer 8, you need to compile specific stylesheet #}
@@ -27,61 +28,64 @@
 {% endblock %}
 
 {% block header %}
-  {{ pageHeaderWithBack({
+  {{ pageHeader({
     mainMenu: mainMenu,
     topicsMenu: topicsMenu,
     appName: envVars.APP_NAME,
     features: features
   }) }}
+  {{ backButton() }}
 {% endblock %}
 
 {% block content %}
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-three-quarters govuk-hub-media-player">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters govuk-hub-media-player">
 
-    <header class="govuk-hub-media-player__header">
-      <img width="100" height="100" id="thumbnail" src="{{ data.image.url }}" alt="{{ data.image.alt }}" class="govuk-hub-media-player__show-tag" />
-      <div class="govuk-hub-title-container">
-        <p class="govuk-hub-media-player__catgeory govuk-heading-m"><a href="/tags/{{data.seriesId}}" id="series" title="{{ data.seriesName }}" class="govuk-link govuk-hub-media-player__catgeory-link">{{ data.seriesName }}</a></p>
-        <h1 id="title" class="govuk-hub-media-player__title govuk-heading-xl govuk-body govuk-!-font-size-36 govuk-body govuk-!-font-weight-bold">{{ data.title }}</h1>
+      <header class="govuk-hub-media-player__header">
+        <img width="100" height="100" id="thumbnail" src="{{ data.image.url }}" alt="{{ data.image.alt }}" class="govuk-hub-media-player__show-tag"/>
+        <div class="govuk-hub-title-container">
+          <p class="govuk-hub-media-player__catgeory govuk-heading-m">
+            <a href="/tags/{{data.seriesId}}" id="series" title="{{ data.seriesName }}" class="govuk-link govuk-hub-media-player__catgeory-link">{{ data.seriesName }}</a>
+          </p>
+          <h1 id="title" class="govuk-hub-media-player__title govuk-heading-xl govuk-body govuk-!-font-size-36 govuk-body govuk-!-font-weight-bold">{{ data.title }}</h1>
+        </div>
+      </header>
+
+      <div class="govuk-hub-media-player__player govuk-hub-media-audio">
+        <div id="audioPlayer" class="webPlayer light" data-title="{{data.title}}" data-media="{{data.media}}" data-programme-code="{{data.programmeCode}}">
+          <div id="audioPlayerContainer" class="videoPlayer"></div>
+        </div>
       </div>
-    </header>
 
-    <div class="govuk-hub-media-player__player govuk-hub-media-audio">
-      <div id="audioPlayer" class="webPlayer light" data-title="{{data.title}}" data-media="{{data.media}}" data-programme-code="{{data.programmeCode}}">
-        <div id="audioPlayerContainer" class="videoPlayer"></div>
-      </div>
-    </div>
-
-    {{ hubFeedbackWidget({
+      {{ hubFeedbackWidget({
       title: data.title,
       contentType: data.contentType,
       series: data.seriesName,
       establishment: envVars.APP_NAME
     }) }}
 
-    <div class="govuk-hub-media-player__description">
-      <div id="body" class="govuk-body">{{ data.description.sanitized | safe }}</div>
-      {# <a href="#" title="Play" id="read-more" class="govuk-hub-media-player-item-icon govuk-hub-media-player-item__main-play govuk-link"><span class="icon-link"><span class="path1"></span><span class="path2"></span></span><span class="space">Read more</span></a> #}
-    </div>
+      <div class="govuk-hub-media-player__description">
+        <div id="body" class="govuk-body">{{ data.description.sanitized | safe }}</div>
+        {# <a href="#" title="Play" id="read-more" class="govuk-hub-media-player-item-icon govuk-hub-media-player-item__main-play govuk-link"><span class="icon-link"><span class="path1"></span><span class="path2"></span></span><span class="space">Read more</span></a> #}
+      </div>
 
-    <ul id="tags-list" class="govuk-hub-navigation__list govuk-hub-navigation__list--linear govuk-!-margin-bottom-6">
-      {% for tagItem in data.tags %}
-        <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item-topic">
-          <a title="{{tagItem.name}}" href="/tags/{{tagItem.id}}">{{tagItem.name}}</a>
-        </li>
-      {% endfor %}
-    </ul>
+      <ul id="tags-list" class="govuk-hub-navigation__list govuk-hub-navigation__list--linear govuk-!-margin-bottom-6">
+        {% for tagItem in data.tags %}
+          <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item-topic">
+            <a title="{{tagItem.name}}" href="/tags/{{tagItem.id}}">{{tagItem.name}}</a>
+          </li>
+        {% endfor %}
+      </ul>
 
-    <div id="next-episodes" class="govuk-hub-media-player__watch-next">
-      {{ nextEpisodesContent({ data: data.season }) }}
+      <div id="next-episodes" class="govuk-hub-media-player__watch-next">
+        {{ nextEpisodesContent({ data: data.season }) }}
+      </div>
     </div>
   </div>
-</div>
 
-<script src="/public/jquery.min.js"></script>
-<script src="/public/jplayer/jquery.jplayer.min.js"></script>
-<script src="/public/javascript/jplayer.cleanskin.min.js"></script>
-<script src="/public/javascript/audioPlayer.js" type="text/javascript"></script>
+  <script src="/public/jquery.min.js"></script>
+  <script src="/public/jplayer/jquery.jplayer.min.js"></script>
+  <script src="/public/javascript/jplayer.cleanskin.min.js"></script>
+  <script src="/public/javascript/audioPlayer.js" type="text/javascript"></script>
 
 {% endblock %}

@@ -1,4 +1,5 @@
-{% from "../components/header/macro.njk" import pageHeaderWithBack %}
+{% from "../components/header/macro.njk" import pageHeader %}
+{% from "../components/back-button/macro.njk" import backButton %}
 {% from "../components/related-content/macro.njk" import hubRelatedContent %}
 
 {% extends "../components/template.njk" %}
@@ -9,7 +10,7 @@
 
 {% block head %}
   <!--[if !IE 8]><!-->
-    <link href="/public/stylesheets/application.css" rel="stylesheet" />
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
   <!--<![endif]-->
 
   {# For Internet Explorer 8, you need to compile specific stylesheet #}
@@ -25,12 +26,13 @@
 {% endblock %}
 
 {% block header %}
-  {{ pageHeaderWithBack({
+  {{ pageHeader({
     mainMenu: mainMenu,
     topicsMenu: topicsMenu,
     appName: envVars.APP_NAME,
     features: features
   }) }}
+  {{ backButton() }}
 {% endblock %}
 
 {% block main %}
@@ -45,7 +47,7 @@
   }}
 {% endblock %}
 
-{% block content %}  
+{% block content %}
   {% if data.relatedContent.data | length %}
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-full">
@@ -60,6 +62,3 @@
     }) }}
   {% endif %}
 {% endblock %}
-
-
-

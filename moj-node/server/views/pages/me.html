@@ -1,5 +1,6 @@
 {% from "components/summary-list/macro.njk" import govukSummaryList %}
-{% from "../components/header/macro.njk" import pageHeaderWithBack %}
+{% from "../components/header/macro.njk" import pageHeader %}
+{% from "../components/back-button/macro.njk" import backButton %}
 {% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 {% extends "../components/template.njk" %}
 
@@ -9,7 +10,7 @@
 
 {% block head %}
   <!--[if !IE 8]><!-->
-  <link href="/public/stylesheets/application.css" rel="stylesheet" />
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
   <!--<![endif]-->
 
   {# For Internet Explorer 8, you need to compile specific stylesheet #}
@@ -25,22 +26,23 @@
 {% endblock %}
 
 {% block header %}
-  {{ pageHeaderWithBack({
+  {{ pageHeader({
     mainMenu: mainMenu,
     topicsMenu: topicsMenu,
     appName: envVars.APP_NAME,
     features: features
   }) }}
+  {{ backButton() }}
 {% endblock %}
 
 {% block main %}
-<div class="govuk-width-container">
-  <div class="govuk-main-wrapper">
-    <h2 class="govuk-heading-l">Your essential prison information</h2>
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds" id="money">
-        <h2 class="govuk-heading-m">Money</h2>
-        {{
+  <div class="govuk-width-container">
+    <div class="govuk-main-wrapper">
+      <h2 class="govuk-heading-l">Your essential prison information</h2>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds" id="money">
+          <h2 class="govuk-heading-m">Money</h2>
+          {{
           govukSummaryList({
             classes: 'govuk-summary-list--no-border',
             rows: [
@@ -71,12 +73,12 @@
             ]
           })
         }}
-        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
-      </div>
+          <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+        </div>
 
-      <div class="govuk-grid-column-two-thirds" id="iepSumary">
-        <h2 class="govuk-heading-m">IEP (Incentives and earned privilages)</h2>
-        {{
+        <div class="govuk-grid-column-two-thirds" id="iepSumary">
+          <h2 class="govuk-heading-m">IEP (Incentives and earned privilages)</h2>
+          {{
           govukSummaryList({
             classes: 'govuk-summary-list--no-border',
             rows: [
@@ -107,12 +109,12 @@
             ]
           })
         }}
-        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
-      </div>
+          <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+        </div>
 
-      <div class="govuk-grid-column-two-thirds" id="keyWorker">
-        <h2 class="govuk-heading-m">Key worker</h2>
-        {{
+        <div class="govuk-grid-column-two-thirds" id="keyWorker">
+          <h2 class="govuk-heading-m">Key worker</h2>
+          {{
           govukSummaryList({
             classes: 'govuk-summary-list--no-border',
             rows: [
@@ -135,12 +137,12 @@
             ]
           })
         }}
-        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
-      </div>
+          <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+        </div>
 
-      <div class="govuk-grid-column-two-thirds" id="visits">
-        <h2 class="govuk-heading-m">Visits</h2>
-        {{
+        <div class="govuk-grid-column-two-thirds" id="visits">
+          <h2 class="govuk-heading-m">Visits</h2>
+          {{
           govukSummaryList({
             classes: 'govuk-summary-list--no-border',
             rows: [
@@ -163,12 +165,12 @@
             ]
           })
         }}
-        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
-      </div>
+          <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+        </div>
 
-      <div class="govuk-grid-column-two-thirds" id="keyDates">
-        <h2 class="govuk-heading-m">Important Dates</h2>
-        {{
+        <div class="govuk-grid-column-two-thirds" id="keyDates">
+          <h2 class="govuk-heading-m">Important Dates</h2>
+          {{
           govukSummaryList({
             classes: 'govuk-summary-list--no-border',
             rows: [
@@ -207,11 +209,11 @@
             ]
           })
         }}
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<script src="/public/javascript/all.js"></script>
+  <script src="/public/javascript/all.js"></script>
 
 {% endblock %}

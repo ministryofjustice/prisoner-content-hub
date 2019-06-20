@@ -1,4 +1,5 @@
-{% from "../../components/header/macro.njk" import pageHeaderWithBack %}
+{% from "../../components/header/macro.njk" import pageHeader %}
+{% from "../../components/back-button/macro.njk" import backButton %}
 {% from "../../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 {% extends "../../components/template.njk" %}
 
@@ -8,7 +9,7 @@
 
 {% block head %}
   <!--[if !IE 8]><!-->
-  <link href="/public/stylesheets/application.css" rel="stylesheet" />
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
   <!--<![endif]-->
 
   {# For Internet Explorer 8, you need to compile specific stylesheet #}
@@ -24,81 +25,82 @@
 
   <link href="/public/javascript/games/sudoku/sudokuJS.css" rel="stylesheet" type="text/css"/>
 
-
 {% endblock %}
 
 {% block header %}
-  {{ pageHeaderWithBack({
+  {{ pageHeader({
     mainMenu: mainMenu,
     topicsMenu: topicsMenu,
     appName: envVars.APP_NAME,
     features: features
   }) }}
+  {{ backButton() }}
 {% endblock %}
 
 {% block main %}
-<div class="govuk-width-container">
-  <main class="govuk-main-wrapper">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">Sudoku</h1>
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">Sudoku</h1>
+        </div>
       </div>
-    </div>
-    <div class="govuk-grid-row govuk-!-margin-bottom-6">
-      <div class="govuk-grid-column-one-half">
-        <div id="sudoku" class="sudoku-board js-sudoku-board" data-board-size="9"></div>
+      <div class="govuk-grid-row govuk-!-margin-bottom-6">
+        <div class="govuk-grid-column-one-half">
+          <div id="sudoku" class="sudoku-board js-sudoku-board" data-board-size="9"></div>
+        </div>
+
+        <div class="govuk-grid-column-one-half">
+          <p class="govuk-body">Sudoku is a game that involves a grid of 81 squares, divided into nine blocks, each containing nine squares.</p>
+          <p class="govuk-body">Each of the nine blocks has to contain the numbers 1-9, each number can only appear once in a row, column or box. Each vertical nine-square column, or horizontal nine-square line across, within the larger square, must also contain the numbers 1-9, without repetition or omission.</p>
+          <p class="govuk-body">Each sudoku puzzle has only one correct solution.</p>
+          <p>
+            <button id="new-game" class="govuk-button" title="Start a new game">Start a new game</button>
+          </p>
+        </div>
       </div>
 
-      <div class="govuk-grid-column-one-half">
-        <p class="govuk-body">Sudoku is a game that involves a grid of 81 squares, divided into nine blocks, each containing nine squares.</p>
-        <p class="govuk-body">Each of the nine blocks has to contain the numbers 1-9, each number can only appear once in a row, column or box. Each vertical nine-square column, or horizontal nine-square line across, within the larger square, must also contain the numbers 1-9, without repetition or omission.</p>
-        <p class="govuk-body">Each sudoku puzzle has only one correct solution.</p>
-        <p><button id="new-game" class="govuk-button" title="Start a new game">Start a new game</button></p>
-      </div>
-    </div>
-
-    <div class="govuk-hub-article-feedback">
-      <p class="govuk-body">Tell us what you think:</p>
-      {{ hubFeedbackWidget({
+      <div class="govuk-hub-article-feedback">
+        <p class="govuk-body">Tell us what you think:</p>
+        {{ hubFeedbackWidget({
           title: "Sudoku",
           contentType: "game",
           series: null,
           establishment: envVars.APP_NAME
       })}}
-    </div>
-  </main>
-</div>
+      </div>
+    </main>
+  </div>
 
-<!-- Sudoku -->
-<script src="/public/jquery.min.js"></script>
-<script src="/public/javascript/games/sudoku/sudokuJS.js" type="text/javascript"></script>
-<script>
-  var mySudokuJS = $("#sudoku").sudokuJS({
+  <!-- Sudoku -->
+  <script src="/public/jquery.min.js"></script>
+  <script src="/public/javascript/games/sudoku/sudokuJS.js" type="text/javascript"></script>
+  <script>
+    var mySudokuJS = $("#sudoku").sudokuJS({
       difficulty: "Easy",
       boardFinishedFn: function (data) {
-          const message = "Congratulations \n\n You have completed the puzzle, would you like to play again?"
-          if (confirm(message)) {
-            mySudokuJS.generateBoard('easy');
-          };
+        const message = "Congratulations \n\n You have completed the puzzle, would you like to play again?"
+        if (confirm(message)) {
+          mySudokuJS.generateBoard('easy');
+        };
       }
-  });
+    });
 
-  /*window.setInterval(function(){
+    /*window.setInterval(function(){
       mySudokuJS.solveStep();
   }, 100);*/
 
-  $("#new-game").on("click", function() {
+    $("#new-game").on("click", function () {
       clearErrors();
       mySudokuJS.generateBoard('easy');
-  });
+    });
 
-  function clearErrors(){
-      $("#sudoku input").filter(function() {
-          $(this).removeAttr('disabled');
-          $(this).removeClass("board-cell--error highlight-val");
+    function clearErrors() {
+      $("#sudoku input").filter(function () {
+        $(this).removeAttr('disabled');
+        $(this).removeClass("board-cell--error highlight-val");
       });
-  }
-</script>
-
+    }
+  </script>
 
 {% endblock %}

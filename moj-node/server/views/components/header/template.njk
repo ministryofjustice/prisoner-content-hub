@@ -9,22 +9,19 @@
       <div class="govuk-grid-column-one-half govuk-hub-align-right">
         <span data-target-id="todays-date" class="govuk-hub-header__date govuk-body"></span>
         <span data-target-id="todays-time" class="govuk-hub-header__time"></span>
-        {% if params.features.showPageMenu %}
-          <a id="menu-btn" href="#" role="button" class="govuk-button govuk-hub-start-menu">Menu</a>
-        {% endif %}
       </div>
     </div>
   </div>
 </header>
 
-  {% if false %}
+{% if false %}
   <div class="govuk-hub-header__bottombar">
     <div class="govuk-width-container  govuk-!-margin-bottom-5">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full govuk-hub-align-right">
           <ul id="language" class="govuk-hub-language-toggle" aria-label="Language Toggle">
             <li class="govuk-hub-language-toggle__item">
-                <a class="govuk-hub-language-toggle__link govuk-hub-language-toggle__link--active" href="{{ item.href }}">
+              <a class="govuk-hub-language-toggle__link govuk-hub-language-toggle__link--active" href="{{ item.href }}">
                 English
                 </a>
             </li>
@@ -40,6 +37,4 @@
   </div>
 {% endif %}
 
-
 {%- include "../navigation-menu/navigation-menu.njk" -%}
-

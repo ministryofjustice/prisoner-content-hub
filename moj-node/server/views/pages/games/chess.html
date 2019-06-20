@@ -1,4 +1,5 @@
-{% from "../../components/header/macro.njk" import pageHeaderWithBack %}
+{% from "../../components/header/macro.njk" import pageHeader %}
+{% from "../../components/back-button/macro.njk" import backButton %}
 {% from "../../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 {% extends "../../components/template.njk" %}
 
@@ -8,7 +9,7 @@
 
 {% block head %}
   <!--[if !IE 8]><!-->
-  <link href="/public/stylesheets/application.css" rel="stylesheet" />
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
   <!--<![endif]-->
 
   {# For Internet Explorer 8, you need to compile specific stylesheet #}
@@ -31,90 +32,91 @@
 {% endblock %}
 
 {% block header %}
-  {{ pageHeaderWithBack({
+  {{ pageHeader({
     mainMenu: mainMenu,
     topicsMenu: topicsMenu,
     appName: envVars.APP_NAME,
     features: features
   }) }}
+  {{ backButton() }}
 {% endblock %}
 
 {% block main %}
-<div class="govuk-width-container">
-  <div class="govuk-main-wrapper">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-4">Chess</h1>
+  <div class="govuk-width-container">
+    <div class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-4">Chess</h1>
+        </div>
       </div>
-    </div>
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
-        <div class="game-board-container">
-          <span class="govuk-heading-s govuk-!-margin-bottom-2 govuk-hub-computer" id="time1"></span>
-          <div class="main-board" id="board"></div>
-          <div class="messages" id="messages"></div>
-          <span class="govuk-heading-s govuk-!-margin-bottom-2 govuk-hub-human" id="time2"></span>
-          <div class="engine-status" id="engineStatus">...</div>
-        </div>
-        <div class="moves-container">
-          <span class="govuk-heading-s govuk-!-margin-bottom-2">Moves:</span>
-          <div class="move-lists" id="pgn">Waiting for the first move!</div>
-        </div>
-        <div class="settings-container">
-          <span class="govuk-heading-s govuk-!-margin-bottom-2">Game settings:</span>
-          <div class="govuk-form-group">
-            <label class="govuk-label" for="playerColor">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <div class="game-board-container">
+            <span class="govuk-heading-s govuk-!-margin-bottom-2 govuk-hub-computer" id="time1"></span>
+            <div class="main-board" id="board"></div>
+            <div class="messages" id="messages"></div>
+            <span class="govuk-heading-s govuk-!-margin-bottom-2 govuk-hub-human" id="time2"></span>
+            <div class="engine-status" id="engineStatus">...</div>
+          </div>
+          <div class="moves-container">
+            <span class="govuk-heading-s govuk-!-margin-bottom-2">Moves:</span>
+            <div class="move-lists" id="pgn">Waiting for the first move!</div>
+          </div>
+          <div class="settings-container">
+            <span class="govuk-heading-s govuk-!-margin-bottom-2">Game settings:</span>
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="playerColor">
               Play with
             </label>
-            <select class="govuk-select govuk-hub-full-width" id="playerColor" name="playerColor">
-              <option value="white" selected>White</option>
-              <option value="black">Black</option>
-            </select>
-          </div>
+              <select class="govuk-select govuk-hub-full-width" id="playerColor" name="playerColor">
+                <option value="white" selected>White</option>
+                <option value="black">Black</option>
+              </select>
+            </div>
 
-          <div class="govuk-form-group">
-            <label for="color" class="govuk-label">Pawns get promoted to</label>
-            <select class="govuk-select govuk-hub-full-width" id="promote">
+            <div class="govuk-form-group">
+              <label for="color" class="govuk-label">Pawns get promoted to</label>
+              <select class="govuk-select govuk-hub-full-width" id="promote">
                 <option value="q" selected>Queen</option>
                 <option value="r">Rook</option>
                 <option value="b">Bishop</option>
                 <option value="n">Knight</option>
-            </select>
-          </div>
+              </select>
+            </div>
 
-          {# <div class="govuk-form-group"> #}
+            {# <div class="govuk-form-group"> #}
             {# <label for="timeBase" class="govuk-label">Base time (min)</label> #}
-            <input type="hidden" id="timeBase" value="5" />
-          {# </div> #}
+            <input type="hidden" id="timeBase" value="5"/>
+            {# </div> #}
 
-          {# <div class="govuk-form-group"> #}
+            {# <div class="govuk-form-group"> #}
             {# <label for="timeInc" class="govuk-label">Increment (sec)</label> #}
-            <input type="hidden"  id="timeInc" value="2" />
-          {# </div> #}
+            <input type="hidden"  id="timeInc" value="2"/>
+            {# </div> #}
 
-          <div class="govuk-form-group">
-            <label class="govuk-label" for="contemptLevel">
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="contemptLevel">
               Contempt Level (-100 to 100)
             </label>
-            <input type="number" class="govuk-input govuk-!-margin-bottom-2" id="contemptLevel" value="-100" max="100" min="-100">
-            <details class="govuk-details">
-              <summary class="govuk-details__summary">
-                <span class="govuk-details__summary-text">
+              <input type="number" class="govuk-input govuk-!-margin-bottom-2" id="contemptLevel" value="-100" max="100" min="-100">
+              <details class="govuk-details">
+                <summary class="govuk-details__summary">
+                  <span class="govuk-details__summary-text">
                   Help with contempt level
                 </span>
-              </summary>
-              <div class="govuk-details__text">
+                </summary>
+                <div class="govuk-details__text">
                 Roughly equivalent to "optimism." Positive values of contempt favor more "risky" play, while negative values will favor draws. Zero is neutral.
               </div>
-            </details>
-          </div>
+              </details>
+            </div>
 
-          <div class="govuk-form-group">
-            <label for="skillLevel" class="govuk-label">Skill Level (0-20)</label>
-            <input type="number" class="govuk-input govuk-date-input__input" id="skillLevel" value="20"></input>
-          </div>
+            <div class="govuk-form-group">
+              <label for="skillLevel" class="govuk-label">Skill Level (0-20)</label>
+              <input type="number" class="govuk-input govuk-date-input__input" id="skillLevel" value="20"></input>
+            </div>
 
-          {# <div class="govuk-form-group">
+            {# <div class="govuk-form-group">
             <div class="govuk-checkboxes__item">
               <input class="govuk-checkboxes__input" id="showScore" name="showScore" type="checkbox" value="1" checked>
               <label class="govuk-label govuk-checkboxes__label" for="showScore">
@@ -123,15 +125,15 @@
             </div>
           </div> #}
 
-          <div class="govuk-form-group">
-            <button type="button" class="govuk-button" onclick="newGame()">New Game</button>
-          </div>
+            <div class="govuk-form-group">
+              <button type="button" class="govuk-button" onclick="newGame()">New Game</button>
+            </div>
 
-          <h3 class="govuk-heading-m">How to play chess</h3>
-          <div class="govuk-inset-text">
-            <a href="/content/3700" target="_blank" class="govuk-link govuk-link--no-visited-state">Download the rules of chess (PDF)</a>
+            <h3 class="govuk-heading-m">How to play chess</h3>
+            <div class="govuk-inset-text">
+              <a href="/content/3700" target="_blank" class="govuk-link govuk-link--no-visited-state">Download the rules of chess (PDF)</a>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>
@@ -147,7 +149,6 @@
     </div>
   </div>
 </div>
-
 
 <script src="/public/javascript/games/chess/enginegame.js"></script>
 <script src="/public/javascript/games/chess/game.js"></script>

@@ -1,6 +1,6 @@
-{% from "../components/header/macro.njk" import pageHeaderWithBreadcrumbs %}
+{% from "../components/header/macro.njk" import pageHeader %}
+{% from "../components/breadcrumbs/macro.njk" import breadcrumbTrail %}
 {% from "../components/step-by-step-menu/macro.njk" import hubStepByStepMenu %}
-
 
 {% extends "../components/template.njk" %}
 
@@ -10,7 +10,7 @@
 
 {% block head %}
   <!--[if !IE 8]><!-->
-    <link href="/public/stylesheets/application.css" rel="stylesheet" />
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
   <!--<![endif]-->
 
   {# For Internet Explorer 8, you need to compile specific stylesheet #}
@@ -26,13 +26,13 @@
 {% endblock %}
 
 {% block header %}
-  {{ pageHeaderWithBreadcrumbs({
+  {{ pageHeader({
     mainMenu: mainMenu,
     topicsMenu: topicsMenu,
     appName: envVars.APP_NAME,
-    features: features,
-    breadcrumbs: breadcrumbs
+    features: features
   }) }}
+  {{ breadcrumbTrail({ breadcrumbs: breadcrumbs }) }}
 {% endblock %}
 
 {% block main %}
