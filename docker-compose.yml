@@ -3,7 +3,7 @@ version: "3"
 services:
   hub-db:
     container_name: hub-db
-    image: mojdigitalstudio/digital-hub-db
+    image: mariadb
     environment:
       - MYSQL_ROOT_PASSWORD
       - MYSQL_DATABASE="hubdb"
