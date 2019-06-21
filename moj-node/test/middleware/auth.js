@@ -8,13 +8,12 @@ describe('auth', () => {
   describe('.authMiddleware', () => {
     const originalConfig = { ...config };
 
-    beforeEach(() => {
+    afterEach(() => {
       config.mockAuth = originalConfig.mockAuth;
     });
 
     describe('When configured to mock authentication', () => {
       it('should not use NTLM', () => {
-        config.mockAuth = 'true';
         const ntlm = sinon.spy();
         const next = sinon.spy();
         const middleware = authMiddleware(ntlm);
@@ -31,6 +30,7 @@ describe('auth', () => {
 
     describe('When configured to NOT mock authentication', () => {
       it('should use NTLM', () => {
+        config.mockAuth = 'false';
         const ntlm = sinon.spy();
         authMiddleware(ntlm);
 

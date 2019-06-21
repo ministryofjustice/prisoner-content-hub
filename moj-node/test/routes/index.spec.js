@@ -2,7 +2,10 @@ const request = require('supertest');
 const cheerio = require('cheerio');
 
 const createIndexRouter = require('../../server/routes/index');
-const featureToggleMiddleWare = require('../../server/middleware/featureToggle');
+const {
+  authMiddleware,
+  createUserSession,
+} = require('../../server/middleware/auth');
 const { setupBasicApp, logger } = require('../test-helpers');
 
 describe('GET /', () => {
@@ -187,8 +190,44 @@ describe('GET /', () => {
       .expect(500);
   });
 
-  describe('when the feature the showBrowseByTopics is enabled', () => {
-    it('show the browse by topics menu', () => {
+  it('show the browse by topics menu', () => {
+    const router = createIndexRouter({
+      logger,
+      hubFeaturedContentService,
+      hubPromotedContentService,
+      hubMenuService,
+    });
+
+    const app = setupBasicApp();
+
+    app.use(router);
+
+    return request(app)
+      .get('/')
+      .query({ showBrowseByTopics: 'true' })
+      .then(response => {
+        const $ = cheerio.load(response.text);
+
+        expect($('#browser-by-topic h1').text()).to.equal('Browse by topic');
+        expect($('#browser-by-topic .govuk-hub-topics li').length).to.equal(
+          2,
+          'Correct number of menu items',
+        );
+
+        expect($('#browser-by-topic').text()).to.include(
+          'Some Foo Link',
+          'Should have rendered the correct text data on the tags menu',
+        );
+
+        expect($('#browser-by-topic').html()).to.include(
+          '/content/someFooLink',
+          'Should have rendered the correct links data on the tags menu',
+        );
+      });
+  });
+
+  describe('Authentication', () => {
+    it('shows the user if authenticated', () => {
       const router = createIndexRouter({
         logger,
         hubFeaturedContentService,
@@ -196,32 +235,66 @@ describe('GET /', () => {
         hubMenuService,
       });
 
+      const offenderService = {
+        getOffenderDetailsFor: sinon.stub().resolves({
+          bookingId: '123456',
+          offenderId: 'qwerty',
+          name: 'HE MAN',
+        }),
+      };
+
       const app = setupBasicApp();
 
-      app.use(featureToggleMiddleWare(['showBrowseByTopics']));
-
+      app.use((req, res, next) => {
+        req.session = {};
+        next();
+      });
+      app.use(authMiddleware(), createUserSession({ offenderService }));
       app.use(router);
 
       return request(app)
         .get('/')
-        .query({ showBrowseByTopics: 'true' })
+        .expect(200)
         .then(response => {
           const $ = cheerio.load(response.text);
 
-          expect($('#browser-by-topic h1').text()).to.equal('Browse by topic');
-          expect($('#browser-by-topic .govuk-hub-topics li').length).to.equal(
-            2,
-            'Correct number of menu items',
+          expect($('#hub-auth-header').text()).to.include(
+            'HE MAN',
+            'the logged in user should be displayed',
           );
+        });
+    });
 
-          expect($('#browser-by-topic').text()).to.include(
-            'Some Foo Link',
-            'Should have rendered the correct text data on the tags menu',
-          );
+    it('does NOT show the user if NOT authenticated', () => {
+      const router = createIndexRouter({
+        logger,
+        hubFeaturedContentService,
+        hubPromotedContentService,
+        hubMenuService,
+      });
 
-          expect($('#browser-by-topic').html()).to.include(
-            '/content/someFooLink',
-            'Should have rendered the correct links data on the tags menu',
+      const offenderService = {
+        getOffenderDetailsFor: sinon.stub().throws(),
+      };
+
+      const app = setupBasicApp();
+
+      app.use((req, res, next) => {
+        req.session = {};
+        next();
+      });
+      app.use(authMiddleware(), createUserSession({ offenderService }));
+      app.use(router);
+
+      return request(app)
+        .get('/')
+        .expect(200)
+        .then(response => {
+          const $ = cheerio.load(response.text);
+
+          expect($('#hub-auth-header').length).to.equal(
+            0,
+            'the auth user header should not be displayed',
           );
         });
     });

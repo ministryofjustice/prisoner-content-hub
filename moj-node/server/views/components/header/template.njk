@@ -4,13 +4,13 @@
       <div class="govuk-grid-column-one-half">
         &nbsp;
         {% if params.user %}
-          <div class="hub-header-user-container">
+          <div id="hub-auth-header" class="hub-header-user-container">
             <span class="govuk-!-font-weight-bold">{{ params.user.name }}</span>
             <span>{{ params.appName }}</span>
           </div>
         {% else %}
           <a href="/" class="govuk-hub-header__link govuk-hub-header__link--homepage">
-            <span class="govuk-hub-header__title govuk-body govuk-!-font-weight-bold">HMP Berwyn</span>
+            <span class="govuk-hub-header__title govuk-body govuk-!-font-weight-bold">{{ params.appName }}</span>
           </a>
         {% endif %}
 
