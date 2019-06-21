@@ -1,4 +1,4 @@
-{% from "../components/header/macro.njk" import pageHeaderWithBack %}
+{% from "../components/back-button/macro.njk" import backButton %}
 {% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 
 {% extends "../components/template.njk" %}
@@ -9,7 +9,7 @@
 
 {% block head %}
   <!--[if !IE 8]><!-->
-    <link href="/public/stylesheets/application.css" rel="stylesheet" />
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
   <!--<![endif]-->
 
   {# For Internet Explorer 8, you need to compile specific stylesheet #}
@@ -25,12 +25,7 @@
 {% endblock %}
 
 {% block header %}
-  {{ pageHeaderWithBack({
-    mainMenu: mainMenu,
-    topicsMenu: topicsMenu,
-    appName: envVars.APP_NAME,
-    features: features
-  }) }}
+  {{ backButton() }}
 {% endblock %}
 
 {% block main %}

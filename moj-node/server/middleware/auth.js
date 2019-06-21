@@ -1,13 +1,19 @@
 const expressNTLM = require('express-ntlm');
+const { path } = require('ramda');
 const config = require('../config');
 const logger = require('../../log');
+
+const offenderNumber = path(['user', 'offenderNo']);
 
 module.exports.authMiddleware = (ntlm = expressNTLM) => {
   if (config.mockAuth === 'true') {
     return (request, response, next) => {
       request.ntlm = {
         DomainName: 'MOCK_DOMAIN',
-        UserName: request.query.mockUser || 'G9542VP',
+        UserName:
+          request.query.mockUser ||
+          offenderNumber(request.session) ||
+          'G9542VP',
         Workstation: 'MOCK_WORKSTATION',
       };
       next();
@@ -36,10 +42,16 @@ module.exports.createUserSession = ({ offenderService }) => {
           offenderNo,
         );
         request.session.user = offenderDetails;
+      } else if (
+        !offenderNo ||
+        offenderNo !== offenderNumber(request.session)
+      ) {
+        delete request.session.user;
       }
     } catch (error) {
       logger.error(error);
     } finally {
+      response.locals.user = request.session.user;
       next();
     }
   };

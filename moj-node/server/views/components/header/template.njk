@@ -1,30 +1,36 @@
 <header class="govuk-header govuk-hub-page-header" data-module="header">
   <div class="govuk-header__container govuk-width-container govuk-!-padding-0">
-    <div class="govuk-grid-row govuk-hub-align-items-center">
+    <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-half">
-        <a href="/" class="govuk-hub-header__link govuk-hub-header__link--homepage">
-          <span class="govuk-hub-header__title govuk-body govuk-!-font-weight-bold">{{params.appName}}</span>
-        </a>
+        &nbsp;
+        {% if params.user %}
+          <div id="hub-auth-header" class="hub-header-user-container">
+            <span class="govuk-!-font-weight-bold">{{ params.user.name }}</span>
+            <span>{{ params.appName }}</span>
+          </div>
+        {% else %}
+          <a href="/" class="govuk-hub-header__link govuk-hub-header__link--homepage">
+            <span class="govuk-hub-header__title govuk-body govuk-!-font-weight-bold">{{ params.appName }}</span>
+          </a>
+        {% endif %}
+
       </div>
       <div class="govuk-grid-column-one-half govuk-hub-align-right">
-        <span data-target-id="todays-date" class="govuk-hub-header__date govuk-body"></span>
+        <span data-target-id="todays-date" class="govuk-hub-header__date govuk-body">&nbsp;</span>
         <span data-target-id="todays-time" class="govuk-hub-header__time"></span>
-        {% if params.features.showPageMenu %}
-          <a id="menu-btn" href="#" role="button" class="govuk-button govuk-hub-start-menu">Menu</a>
-        {% endif %}
       </div>
     </div>
   </div>
 </header>
 
-  {% if false %}
+{% if false %}
   <div class="govuk-hub-header__bottombar">
     <div class="govuk-width-container  govuk-!-margin-bottom-5">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full govuk-hub-align-right">
           <ul id="language" class="govuk-hub-language-toggle" aria-label="Language Toggle">
             <li class="govuk-hub-language-toggle__item">
-                <a class="govuk-hub-language-toggle__link govuk-hub-language-toggle__link--active" href="{{ item.href }}">
+              <a class="govuk-hub-language-toggle__link govuk-hub-language-toggle__link--active" href="{{ item.href }}">
                 English
                 </a>
             </li>
@@ -40,6 +46,4 @@
   </div>
 {% endif %}
 
-
 {%- include "../navigation-menu/navigation-menu.njk" -%}
-
