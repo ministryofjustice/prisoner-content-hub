@@ -50,8 +50,8 @@ describe('auth', () => {
   describe('.createUserSession', () => {
     describe('When there is a session', () => {
       it('should not change the session and call next', async () => {
-        const session = { user: 'TEST' };
-        const ntlm = { UserName: 'CHANGED' };
+        const session = { user: { offenderNo: 'TEST' } };
+        const ntlm = { UserName: 'TEST' };
         const request = { session, ntlm };
         const response = { locals: {} };
         const next = sinon.spy();
@@ -68,11 +68,11 @@ describe('auth', () => {
           false,
           'offenderService should NOT have been called',
         );
-        expect(request.session.user).to.equal(
+        expect(request.session.user.offenderNo).to.equal(
           'TEST',
           'the session should NOT have been changed',
         );
-        expect(response.locals.user).to.equal(
+        expect(response.locals.user).to.eql(
           request.session.user,
           'the user should have been added to locals',
         );
