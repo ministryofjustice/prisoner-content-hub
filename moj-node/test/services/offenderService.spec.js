@@ -142,7 +142,7 @@ describe('Offender Service', () => {
     });
   });
 
-  describe.only('.getActivitiesForToday', () => {
+  describe('.getActivitiesForToday', () => {
     it('should call the repository service with the correct bookingId', async () => {
       const repository = {
         getActivitiesForToday: sinon.stub().returns([
