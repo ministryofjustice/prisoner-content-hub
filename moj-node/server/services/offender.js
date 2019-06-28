@@ -1,4 +1,10 @@
-const { parse, distanceInWords, format, isValid } = require('date-fns');
+const {
+  parse,
+  distanceInWords,
+  format,
+  isValid,
+  isBefore,
+} = require('date-fns');
 const { propOr, prop } = require('ramda');
 
 const prettyDate = date => {
@@ -11,6 +17,25 @@ const prettyTime = date => {
   return format(parse(date), 'h:mma');
 };
 
+const getTimeOfDay = date => {
+  if (!isValid(new Date(date))) return '';
+
+  const now = new Date();
+  const nowYear = now.getFullYear();
+  const nowMonth = now.getMonth();
+  const nowDay = now.getDate();
+  const morning = new Date(nowYear, nowMonth, nowDay, 12, 0, 0);
+  const afternoon = new Date(nowYear, nowMonth, nowDay, 17, 0, 0);
+
+  if (isBefore(date, morning)) {
+    return 'morning';
+  }
+  if (isBefore(date, afternoon)) {
+    return 'afternoon';
+  }
+  return 'evening';
+};
+
 const capitalize = (str = '') => {
   return str
     .split('')
@@ -19,6 +44,26 @@ const capitalize = (str = '') => {
       return letter.toLowerCase();
     })
     .join('');
+};
+
+const getActivitiesForTimeOfDay = (activities, timeOfDay) => {
+  return activities
+    .filter(activity => {
+      const activityTimeOfDay = getTimeOfDay(prop('startTime', activity));
+
+      return activityTimeOfDay === timeOfDay;
+    })
+    .map(activity => {
+      const startTime = prettyTime(prop('startTime', activity));
+      const endTime = prettyTime(prop('endTime', activity));
+
+      return {
+        title: activity.eventSourceDesc,
+        startTime,
+        endTime,
+        timeString: endTime === '' ? startTime : `${startTime} to ${endTime}`,
+      };
+    });
 };
 
 module.exports = function createOffenderService(repository) {
@@ -105,19 +150,18 @@ module.exports = function createOffenderService(repository) {
   async function getActivitiesForToday(bookingId) {
     const activities = await repository.getActivitiesForToday(bookingId);
 
-    if (!Array.isArray(activities)) return [];
-
-    return activities.map(activity => {
-      const startTime = prettyTime(prop('startTime', activity));
-      const endTime = prettyTime(prop('endTime', activity));
-
+    if (!Array.isArray(activities))
       return {
-        title: activity.eventSourceDesc,
-        startTime,
-        endTime,
-        timeString: endTime === '' ? startTime : `${startTime} to ${endTime}`,
+        morning: [],
+        afternoon: [],
+        evening: [],
       };
-    });
+
+    return {
+      morning: getActivitiesForTimeOfDay(activities, 'morning'),
+      afternoon: getActivitiesForTimeOfDay(activities, 'afternoon'),
+      evening: getActivitiesForTimeOfDay(activities, 'evening'),
+    };
   }
 
   return {
