@@ -1,4 +1,10 @@
-const { parse, distanceInWords, format, isValid } = require('date-fns');
+const {
+  parse,
+  distanceInWords,
+  format,
+  isValid,
+  isBefore,
+} = require('date-fns');
 const { propOr, prop } = require('ramda');
 
 const prettyDate = date => {
@@ -13,12 +19,18 @@ const prettyTime = date => {
 
 const getTimeOfDay = date => {
   if (!isValid(new Date(date))) return false;
-  const hour = Number.parseInt(format(parse(date), 'H'), 10);
 
-  if (hour < 12) {
+  const now = new Date();
+  const nowYear = now.getFullYear();
+  const nowMonth = now.getMonth();
+  const nowDay = now.getDate();
+  const morning = new Date(nowYear, nowMonth, nowDay, 12, 0, 0);
+  const afternoon = new Date(nowYear, nowMonth, nowDay, 18, 0, 0);
+
+  if (isBefore(date, morning)) {
     return 'morning';
   }
-  if (hour < 18) {
+  if (isBefore(date, afternoon)) {
     return 'afternoon';
   }
   return 'evening';

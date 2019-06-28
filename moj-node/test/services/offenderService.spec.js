@@ -172,37 +172,5 @@ describe('Offender Service', () => {
         expect(data).to.eql(singleTestData.data);
       });
     });
-    // describe('when there is no end time', () => {
-    //   it('returns activities for today', async () => {
-    //     const repository = {
-    //       getActivitiesForToday: sinon.stub().returns([
-    //         {
-    //           eventSourceDesc: 'Some title',
-    //           startTime: '2019-04-07T11:30:30',
-    //           endTime: '',
-    //         },
-    //       ]),
-    //     };
-    //     const service = offenderService(repository);
-    //     const data = await service.getActivitiesForToday('FOO_ID');
-
-    //     expect(repository.getActivitiesForToday.lastCall.args[0]).to.equal(
-    //       'FOO_ID',
-    //     );
-
-    //     expect(data).to.eql({
-    //       morning: [
-    //         {
-    //           title: 'Some title',
-    //           startTime: '11:30am',
-    //           endTime: '',
-    //           timeString: '11:30am',
-    //         },
-    //       ],
-    //       afternoon: [],
-    //       evening: [],
-    //     });
-    //   });
-    // });
   });
 });

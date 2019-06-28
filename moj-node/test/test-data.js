@@ -1,11 +1,14 @@
+const { format } = require('date-fns');
+
+const nowDateString = format(new Date(), 'YYYY-MM-DD');
 const getActivitiesForTodayData = [
   {
     title: 'single event morning',
     repo: [
       {
         eventSourceDesc: 'Some title',
-        startTime: '2019-04-07T11:30:30',
-        endTime: '2019-04-07T12:30:30',
+        startTime: `${nowDateString}T11:30:30`,
+        endTime: `${nowDateString}T12:30:30`,
       },
     ],
     data: {
@@ -26,7 +29,7 @@ const getActivitiesForTodayData = [
     repo: [
       {
         eventSourceDesc: 'Some title',
-        startTime: '2019-04-07T11:30:30',
+        startTime: `${nowDateString}T11:30:30`,
         endTime: '',
       },
     ],
@@ -48,8 +51,8 @@ const getActivitiesForTodayData = [
     repo: [
       {
         eventSourceDesc: 'Some title',
-        startTime: '2019-04-07T12:30:30',
-        endTime: '2019-04-07T13:30:30',
+        startTime: `${nowDateString}T12:30:30`,
+        endTime: `${nowDateString}T13:30:30`,
       },
     ],
     data: {
@@ -70,7 +73,7 @@ const getActivitiesForTodayData = [
     repo: [
       {
         eventSourceDesc: 'Some title',
-        startTime: '2019-04-07T12:30:30',
+        startTime: `${nowDateString}T12:30:30`,
         endTime: '',
       },
     ],
@@ -92,8 +95,8 @@ const getActivitiesForTodayData = [
     repo: [
       {
         eventSourceDesc: 'Some title',
-        startTime: '2019-04-07T18:30:30',
-        endTime: '2019-04-07T19:30:30',
+        startTime: `${nowDateString}T18:30:30`,
+        endTime: `${nowDateString}T19:30:30`,
       },
     ],
     data: {
@@ -114,7 +117,7 @@ const getActivitiesForTodayData = [
     repo: [
       {
         eventSourceDesc: 'Some title',
-        startTime: '2019-04-07T18:30:30',
+        startTime: `${nowDateString}T18:30:30`,
         endTime: '',
       },
     ],
