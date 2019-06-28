@@ -6,6 +6,11 @@ const prettyDate = date => {
   return format(parse(date), 'dddd DD MMMM YYYY');
 };
 
+const prettyTime = date => {
+  if (!isValid(new Date(date))) return '';
+  return format(parse(date), 'h:mma');
+};
+
 const capitalize = (str = '') => {
   return str
     .split('')
@@ -97,6 +102,24 @@ module.exports = function createOffenderService(repository) {
     };
   }
 
+  async function getActivitiesForToday(bookingId) {
+    const activities = await repository.getActivitiesForToday(bookingId);
+
+    if (!Array.isArray(activities)) return [];
+
+    return activities.map(activity => {
+      const startTime = prettyTime(prop('startTime', activity));
+      const endTime = prettyTime(prop('endTime', activity));
+
+      return {
+        title: activity.eventSourceDesc,
+        startTime,
+        endTime,
+        timeString: endTime === '' ? startTime : `${startTime} to ${endTime}`,
+      };
+    });
+  }
+
   return {
     getOffenderDetailsFor,
     getIEPSummaryFor,
@@ -104,5 +127,6 @@ module.exports = function createOffenderService(repository) {
     getKeyWorkerFor,
     getVisitsFor,
     getImportantDatesFor,
+    getActivitiesForToday,
   };
 };

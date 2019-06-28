@@ -140,4 +140,63 @@ describe('Offender Service', () => {
       });
     });
   });
+
+  describe('.getActivitiesForToday', () => {
+    describe('when there is an end time', () => {
+      it('returns activities for today', async () => {
+        const repository = {
+          getActivitiesForToday: sinon.stub().returns([
+            {
+              eventSourceDesc: 'Some title',
+              startTime: '2019-04-07T11:30:30',
+              endTime: '2019-04-07T12:30:30',
+            },
+          ]),
+        };
+        const service = offenderService(repository);
+        const data = await service.getActivitiesForToday('FOO_ID');
+
+        expect(repository.getActivitiesForToday.lastCall.args[0]).to.equal(
+          'FOO_ID',
+        );
+
+        expect(data).to.eql([
+          {
+            title: 'Some title',
+            startTime: '11:30am',
+            endTime: '12:30pm',
+            timeString: '11:30am to 12:30pm',
+          },
+        ]);
+      });
+    });
+    describe('when there is no end time', () => {
+      it('returns activities for today', async () => {
+        const repository = {
+          getActivitiesForToday: sinon.stub().returns([
+            {
+              eventSourceDesc: 'Some title',
+              startTime: '2019-04-07T11:30:30',
+              endTime: '',
+            },
+          ]),
+        };
+        const service = offenderService(repository);
+        const data = await service.getActivitiesForToday('FOO_ID');
+
+        expect(repository.getActivitiesForToday.lastCall.args[0]).to.equal(
+          'FOO_ID',
+        );
+
+        expect(data).to.eql([
+          {
+            title: 'Some title',
+            startTime: '11:30am',
+            endTime: '',
+            timeString: '11:30am',
+          },
+        ]);
+      });
+    });
+  });
 });
