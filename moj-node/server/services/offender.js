@@ -105,6 +105,8 @@ module.exports = function createOffenderService(repository) {
   async function getActivitiesForToday(bookingId) {
     const activities = await repository.getActivitiesForToday(bookingId);
 
+    if (!Array.isArray(activities)) return [];
+
     return activities.map(activity => {
       const startTime = prettyTime(prop('startTime', activity));
       const endTime = prettyTime(prop('endTime', activity));

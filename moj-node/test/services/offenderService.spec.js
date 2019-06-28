@@ -141,7 +141,7 @@ describe('Offender Service', () => {
     });
   });
 
-  describe.only('.getActivitiesForToday', () => {
+  describe('.getActivitiesForToday', () => {
     describe('when there is an end time', () => {
       it('returns activities for today', async () => {
         const repository = {
