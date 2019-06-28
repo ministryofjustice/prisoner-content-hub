@@ -25,7 +25,7 @@ const getTimeOfDay = date => {
   const nowMonth = now.getMonth();
   const nowDay = now.getDate();
   const morning = new Date(nowYear, nowMonth, nowDay, 12, 0, 0);
-  const afternoon = new Date(nowYear, nowMonth, nowDay, 18, 0, 0);
+  const afternoon = new Date(nowYear, nowMonth, nowDay, 17, 0, 0);
 
   if (isBefore(date, morning)) {
     return 'morning';
