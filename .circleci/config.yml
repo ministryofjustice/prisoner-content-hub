@@ -42,7 +42,7 @@ jobs:
                 git config user.name "Circle CI"
                 git config user.email "circle@circleci.com"
                 git tag -a "$(date '+%d-%m-%Y')-$CIRCLE_BUILD_NUM" $CIRCLE_SHA1 -m "$(git log -1 --pretty=%B)"
-                git push origin $CIRCLE_BUILD_NUM
+                git push origin "$(date '+%d-%m-%Y')-$CIRCLE_BUILD_NUM"
             fi
   build_cms:
     <<: *defaults
