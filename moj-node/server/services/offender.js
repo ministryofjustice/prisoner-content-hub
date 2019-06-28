@@ -18,7 +18,7 @@ const prettyTime = date => {
 };
 
 const getTimeOfDay = date => {
-  if (!isValid(new Date(date))) return false;
+  if (!isValid(new Date(date))) return '';
 
   const now = new Date();
   const nowYear = now.getFullYear();
@@ -149,28 +149,19 @@ module.exports = function createOffenderService(repository) {
 
   async function getActivitiesForToday(bookingId) {
     const activities = await repository.getActivitiesForToday(bookingId);
-    const structuredActivities = {
-      morning: [],
-      afternoon: [],
-      evening: [],
+
+    if (!Array.isArray(activities))
+      return {
+        morning: [],
+        afternoon: [],
+        evening: [],
+      };
+
+    return {
+      morning: getActivitiesForTimeOfDay(activities, 'morning'),
+      afternoon: getActivitiesForTimeOfDay(activities, 'afternoon'),
+      evening: getActivitiesForTimeOfDay(activities, 'evening'),
     };
-
-    if (!Array.isArray(activities)) return structuredActivities;
-
-    structuredActivities.morning = getActivitiesForTimeOfDay(
-      activities,
-      'morning',
-    );
-    structuredActivities.afternoon = getActivitiesForTimeOfDay(
-      activities,
-      'afternoon',
-    );
-    structuredActivities.evening = getActivitiesForTimeOfDay(
-      activities,
-      'evening',
-    );
-
-    return structuredActivities;
   }
 
   return {
