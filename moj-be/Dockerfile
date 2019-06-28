@@ -1,6 +1,6 @@
 FROM drupal:8.7-apache
 
-RUN apt-get update && apt-get install curl && apt-get install git-core -y
+RUN apt-get update && apt-get install curl && apt-get install git-core -y && apt-get install zip -y
 
 RUN curl -s https://getcomposer.org/installer | php
 
@@ -20,4 +20,9 @@ COPY ./sites /var/www/html/sites
 
 RUN chown -R www-data:www-data /var/www/html/sites /var/www/html/modules /var/www/html/themes
 
+RUN composer require drupal/console:~1.0
 RUN composer require mhor/php-mediainfo
+RUN composer require drupal/elasticsearch_connector
+RUN composer require drupal/search_api
+
+RUN composer install

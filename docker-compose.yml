@@ -5,10 +5,12 @@ services:
     container_name: hub-db
     image: mariadb
     environment:
-      - MYSQL_ROOT_PASSWORD
-      - MYSQL_DATABASE="hubdb"
-      - MYSQL_USER="hubdb_user"
-      - MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD=hubdb_pass
+      - MYSQL_DATABASE=hubdb
+      - MYSQL_USER=hubdb_user
+      - MYSQL_PASSWORD=hubdb_pass
+    ports:
+      - 3306:3306
 
   hub-memcache:
     image: memcached
@@ -32,13 +34,13 @@ services:
 
   hub-be:
     container_name: hub-be
-    image: mojdigitalstudio/digital-hub-be
+    build: moj-be
     depends_on:
       - hub-db
     environment:
       - HUB_DB_ENV_MYSQL_DATABASE=hubdb
       - HUB_DB_ENV_MYSQL_USER=hubdb_user
-      - HUB_DB_ENV_MYSQL_PASSWORD
+      - HUB_DB_ENV_MYSQL_PASSWORD=hubdb_pass
       - HUB_DB_PORT_3306_TCP_ADDR=hub-db
       - HUB_EXT_FILE_URL=http://localhost:11001/sites/default/files
       - PHP_MEMORY_LIMIT=256M
@@ -71,3 +73,70 @@ services:
       - MYSQL_DATABASE=matomo
       - MYSQL_USER=${HUB_MATOMO_MYSQL_USER_USERNAME}
       - MYSQL_PASSWORD=${HUB_MATOMO_MYSQL_USER_PASSWORD}
+  # hub-elasticsearch:
+  #   container_name: hub-elasticsearch
+  #   image: elasticsearch:5.6.10
+  #   environment:
+  #     - node.name=hub-elasticsearch
+  #     # - discovery.seed_hosts=es02
+  #     - cluster.initial_master_nodes=hub-elasticsearch
+  #     - cluster.name=docker-cluster
+  #     - bootstrap.memory_lock=true
+  #     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   volumes:
+  #     - ./moj-elasticsearch:/usr/share/elasticsearch/data
+  #   ports:
+  #     - 9200:9200
+
+  hub-elasticsearch:
+    container_name: hub-elasticsearch
+    image: elasticsearch:7.2.0
+    environment:
+      - node.name=hub-elasticsearch
+      - discovery.seed_hosts=hub-elasticsearch-2
+      - cluster.initial_master_nodes=hub-elasticsearch,hub-elasticsearch-2
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - hub-elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - esnet
+  hub-elasticsearch-2:
+    image: elasticsearch:7.2.0
+    container_name: hub-elasticsearch-2
+    environment:
+      - node.name=hub-elasticsearch-2
+      - discovery.seed_hosts=hub-elasticsearch
+      - cluster.initial_master_nodes=hub-elasticsearch,hub-elasticsearch-2
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - hub-elasticsearch-2:/usr/share/elasticsearch/data
+    networks:
+      - esnet
+
+volumes:
+  hub-elasticsearch:
+    driver: local
+  hub-elasticsearch-2:
+    driver: local
+
+networks:
+  esnet:
+
