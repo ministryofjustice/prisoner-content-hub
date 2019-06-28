@@ -11,6 +11,19 @@ const prettyTime = date => {
   return format(parse(date), 'h:mma');
 };
 
+const getTimeOfDay = date => {
+  if (!isValid(new Date(date))) return false;
+  const hour = Number.parseInt(format(parse(date), 'H'), 10);
+
+  if (hour < 12) {
+    return 'morning';
+  }
+  if (hour < 18) {
+    return 'afternoon';
+  }
+  return 'evening';
+};
+
 const capitalize = (str = '') => {
   return str
     .split('')
@@ -19,6 +32,27 @@ const capitalize = (str = '') => {
       return letter.toLowerCase();
     })
     .join('');
+};
+
+const getActivitiesForTimeOfDay = (activities, timeOfDay) => {
+  return activities
+    .filter(activity => {
+      const activityTimeOfDay = getTimeOfDay(prop('startTime', activity));
+
+      // console.log(activity, timeOfDay, activityTimeOfDay)
+      return activityTimeOfDay === timeOfDay;
+    })
+    .map(activity => {
+      const startTime = prettyTime(prop('startTime', activity));
+      const endTime = prettyTime(prop('endTime', activity));
+
+      return {
+        title: activity.eventSourceDesc,
+        startTime,
+        endTime,
+        timeString: endTime === '' ? startTime : `${startTime} to ${endTime}`,
+      };
+    });
 };
 
 module.exports = function createOffenderService(repository) {
@@ -104,20 +138,28 @@ module.exports = function createOffenderService(repository) {
 
   async function getActivitiesForToday(bookingId) {
     const activities = await repository.getActivitiesForToday(bookingId);
+    const structuredActivities = {
+      morning: [],
+      afternoon: [],
+      evening: [],
+    };
 
-    if (!Array.isArray(activities)) return [];
+    if (!Array.isArray(activities)) return structuredActivities;
 
-    return activities.map(activity => {
-      const startTime = prettyTime(prop('startTime', activity));
-      const endTime = prettyTime(prop('endTime', activity));
+    structuredActivities.morning = getActivitiesForTimeOfDay(
+      activities,
+      'morning',
+    );
+    structuredActivities.afternoon = getActivitiesForTimeOfDay(
+      activities,
+      'afternoon',
+    );
+    structuredActivities.evening = getActivitiesForTimeOfDay(
+      activities,
+      'evening',
+    );
 
-      return {
-        title: activity.eventSourceDesc,
-        startTime,
-        endTime,
-        timeString: endTime === '' ? startTime : `${startTime} to ${endTime}`,
-      };
-    });
+    return structuredActivities;
   }
 
   return {
