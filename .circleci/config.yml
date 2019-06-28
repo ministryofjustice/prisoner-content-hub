@@ -34,12 +34,16 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
                 cd moj-node && make push
+            fi
+      - run:
+          name: tag build
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
                 git config user.name "Circle CI"
                 git config user.email "circle@circleci.com"
-                git tag -a $CIRCLE_BUILD_NUM $CIRCLE_SHA1 -m "$CIRCLE_SHA1"
+                git tag -a "$(date '+%d-%m-%Y')-$CIRCLE_BUILD_NUM" $CIRCLE_SHA1 -m "$(git log -1 --pretty=%B)"
                 git push origin $CIRCLE_BUILD_NUM
             fi
-
   build_cms:
     <<: *defaults
     steps:
