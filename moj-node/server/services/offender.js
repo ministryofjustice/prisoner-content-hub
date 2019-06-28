@@ -51,7 +51,6 @@ const getActivitiesForTimeOfDay = (activities, timeOfDay) => {
     .filter(activity => {
       const activityTimeOfDay = getTimeOfDay(prop('startTime', activity));
 
-      // console.log(activity, timeOfDay, activityTimeOfDay)
       return activityTimeOfDay === timeOfDay;
     })
     .map(activity => {
