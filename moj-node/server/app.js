@@ -18,6 +18,7 @@ const createTagRouter = require('./routes/tags');
 const createGamesRouter = require('./routes/games');
 const createGettingAJobRouter = require('./routes/gettingAJob');
 const createMeRouter = require('./routes/me');
+const createSearchRouter = require('./routes/search');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const establishmentToggle = require('./middleware/establishmentToggle');
@@ -37,6 +38,7 @@ module.exports = function createApp({
   hubTagsService,
   healthService,
   offenderService,
+  searchService,
 }) {
   const app = express();
 
@@ -209,6 +211,7 @@ module.exports = function createApp({
   );
 
   app.use('/me', createMeRouter({ logger, offenderService }));
+  app.use('/search', createSearchRouter({ logger, searchService }));
 
   app.use('*', (req, res) => {
     res.status(404);
