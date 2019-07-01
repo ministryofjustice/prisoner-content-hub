@@ -1,4 +1,5 @@
 const express = require('express');
+const { format } = require('date-fns');
 
 module.exports = function createMeRouter({ logger, offenderService }) {
   const router = express.Router();
@@ -15,6 +16,8 @@ module.exports = function createMeRouter({ logger, offenderService }) {
     if (!req.session.user) {
       return res.redirect('/');
     }
+
+    const today = format(new Date(), 'dddd D MMMM');
 
     try {
       const { offenderNo, bookingId } = req.session.user;
@@ -46,6 +49,7 @@ module.exports = function createMeRouter({ logger, offenderService }) {
           todaysActivities,
         },
         config,
+        today,
       });
     } catch (error) {
       return next(error);
