@@ -245,6 +245,15 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
+  - username: okeyobioha
+    name: "Okey Obioha"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCjm34IlUlBR1qgbQD5pPqOY2i0ceLcQqp42FxifFMPfO5k6+BZLp/o7ytH2cECHP967/7XAqs8/pYPt69wZy/c8RnQWdjOVhZWTqv5p5GcQvVPY/ck4nQqvOOYfouTo86rxPIebWeG54I2sNlskKVy2Z61b41C78Gl9iAtkMZ9hSxDQOOS8era8S7loE3QmMXP0Be5ewtJY0UlIHaYEupGnaDtltVnVPD4ZYZKGdS4LuYeIlgGRg5xRl4/dixhJnhvdWr3EEQ9YofHMFRMfmZqIp+vY09e3KvA70eHIHddFrA5DieELQnfWLFy4wiJbGdUUK5LQcGJ8cagdZ5hnZ07 mcobi@DESKTOP-5D3M8R7"
+    shell: /bin/bash
+    update_password: on_create
+
 users: "{{ studio_users }}"
 
 users_deleted:
