@@ -31,6 +31,46 @@
 {% block main %}
   <div class="govuk-width-container">
     <div class="govuk-main-wrapper">
+      <h2 class="govuk-heading-l">Today, {{ today }}</h2>
+      <div class="govuk-grid-row activities">
+        <div class="govuk-grid-column-one-third" id="morningActivities">
+          <h3 class="govuk-heading-m">Morning</h3>
+          <div class="activities__timePeriod activities__timePeriod--morning">
+          {% if data.todaysActivities.morning.length == 0 %}
+          <p class="govuk-body">No activities</p>
+          {% endif %}
+          {% for activity in data.todaysActivities.morning %}
+          <p class="govuk-body">{{activity.timeString}}
+          <br><strong>{{activity.title}}</strong></p>
+          {% endfor %}
+          </div>
+        </div>
+        <div class="govuk-grid-column-one-third" id="afternoonActivities">
+          <h3 class="govuk-heading-m">Afternoon</h3>
+          <div class="activities__timePeriod activities__timePeriod--afternoon">
+          {% if data.todaysActivities.afternoon.length == 0 %}
+          <p class="govuk-body">No activities</p>
+          {% endif %}
+          {% for activity in data.todaysActivities.afternoon %}
+          <p class="govuk-body">{{activity.timeString}}
+          <br><strong>{{activity.title}}</strong></p>
+          {% endfor %}
+          </div>
+        </div>
+        <div class="govuk-grid-column-one-third" id="eveningActivities">
+          <h3 class="govuk-heading-m">Evening</h3>
+          <div class="activities__timePeriod activities__timePeriod--evening">
+          {% if data.todaysActivities.evening.length == 0 %}
+          <p class="govuk-body">No activities</p>
+          {% endif %}
+          {% for activity in data.todaysActivities.evening %}
+          <p class="govuk-body">{{activity.timeString}}
+          <br><strong>{{activity.title}}</strong></p>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+        <p class="govuk-body"><a href="/" class="govuk-link">See your 7 day timetable</a></p>
       <h2 class="govuk-heading-l">Your essential prison information</h2>
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds" id="money">

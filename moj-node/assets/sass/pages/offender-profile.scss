@@ -17,3 +17,30 @@
 [data-state='showing'] > span:last-child {
   display: none;
 }
+
+.activities {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: govuk-spacing(6);
+}
+
+.activities__timePeriod {
+  padding: govuk-spacing(4);
+  min-height: 135px;
+}
+
+.activities__timePeriod--morning {
+  background-color: #e9f3fa;
+}
+
+.activities__timePeriod--afternoon {
+  background-color: #d7e9f4;
+}
+
+.activities__timePeriod--evening {
+  background-color: #c1ddf0;
+}
+
+.activities__timePeriod > .govuk-body:last-of-type {
+  margin: 0;
+}
