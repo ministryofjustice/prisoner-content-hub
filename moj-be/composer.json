@@ -6,10 +6,25 @@
     "require": {
         "composer/installers": "^1.0.24",
         "wikimedia/composer-merge-plugin": "^1.4",
-        "mhor/php-mediainfo": "^4.1"
+        "mhor/php-mediainfo": "^4.1",
+        "drupal/backup_migrate": "^4.0",
+        "drupal/devel": "^2.1",
+        "drupal/flood_unblock": "^1.5",
+        "drupal/health_check": "^1.1",
+        "drupal/memcache": "^2.0",
+        "drupal/migrate_plus": "^4.2",
+        "drupal/migrate_source_csv": "^2.2",
+        "drupal/migrate_tools": "^4.1",
+        "drupal/rest_menu_items": "^2.6",
+        "drupal/restui": "^1.17",
+        "drupal/search_api": "^1.13",
+        "drupal/token": "^1.5",
+        "drupal/video": "^1.4",
+        "drupal/videojs": "^1.0",
+        "drupal/elasticsearch_connector": "^6.0"
     },
     "replace": {
-        "drupal/core": "^8.7"
+        "drupal/core": "^8.7.3"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
