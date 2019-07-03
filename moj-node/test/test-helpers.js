@@ -46,8 +46,14 @@ function createFeaturedItem() {
   };
 }
 
+function consoleLogError(err, req, res) {
+  console.error(err.stack); // eslint-disable-line no-console
+  res.status(500).send('Something broke!');
+}
+
 module.exports = {
   setupBasicApp,
   logger,
   createFeaturedItem,
+  consoleLogError,
 };

@@ -148,14 +148,16 @@ module.exports = function createOffenderService(repository) {
   }
 
   async function getActivitiesForToday(bookingId) {
+    const noActivities = {
+      morning: [],
+      afternoon: [],
+      evening: [],
+    };
+    if (!bookingId) return noActivities;
+
     const activities = await repository.getActivitiesForToday(bookingId);
 
-    if (!Array.isArray(activities))
-      return {
-        morning: [],
-        afternoon: [],
-        evening: [],
-      };
+    if (!Array.isArray(activities)) return noActivities;
 
     return {
       morning: getActivitiesForTimeOfDay(activities, 'morning'),
