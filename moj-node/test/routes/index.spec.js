@@ -232,7 +232,7 @@ describe('GET /', () => {
         .then(response => {
           const $ = cheerio.load(response.text);
 
-          expect($('#browser-by-topic h1').text()).to.equal('Browse by topic');
+          expect($('#browser-by-topic h2').text()).to.equal('Browse by topic');
           expect($('#browser-by-topic .govuk-hub-topics li').length).to.equal(
             2,
             'Correct number of menu items',
@@ -428,7 +428,7 @@ describe('GET /', () => {
         .then(response => {
           const $ = cheerio.load(response.text);
 
-          expect($('#browser-by-topic h1').text()).to.equal('Browse by topic');
+          expect($('#browser-by-topic h2').text()).to.equal('Browse by topic');
           expect($('#browser-by-topic .govuk-hub-topics li').length).to.equal(
             2,
             'Correct number of menu items',
