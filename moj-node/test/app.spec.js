@@ -119,6 +119,7 @@ function app(opts) {
     },
     hubContentService: { contentFor: sinon.stub().returns({}) },
     offenderService: { getOffenderDetailsFor: sinon.stub() },
+    searchService: { find: sinon.stub() },
     logger,
     ...opts,
   };

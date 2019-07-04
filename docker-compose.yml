@@ -27,6 +27,7 @@ services:
       PORT: 3000
       APP_NAME: HMP Dev
       MATOMO_URL: //hub-matomo/
+      ELASTICSEARCH_ENDPOINT: http://hub-elasticsearch:9200
     ports:
       - 10001:3000
 

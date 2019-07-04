@@ -7,6 +7,13 @@ const matomoEndpoint = getEnv('MATOMO_API_URI', { requireInProduction: true });
 const nomisEndpoint = getEnv('NOMIS_API_ENDPOINT', 'https://api.nomis', {
   requireInProduction: true,
 });
+const elasticSearchEndpoint = getEnv(
+  'ELASTICSEARCH_ENDPOINT',
+  'http://localhost:9200',
+  {
+    requireInProduction: true,
+  },
+);
 const nomisAPIEndpoint = `${nomisEndpoint}/elite2api/api`;
 
 module.exports = {
@@ -43,6 +50,9 @@ module.exports = {
       auth: `${nomisEndpoint}/auth/oauth/token?grant_type=client_credentials`,
       bookings: `${nomisAPIEndpoint}/bookings`,
     },
+  },
+  elasticsearch: {
+    search: `${elasticSearchEndpoint}/elasticsearch_index_hubdb_content_index/_search`,
   },
   matomoToken: getEnv('MATOMO_TOKEN', 'faketoken'),
   features: ['showPageMenu', 'showBrowseByTopics'],

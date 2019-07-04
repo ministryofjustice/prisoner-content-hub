@@ -1,0 +1,94 @@
+{% from "components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../components/back-button/macro.njk" import backButton %}
+{% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
+{% extends "../components/template.njk" %}
+{% from "components/input/macro.njk" import govukInput %}
+{% from "button/macro.njk" import govukButton %}
+
+{% block pageTitle %}
+  {{ data.title }}
+{% endblock %}
+
+{% block head %}
+  <!--[if !IE 8]><!-->
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
+  <!--<![endif]-->
+
+  {# For Internet Explorer 8, you need to compile specific stylesheet #}
+  {# see https://github.com/alphagov/govuk-frontend/blob/master/docs/installation/supporting-internet-explorer-8.md #}
+  <!--[if IE 8]>
+    <link href="/govuk-frontend/all-ie8.css" rel="stylesheet" />
+  <![endif]-->
+
+  {# For older browsers to allow them to recognise HTML5 elements such as `<header>` #}
+  <!--[if lt IE 9]>
+    <script src="/html5-shiv/html5shiv.js"></script>
+  <![endif]-->
+{% endblock %}
+
+{% block header %}
+  {{ backButton() }}
+{% endblock %}
+
+{% block main %}
+  <div class="govuk-width-container">
+    <div class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <h2 class="govuk-heading-l">{{ title }}</h2>
+        <div id="search-wrapper" class="govuk-grid-column-one-half">
+          <form method="POST">
+            {{ govukInput({
+              label: {
+                text: "Search"
+              },
+              id: "search",
+              classes: "govuk-!-width-full",
+              name: "search"
+            }) }}
+            {{ govukButton({
+              text: "Search"
+            }) }}
+          </form>
+        </div>
+      </div>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <div class="results">
+            <ul class="govuk-list">
+
+              {% for item in data %}
+                <li>
+                  <a class="govuk-link" href="{{item.url}}">{{ item.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/public/javascript/all.js"></script>
+<script src="/public/jquery.min.js"></script>
+<script src="/public/javascript/vendors/typeahead.bundle.min.js"></script>
+<script>
+  var search = new Bloodhound({
+    datumTokenizer: Bloodhound
+      .tokenizers
+      .obj
+      .whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+      url: '/search/suggest/%QUERY',
+      wildcard: '%QUERY'
+    }
+  });
+
+  $('#search-wrapper .govuk-input').typeahead(null, {
+    name: 'search-results',
+    display: 'value',
+    source: search
+  });
+</script>
+
+{% endblock %}

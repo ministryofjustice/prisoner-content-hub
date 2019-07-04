@@ -75,3 +75,6 @@ module.exports.createdAtFrom = R.view(R.lensPath(['created', 0, 'value']));
 module.exports.establishmentIdFrom = R.view(
   R.lensPath(['field_moj_prisons', 0, 'target_id']),
 );
+module.exports.titleFrom = R.view(
+  R.lensPath(['field_moj_landing_page_term', 0, 'target_id']),
+);

@@ -183,6 +183,15 @@ function seasonResponseFrom(data = []) {
   return R.map(mediaResponseFrom, data);
 }
 
+function searchResultFrom({ _id, _source }) {
+  const idFrom = text => text.match(/\d+/)[0];
+  const titleFrom = R.view(R.lensPath(['title', 0]));
+  return {
+    title: titleFrom(_source),
+    url: `/content/${idFrom(_id)}`,
+  };
+}
+
 module.exports = {
   contentResponseFrom,
   featuredContentResponseFrom,
@@ -193,4 +202,5 @@ module.exports = {
   landingResponseFrom,
   pdfResponseFrom,
   typeFrom,
+  searchResultFrom,
 };
