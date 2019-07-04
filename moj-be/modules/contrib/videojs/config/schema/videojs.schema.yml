@@ -1,9 +1,0 @@
-videojs.settings:
-    type: config_object
-    mapping:
-      videojs_location:
-        type: string
-        label: 'Video.js location'
-      videojs_directory:
-        type: string
-        label: 'Specify the path that contains the Video.js library. The video.js file should be in the root of this directory.'

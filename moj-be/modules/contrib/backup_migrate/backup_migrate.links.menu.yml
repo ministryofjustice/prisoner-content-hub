@@ -1,5 +1,0 @@
-backup_migrate.quick_backup:
-  title: Backup and Migrate
-  description: ''
-  parent: system.admin_config_development
-  route_name: backup_migrate.quick_backup

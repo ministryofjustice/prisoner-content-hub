@@ -1,23 +1,40 @@
-FROM drupal:8.7-apache
+FROM drupal:8.7.3-apache
+# Install Composer and it's dependencies
+RUN apt-get update && apt-get install curl && apt-get install git-core unzip -y
 
-RUN apt-get update && apt-get install curl && apt-get install git-core -y
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+RUN php composer-setup.php --install-dir=/bin --filename=composer
+RUN php -r "unlink('composer-setup.php');"
 
-RUN curl -s https://getcomposer.org/installer | php
-
-RUN mv composer.phar /usr/local/bin/composer
-
+# Set Timezone
 RUN echo "date.timezone = Europe/London" > /usr/local/etc/php/conf.d/timezone_set.ini
 
-RUN groupmod -g 80 www-data # temporary workaround to facilitate the uid used in the shared filesystem in berwyn
+# Temporary workaround to facilitate the UID used in the shared filesystem in Berwyn
+RUN groupmod -g 80 www-data
 RUN usermod -u 80 www-data
 
-RUN rm -f /etc/apache2/sites-enabled/*
-COPY ./apache/* /etc/apache2/sites-enabled/
+COPY composer.json composer.lock /var/www/html/
 
-COPY ./modules /var/www/html/modules
-COPY ./profiles /var/www/html/profiles
-COPY ./sites /var/www/html/sites
+# Install dependencies
+RUN composer install \
+  --ignore-platform-reqs \
+  --no-ansi \
+  --no-dev \
+  --no-autoloader \
+  --no-interaction \
+  --no-scripts \
+  --prefer-dist
 
-RUN chown -R www-data:www-data /var/www/html/sites /var/www/html/modules /var/www/html/themes
+# Copy Project
+COPY modules/custom modules/custom
+COPY sites/ sites/
 
-RUN composer require mhor/php-mediainfo
+
+# Update permisions
+RUN chown -R www-data:www-data sites modules themes
+
+# Update autoloads
+RUN composer dump-autoload --optimize
+
+# Remove composer cache
+RUN composer clear-cache
