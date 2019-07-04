@@ -11,6 +11,8 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
+      - restore_cache:
+          key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
       - run:
           name: Build node frontend container
           command: |
@@ -26,7 +28,7 @@ jobs:
       - save_cache:
           key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
           paths:
-            - node_modules
+            - ./moj-node/node_modules
       - run:
           name: push moj-node to docker
           command: |
@@ -48,9 +50,15 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
+      - restore_cache:
+          key: moj-be/vendor-{{ checksum "moj-be/composer.lock" }}
       - run:
           name: Build backend container
           command: cd moj-be && make build
+      - save_cache:
+          key: moj-be/vendor-{{ checksum "moj-be/composer.lock" }}
+          paths:
+            - ./moj-be/vendor
       - run:
           name: push be to docker
           command: |
@@ -68,14 +76,14 @@ jobs:
           name: Update npm
           command: "sudo npm install -g npm@latest"
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
       - run:
           name: Install Dependencies
           command: cd moj-node && npm ci
       - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
           paths:
-            - node_modules
+            - moj-node/node_modules
       - run:
           name: E2E test
           command: |
@@ -93,12 +101,12 @@ jobs:
             ENABLE_PRISON_SWITCH="true" \
             HUB_API_ENDPOINT="https://drupal.digital-hub-stage.hmpps.dsd.io" \
             DRUPAL_APP_URI="https://drupal.digital-hub-stage.hmpps.dsd.io" \
-            ELASTICSEARCH_ENDPOINT="UNSET"
+            ELASTICSEARCH_ENDPOINT="UNSET" \
             npm run test:e2e:run
-      - store_test_results:
-          path: ./reports
       - store_artifacts:
-          path: ./reports
+          path: ./moj-node/cypress/videos
+      - store_artifacts:
+          path: ./moj-node/cypress/screenshots
 
 workflows:
   version: 2
