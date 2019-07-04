@@ -20,7 +20,7 @@ services:
       
   hub-elasticsearch:
     volumes:
-      - /data/esdata:/usr/share/elasticsearch/data   
+      - /data/esdata:/usr/share/elasticsearch/data:rw
 
   hub-matomo:
     volumes:

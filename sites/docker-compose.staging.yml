@@ -16,7 +16,7 @@ services:
   hub-elasticsearch:
     restart: "always"
     volumes:
-      - /data/esdata:/usr/share/elasticsearch/data   
+      - /data/esdata:/usr/share/elasticsearch/data:rw
 
   hub-matomo:
     restart: "always"
