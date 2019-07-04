@@ -7,12 +7,14 @@ const matomoEndpoint = getEnv('MATOMO_API_URI', { requireInProduction: true });
 const nomisEndpoint = getEnv('NOMIS_API_ENDPOINT', 'https://api.nomis', {
   requireInProduction: true,
 });
-const nomisAPIEndpoint = `${nomisEndpoint}/elite2api/api`;
-const elasticseachEndpoint = getEnv(
+const elasticSearchEndpoint = getEnv(
   'ELASTICSEARCH_ENDPOINT',
   'http://localhost:9200',
-  { requireInProduction: true },
+  {
+    requireInProduction: true,
+  },
 );
+const nomisAPIEndpoint = `${nomisEndpoint}/elite2api/api`;
 
 module.exports = {
   appName: getEnv('APP_NAME', 'HMP Hub Local', {
@@ -50,7 +52,7 @@ module.exports = {
     },
   },
   elasticsearch: {
-    search: `${elasticseachEndpoint}/elasticsearch_index_hubdb_content_index/_search`,
+    search: `${elasticSearchEndpoint}/elasticsearch_index_hubdb_content_index/_search`,
   },
   matomoToken: getEnv('MATOMO_TOKEN', 'faketoken'),
   features: ['showPageMenu', 'showBrowseByTopics'],
