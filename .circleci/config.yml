@@ -12,7 +12,7 @@ jobs:
       - setup_remote_docker:
           reusable: true
       - restore_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
       - run:
           name: Build node frontend container
           command: |
@@ -26,11 +26,11 @@ jobs:
                 cd moj-node && make build
             fi
       - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
           paths:
             - node_modules
       - run:
-          name: push node fe to docker
+          name: push moj-node to docker
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
                 cd moj-node && make push
