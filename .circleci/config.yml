@@ -10,9 +10,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          reusable: true
-      - restore_cache:
-          key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
+          docker_layer_caching: true
       - run:
           name: Build node frontend container
           command: |
@@ -49,16 +47,10 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          reusable: true
-      - restore_cache:
-          key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
+          docker_layer_caching: true
       - run:
           name: Build backend container
           command: cd moj-be && make build
-      - save_cache:
-          key: moj-be/vendor-{{ checksum "moj-be/composer.json" }}
-          paths:
-            - ./moj-be/vendor
       - run:
           name: push be to docker
           command: |
