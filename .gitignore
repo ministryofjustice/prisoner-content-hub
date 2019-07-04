@@ -10,3 +10,5 @@ modules/contrib/backup_migrate/vendor/psr/
 .settings
 moj-be/sites/default/settings.local.php
 moj-reporting
+esdata
+.cache
