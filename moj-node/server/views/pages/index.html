@@ -26,6 +26,50 @@
   <![endif]-->
 {% endblock %}
 
+{% block todaysActivities %}
+<h2 class="govuk-heading-l">Today</h2>
+<div class="govuk-grid-row activities">
+  <div class="govuk-grid-column-one-quarter" id="morningActivities">
+    <div class="activities__timePeriod activities__timePeriod--morning">
+    {% if todaysActivities.morning.length == 0 %}
+    <p class="govuk-body">No activities</p>
+    {% endif %}
+    {% for activity in todaysActivities.morning %}
+    <p class="govuk-body">{{activity.timeString}}
+    <br><strong>{{activity.title}}</strong></p>
+    {% endfor %}
+    </div>
+  </div>
+  <div class="govuk-grid-column-one-quarter" id="afternoonActivities">
+    <div class="activities__timePeriod activities__timePeriod--afternoon">
+    {% if todaysActivities.afternoon.length == 0 %}
+    <p class="govuk-body">No activities</p>
+    {% endif %}
+    {% for activity in todaysActivities.afternoon %}
+    <p class="govuk-body">{{activity.timeString}}
+    <br><strong>{{activity.title}}</strong></p>
+    {% endfor %}
+    </div>
+  </div>
+  <div class="govuk-grid-column-one-quarter" id="eveningActivities">
+    <div class="activities__timePeriod activities__timePeriod--evening">
+    {% if todaysActivities.evening.length == 0 %}
+    <p class="govuk-body">No activities</p>
+    {% endif %}
+    {% for activity in todaysActivities.evening %}
+    <p class="govuk-body">{{activity.timeString}}
+    <br><strong>{{activity.title}}</strong></p>
+    {% endfor %}
+    </div>
+  </div>
+  <div class="govuk-grid-column-one-quarter" id="otherActivities">
+    <div class="activities__timePeriod">
+      <p class="govuk-body"><a href="/" class="govuk-link">See your 7 day timetable</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
 {% set categoryLinks = {
   "news-events": "/content/3632",
   "Day-to-day": "/content/3663",

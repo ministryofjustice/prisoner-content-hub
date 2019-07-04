@@ -70,6 +70,9 @@ describe('App', () => {
           tagsMenu: sinon.stub(),
           homepageMenu: sinon.stub(),
         },
+        offenderService: {
+          getActivitiesForToday: sinon.stub(),
+        },
       }),
     )
       .get('/')

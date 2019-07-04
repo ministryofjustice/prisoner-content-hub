@@ -24,6 +24,10 @@
   margin-bottom: govuk-spacing(6);
 }
 
+.activities .govuk-body {
+  color: govuk-colour('black');
+}
+
 .activities__timePeriod {
   padding: govuk-spacing(4);
   min-height: 135px;
