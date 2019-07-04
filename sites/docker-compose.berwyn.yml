@@ -19,6 +19,10 @@ services:
     volumes:
       - /data/hub-db:/var/lib/mysql:rw
 
+  hub-elasticsearch:
+    volumes:
+      - /data/esdata:/usr/share/elasticsearch/data    
+
   hub-matomo:
     volumes:
       - /data/moj_dhub_matomo_config:/var/www/html/config:rw

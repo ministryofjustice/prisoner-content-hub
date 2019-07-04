@@ -12,6 +12,11 @@ services:
     restart: "always"
     volumes:
       - /data/hub-db:/var/lib/mysql:rw
+      
+  hub-elasticsearch:
+    restart: "always"
+    volumes:
+      - /data/esdata:/usr/share/elasticsearch/data   
 
   hub-matomo:
     restart: "always"
