@@ -86,7 +86,7 @@
 
   $('#search-wrapper .govuk-input').typeahead(null, {
     name: 'search-results',
-    display: 'value',
+    display: (result) => result.title,
     source: search
   });
 </script>
