@@ -147,16 +147,20 @@
   left: 0;
 }
 
-.hub-header-user-container span {
+.hub-header-user-container span,
+.hub-header-user-container h1 {
   border-right: 1px solid govuk-colour('white');
   margin-right: govuk-spacing(1);
 }
 
-.hub-header-user-container span:first-child {
+.hub-header-user-container span {
   padding-right: govuk-spacing(2);
 }
 
-.hub-header-user-container span:last-child {
+.hub-header-user-container h1 {
   border: none;
-  margin-right: 0;
+  margin: 0;
+  font-weight: 400;
+  display: inline-block;
+  font-size: 1rem;
 }

@@ -4,9 +4,9 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       {% if params.categoryLink %}
-        <a class="govuk-hub-no-link" href="{{ params.categoryLink }}"><h1 data-featured-section-title="{{ params.categoryTitle }}" class="govuk-hub-featured-content__category-title">{{ params.categoryTitle }}</h1></a>
+        <h2 data-featured-section-title="{{ params.categoryTitle }}" class="govuk-hub-featured-content__category-title"><a class="govuk-hub-no-link" href="{{ params.categoryLink }}">{{ params.categoryTitle }}</a></h2>
       {% else %}
-        <h1 data-featured-section-title="{{ params.categoryTitle }}" class="govuk-hub-featured-content__category-title">{{ params.categoryTitle }}</h1>
+        <h2 data-featured-section-title="{{ params.categoryTitle }}" class="govuk-hub-featured-content__category-title">{{ params.categoryTitle }}</h2>
       {% endif %}
     </div>
     <div class="govuk-grid-column-one-third govuk-hub-align-right">
