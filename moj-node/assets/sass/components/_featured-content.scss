@@ -14,6 +14,11 @@
   font-weight: bold;
 }
 
+.govuk-hub-featured-content__category-title .govuk-link {
+  color: govuk-colour('white');
+  text-decoration: none;
+}
+
 .govuk-hub-featured-content__category-link {
   @include govuk-font($size: 24);
   display: inline-block;
@@ -40,6 +45,7 @@
 
 .govuk-hub-featured-link {
   color: govuk-colour('white');
+  display: block;
 }
 
 .content-items {

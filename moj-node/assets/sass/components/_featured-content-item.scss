@@ -4,6 +4,15 @@ $fortyPercentBlack: rgba(0, 0, 0, 0.4);
 $gradient: $trans, $seventyFivePercentBlack;
 $hub-grey: #494c4e;
 $mauve: #6f72af;
+@mixin featured-content-item-scale-shadow {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  z-index: 100;
+  -webkit-box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.75);
+}
 
 .govuk-hub-featured-content-item__overlay,
 .govuk-hub-featured-content-item__image {
@@ -31,26 +40,38 @@ $mauve: #6f72af;
   &.large {
     height: 380px;
   }
-  &:hover {
-    -webkit-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    transform: scale(1.1);
-    z-index: 100;
-    -webkit-box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.75);
+}
 
-    .govuk-hub-featured-content-item__overlay {
-      background: $seventyFivePercentBlack;
-    }
-    .govuk-hub-featured-content-item__header {
-      opacity: 0;
-    }
+.govuk-hub-featured-content-item:hover,
+.govuk-hub-featured-link:focus .govuk-hub-featured-content-item {
+  @include featured-content-item-scale-shadow;
+}
 
-    .govuk-hub-featured-content-item__main {
-      opacity: 1;
-    }
-  }
+.govuk-hub-featured-content-item:hover
+  .govuk-hub-featured-content-item__overlay,
+.govuk-hub-featured-link:focus
+  .govuk-hub-featured-content-item
+  .govuk-hub-featured-content-item__overlay {
+  background: $seventyFivePercentBlack;
+}
+
+.govuk-hub-featured-content-item:hover .govuk-hub-featured-content-item__header,
+.govuk-hub-featured-link:focus
+  .govuk-hub-featured-content-item
+  .govuk-hub-featured-content-item__header {
+  opacity: 0;
+}
+
+.govuk-hub-featured-content-item:hover .govuk-hub-featured-content-item__main,
+.govuk-hub-featured-link:focus
+  .govuk-hub-featured-content-item
+  .govuk-hub-featured-content-item__main {
+  opacity: 1;
+}
+.govuk-hub-featured-link:focus
+  .govuk-hub-featured-content-item
+  .govuk-hub-featured-content-item__main {
+  border: 3px solid govuk-colour('yellow');
 }
 
 .govuk-hub-featured-content-item__header,
@@ -79,6 +100,7 @@ $mauve: #6f72af;
   margin-left: govuk-spacing(1);
   display: inline-block;
   text-decoration: underline;
+  color: govuk-colour('white');
 }
 
 .govuk-hub-featured-content-item__main-play {

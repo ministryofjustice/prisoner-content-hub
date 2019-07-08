@@ -3,10 +3,14 @@ $seventyFivePercentBlack: rgba(0, 0, 0, 0.75);
 
 $gradient: $trans, $seventyFivePercentBlack;
 
+.govuk-hub-promoted-content-link-wrapper {
+  display: block;
+  padding: 20px;
+  background: govuk-colour('grey-3');
+}
+
 .govuk-hub-promoted-content {
   position: relative;
-  border: solid govuk-colour('grey-3') 20px;
-  background: govuk-colour('grey-3');
 }
 
 .govuk-hub-promoted-content::after {
