@@ -16,25 +16,18 @@ module.exports = function createSearchRouter({ searchService, logger }) {
     logger.info('GET /search');
 
     try {
-      return res.render('pages/search', {
-        title: 'Search',
-        config: viewConfig,
-      });
-    } catch (error) {
-      return next(error);
-    }
-  });
+      let results = [];
+      const query = req.query.search;
 
-  router.post('/', async (req, res, next) => {
-    logger.info('GET /search');
-
-    try {
-      const results = await searchService.find(req.body.search);
+      if (query) {
+        results = await searchService.find({ query, limit: 15 });
+      }
 
       return res.render('pages/search', {
         title: 'Search',
         config: viewConfig,
         data: results,
+        query,
       });
     } catch (error) {
       return next(error);
@@ -45,7 +38,10 @@ module.exports = function createSearchRouter({ searchService, logger }) {
     logger.info('GET /search/suggest');
 
     try {
-      const results = await searchService.find(req.params.query);
+      const results = await searchService.typeAhead({
+        query: req.params.query,
+        limit: 5,
+      });
       return res.json(results);
     } catch (error) {
       return next(error);
