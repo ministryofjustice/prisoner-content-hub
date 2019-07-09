@@ -43,10 +43,12 @@
 
 .govuk-hub-thumbs--up {
   background-image: url('/public/images/icon-thumbs/thumbs-up-white.svg');
+  background-color: transparent;
 }
 
 .govuk-hub-thumbs--down {
   background-image: url('/public/images/icon-thumbs/thumbs-down-white.svg');
+  background-color: transparent;
   margin-top: 12px;
 }
 
