@@ -190,6 +190,16 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
+  - username: paulsolecki
+    name: "Paul Solecki"
+    groups:
+      - studio
+      - admin
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDLabCOzepU8NsgNuqnYqmj53tOvOAoGzsj9PqvbFesNbHgIicNmD/alsNPMvsqKY+VJLISZ+L2xSij1qRJqCYNNdF9iGQSqFltRKlM4ZR+H5tMyeXkLPmVGpympoXrfqM0KfMN9hPNSH4gaYYdvmYngQSZ9NV93a7b3NGP5zCAgOon8X3VOyXDEfW7v8rylxYGejX1FQhAUFjjFLRyR1VRbrTw47NCGJDZiEmE4ZXj30iG1pVRmLgi5oFvJjJNCPo/LMqMt/b4ksko8CTQCKFv6cROlfnDtGOCo2y1HaEgb68kQzqbJEo0okqsDME4hpTbW9clQbbhVAfxUNIYtONmX5lNMQ4V80wHsTMtbEpsqQCv0sKTtXIxdrP67V2ZsQexihqA8wBxOa993hvTIswA5xuMYh8EiOvRlZnDAPvHNf9YavfV8zb9GO3Sy5T1YjJJUFKSOM1yqB/zrjWouYFlgd4ZPv0RG6RNL+w5T1abH3Qd4Y87x1XZbOQ19WTHnboeA8TsoIpk/QOlkESybQrNsYA7SPztwwbxrqvAapiWr59gdjTuBiu09/yqopuJsSgwFOjD/RBe5pM++t+wuPeKn+WIT622JfTX2xpTeoRRJOw1KH/njCYlJEP2hOxRhdXaHh/9Lmcijwn/ZMX+eyDExY7Dg3zK4VJR/OfCR7jedQ== paul.solecki@digital.justice.gov.uk"
+    shell: /bin/bash
+    update_password: on_create    
+
   - username: richdakin
     name: "Richard Dakin"
     groups:
