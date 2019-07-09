@@ -1,7 +1,7 @@
 <div id="feedback-widget">
   <div class="govuk-hub-feedback">
-    <div
-      class="govuk-hub-thumbs govuk-hub-thumbs--up"
+    <button
+      class="govuk-link govuk-hub-thumbs govuk-hub-thumbs--up"
       data-item-feedback
       data-item-category="{{params.contentType}}"
       data-item-name="{{ params.title }}"
@@ -9,10 +9,11 @@
       data-item-value="1"
       data-item-series="{{params.series}}"
       data-item-establishment="{{params.establishment}}"
-    ></div>
+      type="button"
+    ></button>
 
-    <div
-      class="govuk-hub-thumbs govuk-hub-thumbs--down"
+    <button
+      class="govuk-link govuk-hub-thumbs govuk-hub-thumbs--down"
       data-item-feedback
       data-item-category="{{params.contentType}}"
       data-item-name="{{ params.title }}"
@@ -20,7 +21,8 @@
       data-item-value="-1"
       data-item-series="{{params.series}}"
       data-item-establishment="{{params.establishment}}"
-    ></div>
+      type="button"
+    ></button>
   </div>
   <div class="govuk-hub-feedback-text">
     <strong data-item-feedback-text></strong>
