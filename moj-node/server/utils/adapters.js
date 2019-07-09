@@ -186,8 +186,10 @@ function seasonResponseFrom(data = []) {
 function searchResultFrom({ _id, _source }) {
   const idFrom = text => text.match(/\d+/)[0];
   const titleFrom = R.view(R.lensPath(['title', 0]));
+  const summaryFrom = R.view(R.lensPath(['summary', 0]));
   return {
     title: titleFrom(_source),
+    summary: summaryFrom(_source),
     url: `/content/${idFrom(_id)}`,
   };
 }
