@@ -75,7 +75,7 @@ $pathPLAY: './../images/preimg.png';
   .controls {
     display: block;
     position: relative;
-    height: 40px;
+    height: 70px;
     background: #0b0b0b;
     color: #969696;
     padding: 5px 10px;
@@ -87,9 +87,10 @@ $pathPLAY: './../images/preimg.png';
       left: 3px;
       width: 50px;
 
-      .play {
+      .play,
+      .pause {
         display: block;
-        margin: 0 auto;
+        margin: 15px auto;
         width: 40px;
         height: 40px;
         background: url($pathIMG) no-repeat 0 1px;
@@ -101,16 +102,7 @@ $pathPLAY: './../images/preimg.png';
       }
 
       .pause {
-        display: block;
-        margin: 0 auto;
-        width: 40px;
-        height: 40px;
         background: url($pathIMG) no-repeat -40px 1px;
-        opacity: 0.8;
-
-        &:hover {
-          opacity: 1;
-        }
       }
     }
 
@@ -121,7 +113,7 @@ $pathPLAY: './../images/preimg.png';
       text-align: left;
 
       span {
-        font-size: 12px;
+        font-size: 16px;
         margin-left: 1px;
         color: #f0f0f0;
       }
@@ -131,7 +123,7 @@ $pathPLAY: './../images/preimg.png';
         height: 4px;
         background-color: #3c3c3c;
         background: rgba(255, 255, 255, 0.05);
-        margin: 2.5px 0;
+        margin: 10px 0;
 
         .seekBar {
           position: relative;
@@ -169,7 +161,7 @@ $pathPLAY: './../images/preimg.png';
         display: block;
         position: absolute;
         width: 50px;
-        font-size: 11px;
+        font-size: 14px;
 
         &.current {
           left: 1px;
@@ -192,22 +184,18 @@ $pathPLAY: './../images/preimg.png';
 
       .volumeText {
         display: block;
-        position: absolute;
-        bottom: -12px;
         text-align: center;
-        width: 80px;
-        font-size: 11px;
+        width: 90px;
+        font-size: 14px;
       }
 
       .volumeBar {
         display: block;
-        position: absolute;
         height: 4px;
+        margin: 32px 0 10px;
         background-color: #3c3c3c;
         background: rgba(255, 255, 255, 0.05);
-        width: 80px;
-        top: 20px;
-        left: 0;
+        top: 30px;
         cursor: pointer;
 
         .currentVolume {
@@ -241,14 +229,17 @@ $pathPLAY: './../images/preimg.png';
         }
       }
 
-      .fullScreen {
+      .fullScreen,
+      .fullScreenOFF {
+        position: absolute;
         display: block;
-        float: right;
         width: 16px;
         height: 16px;
         background: url($pathIMG) no-repeat 0 -50px;
         margin-top: 14px;
         opacity: 0.4;
+        top: 0;
+        right: 0;
 
         &:hover {
           opacity: 0.8;
@@ -256,17 +247,7 @@ $pathPLAY: './../images/preimg.png';
       }
 
       .fullScreenOFF {
-        display: block;
-        float: right;
-        width: 16px;
-        height: 16px;
         background: url($pathIMG) no-repeat 0 -68px;
-        margin-top: 14px;
-        opacity: 0.4;
-
-        &:hover {
-          opacity: 0.8;
-        }
       }
     }
   }
