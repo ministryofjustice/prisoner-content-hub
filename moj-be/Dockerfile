@@ -29,6 +29,9 @@ RUN composer install \
 COPY modules/custom modules/custom
 COPY sites/ sites/
 
+# Copy Apache configuration
+RUN rm -f /etc/apache2/sites-enabled/*
+COPY ./apache/* /etc/apache2/sites-enabled/
 
 # Update permisions
 RUN chown -R www-data:www-data sites modules themes
