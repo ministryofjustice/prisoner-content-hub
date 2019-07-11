@@ -1,0 +1,6 @@
+config
+logs
+mysql
+plugins
+.vscode
+.DS_store

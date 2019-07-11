@@ -66,6 +66,24 @@ jobs:
                 cd moj-be && make push
             fi
 
+  build_matomo:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Build matomo
+          command: |
+            cd moj-matomo && \
+            make build-deps && \
+            make build && \
+            make clean
+      - run:
+          name: Push moj-matomo to repository
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                cd moj-matomo && make push
+            fi
+
   run_e2e_test:
     docker:
       - image: circleci/node:10.15.3-browsers
@@ -117,5 +135,10 @@ workflows:
           requires:
             - build
       - build_cms:
+          type: approval
+          requires:
+            - build
+      - build_matomo:
+          type: approval
           requires:
             - build
