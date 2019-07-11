@@ -69,9 +69,18 @@ services:
 
   hub-matomo:
     container_name: hub-matomo
-    image: matomo:3-apache
+    image: pfshubdev.azurecr.io/digital-hub-matomo
     depends_on:
       - hub-matomo-db
+    environment:
+      - MATOMO_DATABASE_HOST=hub-matomo-db
+      - MATOMO_DATABASE_TABLES_PREFIX=matomo_
+      - MATOMO_DATABASE_USERNAME=${HUB_MATOMO_MYSQL_USER_USERNAME}
+      - MATOMO_DATABASE_PASSWORD=${HUB_MATOMO_MYSQL_ROOT_PASSWORD}
+      - MATOMO_DATABASE_DBNAME=matomo
+      - MATOMO_GENERAL_ENABLE_INTERNET_FEATURES=0
+      - MATOMO_GENERAL_ENABLE_MARKETPLACE=0
+      - MATOMO_GENERAL_ENABLE_PLUGIN_UPLOAD=1
     ports:
       - 12001:80
     links:
