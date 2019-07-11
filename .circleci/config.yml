@@ -135,10 +135,10 @@ workflows:
           requires:
             - build
       - build_cms:
-          type: approval
           requires:
-            - build
+            - hold
       - build_matomo:
-          type: approval
           requires:
-            - build
+            - hold
+      - hold:
+          type: approval
