@@ -71,7 +71,7 @@ describe('App', () => {
           homepageMenu: sinon.stub(),
         },
         offenderService: {
-          getActivitiesForToday: sinon.stub(),
+          getEventsForToday: sinon.stub(),
         },
       }),
     )

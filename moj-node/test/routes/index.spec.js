@@ -7,7 +7,7 @@ const {
   createUserSession,
 } = require('../../server/middleware/auth');
 const { setupBasicApp, logger, consoleLogError } = require('../test-helpers');
-const { getActivitiesForTodayData } = require('../test-data');
+const { getEventsForTodayData } = require('../test-data');
 
 describe('GET /', () => {
   let featuredItem;
@@ -54,9 +54,7 @@ describe('GET /', () => {
     };
 
     offenderService = {
-      getActivitiesForToday: sinon
-        .stub()
-        .returns(getActivitiesForTodayData[0].data),
+      getEventsForToday: sinon.stub().returns(getEventsForTodayData[0].data),
       getOffenderDetailsFor: sinon.stub().resolves({
         bookingId: '123456',
         offenderId: 'qwerty',
@@ -100,23 +98,23 @@ describe('GET /', () => {
       app.use(consoleLogError);
     });
 
-    it('renders todays activities', () => {
+    it('renders todays events', () => {
       return request(app)
         .get('/')
         .expect(200)
         .then(response => {
           const $ = cheerio.load(response.text);
 
-          expect($('.activities__timePeriod--morning').text()).to.include(
+          expect($('.events__timePeriod--morning').text()).to.include(
             'Some title',
             'Incorrect title rendered',
           );
-          expect($('.activities__timePeriod--afternoon').text()).to.include(
-            'No activities',
+          expect($('.events__timePeriod--afternoon').text()).to.include(
+            'No events',
             'Incorrect title rendered',
           );
-          expect($('.activities__timePeriod--evening').text()).to.include(
-            'No activities',
+          expect($('.events__timePeriod--evening').text()).to.include(
+            'No events',
             'Incorrect title rendered',
           );
         });
@@ -268,7 +266,7 @@ describe('GET /', () => {
   describe('when not authenticated', () => {
     beforeEach(() => {
       offenderService = {
-        getActivitiesForToday: sinon.stub().returns(getActivitiesForTodayData),
+        getEventsForToday: sinon.stub().returns(getEventsForTodayData),
         getOffenderDetailsFor: sinon.stub().throws(),
       };
 
@@ -304,16 +302,16 @@ describe('GET /', () => {
         });
     });
 
-    it('does not render todays activities', () => {
+    it('does not render todays events', () => {
       return request(app)
         .get('/')
         .expect(200)
         .then(response => {
           const $ = cheerio.load(response.text);
 
-          expect($('.activities').length).to.equal(
+          expect($('.events').length).to.equal(
             0,
-            "today's activities should not be displayed",
+            "today's events should not be displayed",
           );
         });
     });

@@ -46,19 +46,19 @@ const capitalize = (str = '') => {
     .join('');
 };
 
-const getActivitiesForTimeOfDay = (activities, timeOfDay) => {
-  return activities
-    .filter(activity => {
-      const activityTimeOfDay = getTimeOfDay(prop('startTime', activity));
+const getEventsForTimeOfDay = (events, timeOfDay) => {
+  return events
+    .filter(event => {
+      const eventTimeOfDay = getTimeOfDay(prop('startTime', event));
 
-      return activityTimeOfDay === timeOfDay;
+      return eventTimeOfDay === timeOfDay;
     })
-    .map(activity => {
-      const startTime = prettyTime(prop('startTime', activity));
-      const endTime = prettyTime(prop('endTime', activity));
+    .map(event => {
+      const startTime = prettyTime(prop('startTime', event));
+      const endTime = prettyTime(prop('endTime', event));
 
       return {
-        title: activity.eventSourceDesc,
+        title: event.eventSourceDesc,
         startTime,
         endTime,
         timeString: endTime === '' ? startTime : `${startTime} to ${endTime}`,
@@ -147,22 +147,22 @@ module.exports = function createOffenderService(repository) {
     };
   }
 
-  async function getActivitiesForToday(bookingId) {
-    const noActivities = {
+  async function getEventsForToday(bookingId) {
+    const noEvents = {
       morning: [],
       afternoon: [],
       evening: [],
     };
-    if (!bookingId) return noActivities;
+    if (!bookingId) return noEvents;
 
-    const activities = await repository.getActivitiesForToday(bookingId);
+    const events = await repository.getEventsForToday(bookingId);
 
-    if (!Array.isArray(activities)) return noActivities;
+    if (!Array.isArray(events)) return noEvents;
 
     return {
-      morning: getActivitiesForTimeOfDay(activities, 'morning'),
-      afternoon: getActivitiesForTimeOfDay(activities, 'afternoon'),
-      evening: getActivitiesForTimeOfDay(activities, 'evening'),
+      morning: getEventsForTimeOfDay(events, 'morning'),
+      afternoon: getEventsForTimeOfDay(events, 'afternoon'),
+      evening: getEventsForTimeOfDay(events, 'evening'),
     };
   }
 
@@ -173,6 +173,6 @@ module.exports = function createOffenderService(repository) {
     getKeyWorkerFor,
     getVisitsFor,
     getImportantDatesFor,
-    getActivitiesForToday,
+    getEventsForToday,
   };
 };

@@ -92,17 +92,15 @@ describe('offenderRepository', () => {
     });
   });
 
-  describe('#getActivitiesForToday', () => {
-    it('calls the getActivitiesForToday endpoint for a given ID', async () => {
+  describe('#getEventsForToday', () => {
+    it('calls the getEventsForToday endpoint for a given ID', async () => {
       const client = {
         get: sinon.stub().resolves('SOME_RESULT'),
       };
       const repository = offenderRepository(client);
-      const result = await repository.getActivitiesForToday('FOO_ID');
+      const result = await repository.getEventsForToday('FOO_ID');
 
-      expect(client.get.lastCall.args[0]).to.include(
-        '/FOO_ID/activities/today',
-      );
+      expect(client.get.lastCall.args[0]).to.include('/FOO_ID/events/today');
       expect(result).to.equal('SOME_RESULT');
     });
   });

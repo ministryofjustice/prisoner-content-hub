@@ -23,13 +23,13 @@ module.exports = function Index({
         promotionalContent,
         tagsMenu,
         homepageMenu,
-        todaysActivities,
+        todaysEvents,
       ] = await Promise.all([
         hubFeaturedContentService.hubFeaturedContent({ establishmentId }),
         hubPromotedContentService.hubPromotedContent({ establishmentId }),
         hubMenuService.tagsMenu(),
         hubMenuService.homepageMenu(establishmentId),
-        offenderService.getActivitiesForToday(bookingId),
+        offenderService.getEventsForToday(bookingId),
       ]);
 
       const config = {
@@ -44,7 +44,7 @@ module.exports = function Index({
         tagsMenu,
         homepageMenu,
         config,
-        todaysActivities,
+        todaysEvents,
       });
     } catch (exception) {
       next(exception);

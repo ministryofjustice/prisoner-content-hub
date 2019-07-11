@@ -1,7 +1,7 @@
 const { format } = require('date-fns');
 
 const nowDateString = format(new Date(), 'YYYY-MM-DD');
-const getActivitiesForTodayData = [
+const getEventsForTodayData = [
   {
     title: 'single event morning',
     repo: [
@@ -137,5 +137,5 @@ const getActivitiesForTodayData = [
 ];
 
 module.exports = {
-  getActivitiesForTodayData,
+  getEventsForTodayData,
 };
