@@ -1,0 +1,20 @@
+#!/bin/bash
+
+mkdir plugins && cd plugins
+
+declare -a PluginsList=(
+  "https://plugins.matomo.org/api/2.0/plugins/AbTesting/download/3.2.11"
+  "https://plugins.matomo.org/api/2.0/plugins/CustomReports/download/3.1.12"
+  "https://plugins.matomo.org/api/2.0/plugins/Funnels/download/3.1.13"
+  "https://plugins.matomo.org/api/2.0/plugins/HeatmapSessionRecording/download/3.2.26"
+  "https://plugins.matomo.org/api/2.0/plugins/MediaAnalytics/download/3.4.2"
+  "https://plugins.matomo.org/api/2.0/plugins/MultiChannelConversionAttribution/download/3.0.4"
+  "https://plugins.matomo.org/api/2.0/plugins/UsersFlow/download/3.1.9"
+)
+
+for plugin in ${PluginsList[@]}; do
+  curl -SL -X POST -F "access_token=$MATOMO_ACCESS_TOKEN" $plugin -o temp.zip; unzip -q temp.zip; rm temp.zip
+done
+
+# EnvironmentVariables
+curl -SL https://plugins.matomo.org/api/2.0/plugins/EnvironmentVariables/download/latest -o temp.zip; unzip -q temp.zip; rm temp.zip;
