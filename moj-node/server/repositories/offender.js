@@ -41,9 +41,9 @@ function offenderRepository(httpClient) {
     );
   }
 
-  function getActivitiesForToday(bookingId) {
+  function getEventsForToday(bookingId) {
     return httpClient.get(
-      `${config.nomis.api.bookings}/${bookingId}/activities/today`,
+      `${config.nomis.api.bookings}/${bookingId}/events/today`,
     );
   }
 
@@ -55,7 +55,7 @@ function offenderRepository(httpClient) {
     getNextVisitFor,
     getLastVisitFor,
     sentenceDetailsFor,
-    getActivitiesForToday,
+    getEventsForToday,
   };
 }
 

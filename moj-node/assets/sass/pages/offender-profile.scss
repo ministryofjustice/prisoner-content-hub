@@ -18,33 +18,33 @@
   display: none;
 }
 
-.activities {
+.events {
   display: flex;
   align-items: stretch;
   margin-bottom: govuk-spacing(6);
 }
 
-.activities .govuk-body {
+.events .govuk-body {
   color: govuk-colour('black');
 }
 
-.activities__timePeriod {
+.events__timePeriod {
   padding: govuk-spacing(4);
   min-height: 135px;
 }
 
-.activities__timePeriod--morning {
+.events__timePeriod--morning {
   background-color: #e9f3fa;
 }
 
-.activities__timePeriod--afternoon {
+.events__timePeriod--afternoon {
   background-color: #d7e9f4;
 }
 
-.activities__timePeriod--evening {
+.events__timePeriod--evening {
   background-color: #c1ddf0;
 }
 
-.activities__timePeriod > .govuk-body:last-of-type {
+.events__timePeriod > .govuk-body:last-of-type {
   margin: 0;
 }
