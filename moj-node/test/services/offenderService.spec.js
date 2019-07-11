@@ -171,4 +171,6 @@ describe('Offender Service', () => {
       });
     });
   });
+
+  describe('.getEventTitle', () => {});
 });

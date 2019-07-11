@@ -6,6 +6,7 @@ const {
   isBefore,
 } = require('date-fns');
 const { propOr, prop } = require('ramda');
+const { getEventTitle } = require('../utils');
 
 const prettyDate = date => {
   if (!isValid(new Date(date))) return 'Unavailable';
@@ -58,7 +59,7 @@ const getEventsForTimeOfDay = (events, timeOfDay) => {
       const endTime = prettyTime(prop('endTime', event));
 
       return {
-        title: event.eventSourceDesc,
+        title: getEventTitle(event),
         startTime,
         endTime,
         timeString: endTime === '' ? startTime : `${startTime} to ${endTime}`,
@@ -174,5 +175,6 @@ module.exports = function createOffenderService(repository) {
     getVisitsFor,
     getImportantDatesFor,
     getEventsForToday,
+    getEventTitle,
   };
 };

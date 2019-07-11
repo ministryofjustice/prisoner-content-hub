@@ -39,10 +39,19 @@ function fixUrlForProduction(url, alternateUrl = config.hubEndpoint) {
   return url;
 }
 
+function getEventTitle(event) {
+  const title = event.eventLocation
+    ? `${event.eventSourceDesc} (${event.eventLocation})`
+    : event.eventSourceDesc;
+
+  return event.eventComment ? `${title} - ${event.eventComment}` : `${title}`;
+}
+
 module.exports = {
   replaceURLWithDefinedEndpoint,
   fixUrlForProduction,
   getEstablishmentId,
   getEstablishmentName,
   isEmpty,
+  getEventTitle,
 };

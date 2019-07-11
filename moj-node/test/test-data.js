@@ -136,6 +136,46 @@ const getEventsForTodayData = [
   },
 ];
 
+const getEventTitleTestData = [
+  {
+    description: 'only description',
+    event: {
+      eventLocation: '',
+      eventSourceDesc: 'some description',
+      eventComment: '',
+    },
+    output: 'some description',
+  },
+  {
+    description: 'description and location',
+    event: {
+      eventLocation: 'some location',
+      eventSourceDesc: 'some description',
+      eventComment: '',
+    },
+    output: 'some description (some location)',
+  },
+  {
+    description: 'description, location and comment',
+    event: {
+      eventLocation: 'some location',
+      eventSourceDesc: 'some description',
+      eventComment: 'some comment',
+    },
+    output: 'some description (some location) - some comment',
+  },
+  {
+    description: 'description and comment',
+    event: {
+      eventLocation: '',
+      eventSourceDesc: 'some description',
+      eventComment: 'some comment',
+    },
+    output: 'some description - some comment',
+  },
+];
+
 module.exports = {
   getEventsForTodayData,
+  getEventTitleTestData,
 };
