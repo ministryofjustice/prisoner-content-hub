@@ -25,28 +25,6 @@
     <script src="/html5-shiv/html5shiv.js"></script>
   <![endif]-->
 
-  <script src="/public/jquery.min.js"></script>
-  <script src="/public/jplayer/jquery.jplayer.min.js"></script>
-  <script src="/public/javascript/jplayer.cleanskin.min.js"></script>
-
-  <script>
-    $(document).ready(function () {
-      $('#videoPlayer').videoPlayer({
-        name: '{{ data.title }}',
-        size: {
-          width: '100%',
-          height: '360px'
-        },
-        media: {
-          preload: 'metadata',
-          m4v: '{{ data.media }}',
-          supplied: "m4v",
-          // poster: "/public/images/video-thumbnail.jpg"
-        }
-      });
-    });
-  </script>
-
 {% endblock %}
 
 {% block header %}
@@ -98,5 +76,27 @@
 
     </div>
   </div>
+
+  <script src="/public/jquery.min.js"></script>
+  <script src="/public/jplayer/jquery.jplayer.min.js"></script>
+  <script src="/public/javascript/jplayer.cleanskin.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#videoPlayer').videoPlayer({
+        name: '{{ data.title }}',
+        size: {
+          width: '100%',
+          height: '360px'
+        },
+        media: {
+          preload: 'metadata',
+          m4v: '{{ data.media }}',
+          supplied: "m4v",
+          // poster: "/public/images/video-thumbnail.jpg"
+        }
+      });
+    });
+  </script>
 
 {% endblock %}
