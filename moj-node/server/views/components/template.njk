@@ -2,6 +2,7 @@
 {% from "./header/macro.njk" import pageHeader %}
 {% from "./footer/macro.njk" import govukFooter %}
 {% from "components/landing-page-header/macro.njk" import hubLandingPageHeader %}
+{% from "components/search/macro.njk" import hubSearch %}
 
 <!DOCTYPE html>
 <html lang="{{ htmlLang | default('en') }}" class="govuk-template {{ htmlClasses }}">
@@ -70,7 +71,9 @@
         features: features,
         user: user
       }) }}
-    {% block header %}{% endblock %}
+      
+    {% block header %}
+    {% endblock %}
 
     {% if config.header %}
       <div class="govuk-hub-header__background {{ data.headerClass }}">

@@ -1,0 +1,43 @@
+{# <div class="govuk-width-container"> #}
+    {# <div class="govuk-grid-row"> #}
+      {# <div class="govuk-grid-column-full"> #}
+        <div  id="search-wrapper">
+          <form method="GET">
+            <label class="govuk-label" for="event-name">Search</label>
+            <input class="govuk-search-input search-box" id="search" name="search" type="text" value="{{query}}" autocomplete="off" placeholder="Search">
+            <button type="submit" class="govuk-button search-button">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {% if data[0] %}
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <div class="results">
+            <h3 class="govuk-heading-m">Showing results for "{{ query }}"</h3>
+            <ul class="govuk-list">
+              {% for item in data %}
+                <li>
+                  <a class="govuk-link" href="{{item.url}}">
+                    <span class="govuk-!-font-weight-bold">{{ item.title }}</span>
+                    <p class="govuk-body">
+                      {% if item.summary %}{{ item.summary }}
+                      {% else %}No summary available{% endif%}
+                      </p>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        {# </div> #}
+      {% endif %}
+    {# </div> #}
+    <script src="/public/javascript/all.js"></script>
+    <script src="/public/jquery.min.js"></script>
+    <script src="/public/javascript/vendors/typeahead.bundle.min.js"></script>
+    <script src="/public/javascript/search.js"></script>
+{# </div>   #}
+

@@ -1,8 +1,11 @@
 {% from "breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "components/search/macro.njk" import hubSearch %}
+
 <div class="govuk-width-container">
   <div class="govuk-grid-row govuk-!-margin-bottom-5">
     <div class="govuk-grid-column-full">
-      {{ govukBreadcrumbs({
+    {% block search %}{{ hubSearch({}) }}{% endblock %}
+      {{ govukBreadcrumbs ({
         items: params.breadcrumbs
       }) }}
     </div>
