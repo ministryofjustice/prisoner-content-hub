@@ -7,6 +7,8 @@ const {
 } = require('date-fns');
 const { propOr, prop } = require('ramda');
 
+const { capitalize } = require('../utils');
+
 const prettyDate = date => {
   if (!isValid(new Date(date))) return 'Unavailable';
   return format(parse(date), 'dddd DD MMMM YYYY');
@@ -34,16 +36,6 @@ const getTimeOfDay = date => {
     return 'afternoon';
   }
   return 'evening';
-};
-
-const capitalize = (str = '') => {
-  return str
-    .split('')
-    .map((letter, index) => {
-      if (index === 0) return letter.toUpperCase();
-      return letter.toLowerCase();
-    })
-    .join('');
 };
 
 const getEventsForTimeOfDay = (events, timeOfDay) => {
