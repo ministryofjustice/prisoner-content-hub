@@ -1,5 +1,6 @@
 {% from "../../components/back-button/macro.njk" import backButton %}
 {% from "../../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
+{% from "radios/macro.njk" import govukRadios %}
 {% extends "../../components/template.njk" %}
 
 {% block pageTitle %}
@@ -47,6 +48,36 @@
           <p class="govuk-body">Sudoku is a game that involves a grid of 81 squares, divided into nine blocks, each containing nine squares.</p>
           <p class="govuk-body">Each of the nine blocks has to contain the numbers 1-9, each number can only appear once in a row, column or box. Each vertical nine-square column, or horizontal nine-square line across, within the larger square, must also contain the numbers 1-9, without repetition or omission.</p>
           <p class="govuk-body">Each sudoku puzzle has only one correct solution.</p>
+          {{ govukRadios({
+            classes: "govuk-radios--small",
+            idPrefix: "sudoku-difficulty",
+            name: "sudoku-difficulty",
+            fieldset: {
+              legend: {
+                text: "Difficulty level",
+                isPageHeading: false,
+                classes: "govuk-fieldset__legend--s"
+              }
+            },
+            items: [
+              {
+                value: "easy",
+                text: "Easy"
+              },
+              {
+                value: "medium",
+                text: "Medium"
+              },
+              {
+                value: "hard",
+                text: "Hard"
+              },
+              {
+                value: "very hard",
+                text: "Very hard"
+              }
+            ]
+          }) }}
           <p>
             <button id="new-game" class="govuk-button" title="Start a new game">Start a new game</button>
           </p>
@@ -69,30 +100,30 @@
   <script src="/public/jquery.min.js"></script>
   <script src="/public/javascript/games/sudoku/sudokuJS.js"></script>
   <script>
-    var mySudokuJS = $("#sudoku").sudokuJS({
-      difficulty: "Easy",
-      boardFinishedFn: function (data) {
-        const message = "Congratulations \n\n You have completed the puzzle, would you like to play again?"
-        if (confirm(message)) {
-          mySudokuJS.generateBoard('easy');
-        };
-      }
-    });
-
-    /*window.setInterval(function(){
-      mySudokuJS.solveStep();
-  }, 100);*/
-
-    $("#new-game").on("click", function () {
-      clearErrors();
-      mySudokuJS.generateBoard('easy');
-    });
-
-    function clearErrors() {
+    function newBoard() {
       $("#sudoku input").filter(function () {
         $(this).removeAttr('disabled');
         $(this).removeClass("board-cell--error highlight-val");
       });
+      mySudokuJS.clearBoard();
+      mySudokuJS.generateBoard(getLevel());
+    }
+    var mySudokuJS = $("#sudoku").sudokuJS({
+      difficulty: getLevel(),
+      boardFinishedFn: function (data) {
+        const message = "Congratulations \n\n You have completed the puzzle, would you like to play again?";
+        if (confirm(message)) {
+          newBoard();
+        };
+      }
+    });
+
+    $("#new-game").on("click", function () {
+      newBoard();
+    });
+
+    function getLevel() {
+      return $("input[name='sudoku-difficulty']:checked").val() || 'easy';
     }
   </script>
 
