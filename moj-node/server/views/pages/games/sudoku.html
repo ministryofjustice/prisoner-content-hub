@@ -47,6 +47,25 @@
           <p class="govuk-body">Sudoku is a game that involves a grid of 81 squares, divided into nine blocks, each containing nine squares.</p>
           <p class="govuk-body">Each of the nine blocks has to contain the numbers 1-9, each number can only appear once in a row, column or box. Each vertical nine-square column, or horizontal nine-square line across, within the larger square, must also contain the numbers 1-9, without repetition or omission.</p>
           <p class="govuk-body">Each sudoku puzzle has only one correct solution.</p>
+          <p class="govuk-body">Difficulty level</p>
+          <div>
+            <label for="sudoku-difficulty-easy">
+              <input type="radio" name="sudoku-difficulty" id="sudoku-difficulty-easy" value="easy">
+              Easy
+            </label>
+            <label for="sudoku-difficulty-medium">
+              <input type="radio" name="sudoku-difficulty" id="sudoku-difficulty-medium" value="medium">
+              Medium
+            </label>
+            <label for="sudoku-difficulty-hard">
+              <input type="radio" name="sudoku-difficulty" id="sudoku-difficulty-hard" value="hard">
+              Hard
+            </label>
+            <label for="sudoku-difficulty-veryhard">
+              <input type="radio" name="sudoku-difficulty" id="sudoku-difficulty-veryhard" value="very hard">
+              Very hard
+            </label>
+          </div>
           <p>
             <button id="new-game" class="govuk-button" title="Start a new game">Start a new game</button>
           </p>
@@ -70,11 +89,11 @@
   <script src="/public/javascript/games/sudoku/sudokuJS.js"></script>
   <script>
     var mySudokuJS = $("#sudoku").sudokuJS({
-      difficulty: "Easy",
+      difficulty: getLevel(),
       boardFinishedFn: function (data) {
         const message = "Congratulations \n\n You have completed the puzzle, would you like to play again?"
         if (confirm(message)) {
-          mySudokuJS.generateBoard('easy');
+          mySudokuJS.generateBoard(getLevel());
         };
       }
     });
@@ -84,8 +103,9 @@
   }, 100);*/
 
     $("#new-game").on("click", function () {
+      alert(getLevel());
       clearErrors();
-      mySudokuJS.generateBoard('easy');
+      mySudokuJS.generateBoard(getLevel());
     });
 
     function clearErrors() {
@@ -93,6 +113,9 @@
         $(this).removeAttr('disabled');
         $(this).removeClass("board-cell--error highlight-val");
       });
+    }
+    function getLevel() {
+      return $("input[name='sudoku-difficulty']:checked").val() || 'easy';
     }
   </script>
 
