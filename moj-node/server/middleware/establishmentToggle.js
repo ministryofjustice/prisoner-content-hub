@@ -1,4 +1,8 @@
-const { getEstablishmentId, getEstablishmentName } = require('../utils');
+const {
+  getEstablishmentId,
+  getEstablishmentName,
+  capitalize,
+} = require('../utils');
 
 module.exports = function establishmentToggle(req, res, next) {
   if (!req.session.prison) {
@@ -10,9 +14,10 @@ module.exports = function establishmentToggle(req, res, next) {
   }
 
   const establishmentId = getEstablishmentId(req.session.prison);
+  const establishmentName = getEstablishmentName(establishmentId);
 
   req.app.locals.envVars.establishmentId = establishmentId;
-  req.app.locals.envVars.APP_NAME = getEstablishmentName(establishmentId);
+  req.app.locals.envVars.APP_NAME = `HMP ${capitalize(establishmentName)}`;
 
   next();
 };

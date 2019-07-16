@@ -10,17 +10,19 @@ module.exports = function createSearchRouter({ searchService, logger }) {
     postscript: false,
   };
 
-  router.use(bodyParser());
+  router.use(bodyParser.json());
 
   router.get('/', async (req, res, next) => {
     logger.info('GET /search');
+
+    const { establishmentId } = req.app.locals.envVars;
 
     try {
       let results = [];
       const query = req.query.search;
 
       if (query) {
-        results = await searchService.find({ query, limit: 15 });
+        results = await searchService.find({ query, establishmentId });
       }
 
       return res.render('pages/search', {
@@ -37,10 +39,12 @@ module.exports = function createSearchRouter({ searchService, logger }) {
   router.get('/suggest/:query', async (req, res, next) => {
     logger.info('GET /search/suggest');
 
+    const { establishmentId } = req.app.locals.envVars;
+
     try {
       const results = await searchService.typeAhead({
         query: req.params.query,
-        limit: 5,
+        establishmentId,
       });
       return res.json(results);
     } catch (error) {
