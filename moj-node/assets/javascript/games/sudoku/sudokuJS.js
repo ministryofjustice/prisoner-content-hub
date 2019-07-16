@@ -302,7 +302,7 @@
 			var maxlength = (boardSize < 10) ? " maxlength='1'" : "";
 			return "<div class='sudoku-board-cell'>" +
 						//want to use type=number, but then have to prevent chrome scrolling and up down key behaviors..
-						"<input type='text' pattern='\\d*' novalidate id='input-"+id+"' value='"+val+"'"+maxlength+">" +
+						"<input class='govuk-input' type='text' pattern='\\d*' novalidate id='input-"+id+"' value='"+val+"'"+maxlength+">" +
 						"<div id='input-"+id+"-candidates' class='candidates'>" + candidatesString + "</div>" +
 					"</div>";
 		};
