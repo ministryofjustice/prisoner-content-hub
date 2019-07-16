@@ -96,14 +96,25 @@ function hubMenuRepository(httpClient) {
     // const secondaryTags = parseTagsResponse(data.secondary_tag_ids);
 
     // inject extra link
-    if (Number(prisonId) === 793 && Number(categoryId) === 645) {
-      const link = {
-        id: 'working-in-wayland',
-        linkText: 'Working in Wayland',
-        href: '/working-in-wayland',
-      };
+    if (Number(categoryId) === 645) {
+      if (Number(prisonId) === 792) {
+        const link = {
+          id: 'working-in-berwyn',
+          linkText: 'Working in Berwyn',
+          href: '/working-in-berwyn',
+        };
 
-      return [link, ...series];
+        return [link, ...series];
+      }
+      if (Number(prisonId) === 793) {
+        const link = {
+          id: 'working-in-wayland',
+          linkText: 'Working in Wayland',
+          href: '/working-in-wayland',
+        };
+
+        return [link, ...series];
+      }
     }
 
     return series;
