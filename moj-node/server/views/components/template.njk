@@ -1,8 +1,9 @@
 {% from "components/skip-link/macro.njk" import govukSkipLink %}
+{% from "./search/macro.njk" import hubSearch %}
 {% from "./header/macro.njk" import pageHeader %}
 {% from "./footer/macro.njk" import govukFooter %}
 {% from "components/landing-page-header/macro.njk" import hubLandingPageHeader %}
-{% from "components/search/macro.njk" import hubSearch %}
+
 
 <!DOCTYPE html>
 <html lang="{{ htmlLang | default('en') }}" class="govuk-template {{ htmlClasses }}">
@@ -71,7 +72,15 @@
         features: features,
         user: user
       }) }}
-      
+
+    <div class="govuk-width-container u-clearfix">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          {{ hubSearch({}) }}
+            </div>
+                <hr class="govuk-width-container u-clearfix govuk-section-break govuk-search-section-break--visible">
+            </div>
+    
     {% block header %}
     {% endblock %}
 

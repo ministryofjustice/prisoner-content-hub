@@ -5,7 +5,8 @@ $search-width: 600px;
   width: $search-width;
   position: relative;
   float: right;
-  margin-bottom: govuk-spacing(3);
+  margin-top: govuk-spacing(2);
+  margin-bottom: govuk-spacing(4);
   & label {
     display: none;
   }
@@ -30,6 +31,11 @@ $search-width: 600px;
   -moz-appearance: none;
   appearance: none;
 }
+
+.govuk-search-section-break--visible {
+  border-bottom: 10px solid #005ea5;
+}
+
 @media print {
   .govuk-search-input {
     font-family: sans-serif;
