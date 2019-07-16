@@ -87,13 +87,13 @@
         name: '{{ data.title }}',
         size: {
           width: '100%',
-          height: '360px'
+          height: '100%'
         },
         media: {
           preload: 'metadata',
           m4v: '{{ data.media }}',
           supplied: "m4v",
-          // poster: "/public/images/video-thumbnail.jpg"
+          poster: "{{ data.image.url }}"
         }
       });
     });
