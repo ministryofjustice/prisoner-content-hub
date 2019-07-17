@@ -95,9 +95,9 @@
       </div>
     </main>
   </div>
+{% endblock %}
 
-  <!-- Sudoku -->
-  <script src="/public/jquery.min.js"></script>
+{% block bodyEnd %}
   <script src="/public/javascript/games/sudoku/sudokuJS.js"></script>
   <script>
     function newBoard() {
@@ -126,5 +126,4 @@
       return $("input[name='sudoku-difficulty']:checked").val() || 'easy';
     }
   </script>
-
 {% endblock %}

@@ -107,7 +107,14 @@
       {{ govukFooter({}) }}
     {% endblock %}
 
-    {% block bodyEnd %}{% endblock %}
+
+    <script src="/public/jquery.min.js"></script>
+    <script src="/public/javascript/all.js"></script>
     <script src="/public/javascript/hub.js"></script>
+    <script src="/public/javascript/vendors/typeahead.bundle.min.js"></script>
+    <script src="/public/javascript/search.js"></script>
+
+    {% block bodyEnd %}{% endblock %}
+
   </body>
 </html>
