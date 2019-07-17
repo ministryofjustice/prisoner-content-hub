@@ -1,5 +1,6 @@
 {% from "../../components/back-button/macro.njk" import backButton %}
 {% from "../../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
+{% from "radios/macro.njk" import govukRadios %}
 {% extends "../../components/template.njk" %}
 
 {% block pageTitle %}
@@ -58,23 +59,61 @@
           <div class="settings-container">
             <span class="govuk-heading-s govuk-!-margin-bottom-2">Game settings:</span>
             <div class="govuk-form-group">
-              <label class="govuk-label" for="playerColor">
-              Play with
-            </label>
-              <select class="govuk-select govuk-hub-full-width" id="playerColor" name="playerColor">
-                <option value="white" selected>White</option>
-                <option value="black">Black</option>
-              </select>
+              {{ govukRadios({
+                classes: "govuk-radios--small govuk-radios--inline",
+                idPrefix: "playerColour",
+                name: "playerColour",
+                fieldset: {
+                  legend: {
+                    text: "Play with",
+                    isPageHeading: false,
+                    classes: "govuk-fieldset__legend--s"
+                  }
+                },
+                items: [
+                  {
+                    value: "white",
+                    text: "White"
+                  },
+                  {
+                    value: "black",
+                    text: "Black"
+                  }
+                ]
+              }) }}
             </div>
 
             <div class="govuk-form-group">
-              <label for="color" class="govuk-label">Pawns get promoted to</label>
-              <select class="govuk-select govuk-hub-full-width" id="promote">
-                <option value="q" selected>Queen</option>
-                <option value="r">Rook</option>
-                <option value="b">Bishop</option>
-                <option value="n">Knight</option>
-              </select>
+              {{ govukRadios({
+                classes: "govuk-radios--small govuk-radios--inline",
+                idPrefix: "promote",
+                name: "promote",
+                fieldset: {
+                  legend: {
+                    text: "Pawns get promoted to",
+                    isPageHeading: false,
+                    classes: "govuk-fieldset__legend--s"
+                  }
+                },
+                items: [
+                  {
+                    value: "q",
+                    text: "Queen"
+                  },
+                  {
+                    value: "r",
+                    text: "Rook"
+                  },
+                  {
+                    value: "b",
+                    text: "Bishop"
+                  },
+                  {
+                    value: "k",
+                    text: "Knight"
+                  }
+                ]
+              }) }}
             </div>
 
             {# <div class="govuk-form-group"> #}
@@ -105,8 +144,37 @@
             </div>
 
             <div class="govuk-form-group">
-              <label for="skillLevel" class="govuk-label">Skill Level (0-20)</label>
-              <input type="number" class="govuk-input govuk-date-input__input" id="skillLevel" value="20"></input>
+
+              {{ govukRadios({
+                classes: "govuk-radios--small govuk-radios--inline",
+                idPrefix: "skillLevel",
+                name: "skillLevel",
+                fieldset: {
+                  legend: {
+                    text: "Skill level",
+                    isPageHeading: false,
+                    classes: "govuk-fieldset__legend--s"
+                  }
+                },
+                items: [
+                  {
+                    value: "0",
+                    text: "Easy"
+                  },
+                  {
+                    value: "8",
+                    text: "Medium"
+                  },
+                  {
+                    value: "15",
+                    text: "Hard"
+                  },
+                  {
+                    value: "20",
+                    text: "Very hard"
+                  }
+                ]
+              }) }}
             </div>
 
             {# <div class="govuk-form-group">

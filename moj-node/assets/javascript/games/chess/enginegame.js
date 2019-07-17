@@ -210,7 +210,7 @@ function engineGame(options) {
     var move = game.move({
       from: source,
       to: target,
-      promotion: document.getElementById("promote").value
+      promotion: $ ? $("input[name='promote']:checked").val() || 'q' : document.querySelector("input[name='promote']:checked").value,
     });
 
     // illegal move
