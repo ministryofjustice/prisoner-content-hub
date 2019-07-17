@@ -19,7 +19,7 @@ module.exports = function createSearchRouter({ searchService, logger }) {
 
     try {
       let results = [];
-      const query = req.query.search;
+      const { query } = req.query;
 
       if (query) {
         results = await searchService.find({ query, establishmentId });

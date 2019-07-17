@@ -35,22 +35,8 @@
     <div class="govuk-main-wrapper">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-          <h2 class="govuk-heading-l">{{ title }}</h2>
-          <div  id="search-wrapper">
-            <form method="GET">
-              <label class="govuk-label" for="event-name">Search</label>
-              <input autocomplete="off" class="govuk-input search-box" id="search" name="search" type="text" value="{{query}}" placeholder="Search">
-              <button type="submit" class="govuk-button search-button">
-                Search
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-      {% if data[0] %}
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-full">
-            <div class="results">
+          <div class="results">
+            {% if data[0] %}
               <h3 class="govuk-heading-m">Showing results for "{{ query }}"</h3>
               <ul class="govuk-list">
                 {% for item in data %}
@@ -65,10 +51,12 @@
                     </li>
                   {% endfor %}
                 </ul>
-              </div>
+              {% else %}
+                <h3 class="govuk-heading-m">No results found for "{{ query }}"</h3>
+              {% endif %}
             </div>
           </div>
-        {% endif %}
+        </div>
       </div>
     </div>
   </div>

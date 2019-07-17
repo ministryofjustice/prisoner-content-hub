@@ -4,7 +4,6 @@
 {% from "./footer/macro.njk" import govukFooter %}
 {% from "components/landing-page-header/macro.njk" import hubLandingPageHeader %}
 
-
 <!DOCTYPE html>
 <html lang="{{ htmlLang | default('en') }}" class="govuk-template {{ htmlClasses }}">
   <head>
@@ -73,17 +72,16 @@
         user: user
       }) }}
 
-    <div class="govuk-width-container u-clearfix">
+    <div class="govuk-width-container">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-          {{ hubSearch({}) }}
+          {{ hubSearch() }}
         </div>
-            </div>
-                <hr class="govuk-width-container u-clearfix govuk-section-break govuk-search-section-break--visible">
-            </div>
-    
-    {% block header %}
-    {% endblock %}
+      </div>
+      <hr class="govuk-section-break govuk-section-break--m govuk-search-section-break--visible">
+    </div>
+
+    {% block header %}{% endblock %}
 
     {% if config.header %}
       <div class="govuk-hub-header__background {{ data.headerClass }}">
@@ -119,7 +117,6 @@
     {% block footer %}
       {{ govukFooter({}) }}
     {% endblock %}
-
 
     <script src="/public/jquery.min.js"></script>
     <script src="/public/javascript/all.js"></script>
