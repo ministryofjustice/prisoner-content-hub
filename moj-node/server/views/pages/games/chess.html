@@ -1,5 +1,6 @@
 {% from "../../components/back-button/macro.njk" import backButton %}
 {% from "../../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
+{% from "radios/macro.njk" import govukRadios %}
 {% extends "../../components/template.njk" %}
 
 {% block pageTitle %}
@@ -103,10 +104,38 @@
               </div>
               </details>
             </div>
-
             <div class="govuk-form-group">
-              <label for="skillLevel" class="govuk-label">Skill Level (0-20)</label>
-              <input type="number" class="govuk-input govuk-date-input__input" id="skillLevel" value="20"></input>
+
+              {{ govukRadios({
+                classes: "govuk-radios--small",
+                idPrefix: "skillLevel",
+                name: "skillLevel",
+                fieldset: {
+                  legend: {
+                    text: "Skill level",
+                    isPageHeading: false,
+                    classes: "govuk-fieldset__legend--s"
+                  }
+                },
+                items: [
+                  {
+                    value: "0",
+                    text: "Easy"
+                  },
+                  {
+                    value: "8",
+                    text: "Medium"
+                  },
+                  {
+                    value: "15",
+                    text: "Hard"
+                  },
+                  {
+                    value: "20",
+                    text: "Very hard"
+                  }
+                ]
+              }) }}
             </div>
 
             {# <div class="govuk-form-group">

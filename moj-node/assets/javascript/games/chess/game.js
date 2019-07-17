@@ -3,10 +3,10 @@ var game = engineGame({ book: '/public/javascript/games/chess/book.bin' });
 function newGame() {
   var baseTime = parseFloat($('#timeBase').val()) * 60;
   var inc = parseFloat($('#timeInc').val());
-  var skill = parseInt($('#skillLevel').val());
+  var skill = parseInt($("input[name='skillLevels']:checked").val() || '10');
   var playerColor = $('#playerColor').val();
   var showScore = $('#showScore').is(':checked') || true;
-  var contemptLevel = $('#contemptLevel').val();
+  var contemptLevel = 0; //$('#contemptLevel').val();
 
   game.reset();
   game.setTime(baseTime, inc);
