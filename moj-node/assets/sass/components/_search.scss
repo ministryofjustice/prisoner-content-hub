@@ -59,20 +59,10 @@ $search-width: 600px;
 }
 
 .tt-suggestion {
+  display: block;
   padding: govuk-spacing(2);
   font-size: 18px;
   line-height: 24px;
-}
-
-.tt-suggestion:hover {
-  cursor: pointer;
-  color: govuk-colour('white');
-  background-color: $govuk-link-hover-colour;
-}
-
-.tt-suggestion.tt-cursor {
-  color: govuk-colour('white');
-  background-color: $govuk-link-hover-colour;
 }
 
 .tt-suggestion p {
