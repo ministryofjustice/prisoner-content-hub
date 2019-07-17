@@ -43,3 +43,16 @@ services:
       - "FQDN=bwi.dpn.gov.uk"
       - "NOMIS_API_TOKEN"
       - "NOMIS_API_ENDPOINT=https://gateway.prod.nomis-api.service.hmpps.dsd.io"
+
+  nginx:
+    image: nginx:latest
+    container_name: production_nginx
+    volumes:
+      - /etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /etc/nginx/public.crt:/etc/letsencrypt/live/localhost/public.crt
+      - /etc/nginx/private.rsa:/etc/letsencrypt/live/localhost/private.rsa
+    ports:
+      - 443:443
+    depends_on:
+      - hub-node
+      - hub-be
