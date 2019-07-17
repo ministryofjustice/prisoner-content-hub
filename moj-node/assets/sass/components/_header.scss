@@ -3,12 +3,16 @@
 @import 'node_modules/govuk-frontend/helpers/all';
 @import 'node_modules/govuk-frontend/helpers/typography';
 
-.govuk-hub-header {
-  background: govuk-colour('white');
+.govuk-hub-header__container {
+  position: relative;
+  margin-bottom: -10px;
+  padding-top: 10px;
+  border-bottom: 10px solid #005ea5;
 }
-
-.govuk-hub-page-header {
-  margin-bottom: 20px;
+.govuk-hub-header__container:after {
+  content: '';
+  display: block;
+  clear: both;
 }
 
 .govuk-hub-phase-banner {
@@ -49,6 +53,10 @@
 
 .govuk-hub-align-right {
   text-align: right;
+}
+
+.govuk-hub-main_navigation {
+  margin: 0;
 }
 
 .govuk-hub-start-menu {
