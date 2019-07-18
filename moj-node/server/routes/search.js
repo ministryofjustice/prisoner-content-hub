@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 
 module.exports = function createSearchRouter({ searchService, logger }) {
   const router = express.Router();
@@ -9,8 +8,6 @@ module.exports = function createSearchRouter({ searchService, logger }) {
     header: false,
     postscript: false,
   };
-
-  router.use(bodyParser.json());
 
   router.get('/', async (req, res, next) => {
     logger.info('GET /search');
@@ -36,14 +33,15 @@ module.exports = function createSearchRouter({ searchService, logger }) {
     }
   });
 
-  router.get('/suggest/:query', async (req, res, next) => {
+  router.get('/suggest', async (req, res, next) => {
     logger.info('GET /search/suggest');
 
     const { establishmentId } = req.app.locals.envVars;
+    const { query } = req.query;
 
     try {
       const results = await searchService.typeAhead({
-        query: req.params.query,
+        query,
         establishmentId,
       });
       return res.json(results);
