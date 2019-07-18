@@ -30,9 +30,7 @@
 <!-- Matomo -->
 <script>
   var _paq = _paq || [];
-  var numResults = '{{ data[0] }}' || 0;
   /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-  _paq.push(['trackSiteSearch', '{{ query }}', '', numResults]);
   _paq.push(['enableLinkTracking']);
   _paq.push(['enableJSErrorTracking']);
   (function () {
@@ -100,4 +98,10 @@
     })}}
   </div>
 
+{% endblock %}
+
+{%block matomo %}
+  <script>
+    _paq.push(['trackSiteSearch', '{{ query }}', false, "{{ data | length }}"]);
+  </script>
 {% endblock %}
