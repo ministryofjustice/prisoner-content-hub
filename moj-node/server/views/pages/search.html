@@ -61,4 +61,13 @@
     </div>
   </div>
 
+  <div class="govuk-width-container govuk-hub-article-feedback govuk-!-margin-top-9">
+    <p class="govuk-body">This is an early version of search, tell us what you think:</p>
+    {{ hubFeedbackWidget({
+      title: "Search - " + query,
+      contentType: 'search',
+      establishment: envVars.APP_NAME
+    })}}
+  </div>
+
 {% endblock %}
