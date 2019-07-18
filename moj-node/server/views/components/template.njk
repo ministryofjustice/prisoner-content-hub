@@ -20,6 +20,8 @@
 
     {# The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback #}
     <meta property="og:image" content="{{ assetPath | default('/assets') }}/images/govuk-opengraph-image.png">
+
+    {% block analytics %}
     <!-- Matomo -->
     <script>
       var _paq = _paq || [];
@@ -46,6 +48,8 @@
       })();
     </script>
     <!-- End Matomo Code -->
+    {% endblock %}
+
     <script src="/public/javascript/polyfills.js"></script>
   </head>
   <body class="govuk-template__body {{ bodyClasses }}">
