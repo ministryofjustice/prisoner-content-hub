@@ -134,7 +134,7 @@ class ContentApiClass
     $result["image"] =  $node->field_moj_thumbnail_image[0];
     $result["description"] =  $node->field_moj_description[0];
     $result["categories"] =  $node->field_moj_top_level_categories;
-    $result["secondary_tags"] =  $node->field_moj_tags;
+    $result["secondary_tags"] =  $node->field_moj_secondary_tags;
     $result["prisons"] =  $node->field_moj_prisons;
 
     return  $result;
