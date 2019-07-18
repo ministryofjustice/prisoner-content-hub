@@ -3,7 +3,7 @@
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
-      url: '/search/suggest/%QUERY',
+      url: '/search/suggest?query=%QUERY',
       wildcard: '%QUERY',
     },
   });
