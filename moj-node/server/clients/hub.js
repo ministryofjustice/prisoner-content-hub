@@ -1,4 +1,4 @@
-const request = require('superagent');
+const axios = require('axios');
 const qs = require('querystring');
 const logger = require('../../log');
 const config = require('../config');
@@ -6,11 +6,11 @@ const config = require('../config');
 const { getEstablishmentId } = require('../utils');
 
 class HubContentClient {
-  constructor(client = request) {
+  constructor(client = axios) {
     this.client = client;
   }
 
-  get(endpoint, query) {
+  get(endpoint, { query, ...rest } = {}) {
     const newQuery = {
       _format: 'json',
       _lang: 'en',
@@ -18,12 +18,11 @@ class HubContentClient {
       ...query,
     };
     return this.client
-      .get(endpoint)
-      .query(newQuery)
+      .get(endpoint, { params: newQuery, ...rest })
       .then(res => {
         logger.info(`Requested ${endpoint}?${qs.stringify(newQuery)}`);
 
-        return res.body;
+        return res.data;
       })
       .catch(exp => {
         logger.info(`Failed to request ${endpoint}?${qs.stringify(newQuery)}`);

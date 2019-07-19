@@ -1,22 +1,22 @@
-const request = require('superagent');
+const axios = require('axios');
+const qs = require('querystring');
 const logger = require('../../log');
 
 class StandardClient {
-  constructor(client = request) {
+  constructor(client = axios) {
     this.client = client;
   }
 
-  get(endpoint, query) {
+  get(endpoint, { query, ...rest } = {}) {
     return this.client
-      .get(endpoint)
-      .query(query)
+      .get(endpoint, { params: query, ...rest })
       .then(res => {
-        logger.info(`Requested ${endpoint}`, query);
+        logger.info(`Requested ${endpoint}?${qs.stringify(query)}`);
 
-        return res;
+        return res.data;
       })
       .catch(exp => {
-        logger.info(`Failed to request ${endpoint} and got back`, query);
+        logger.info(`Failed to request ${endpoint}?${qs.stringify(query)}`);
         logger.error(exp);
         return null;
       });
@@ -24,18 +24,14 @@ class StandardClient {
 
   post(endpoint, data) {
     return this.client
-      .post(endpoint)
-      .send(data)
+      .post(endpoint, data)
       .then(res => {
-        logger.info(`Requested ${endpoint}`, JSON.stringify(data));
+        logger.info(`Requested ${endpoint} with`, JSON.stringify(data));
 
-        return res;
+        return res.data;
       })
       .catch(exp => {
-        logger.info(
-          `Failed to request ${endpoint} and got back`,
-          JSON.stringify(data),
-        );
+        logger.info(`Failed to request ${endpoint} with`, JSON.stringify(data));
         logger.error(exp);
         return null;
       });

@@ -19,7 +19,7 @@ function hubFeaturedContentRepository(httpClient) {
       return [];
     }
 
-    const response = await httpClient.get(endpoint, query);
+    const response = await httpClient.get(endpoint, { query });
 
     if (!Array.isArray(response)) return [];
 
