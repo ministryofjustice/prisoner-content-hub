@@ -9,7 +9,7 @@ describe('Homepage', () => {
       it('contains the correct items in the navigation', () => {
         cy.get(cssNav)
           .should('contain', 'Home')
-          .should('contain', 'Working in Berwyn')
+          .should('contain', 'Education and work')
           .should('contain', 'Getting out');
       });
 
@@ -17,7 +17,7 @@ describe('Homepage', () => {
         const workingInBerwynLink = `${cssNav} > :nth-child(2) > .govuk-link`;
 
         cy.get(workingInBerwynLink).click();
-        cy.location('pathname').should('include', '/working-in-berwyn');
+        cy.location('pathname').should('include', '/content/3630');
       });
 
       it(`navigates to the 'Berwyn Life' page`, () => {
