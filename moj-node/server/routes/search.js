@@ -33,7 +33,7 @@ module.exports = function createSearchRouter({ searchService, logger }) {
     }
   });
 
-  router.get('/suggest', async (req, res, next) => {
+  router.get('/suggest', async (req, res) => {
     logger.info('GET /search/suggest');
 
     const { establishmentId } = req.app.locals.envVars;
@@ -46,7 +46,7 @@ module.exports = function createSearchRouter({ searchService, logger }) {
       });
       return res.json(results);
     } catch (error) {
-      return next(error);
+      return res.status(500).json([]);
     }
   });
 

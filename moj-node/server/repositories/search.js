@@ -10,7 +10,7 @@ function searchRepository(httpClient) {
       .query(
         esb
           .boolQuery()
-          .must([
+          .must(
             esb
               .multiMatchQuery(
                 ['title^10', 'category_name^5', 'series_name^5'],
@@ -19,7 +19,7 @@ function searchRepository(httpClient) {
               .fuzziness('AUTO')
               .prefixLength(2)
               .operator('and'),
-          ])
+          )
           .should([
             esb.termQuery('prison_name', prison),
             esb.boolQuery().mustNot([esb.existsQuery('prison_name')]),
@@ -45,7 +45,7 @@ function searchRepository(httpClient) {
       .query(
         esb
           .boolQuery()
-          .must([
+          .must(
             esb
               .multiMatchQuery(
                 ['title^10', 'category_name^5', 'series_name^5'],
@@ -54,7 +54,7 @@ function searchRepository(httpClient) {
               .fuzziness('AUTO')
               .prefixLength(2)
               .operator('and'),
-          ])
+          )
           .should([
             esb.termQuery('prison_name', prison),
             esb.boolQuery().mustNot([esb.existsQuery('prison_name')]),
@@ -67,7 +67,7 @@ function searchRepository(httpClient) {
 
     const response = await httpClient.post(
       config.elasticsearch.search,
-      JSON.stringify(esbRequest),
+      esbRequest,
     );
 
     const results = pathOr([], ['body', 'hits', 'hits'], response);
