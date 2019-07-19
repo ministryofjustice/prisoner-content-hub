@@ -34,14 +34,23 @@ describe('searchRepository', () => {
 
         const repository = searchRepository(client);
 
+        const query = 'Test Query';
+
         const response = await repository.find({
-          query: 'Test Query',
+          query,
           prison: 'HMP Development',
         });
 
         expect(client.post.callCount).to.equal(
           1,
           'The method should have performed a post using the client',
+        );
+
+        const requestBody = JSON.stringify(client.post.lastCall.args[1]);
+
+        expect(requestBody).to.include(
+          query,
+          'The request body should include the query',
         );
 
         expect(response.length).to.equal(
@@ -66,8 +75,10 @@ describe('searchRepository', () => {
 
         const repository = searchRepository(client);
 
+        const query = 'Test Query';
+
         await repository.find({
-          query: 'Test Query',
+          query,
           prison: 'HMP Development',
         });
 
@@ -76,18 +87,11 @@ describe('searchRepository', () => {
           'The method should have performed a post using the client',
         );
 
-        const requestBody = client.post.lastCall.args[1];
+        const requestBody = JSON.stringify(client.post.lastCall.args[1]);
 
-        expect(requestBody.query.bool.should[0].term.prison_name).to.equal(
+        expect(requestBody).to.include(
           'HMP Development',
-          'The query should filter by prison name',
-        );
-
-        expect(
-          requestBody.query.bool.should[1].bool.must_not.exists.field,
-        ).to.equal(
-          'prison_name',
-          'The query should filter where prison is unset',
+          'The request body should include the prison name',
         );
       });
 
@@ -174,14 +178,23 @@ describe('searchRepository', () => {
 
         const repository = searchRepository(client);
 
-        const response = await repository.typeAhead({
-          query: 'Test Query',
+        const query = 'Test Query';
+
+        const response = await repository.find({
+          query,
           prison: 'HMP Development',
         });
 
         expect(client.post.callCount).to.equal(
           1,
           'The method should have performed a post using the client',
+        );
+
+        const requestBody = JSON.stringify(client.post.lastCall.args[1]);
+
+        expect(requestBody).to.include(
+          query,
+          'The request body should include the query',
         );
 
         expect(response.length).to.equal(
@@ -206,8 +219,10 @@ describe('searchRepository', () => {
 
         const repository = searchRepository(client);
 
+        const query = 'Test Query';
+
         await repository.typeAhead({
-          query: 'Test Query',
+          query,
           prison: 'HMP Development',
         });
 
@@ -216,18 +231,11 @@ describe('searchRepository', () => {
           'The method should have performed a post using the client',
         );
 
-        const requestBody = client.post.lastCall.args[1];
+        const requestBody = JSON.stringify(client.post.lastCall.args[1]);
 
-        expect(requestBody.query.bool.should[0].term.prison_name).to.equal(
+        expect(requestBody).to.include(
           'HMP Development',
-          'The query should filter by prison name',
-        );
-
-        expect(
-          requestBody.query.bool.should[1].bool.must_not.exists.field,
-        ).to.equal(
-          'prison_name',
-          'The query should filter where prison is unset',
+          'The request body should include the prison name',
         );
       });
 
