@@ -20,11 +20,12 @@
 
     {# The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback #}
     <meta property="og:image" content="{{ assetPath | default('/assets') }}/images/govuk-opengraph-image.png">
+
+    {% block analytics %}
     <!-- Matomo -->
     <script>
       var _paq = _paq || [];
       /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-      _paq.push(['trackPageView']);
       _paq.push(['enableLinkTracking']);
       _paq.push(['enableJSErrorTracking']);
       (function () {
@@ -46,6 +47,8 @@
       })();
     </script>
     <!-- End Matomo Code -->
+    {% endblock %}
+
     <script src="/public/javascript/polyfills.js"></script>
   </head>
   <body class="govuk-template__body {{ bodyClasses }}">
@@ -125,6 +128,13 @@
     <script src="/public/javascript/search.js"></script>
 
     {% block bodyEnd %}{% endblock %}
+
+
+    {%block matomo %}
+      <script>
+        _paq.push(['trackPageView']);
+      </script>
+    {% endblock %}
 
   </body>
 </html>
