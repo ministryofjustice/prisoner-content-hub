@@ -11,7 +11,7 @@ function hubPromotedContentRepository(httpClient) {
       _menu: 'main',
     };
 
-    const response = await httpClient.get(endpoint, query);
+    const response = await httpClient.get(endpoint, { query });
 
     if (R.prop('message', response) || response === null) return [];
 

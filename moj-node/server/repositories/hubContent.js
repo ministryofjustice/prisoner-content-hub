@@ -64,7 +64,7 @@ module.exports = function hubContentRepository(httpClient) {
       return null;
     }
 
-    const response = await httpClient.get(endpoint, query);
+    const response = await httpClient.get(endpoint, { query });
 
     if (!Array.isArray(response)) return [];
 
@@ -89,7 +89,7 @@ module.exports = function hubContentRepository(httpClient) {
       return [];
     }
 
-    const response = await httpClient.get(endpoint, query);
+    const response = await httpClient.get(endpoint, { query });
 
     if (!Array.isArray(response)) {
       return [];
@@ -117,7 +117,7 @@ module.exports = function hubContentRepository(httpClient) {
       return [];
     }
 
-    const response = await httpClient.get(endpoint, query);
+    const response = await httpClient.get(endpoint, { query });
 
     if (!Array.isArray(response)) return [];
 
@@ -160,7 +160,7 @@ module.exports = function hubContentRepository(httpClient) {
       return [];
     }
 
-    const response = await httpClient.get(endpoint, query);
+    const response = await httpClient.get(endpoint, { query });
 
     if (!Array.isArray(response)) return [];
 
