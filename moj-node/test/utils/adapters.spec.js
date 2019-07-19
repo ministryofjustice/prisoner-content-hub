@@ -8,6 +8,7 @@ const {
   landingResponseFrom,
   pdfResponseFrom,
   typeFrom,
+  searchResultFrom,
 } = require('../../server/utils/adapters');
 
 const radioShowResponse = require('../resources/radioShow.json');
@@ -20,6 +21,7 @@ const seasonResponse = require('../resources/season.json');
 const landingPageResponse = require('../resources/landingPage.json');
 const relatedContentResponse = require('../resources/relatedContent.json');
 const pdfContentResponse = require('../resources/pdfContentResponse.json');
+const searchResponse = require('../resources/rawSearchResponse.json');
 
 describe('Adapters', () => {
   describe('.mediaResponseFrom', () => {
@@ -85,6 +87,13 @@ describe('Adapters', () => {
     it('returns formated data for featured series', () => {
       const result = featuredContentResponseFrom(featuredSeriesResponse);
       expect(result).to.eql(featuredSeries());
+    });
+  });
+
+  describe('.searchResultFrom', () => {
+    it('returns formated data for a search result', () => {
+      const result = searchResultFrom(searchResponse);
+      expect(result).to.eql(searchResult());
     });
   });
 
@@ -355,5 +364,13 @@ function termContent() {
     video: {
       url: undefined,
     },
+  };
+}
+
+function searchResult() {
+  return {
+    title: 'Foo Content',
+    summary: 'Foo Summary',
+    url: '/content/1234',
   };
 }
