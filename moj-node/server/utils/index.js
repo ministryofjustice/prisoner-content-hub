@@ -16,11 +16,21 @@ function getEstablishmentId(name) {
 
 function getEstablishmentName(id) {
   const establishmentName = {
-    792: 'HMP Berwyn',
-    793: 'HMP Wayland',
+    792: 'berwyn',
+    793: 'wayland',
   };
   return establishmentName[id];
 }
+
+const capitalize = (str = '') => {
+  return str
+    .split('')
+    .map((letter, index) => {
+      if (index === 0) return letter.toUpperCase();
+      return letter.toLowerCase();
+    })
+    .join('');
+};
 
 function replaceURLWithDefinedEndpoint(
   url = '',
@@ -45,4 +55,5 @@ module.exports = {
   getEstablishmentId,
   getEstablishmentName,
   isEmpty,
+  capitalize,
 };

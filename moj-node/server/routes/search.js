@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 
 module.exports = function createSearchRouter({ searchService, logger }) {
   const router = express.Router();
@@ -10,18 +9,15 @@ module.exports = function createSearchRouter({ searchService, logger }) {
     postscript: false,
   };
 
-  router.use(bodyParser());
-
   router.get('/', async (req, res, next) => {
     logger.info('GET /search');
 
-    try {
-      let results = [];
-      const query = req.query.search;
+    const { establishmentId } = req.app.locals.envVars;
+    let results = [];
+    const { query } = req.query;
 
-      if (query) {
-        results = await searchService.find({ query, limit: 15 });
-      }
+    try {
+      results = await searchService.find({ query, establishmentId });
 
       return res.render('pages/search', {
         title: 'Search',
@@ -34,17 +30,21 @@ module.exports = function createSearchRouter({ searchService, logger }) {
     }
   });
 
-  router.get('/suggest/:query', async (req, res, next) => {
+  router.get('/suggest', async (req, res) => {
     logger.info('GET /search/suggest');
+
+    const { establishmentId } = req.app.locals.envVars;
+    const { query } = req.query;
 
     try {
       const results = await searchService.typeAhead({
-        query: req.params.query,
-        limit: 5,
+        query,
+        establishmentId,
       });
+
       return res.json(results);
     } catch (error) {
-      return next(error);
+      return res.status(500).json([]);
     }
   });
 

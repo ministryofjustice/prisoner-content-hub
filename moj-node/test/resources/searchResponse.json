@@ -1,0 +1,17 @@
+[
+  {
+    "title": "First result",
+    "summary": "Summary of first result",
+    "url": "/content/3001"
+  },
+  {
+    "title": "Second result",
+    "summary": "Summary of second result",
+    "url": "/content/3002"
+  },
+  {
+    "title": "Third result",
+    "summary": "Summary of third result",
+    "url": "/content/3003"
+  }
+]
