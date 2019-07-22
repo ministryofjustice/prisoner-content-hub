@@ -13,14 +13,11 @@ module.exports = function createSearchRouter({ searchService, logger }) {
     logger.info('GET /search');
 
     const { establishmentId } = req.app.locals.envVars;
+    let results = [];
+    const { query } = req.query;
 
     try {
-      let results = [];
-      const { query } = req.query;
-
-      if (query) {
-        results = await searchService.find({ query, establishmentId });
-      }
+      results = await searchService.find({ query, establishmentId });
 
       return res.render('pages/search', {
         title: 'Search',
@@ -44,6 +41,7 @@ module.exports = function createSearchRouter({ searchService, logger }) {
         query,
         establishmentId,
       });
+
       return res.json(results);
     } catch (error) {
       return res.status(500).json([]);

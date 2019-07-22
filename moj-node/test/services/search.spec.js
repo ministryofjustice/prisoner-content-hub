@@ -47,6 +47,37 @@ describe('SearchService', () => {
         'The service should return an array of results',
       );
     });
+
+    it('returns empty when there is no query', async () => {
+      const searchRepository = {
+        find: sinon.spy(),
+      };
+      const getEstablishmentName = sinon.stub().returns('HMP Development');
+
+      const service = createSearchService({
+        searchRepository,
+        getEstablishmentName,
+      });
+
+      const results = await service.find({
+        query: '',
+        establishmentId: 123,
+        limit: 10,
+        from: 5,
+      });
+
+      expect(Array.isArray(results)).to.equal(
+        true,
+        'The method should return an array',
+      );
+
+      expect(results.length).to.equal(0, 'The array should be empty');
+
+      expect(searchRepository.find.callCount).to.equal(
+        0,
+        'The repository should not have been called',
+      );
+    });
   });
 
   describe('#typeAhead', () => {
@@ -91,6 +122,36 @@ describe('SearchService', () => {
       expect(Array.isArray(result)).to.equal(
         true,
         'The service should return an array of results',
+      );
+    });
+
+    it('returns empty when there is no query', async () => {
+      const searchRepository = {
+        typeAhead: sinon.spy(),
+      };
+      const getEstablishmentName = sinon.stub().returns('HMP Development');
+
+      const service = createSearchService({
+        searchRepository,
+        getEstablishmentName,
+      });
+
+      const results = await service.typeAhead({
+        query: '',
+        establishmentId: 123,
+        limit: 3,
+      });
+
+      expect(Array.isArray(results)).to.equal(
+        true,
+        'The method should return an array',
+      );
+
+      expect(results.length).to.equal(0, 'The array should be empty');
+
+      expect(searchRepository.typeAhead.callCount).to.equal(
+        0,
+        'The repository should not have been called',
       );
     });
   });
