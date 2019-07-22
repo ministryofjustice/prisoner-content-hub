@@ -28,7 +28,6 @@ function searchRepository(httpClient) {
       )
       .size(limit)
       .from(from)
-      .timeout('15ms')
       .toJSON();
     const response = await httpClient.post(
       config.elasticsearch.search,
