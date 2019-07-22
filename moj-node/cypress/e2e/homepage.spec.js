@@ -13,10 +13,10 @@ describe('Homepage', () => {
           .should('contain', 'Getting out');
       });
 
-      it(`navigates to the 'Working in Berwyn' page`, () => {
-        const workingInBerwynLink = `${cssNav} > :nth-child(2) > .govuk-link`;
+      it(`navigates to the 'Education and work' page`, () => {
+        const educationAndWork = `${cssNav} > :nth-child(2) > .govuk-link`;
 
-        cy.get(workingInBerwynLink).click();
+        cy.get(educationAndWork).click();
         cy.location('pathname').should('include', '/content/3630');
       });
 
@@ -53,10 +53,10 @@ describe('Homepage', () => {
 
       it(`navigates to the 'Education and work' page`, () => {
         cy.get(`${cssNav} > :nth-child(2) > .govuk-link`).as(
-          'workingInBerwynLink',
+          'educationAndWork',
         );
 
-        cy.get('@workingInBerwynLink').click();
+        cy.get('@educationAndWork').click();
         cy.location('pathname').should('include', '/content/3630');
       });
 
