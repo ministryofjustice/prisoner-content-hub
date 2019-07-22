@@ -28,9 +28,7 @@ describe('searchRepository', () => {
           },
         ];
 
-        const client = createClient({
-          body: { hits: { hits: mockResults } },
-        });
+        const client = createClient({ hits: { hits: mockResults } });
 
         const repository = searchRepository(client);
 
@@ -69,9 +67,7 @@ describe('searchRepository', () => {
       });
 
       it('should filter by prison', async () => {
-        const client = createClient({
-          body: { hits: { hits: [] } },
-        });
+        const client = createClient({ hits: { hits: [] } });
 
         const repository = searchRepository(client);
 
@@ -96,9 +92,7 @@ describe('searchRepository', () => {
       });
 
       it('should set a default limit for the number of results', async () => {
-        const client = createClient({
-          body: { hits: { hits: [] } },
-        });
+        const client = createClient({ hits: { hits: [] } });
 
         const repository = searchRepository(client);
 
@@ -121,9 +115,7 @@ describe('searchRepository', () => {
       });
 
       it('should handle a malformed response', async () => {
-        const client = createClient({
-          body: {},
-        });
+        const client = createClient({});
 
         const repository = searchRepository(client);
 
@@ -172,9 +164,7 @@ describe('searchRepository', () => {
           },
         ];
 
-        const client = createClient({
-          body: { hits: { hits: mockResults } },
-        });
+        const client = createClient({ hits: { hits: mockResults } });
 
         const repository = searchRepository(client);
 
@@ -213,9 +203,7 @@ describe('searchRepository', () => {
       });
 
       it('should filter by prison', async () => {
-        const client = createClient({
-          body: { hits: { hits: [] } },
-        });
+        const client = createClient({ hits: { hits: [] } });
 
         const repository = searchRepository(client);
 
@@ -240,9 +228,7 @@ describe('searchRepository', () => {
       });
 
       it('should set a default limit for the number of results', async () => {
-        const client = createClient({
-          body: { hits: { hits: [] } },
-        });
+        const client = createClient({ hits: { hits: [] } });
 
         const repository = searchRepository(client);
 
@@ -265,9 +251,7 @@ describe('searchRepository', () => {
       });
 
       it('should handle a malformed response', async () => {
-        const client = createClient({
-          body: {},
-        });
+        const client = createClient({});
 
         const repository = searchRepository(client);
 

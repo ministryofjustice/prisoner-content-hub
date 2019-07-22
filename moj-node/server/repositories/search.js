@@ -35,7 +35,7 @@ function searchRepository(httpClient) {
       esbRequest,
     );
 
-    const results = pathOr([], ['body', 'hits', 'hits'], response);
+    const results = pathOr([], ['hits', 'hits'], response);
     return results.map(searchResultFrom);
   }
 
@@ -70,7 +70,7 @@ function searchRepository(httpClient) {
       esbRequest,
     );
 
-    const results = pathOr([], ['body', 'hits', 'hits'], response);
+    const results = pathOr([], ['hits', 'hits'], response);
     return results.map(searchResultFrom);
   }
 
