@@ -38,7 +38,7 @@ services:
       - "NODE_ENV=production"
       - "DRUPAL_APP_URI=https://digital-hub.wli.dpn.gov.uk"
       - "MATOMO_API_URI=http://hub-matomo"
-      - "MATOMO_URL=digital-hub.wli.dpn.gov.uk:12001"
+      - "MATOMO_URL=digital-hub-matomo.wli.dpn.gov.uk"
       - "FQDN=wli.dpn.gov.uk"
       - "NOMIS_API_TOKEN"
       - "NOMIS_API_ENDPOINT=https://gateway.prod.nomis-api.service.hmpps.dsd.io"
