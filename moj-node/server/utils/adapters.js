@@ -98,7 +98,7 @@ function mediaResponseFrom(data) {
     episode: data.episode,
     season: data.season,
     seriesId: data.series_id,
-    tagsId: R.map(R.prop('target_id'), R.propOr([], 'categories', data)),
+    tagsId: R.map(R.prop('target_id'), R.propOr([], 'secondary_tags', data)),
     establishmentId: R.view(R.lensPath(['prisons', 0, 'target_id']))(data),
     contentUrl: `/content/${data.id}`,
   };

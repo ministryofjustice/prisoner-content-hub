@@ -23,7 +23,11 @@
         "target_id": 646
       }
     ],
-    "secondary_tags": [],
+    "secondary_tags": [
+      {
+        "target_id": 646
+      }
+    ],
     "prisons": [],
     "media": {
       "url": "http://foo.bar/audio/foo.mp3"

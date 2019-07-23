@@ -246,7 +246,7 @@ function seasonContent() {
       media: 'http://foo.bar/audio/bar.mp3',
       season: '1',
       seriesId: 660,
-      tagsId: [785],
+      tagsId: [761],
       title: 'Radio Item 2',
       establishmentId: undefined,
       programmeCode: undefined,
