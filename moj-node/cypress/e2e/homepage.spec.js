@@ -10,6 +10,7 @@ describe('Homepage', () => {
         cy.get(cssNav)
           .should('contain', 'Home')
           .should('contain', 'Education and work')
+          .should('contain', 'Berwyn life')
           .should('contain', 'Getting out');
       });
 
