@@ -98,7 +98,7 @@ describe('GET /', () => {
       app.use(consoleLogError);
     });
 
-    it('renders todays events', () => {
+    it.skip('renders todays events', () => {
       return request(app)
         .get('/')
         .expect(200)
@@ -302,7 +302,7 @@ describe('GET /', () => {
         });
     });
 
-    it('does not render todays events', () => {
+    it.skip('does not render todays events', () => {
       return request(app)
         .get('/')
         .expect(200)
