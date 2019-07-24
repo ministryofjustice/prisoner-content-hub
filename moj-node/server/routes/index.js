@@ -1,12 +1,12 @@
 const express = require('express');
-const { path } = require('ramda');
+// const { path } = require('ramda');
 
 module.exports = function Index({
   logger,
   hubFeaturedContentService,
   hubPromotedContentService,
   hubMenuService,
-  offenderService,
+  // offenderService,
 }) {
   const router = express.Router();
 
@@ -15,8 +15,8 @@ module.exports = function Index({
       logger.info('GET index');
 
       const { establishmentId } = req.app.locals.envVars;
-      const userDetails = path(['session', 'user'], req);
-      const bookingId = path(['bookingId'], userDetails);
+      // const userDetails = path(['session', 'user'], req);
+      // const bookingId = path(['bookingId'], userDetails);
 
       const [
         featuredContent,
@@ -29,7 +29,7 @@ module.exports = function Index({
         hubPromotedContentService.hubPromotedContent({ establishmentId }),
         hubMenuService.tagsMenu(),
         hubMenuService.homepageMenu(establishmentId),
-        offenderService.getEventsForToday(bookingId),
+        // offenderService.getEventsForToday(bookingId),
       ]);
 
       const config = {

@@ -98,7 +98,7 @@ describe('GET /', () => {
       app.use(consoleLogError);
     });
 
-    it('renders todays events', () => {
+    xit('renders todays events', () => {
       return request(app)
         .get('/')
         .expect(200)
