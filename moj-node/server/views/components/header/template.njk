@@ -2,7 +2,7 @@
   <div class="govuk-hub-header__container govuk-width-container govuk-!-padding-0">
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-one-half">
-        {% if params.user %}
+        {% if false %}
           <div id="hub-auth-header" class="hub-header-user-container">
             <span class="govuk-!-font-weight-bold">{{ params.user.name }}</span>
             <h1>{{ params.appName }}</h1>
@@ -12,7 +12,6 @@
             <span class="govuk-hub-header__title govuk-body govuk-!-font-weight-bold">{{ params.appName }}</span>
           </a>
         {% endif %}
-
       </div>
       <div class="govuk-grid-column-one-half govuk-hub-align-right">
         <span data-target-id="todays-date" class="govuk-hub-header__date govuk-body">&nbsp;</span>
