@@ -1,0 +1,9 @@
+id: you_might_like_resource
+plugin_id: you_might_like_resource
+granularity: method
+configuration:
+  GET:
+    supported_formats:
+      - json
+    supported_auth:
+      - cookie
