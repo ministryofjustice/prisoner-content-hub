@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains Drupal\\moj_resources\Plugin\rest\resource\YouMightLikeResource.
+ * Contains Drupal\\moj_resources\Plugin\rest\resource\SuggestedContentResource.
  */
 
 namespace Drupal\moj_resources\Plugin\rest\resource;
@@ -12,7 +12,7 @@ use Drupal\rest\ResourceResponse;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\Core\Language\LanguageManager;
 use Symfony\Component\HttpFoundation\Request;
-use Drupal\moj_resources\YouMightLikeApiClass;
+use Drupal\moj_resources\SuggestedContentApiClass;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -62,20 +62,20 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 
 /**
- * Provides a You Might Like Resource
+ * Provides a Suggested Content Resource
  *
  * @RestResource(
- *   id = "you_might_like_resource",
- *   label = @Translation("You Might Like resource"),
+ *   id = "suggested_content_resource",
+ *   label = @Translation("Suggested Content resource"),
  *   uri_paths = {
  *     "canonical" = "/v1/api/content/suggestions"
  *   }
  * )
  */
 
-class YouMightLikeResource extends ResourceBase
+class SuggestedContentResource extends ResourceBase
 {
-    protected $youMightLikeApiController;
+    protected $suggestedContentApiController;
 
     protected $currentRequest;
 
@@ -83,7 +83,7 @@ class YouMightLikeResource extends ResourceBase
 
     protected $languageManager;
 
-    protected $paramater_category;
+    protected $parameter_node_id;
 
     protected $paramater_number;
 
@@ -101,15 +101,15 @@ class YouMightLikeResource extends ResourceBase
         $plugin_definition,
         array $serializer_formats,
         LoggerInterface $logger,
-        YouMightLikeApiClass $YouMightLikeApiClass,
+        SuggestedContentApiClass $SuggestedContentApiClass,
         Request $currentRequest,
         LanguageManager $languageManager
     ) {
-        $this->youMightLikeApiClass = $YouMightLikeApiClass;
+        $this->suggestedContentApiClass = $SuggestedContentApiClass;
         $this->currentRequest = $currentRequest;
         $this->languageManager = $languageManager;
         $this->availableLangs = $this->languageManager->getLanguages();
-        $this->paramater_category = self::setCategory();
+        $this->parameter_node_id = self::setNodeId();
         $this->paramater_language_tag = self::setLanguage();
         $this->paramater_number = self::setNumberOfResults();
         $this->paramater_prison = self::setPrison();
@@ -131,7 +131,7 @@ class YouMightLikeResource extends ResourceBase
             $plugin_definition,
             $container->getParameter('serializer.formats'),
             $container->get('logger.factory')->get('rest'),
-            $container->get('moj_resources.you_might_like_api_class'),
+            $container->get('moj_resources.suggested_content_api_class'),
             $container->get('request_stack')->getCurrentRequest(),
             $container->get('language_manager')
         );
@@ -139,18 +139,18 @@ class YouMightLikeResource extends ResourceBase
 
     public function get()
     {
-        $youMightLike = $this->youMightLikeApiClass->YouMightLikeApiEndpoint(
+        $suggestedContent = $this->suggestedContentApiClass->SuggestedContentApiEndpoint(
             $this->paramater_language_tag,
-            $this->paramater_category,
+            $this->parameter_node_id,
             $this->paramater_number,
             $this->paramater_prison
         );
-        if (!empty($youMightLike)) {
-            $response = new ResourceResponse($youMightLike);
-            $response->addCacheableDependency($youMightLike);
+        if (!empty($suggestedContent)) {
+            $response = new ResourceResponse($suggestedContent);
+            $response->addCacheableDependency($suggestedContent);
             return $response;
         }
-        throw new NotFoundHttpException(t('No you might like found'));
+        throw new NotFoundHttpException(t('No suggested content found'));
     }
 
     protected function checklanguageParameterIsValid()
@@ -170,7 +170,7 @@ class YouMightLikeResource extends ResourceBase
 
     protected function checkCategoryIsNumeric()
     {
-        if (is_numeric($this->paramater_category)) {
+        if (is_numeric($this->parameter_node_id)) {
             return true;
         }
         throw new NotFoundHttpException(
@@ -197,7 +197,7 @@ class YouMightLikeResource extends ResourceBase
         return is_null($this->currentRequest->get('_lang')) ? 'en' : $this->currentRequest->get('_lang');
     }
 
-    protected function setCategory()
+    protected function setNodeId()
     {
         return is_null($this->currentRequest->get('_category')) ? 0 : $this->currentRequest->get('_category');
     }

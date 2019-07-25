@@ -1,5 +1,5 @@
-id: you_might_like_resource
-plugin_id: you_might_like_resource
+id: suggested_content_resource
+plugin_id: suggested_content_resource
 granularity: method
 configuration:
   GET:

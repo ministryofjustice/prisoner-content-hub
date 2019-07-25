@@ -7,10 +7,10 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
- * YouMightLikeApiClass
+ * SuggestedContentApiClass
  */
 
-class YouMightLikeApiClass
+class SuggestedContentApiClass
 {
   /**
    * Node IDs
@@ -64,7 +64,7 @@ class YouMightLikeApiClass
    * @param [string] $lang
    * @return array
    */
-  public function YouMightLikeApiEndpoint($lang, $nid, $number, $prison)
+  public function SuggestedContentApiEndpoint($lang, $nid, $number, $prison)
   {
     $this->lang = $lang;
     $nodes = $this->getSuggestions($nid, $number, $prison);
