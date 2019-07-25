@@ -19,4 +19,4 @@ JENKINS_URL: http://127.0.0.1:8000/
 JENKINS_ADMIN_EMAIL: jenkins@mgmt-devtest.hmpps.dsd.io
 AZURE_FNG_SUBSCRIPTION_ID: b1f3cebb-4988-4ff9-9259-f02ad7744fcb
 AZURE_STUDIO_SUBSCRIPTION_ID: c27cfedb-f5e9-45e6-9642-0fad1a5c94e7
-AZURE_VAULT_SECRETS: '["dockerhub-automation-password","dockerhub-automation-username","mysql-root-pass", "mysql-user-pass", "matomo-mysql-root-pass", "matomo-mysql-user-pass", "matomo-token-berwyn", "matomo-token-wayland", "matomo-mysql-user-username", "nomis-staging-api-key", "acr-username-secret", "acr-password-secret", "acr-repo-secret"]'
+AZURE_VAULT_SECRETS: '["dockerhub-automation-password","dockerhub-automation-username","mysql-root-pass", "mysql-user-pass", "matomo-mysql-root-pass", "matomo-mysql-user-pass", "matomo-token-berwyn", "matomo-token-wayland", "matomo-mysql-user-username", "nomis-staging-api-key", "nomis-production-api-key", "acr-username-secret", "acr-password-secret", "acr-repo-secret"]'
