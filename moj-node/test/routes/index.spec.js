@@ -98,7 +98,7 @@ describe('GET /', () => {
       app.use(consoleLogError);
     });
 
-    it('renders todays events', () => {
+    xit('renders todays events', () => {
       return request(app)
         .get('/')
         .expect(200)
@@ -248,7 +248,7 @@ describe('GET /', () => {
         });
     });
 
-    it('renders the user', () => {
+    xit('renders the user', () => {
       return request(app)
         .get('/')
         .expect(200)
@@ -288,7 +288,7 @@ describe('GET /', () => {
       app.use(consoleLogError);
     });
 
-    it('does not show the user', () => {
+    xit('does not show the user', () => {
       return request(app)
         .get('/')
         .expect(200)
@@ -302,7 +302,7 @@ describe('GET /', () => {
         });
     });
 
-    it('does not render todays events', () => {
+    xit('does not render todays events', () => {
       return request(app)
         .get('/')
         .expect(200)
