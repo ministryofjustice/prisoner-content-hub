@@ -1,27 +1,27 @@
-(function() {
+(function () {
   var search = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
       url: '/search/suggest?query=%QUERY',
-      wildcard: '%QUERY',
-    },
+      wildcard: '%QUERY'
+    }
   });
 
   $('#search-wrapper .search-box').typeahead(
     {
       hint: true,
       highlight: true,
-      minLength: 3,
+      minLength: 3
     },
     {
       name: 'search-results',
       display: 'title',
       source: search,
       templates: {
-        suggestion: createSuggestionList,
-      },
-    },
+        suggestion: createSuggestionList
+      }
+    }
   );
 
   function createSuggestionList(value) {
@@ -29,7 +29,7 @@
     var title = value.title;
     var reg = new RegExp(query, 'gi');
     var url = value.url || '#';
-    var label = title.replace(reg, function(match) {
+    var label = title.replace(reg, function (match) {
       return '<strong>' + match + '</strong>';
     });
 

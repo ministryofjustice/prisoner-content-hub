@@ -4,6 +4,8 @@ assets/javascript/games
 package-lock.json
 assets/stylesheets
 assets/javascript/polyfills.js
+assets/javascript/all.js
+assets/javascript/search.js
 .vscode
 .cache
 build-info.json

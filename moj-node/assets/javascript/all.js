@@ -1,5 +1,5 @@
 (function() {
-  document.body.addEventListener('click', event => {
+  document.body.addEventListener('click', function(event) {
     if (matchesAll('[data-state]', event.target)) {
       var element = getAncestorElementBySelector('[data-state]', event.target);
 
