@@ -167,6 +167,30 @@ module.exports = function hubContentRepository(httpClient) {
     return contentResponseFrom(response);
   }
 
+  async function suggestedContentFor({
+    id,
+    establishmentId,
+    perPage = 4,
+  } = {}) {
+    const endpoint = `${config.api.hubContent}/suggestions`;
+    const query = {
+      _category: id,
+      _number: perPage,
+      _prison: establishmentId,
+    };
+
+    if (!id) {
+      logger.error(`Requested ${endpoint}?${qs.stringify(query)}`);
+      return [];
+    }
+
+    const response = await httpClient.get(endpoint, { query });
+
+    if (!Array.isArray(response)) return [];
+
+    return contentResponseFrom(response);
+  }
+
   function parseMenuResponse(data = []) {
     return data.map(menuItem => ({
       linkText: R.prop('title', menuItem),
@@ -201,5 +225,6 @@ module.exports = function hubContentRepository(httpClient) {
     featuredContentFor,
     relatedContentFor,
     menuFor,
+    suggestedContentFor,
   };
 };

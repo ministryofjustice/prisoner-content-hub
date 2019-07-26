@@ -7,11 +7,23 @@ describe('#hubContentService', () => {
         contentFor: sinon
           .stub()
           .returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
+        suggestedContentFor: sinon
+          .stub()
+          .returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
       };
       const service = createHubContentService({ contentRepository });
       const result = await service.contentFor('contentId');
 
-      expect(result).to.eql({ title: 'foo', href: 'www.foo.com', type: 'foo' });
+      expect(result).to.eql({
+        title: 'foo',
+        href: 'www.foo.com',
+        type: 'foo',
+        suggestedContent: {
+          href: 'www.foo.com',
+          title: 'foo',
+          type: 'foo',
+        },
+      });
     });
 
     ['radio', 'video'].forEach(contentType => {
@@ -26,6 +38,9 @@ describe('#hubContentService', () => {
             episodeId: 'episodeId',
             tagsId: [12],
           }),
+          suggestedContentFor: sinon
+            .stub()
+            .returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
           termFor: sinon.stub().returns({ name: 'foo series name', id: 'foo' }),
           nextEpisodesFor: sinon
             .stub()
@@ -45,6 +60,11 @@ describe('#hubContentService', () => {
           contentType,
           seriesId: 'seriesId',
           seriesName: 'foo series name',
+          suggestedContent: {
+            href: 'www.foo.com',
+            title: 'foo',
+            type: 'foo',
+          },
           episodeId: 'episodeId',
           tagsId: [12],
           season: [{ id: 2, title: 'bar episode' }], // hides the current episode from season
@@ -92,6 +112,9 @@ describe('#hubContentService', () => {
         .returns(content)
         .onSecondCall()
         .returns('fooBar'),
+      suggestedContentFor: sinon
+        .stub()
+        .returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
     });
 
     const createMenuRepository = () => ({

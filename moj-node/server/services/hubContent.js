@@ -11,6 +11,11 @@ module.exports = function createHubContentService({
     }
 
     const content = await contentRepository.contentFor(id);
+
+    const suggestedContent = await contentRepository.suggestedContentFor({
+      id,
+      establishmentId,
+    });
     const contentType = prop('contentType', content);
     const prisonId = prop('establishmentId', content);
 
@@ -21,12 +26,21 @@ module.exports = function createHubContentService({
     switch (contentType) {
       case 'radio':
       case 'video': {
-        return media(establishmentId, content);
+        return media(establishmentId, {
+          ...content,
+          suggestedContent,
+        });
       }
       case 'landing-page':
-        return landingPage(content, establishmentId);
+        return landingPage(establishmentId, {
+          ...content,
+          suggestedContent,
+        });
       default:
-        return content;
+        return {
+          ...content,
+          suggestedContent,
+        };
     }
   }
 
@@ -60,7 +74,7 @@ module.exports = function createHubContentService({
     };
   }
 
-  async function landingPage(data, establishmentId) {
+  async function landingPage(establishmentId, data) {
     const featuredContentId = prop('featuredContentId', data);
     const categoryId = prop('categoryId', data);
 

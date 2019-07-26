@@ -8,6 +8,7 @@ const { setupBasicApp, logger } = require('../test-helpers');
 
 const radioShowResponse = require('../resources/radioShowServiceResponse.json');
 const videoShowResponse = require('../resources/videoShowServiceResponse.json');
+const flatContentResponse = require('../resources/flatContentResponse.json');
 
 describe('GET /content/:id', () => {
   it('returns a 404 when incorrect data is returned', () => {
@@ -28,16 +29,20 @@ describe('GET /content/:id', () => {
   });
 
   describe('Radio page', () => {
-    const hubContentService = {
-      contentFor: sinon.stub().returns(radioShowResponse),
-    };
+    let app;
 
-    it('returns the correct content for a radio page', () => {
+    beforeEach(() => {
+      const hubContentService = {
+        contentFor: sinon.stub().returns(radioShowResponse),
+      };
+
       const router = createHubContentRouter({ logger, hubContentService });
-      const app = setupBasicApp();
+      app = setupBasicApp();
 
       app.use('/content', router);
+    });
 
+    it('returns the correct content for a radio page', () => {
       return request(app)
         .get('/content/1')
         .expect(200)
@@ -68,11 +73,27 @@ describe('GET /content/:id', () => {
             'foo Bar',
             'Page thumbnail alt did not match',
           );
+        });
+    });
 
-          // tags
+    it('returns the correct tags for a radio page', () => {
+      return request(app)
+        .get('/content/1')
+        .expect(200)
+        .then(response => {
+          const $ = cheerio.load(response.text);
+
           expect($('#tags-list > li').length).to.equal(2);
+        });
+    });
 
-          // episodes
+    it('returns the correct episodes for a radio page', () => {
+      return request(app)
+        .get('/content/1')
+        .expect(200)
+        .then(response => {
+          const $ = cheerio.load(response.text);
+
           expect($('#next-episodes a').length).to.equal(
             1,
             "The number of next episodes shows don't match",
@@ -92,19 +113,43 @@ describe('GET /content/:id', () => {
           );
         });
     });
+
+    it('returns the correct suggestions for a radio page', () => {
+      return request(app)
+        .get('/content/1')
+        .expect(200)
+        .then(response => {
+          const $ = cheerio.load(response.text);
+
+          expect($('#suggested-content a').length).to.equal(1);
+          expect($('#suggested-content h3').text()).to.include(
+            'Suggested content',
+            "The suggested content title doesn't match",
+          );
+          expect(
+            $(
+              '#suggested-content .govuk-hub-featured-content-item__main-duration',
+            ).text(),
+          ).to.include('18:12', "The suggested content duration doesn't match");
+        });
+    });
   });
 
   describe('Video page', () => {
-    const hubContentService = {
-      contentFor: sinon.stub().returns(videoShowResponse),
-    };
+    let app;
 
-    it('returns the correct content for a video page', () => {
+    beforeEach(() => {
+      const hubContentService = {
+        contentFor: sinon.stub().returns(videoShowResponse),
+      };
+
       const router = createHubContentRouter({ logger, hubContentService });
-      const app = setupBasicApp();
+      app = setupBasicApp();
 
       app.use('/content', router);
+    });
 
+    it('returns the correct content for a video page', () => {
       return request(app)
         .get('/content/1')
         .expect(200)
@@ -157,29 +202,128 @@ describe('GET /content/:id', () => {
             `/content/${videoShowResponse.season[0].id}`,
             'did not render url',
           );
+
+          // suggestions
+          expect($('#suggested-content a').length).to.equal(1);
+          expect($('#suggested-content h3').text()).to.include(
+            'Suggested content',
+            "The suggested content title doesn't match",
+          );
+          expect(
+            $(
+              '#suggested-content .govuk-hub-featured-content-item__main-duration',
+            ).text(),
+          ).to.include('18:12', "The suggested content duration doesn't match");
+        });
+    });
+
+    it('returns the correct content for a video page', () => {
+      return request(app)
+        .get('/content/1')
+        .expect(200)
+        .then(response => {
+          const $ = cheerio.load(response.text);
+
+          expect($('#title').text()).to.equal(
+            'Baz title',
+            'Page title did not match',
+          );
+          expect($('#body').text()).to.equal(
+            'Baz body',
+            'Page body did not match',
+          );
+          expect($('#series').text()).to.equal(
+            'Baz series',
+            'Page title did not match',
+          );
+          expect($('#videoPlayerContainer').attr('data-video')).to.equal(
+            'baz.mp4',
+            'Page media did not match',
+          );
+          expect($('#thumbnail').attr('src')).to.equal(
+            'baz.png',
+            'Page thumbnail src did not match',
+          );
+          expect($('#thumbnail').attr('alt')).to.equal(
+            'baz Bar',
+            'Page thumbnail alt did not match',
+          );
+        });
+    });
+
+    it('returns the correct tags for a video page', () => {
+      return request(app)
+        .get('/content/1')
+        .expect(200)
+        .then(response => {
+          const $ = cheerio.load(response.text);
+
+          expect($('#tags-list li').length).to.equal(2);
+        });
+    });
+
+    it('returns the correct episodes for a video page', () => {
+      return request(app)
+        .get('/content/1')
+        .expect(200)
+        .then(response => {
+          const $ = cheerio.load(response.text);
+
+          expect($('#next-episodes a').length).to.equal(
+            1,
+            "The number of next episodes shows don't match",
+          );
+          expect($('#next-episodes a').text()).to.include(
+            'Baz episode',
+            "The episode title doesn't match",
+          );
+          expect($('#episode-thumbnail').attr('style')).to.include(
+            'baz.image.png',
+            "The episode thumbnail doesn't match",
+          );
+
+          expect($('#next-episodes a').attr('href')).to.include(
+            `/content/${videoShowResponse.season[0].id}`,
+            'did not render url',
+          );
+        });
+    });
+
+    it('returns the correct suggestions for a video page', () => {
+      return request(app)
+        .get('/content/1')
+        .expect(200)
+        .then(response => {
+          const $ = cheerio.load(response.text);
+
+          expect($('#suggested-content a').length).to.equal(1);
+          expect($('#suggested-content h3').text()).to.include(
+            'Suggested content',
+            "The suggested content title doesn't match",
+          );
+          expect(
+            $(
+              '#suggested-content .govuk-hub-featured-content-item__main-duration',
+            ).text(),
+          ).to.include('18:12', "The suggested content duration doesn't match");
         });
     });
   });
 
   describe('Flat page content', () => {
-    const hubContentService = {
-      contentFor: sinon.stub().returns({
-        id: 3491,
-        title: 'Foo article',
-        contentType: 'page',
-        description: {
-          sanitized: '<p>Foo article body</p>',
-        },
-        standFirst: 'Foo article stand first',
-      }),
-    };
+    let app;
 
-    it('returns the correct content for a flat content page', () => {
+    beforeEach(() => {
+      const hubContentService = {
+        contentFor: sinon.stub().returns(flatContentResponse),
+      };
       const router = createHubContentRouter({ logger, hubContentService });
-      const app = setupBasicApp();
+      app = setupBasicApp();
 
       app.use('/content', router);
+    });
 
+    it('returns the correct content for a flat content page', () => {
       return request(app)
         .get('/content/1')
         .expect(200)
@@ -187,17 +331,37 @@ describe('GET /content/:id', () => {
           const $ = cheerio.load(response.text);
 
           expect($('#title').text()).to.include(
-            'Foo article',
+            'The jobs noticeboard',
             'Page title did not match',
           );
           expect($('#stand-first').text()).to.include(
-            'Foo article stand first',
+            'Some incredible foo stand first',
             'Article stand first did not match',
           );
           expect($('#body').text()).to.include(
-            'Foo article body',
+            'Foo paragraph',
             'Article body did not match',
           );
+        });
+    });
+
+    it('returns the correct suggestions for a flat content page', () => {
+      return request(app)
+        .get('/content/1')
+        .expect(200)
+        .then(response => {
+          const $ = cheerio.load(response.text);
+
+          expect($('#suggested-content a').length).to.equal(1);
+          expect($('#suggested-content h3').text()).to.include(
+            'Suggested content',
+            "The suggested content title doesn't match",
+          );
+          expect(
+            $(
+              '#suggested-content .govuk-hub-featured-content-item__main-duration',
+            ).text(),
+          ).to.include('18:12', "The suggested content duration doesn't match");
         });
     });
   });

@@ -9,5 +9,21 @@
   },
   "standFirst": "Some incredible foo stand first",
   "image": { "alt": null, "url": null },
-  "establishmentId": 792
+  "establishmentId": 792,
+  "suggestedContent": [
+    {
+      "id": 666,
+      "title": "Suggested content",
+      "summary": "Suggested summary",
+      "size": "small",
+      "type": "video",
+      "contentType": "video",
+      "image": {
+        "alt": "suggested image alt",
+        "url": "suggested image url"
+      },
+      "duration": "18:12",
+      "contentUrl": "/content/666"
+    }
+  ]
 }

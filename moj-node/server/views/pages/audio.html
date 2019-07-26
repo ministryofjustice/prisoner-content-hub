@@ -1,6 +1,6 @@
 {% from "../components/back-button/macro.njk" import backButton %}
 {% from "../components/next-episodes-content/macro.njk" import nextEpisodesContent %}
-{% from "../components/related-content/macro.njk" import hubRelatedContent %}
+{% from "../components/suggested-content/macro.njk" import hubSuggestedContent %}
 {% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 
 {% extends "../components/template.njk" %}
@@ -72,6 +72,13 @@
 
       <div id="next-episodes" class="govuk-hub-media-player__watch-next">
         {{ nextEpisodesContent({ data: data.season }) }}
+      </div>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <div id="suggested-content">
+        {{ hubSuggestedContent({ data: data.suggestedContent }) }}
       </div>
     </div>
   </div>

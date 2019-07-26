@@ -211,6 +211,60 @@ describe('hubContentRepository', () => {
     });
   });
 
+  describe('#suggestedContentFor', () => {
+    it('returns empty if no id is passed', async () => {
+      const client = generateClient({ response: 'data' });
+      const repository = hubContentRepository(client);
+      const result = await repository.suggestedContentFor({});
+
+      expect(client.get.callCount).to.equal(0);
+      expect(result).to.eql([]);
+    });
+
+    it('returns empty when invalid data is returned from the api', async () => {
+      const client = generateClient({ response: 'data' });
+      const repository = hubContentRepository(client);
+      const result = await repository.suggestedContentFor({ id: 1 });
+
+      expect(client.get.callCount).to.equal(1);
+      expect(result).to.eql([]);
+    });
+    it('returns formatted data for suggested content', async () => {
+      const client = generateClient([
+        { content_type: 'moj_radio_item' },
+        { content_type: 'moj_radio_item' },
+      ]);
+      const repository = hubContentRepository(client);
+
+      const result = await repository.suggestedContentFor({
+        id: 'id',
+        establishmentId: 'fooBarQuery',
+      });
+
+      const requestQueryString = JSON.stringify(client.get.lastCall.args[1]);
+
+      const expectedKeys = [
+        'id',
+        'title',
+        'contentType',
+        'summary',
+        'image',
+        'duration',
+        'contentUrl',
+      ];
+
+      expect(requestQueryString).to.include('id');
+      expect(requestQueryString).to.include('fooBarQuery');
+
+      expect(result.length).to.equal(2);
+
+      const keys = Object.keys(result[0]);
+      expectedKeys.forEach(key => {
+        expect(keys).to.include(key);
+      });
+    });
+  });
+
   describe('#menuFor', () => {
     it('returns null if no id is passed', async () => {
       const client = generateClient({ response: 'data' });

@@ -1,5 +1,6 @@
 {% from "../components/back-button/macro.njk" import backButton %}
 {% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
+{% from "../components/suggested-content/macro.njk" import hubSuggestedContent %}
 
 {% extends "../components/template.njk" %}
 
@@ -56,5 +57,12 @@
         </div>
       {% endif %}
     </main>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <div id="suggested-content">
+        {{ hubSuggestedContent({ data: data.suggestedContent }) }}
+      </div>
+    </div>
   </div>
 {% endblock %}
