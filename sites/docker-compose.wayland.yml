@@ -41,7 +41,7 @@ services:
       - "MATOMO_URL=digital-hub.wli.dpn.gov.uk/matomo"
       - "FQDN=wli.dpn.gov.uk"
       - "NOMIS_API_TOKEN"
-      - "NOMIS_API_ENDPOINT=http://nomis-prod.wli.dpn.gov.uk"
+      - "NOMIS_API_ENDPOINT=https://nomis-prod.wli.dpn.gov.uk"
 
   nginx:
     image: nginx:latest
