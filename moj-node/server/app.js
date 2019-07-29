@@ -22,7 +22,7 @@ const createSearchRouter = require('./routes/search');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const establishmentToggle = require('./middleware/establishmentToggle');
-const { authMiddleware, createUserSession } = require('./middleware/auth');
+// const { authMiddleware, createUserSession } = require('./middleware/auth');
 
 const { getEstablishmentId } = require('./utils');
 
@@ -175,7 +175,7 @@ module.exports = function createApp({
   // Routing
 
   // Authentication
-  app.use(authMiddleware(), createUserSession({ offenderService }));
+  // app.use(authMiddleware(), createUserSession({ offenderService }));
 
   app.use(
     '/',

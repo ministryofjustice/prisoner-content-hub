@@ -25,10 +25,10 @@ module.exports.authMiddleware = (ntlm = expressNTLM) => {
     },
     domain: config.ldap.domain,
     domaincontroller: config.ldap.domainController,
-    unauthorized: (request, response, next) => {
-      logger.error('Failed to authenticate');
-      next();
-    },
+    // unauthorized: (request, response, next) => {
+    //   logger.error('Failed to authenticate');
+    //   next();
+    // },
   });
 };
 

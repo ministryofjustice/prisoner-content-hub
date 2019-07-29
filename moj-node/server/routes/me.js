@@ -1,5 +1,6 @@
 const express = require('express');
 const { format } = require('date-fns');
+const { authMiddleware, createUserSession } = require('../middleware/auth');
 
 module.exports = function createMeRouter({ logger, offenderService }) {
   const router = express.Router();
@@ -9,6 +10,8 @@ module.exports = function createMeRouter({ logger, offenderService }) {
     header: false,
     postscript: false,
   };
+
+  router.use(authMiddleware(), createUserSession({ offenderService }));
 
   router.get('/', async (req, res, next) => {
     logger.info('GET /me');
