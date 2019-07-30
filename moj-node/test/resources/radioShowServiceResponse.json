@@ -27,5 +27,21 @@
       }
     }
   ],
-  "tags": [{ "id": 0, "name": "foo" }, { "id": 1, "name": "bar" }]
+  "tags": [{ "id": 0, "name": "foo" }, { "id": 1, "name": "bar" }],
+  "suggestedContent": [
+    {
+      "id": 666,
+      "title": "Suggested content",
+      "summary": "Suggested summary",
+      "size": "small",
+      "type": "video",
+      "contentType": "video",
+      "image": {
+        "alt": "suggested image alt",
+        "url": "suggested image url"
+      },
+      "duration": "18:12",
+      "contentUrl": "/content/666"
+    }
+  ]
 }
