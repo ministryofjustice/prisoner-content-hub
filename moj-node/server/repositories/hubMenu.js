@@ -9,9 +9,10 @@ const waylandGAJMenu = require('../data/wayland-step-by-step.json');
 
 function hubMenuRepository(httpClient) {
   async function mainMenu() {
-    const response = await httpClient.get(config.api.hubMenu, {
+    const query = {
       _menu: 'main',
-    });
+    };
+    const response = await httpClient.get(config.api.hubMenu, { query });
     return parseMenuResponse(response);
   }
 
@@ -21,9 +22,10 @@ function hubMenuRepository(httpClient) {
   }
 
   async function seriesMenu() {
-    const response = await httpClient.get(config.api.hubMenu, {
+    const query = {
       _menu: 'series',
-    });
+    };
+    const response = await httpClient.get(config.api.hubMenu, { query });
     return parseMenuResponse(response);
   }
 
@@ -39,10 +41,11 @@ function hubMenuRepository(httpClient) {
   }
 
   async function categoryMenu({ categoryId, prisonId }) {
-    const response = await httpClient.get(config.api.categoryMenu, {
+    const query = {
       _category: categoryId,
       _prison: prisonId,
-    });
+    };
+    const response = await httpClient.get(config.api.categoryMenu, { query });
 
     return parseCategoryMenu(response, prisonId, categoryId);
   }
