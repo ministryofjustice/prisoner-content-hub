@@ -50,23 +50,26 @@ function allOk(...args) {
 }
 
 async function getDrupalHealth(client) {
-  const result = await client.get(config.api.hubHealth, {
-    _format: 'json',
-  });
+  const result = await client.get(config.api.hubHealth);
+  const isUp = R.pathEq(['db', 'status'], 'up');
 
   return {
-    drupal: R.prop('ok', result) ? 'UP' : 'DOWN',
+    drupal: isUp(result) ? 'UP' : 'DOWN',
   };
 }
 
 async function getMatomoHealth(client) {
   const result = await client.get(config.api.matomo, {
-    module: 'API',
-    method: 'API.getPiwikVersion',
-    token_auth: config.matomoToken,
+    query: {
+      module: 'API',
+      method: 'API.getPiwikVersion',
+      token_auth: config.matomoToken,
+    },
   });
 
+  const isUp = /<(result)>.+<\/\1>/g.test(result);
+
   return {
-    matomo: R.prop('ok', result) ? 'UP' : 'DOWN',
+    matomo: isUp ? 'UP' : 'DOWN',
   };
 }
