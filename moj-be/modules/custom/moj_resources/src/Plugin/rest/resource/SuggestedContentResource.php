@@ -174,7 +174,7 @@ class SuggestedContentResource extends ResourceBase
             return true;
         }
         throw new NotFoundHttpException(
-            t('The category parameter must be a numeric'),
+            t('The category parameter must be numeric'),
             null,
             404
         );
@@ -186,7 +186,7 @@ class SuggestedContentResource extends ResourceBase
             return true;
         }
         throw new NotFoundHttpException(
-            t('The number of results parameter must be a numeric'),
+            t('The number of results parameter must be numeric'),
             null,
             404
         );

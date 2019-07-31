@@ -69,7 +69,6 @@ class SuggestedContentApiClass
     $this->lang = $lang;
     $nodes = $this->getSuggestions($nid, $number, $prison);
     $content = array_map([$this, 'translateNode'], $nodes);
-
     return array_map([$this, 'decorateContent'], array_values($content));
   }
 
@@ -88,7 +87,7 @@ class SuggestedContentApiClass
   /**
    * Get the relevant matching items
    *
-   * @param int $nod
+   * @param int $nid
    * @param int $number
    * @param string $prison
    *
@@ -97,117 +96,147 @@ class SuggestedContentApiClass
   private function getSuggestions($nid, $number, $prison)
   {
     $node = $this->node_storage->load($nid);
-    $detailed_results = $this->combineSecondaryTagItems($node->field_moj_secondary_tags, $number, $prison);
+    $secondary_tag_ids = $this->getTagIds($node->field_moj_secondary_tags);
+
+    $detailed_results = $this->getSecondaryTagItemsFor(
+      $secondary_tag_ids,
+      $number,
+      $prison,
+      $nid
+    );
 
     if (count($detailed_results) < $number) {
-      $combined_primary_tag_items = $this->combinePrimaryTagItems($node->field_moj_categories, $number, $prison);
-      $detailed_results = array_merge($combined_primary_tag_items, $detailed_results);
+      $result_ids = array_keys($detailed_results);
+      array_push($result_ids, $nid);
+      $combined_secondary_tag_items = $this->getTagItemsFor($secondary_tag_ids, $number, $prison, $result_ids, false);
+      $detailed_results = array_merge($detailed_results, $combined_secondary_tag_items);
+    }
+
+    if (count($detailed_results) < $number) {
+      $primary_tag_ids = $this->getTagIds($node->field_moj_top_level_categories);
+
+      for ($i = 0; $i < count($detailed_results); $i++) {
+        array_push($result_ids, $detailed_results[$i]->nid->value);
+      }
+
+      $combined_primary_tag_items = $this->getTagItemsFor($primary_tag_ids, $number, $prison, $result_ids, $nid);
+      $detailed_results = array_merge($detailed_results, $combined_primary_tag_items);
     }
 
     return array_slice($detailed_results, 0, $number);
   }
 
   /**
-   * Get matching primary items and combine them into an array
+   * Get tags ids out of nodes
    *
-   * @param array $primary_tags
-   * @param int $number
-   *
-   * @return array
-   */
-  private function combinePrimaryTagItems($primary_tags, $number, $prison)
-  {
-    $detailed_results = [];
-    $number_primary_tags = count($primary_tags);
-
-    for ($i = 0; $i < $number_primary_tags; $i++) {
-      $primary_tag_data = $this->getTagItemsFor($primary_tags[$i]->target_id, $number, $prison);
-      $detailed_results = array_merge($primary_tag_data, $detailed_results);
-
-      if (count($detailed_results) >= $number) break;
-    }
-
-    return $detailed_results;
-  }
-
-  /**
-   * Get matching secondary items and combine them into an array
-   *
-   * @param array $primary_tags
-   * @param int $number
+   * @param array[nodes] $tags
    *
    * @return array
    */
-  private function combineSecondaryTagItems($secondary_tags, $number, $prison)
-  {
-    $detailed_results = [];
-    $number_secondary_tags = count($secondary_tags);
+  private function getTagIds($tags) {
+    $tag_ids = [];
+    $number_tags = count($tags);
 
-    for ($i = 0; $i < $number_secondary_tags; $i++) {
-      $secondary_tag_data = $this->getTagItemsFor($secondary_tags[$i]->target_id, $number, $prison, false);
-      $detailed_results = array_merge($secondary_tag_data, $detailed_results);
-
-      if (count($detailed_results) >= $number) break;
+    for ($i = 0; $i < $number_tags; $i++) {
+      array_push($tag_ids, $tags[$i]->target_id);
     }
 
-    return $detailed_results;
+    return $tag_ids;
   }
 
   /**
-   * Get matching primary or secondary items for a given id
+   * Get matching primary or secondary items for a given id, excluding the passed in ids
    *
    * @param int $id
    * @param int $number
    * @param string $prison
+   * @param array[int] $exclude_ids
    * @param boolean $primary
    *
    * @return array
    */
-  private function getTagItemsFor($id, $number, $prison, $primary = true)
+  private function getTagItemsFor($ids, $number, $prison, $exclude_ids, $primary = true)
   {
-    $berwyn_prison_id = 792;
-    $wayland_prison_id = 793;
-
-    $bundle = array('page', 'moj_pdf_item', 'moj_radio_item', 'moj_video_item',);
-    $results = $this->entity_query->get('node')
-      ->condition('status', 1)
-      ->condition('type', $bundle, 'IN')
-      ->accessCheck(false);
+    $results = $this->getInitialQuery($prison, $exclude_ids);
 
     if ($id !== 0) {
       if ($primary) {
-        $results->condition('field_moj_top_level_categories', $id);
+        $results->condition('field_moj_top_level_categories', $ids, 'IN');
       } else {
         $group = $results
           ->orConditionGroup()
-          ->condition('field_moj_tags', $id)
-          ->condition('field_moj_secondary_tags', $id);
+          ->condition('field_moj_secondary_tags', $ids, 'IN')
+          ->condition('field_moj_tags', $ids, 'IN');
 
         $results->condition($group);
       }
     }
 
-    if ($prison == $berwyn_prison_id) {
-      $berwyn = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $prison, '=')
-        ->notExists('field_moj_prisons');
-      $results->condition($berwyn);
-    }
-
-    if ($prison == $wayland_prison_id) {
-      $wayland = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $prison, '=')
-        ->notExists('field_moj_prisons');
-      $results->condition($wayland);
-    }
-
+    $results->sort('nid', 'DESC');
     $content_ids = $results->range(0, $number)->execute();
-
     $result = $this->loadNodesDetails($content_ids);
 
     return $result;
+  }
+
+  /**
+   * Get matching primary or secondary items for a given id
+   *
+   * @param array[int] $ids
+   * @param int $number
+   * @param string $prison
+   * @param int $currentId
+   *
+   * @return array
+   */
+  private function getSecondaryTagItemsFor($ids, $number, $prison, $currentId)
+  {
+    $results = $this->getInitialQuery($prison, [$currentId]);
+
+    if (count($ids) > 0) {
+      for ($i = 0; $i < count($ids); $i++) {
+          $results->condition("field_moj_secondary_tags.$i", $ids[$i]);
+      }
+    }
+
+    $results->sort('nid', 'DESC');
+    $content_ids = $results->range(0, $number)->execute();
+    $result = $this->loadNodesDetails($content_ids);
+
+    return $result;
+  }
+
+  /**
+   * Setup a query
+   *
+   * @param int $prison_id
+   * @param array[int] $exclude_ids
+   *
+   * @return array
+   */
+  private function getInitialQuery($prison_id = 0, $exclude_ids)
+  {
+    $prison_ids = [
+      'berwyn' => 792,
+      'wayland' => 793
+    ];
+
+    $bundle = array('page', 'moj_pdf_item', 'moj_radio_item', 'moj_video_item',);
+    $results = $this->entity_query->get('node')
+      ->condition('status', 1)
+      ->condition('type', $bundle, 'IN')
+      ->condition("nid", $exclude_ids, "NOT IN")
+      ->accessCheck(false);
+
+    if (in_array($prison_id, $prison_ids, true)) {
+      $prison_results = $results
+        ->orConditionGroup()
+        ->condition('field_moj_prisons', $prison_id, '=')
+        ->notExists('field_moj_prisons');
+      $results->condition($prison_results);
+    }
+
+    return $results;
   }
 
   /**
