@@ -30,6 +30,7 @@ describe('HealthService', () => {
         dependencies: {
           drupal: 'UP',
           matomo: 'UP',
+          elasticsearch: 'UP',
         },
       });
     });
@@ -55,6 +56,7 @@ describe('HealthService', () => {
         dependencies: {
           drupal: 'DOWN',
           matomo: 'UP',
+          elasticsearch: 'UP',
         },
       });
     });
@@ -74,6 +76,7 @@ describe('HealthService', () => {
         dependencies: {
           drupal: 'DOWN',
           matomo: 'DOWN',
+          elasticsearch: 'DOWN',
         },
       });
     });
