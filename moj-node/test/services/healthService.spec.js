@@ -24,12 +24,13 @@ describe('HealthService', () => {
       const service = createHealthService(client);
       const status = await service.status();
 
-      expect(client.get.callCount).to.equal(2);
+      expect(client.get.callCount).to.equal(3);
       expect(status).to.eql({
         status: 'UP',
         dependencies: {
           drupal: 'UP',
           matomo: 'UP',
+          elasticsearch: 'UP',
         },
       });
     });
@@ -41,20 +42,26 @@ describe('HealthService', () => {
         get: sinon
           .stub()
           .returns(null)
-          .onSecondCall().returns(`
+          .onSecondCall()
+          .returns(
+            `
             <?xml version="1.0" encoding="utf-8" ?>
             <result>3.10.0</result>
-          `),
+          `,
+          )
+          .onThirdCall()
+          .returns({ status: 'green' }),
       };
       const service = createHealthService(client);
       const status = await service.status();
 
-      expect(client.get.callCount).to.equal(2);
+      expect(client.get.callCount).to.equal(3);
       expect(status).to.eql({
         status: 'PARTIALLY_DEGRADED',
         dependencies: {
           drupal: 'DOWN',
           matomo: 'UP',
+          elasticsearch: 'UP',
         },
       });
     });
@@ -63,17 +70,24 @@ describe('HealthService', () => {
   context('when the all services are down', () => {
     it('returns status of the application', async () => {
       const client = {
-        get: sinon.stub().returns(null),
+        get: sinon
+          .stub()
+          .returns(null)
+          .onSecondCall()
+          .returns(null)
+          .onThirdCall()
+          .returns({ status: 'red' }),
       };
       const service = createHealthService(client);
       const status = await service.status();
 
-      expect(client.get.callCount).to.equal(2);
+      expect(client.get.callCount).to.equal(3);
       expect(status).to.eql({
         status: 'DOWN',
         dependencies: {
           drupal: 'DOWN',
           matomo: 'DOWN',
+          elasticsearch: 'DOWN',
         },
       });
     });

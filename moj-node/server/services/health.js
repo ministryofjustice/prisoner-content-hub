@@ -10,12 +10,18 @@ module.exports = function createHealthService(client) {
 
       const hubStatus = await getDrupalHealth(client);
       const matomoStatus = await getMatomoHealth(client);
+      const elasticSearchStatus = await getElasticSearchHealth(client);
 
       return {
-        status: allOk(hubStatus.drupal, matomoStatus.matomo),
+        status: allOk(
+          hubStatus.drupal,
+          matomoStatus.matomo,
+          elasticSearchStatus.elasticsearch,
+        ),
         dependencies: {
           ...hubStatus,
           ...matomoStatus,
+          ...elasticSearchStatus,
         },
       };
     } catch (exp) {
@@ -25,6 +31,7 @@ module.exports = function createHealthService(client) {
         dependencies: {
           drupal: 'DOWN',
           matomo: 'DOWN',
+          elasticsearch: 'DOWN',
         },
       };
     }
@@ -71,5 +78,13 @@ async function getMatomoHealth(client) {
 
   return {
     matomo: isUp ? 'UP' : 'DOWN',
+  };
+}
+
+async function getElasticSearchHealth(client) {
+  const result = await client.get(config.elasticsearch.health, {});
+
+  return {
+    elasticsearch: R.prop('status', result) !== 'red' ? 'UP' : 'DOWN',
   };
 }

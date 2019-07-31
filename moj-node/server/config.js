@@ -52,6 +52,7 @@ module.exports = {
     },
   },
   elasticsearch: {
+    health: `${elasticSearchEndpoint}/_cluster/health?pretty`,
     search: `${elasticSearchEndpoint}/elasticsearch_index_hubdb_content_index/_search`,
   },
   matomoToken: getEnv('MATOMO_TOKEN', 'faketoken'),
