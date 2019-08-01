@@ -24,6 +24,12 @@
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+function convertPageContentFor(s) {
+  const specialCharacters = /[']/g;
+  const withHtmlEntity = m => `&#${m.charCodeAt(0)};`;
+  return s.replace(specialCharacters, withHtmlEntity);
+}
+
 Cypress.Commands.add('openLinkOrPDF', $ref => {
   const title = $ref.find('[data-featured-title]').attr('data-featured-title');
   const url = $ref.attr('href');
@@ -39,6 +45,9 @@ Cypress.Commands.add('openLinkOrPDF', $ref => {
   } else {
     cy.request(url)
       .its('body')
-      .should('match', new RegExp(`<h1 .+>${title}</h1>`));
+      .should(
+        'match',
+        new RegExp(`<h1 .+>${convertPageContentFor(title)}</h1>`),
+      );
   }
 });
