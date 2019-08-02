@@ -1,30 +1,47 @@
-Digital Hub backend
-===================
+# Digital Hub Backend
 
-This is the digital hub backend that uses Drupal
+The backend CMS for the Digital Hub service using Drupal
 
-Makefile
---------
+## Getting started
 
-To build the container
+### Prerequisites
 
-    make build
+    Composer
+    Docker
 
-To clean up the repo
+### Install dependencies
 
-    make clean
+    composer clear-cache && \
+    composer install --no-dev --no-ansi --no-scripts --prefer-dist --ignore-platform-reqs --no-interaction --no-autoloader
 
-Docker
-------
+### Running the application
 
-To run the Hub backend run the following
+Being a PHP/Drupal application, there is a requirement for Apache to be set up and configured.
+The simplest way of setting up the application for development is using Docker-Compose and the provided overrides to mount a volume on the host machine
 
-    docker run --name hub-be moj-hub-be
+### Custom Modules
 
-To run the Hub database run the following
+The application is built using Docker, using a Drupal base image.
 
-    docker run --name hub-db -v /path/of/dump:/docker-entrypoint-initdb.d -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=hubdb -d mariadb
+All custom code specific to the Digital Hub project is implemented as Drupal modules, these are located in
 
-Change password to something useful.
+    ./modules/custom
 
-Change /path/of/dump to a full path where you have the development database dump
+## Restoring a database dump
+
+### Prerequisites
+    Docker
+
+### Apply dump to hub_db in Docker
+
+    docker exec -i hub-db mysql -u <DB_USER> --password=<DB_PASS> hubdb < ~/path/to/dump.sql
+
+### Apply dump to hub_db in Kubernetes
+
+    kubectl exec -it <POD_ID> -c mysql -- mysql -u <DB_USER> --password=<DB_PASS> < cat ~/path/to/dump.sql
+
+### Character encoding
+
+You can manually specify the encoding type when importing
+
+    --default-character-set=<ENC_TYPE>

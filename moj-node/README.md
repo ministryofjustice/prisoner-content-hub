@@ -1,48 +1,31 @@
-# Hub node app
+# Digital Hub Frontend
 
-A simple starter kit to start writing node app with the gov uk front end toolkit.
+The frontend for the Digital Hub service using Node
 
 ## Getting started
 
-Install dependencies using `yarn install` ensure you are using >= `Node v8.4.0`
+### Prerequisites
 
-Ensure you have a `.env` file containing all default env variables
+    Node >= v10.15.3
 
-`cp .env-template .env`
+### Install dependencies
 
-**Starting the app**
+    npm install
 
-### Build assets
+### Running the application
 
-`yarn build`
+Create a `.env` file using the provided template
 
-### Start the app.
+    cp .env-template .env
 
-Ensure you build assets first
+The `.env` can then be configured to point to local or remote backend services as required and toggle application features
 
-`yarn start`
+### Running tests
 
-### Runing the app in dev mode\*\*
+Mocha and Chai are used for unit and integration tests
 
-`yarn start:dev`
+    npm run test
 
-### Run linter
+Cypress is used for E2E testing
 
-`yarn lint`
-
-### Run tests
-
-`yarn test`
-
-## Gotchas
-
-If you get this error when starting the app:
-`Cannot find module './build/Release/DTraceProviderBindings'`
-
-See for more details:
-
-https://stackoverflow.com/questions/37550100/cannot-find-module-dtrace-provider
-
-Run
-
-`npm rebuild dtrace-provider`
+    npm run test:e2e:dev
