@@ -4,28 +4,28 @@
 
 ### Requirements
 
-- Docker
-- Make
+    Docker
+    Make
 
 ### Pull dependencies
 
-`MATOMO_ACCESS_TOKEN={{ACCESS TOKEN}} make build-deps`
+    MATOMO_ACCESS_TOKEN={{ACCESS TOKEN}} make build-deps
 
 ### Build image
 
-`make build`
+    make build
 
 ### Clean workspace
 
-`make clean`
+    make clean
 
 ### Enable Plugins
 
 Get the Docker container ID for Matomo
 
-`docker ps`
+    docker ps
 
 To run the enable-plugins script
 (Note. this step requires that the manual Matomo setup to have been completed)
 
-`docker exec {{CONTAINER_ID}} /enable-plugins.sh`
+    docker exec {{CONTAINER_ID}} /enable-plugins.sh
