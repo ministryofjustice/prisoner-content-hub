@@ -41,18 +41,19 @@
       <label id="more-detail" class="govuk-hint">
         <strong>Is there anything else you want to tell us about it?</strong>
       </label>
-      <p class="govuk-body govuk-hub-text">We can only act on comments about this content. All feedback is anonymous.</p>
+      <p class="govuk-body govuk-hub-text">Feedback is treated anonymously, unless it breaks prison rules or raises safety concerns.</p>
       <textarea data-item-comment-box class="govuk-textarea govuk-!-margin-bottom-0 govuk-!-padding-2" id="more-detail" name="value" rows="4" placeholder="Optional" maxlength="240" required></textarea>
     </div>
     <div class="govuk-hub-comment-form__footer">
-      <div class="govuk-hub-comment-counter"><span data-item-counter>240</span> characters left</div>
+      <div class="govuk-hub-comment-counter">
+        <span data-item-counter>240</span> characters left</div>
       <button type="submit" class="govuk-button">Send</button>
     </div>
   </form>
 </div>
 <script defer src="/public/javascript/feedback-tracking.js"></script>
 <script>
-  window.addEventListener('DOMContentLoaded', function() {
+  window.addEventListener('DOMContentLoaded', function () {
     feedbackTracker(document.getElementById('feedback-widget'));
   });
 </script>
