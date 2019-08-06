@@ -119,7 +119,6 @@ jobs:
             MATOMO_API_URI="http://hub-matomo" \
             ENABLE_PRISON_SWITCH="true" \
             HUB_API_ENDPOINT="https://drupal.digital-hub-stage.hmpps.dsd.io" \
-            DRUPAL_APP_URI="https://drupal.digital-hub-stage.hmpps.dsd.io" \
             ELASTICSEARCH_ENDPOINT="UNSET" \
             npm run test:e2e:run
       - store_artifacts:

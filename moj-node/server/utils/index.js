@@ -32,25 +32,20 @@ const capitalize = (str = '') => {
     .join('');
 };
 
-function replaceURLWithDefinedEndpoint(
-  url = '',
-  alternateUrl = config.hubEndpoint,
-) {
+function relativeUrlFrom(url = '') {
   const urlSchemeAndAuthorityRegex = /^https?:\/\/[^/]+/;
-  const updatedUrl = url.replace(urlSchemeAndAuthorityRegex, alternateUrl);
-
-  return updatedUrl;
+  return url.replace(urlSchemeAndAuthorityRegex, '');
 }
 
-function fixUrlForProduction(url, alternateUrl = config.hubEndpoint) {
+function fixUrlForProduction(url) {
   if (config.production) {
-    return replaceURLWithDefinedEndpoint(url, alternateUrl);
+    return relativeUrlFrom(url);
   }
   return url;
 }
 
 module.exports = {
-  replaceURLWithDefinedEndpoint,
+  relativeUrlFrom,
   fixUrlForProduction,
   getEstablishmentId,
   getEstablishmentName,
