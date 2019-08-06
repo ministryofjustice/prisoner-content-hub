@@ -33,7 +33,7 @@ $search-width: 600px;
 }
 
 .govuk-search-section-break--visible {
-  border-bottom: 10px solid #005ea5;
+  border-bottom: 10px solid govuk-colour('blue');
 }
 
 @media print {
@@ -55,7 +55,7 @@ $search-width: 600px;
   }
 }
 .govuk-search-input:focus {
-  outline: 3px solid #ffbf47;
+  outline: 3px solid govuk-colour('yellow');
   outline-offset: -3px;
 }
 

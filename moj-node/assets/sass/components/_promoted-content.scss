@@ -6,7 +6,7 @@ $gradient: $trans, $seventyFivePercentBlack;
 .govuk-hub-promoted-content-link-wrapper {
   display: block;
   padding: 20px;
-  background: govuk-colour('grey-3');
+  background: govuk-colour('light-grey');
 }
 
 .govuk-hub-promoted-content {
@@ -95,7 +95,7 @@ $gradient: $trans, $seventyFivePercentBlack;
 
   h2 {
     text-decoration: none;
-    color: #005ea5;
+    color: govuk-colour('blue');
   }
 
   p {
@@ -106,7 +106,7 @@ $gradient: $trans, $seventyFivePercentBlack;
   span {
     padding-top: govuk-spacing(4);
     text-decoration: none;
-    color: #005ea5;
+    color: govuk-colour('blue');
     font-weight: bold;
   }
 }
