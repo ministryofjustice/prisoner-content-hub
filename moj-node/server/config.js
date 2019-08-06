@@ -1,7 +1,6 @@
 const { getEnv, isProduction, isTest } = require('../utils/index');
 
 const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
-const drupalAppUrl = getEnv('DRUPAL_APP_URI', { requireInProduction: true });
 const matomoUrl = getEnv('MATOMO_URL', { requireInProduction: true });
 const matomoEndpoint = getEnv('MATOMO_API_URI', { requireInProduction: true });
 const nomisEndpoint = getEnv('NOMIS_API_ENDPOINT', 'https://api.nomis', {
@@ -28,7 +27,6 @@ module.exports = {
   cookieSecret: getEnv('COOKIE_SECRET', 'keyboard cat'),
   establishmentName: getEnv('ESTABLISHMENT_NAME', 'berwyn'),
   hubEndpoint,
-  drupalAppUrl,
   ldap: {
     domain: getEnv('FQDN', 'MYDOMAIN'),
     domainController: `ldap://${getEnv('FQDN', 'myad.example')}`,

@@ -6,7 +6,7 @@ services:
       HUB_DB_ENV_MYSQL_DATABASE: hubdb
       HUB_DB_ENV_MYSQL_USER: hubdb_user_2y478gt
       HUB_DB_PORT_3306_TCP_ADDR: hub-db
-      HUB_EXT_FILE_URL: http://digital-hub.bwi.dpn.gov.uk:11001/sites/default/files
+      HUB_EXT_FILE_URL: https://digital-hub.bwi.dpn.gov.uk/sites/default/files
       PHP_MEMORY_LIMIT: 256M
       PHP_UPLOAD_MAX_FILE_SIZE: 500M
       PHP_POST_MAX_SIZE: 500M
@@ -36,8 +36,7 @@ services:
       - "APP_NAME=HMP Berwyn"
       - "ESTABLISHMENT_NAME=berwyn"
       - "MATOMO_TOKEN"
-      - "NODE_ENV=production"
-      - "DRUPAL_APP_URI= "
+      - "NODE_ENV=production"      
       - "MATOMO_API_URI=http://hub-matomo"
       - "MATOMO_URL=digital-hub.bwi.dpn.gov.uk/matomo"
       - "FQDN=bwi.dpn.gov.uk"

@@ -1,6 +1,5 @@
 const R = require('ramda');
 
-const config = require('../config');
 const { HUB_CONTENT_TYPES } = require('../constants/hub');
 const { fixUrlForProduction } = require('./index');
 
@@ -28,7 +27,7 @@ const defaultAlt = type => {
 function imageFor(image) {
   return image
     ? {
-        url: fixUrlForProduction(image.url, config.drupalAppUrl),
+        url: fixUrlForProduction(image.url),
         alt: image.alt,
       }
     : null;
@@ -37,7 +36,7 @@ function imageFor(image) {
 function imageOrDefaultFor(image, contentType) {
   return image
     ? {
-        url: fixUrlForProduction(image.url, config.drupalAppUrl),
+        url: fixUrlForProduction(image.url),
         alt: image.alt,
       }
     : {
@@ -89,10 +88,7 @@ function mediaResponseFrom(data) {
       sanitized: R.path(['description', 'processed'], data),
       summary: R.path(['description', 'summary'], data),
     },
-    media: fixUrlForProduction(
-      R.path(['media', 'url'], data),
-      config.drupalAppUrl,
-    ),
+    media: fixUrlForProduction(R.path(['media', 'url'], data)),
     duration: data.duration,
     image: imageOrDefaultFor(data.image),
     episode: data.episode,
@@ -133,16 +129,10 @@ function termResponseFrom(data) {
     },
     image: imageFor(data.image),
     video: {
-      url: fixUrlForProduction(
-        R.path(['video', 'url'], data),
-        config.drupalAppUrl,
-      ),
+      url: fixUrlForProduction(R.path(['video', 'url'], data)),
     },
     audio: {
-      url: fixUrlForProduction(
-        R.path(['audio', 'url'], data),
-        config.drupalAppUrl,
-      ),
+      url: fixUrlForProduction(R.path(['audio', 'url'], data)),
       programmeCode: data.programme_code,
     },
   };

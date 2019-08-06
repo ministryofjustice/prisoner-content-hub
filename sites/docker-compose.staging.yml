@@ -27,8 +27,7 @@ services:
     restart: "always"
     environment:
       - "APP_NAME='HMP Staging'"
-      - "NODE_ENV=production"
-      - "DRUPAL_APP_URI=https://drupal.digital-hub-stage.hmpps.dsd.io"
+      - "NODE_ENV=production"      
       - "MATOMO_URL=foo.bar"
       - "MATOMO_TOKEN=foobar"
       - "MATOMO_API_URI=http://hub-matomo"
