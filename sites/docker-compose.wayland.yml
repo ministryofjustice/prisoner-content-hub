@@ -36,7 +36,7 @@ services:
       - "ESTABLISHMENT_NAME=wayland"
       - "MATOMO_TOKEN"
       - "NODE_ENV=production"
-      - "DRUPAL_APP_URI=https://digital-hub.wli.dpn.gov.uk"
+      - "DRUPAL_APP_URI= "
       - "MATOMO_API_URI=http://hub-matomo"
       - "MATOMO_URL=digital-hub.wli.dpn.gov.uk/matomo"
       - "FQDN=wli.dpn.gov.uk"
