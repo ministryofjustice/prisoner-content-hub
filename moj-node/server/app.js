@@ -44,7 +44,6 @@ module.exports = function createApp({
 
   const appViews = [
     path.join(__dirname, '../node_modules/govuk-frontend/'),
-    path.join(__dirname, '../node_modules/govuk-frontend/components'),
     path.join(__dirname, '/views/'),
   ];
 
@@ -125,7 +124,7 @@ module.exports = function createApp({
     '../assets/stylesheets',
     '../node_modules/govuk_template_jinja/assets',
     '../node_modules/govuk_frontend_toolkit',
-    '../node_modules/govuk-frontend/',
+    '../node_modules/govuk-frontend/govuk/',
     '../node_modules/jplayer/dist',
     '../node_modules/jquery/dist',
     '../node_modules/mustache',
@@ -136,7 +135,7 @@ module.exports = function createApp({
   app.use(
     '/assets',
     express.static(
-      path.join(__dirname, '../node_modules/govuk-frontend/assets'),
+      path.join(__dirname, '../node_modules/govuk-frontend/govuk/assets'),
       cacheControl,
     ),
   );

@@ -105,7 +105,7 @@
 
   li {
     left: 0;
-    color: #005ea5;
+    color: govuk-colour('blue');
     font-weight: 600;
     display: inline-block;
     padding: 20px 40px 0px 0px;
@@ -123,7 +123,7 @@
 }
 
 .govuk-hub-main_navigation_banner {
-  border-bottom: #bfc1c3 solid 1px;
+  border-bottom: govuk-colour('mid-grey') solid 1px;
   margin-bottom: 30px;
 }
 
@@ -131,7 +131,7 @@
   position: relative;
 
   .govuk-link:hover {
-    color: #005ea5;
+    color: govuk-colour('blue');
   }
 }
 
@@ -141,5 +141,5 @@
   position: absolute;
   width: 65%;
   height: 10px;
-  background-color: #005ea5;
+  background-color: govuk-colour('blue');
 }

@@ -10,7 +10,6 @@ function setupBasicApp() {
 
   const appViews = [
     path.join(__dirname, '../node_modules/govuk-frontend/'),
-    path.join(__dirname, '../node_modules/govuk-frontend/components'),
     path.join(__dirname, '../server/views/'),
   ];
 
