@@ -56,7 +56,7 @@ $search-width: 600px;
 }
 .govuk-search-input:focus {
   outline: 3px solid govuk-colour('yellow');
-  outline-offset: -3px;
+  outline-offset: 0px;
 }
 
 .search-button {

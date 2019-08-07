@@ -69,6 +69,11 @@ $pathPLAY: './../images/preimg.png';
       background: url($pathPLAY) no-repeat center center;
       opacity: 1;
       background-color: rgba(0, 0, 0, 0.4);
+
+      &:focus {
+        outline-color: govuk-colour('yellow');
+        opacity: 1;
+      }
     }
   }
 
@@ -95,6 +100,11 @@ $pathPLAY: './../images/preimg.png';
         height: 40px;
         background: url($pathIMG) no-repeat 0 1px;
         opacity: 0.8;
+
+        &:focus {
+          outline-color: govuk-colour('yellow');
+          opacity: 1;
+        }
 
         &:hover {
           opacity: 1;
@@ -240,6 +250,10 @@ $pathPLAY: './../images/preimg.png';
         opacity: 0.4;
         top: -5px;
         right: 0;
+        &:focus {
+          outline-color: govuk-colour('yellow');
+          opacity: 1;
+        }
 
         &:hover {
           opacity: 0.8;

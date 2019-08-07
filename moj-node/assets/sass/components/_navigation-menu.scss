@@ -74,6 +74,11 @@
     color: govuk-colour('black');
     text-transform: uppercase;
     font-weight: bold;
+
+    &:focus {
+      background: govuk-colour('yellow');
+      outline: none;
+    }
   }
 }
 

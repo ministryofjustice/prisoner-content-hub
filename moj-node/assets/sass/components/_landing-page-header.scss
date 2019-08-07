@@ -92,4 +92,8 @@
   bottom: 24px;
   opacity: 0.9;
   background-color: rgba(0, 0, 0, 0.7);
+
+  &:focus {
+    outline-color: govuk-colour('yellow');
+  }
 }
