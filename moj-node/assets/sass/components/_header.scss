@@ -167,3 +167,8 @@
   display: inline-block;
   font-size: 1rem;
 }
+
+.govuk-hub-header__link--homepage:focus {
+  outline: govuk-colour('yellow');
+  outline-style: solid;
+}

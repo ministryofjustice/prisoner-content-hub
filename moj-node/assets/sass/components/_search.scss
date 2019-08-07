@@ -68,12 +68,20 @@ $search-width: 600px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: 37px;
-  height: 58px;
+  height: 60px;
   width: 60px;
   text-indent: -9999px;
+  box-shadow: none;
   &:hover {
     background-color: $govuk-link-hover-colour;
   }
+  &:focus {
+    background-image: url('/public/images/icons/search-black.svg');
+  }
+}
+
+.search-button.govuk-button:focus:not(:active):not(:hover) {
+  box-shadow: none;
 }
 
 .search-box {

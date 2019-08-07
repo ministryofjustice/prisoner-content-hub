@@ -29,12 +29,17 @@
   line-height: 0.7em;
   color: govuk-colour('white');
 
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &:link,
+  &:hover,
   &:visited {
     color: govuk-colour('white');
   }
 
-  &:focus,
-  &:hover {
+  &:focus {
     color: govuk-colour('black');
   }
 }
