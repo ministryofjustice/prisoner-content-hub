@@ -97,11 +97,6 @@ module.exports = function createApp({
         debug: true,
         outputStyle: 'compressed',
         prefix: '/stylesheets/',
-        includePaths: [
-          'node_modules/govuk_frontend_toolkit/stylesheets',
-          'node_modules/govuk_template_jinja/assets/stylesheets',
-          'node_modules/govuk-elements-sass/public/sass',
-        ],
       }),
     );
   }
@@ -122,8 +117,6 @@ module.exports = function createApp({
     '../public',
     '../assets',
     '../assets/stylesheets',
-    '../node_modules/govuk_template_jinja/assets',
-    '../node_modules/govuk_frontend_toolkit',
     '../node_modules/govuk-frontend/govuk/',
     '../node_modules/jplayer/dist',
     '../node_modules/jquery/dist',
@@ -139,13 +132,6 @@ module.exports = function createApp({
       cacheControl,
     ),
   );
-
-  ['../node_modules/govuk_frontend_toolkit/images'].forEach(dir => {
-    app.use(
-      '/public/images/icons',
-      express.static(path.join(__dirname, dir), cacheControl),
-    );
-  });
 
   // GovUK Template Configuration
   app.locals.asset_path = '/public/';
