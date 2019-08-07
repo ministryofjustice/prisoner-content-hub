@@ -48,31 +48,12 @@ studio_users:
     shell: /bin/bash
     update_password: on_create
 
-  - username: ttaylor
-    name: "Tim Taylor"
-    groups:
-      - studio
-    ssh_key:
-      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKLN/MPbQzMjzpk5eS84NTeMStzHkW9mJenCdegCvsCt timt@Dellothy"
-    shell: /bin/bash
-    update_password: on_create
-
   - username: gemmabarnes
     name: "Gemma Barnes"
     groups:
       - studio
     ssh_key:
       - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCjLMKpXd1dxtLP98o24RGYMJONySsUQMr6D+I/8+5z4qjfw6ozlFJmKqzpOGQQp/q7SUfVMzjk7zp3lT547XhqHGDSBSXGbkUdlAiPvb2CEnV170ydprGy/CR6M4d1VAnkEhy8LgHDRJElJjDGqRRUpI5GkF4ELaVs4WUOfTXRokvotFZpRLYAb5Rt5eKxJ6EI9uNPexsNYBFMNIbL8YKSrIA9TkRjIV7XzSYyfn5+og37m8IfoNMwerr1xTZnH5thxSe189ycWWed0uRCZk1fPU1sqe/XWjYHTgWhbMQaYSSD7QnXvmc6aybbueL6gxfbanjK6PpJY7U+9AKJszu6MK8m1W5aXKLdGkVHymUJ7KOSfgpkHXBgJ9tCVf8S5OHeFF3PYVseNXYTgLRLjjaJYyUL/R+JcK7BJT5y8q0SSa/Tt+31D/Vsl+CmrkcmfK3/td+m8HgjbxOH3XeaL8J7xKj3APzIcdadZ0JUApJHZ4dkyw2coeIz0iTJ/YN2h1L6PZ+mjLdQlbz99ZkjOr4DtHCIsCIge76a6Lvy/z2pQHgcSEdezwH+26p7rCXt2aiF/GXzuQVagDOhbp865r/y9B4zja30q3m7julQ/0BGXdB5omzBceSyQJrLO/ScsMa4+Yo6nL4fBHJwEwKWLFHY7eaxDyk21w8/r2k39dexJw== gemmab83@gmail.com"
-    shell: /bin/bash
-    update_password: on_create
-
-  - username: zedali
-    name: "Zed Ali"
-    groups:
-      - studio
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QCWpJ4ezIHuS69wHkNyXB12vhzwmLXEHnKvQHcY9zR95oBxfbpLRIyx1xzJyDkiwCFi7IdktnheX88fUfsE2g4pEBRVwbFYIbJhumCkHcR6md1PdGRnidFrBbBvnpli6ADy4enrJJ0U3D0ul9nZoA6YRAMnpHIoB3hsS1l5cziJjdkZDc3weA3oY6OmWRgve/JXniq2ow26w7j/3rHkrp0tnCvz++Ry3IRngvLrb/2xaM7Zv79bE7nxNSYgWNFwQIuqtWtlwhn7cDEysdn76ETIpcgR8K9Re6LCyP6dda2cG8o0m8cN7VbksOIS6rKo1ZVOdz4ESuV0mi0U39h9/Ov18YMe0R9OUZoV2INpTe3V2u6zDeNHLm3/6azyoDJQsK8vczI/MNLdCZlW+NFQDcXtRac3MqazpdfFBGklAmim3x52o4cs8Sda1r2kCVbIsFLW2tfDNHCMhNmdR5Y+tAYLicBh/OS5iOUSf+0Mk6KbzHIZmQLWnK2zIm4qvsHvB6JvCjYVrwWEKXFpSoxZEssriZf4K5e5ghX+NhGsKRMe4oVLZ0wAM3Ctd7G5uZNd8D1DhURSpSEAjgTa0MzS315s+rsgS1rvm4qulcvtvlMQ/PO+Jf5rB0OvZ2lUsSqS2hPpDfTLqbMfAMwrzKUE/GjFH9JvmQ== Z@Zs-iMac.local
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtPG2aFQfVgJfPf3WMcV25ETQt11420Nco5TmTLhxYvjf23QHaPV2T4h3MOAKFin8vqt0rsbjQc1jydrpEFuSp9N/p+d66AGQxfx5//HZAW4GxTB1vhBBHQpxwtJLmmRlY/reTVK5YIv3KF3MXOqOONhhtDC/dMO9E7FsKbCQ9He6uSojULo9I7ADRvRX+i1BO1qsueUmteWfcLr2ddhbMHQBa6Ro5L4L/r0pOx6xAkLmuSi9KVJAwRZWyIiHxUzbLTAe0PxCMaAyc4nynbLks5TsHU6RafPM6gWUg8i5M6I029QXWIMlohdShmbkNgkkkcVP69HRNB3YqLR7p27IzWMFLBN7ak23CJUtsOQdNN/o3xtfPIGgacYz8JRquTUDflLHb+yO2vV6IzUHadc3ZlKdAs23Fb3S93iCdrZpnHyR47eGHJhgQPCFXzCTgC+u1qtIw8ieyWVyilfSV9z2vbzZ4eAYOeDzQjGxil0z+5GXHPR/Zq94c2iwvAsZ0ATZl2mrKVPMhOb4KxYPhXJk575+lzls6bW/D92SyYt7EF7gxkEsfo4WjECVZzR15FK71uG5PljqyXfdxqHvPbrNi2byB/KF+0l/bca6F76ShGdgKfm1ugqw== zali@z-2.local"
     shell: /bin/bash
     update_password: on_create
 
@@ -113,15 +94,6 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
-  - username: catrinaknight
-    name: "Catrina Knight"
-    groups:
-      - studio
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDdcXgHUv94gV6yWWHKC8i8b5LJ0KGhP3AwQswQKu0Cbkz/mmSFzibPElDGF/sMuJtm1CKLb8ffRT1L+52Uft+vaDaMCcu9Eq/QpnDVcWXSoJ4lqliLr/fQ8z8AaRA8aPK9L5Kcz+L8QQync2RCpgA8SQm6PiRP8upuAp15FB+pEyjWOsdxk1Xhpo2Q75otBsh300bVolZSBxHWgKeGp2yHRY8wfMBgZ45O1A7RcBBXnDnWkbI+1qnl0l/yAFUFZ9+MfZOlCE3/pl3wgG9IVQT+MDLuUMWieHtMGr2RY0zxh/H8WyKmg9K+SPhFvo1HuXmUAvhQ3Z1L8pYDnNm4ulcnO8c+F6W13rw3IfD11aPrMdqeEp2S/3Gl3dRtVHHmfjGBuX74xm/k8++1WgH6cUCnpV4kES44ikId6+AqKIPlc318Xv3DowOdBK8TW/F51/Y9NPEwPvz9uvD+XjgOb0JPT3fHpTFGtNMq1xP/z/UaFN8i6C1F4sacOWuDao/22214IMip76FO6R7iq/TFb/ra8vMJp00fY9RAYaTDvQqLOTURhPiZ2rxmJKs03KkEVtYoGwa1mltbfw0WAwSYc0C77vxWIZVH+QtSHe8mPQHoD74kKKm2gDQhsIfXxJeIUpq5MGrqHNiNotf32B+XmLMyfrDbsqylS+YMC98hM/fewQ== catrina.knight@digital.justice.gov.uk"
-    shell: /bin/bash
-    update_password: on_create
-
   - username: chrisrichardson
     name: "Christopher Richardson"
     groups:
@@ -149,15 +121,6 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
-  - username: naomiturner
-    name: "Naomi Turner"
-    groups:
-      - studio
-    ssh_key:
-      - "ssh-rsa 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 naomiturner@Naomis-MacBook-Air.local"
-    shell: /bin/bash
-    update_password: on_create
-
   - username: davidthomas
     name: "David Thomas"
     groups:
@@ -177,16 +140,6 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
       - admin
     ssh_key:
       - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDCKESEcZSsl5oHiiby8dHKl8YhErSXy7Q5FTjWsrpa0w3xi2jsGvASrbNpGCytXz9Dkz270mJ0mZO99q3HI9zRfjYc01CZ45785JVxKAPG7FdayrxQ4CxGgCCJ/WE8574k2zvUZN1XIe8MSgOO+Y7MfFvuSVMMQXBKQzmxJjj4V5pAQazajckjrlxJpAeTaugRSqd8WRE5qVhgOZp1W0uuUbMvZbp07z3crevAvMAf4vFsKd1Aol7nwWjXIxf2nmdMLqDXBMOe26Oh704HiZdGQX/VtujxSwd9tdBLr38SvOyjp7r6nuueFux7Z86pC2E2hQOlx9vUTT+qKz9mIJFJGOj1o0rkGiB3qNCMG4GTUlme0Tt9gUFJyT3QcQyEr7tooyPe1Nrz98+TtJkt4dTokBp6ZFNYgpt7JBGNSP7vpSs978xSISZUWCVG96oD0DXFlgD9dzFlWIZ1r+fEdJz3zlEjI4Nq6RPv+YagCaoIdEcAGWRS/izKw51Eii+SVh+pf2mgH7NIWYVKHuxZut19NsNcwcGPTlD3k0RimeWYWxQdcTmsOVl3XtSy7+MTGnmBXCBvKK6QP0eZWosTXeoqyG3uB8WOOV5+MXennEaxBBKxM/nLVidz6Iz66/TXCqh4X25oJ96DUoxjnBlppsfsPNv17RVkhy6lyFzOFO1xJQ== lucas.cairns@gmail.com"
-    shell: /bin/bash
-    update_password: on_create
-
-  - username: stevenbapaga
-    name: "Steven Bapaga"
-    groups:
-      - studio
-      - admin
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBOxbHBE43Vu8NOZjFE9HBcTpaMCK3obUZQGgogyFNxIAIyO/2VnQKZeBx9UHRQnzWj+y8k/fiPyXnB+uptKDyyUN9Q0VeSSIBlgTVdO181WYO0yGKy2dLV6I88SalEbLuM1Gcr/Ws1fMMR0MA5Rl1pXwJgPAoExkhx7eNa/EDBIdYtO/uRD/D3H5LVQOTxrumid1J6t2MvCTosVtRwpO/XflT0IAiFSgIktIdqpslfEGLbFXTi8lPu9cVnqwLk11Zwbpwp/Buum5xWexkyHx+Gz4jtTwLjlVb1mM89kHYBvEuRJU5i8nlVve6g4RUmT3avr1cJ7vPqTb2nuEMk1tl sbapaga@gmail.com"
     shell: /bin/bash
     update_password: on_create
 
@@ -255,20 +208,17 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB9QC8oPp3Md4fgcFo6Wj9xB6MqyhnCbbIBSbNykBeyFtP
     shell: /bin/bash
     update_password: on_create
 
-  - username: okeyobioha
-    name: "Okey Obioha"
-    groups:
-      - studio
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCjm34IlUlBR1qgbQD5pPqOY2i0ceLcQqp42FxifFMPfO5k6+BZLp/o7ytH2cECHP967/7XAqs8/pYPt69wZy/c8RnQWdjOVhZWTqv5p5GcQvVPY/ck4nQqvOOYfouTo86rxPIebWeG54I2sNlskKVy2Z61b41C78Gl9iAtkMZ9hSxDQOOS8era8S7loE3QmMXP0Be5ewtJY0UlIHaYEupGnaDtltVnVPD4ZYZKGdS4LuYeIlgGRg5xRl4/dixhJnhvdWr3EEQ9YofHMFRMfmZqIp+vY09e3KvA70eHIHddFrA5DieELQnfWLFy4wiJbGdUUK5LQcGJ8cagdZ5hnZ07 mcobi@DESKTOP-5D3M8R7"
-    shell: /bin/bash
-    update_password: on_create
-
 users: "{{ studio_users }}"
 
 users_deleted:
   - username: georgesadathian
   - username: ajasinski
+  - username: okeyobioha
+  - username: stevenbapaga
+  - username: naomiturner
+  - username: catrinaknight
+  - username: zedali
+  - username: ttaylor
 
 nginx_extra_http_options: |
   ##
