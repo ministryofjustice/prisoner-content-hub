@@ -43,6 +43,10 @@ $center-big-play-button: true; // true default
   .webPlayer .playerScreen .video-play {
     bottom: 0;
     background-position: center;
+
+    &:focus {
+      outline-color: govuk-colour('yellow');
+    }
   }
 
   .webPlayer .controls {

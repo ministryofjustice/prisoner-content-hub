@@ -21,12 +21,14 @@
 .govuk-hub-media-player__catgeory-link {
   &:link,
   &:visited,
-  &:active,
-  &:focus {
+  &:active {
     color: govuk-colour('white');
   }
   &:hover {
     color: govuk-colour('white');
+  }
+  &:focus {
+    color: govuk-colour('black');
   }
 }
 
