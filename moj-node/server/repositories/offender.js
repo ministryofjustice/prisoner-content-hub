@@ -1,3 +1,4 @@
+const { format } = require('date-fns');
 const config = require('../config');
 
 function offenderRepository(httpClient) {
@@ -35,6 +36,15 @@ function offenderRepository(httpClient) {
     );
   }
 
+  function getRemainingVisitsFor(bookingId) {
+    return httpClient.get(
+      `${config.nomis.api.bookings}/${bookingId}/visits?fromDate=${format(
+        new Date(),
+        'YYYY-MM-DD',
+      )}`,
+    );
+  }
+
   function sentenceDetailsFor(bookingId) {
     return httpClient.get(
       `${config.nomis.api.bookings}/${bookingId}/sentenceDetail`,
@@ -54,6 +64,7 @@ function offenderRepository(httpClient) {
     getKeyWorkerFor,
     getNextVisitFor,
     getLastVisitFor,
+    getRemainingVisitsFor,
     sentenceDetailsFor,
     getEventsForToday,
   };

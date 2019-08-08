@@ -117,10 +117,12 @@ module.exports = function createOffenderService(repository) {
   async function getVisitsFor(bookingId) {
     const lastVisit = await repository.getLastVisitFor(bookingId);
     const nextVisit = await repository.getNextVisitFor(bookingId);
+    const remainingVisits = await repository.getRemainingVisitsFor(bookingId);
 
     return {
       lastVisit: prettyDate(prop('startTime', lastVisit)),
       nextVisit: prettyDate(prop('startTime', nextVisit)),
+      remainingVisits: remainingVisits.length,
     };
   }
 

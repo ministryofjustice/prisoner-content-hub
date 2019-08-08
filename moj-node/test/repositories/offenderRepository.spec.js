@@ -79,6 +79,19 @@ describe('offenderRepository', () => {
     });
   });
 
+  describe('#getRemainingVisitsFor', () => {
+    it('calls the allVisits endpoint for a given ID from today', async () => {
+      const client = {
+        get: sinon.stub().resolves('SOME_RESULT'),
+      };
+      const repository = offenderRepository(client);
+      const result = await repository.getRemainingVisitsFor('FOO_ID');
+
+      expect(client.get.lastCall.args[0]).to.include('/FOO_ID/visits');
+      expect(result).to.equal('SOME_RESULT');
+    });
+  });
+
   describe('#sentenceDetailsFor', () => {
     it('calls the sentenceDetails endpoint for a given ID', async () => {
       const client = {
