@@ -1,6 +1,6 @@
 const { prop } = require('ramda');
 const express = require('express');
-const { fixUrlForProduction } = require('../utils');
+const { relativeUrlFrom } = require('../utils');
 
 const StandardClient = require('../clients/standard');
 
@@ -26,7 +26,7 @@ module.exports = function createContentRouter({
       postscript: false,
     };
 
-    const { establishmentId } = req.app.locals.envVars;
+    const { establishmentId, backendUrl } = req.app.locals.envVars;
 
     try {
       const data = await hubContentService.contentFor(id, establishmentId);
@@ -57,7 +57,7 @@ module.exports = function createContentRouter({
         case 'pdf': {
           logger.info('PROD - Sending PDF to client from:', data.url);
           const stream = await requestClient.get(
-            fixUrlForProduction(data.url),
+            relativeUrlFrom(data.url, backendUrl),
             {
               responseType: 'stream',
             },

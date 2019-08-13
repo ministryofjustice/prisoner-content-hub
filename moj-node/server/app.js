@@ -138,6 +138,7 @@ module.exports = function createApp({
   app.locals.envVars = {
     MATOMO_URL: config.matomoUrl,
     APP_NAME: config.appName,
+    backendUrl: config.backendUrl,
     establishmentId: getEstablishmentId(config.establishmentName),
   };
 

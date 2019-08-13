@@ -2,6 +2,7 @@ const { getEnv, isProduction, isTest } = require('../utils/index');
 
 const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
 const matomoUrl = getEnv('MATOMO_URL', { requireInProduction: true });
+const backendUrl = getEnv('BACKEND_URL', 'http://hub-be:80');
 const matomoEndpoint = getEnv('MATOMO_API_URI', { requireInProduction: true });
 const nomisEndpoint = getEnv('NOMIS_API_ENDPOINT', 'https://api.nomis', {
   requireInProduction: true,
@@ -24,6 +25,7 @@ module.exports = {
   test: isTest,
   production: isProduction,
   matomoUrl,
+  backendUrl,
   cookieSecret: getEnv('COOKIE_SECRET', 'keyboard cat'),
   establishmentName: getEnv('ESTABLISHMENT_NAME', 'berwyn'),
   hubEndpoint,
