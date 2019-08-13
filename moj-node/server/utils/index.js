@@ -32,9 +32,10 @@ const capitalize = (str = '') => {
     .join('');
 };
 
-function relativeUrlFrom(url = '') {
+function relativeUrlFrom(url = '', override) {
   const urlSchemeAndAuthorityRegex = /^https?:\/\/[^/]+/;
-  return url.replace(urlSchemeAndAuthorityRegex, '');
+  const newUrlAuthority = override || '';
+  return url.replace(urlSchemeAndAuthorityRegex, newUrlAuthority);
 }
 
 function fixUrlForProduction(url) {
