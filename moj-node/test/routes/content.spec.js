@@ -1,7 +1,5 @@
 const request = require('supertest');
 const cheerio = require('cheerio');
-const fs = require('fs');
-const path = require('path');
 
 const createHubContentRouter = require('../../server/routes/content');
 const { setupBasicApp, logger } = require('../test-helpers');
@@ -376,23 +374,10 @@ describe('GET /content/:id', () => {
       }),
     };
 
-    const stream = {
-      on: sinon.stub(),
-      pipe: res =>
-        fs
-          .createReadStream(path.resolve(__dirname, '../resources/foo.pdf'))
-          .pipe(res),
-    };
-
-    const requestClient = {
-      get: sinon.stub().returns(stream),
-    };
-
     it('returns a PDF', () => {
       const router = createHubContentRouter({
         logger,
         hubContentService,
-        requestClient,
       });
       const app = setupBasicApp();
 
@@ -400,13 +385,8 @@ describe('GET /content/:id', () => {
 
       return request(app)
         .get('/content/1')
-        .expect(200)
-        .expect('Content-Type', 'application/pdf')
-        .then(() => {
-          expect(requestClient.get.lastCall.args[0]).to.equal(
-            'www.foo.bar/file.pdf',
-          );
-        });
+        .expect(301)
+        .expect('Location', 'www.foo.bar/file.pdf');
     });
   });
 

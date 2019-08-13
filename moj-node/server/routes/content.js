@@ -1,14 +1,7 @@
 const { prop } = require('ramda');
 const express = require('express');
-const { relativeUrlFrom } = require('../utils');
 
-const StandardClient = require('../clients/standard');
-
-module.exports = function createContentRouter({
-  hubContentService,
-  logger,
-  requestClient = new StandardClient(),
-}) {
+module.exports = function createContentRouter({ hubContentService, logger }) {
   const router = express.Router();
 
   router.get('/:id', async (req, res, next) => {
@@ -26,7 +19,7 @@ module.exports = function createContentRouter({
       postscript: false,
     };
 
-    const { establishmentId, backendUrl } = req.app.locals.envVars;
+    const { establishmentId } = req.app.locals.envVars;
 
     try {
       const data = await hubContentService.contentFor(id, establishmentId);
@@ -55,20 +48,10 @@ module.exports = function createContentRouter({
             backHomeEnabled: true,
           });
         case 'pdf': {
-          const url = relativeUrlFrom(data.url, backendUrl);
-          logger.info('PROD - Sending PDF to client from:', url);
-          const stream = await requestClient.get(url, {
-            responseType: 'stream',
-          });
-
-          // X-Download-Options prevents Internet Explorer from executing downloads
-          // in your site’s context. We don't want that
-          res.removeHeader('X-Download-Options');
-          res.type('application/pdf');
-
-          stream.on('error', next);
-
-          return stream.pipe(res);
+          logger.info('PROD - Sending PDF to client from:', data.url);
+          res.writeHead(301, { Location: data.url });
+          res.end();
+          return false;
         }
         default:
           // send to the 404 page
