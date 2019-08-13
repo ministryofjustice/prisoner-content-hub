@@ -55,9 +55,10 @@ module.exports = function createContentRouter({
             backHomeEnabled: true,
           });
         case 'pdf': {
-          logger.info('PROD - Sending PDF to client from:', data.url);
+          const url = relativeUrlFrom(data.url, backendUrl);
+          logger.info('PROD - Sending PDF to client from:', url);
           const stream = await requestClient.get(
-            relativeUrlFrom(data.url, backendUrl),
+            url,
             {
               responseType: 'stream',
             },
