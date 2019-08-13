@@ -159,7 +159,7 @@ function pdfResponseFrom(data) {
     id: data.id,
     title: data.title,
     contentType: typeFrom(data.content_type),
-    url: fixUrlForProduction(R.path(['media', 'url'], data)),
+    url: R.path(['media', 'url'], data),
     establishmentId: R.view(R.lensPath(['prisons', 0, 'target_id']))(data),
     contentUrl: `/content/${data.id}`,
   };
