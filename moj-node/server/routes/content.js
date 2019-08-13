@@ -1,5 +1,6 @@
 const { prop } = require('ramda');
 const express = require('express');
+const { fixUrlForProduction } = require('../utils');
 
 const StandardClient = require('../clients/standard');
 
@@ -55,9 +56,12 @@ module.exports = function createContentRouter({
           });
         case 'pdf': {
           logger.info('PROD - Sending PDF to client from:', data.url);
-          const stream = await requestClient.get(data.url, {
-            responseType: 'stream',
-          });
+          const stream = await requestClient.get(
+            fixUrlForProduction(data.url),
+            {
+              responseType: 'stream',
+            },
+          );
 
           // X-Download-Options prevents Internet Explorer from executing downloads
           // in your site’s context. We don't want that
