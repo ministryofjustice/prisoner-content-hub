@@ -92,7 +92,7 @@ describe('Homepage', () => {
 
         cy.get(
           `[data-featured-section-id="${id}"] [data-featured-item-id]`,
-        ).should('have.length.greaterThan', 2);
+        ).should('have.length.greaterThan', 0);
 
         cy.get(
           `[data-featured-section-id="${id}"] [data-featured-section-title]`,

@@ -1,7 +1,7 @@
 {% from "govuk/components/skip-link/macro.njk" import govukSkipLink %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
 {% from "./search/macro.njk" import hubSearch %}
 {% from "./header/macro.njk" import pageHeader %}
-{% from "./footer/macro.njk" import hubFooter %}
 {% from "./landing-page-header/macro.njk" import hubLandingPageHeader %}
 
 <!DOCTYPE html>
@@ -121,7 +121,7 @@
     {% endif %}
 
     {% block footer %}
-      {{ hubFooter({}) }}
+      {{ govukFooter({}) }}
     {% endblock %}
 
     <script src="/public/jquery.min.js"></script>
