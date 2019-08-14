@@ -19,7 +19,7 @@ The following software is required
     CMake
     Node v10.5.3
     Composer
-
+ 
 ## Starting the service
 
 Pull the latest version of the service
