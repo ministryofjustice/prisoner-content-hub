@@ -97,33 +97,26 @@ class SuggestedContentApiClass
   {
     $node = $this->node_storage->load($nid);
     $secondary_tag_ids = $this->getTagIds($node->field_moj_secondary_tags);
+    $matching_ids = $this->getSecondaryTagItemsFor($secondary_tag_ids, $number, $prison);
 
-    $detailed_results = $this->getSecondaryTagItemsFor(
-      $secondary_tag_ids,
-      $number,
-      $prison,
-      $nid
-    );
-
-    if (count($detailed_results) < $number) {
-      $result_ids = array_keys($detailed_results);
-      array_push($result_ids, $nid);
-      $combined_secondary_tag_items = $this->getTagItemsFor($secondary_tag_ids, $number, $prison, $result_ids, false);
-      $detailed_results = array_merge($detailed_results, $combined_secondary_tag_items);
+    if (count($matching_ids) < $number) {
+      $matching_any_secondary_tags_ids = $this->getTagItemsFor($secondary_tag_ids, $number, $prison, false);
+      $matching_ids = array_unique(array_merge($matching_ids, $matching_any_secondary_tags_ids));
     }
 
-    if (count($detailed_results) < $number) {
+    if (count($matching_ids) < $number) {
       $primary_tag_ids = $this->getTagIds($node->field_moj_top_level_categories);
-
-      for ($i = 0; $i < count($detailed_results); $i++) {
-        array_push($result_ids, $detailed_results[$i]->nid->value);
-      }
-
-      $combined_primary_tag_items = $this->getTagItemsFor($primary_tag_ids, $number, $prison, $result_ids, $nid);
-      $detailed_results = array_merge($detailed_results, $combined_primary_tag_items);
+      $matching_any_primary_tags_ids = $this->getTagItemsFor($primary_tag_ids, $number, $prison);
+      $matching_ids = array_unique(array_merge($matching_ids, $matching_any_primary_tags_ids));
     }
 
-    return array_slice($detailed_results, 0, $number);
+    $current_id_index = array_search($nid, $matching_ids);
+
+    if ($current_id_index !== FALSE) {
+      unset($matching_ids[$current_id_index]);
+    }
+
+    return $this->loadNodesDetails(array_slice($matching_ids, 0, $number));
   }
 
   /**
@@ -150,14 +143,13 @@ class SuggestedContentApiClass
    * @param int $id
    * @param int $number
    * @param string $prison
-   * @param array[int] $exclude_ids
    * @param boolean $primary
    *
    * @return array
    */
-  private function getTagItemsFor($ids, $number, $prison, $exclude_ids, $primary = true)
+  private function getTagItemsFor($ids, $number, $prison, $primary = true)
   {
-    $results = $this->getInitialQuery($prison, $exclude_ids);
+    $results = $this->getInitialQuery($prison);
 
     if ($id !== 0) {
       if ($primary) {
@@ -173,10 +165,7 @@ class SuggestedContentApiClass
     }
 
     $results->sort('nid', 'DESC');
-    $content_ids = $results->range(0, $number)->execute();
-    $result = $this->loadNodesDetails($content_ids);
-
-    return $result;
+    return $results->range(0, $number)->execute();
   }
 
   /**
@@ -185,13 +174,12 @@ class SuggestedContentApiClass
    * @param array[int] $ids
    * @param int $number
    * @param string $prison
-   * @param int $currentId
    *
    * @return array
    */
-  private function getSecondaryTagItemsFor($ids, $number, $prison, $currentId)
+  private function getSecondaryTagItemsFor($ids, $number, $prison)
   {
-    $results = $this->getInitialQuery($prison, [$currentId]);
+    $results = $this->getInitialQuery($prison);
 
     if (count($ids) > 0) {
       for ($i = 0; $i < count($ids); $i++) {
@@ -200,32 +188,27 @@ class SuggestedContentApiClass
     }
 
     $results->sort('nid', 'DESC');
-    $content_ids = $results->range(0, $number)->execute();
-    $result = $this->loadNodesDetails($content_ids);
-
-    return $result;
+    return $results->range(0, $number)->execute();
   }
 
   /**
    * Setup a query
    *
    * @param int $prison_id
-   * @param array[int] $exclude_ids
    *
    * @return array
    */
-  private function getInitialQuery($prison_id = 0, $exclude_ids)
+  private function getInitialQuery($prison_id = 0)
   {
     $prison_ids = [
       'berwyn' => 792,
       'wayland' => 793
     ];
 
-    $bundle = array('page', 'moj_pdf_item', 'moj_radio_item', 'moj_video_item',);
+    $types = array('page', 'moj_pdf_item', 'moj_radio_item', 'moj_video_item',);
     $results = $this->entity_query->get('node')
       ->condition('status', 1)
-      ->condition('type', $bundle, 'IN')
-      ->condition("nid", $exclude_ids, "NOT IN")
+      ->condition('type', $types, 'IN')
       ->accessCheck(false);
 
     if (in_array($prison_id, $prison_ids, true)) {
