@@ -31,14 +31,6 @@ studio_users:
     shell: /bin/bash
     update_password: on_create
 
-  - username: nbartle
-    name: "Nick Bartle"
-    groups:
-      - admin
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIoaYcASR50+HIPYPvFJN/JX74KEMNUe/T7BiNWopRT/TyB2zg+HxjJHEzIH/pFqSqsQhxUIpmAWUrG9zS1w7rsu88l77E1nGP18XLTwBD6CwLrEzzeltyM267fLXogXc3zfjmbaiEIgOVx5O7VmLKpBjz0eXp/WuOT/hgOUs506mq+gpBYhXMDzTCoxAfAAogPyyqVbkcR8OocEiziYJ8oSHAXw04yX3uGFAfrzXnRGEmlMJ77qoITP1YMrImwAUoiQzHmFed9a1uDp6KPPOyHJIwcuAKtL3S7kyvQzLzKGAUv6b6mWyvT3YTPKJhaTr93zzajsFy6iFqjGc69lTb nick@dragunov.local"
-    update_password: on_create
-
   - username: jamesstanley
     name: "James Stanley"
     groups:
@@ -219,7 +211,7 @@ users_deleted:
   - username: catrinaknight
   - username: zedali
   - username: ttaylor
-
+  - username: nbartle
 nginx_extra_http_options: |
   ##
   # SSL Settings from "modern" profile on
