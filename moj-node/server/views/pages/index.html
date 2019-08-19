@@ -3,6 +3,7 @@
 {% from "../components/sub-menu/macro.njk" import hubSubMenu %}
 {% from "../components/topics/macro.njk" import hubTopics %}
 {% from "../components/search/macro.njk" import hubSearch %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
 
 {% extends "../components/template.njk" %}
 
@@ -12,7 +13,7 @@
 
 {% block head %}
   <!--[if !IE 8]><!-->
-    <link href="/public/stylesheets/application.css" rel="stylesheet" />
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
   <!--<![endif]-->
 
   {# For Internet Explorer 8, you need to compile specific stylesheet #}
@@ -27,48 +28,70 @@
   <![endif]-->
 {% endblock %}
 
+{% block notification %}
+  {% if notification %}}
+    <div class="govuk-width-container">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <div class="notification notification--is-error">
+            <p>{{notification.text}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
 {% if false %}
-<h2 class="govuk-heading-l">Today</h2>
-<div class="govuk-grid-row events">
-  <div class="govuk-grid-column-one-quarter" id="morningEvents">
-    <div class="events__timePeriod events__timePeriod--morning">
-    {% if todaysEvents.morning.length == 0 %}
-    <p class="govuk-body">No events</p>
-    {% endif %}
-    {% for event in todaysEvents.morning %}
-    <p class="govuk-body">{{event.timeString}}
-    <br><strong>{{event.title}}</strong></p>
-    {% endfor %}
+  <h2 class="govuk-heading-l">Today</h2>
+  <div class="govuk-grid-row events">
+    <div class="govuk-grid-column-one-quarter" id="morningEvents">
+      <div class="events__timePeriod events__timePeriod--morning">
+        {% if todaysEvents.morning.length == 0 %}
+          <p class="govuk-body">No events</p>
+        {% endif %}
+        {% for event in todaysEvents.morning %}
+          <p class="govuk-body">{{event.timeString}}
+            <br>
+            <strong>{{event.title}}</strong>
+          </p>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="govuk-grid-column-one-quarter" id="afternoonEvents">
+      <div class="events__timePeriod events__timePeriod--afternoon">
+        {% if todaysEvents.afternoon.length == 0 %}
+          <p class="govuk-body">No events</p>
+        {% endif %}
+        {% for event in todaysEvents.afternoon %}
+          <p class="govuk-body">{{event.timeString}}
+            <br>
+            <strong>{{event.title}}</strong>
+          </p>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="govuk-grid-column-one-quarter" id="eveningEvents">
+      <div class="events__timePeriod events__timePeriod--evening">
+        {% if todaysEvents.evening.length == 0 %}
+          <p class="govuk-body">No events</p>
+        {% endif %}
+        {% for event in todaysEvents.evening %}
+          <p class="govuk-body">{{event.timeString}}
+            <br>
+            <strong>{{event.title}}</strong>
+          </p>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="govuk-grid-column-one-quarter" id="otherEvents">
+      <div class="events__timePeriod">
+        <p class="govuk-body">
+          <a href="/" class="govuk-link">See your 7 day timetable</a>
+        </p>
+      </div>
     </div>
   </div>
-  <div class="govuk-grid-column-one-quarter" id="afternoonEvents">
-    <div class="events__timePeriod events__timePeriod--afternoon">
-    {% if todaysEvents.afternoon.length == 0 %}
-    <p class="govuk-body">No events</p>
-    {% endif %}
-    {% for event in todaysEvents.afternoon %}
-    <p class="govuk-body">{{event.timeString}}
-    <br><strong>{{event.title}}</strong></p>
-    {% endfor %}
-    </div>
-  </div>
-  <div class="govuk-grid-column-one-quarter" id="eveningEvents">
-    <div class="events__timePeriod events__timePeriod--evening">
-    {% if todaysEvents.evening.length == 0 %}
-    <p class="govuk-body">No events</p>
-    {% endif %}
-    {% for event in todaysEvents.evening %}
-    <p class="govuk-body">{{event.timeString}}
-    <br><strong>{{event.title}}</strong></p>
-    {% endfor %}
-    </div>
-  </div>
-  <div class="govuk-grid-column-one-quarter" id="otherEvents">
-    <div class="events__timePeriod">
-      <p class="govuk-body"><a href="/" class="govuk-link">See your 7 day timetable</a></p>
-    </div>
-  </div>
-</div>
 {% endif %}
 
 {% set categoryLinks = {
@@ -89,7 +112,7 @@
       <li class="govuk-hub-main_navigation_current_page">
         <span class="govuk-link">Home</span>
       </li>
-      {%  for menuItem in homepageMenu %}
+      {% for menuItem in homepageMenu %}
         <li>
           <a class="govuk-link govuk-link--no-visited-state" href="{{menuItem.href}}" data-topnav="{{menuItem.title}}">{{menuItem.title}}</a>
         </li>
@@ -130,7 +153,6 @@
     contentType: "healthy-mind-body"
   }) }}
 
-
   {{ hubFeaturedContent({
     categoryTitle: "Legal advice and your rights",
     categoryLink: categoryLinks["legal-and-your-rights"],
@@ -139,7 +161,6 @@
     size: "small",
     contentType: "legal-and-your-rights"
   }) }}
-
 
   {{ hubFeaturedContent({
     categoryTitle: "Inspiration",
@@ -150,7 +171,6 @@
     contentType: "inspiration"
   }) }}
 
-
   {{ hubFeaturedContent({
     categoryTitle: "Science and nature",
     categoryLink: categoryLinks["science-nature"],
@@ -159,7 +179,6 @@
     size: "small",
     contentType: "science-nature"
   }) }}
-
 
   {{ hubFeaturedContent({
     categoryTitle: "Art and culture",
@@ -170,7 +189,6 @@
     contentType: "art-culture"
   }) }}
 
-
   {{ hubFeaturedContent({
     categoryTitle: "History",
     categoryLink: categoryLinks["history"],
@@ -179,7 +197,6 @@
     size: "small",
     contentType: "history"
   }) }}
-
 
   {{ hubFeaturedContent({
     categoryTitle: "Music",
@@ -190,7 +207,6 @@
     contentType: "music"
   }) }}
 
-
   {{ hubFeaturedContent({
     categoryTitle: "Games",
     columnNumber: "govuk-grid-column-one-third",
@@ -199,7 +215,6 @@
     contentType: "games"
   }) }}
 {% endblock %}
-
 
 {% block postscript %}
   <div id="browser-by-topic" class="govuk-width-container govuk-!-margin-top-6">
@@ -211,9 +226,12 @@
   </div>
 {% endblock %}
 
-
 {% block bodyEnd %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   <script src="/public/all.js"></script>
-  <script>window.GOVUKFrontend.initAll()</script>
+  <script>
+    window
+      .GOVUKFrontend
+      .initAll()
+  </script>
 {% endblock %}
