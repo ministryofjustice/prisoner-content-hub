@@ -14,6 +14,7 @@ module.exports.authMiddleware = (ntlm = expressNTLM) => {
           request.query.mockUser ||
           offenderNumber(request.session) ||
           'G9542VP',
+        // 'invalid',
         Workstation: 'MOCK_WORKSTATION',
       };
       next();
@@ -25,10 +26,6 @@ module.exports.authMiddleware = (ntlm = expressNTLM) => {
     },
     domain: config.ldap.domain,
     domaincontroller: config.ldap.domainController,
-    // unauthorized: (request, response, next) => {
-    //   logger.error('Failed to authenticate');
-    //   next();
-    // },
   });
 };
 
@@ -42,6 +39,7 @@ module.exports.createUserSession = ({ offenderService }) => {
           offenderNo,
         );
         request.session.user = offenderDetails;
+        delete request.session.notification;
       } else if (
         !offenderNo ||
         offenderNo !== offenderNumber(request.session)
@@ -50,6 +48,13 @@ module.exports.createUserSession = ({ offenderService }) => {
       }
     } catch (error) {
       logger.error(error);
+      if (error.response.status === 404) {
+        request.session.notification = {
+          hasBeenSeen: false,
+          text:
+            'We were unable to log you in, some services may be unavailable',
+        };
+      }
     } finally {
       response.locals.user = request.session.user;
       next();

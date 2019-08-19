@@ -38,47 +38,43 @@ class NomisClient {
   }
 
   async makeGetRequest(url) {
-    try {
-      logger.info(`Requested ${url}`);
+    logger.info(`Requested ${url}`);
 
-      const client = this.client.create();
-      retryAxios.attach(client);
+    const client = this.client.create();
+    retryAxios.attach(client);
 
-      const res = await client({
-        method: 'GET',
-        url,
-        headers: {
-          Authorization: `Bearer ${this.authToken.access_token}`,
-          Accept: 'application/json',
-        },
-        raxConfig: {
-          instance: client,
-          statusCodesToRetry: [[100, 199], [401, 401], [429, 429], [500, 599]],
-          onRetryAttempt: async originalRequest => {
-            const retryConfig = retryAxios.getConfig(originalRequest);
-            const requestConfig = originalRequest.config;
+    const res = await client({
+      method: 'GET',
+      url,
+      headers: {
+        Authorization: `Bearer ${this.authToken.access_token}`,
+        Accept: 'application/json',
+      },
+      raxConfig: {
+        instance: client,
+        statusCodesToRetry: [[100, 199], [401, 401], [429, 429], [500, 599]],
+        onRetryAttempt: async originalRequest => {
+          const retryConfig = retryAxios.getConfig(originalRequest);
+          const requestConfig = originalRequest.config;
 
-            logger.info(`Retry attempt #${retryConfig.currentRetryAttempt}`);
+          logger.info(`Retry attempt #${retryConfig.currentRetryAttempt}`);
 
-            if (originalRequest.response.status === 401) {
-              const authToken = await this.getAuthToken();
+          if (originalRequest.response.status === 401) {
+            const authToken = await this.getAuthToken();
 
-              if (prop('access_token', authToken)) {
-                requestConfig.headers.Authorization = `Bearer ${authToken.access_token}`;
-                return Promise.resolve();
-              }
-              return Promise.reject(new Error('Failed to get access token'));
+            if (prop('access_token', authToken)) {
+              // prettier-ignore
+              requestConfig.headers.Authorization = `Bearer ${authToken.access_token}`;
+              return Promise.resolve();
             }
+            return Promise.reject(new Error('Failed to get access token'));
+          }
 
-            return Promise.resolve();
-          },
+          return Promise.resolve();
         },
-      });
-      return res.data;
-    } catch (exp) {
-      logger.error(exp);
-      return null;
-    }
+      },
+    });
+    return res.data;
   }
 
   async get(url) {

@@ -60,12 +60,9 @@ const getEventsForTimeOfDay = (events, timeOfDay) => {
 
 module.exports = function createOffenderService(repository) {
   async function getOffenderDetailsFor(prisonerId) {
-    const {
-      bookingId,
-      offenderNo,
-      firstName,
-      lastName,
-    } = await repository.getOffenderDetailsFor(prisonerId);
+    const response = await repository.getOffenderDetailsFor(prisonerId);
+
+    const { bookingId, offenderNo, firstName, lastName } = response;
 
     return {
       bookingId,
