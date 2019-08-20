@@ -199,6 +199,10 @@ module.exports = function createApp({
   app.use('/me', createMeRouter({ logger, offenderService }));
   app.use('/search', createSearchRouter({ logger, searchService }));
 
+  app.use('/demo', (req, res) => {
+    res.render('pages/demo');
+  });
+
   app.use('*', (req, res) => {
     res.status(404);
     res.render('pages/404');

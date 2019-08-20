@@ -1,0 +1,32 @@
+{% from "../components/header/macro.njk" import pageHeader %}
+{% from "../components/back-button/macro.njk" import backButton %}
+
+{% extends "../components/template.njk" %}
+
+{% block pageTitle %}
+  The page you are looking for could not be found
+{% endblock %}
+
+{% block head %}
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block header %}
+  {{ backButton() }}
+{% endblock %}
+
+{% block main %}
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper govuk-main-wrapper--l" id="main-content" role="main">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-xl">Demo</h1>
+          <p class="govuk-body">
+            Go back to the
+            <a class="govuk-link" href="/">home page</a>
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+{% endblock %}
