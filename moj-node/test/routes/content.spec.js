@@ -344,26 +344,6 @@ describe('GET /content/:id', () => {
           );
         });
     });
-
-    it('returns the correct suggestions for a flat content page', () => {
-      return request(app)
-        .get('/content/1')
-        .expect(200)
-        .then(response => {
-          const $ = cheerio.load(response.text);
-
-          expect($('#suggested-content a').length).to.equal(1);
-          expect($('#suggested-content h3').text()).to.include(
-            'Suggested content',
-            "The suggested content title doesn't match",
-          );
-          expect(
-            $(
-              '#suggested-content .govuk-hub-featured-content-item__main-duration',
-            ).text(),
-          ).to.include('18:12', "The suggested content duration doesn't match");
-        });
-    });
   });
 
   describe('Pdf pages', () => {
