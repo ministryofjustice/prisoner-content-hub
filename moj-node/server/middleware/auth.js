@@ -5,6 +5,15 @@ const logger = require('../../log');
 
 const offenderNumber = path(['user', 'offenderNo']);
 
+const notificationContent = {
+  userNotFound: 'We were unable to log you in, please raise a ticket',
+  systemError: 'We were unable to log you in, some services may be unavailable',
+};
+
+function createNotification(text) {
+  return { text };
+}
+
 module.exports.authMiddleware = (ntlm = expressNTLM) => {
   if (config.mockAuth === 'true') {
     return (request, response, next) => {
@@ -48,12 +57,18 @@ module.exports.createUserSession = ({ offenderService }) => {
       }
     } catch (error) {
       logger.error(error);
-      if (error.response.status === 404) {
-        request.session.notification = {
-          hasBeenSeen: false,
-          text:
-            'We were unable to log you in, some services may be unavailable',
-        };
+      if (error.response.status >= 500) {
+        request.session.notification = createNotification(
+          notificationContent.systemError,
+        );
+      } else if (error.response.status === 404) {
+        request.session.notification = createNotification(
+          notificationContent.userNotFound,
+        );
+      } else if (error.response.status >= 400) {
+        request.session.notification = createNotification(
+          notificationContent.systemError,
+        );
       }
     } finally {
       response.locals.user = request.session.user;

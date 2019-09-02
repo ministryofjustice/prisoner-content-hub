@@ -1,10 +1,13 @@
 const axios = require('axios');
 const retryAxios = require('retry-axios');
 const { path, prop } = require('ramda');
+const ClientError = require('axios/lib/core/createError');
 const config = require('../config');
 const logger = require('../../log');
 
-axios.defaults.adapter = require('axios/lib/adapters/http');
+function responseCodeFor(request) {
+  return path(['response', 'status'], request);
+}
 
 class NomisClient {
   constructor(client = axios, token = null) {
@@ -32,8 +35,8 @@ class NomisClient {
       logger.info(`Failed to request ${config.nomis.api.auth}`);
       logger.error(exp);
 
-      this.authToken = null;
-      return null;
+      this.authToken = {};
+      return {};
     }
   }
 
@@ -59,18 +62,18 @@ class NomisClient {
 
           logger.info(`Retry attempt #${retryConfig.currentRetryAttempt}`);
 
-          if (originalRequest.response.status === 401) {
+          if (responseCodeFor(originalRequest) === 401) {
             const authToken = await this.getAuthToken();
 
             if (prop('access_token', authToken)) {
               // prettier-ignore
               requestConfig.headers.Authorization = `Bearer ${authToken.access_token}`;
-              return Promise.resolve();
             }
-            return Promise.reject(new Error('Failed to get access token'));
+            return;
           }
-
-          return Promise.resolve();
+          throw new ClientError('Authentication failed', null, 500, null, {
+            status: 500,
+          });
         },
       },
     });
