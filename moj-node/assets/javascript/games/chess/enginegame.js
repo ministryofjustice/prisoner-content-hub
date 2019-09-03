@@ -22,7 +22,7 @@ function engineGame(options) {
   };
 
   function uciCmd(cmd) {
-    engine.postMessage(cmd);
+    engine.postMessage(`${cmd}\n`);
   }
   uciCmd('uci');
 
@@ -303,9 +303,6 @@ function engineGame(options) {
     reset: function () {
       game.reset();
       removeMessage();
-      uciCmd('setoption name Contempt Factor value 0');
-      uciCmd('setoption name Skill Level value 20');
-      uciCmd('setoption name Aggressiveness value 100');
     },
     loadPgn: function (pgn) { game.load_pgn(pgn); },
     setPlayerColor: function (color) {
