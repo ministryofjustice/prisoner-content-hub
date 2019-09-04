@@ -188,6 +188,8 @@ describe('NomisClient', () => {
         let result;
         try {
           result = await client.get('https://api.nomis/test');
+        } catch (e) {
+          expect(true); // We require the catch block to avoid an unhandled rejection warning
         } finally {
           expect(authSpy.callCount).to.equal(
             0,

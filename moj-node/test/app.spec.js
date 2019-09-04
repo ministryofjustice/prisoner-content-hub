@@ -23,40 +23,34 @@ describe('App', () => {
         );
       }));
 
-  it('hides the stack trace on error pages', async () => {
+  it('hides the stack trace on error pages', () => {
     const error = new Error('broken kittens');
     const copy = config.dev;
 
     config.dev = false;
-    let hasThrown = false;
-    let response;
-    try {
-      response = await request(
-        app({
-          hubPromotedContentService: {
-            hubPromotedContent: sinon.stub().rejects(error),
-          },
-          hubMenuService: {
-            tagsMenu: sinon.stub(),
-          },
-        }),
-      )
-        .get('/')
-        .expect(500);
-    } catch (e) {
-      hasThrown = true;
-      expect(response.text).to.contain(
-        'Sorry, there is a problem with this service',
-      );
-      expect(response.text).to.contain(
-        '<code></code>',
-        'The code block is not empty',
-      );
-    } finally {
-      expect(hasThrown, 'an error should be thrown');
-      // restore config
-      config.dev = copy;
-    }
+    request(
+      app({
+        hubPromotedContentService: {
+          hubPromotedContent: sinon.stub().returns(error),
+        },
+        hubMenuService: {
+          tagsMenu: sinon.stub(),
+        },
+      }),
+    )
+      .get('/')
+      .expect(500)
+      .then(response => {
+        expect(response.text).to.contain(
+          'Sorry, there is a problem with this service',
+        );
+        expect(response.text).to.contain(
+          '<code></code>',
+          'The code block is not empty',
+        );
+        // restore config
+        config.dev = copy;
+      });
   });
 
   it('shows the stack trace on error pages', () => {
@@ -122,7 +116,6 @@ function app(opts) {
       seriesMenu: sinon.stub().returns([]),
     },
     hubContentService: { contentFor: sinon.stub().returns({}) },
-    offenderService: { getOffenderDetailsFor: sinon.stub() },
     searchService: { find: sinon.stub() },
     logger,
     ...opts,
