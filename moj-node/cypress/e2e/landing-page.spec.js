@@ -17,7 +17,7 @@ describe('Landing page', () => {
       cy.log('Should have some navigation menu items');
       cy.get('.govuk-hub-content-section-menu li').should(
         'have.length.of.at.least',
-        2,
+        1,
       );
 
       cy.log('Check that featured content is rendered on the page');
