@@ -1,7 +1,6 @@
-const axios = require('axios');
 const retryAxios = require('retry-axios');
-const { path, prop } = require('ramda');
-const ClientError = require('axios/lib/core/createError');
+const { path } = require('ramda');
+const { baseClient } = require('./baseClient');
 const config = require('../config');
 const logger = require('../../log');
 
@@ -10,7 +9,7 @@ function responseCodeFor(request) {
 }
 
 class NomisClient {
-  constructor(client = axios, token = null) {
+  constructor(client = baseClient, token = null) {
     this.client = client;
 
     this.authToken = token;
@@ -18,26 +17,19 @@ class NomisClient {
   }
 
   async getAuthToken() {
-    try {
-      const res = await this.client({
-        url: config.nomis.api.auth,
-        method: 'post',
-        headers: {
-          Authorization: `Basic ${config.nomis.clientToken}`,
-          Accept: 'application/json',
-          'Content-Length': 0,
-        },
-      });
-      logger.info(`Requested ${config.nomis.api.auth}`);
-      this.authToken = res.data;
-      return res.data;
-    } catch (exp) {
-      logger.info(`Failed to request ${config.nomis.api.auth}`);
-      logger.error(exp);
-
-      this.authToken = {};
-      return {};
-    }
+    const res = await this.client({
+      url: config.nomis.api.auth,
+      method: 'post',
+      headers: {
+        Authorization: `Basic ${config.nomis.clientToken}`,
+        Accept: 'application/json',
+        'Content-Length': 0,
+      },
+    });
+    logger.info(`Requested ${config.nomis.api.auth}`);
+    const token = path(['data', 'access_token'], res);
+    this.authToken = token;
+    return token;
   }
 
   async makeGetRequest(url) {
@@ -50,7 +42,7 @@ class NomisClient {
       method: 'GET',
       url,
       headers: {
-        Authorization: `Bearer ${this.authToken.access_token}`,
+        Authorization: `Bearer ${this.authToken}`,
         Accept: 'application/json',
       },
       raxConfig: {
@@ -64,24 +56,20 @@ class NomisClient {
 
           if (responseCodeFor(originalRequest) === 401) {
             const authToken = await this.getAuthToken();
-
-            if (prop('access_token', authToken)) {
+            if (authToken) {
               // prettier-ignore
-              requestConfig.headers.Authorization = `Bearer ${authToken.access_token}`;
+              requestConfig.headers.Authorization = `Bearer ${authToken}`;
             }
-            return;
           }
-          throw new ClientError('Authentication failed', null, 500, null, {
-            status: 500,
-          });
         },
       },
     });
+
     return res.data;
   }
 
   async get(url) {
-    if (!path(['authToken', 'access_token'], this)) {
+    if (!this.authToken) {
       await this.getAuthToken();
     }
 

@@ -1,12 +1,12 @@
-const axios = require('axios');
 const qs = require('querystring');
+const { baseClient } = require('./baseClient');
 const logger = require('../../log');
 const config = require('../config');
 
 const { getEstablishmentId } = require('../utils');
 
 class HubContentClient {
-  constructor(client = axios) {
+  constructor(client = baseClient) {
     this.client = client;
   }
 

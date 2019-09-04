@@ -1,9 +1,9 @@
-const axios = require('axios');
 const qs = require('querystring');
+const { baseClient } = require('./baseClient');
 const logger = require('../../log');
 
 class StandardClient {
-  constructor(client = axios) {
+  constructor(client = baseClient) {
     this.client = client;
   }
 
