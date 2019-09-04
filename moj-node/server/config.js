@@ -14,7 +14,6 @@ const elasticSearchEndpoint = getEnv(
     requireInProduction: true,
   },
 );
-const nomisAPIEndpoint = `${nomisEndpoint}/elite2api/api`;
 
 module.exports = {
   appName: getEnv('APP_NAME', 'HMP Hub Local', {
@@ -48,7 +47,7 @@ module.exports = {
     clientToken: getEnv('NOMIS_API_TOKEN', 'ADD_ME'),
     api: {
       auth: `${nomisEndpoint}/auth/oauth/token?grant_type=client_credentials`,
-      bookings: `${nomisAPIEndpoint}/bookings`,
+      bookings: `${nomisEndpoint}/elite2api/api/bookings`,
     },
   },
   elasticsearch: {
