@@ -15,6 +15,7 @@ module.exports = function Index({
       logger.info('GET index');
 
       const { establishmentId } = req.app.locals.envVars;
+      const { notification } = req.session;
       // const userDetails = path(['session', 'user'], req);
       // const bookingId = path(['bookingId'], userDetails);
 
@@ -40,6 +41,7 @@ module.exports = function Index({
 
       res.render('pages/index', {
         ...featuredContent,
+        notification,
         promotionalContent,
         tagsMenu,
         homepageMenu,

@@ -1,13 +1,15 @@
-const axios = require('axios');
 const retryAxios = require('retry-axios');
-const { path, prop } = require('ramda');
+const { path } = require('ramda');
+const { baseClient } = require('./baseClient');
 const config = require('../config');
 const logger = require('../../log');
 
-axios.defaults.adapter = require('axios/lib/adapters/http');
+function responseCodeFor(request) {
+  return path(['response', 'status'], request);
+}
 
 class NomisClient {
-  constructor(client = axios, token = null) {
+  constructor(client = baseClient, token = null) {
     this.client = client;
 
     this.authToken = token;
@@ -15,74 +17,59 @@ class NomisClient {
   }
 
   async getAuthToken() {
-    try {
-      const res = await this.client({
-        url: config.nomis.api.auth,
-        method: 'post',
-        headers: {
-          Authorization: `Basic ${config.nomis.clientToken}`,
-          Accept: 'application/json',
-          'Content-Length': 0,
-        },
-      });
-      logger.info(`Requested ${config.nomis.api.auth}`);
-      this.authToken = res.data;
-      return res.data;
-    } catch (exp) {
-      logger.info(`Failed to request ${config.nomis.api.auth}`);
-      logger.error(exp);
-
-      this.authToken = null;
-      return null;
-    }
+    const res = await this.client({
+      url: config.nomis.api.auth,
+      method: 'post',
+      headers: {
+        Authorization: `Basic ${config.nomis.clientToken}`,
+        Accept: 'application/json',
+        'Content-Length': 0,
+      },
+    });
+    logger.info(`Requested ${config.nomis.api.auth}`);
+    const token = path(['data', 'access_token'], res);
+    this.authToken = token;
+    return token;
   }
 
   async makeGetRequest(url) {
-    try {
-      logger.info(`Requested ${url}`);
+    logger.info(`Requested ${url}`);
 
-      const client = this.client.create();
-      retryAxios.attach(client);
+    const client = this.client.create();
+    retryAxios.attach(client);
 
-      const res = await client({
-        method: 'GET',
-        url,
-        headers: {
-          Authorization: `Bearer ${this.authToken.access_token}`,
-          Accept: 'application/json',
-        },
-        raxConfig: {
-          instance: client,
-          statusCodesToRetry: [[100, 199], [401, 401], [429, 429], [500, 599]],
-          onRetryAttempt: async originalRequest => {
-            const retryConfig = retryAxios.getConfig(originalRequest);
-            const requestConfig = originalRequest.config;
+    const res = await client({
+      method: 'GET',
+      url,
+      headers: {
+        Authorization: `Bearer ${this.authToken}`,
+        Accept: 'application/json',
+      },
+      raxConfig: {
+        instance: client,
+        statusCodesToRetry: [[100, 199], [401, 401], [429, 429], [500, 599]],
+        onRetryAttempt: async originalRequest => {
+          const retryConfig = retryAxios.getConfig(originalRequest);
+          const requestConfig = originalRequest.config;
 
-            logger.info(`Retry attempt #${retryConfig.currentRetryAttempt}`);
+          logger.info(`Retry attempt #${retryConfig.currentRetryAttempt}`);
 
-            if (originalRequest.response.status === 401) {
-              const authToken = await this.getAuthToken();
-
-              if (prop('access_token', authToken)) {
-                requestConfig.headers.Authorization = `Bearer ${authToken.access_token}`;
-                return Promise.resolve();
-              }
-              return Promise.reject(new Error('Failed to get access token'));
+          if (responseCodeFor(originalRequest) === 401) {
+            const authToken = await this.getAuthToken();
+            if (authToken) {
+              // prettier-ignore
+              requestConfig.headers.Authorization = `Bearer ${authToken}`;
             }
-
-            return Promise.resolve();
-          },
+          }
         },
-      });
-      return res.data;
-    } catch (exp) {
-      logger.error(exp);
-      return null;
-    }
+      },
+    });
+
+    return res.data;
   }
 
   async get(url) {
-    if (!path(['authToken', 'access_token'], this)) {
+    if (!this.authToken) {
       await this.getAuthToken();
     }
 

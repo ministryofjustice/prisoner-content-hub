@@ -5,6 +5,17 @@ const logger = require('../../log');
 
 const offenderNumber = path(['user', 'offenderNo']);
 
+const notificationContent = {
+  userNotFound:
+    'You are not signed in. Some services will not be available to you. If you think you should be signed in, please report this to a digital champion or send an app to IT.',
+  systemError:
+    'Sorry, there is a technical problem and some features might not be working. We know about this problem and are working to fix it. Please try again later.',
+};
+
+function createNotification(text) {
+  return { text };
+}
+
 module.exports.authMiddleware = (ntlm = expressNTLM) => {
   if (config.mockAuth === 'true') {
     return (request, response, next) => {
@@ -25,10 +36,6 @@ module.exports.authMiddleware = (ntlm = expressNTLM) => {
     },
     domain: config.ldap.domain,
     domaincontroller: config.ldap.domainController,
-    // unauthorized: (request, response, next) => {
-    //   logger.error('Failed to authenticate');
-    //   next();
-    // },
   });
 };
 
@@ -42,6 +49,7 @@ module.exports.createUserSession = ({ offenderService }) => {
           offenderNo,
         );
         request.session.user = offenderDetails;
+        delete request.session.notification;
       } else if (
         !offenderNo ||
         offenderNo !== offenderNumber(request.session)
@@ -50,6 +58,19 @@ module.exports.createUserSession = ({ offenderService }) => {
       }
     } catch (error) {
       logger.error(error);
+      if (error.response.status >= 500) {
+        request.session.notification = createNotification(
+          notificationContent.systemError,
+        );
+      } else if (error.response.status === 404) {
+        request.session.notification = createNotification(
+          notificationContent.userNotFound,
+        );
+      } else if (error.response.status >= 400) {
+        request.session.notification = createNotification(
+          notificationContent.systemError,
+        );
+      }
     } finally {
       response.locals.user = request.session.user;
       next();

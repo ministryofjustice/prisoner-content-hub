@@ -28,11 +28,10 @@ describe('App', () => {
     const copy = config.dev;
 
     config.dev = false;
-
-    return request(
+    request(
       app({
         hubPromotedContentService: {
-          hubPromotedContent: sinon.stub().rejects(error),
+          hubPromotedContent: sinon.stub().returns(error),
         },
         hubMenuService: {
           tagsMenu: sinon.stub(),
@@ -41,15 +40,14 @@ describe('App', () => {
     )
       .get('/')
       .expect(500)
-      .then(res => {
-        expect(res.text).to.contain(
+      .then(response => {
+        expect(response.text).to.contain(
           'Sorry, there is a problem with this service',
         );
-        expect(res.text).to.contain(
+        expect(response.text).to.contain(
           '<code></code>',
           'The code block is not empty',
         );
-
         // restore config
         config.dev = copy;
       });
@@ -118,7 +116,6 @@ function app(opts) {
       seriesMenu: sinon.stub().returns([]),
     },
     hubContentService: { contentFor: sinon.stub().returns({}) },
-    offenderService: { getOffenderDetailsFor: sinon.stub() },
     searchService: { find: sinon.stub() },
     logger,
     ...opts,

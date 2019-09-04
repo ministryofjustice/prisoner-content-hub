@@ -47,10 +47,10 @@ describe('StandardClient', () => {
     it('returns an null when the request fails', async () => {
       nock('https://some-api.com')
         .get('/bar')
-        .reply(200, ['SOME_DATA']);
+        .reply(404, ['SOME_DATA']);
 
       const client = new StandardClient();
-      const result = await client.get('https://some-api.com/invalid');
+      const result = await client.get('https://some-api.com/bar');
 
       expect(result).to.eql(null);
     });
@@ -72,8 +72,8 @@ describe('StandardClient', () => {
 
     it('returns null when the request fails', async () => {
       nock('https://www.example.com')
-        .post('/endpoint', { foo: 'bar' })
-        .reply(500, { id: '123ABC' });
+        .post('/bar', { foo: 'bar' })
+        .reply(400, { id: '123ABC' });
 
       const client = new StandardClient();
       const result = await client.post('https://www.example.com/bar', {

@@ -12,7 +12,7 @@ describe('NomisClient', () => {
 
   describe('#getAuthToken', () => {
     it('returns a auth token', async () => {
-      const token = { access_token: 'foo.bar.baz' };
+      const token = 'foo.bar.baz';
 
       nock('https://api.nomis')
         .post(/auth\/oauth/)
@@ -20,24 +20,13 @@ describe('NomisClient', () => {
           expect(this.req.headers.authorization).to.match(/Basic .+/);
           expect(this.req.headers.accept).to.equal('application/json');
 
-          return token;
+          return { access_token: 'foo.bar.baz' };
         });
 
       const client = new NomisClient();
       const result = await client.getAuthToken();
 
       expect(result).to.eql(token);
-    });
-
-    it('handles auth errors', async () => {
-      nock('https://api.nomis')
-        .post(/auth\/oauth/)
-        .reply(418, "I'm a teapot");
-
-      const client = new NomisClient();
-      const result = await client.getAuthToken();
-
-      expect(result).to.eql(null);
     });
   });
 
@@ -87,7 +76,7 @@ describe('NomisClient', () => {
             return { foo: 'bar' };
           });
 
-        const client = new NomisClient(undefined, { access_token: token });
+        const client = new NomisClient(undefined, token);
         const result = await client.get('https://api.nomis/test');
 
         expect(authSpy.callCount).to.equal(
@@ -128,7 +117,7 @@ describe('NomisClient', () => {
             return { foo: 'bar' };
           });
 
-        const client = new NomisClient(undefined, { access_token: 'foo.bar' });
+        const client = new NomisClient(undefined, 'foo.bar');
         const result = await client.get('https://api.nomis/test');
 
         expect(authSpy.callCount).to.equal(
@@ -156,24 +145,25 @@ describe('NomisClient', () => {
             return { access_token: 'TEST' };
           })
           .get(/test/)
-          .times(5)
+          .times(4)
           .reply(401, apiSpy);
 
-        const client = new NomisClient(undefined, {
-          access_token: 'foo.bar',
-        });
-        const result = await client.get('https://api.nomis/test');
+        const client = new NomisClient(undefined, 'foo.bar');
+        let response;
+        try {
+          response = await client.get('https://api.nomis/test');
+        } catch (error) {
+          expect(authSpy.callCount).to.equal(
+            3,
+            'It should have called the auth endpoint 3 times',
+          );
 
-        expect(authSpy.callCount).to.equal(
-          3,
-          'It should have called the auth endpoint 3 times',
-        );
-
-        expect(apiSpy.callCount).to.equal(
-          4,
-          'It should have called the api endpoint 4 times',
-        );
-        expect(result).to.equal(null, 'Should not have returned data');
+          expect(apiSpy.callCount).to.equal(
+            4,
+            'It should have called the api endpoint 4 times',
+          );
+          expect(response).to.equal(undefined, 'Should not have returned data');
+        }
       });
     });
 
@@ -194,20 +184,23 @@ describe('NomisClient', () => {
             return { foo: 'bar' };
           });
 
-        const client = new NomisClient(undefined, {
-          access_token: 'foo.bar',
-        });
-        const result = await client.get('https://api.nomis/test');
-
-        expect(authSpy.callCount).to.equal(
-          0,
-          'It should not refresh the token',
-        );
-        expect(apiSpy.callCount).to.equal(
-          2,
-          'It should have called the api endpoint twice',
-        );
-        expect(result).to.eql({ foo: 'bar' });
+        const client = new NomisClient(undefined, 'foo.bar');
+        let result;
+        try {
+          result = await client.get('https://api.nomis/test');
+        } catch (e) {
+          expect(true); // We require the catch block to avoid an unhandled rejection warning
+        } finally {
+          expect(authSpy.callCount).to.equal(
+            0,
+            'It should not refresh the token',
+          );
+          expect(apiSpy.callCount).to.equal(
+            2,
+            'It should have called the api endpoint twice',
+          );
+          expect(result).to.eql({ foo: 'bar' });
+        }
       });
     });
 
@@ -218,7 +211,7 @@ describe('NomisClient', () => {
 
         nock('https://api.nomis')
           .post(/auth\/oauth/)
-          .times(3)
+          .times(2)
           .reply(401, () => {
             authSpy();
             return null;
@@ -227,21 +220,22 @@ describe('NomisClient', () => {
           .times(5)
           .reply(401, apiSpy);
 
-        const client = new NomisClient(undefined, {
-          access_token: 'foo.bar',
-        });
-        const result = await client.get('https://api.nomis/test');
+        let result;
+        const client = new NomisClient(undefined, 'foo.bar');
+        try {
+          result = await client.get('https://api.nomis/test');
+        } catch (error) {
+          expect(authSpy.callCount).to.equal(
+            1,
+            'It should have called the auth endpoint once',
+          );
 
-        expect(authSpy.callCount).to.equal(
-          1,
-          'It should have called the auth endpoint once',
-        );
-
-        expect(apiSpy.callCount).to.equal(
-          1,
-          'It should have called the api endpoint once',
-        );
-        expect(result).to.equal(null, 'Should not have returned data');
+          expect(apiSpy.callCount).to.equal(
+            1,
+            'It should have called the api endpoint once',
+          );
+          expect(result).to.equal(undefined, 'Should not have returned data');
+        }
       });
     });
   });

@@ -22,31 +22,31 @@
     <meta property="og:image" content="{{ assetPath | default('/assets') }}/images/govuk-opengraph-image.png">
 
     {% block analytics %}
-    <!-- Matomo -->
-    <script>
-      var _paq = _paq || [];
-      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-      _paq.push(['enableLinkTracking']);
-      _paq.push(['enableJSErrorTracking']);
-      (function () {
-        var u = "//{{envVars.MATOMO_URL}}/";
-        _paq.push([
-          'setTrackerUrl', u + 'piwik.php'
-        ]);
-        _paq.push(['setSiteId', '1']);
-        var d = document,
-          g = d.createElement('script'),
-          s = d.getElementsByTagName('script')[0];
-        g.type = 'text/javascript';
-        g.async = true;
-        g.defer = true;
-        g.src = u + 'piwik.js';
-        s
-          .parentNode
-          .insertBefore(g, s);
-      })();
-    </script>
-    <!-- End Matomo Code -->
+      <!-- Matomo -->
+      <script>
+        var _paq = _paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['enableLinkTracking']);
+        _paq.push(['enableJSErrorTracking']);
+        (function () {
+          var u = "//{{envVars.MATOMO_URL}}/";
+          _paq.push([
+            'setTrackerUrl', u + 'piwik.php'
+          ]);
+          _paq.push(['setSiteId', '1']);
+          var d = document,
+            g = d.createElement('script'),
+            s = d.getElementsByTagName('script')[0];
+          g.type = 'text/javascript';
+          g.async = true;
+          g.defer = true;
+          g.src = u + 'piwik.js';
+          s
+            .parentNode
+            .insertBefore(g, s);
+        })();
+      </script>
+      <!-- End Matomo Code -->
     {% endblock %}
 
     <script src="/public/javascript/polyfills.js"></script>
@@ -75,19 +75,20 @@
         user: user
       }) }}
 
-
     {% block search %}
-    <div class="govuk-width-container">
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-          {{ hubSearch({ query: query }) }}
+      <div class="govuk-width-container">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-full">
+            {{ hubSearch({ query: query }) }}
+          </div>
         </div>
+        <hr class="govuk-section-break govuk-section-break--m govuk-search-section-break--visible">
       </div>
-      <hr class="govuk-section-break govuk-section-break--m govuk-search-section-break--visible">
-    </div>
     {% endblock %}
 
     {% block header %}{% endblock %}
+
+    {% block notification %}{% endblock %}
 
     {% if config.header %}
       <div class="govuk-hub-header__background {{ data.headerClass }}">
@@ -146,7 +147,6 @@
     <script src="/public/javascript/search.js"></script>
 
     {% block bodyEnd %}{% endblock %}
-
 
     {%block matomo %}
       <script>
