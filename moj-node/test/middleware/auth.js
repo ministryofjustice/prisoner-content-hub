@@ -53,7 +53,7 @@ describe('auth', () => {
         const session = { user: { offenderNo: 'TEST' } };
         const ntlm = { UserName: 'TEST' };
         const request = { session, ntlm };
-        const response = { locals: {} };
+        const response = { locals: {}, status: 200 };
         const next = sinon.spy();
         const offenderService = {
           getOffenderDetailsFor: sinon.spy(),
@@ -83,7 +83,7 @@ describe('auth', () => {
         const session = {};
         const ntlm = { UserName: 'TEST_USERNAME' };
         const request = { session, ntlm };
-        const response = { locals: {} };
+        const response = { locals: {}, status: 200 };
         const next = sinon.spy();
         const offenderService = {
           getOffenderDetailsFor: sinon.stub().resolves({
@@ -114,7 +114,7 @@ describe('auth', () => {
         const session = { user: 'TEST' };
         const ntlm = { UserName: null };
         const request = { session, ntlm };
-        const response = { locals: {} };
+        const response = { locals: {}, status: 404 };
         const next = sinon.spy();
         const offenderService = {
           getOffenderDetailsFor: sinon.spy(),
