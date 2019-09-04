@@ -6,8 +6,10 @@ const logger = require('../../log');
 const offenderNumber = path(['user', 'offenderNo']);
 
 const notificationContent = {
-  userNotFound: 'We were unable to log you in, please raise a ticket',
-  systemError: 'We were unable to log you in, some services may be unavailable',
+  userNotFound:
+    'You are not signed in. Some services will not be available to you. If you think you should be signed in, please report this to a digital champion or send an app to IT.',
+  systemError:
+    'Sorry, there is a technical problem and some features might not be working. We know about this problem and are working to fix it. Please try again later.',
 };
 
 function createNotification(text) {
@@ -23,7 +25,6 @@ module.exports.authMiddleware = (ntlm = expressNTLM) => {
           request.query.mockUser ||
           offenderNumber(request.session) ||
           'G9542VP',
-        // 'invalid',
         Workstation: 'MOCK_WORKSTATION',
       };
       next();
