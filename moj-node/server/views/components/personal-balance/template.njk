@@ -1,0 +1,49 @@
+{# {% extends "../component-or-error/macro.njk" %} #}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% if params.error %}
+  <div class="govuk-grid-column-two-thirds govuk-error-summary" id="keyWorker">
+    <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <p class="govuk-error-message">{{params.error}}</p>
+    </div>
+  </div>
+{% else %}
+  <div class="govuk-grid-column-two-thirds" id="money">
+    <h2 class="govuk-heading-m">Money</h2>
+    {{
+      govukSummaryList({
+        classes: 'govuk-summary-list--no-border',
+        rows: [
+          {
+            key: {
+              text: "Spends"
+            },
+            value: {
+              html: '<strong data-state="hidden" class="govuk-tag u-clickable"> <span>' + params.spends + ' ' + params.currency + '</span> <span>View balance</span> </strong>'
+            }
+          },
+          {
+            key: {
+              text: "Private"
+            },
+            value: {
+              html: '<strong data-state="hidden" class="govuk-tag u-clickable"> <span>' + params.cash + ' ' + params.currency + '</span> <span>View balance</span> </strong>'
+            }
+          },
+          {
+            key: {
+              text: "Savings"
+            },
+            value: {
+              html: '<strong data-state="hidden" class="govuk-tag u-clickable"> <span>' + params.savings + ' ' + params.currency + '</span> <span>View balance</span> </strong>'
+            }
+          }
+        ]
+      })
+    }}
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+  </div>
+{% endif %}

@@ -1,0 +1,56 @@
+{# {% extends "../component-or-error/macro.njk" %} #}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% if params.error %}
+  <div class="govuk-grid-column-two-thirds govuk-error-summary" id="keyWorker">
+    <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <p class="govuk-error-message">{{params.error}}</p>
+    </div>
+  </div>
+{% else %}
+  <div class="govuk-grid-column-one-third" id="morningEvents">
+    <h3 class="govuk-heading-m">Morning</h3>
+    <div class="events__timePeriod events__timePeriod--morning">
+      {% if params.morning.length == 0 %}
+        <p class="govuk-body">No events</p>
+      {% endif %}
+      {% for event in params.morning %}
+        <p class="govuk-body">{{event.timeString}}
+          <br>
+          <strong>{{event.title}}</strong>
+        </p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="govuk-grid-column-one-third" id="afternoonEvents">
+    <h3 class="govuk-heading-m">Afternoon</h3>
+    <div class="events__timePeriod events__timePeriod--afternoon">
+      {% if params.afternoon.length == 0 %}
+        <p class="govuk-body">No events</p>
+      {% endif %}
+      {% for event in params.afternoon %}
+        <p class="govuk-body">{{event.timeString}}
+          <br>
+          <strong>{{event.title}}</strong>
+        </p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="govuk-grid-column-one-third" id="eveningEvents">
+    <h3 class="govuk-heading-m">Evening</h3>
+    <div class="events__timePeriod events__timePeriod--evening">
+      {% if params.evening.length == 0 %}
+        <p class="govuk-body">No events</p>
+      {% endif %}
+      {% for event in params.evening %}
+        <p class="govuk-body">{{event.timeString}}
+          <br>
+          <strong>{{event.title}}</strong>
+        </p>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
