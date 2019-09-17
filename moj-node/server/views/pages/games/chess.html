@@ -36,139 +36,138 @@
 {% endblock %}
 
 {% block main %}
-  <div class="govuk-width-container">
-    <div class="govuk-main-wrapper">
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-          <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-4">Chess</h1>
-        </div>
+<div class="govuk-width-container">
+  <div class="govuk-main-wrapper">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-4">Chess</h1>
       </div>
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-          <div class="game-board-container">
-            <span class="govuk-heading-s govuk-!-margin-bottom-2 govuk-hub-computer" id="time1"></span>
-            <div class="main-board" id="board"></div>
-            <div class="messages" id="messages"></div>
-            <span class="govuk-heading-s govuk-!-margin-bottom-2 govuk-hub-human" id="time2"></span>
-            <div class="engine-status" id="engineStatus">...</div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <div class="game-board-container">
+          <span class="govuk-heading-s govuk-!-margin-bottom-2 govuk-hub-computer" id="time1"></span>
+          <div class="main-board" id="board"></div>
+          <div class="messages" id="messages"></div>
+          <span class="govuk-heading-s govuk-!-margin-bottom-2 govuk-hub-human" id="time2"></span>
+          <div class="engine-status" id="engineStatus">...</div>
+        </div>
+        <div class="moves-container">
+          <span class="govuk-heading-s govuk-!-margin-bottom-2">Moves:</span>
+          <div class="move-lists" id="pgn">Waiting for the first move!</div>
+        </div>
+        <div class="settings-container">
+          <span class="govuk-heading-s govuk-!-margin-bottom-2">Game settings:</span>
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="playerColor">
+            Play with
+          </label>
+            <select class="govuk-select govuk-hub-full-width" id="playerColor" name="playerColor">
+              <option value="white" selected>White</option>
+              <option value="black">Black</option>
+            </select>
           </div>
-          <div class="moves-container">
-            <span class="govuk-heading-s govuk-!-margin-bottom-2">Moves:</span>
-            <div class="move-lists" id="pgn">Waiting for the first move!</div>
+
+          <div class="govuk-form-group">
+            <label for="color" class="govuk-label">Pawns get promoted to</label>
+            <select class="govuk-select govuk-hub-full-width" id="promote">
+              <option value="q" selected>Queen</option>
+              <option value="r">Rook</option>
+              <option value="b">Bishop</option>
+              <option value="n">Knight</option>
+            </select>
           </div>
-          <div class="settings-container">
-            <span class="govuk-heading-s govuk-!-margin-bottom-2">Game settings:</span>
-            <div class="govuk-form-group">
-              <label class="govuk-label" for="playerColor">
-              Play with
-            </label>
-              <select class="govuk-select govuk-hub-full-width" id="playerColor" name="playerColor">
-                <option value="white" selected>White</option>
-                <option value="black">Black</option>
-              </select>
+
+          {# <div class="govuk-form-group"> #}
+          {# <label for="timeBase" class="govuk-label">Base time (min)</label> #}
+          <input type="hidden" id="timeBase" value="5"/>
+          {# </div> #}
+
+          {# <div class="govuk-form-group"> #}
+          {# <label for="timeInc" class="govuk-label">Increment (sec)</label> #}
+          <input type="hidden"  id="timeInc" value="2"/>
+          {# </div> #}
+
+          {# <div class="govuk-form-group">
+            <label class="govuk-label" for="contemptLevel">
+            Contempt Level (-100 to 100)
+          </label>
+            <input type="number" class="govuk-input govuk-!-margin-bottom-2" id="contemptLevel" value="-100" max="100" min="-100">
+            <details class="govuk-details">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                Help with contempt level
+              </span>
+              </summary>
+              <div class="govuk-details__text">
+              Roughly equivalent to "optimism." Positive values of contempt favor more "risky" play, while negative values will favor draws. Zero is neutral.
             </div>
-
-            <div class="govuk-form-group">
-              <label for="color" class="govuk-label">Pawns get promoted to</label>
-              <select class="govuk-select govuk-hub-full-width" id="promote">
-                <option value="q" selected>Queen</option>
-                <option value="r">Rook</option>
-                <option value="b">Bishop</option>
-                <option value="n">Knight</option>
-              </select>
-            </div>
-
-            {# <div class="govuk-form-group"> #}
-            {# <label for="timeBase" class="govuk-label">Base time (min)</label> #}
-            <input type="hidden" id="timeBase" value="5"/>
-            {# </div> #}
-
-            {# <div class="govuk-form-group"> #}
-            {# <label for="timeInc" class="govuk-label">Increment (sec)</label> #}
-            <input type="hidden"  id="timeInc" value="2"/>
-            {# </div> #}
-
-            {# <div class="govuk-form-group">
-              <label class="govuk-label" for="contemptLevel">
-              Contempt Level (-100 to 100)
-            </label>
-              <input type="number" class="govuk-input govuk-!-margin-bottom-2" id="contemptLevel" value="-100" max="100" min="-100">
-              <details class="govuk-details">
-                <summary class="govuk-details__summary">
-                  <span class="govuk-details__summary-text">
-                  Help with contempt level
-                </span>
-                </summary>
-                <div class="govuk-details__text">
-                Roughly equivalent to "optimism." Positive values of contempt favor more "risky" play, while negative values will favor draws. Zero is neutral.
-              </div>
-              </details>
-            </div> #}
-            <div class="govuk-form-group">
-
-              {{ govukRadios({
-                classes: "govuk-radios--small",
-                idPrefix: "skillLevel",
-                name: "skillLevel",
-                fieldset: {
-                  legend: {
-                    text: "Skill level",
-                    isPageHeading: false,
-                    classes: "govuk-fieldset__legend--s"
-                  }
-                },
-                items: [
-                  {
-                    value: "0",
-                    text: "Easy"
-                  },
-                  {
-                    value: "8",
-                    text: "Medium"
-                  },
-                  {
-                    value: "15",
-                    text: "Hard"
-                  },
-                  {
-                    value: "20",
-                    text: "Very hard"
-                  }
-                ]
-              }) }}
-            </div>
-
-            {# <div class="govuk-form-group">
-            <div class="govuk-checkboxes__item">
-              <input class="govuk-checkboxes__input" id="showScore" name="showScore" type="checkbox" value="1" checked>
-              <label class="govuk-label govuk-checkboxes__label" for="showScore">
-                Show score
-              </label>
-            </div>
+            </details>
           </div> #}
+          <div class="govuk-form-group">
 
-            <div class="govuk-form-group">
-              <button type="button" class="govuk-button" onclick="newGame()">New Game</button>
-            </div>
+            {{ govukRadios({
+              classes: "govuk-radios--small",
+              idPrefix: "skillLevel",
+              name: "skillLevel",
+              fieldset: {
+                legend: {
+                  text: "Skill level",
+                  isPageHeading: false,
+                  classes: "govuk-fieldset__legend--s"
+                }
+              },
+              items: [
+                {
+                  value: "0",
+                  text: "Easy"
+                },
+                {
+                  value: "8",
+                  text: "Medium"
+                },
+                {
+                  value: "15",
+                  text: "Hard"
+                },
+                {
+                  value: "20",
+                  text: "Very hard"
+                }
+              ]
+            }) }}
+          </div>
 
-            <h3 class="govuk-heading-m">How to play chess</h3>
-            <div class="govuk-inset-text">
-              <a href="/content/3700" target="_blank" class="govuk-link govuk-link--no-visited-state">Download the rules of chess (PDF)</a>
-            </div>
+          {# <div class="govuk-form-group">
+          <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" id="showScore" name="showScore" type="checkbox" value="1" checked>
+            <label class="govuk-label govuk-checkboxes__label" for="showScore">
+              Show score
+            </label>
+          </div>
+        </div> #}
+
+          <div class="govuk-form-group">
+            <button type="button" class="govuk-button" onclick="newGame()">New Game</button>
+          </div>
+
+          <h3 class="govuk-heading-m">How to play chess</h3>
+          <div class="govuk-inset-text">
+            <a href="/content/3700" target="_blank" class="govuk-link govuk-link--no-visited-state">Download the rules of chess (PDF)</a>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="govuk-hub-article-feedback govuk-!-margin-bottom-9">
-      <p class="govuk-body">Tell us what you think:</p>
-      {{ hubFeedbackWidget({
-        title: "Chess",
-        contentType: "game",
-        series: null,
-        establishment: envVars.APP_NAME
-      })}}
-    </div>
+  <div class="govuk-hub-article-feedback govuk-!-margin-bottom-9">
+    <p class="govuk-body">Tell us what you think:</p>
+    {{ hubFeedbackWidget({
+      title: "Chess",
+      contentType: "game",
+      series: null,
+      establishment: envVars.APP_NAME
+    })}}
   </div>
 </div>
 
