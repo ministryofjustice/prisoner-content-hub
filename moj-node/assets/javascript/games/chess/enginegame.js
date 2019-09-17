@@ -22,7 +22,7 @@ function engineGame(options) {
   };
 
   function uciCmd(cmd) {
-    engine.postMessage(cmd + "\n");
+    engine.postMessage(cmd);
   }
   uciCmd('uci');
 
