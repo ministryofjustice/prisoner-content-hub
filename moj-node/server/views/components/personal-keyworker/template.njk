@@ -1,0 +1,41 @@
+{# {% extends "../component-or-error/macro.njk" %} #}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% if params.error %}
+  <div class="govuk-grid-column-two-thirds govuk-error-summary" id="keyWorker">
+    <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <p class="govuk-error-message">{{params.error}}</p>
+    </div>
+  </div>
+{% else %}
+  <div class="govuk-grid-column-two-thirds" id="keyWorker">
+    <h2 class="govuk-heading-m">Key worker</h2>
+    {{
+      govukSummaryList({
+          classes: 'govuk-summary-list--no-border',
+          rows: [
+            {
+              key: {
+                text: "Current key worker"
+              },
+              value: {
+                text: params.current
+              }
+            },
+            {
+              key: {
+                text: "Last meeting"
+              },
+              value: {
+                text: params.lastMeeting
+              }
+            }
+          ]
+      })
+    }}
+    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+  </div>
+{% endif %}

@@ -1,0 +1,56 @@
+{# {% extends "../component-or-error/macro.njk" %} #}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% if params.error %}
+  <div class="govuk-grid-column-two-thirds govuk-error-summary" id="keyWorker">
+    <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <p class="govuk-error-message">{{params.error}}</p>
+    </div>
+  </div>
+{% else %}
+  <div class="govuk-grid-column-two-thirds" id="keyDates">
+    <h2 class="govuk-heading-m">Important Dates</h2>
+    {{
+      govukSummaryList({
+        classes: 'govuk-summary-list--no-border',
+        rows: [
+          {
+            key: {
+              text: "Re-categorisation"
+            },
+            value: {
+              text: params.reCategorisationDate
+            }
+          },
+          {
+            key: {
+              text: "HDC eligibility"
+            },
+            value: {
+              text: params.hdcEligibilityDate
+            }
+          },
+          {
+            key: {
+              text: "Conditional release"
+            },
+            value: {
+              text: params.conditionalReleaseDate
+            }
+          },
+          {
+            key: {
+              text: "Licence expires"
+            },
+            value: {
+              text: params.licenceExpiryDate
+            }
+          }
+        ]
+      })
+    }}
+  </div>
+{% endif %}
