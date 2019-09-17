@@ -1,6 +1,6 @@
 describe('Secondary tag page', () => {
   const landingPages = {
-    employmentTrainingEducation: '/tags/829',
+    employmentTrainingEducation: '/tags/827',
   };
 
   Object.keys(landingPages).forEach(key => {
