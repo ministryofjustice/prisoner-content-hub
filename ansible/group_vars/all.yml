@@ -200,6 +200,15 @@ studio_users:
     shell: /bin/bash
     update_password: on_create
 
+  - username: ttaylor
+    name: "Tim Taylor"
+    groups:
+      - studio
+    ssh_key:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAgEA6FfA5bUg/wh1BEDD/NjZbyc6fnhoIZ1iH0rz1I1YCXgX4ENhVndGKWc1K8fm7KYlSiPHhQGpaXMbcJnPfO7lhaqxUgPVPqebxkJTZnwoslOyDjHtprsH4d9jyi7iq+FJ8gTbbX8NUtK8YfOa/6fFEsc9QNvxcIBfFEHuIcUcJqnFPAI68kjp4Ixobe6OH2E5J2c2LhEJLccDIfKhpp0Uz8TS6McLSmUoAFwzgpBV19A2yxDT1mwWTMzImTJgaZ4srCRTTaoyarTAPKHdFF+I6xqCAqna71uqG5xlaZjzYJCJ3Chr6eS7TfAVujY4c3SU9sX6VvXmKgKzBHhLFSBYOyPfOSr4hf5rF7hTVVairfwqCJm1R0M/8pOQ3D9vtYN0hT5tQ+OO+O7LfIBFJs+5CSti3QHgaTdXnqg3Ea0O7+pe9W7Juiwpbu2P7ONLEUydCauobTblPT4aDjN/FJ5O908I58A0/skH3nfNSNvUe9XlVGBtDsYadCtW4hPp98U4s55eApdUSljauDwyH9fZt5HiSJv56CzUC/DnJhgPOFY4O4XNKiDgtC3/u+81xQgVg28iy9GPFwk4HjIQCixvvI8QGo4G26hJkragcZeBkz9YEKCngLCkyJAG+0QtxiHQcw/rCIeAteyhWhC90y8wEalNMmOsez1g0EWJdtN3byc= tt-rsa-key-20190821"
+    shell: /bin/bash
+    update_password: on_create
+
 users: "{{ studio_users }}"
 
 users_deleted:
@@ -210,7 +219,6 @@ users_deleted:
   - username: naomiturner
   - username: catrinaknight
   - username: zedali
-  - username: ttaylor
   - username: nbartle
 nginx_extra_http_options: |
   ##
