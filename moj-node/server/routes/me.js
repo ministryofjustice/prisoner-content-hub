@@ -20,7 +20,7 @@ module.exports = function createMeRouter({ logger, offenderService }) {
       return res.redirect('/');
     }
 
-    const today = format(new Date(), 'dddd D MMMM');
+    const today = format(new Date(), 'EEEE d MMMM');
 
     try {
       const { offenderNo, bookingId } = req.session.user;
