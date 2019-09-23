@@ -1,6 +1,6 @@
 const {
-  parse,
-  distanceInWords,
+  parseISO,
+  formatDistance,
   format,
   isValid,
   isBefore,
@@ -11,12 +11,12 @@ const { capitalize } = require('../utils');
 
 const prettyDate = date => {
   if (!isValid(new Date(date))) return 'Unavailable';
-  return format(parse(date), 'dddd DD MMMM YYYY');
+  return format(parseISO(date), 'EEEE dd MMMM yyyy');
 };
 
 const prettyTime = date => {
   if (!isValid(new Date(date))) return '';
-  return format(parse(date), 'h:mma');
+  return format(parseISO(date), 'h:mmaaa');
 };
 
 const getTimeOfDay = date => {
@@ -29,10 +29,10 @@ const getTimeOfDay = date => {
   const morning = new Date(nowYear, nowMonth, nowDay, 12, 0, 0);
   const afternoon = new Date(nowYear, nowMonth, nowDay, 17, 0, 0);
 
-  if (isBefore(date, morning)) {
+  if (isBefore(parseISO(date), morning)) {
     return 'morning';
   }
-  if (isBefore(date, afternoon)) {
+  if (isBefore(parseISO(date), afternoon)) {
     return 'afternoon';
   }
   return 'evening';
@@ -77,7 +77,10 @@ module.exports = function createOffenderService(repository) {
       return {
         reviewDate: 'Unavailable',
         iepLevel: iePSummary.iepLevel,
-        daysSinceReview: distanceInWords(parse(iePSummary.iepDate), new Date()),
+        daysSinceReview: formatDistance(
+          parseISO(iePSummary.iepDate),
+          new Date(),
+        ),
       };
     } catch {
       return {

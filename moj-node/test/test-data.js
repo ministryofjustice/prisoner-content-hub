@@ -1,6 +1,6 @@
 const { format } = require('date-fns');
 
-const nowDateString = format(new Date(), 'YYYY-MM-DD');
+const nowDateString = format(new Date(), 'yyyy-MM-dd');
 const getEventsForTodayData = [
   {
     title: 'single event morning',
@@ -15,9 +15,9 @@ const getEventsForTodayData = [
       morning: [
         {
           title: 'Some title',
-          startTime: '11:30am',
-          endTime: '12:30pm',
-          timeString: '11:30am to 12:30pm',
+          startTime: '11:30AM',
+          endTime: '12:30PM',
+          timeString: '11:30AM to 12:30PM',
         },
       ],
       afternoon: [],
@@ -37,9 +37,9 @@ const getEventsForTodayData = [
       morning: [
         {
           title: 'Some title',
-          startTime: '11:30am',
+          startTime: '11:30AM',
           endTime: '',
-          timeString: '11:30am',
+          timeString: '11:30AM',
         },
       ],
       afternoon: [],
@@ -60,9 +60,9 @@ const getEventsForTodayData = [
       afternoon: [
         {
           title: 'Some title',
-          startTime: '12:30pm',
-          endTime: '1:30pm',
-          timeString: '12:30pm to 1:30pm',
+          startTime: '12:30PM',
+          endTime: '1:30PM',
+          timeString: '12:30PM to 1:30PM',
         },
       ],
       evening: [],
@@ -82,9 +82,9 @@ const getEventsForTodayData = [
       afternoon: [
         {
           title: 'Some title',
-          startTime: '12:30pm',
+          startTime: '12:30PM',
           endTime: '',
-          timeString: '12:30pm',
+          timeString: '12:30PM',
         },
       ],
       evening: [],
@@ -105,9 +105,9 @@ const getEventsForTodayData = [
       evening: [
         {
           title: 'Some title',
-          startTime: '6:30pm',
-          endTime: '7:30pm',
-          timeString: '6:30pm to 7:30pm',
+          startTime: '6:30PM',
+          endTime: '7:30PM',
+          timeString: '6:30PM to 7:30PM',
         },
       ],
     },
@@ -127,9 +127,9 @@ const getEventsForTodayData = [
       evening: [
         {
           title: 'Some title',
-          startTime: '6:30pm',
+          startTime: '6:30PM',
           endTime: '',
-          timeString: '6:30pm',
+          timeString: '6:30PM',
         },
       ],
     },
