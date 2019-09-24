@@ -1,0 +1,235 @@
+{% from "../components/promoted-content/macro.njk" import hubPromotedContent %}
+{% from "../components/featured-content/macro.njk" import hubFeaturedContent %}
+{% from "../components/sub-menu/macro.njk" import hubSubMenu %}
+{% from "../components/topics/macro.njk" import hubTopics %}
+{% from "../components/search/macro.njk" import hubSearch %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% extends "../components/template.njk" %}
+
+{% block pageTitle %}
+  {{envVars.APP_NAME}}
+{% endblock %}
+
+{% block head %}
+  <!--[if !IE 8]><!-->
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
+  <!--<![endif]-->
+
+  {# For Internet Explorer 8, you need to compile specific stylesheet #}
+  {# see https://github.com/alphagov/govuk-frontend/govuk/blob/master/docs/installation/supporting-internet-explorer-8.md #}
+  <!--[if IE 8]>
+    <link href="/govuk-frontend/govuk/all-ie8.css" rel="stylesheet" />
+  <![endif]-->
+
+  {# For older browsers to allow them to recognise HTML5 elements such as `<header>` #}
+  <!--[if lt IE 9]>
+    <script src="/html5-shiv/html5shiv.js"></script>
+  <![endif]-->
+{% endblock %}
+
+{% block notification %}
+  {% if notification %}}
+    <div class="govuk-width-container">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <div class="notification notification--is-error">
+            <p>{{notification.text}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block todaysEvents %}
+  {% if true %}
+    <div class="govuk-clearfix">
+      <h2 class="govuk-heading-l">Today</h2>
+      <div style="display: flex;">
+        <div style="flex: 1;">
+          <p class="govuk-body">No events</p>
+          {% if todaysEvents.morning.length == 0 %}
+            <p class="govuk-body">No events</p>
+          {% endif %}
+          {% for event in todaysEvents.morning %}
+            <p class="govuk-body">{{event.timeString}}
+              <br>
+              <strong>{{event.title}}</strong>
+            </p>
+          {% endfor %}
+        </div>
+        <div style="flex: 1;">
+          <p class="govuk-body">No events</p>
+          {% if todaysEvents.afternoon.length == 0 %}
+            <p class="govuk-body">No events</p>
+          {% endif %}
+          {% for event in todaysEvents.afternoon %}
+            <p class="govuk-body">{{event.timeString}}
+              <br>
+              <strong>{{event.title}}</strong>
+            </p>
+          {% endfor %}
+        </div>
+        <div style="flex: 1;">
+          <p class="govuk-body">No events</p>
+          {% if todaysEvents.evening.length == 0 %}
+            <p class="govuk-body">No events</p>
+          {% endif %}
+          {% for event in todaysEvents.evening %}
+            <p class="govuk-body">{{event.timeString}}
+              <br>
+              <strong>{{event.title}}</strong>
+            </p>
+          {% endfor %}
+        </div>
+      </div>
+      <p class="govuk-body">
+        <a href="/" class="govuk-link">See your 7 day timetable</a>
+      </p>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% set categoryLinks = {
+  "news-events": "/content/3632",
+  "Day-to-day": "/content/3663",
+  "art-culture": "/content/3661",
+  "healthy-mind-body": "/content/3657",
+  "history": "/content/3699",
+  "music": "/content/3662",
+  "inspiration": "/content/3659",
+  "science-nature": "/content/3660",
+  "legal-and-your-rights": "/content/3658"
+} %}
+
+{% block promotedContent %}
+  <nav id="homepage-navigation" class="govuk-hub-main_navigation_banner">
+
+    <ul class="govuk-hub-main_navigation">
+      <li class="govuk-hub-main_navigation_current_page">
+        <span class="govuk-link">Home</span>
+      </li>
+      {% for menuItem in homepageMenu %}
+        <li>
+          <a class="govuk-link govuk-link--no-visited-state" href="{{menuItem.href}}" data-topnav="{{menuItem.title}}">{{menuItem.title}}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+  {{ hubPromotedContent({
+    data: promotionalContent,
+    dayToDay: dayToDay
+  }) }}
+
+{% endblock %}
+
+{% block subMenu %}
+  {{ hubSubMenu({
+    data: submenudata
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  {{ hubFeaturedContent({
+    categoryTitle: "News and events",
+    categoryLink: categoryLinks["news-events"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: newsAndEvents,
+    size: "small",
+    contentType: "news-events"
+  }) }}
+
+  {{ hubFeaturedContent({
+    categoryTitle: "Healthy mind and body",
+    categoryLink: categoryLinks["healthy-mind-body"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: healthyMindAndBody,
+    size: "small",
+    contentType: "healthy-mind-body"
+  }) }}
+
+  {{ hubFeaturedContent({
+    categoryTitle: "Legal advice and your rights",
+    categoryLink: categoryLinks["legal-and-your-rights"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: legalAndYourRights,
+    size: "small",
+    contentType: "legal-and-your-rights"
+  }) }}
+
+  {{ hubFeaturedContent({
+    categoryTitle: "Inspiration",
+    categoryLink: categoryLinks["inspiration"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: inspiration,
+    size: "small",
+    contentType: "inspiration"
+  }) }}
+
+  {{ hubFeaturedContent({
+    categoryTitle: "Science and nature",
+    categoryLink: categoryLinks["science-nature"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: scienceAndNature,
+    size: "small",
+    contentType: "science-nature"
+  }) }}
+
+  {{ hubFeaturedContent({
+    categoryTitle: "Art and culture",
+    categoryLink: categoryLinks["art-culture"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: artAndCulture,
+    size: "small",
+    contentType: "art-culture"
+  }) }}
+
+  {{ hubFeaturedContent({
+    categoryTitle: "History",
+    categoryLink: categoryLinks["history"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: history,
+    size: "small",
+    contentType: "history"
+  }) }}
+
+  {{ hubFeaturedContent({
+    categoryTitle: "Music",
+    categoryLink: categoryLinks["music"],
+    columnNumber: "govuk-grid-column-one-quarter",
+    data: music,
+    size: "small",
+    contentType: "music"
+  }) }}
+
+  {{ hubFeaturedContent({
+    categoryTitle: "Games",
+    columnNumber: "govuk-grid-column-one-third",
+    data: games,
+    size: "medium",
+    contentType: "games"
+  }) }}
+{% endblock %}
+
+{% block postscript %}
+  <div id="browser-by-topic" class="govuk-width-container govuk-!-margin-top-6">
+    <div class="govuk-main-wrapper" id="postscript-content">
+      {{ hubTopics({
+        data: tagsMenu
+      }) }}
+    </div>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
+  <script src="/public/all.js"></script>
+  <script>
+    window
+      .GOVUKFrontend
+      .initAll()
+  </script>
+{% endblock %}

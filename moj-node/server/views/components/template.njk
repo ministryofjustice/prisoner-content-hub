@@ -2,6 +2,7 @@
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 {% from "./search/macro.njk" import hubSearch %}
 {% from "./header/macro.njk" import pageHeader %}
+{% from "./top-bar/macro.njk" import topBar %}
 {% from "./landing-page-header/macro.njk" import hubLandingPageHeader %}
 
 <!DOCTYPE html>
@@ -67,13 +68,17 @@
       }) }}
     {% endblock %}
 
-    {{ pageHeader({
+    {% if config.topBar %}
+      {{ topBar() }}
+    {% else %}
+      {{ pageHeader({
         mainMenu: mainMenu,
         topicsMenu: topicsMenu,
         appName: envVars.APP_NAME,
         features: features,
         user: user
       }) }}
+    {% endif %}
 
     {% block search %}
       <div class="govuk-width-container">
@@ -94,7 +99,7 @@
       <div class="govuk-hub-header__background {{ data.headerClass }}">
         <div class="govuk-width-container">
           {% block beforeContent %}{% endblock %}
-          {% if user %}
+          {% if true %}
             {% block todaysEvents %}{% endblock %}
           {% endif %}
           <header class="govuk-main-wrapper" id="header-content">
