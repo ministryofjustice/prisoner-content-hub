@@ -187,7 +187,6 @@ describe('GET /', () => {
     it('renders the browse by topics menu', () => {
       return request(app)
         .get('/')
-        .query({ showBrowseByTopics: 'true' })
         .then(response => {
           const $ = cheerio.load(response.text);
 

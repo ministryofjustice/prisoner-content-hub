@@ -12,6 +12,7 @@ const sassMiddleware = require('node-sass-middleware');
 const session = require('cookie-session');
 
 const createIndexRouter = require('./routes/index');
+const createHomeRouter = require('./routes/home');
 const createHealthRouter = require('./routes/health');
 const createContentRouter = require('./routes/content');
 const createTagRouter = require('./routes/tags');
@@ -166,6 +167,17 @@ module.exports = function createApp({
   app.use(
     '/',
     createIndexRouter({
+      logger,
+      hubFeaturedContentService,
+      hubPromotedContentService,
+      hubMenuService,
+      offenderService,
+    }),
+  );
+
+  app.use(
+    '/home',
+    createHomeRouter({
       logger,
       hubFeaturedContentService,
       hubPromotedContentService,

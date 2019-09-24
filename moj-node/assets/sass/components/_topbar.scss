@@ -1,0 +1,37 @@
+@import 'node_modules/govuk-frontend/govuk/settings/all';
+@import 'node_modules/govuk-frontend/govuk/tools/all';
+@import 'node_modules/govuk-frontend/govuk/helpers/all';
+@import 'node_modules/govuk-frontend/govuk/helpers/typography';
+
+.top-bar {
+  display: flex;
+  color: govuk-colour('white');
+  align-items: center;
+  font-size: 24px;
+  padding: govuk-spacing(1) 0;
+}
+
+.top-bar > * {
+  flex: 1;
+}
+
+.top-bar :last-child {
+  text-align: right;
+}
+
+.top-bar h1 {
+  margin-bottom: 0;
+}
+
+.top-bar h1 a {
+  color: govuk-colour('white');
+  text-decoration: none;
+}
+
+.top-bar h1 span {
+  font-weight: 400;
+}
+
+.top-bar-time :last-child {
+  font-weight: 700;
+}
