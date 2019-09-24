@@ -42,6 +42,15 @@
   {% endif %}
 {% endblock %}
 
+{% block userDetails %}
+  <div class="govuk-width-container">
+    {{ userDetails({
+      detailsType: config.detailsType,
+      userName: config.userName
+    }) }}
+  </div>
+{% endblock %}
+
 {% block todaysEvents %}
   {% if true %}
     <div class="govuk-clearfix">
