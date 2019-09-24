@@ -98,7 +98,7 @@
       <div class="govuk-hub-header__background {{ data.headerClass }}">
         <div class="govuk-width-container">
           {% block beforeContent %}{% endblock %}
-          {% if true %}
+          {% if user %}
             {% block todaysEvents %}{% endblock %}
           {% endif %}
           <header class="govuk-main-wrapper" id="header-content">
