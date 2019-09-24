@@ -1,13 +1,7 @@
-function isFeatureEnabled(query) {
-  return feature => query[feature] && query[feature] === 'true';
-}
-
-module.exports = function handleFeatureToggles(features = []) {
+module.exports = function handleFeatureToggles(features = {}) {
   return (req, res, next) => {
-    const isEnabled = isFeatureEnabled(req.query);
-
-    const result = features.reduce((acc, currentFeature) => {
-      acc[currentFeature] = isEnabled(currentFeature);
+    const result = Object.keys(features).reduce((acc, currentFeature) => {
+      acc[currentFeature] = features[currentFeature];
       return acc;
     }, {});
 

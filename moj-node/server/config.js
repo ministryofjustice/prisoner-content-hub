@@ -19,7 +19,6 @@ module.exports = {
   appName: getEnv('APP_NAME', 'HMP Hub Local', {
     requireInProduction: true,
   }),
-  featureTogglesEnabled: getEnv('ENABLE_FEATURE_TOGGLES', 'true'),
   dev: !isProduction && !isTest,
   test: isTest,
   production: isProduction,
@@ -55,7 +54,9 @@ module.exports = {
     search: `${elasticSearchEndpoint}/elasticsearch_index_hubdb_content_index/_search`,
   },
   matomoToken: getEnv('MATOMO_TOKEN', 'faketoken'),
-  features: ['showPageMenu', 'showBrowseByTopics'],
-  enablePrisonSwitch: getEnv('ENABLE_PRISON_SWITCH', 'false'),
+  features: {
+    newDesigns: getEnv('FEATURE_NEW_DESIGNS', 'false'),
+    prisonSwitch: getEnv('ENABLE_PRISON_SWITCH', 'false'),
+  },
   mockAuth: getEnv('MOCK_AUTH', 'false'),
 };

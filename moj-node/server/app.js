@@ -146,12 +146,10 @@ module.exports = function createApp({
   app.use(helmet.noCache());
 
   // feature toggles
-  if (config.featureTogglesEnabled === 'true') {
-    app.use(featureToggleMiddleware(config.features));
-  }
+  app.use(featureToggleMiddleware(config.features));
 
   // establishment toggle
-  if (config.enablePrisonSwitch === 'true') {
+  if (config.features.prisonSwitch === 'true') {
     app.use(establishmentToggle);
   }
 
