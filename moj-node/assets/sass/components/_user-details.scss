@@ -1,0 +1,25 @@
+@import 'node_modules/govuk-frontend/govuk/settings/all';
+@import 'node_modules/govuk-frontend/govuk/tools/all';
+@import 'node_modules/govuk-frontend/govuk/helpers/all';
+@import 'node_modules/govuk-frontend/govuk/helpers/typography';
+
+.user-details-small,
+.user-details-large {
+  color: govuk-colour('black');
+  font-weight: 700;
+  font-size: 48px;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+}
+
+.user-details-small::before,
+.user-details-large::before {
+  width: 46px;
+  height: 46px;
+  content: '';
+  background-color: govuk-colour('light-grey');
+  background-image: url('/public/images/bod.png');
+  display: inline-block;
+  margin-right: govuk-spacing(2);
+}

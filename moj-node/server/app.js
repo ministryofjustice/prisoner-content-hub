@@ -23,7 +23,7 @@ const createSearchRouter = require('./routes/search');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const establishmentToggle = require('./middleware/establishmentToggle');
-// const { authMiddleware, createUserSession } = require('./middleware/auth');
+const { authMiddleware, createUserSession } = require('./middleware/auth');
 
 const { getEstablishmentId } = require('./utils');
 
@@ -160,7 +160,9 @@ module.exports = function createApp({
   // Routing
 
   // Authentication
-  // app.use(authMiddleware(), createUserSession({ offenderService }));
+  if (config.features.newDesigns) {
+    app.use(authMiddleware(), createUserSession({ offenderService }));
+  }
 
   app.use(
     '/',
@@ -173,16 +175,18 @@ module.exports = function createApp({
     }),
   );
 
-  app.use(
-    '/home',
-    createHomeRouter({
-      logger,
-      hubFeaturedContentService,
-      hubPromotedContentService,
-      hubMenuService,
-      offenderService,
-    }),
-  );
+  if (config.features.newDesigns) {
+    app.use(
+      '/home',
+      createHomeRouter({
+        logger,
+        hubFeaturedContentService,
+        hubPromotedContentService,
+        hubMenuService,
+        offenderService,
+      }),
+    );
+  }
 
   app.use(
     '/content',
