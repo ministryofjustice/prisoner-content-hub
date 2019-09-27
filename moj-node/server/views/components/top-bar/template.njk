@@ -1,4 +1,4 @@
-<header class="govuk-header" data-module="header">
+<header class="govuk-header top-bar-container" data-module="header">
   <div class="govuk-width-container govuk-body top-bar">
     <h1 class="govuk-heading-m">
       <a href="/" style="">Content Hub <span>{{ params.appName }}</span></a>
@@ -9,3 +9,8 @@
     </div>
   </div>
 </header>
+{% if params.showBar %}
+  <div class="govuk-width-container">
+    <hr class="govuk-section-break govuk-search-section-break--visible">
+  </div>
+{% endif %}

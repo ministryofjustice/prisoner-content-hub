@@ -1,8 +1,6 @@
 {# {% extends "../component-or-error/macro.njk" %} #}
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-
 {% if params.error %}
-  <div class="govuk-grid-column-two-thirds govuk-error-summary" id="keyWorker">
+  <div class="govuk-error-summary">
     <h2 class="govuk-error-summary__title">
       There is a problem
     </h2>
@@ -11,46 +9,28 @@
     </div>
   </div>
 {% else %}
-  <div class="govuk-grid-column-one-third" id="morningEvents">
-    <h3 class="govuk-heading-m">Morning</h3>
-    <div class="events__timePeriod events__timePeriod--morning">
-      {% if params.morning.length == 0 %}
-        <p class="govuk-body">No events</p>
-      {% endif %}
-      {% for event in params.morning %}
-        <p class="govuk-body">{{event.timeString}}
-          <br>
-          <strong>{{event.title}}</strong>
-        </p>
-      {% endfor %}
+  <div class="todays-events">
+    <div>
+      <h3 class="govuk-heading-m">Today's appointments</h3>
+      <a href="/" class="govuk-link see-timetable">See your timetable</a>
     </div>
-  </div>
-  <div class="govuk-grid-column-one-third" id="afternoonEvents">
-    <h3 class="govuk-heading-m">Afternoon</h3>
-    <div class="events__timePeriod events__timePeriod--afternoon">
-      {% if params.afternoon.length == 0 %}
-        <p class="govuk-body">No events</p>
-      {% endif %}
-      {% for event in params.afternoon %}
-        <p class="govuk-body">{{event.timeString}}
-          <br>
-          <strong>{{event.title}}</strong>
-        </p>
-      {% endfor %}
-    </div>
-  </div>
-  <div class="govuk-grid-column-one-third" id="eveningEvents">
-    <h3 class="govuk-heading-m">Evening</h3>
-    <div class="events__timePeriod events__timePeriod--evening">
-      {% if params.evening.length == 0 %}
-        <p class="govuk-body">No events</p>
-      {% endif %}
-      {% for event in params.evening %}
-        <p class="govuk-body">{{event.timeString}}
-          <br>
-          <strong>{{event.title}}</strong>
-        </p>
-      {% endfor %}
+    <div class="govuk-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Event</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in params %}
+          <tr>
+            <td>{{event.timeString}}</td>
+            <td><strong>{{event.title}}</strong> {{event.location}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   </div>
 {% endif %}

@@ -42,58 +42,6 @@
   {% endif %}
 {% endblock %}
 
-{% if false %}
-  <h2 class="govuk-heading-l">Today</h2>
-  <div class="govuk-grid-row events">
-    <div class="govuk-grid-column-one-quarter" id="morningEvents">
-      <div class="events__timePeriod events__timePeriod--morning">
-        {% if todaysEvents.morning.length == 0 %}
-          <p class="govuk-body">No events</p>
-        {% endif %}
-        {% for event in todaysEvents.morning %}
-          <p class="govuk-body">{{event.timeString}}
-            <br>
-            <strong>{{event.title}}</strong>
-          </p>
-        {% endfor %}
-      </div>
-    </div>
-    <div class="govuk-grid-column-one-quarter" id="afternoonEvents">
-      <div class="events__timePeriod events__timePeriod--afternoon">
-        {% if todaysEvents.afternoon.length == 0 %}
-          <p class="govuk-body">No events</p>
-        {% endif %}
-        {% for event in todaysEvents.afternoon %}
-          <p class="govuk-body">{{event.timeString}}
-            <br>
-            <strong>{{event.title}}</strong>
-          </p>
-        {% endfor %}
-      </div>
-    </div>
-    <div class="govuk-grid-column-one-quarter" id="eveningEvents">
-      <div class="events__timePeriod events__timePeriod--evening">
-        {% if todaysEvents.evening.length == 0 %}
-          <p class="govuk-body">No events</p>
-        {% endif %}
-        {% for event in todaysEvents.evening %}
-          <p class="govuk-body">{{event.timeString}}
-            <br>
-            <strong>{{event.title}}</strong>
-          </p>
-        {% endfor %}
-      </div>
-    </div>
-    <div class="govuk-grid-column-one-quarter" id="otherEvents">
-      <div class="events__timePeriod">
-        <p class="govuk-body">
-          <a href="/" class="govuk-link">See your 7 day timetable</a>
-        </p>
-      </div>
-    </div>
-  </div>
-{% endif %}
-
 {% set categoryLinks = {
   "news-events": "/content/3632",
   "Day-to-day": "/content/3663",

@@ -3,6 +3,10 @@
 @import 'node_modules/govuk-frontend/govuk/helpers/all';
 @import 'node_modules/govuk-frontend/govuk/helpers/typography';
 
+.top-bar-container {
+  border: 0;
+}
+
 .top-bar {
   display: flex;
   color: govuk-colour('white');

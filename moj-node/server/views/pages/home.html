@@ -4,6 +4,8 @@
 {% from "../components/topics/macro.njk" import hubTopics %}
 {% from "../components/search/macro.njk" import hubSearch %}
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "../components/personal-schedule-today/macro.njk" import personalScheduleToday %}
 
 {% extends "../components/template.njk" %}
 
@@ -42,6 +44,13 @@
   {% endif %}
 {% endblock %}
 
+{% block topBar %}
+  {{ topBar({
+    appName: envVars.APP_NAME,
+    showBar: true
+  }) }}
+{% endblock %}
+
 {% block userDetails %}
   <div class="govuk-width-container">
     {{ userDetails({
@@ -51,54 +60,48 @@
   </div>
 {% endblock %}
 
-{% block todaysEvents %}
-  {% if true %}
-    <div class="govuk-clearfix">
-      <h2 class="govuk-heading-l">Today</h2>
-      <div style="display: flex;">
-        <div style="flex: 1;">
-          <p class="govuk-body">No events</p>
-          {% if todaysEvents.morning.length == 0 %}
-            <p class="govuk-body">No events</p>
-          {% endif %}
-          {% for event in todaysEvents.morning %}
-            <p class="govuk-body">{{event.timeString}}
-              <br>
-              <strong>{{event.title}}</strong>
-            </p>
-          {% endfor %}
+{% block homeNavigation %}
+
+{% set popularTopics = {
+  "news-events": "/content/3632",
+  "day-to-day": "/content/3663",
+  "art-culture": "/content/3661",
+  "healthy-mind-body": "/content/3657",
+  "history": "/content/3699",
+  "music": "/content/3662",
+  "inspiration": "/content/3659",
+  "science-nature": "/content/3660",
+  "legal-and-your-rights": "/content/3658"
+} %}
+  <div class="govuk-width-container home-navigation">
+    <div class="home-navigation__actions">
+      <div>
+        <div class="govuk-clearfix home-navigation__search">
+          {{ hubSearch({ query: query }) }}
         </div>
-        <div style="flex: 1;">
-          <p class="govuk-body">No events</p>
-          {% if todaysEvents.afternoon.length == 0 %}
-            <p class="govuk-body">No events</p>
-          {% endif %}
-          {% for event in todaysEvents.afternoon %}
-            <p class="govuk-body">{{event.timeString}}
-              <br>
-              <strong>{{event.title}}</strong>
-            </p>
-          {% endfor %}
-        </div>
-        <div style="flex: 1;">
-          <p class="govuk-body">No events</p>
-          {% if todaysEvents.evening.length == 0 %}
-            <p class="govuk-body">No events</p>
-          {% endif %}
-          {% for event in todaysEvents.evening %}
-            <p class="govuk-body">{{event.timeString}}
-              <br>
-              <strong>{{event.title}}</strong>
-            </p>
-          {% endfor %}
-        </div>
+        {{ govukButton({
+          text: "Browse all topics",
+          href: "/topics",
+          isStartButton: true
+        }) }}
       </div>
-      <p class="govuk-body">
-        <a href="/" class="govuk-link">See your 7 day timetable</a>
-      </p>
+      <div class="popular-topics">
+        <h3 class="govuk-heading-s">Popular topics</h3>
+        <ul>
+          {% for itemtitle, link in popularTopics %}
+            <li><a href="{{link}}" class="govuk-link">{{itemtitle}}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
-  {% endif %}
+    {% if todaysEvents.length > 0 %}
+      {{personalScheduleToday(todaysEvents)}}
+    {% endif %}
+  </div>
 {% endblock %}
+
+{% block search %}{% endblock %}
+{% block todaysEvents %}{% endblock %}
 
 {% set categoryLinks = {
   "news-events": "/content/3632",

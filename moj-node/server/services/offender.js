@@ -1,10 +1,4 @@
-const {
-  parseISO,
-  formatDistance,
-  format,
-  isValid,
-  isBefore,
-} = require('date-fns');
+const { parseISO, formatDistance, format, isValid } = require('date-fns');
 const { propOr, prop } = require('ramda');
 
 const { capitalize } = require('../utils');
@@ -17,45 +11,6 @@ const prettyDate = date => {
 const prettyTime = date => {
   if (!isValid(new Date(date))) return '';
   return format(parseISO(date), 'h:mmaaa');
-};
-
-const getTimeOfDay = date => {
-  if (!isValid(new Date(date))) return '';
-
-  const now = new Date();
-  const nowYear = now.getFullYear();
-  const nowMonth = now.getMonth();
-  const nowDay = now.getDate();
-  const morning = new Date(nowYear, nowMonth, nowDay, 12, 0, 0);
-  const afternoon = new Date(nowYear, nowMonth, nowDay, 17, 0, 0);
-
-  if (isBefore(parseISO(date), morning)) {
-    return 'morning';
-  }
-  if (isBefore(parseISO(date), afternoon)) {
-    return 'afternoon';
-  }
-  return 'evening';
-};
-
-const getEventsForTimeOfDay = (events, timeOfDay) => {
-  return events
-    .filter(event => {
-      const eventTimeOfDay = getTimeOfDay(prop('startTime', event));
-
-      return eventTimeOfDay === timeOfDay;
-    })
-    .map(event => {
-      const startTime = prettyTime(prop('startTime', event));
-      const endTime = prettyTime(prop('endTime', event));
-
-      return {
-        title: event.eventSourceDesc,
-        startTime,
-        endTime,
-        timeString: endTime === '' ? startTime : `${startTime} to ${endTime}`,
-      };
-    });
 };
 
 module.exports = function createOffenderService(repository) {
@@ -165,22 +120,24 @@ module.exports = function createOffenderService(repository) {
 
   async function getEventsForToday(bookingId) {
     try {
-      const noEvents = {
-        morning: [],
-        afternoon: [],
-        evening: [],
-      };
-      if (!bookingId) return noEvents;
+      if (!bookingId) return [];
 
       const events = await repository.getEventsForToday(bookingId);
 
-      if (!Array.isArray(events)) return noEvents;
+      return !Array.isArray(events)
+        ? []
+        : events.map(event => {
+            const startTime = prettyTime(prop('startTime', event));
+            const endTime = prettyTime(prop('endTime', event));
 
-      return {
-        morning: getEventsForTimeOfDay(events, 'morning'),
-        afternoon: getEventsForTimeOfDay(events, 'afternoon'),
-        evening: getEventsForTimeOfDay(events, 'evening'),
-      };
+            return {
+              title: event.eventSourceDesc,
+              startTime,
+              endTime,
+              location: event.eventLocation,
+              timeString: startTime,
+            };
+          });
     } catch {
       return {
         error: 'We are not able to show your schedule for today at this time',
