@@ -171,7 +171,6 @@ module.exports = function createApp({
       hubFeaturedContentService,
       hubPromotedContentService,
       hubMenuService,
-      offenderService,
     }),
   );
 

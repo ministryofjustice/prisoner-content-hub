@@ -31,14 +31,12 @@ module.exports = function createMeRouter({ logger, offenderService }) {
         keyWorker,
         visits,
         importantDates,
-        todaysEvents,
       ] = await Promise.all([
         offenderService.getIEPSummaryFor(bookingId),
         offenderService.getBalancesFor(bookingId),
         offenderService.getKeyWorkerFor(offenderNo),
         offenderService.getVisitsFor(bookingId),
         offenderService.getImportantDatesFor(bookingId),
-        offenderService.getEventsForToday(bookingId),
       ]);
 
       return res.render('pages/me', {
@@ -49,7 +47,6 @@ module.exports = function createMeRouter({ logger, offenderService }) {
           keyWorker,
           visits,
           importantDates,
-          todaysEvents,
         },
         config,
         today,

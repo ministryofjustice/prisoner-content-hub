@@ -6,7 +6,6 @@
 {% from "../components/personal-iep/macro.njk" import personalIncentives %}
 {% from "../components/personal-visits/macro.njk" import personalVisits %}
 {% from "../components/personal-important-dates/macro.njk" import personalImportantDates %}
-{% from "../components/personal-schedule-today/macro.njk" import personalScheduleToday %}
 {% extends "../components/template.njk" %}
 
 {% block pageTitle %}
@@ -37,17 +36,6 @@
 {% block main %}
   <div class="govuk-width-container">
     <div class="govuk-main-wrapper">
-      <h2 class="govuk-heading-l">Today, {{ today }}</h2>
-      <div class="govuk-grid-row events">
-        {{personalScheduleToday(data.todaysEvents)}}
-      </div>
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-          <p class="govuk-body">
-            <a href="/" class="govuk-link">See your 7 day timetable</a>
-          </p>
-        </div>
-      </div>
       <h2 class="govuk-heading-l">Your essential prison information</h2>
       <div class="govuk-grid-row">
         {{ personalBalances(data.balances) }}

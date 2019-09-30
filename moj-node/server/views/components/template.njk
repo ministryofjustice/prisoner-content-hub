@@ -68,8 +68,9 @@
     }) }}
 
     {% if config.newDesigns %}
-      {{ topBar({ appName: envVars.APP_NAME }) }}
+      {% block topBar %}{% endblock %}
       {% block userDetails %}{% endblock %}
+      {% block homeNavigation %}{% endblock %}
     {% else %}
       {{ pageHeader({
         mainMenu: mainMenu,
@@ -86,10 +87,11 @@
             {{ hubSearch({ query: query }) }}
           </div>
         </div>
-        <hr class="govuk-section-break govuk-section-break--m govuk-search-section-break--visible">
+        {% if not config.newDesigns %}
+          <hr class="govuk-section-break govuk-section-break--m govuk-search-section-break--visible">
+        {% endif %}
       </div>
     {% endblock %}
-
     {% block header %}{% endblock %}
 
     {% block notification %}{% endblock %}
@@ -98,9 +100,6 @@
       <div class="govuk-hub-header__background {{ data.headerClass }}">
         <div class="govuk-width-container">
           {% block beforeContent %}{% endblock %}
-          {% if user %}
-            {% block todaysEvents %}{% endblock %}
-          {% endif %}
           <header class="govuk-main-wrapper" id="header-content">
             {% block promotedContent %}{% endblock %}
             {% block subMenu %}{% endblock %}

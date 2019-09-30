@@ -150,6 +150,7 @@ describe('Offender Service', () => {
             eventSourceDesc: 'Some title',
             startTime: '2019-04-07T11:30:30',
             endTime: '2019-04-07T12:30:30',
+            eventLocation: 'Some location',
           },
         ]),
       };
