@@ -1,9 +1,4 @@
-{% from "../components/promoted-content/macro.njk" import hubPromotedContent %}
-{% from "../components/featured-content/macro.njk" import hubFeaturedContent %}
-{% from "../components/sub-menu/macro.njk" import hubSubMenu %}
-{% from "../components/topics/macro.njk" import hubTopics %}
 {% from "../components/search/macro.njk" import hubSearch %}
-{% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "../components/personal-schedule-today/macro.njk" import personalScheduleToday %}
 
@@ -61,18 +56,6 @@
 {% endblock %}
 
 {% block homeNavigation %}
-
-{% set popularTopics = {
-  "news-events": "/content/3632",
-  "day-to-day": "/content/3663",
-  "art-culture": "/content/3661",
-  "healthy-mind-body": "/content/3657",
-  "history": "/content/3699",
-  "music": "/content/3662",
-  "inspiration": "/content/3659",
-  "science-nature": "/content/3660",
-  "legal-and-your-rights": "/content/3658"
-} %}
   <div class="govuk-width-container home-navigation">
     <div class="home-navigation__actions">
       <div>
@@ -101,147 +84,43 @@
 {% endblock %}
 
 {% block search %}{% endblock %}
-{% block todaysEvents %}{% endblock %}
-
-{% set categoryLinks = {
-  "news-events": "/content/3632",
-  "Day-to-day": "/content/3663",
-  "art-culture": "/content/3661",
-  "healthy-mind-body": "/content/3657",
-  "history": "/content/3699",
-  "music": "/content/3662",
-  "inspiration": "/content/3659",
-  "science-nature": "/content/3660",
-  "legal-and-your-rights": "/content/3658"
-} %}
-
-{% block promotedContent %}
-  <nav id="homepage-navigation" class="govuk-hub-main_navigation_banner">
-
-    <ul class="govuk-hub-main_navigation">
-      <li class="govuk-hub-main_navigation_current_page">
-        <span class="govuk-link">Home</span>
-      </li>
-      {% for menuItem in homepageMenu %}
-        <li>
-          <a class="govuk-link govuk-link--no-visited-state" href="{{menuItem.href}}" data-topnav="{{menuItem.title}}">{{menuItem.title}}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  </nav>
-
-  {{ hubPromotedContent({
-    data: promotionalContent,
-    dayToDay: dayToDay
-  }) }}
-
-{% endblock %}
-
-{% block subMenu %}
-  {{ hubSubMenu({
-    data: submenudata
-  }) }}
-{% endblock %}
 
 {% block content %}
-
-  {{ hubFeaturedContent({
-    categoryTitle: "News and events",
-    categoryLink: categoryLinks["news-events"],
-    columnNumber: "govuk-grid-column-one-quarter",
-    data: newsAndEvents,
-    size: "small",
-    contentType: "news-events"
-  }) }}
-
-  {{ hubFeaturedContent({
-    categoryTitle: "Healthy mind and body",
-    categoryLink: categoryLinks["healthy-mind-body"],
-    columnNumber: "govuk-grid-column-one-quarter",
-    data: healthyMindAndBody,
-    size: "small",
-    contentType: "healthy-mind-body"
-  }) }}
-
-  {{ hubFeaturedContent({
-    categoryTitle: "Legal advice and your rights",
-    categoryLink: categoryLinks["legal-and-your-rights"],
-    columnNumber: "govuk-grid-column-one-quarter",
-    data: legalAndYourRights,
-    size: "small",
-    contentType: "legal-and-your-rights"
-  }) }}
-
-  {{ hubFeaturedContent({
-    categoryTitle: "Inspiration",
-    categoryLink: categoryLinks["inspiration"],
-    columnNumber: "govuk-grid-column-one-quarter",
-    data: inspiration,
-    size: "small",
-    contentType: "inspiration"
-  }) }}
-
-  {{ hubFeaturedContent({
-    categoryTitle: "Science and nature",
-    categoryLink: categoryLinks["science-nature"],
-    columnNumber: "govuk-grid-column-one-quarter",
-    data: scienceAndNature,
-    size: "small",
-    contentType: "science-nature"
-  }) }}
-
-  {{ hubFeaturedContent({
-    categoryTitle: "Art and culture",
-    categoryLink: categoryLinks["art-culture"],
-    columnNumber: "govuk-grid-column-one-quarter",
-    data: artAndCulture,
-    size: "small",
-    contentType: "art-culture"
-  }) }}
-
-  {{ hubFeaturedContent({
-    categoryTitle: "History",
-    categoryLink: categoryLinks["history"],
-    columnNumber: "govuk-grid-column-one-quarter",
-    data: history,
-    size: "small",
-    contentType: "history"
-  }) }}
-
-  {{ hubFeaturedContent({
-    categoryTitle: "Music",
-    categoryLink: categoryLinks["music"],
-    columnNumber: "govuk-grid-column-one-quarter",
-    data: music,
-    size: "small",
-    contentType: "music"
-  }) }}
-
-  {{ hubFeaturedContent({
-    categoryTitle: "Games",
-    columnNumber: "govuk-grid-column-one-third",
-    data: games,
-    size: "medium",
-    contentType: "games"
-  }) }}
-{% endblock %}
-
-{% block postscript %}
-  <div id="browser-by-topic" class="govuk-width-container govuk-!-margin-top-6">
-    <div class="govuk-main-wrapper" id="postscript-content">
-      {{ hubTopics({
-        data: tagsMenu
-      }) }}
+  <div class="govuk-width-container home-content">
+    <a href="/" class="govuk-link">
+      <div>
+        <h3 class="govuk-heading-l">Your stories:  There is a future for us</h3>
+        <p class="home-content-storyline">Powerful, inspirational and honest testimony about forgiveness and hope.</p>
+        <p class="content-link--video">Watch</p>
+      </div>
+      <div class="home-content-img-series">
+        <img src="/public/images/neontroids.png" alt="">
+      </div>
+    </a>
+    <div class="govuk-body home-content__four-items">
+      <a href="/" class="govuk-link">
+        <div class="home-content-img-series">
+          <img src="/public/images/neontroids.png" alt="">
+        </div>
+        <h3 class="govuk-heading-m" style="">Your stories:  There is a future for us</h3>
+      </a>
+      <a href="/" class="govuk-link">
+        <img src="/public/images/neontroids.png" alt="">
+        <h3 class="govuk-heading-m">Your stories:  There is a future for us</h3>
+      </a>
+      <a href="/" class="govuk-link">
+        <img src="/public/images/neontroids.png" alt="">
+        <h3 class="govuk-heading-m">Your stories:  There is a future for us</h3>
+      </a>
+      <a href="/" class="govuk-link">
+        <img src="/public/images/neontroids.png" alt="">
+        <h3 class="govuk-heading-m">Your stories:  There is a future for us</h3>
+      </a>
     </div>
   </div>
 {% endblock %}
 
 {% block bodyEnd %}
-  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   <script src="/public/all.js"></script>
-  <script>
-    window
-      .GOVUKFrontend
-      .initAll()
-  </script>
+  <script>window.GOVUKFrontend.initAll();</script>
 {% endblock %}

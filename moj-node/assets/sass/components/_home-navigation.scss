@@ -60,16 +60,23 @@
   display: flex;
   flex: 1 1 auto;
   border: govuk-spacing(1) solid govuk-colour('blue');
-  padding: govuk-spacing(2);
+  padding: govuk-spacing(3);
 }
 
 .todays-events > div {
   flex: 1 1 auto;
 }
 
+.todays-events > :first-child {
+  padding-left: govuk-spacing(8);
+  background-image: url(/public/images/icons/appointments.png);
+  background-repeat: no-repeat;
+}
+
 .todays-events > :last-child {
   flex: 2 1 auto;
   font-size: 24px;
+  margin-bottom: 0;
 }
 
 .todays-events h3 {
