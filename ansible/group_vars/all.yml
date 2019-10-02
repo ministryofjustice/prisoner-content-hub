@@ -22,15 +22,6 @@ studio_users:
     shell: /bin/bash
     update_password: on_create
 
-  - username: johnhackett
-    name: "John Hackett"
-    groups:
-      - admin
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5XwrSTS15BKng8ybd6DHBqEcDuDHAepvt9XGO3WShPUyok+2JuHPJOZlhwlBEJqkb7LnBHzewz8PUnwKx0FcCt78e8qJhQ+kV4SvGSd+N1uIrilm9NIumIDDU65O0LspCRViSwJrO0OkkM/yWafJ+dWpWXW9rzXwzM2QvDBwYrALiPUwn4xd21Fi+YvMq6Ga1FS7i3Fgj9eohZ600mI/GB/yaXGeikaFDuRqlKYA0/7xCYEX4Qu64JdCAYaMrntfvEehGSLuJp0Me1F42FSo+3t9ycL3nzvl4l9KcBxpapmvSF3EGjqRseKcKP9h5nihu/wBp5Xj0JxfbMh+MlE2ytLlwPvLFd97GINOMk0P8uNdG5TMKWgcTo9/PZmlV4EeSKb2DhmPjnBy734PS/RgY/DYQKoaulyEu+OOQIXU7lb4awrKOsYKY20LES+WUwGVm7FGMs0QAbVGeizFvnASm2vVuvdechdw0ykP04+3gvzXIl/dYln6MQrWbP2qLLwaw6ciYIJSkHjnkJjrD3UPpedP95D7rRawaJw6gFIlG8yhLzzWd3x3VJWWGNqcvKkFfuzFoSeoXmh+s7+EbeiXjX3490ceVA2wbNw9WCttelCdgDhbFGh3RouOHdo8//OSUoyIm6mnglYvKMGJQ6vLQS01MQtVHxKv55J8DWDwm0Q== hmpps@apollo"
-    shell: /bin/bash
-    update_password: on_create
-
   - username: jamesstanley
     name: "James Stanley"
     groups:
@@ -220,6 +211,7 @@ users_deleted:
   - username: catrinaknight
   - username: zedali
   - username: nbartle
+  - username: johnhackett
 nginx_extra_http_options: |
   ##
   # SSL Settings from "modern" profile on
