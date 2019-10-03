@@ -15,22 +15,12 @@
       <a href="/" class="govuk-link see-timetable">See your timetable</a>
     </div>
     <div class="govuk-body">
-      <table>
-        <thead>
-          <tr>
-            <th>Time</th>
-            <th>Event</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for event in params %}
-          <tr>
-            <td>{{event.timeString}}</td>
-            <td><strong>{{event.title}}</strong> {{event.location}}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+      {% for event in params %}
+      <div>
+        <span>{{event.timeString}}</span>
+        <span><strong>{{event.title}}</strong> {{event.location}}</span>
+      </div>
+      {% endfor %}
     </div>
   </div>
 {% endif %}
