@@ -126,18 +126,22 @@ module.exports = function createOffenderService(repository) {
 
       return !Array.isArray(events)
         ? []
-        : events.map(event => {
-            const startTime = prettyTime(prop('startTime', event));
-            const endTime = prettyTime(prop('endTime', event));
+        : events
+            .filter(
+              event => event.eventType === 'APP' || event.eventType === 'VISIT',
+            )
+            .map(event => {
+              const startTime = prettyTime(prop('startTime', event));
+              const endTime = prettyTime(prop('endTime', event));
 
-            return {
-              title: event.eventSourceDesc,
-              startTime,
-              endTime,
-              location: event.eventLocation,
-              timeString: startTime,
-            };
-          });
+              return {
+                title: event.eventSourceDesc,
+                startTime,
+                endTime,
+                location: event.eventLocation,
+                timeString: startTime,
+              };
+            });
     } catch {
       return {
         error: 'We are not able to show your schedule for today at this time',
