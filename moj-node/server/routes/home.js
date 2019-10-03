@@ -42,6 +42,18 @@ module.exports = function Home({
         userName: path(['name'], userDetails),
       };
 
+      const popularTopics = {
+        Visits: '/content/3632',
+        IEP: '/content/3663',
+        Timetable: '/content/3661',
+        'Money and debt': '/content/3657',
+        Games: '/content/3699',
+        Music: '/content/3662',
+        Facilities: '/content/3862',
+        'PSIs and PSOs': '/tags/796',
+        Catalogues: '/content/3658',
+      };
+
       res.render('pages/home', {
         ...featuredContent,
         notification,
@@ -50,6 +62,7 @@ module.exports = function Home({
         homepageMenu,
         config,
         todaysEvents,
+        popularTopics,
       });
     } catch (exception) {
       next(exception);
