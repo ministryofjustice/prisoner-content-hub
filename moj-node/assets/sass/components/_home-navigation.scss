@@ -1,24 +1,51 @@
 @import 'node_modules/govuk-frontend/govuk/settings/all';
 @import 'node_modules/govuk-frontend/govuk/tools/all';
 @import 'node_modules/govuk-frontend/govuk/helpers/all';
-@import 'node_modules/govuk-frontend/govuk/helpers/typography';
 
 .home-navigation {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (min-width: 61.3125em) {
+  .home-navigation {
+    flex-direction: column;
+  }
+}
+
+.home-navigation__actions {
+  flex: 1 1 65%;
   display: flex;
   flex-direction: column;
 }
 
-.home-navigation__actions {
-  flex: 1 1 auto;
-  display: flex;
+@media (min-width: 61.3125em) {
+  .home-navigation__actions {
+    flex: 1 1 auto;
+    flex-direction: row;
+  }
 }
 
 .home-navigation__actions > :first-child {
   flex: 0 0 auto;
+  padding-right: 20px;
+}
+
+@media (min-width: 61.3125em) {
+  .home-navigation__actions > :first-child {
+    flex: 0 0 auto;
+    padding-right: 0;
+  }
 }
 
 .home-navigation__actions > :last-child {
-  padding-left: govuk-spacing(4);
+  padding-right: govuk-spacing(4);
+}
+
+@media (min-width: 61.3125em) {
+  .home-navigation__actions > :last-child {
+    padding-left: govuk-spacing(4);
+  }
 }
 
 .home-navigation__search {
@@ -57,14 +84,17 @@
 }
 
 .todays-events {
-  display: flex;
-  flex: 1 1 auto;
+  flex: 1 1 35%;
   border: govuk-spacing(1) solid govuk-colour('blue');
-  padding: govuk-spacing(3);
+  padding: govuk-spacing(4);
 }
 
-.todays-events > div {
-  flex: 1 1 auto;
+@media (min-width: 61.3125em) {
+  .todays-events {
+    display: flex;
+    flex: 1 1 auto;
+    padding: govuk-spacing(2);
+  }
 }
 
 .todays-events > :first-child {
@@ -74,9 +104,18 @@
 }
 
 .todays-events > :last-child {
-  flex: 2 1 auto;
   font-size: 24px;
   margin-bottom: 0;
+}
+
+@media (min-width: 61.3125em) {
+  .todays-events > * {
+    flex: 1 1 30%;
+  }
+
+  .todays-events > :last-child {
+    flex: 1 1 70%;
+  }
 }
 
 .todays-events h3 {
@@ -87,14 +126,21 @@
   font-size: 19px;
 }
 
-.todays-events table {
-  border-spacing: 0;
+.todays-events > :last-child {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.todays-events thead {
-  display: none;
+.todays-events > :last-child > div > :first-child {
+  display: block;
+  margin-top: govuk-spacing(4);
 }
 
-.todays-events table tr :last-child {
-  padding-left: govuk-spacing(2);
+@media (min-width: 61.3125em) {
+  .todays-events > :last-child > div > :first-child {
+    display: inline-block;
+    width: 100px;
+    margin-top: 0;
+  }
 }
