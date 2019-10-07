@@ -187,7 +187,7 @@ module.exports = function createApp({
       createHomeRouter({
         logger,
         offenderService,
-        hubFeaturedContentService,
+        hubFeaturedContentService
       }),
     );
 

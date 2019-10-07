@@ -1,11 +1,15 @@
 const express = require('express');
 const { path } = require('ramda');
 
+<<<<<<< HEAD
 module.exports = function Home({
   logger,
   offenderService,
   hubFeaturedContentService,
 }) {
+=======
+module.exports = function Home({ logger, offenderService }) {
+>>>>>>> Add endpoint call for all events
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -17,7 +21,11 @@ module.exports = function Home({
       const bookingId = path(['bookingId'], userDetails);
       const { establishmentId } = req.app.locals.envVars;
 
+<<<<<<< HEAD
       const [todaysEvents, featuredContent] = await Promise.all([
+=======
+      const [todaysEvents] = await Promise.all([
+>>>>>>> Add endpoint call for all events
         offenderService.getEventsForToday(bookingId),
         hubFeaturedContentService.hubFeaturedContent({ establishmentId }),
       ]);
