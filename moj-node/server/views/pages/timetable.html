@@ -70,15 +70,10 @@
       </div>
       <div class="popular-topics">
         <h3 class="govuk-heading-s">Popular topics</h3>
-        <ul>
-          {% for itemtitle, link in popularTopics %}
-            <li><a href="{{link}}" class="govuk-link">{{itemtitle}}</a></li>
-          {% endfor %}
-        </ul>
       </div>
     </div>
-    {% if todaysEvents.length > 0 %}
-      {{personalScheduleToday(todaysEvents)}}
+    {% if events.length > 0 %}
+      {{personalScheduleOneDay(events)}}
     {% endif %}
   </div>
 {% endblock %}
@@ -86,16 +81,15 @@
 {% block search %}{% endblock %}
 
 {% block content %}
-{{featuredContent2}}
   <div class="govuk-width-container home-content">
-    <a href="{{featuredContent.upperFeatured.contentUrl}}" class="govuk-link">
-      <div class="home-content__feature-text">
-        <h3 class="govuk-heading-l">{{featuredContent.upperFeatured.title}}</h3>
-        <p class="home-content-storyline">{{featuredContent.upperFeatured.summary}}</p>
+    <a href="/" class="govuk-link">
+      <div>
+        <h3 class="govuk-heading-l">Your stories:  There is a future for us</h3>
+        <p class="home-content-storyline">Powerful, inspirational and honest testimony about forgiveness and hope.</p>
         <p class="content-link--video">Watch</p>
       </div>
-      <div class="home-content-img-series home-content__feature-image">
-        <img src="{{featuredContent.upperFeatured.image.url}}" alt="">
+      <div class="home-content-img-series">
+        <img src="/public/images/neontroids.png" alt="">
       </div>
     </a>
     <div class="govuk-body home-content__four-items">
@@ -118,16 +112,6 @@
         <h3 class="govuk-heading-m">Your stories:  There is a future for us</h3>
       </a>
     </div>
-    <a href="/" class="govuk-link">
-      <div class="home-content-img-series home-content__feature-image">
-        <img src="{{featuredContent.lowerFeatured.image.url}}" alt="">
-      </div>
-      <div class="home-content__feature-text">
-        <h3 class="govuk-heading-l">{{featuredContent.lowerFeatured.title}}</h3>
-        <p class="home-content-storyline">{{featuredContent.lowerFeatured.summary}}</p>
-        <p class="content-link--video">Watch</p>
-      </div>
-    </a>
   </div>
 {% endblock %}
 

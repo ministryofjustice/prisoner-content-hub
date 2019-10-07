@@ -62,6 +62,38 @@ function featuredContentResponseFrom(response) {
   };
 }
 
+function featuredNewContentResponseFrom(response) {
+  const [upperFeatured, lowerFeatured] = R.prop('large_tiles', response).map(
+    item => {
+      return {
+        contentUrl: `/content/${item.id}`,
+        contentType: item.content_type,
+        isSeries: item.series.length > 0,
+        title: item.title,
+        summary: item.summary,
+        image: imageFor(item.image),
+        // image: imageOrDefaultFor(response.image, type),
+      };
+    },
+  );
+
+  return {
+    smallTiles: R.prop('small_tiles', response).map(item => {
+      return {
+        contentUrl: `/content/${item.id}`,
+        contentType: item.content_type,
+        isSeries: item.series.length > 0,
+        title: item.title,
+        summary: item.summary,
+        image: imageFor(item.image),
+        // image: imageOrDefaultFor(response.image, type),
+      };
+    }),
+    upperFeatured,
+    lowerFeatured,
+  };
+}
+
 function contentResponseFrom(data = []) {
   return data.map(item => {
     return {
@@ -187,6 +219,7 @@ function searchResultFrom({ _id, _source }) {
 module.exports = {
   contentResponseFrom,
   featuredContentResponseFrom,
+  featuredNewContentResponseFrom,
   mediaResponseFrom,
   seasonResponseFrom,
   termResponseFrom,

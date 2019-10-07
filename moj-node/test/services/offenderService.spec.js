@@ -1,8 +1,8 @@
 const offenderService = require('../../server/services/offender');
-const { getEventsForTodayData } = require('../test-data');
+const { getEventsForTodayData, getEventsForData } = require('../test-data');
 
 describe('Offender Service', () => {
-  describe('.getOffenderDetailsFor', () => {
+  describe('getOffenderDetailsFor', () => {
     it('returns offender data', async () => {
       const repository = {
         getOffenderDetailsFor: sinon.stub().returns({
@@ -27,7 +27,7 @@ describe('Offender Service', () => {
     });
   });
 
-  describe('.getIEPSummaryFor', () => {
+  describe('getIEPSummaryFor', () => {
     it('returns IEP data', async () => {
       const clock = sinon.useFakeTimers({
         now: 1559343600000, // 01 Jun 2019 00:00
@@ -54,7 +54,7 @@ describe('Offender Service', () => {
     });
   });
 
-  describe('.getBalancesFor', () => {
+  describe('getBalancesFor', () => {
     it('returns balance data', async () => {
       const repository = {
         getBalancesFor: sinon.stub().returns({
@@ -77,7 +77,7 @@ describe('Offender Service', () => {
     });
   });
 
-  describe('.getKeyWorkerFor', () => {
+  describe('getKeyWorkerFor', () => {
     it('returns keyworker data', async () => {
       const repository = {
         getKeyWorkerFor: sinon.stub().returns({
@@ -96,7 +96,7 @@ describe('Offender Service', () => {
     });
   });
 
-  describe('.getVisitsFor', () => {
+  describe('getVisitsFor', () => {
     it('returns visits data', async () => {
       const repository = {
         getLastVisitFor: sinon.stub().returns({
@@ -119,7 +119,7 @@ describe('Offender Service', () => {
     });
   });
 
-  describe('.getImportantDatesFor', () => {
+  describe('getImportantDatesFor', () => {
     it('returns visits', async () => {
       const repository = {
         sentenceDetailsFor: sinon.stub().returns({
@@ -142,7 +142,7 @@ describe('Offender Service', () => {
     });
   });
 
-  describe('.getEventsForToday', () => {
+  describe('getEventsForToday', () => {
     it('should call the repository service with the correct bookingId', async () => {
       const repository = {
         getEventsForToday: sinon.stub().returns([
@@ -151,6 +151,7 @@ describe('Offender Service', () => {
             startTime: '2019-04-07T11:30:30',
             endTime: '2019-04-07T12:30:30',
             eventLocation: 'Some location',
+            eventType: 'APP',
           },
         ]),
       };
@@ -169,6 +170,41 @@ describe('Offender Service', () => {
         const data = await service.getEventsForToday('FOO_ID');
 
         expect(data).to.eql(singleTestData.data);
+      });
+    });
+  });
+
+  describe('getEventsFor', () => {
+    it('should call the repository service with the correct bookingId', async () => {
+      const repository = {
+        getEventsFor: sinon.stub().returns([
+          {
+            eventSourceDesc: 'Some title',
+            startTime: '2019-04-07T11:30:30',
+            endTime: '2019-04-07T12:30:30',
+            eventLocation: 'Some location',
+            eventType: 'APP',
+          },
+        ]),
+      };
+      const service = offenderService(repository);
+      await service.getEventsFor('FOO_ID', '2019-04-07', '2019-04-07');
+
+      expect(repository.getEventsFor.lastCall.args[0]).to.equal('FOO_ID');
+    });
+
+    getEventsForData.forEach(({ title, startDate, endDate, repo, data }) => {
+      it(`should return events for ${title}`, async () => {
+        const repository = {
+          getEventsFor: sinon.stub().returns(repo),
+        };
+        const service = offenderService(repository);
+        const serviceData = await service.getEventsFor(
+          'FOO_ID',
+          startDate,
+          endDate,
+        );
+        expect(serviceData).to.eql(data);
       });
     });
   });

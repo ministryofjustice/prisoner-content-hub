@@ -9,6 +9,7 @@ const NomisClient = require('./clients/nomisClient');
 // Services
 const appInfoService = require('./services/appInfo');
 const createHubMenuService = require('./services/hubMenu');
+const createNewHubFeaturedContentService = require('./services/hubNewFeaturedContent');
 const createHubFeaturedContentService = require('./services/hubFeaturedContent');
 const createHubPromotedContentService = require('./services/hubPromotedContent');
 const createHubContentService = require('./services/hubContent');
@@ -19,6 +20,7 @@ const createSearchService = require('./services/search');
 
 // Repositories
 const featuredContentRepository = require('./repositories/hubFeaturedContent');
+const hubNewFeaturedContentRepository = require('./repositories/hubNewFeaturedContent');
 const categoryFeaturedContentRepository = require('./repositories/categoryFeaturedContent');
 const promotedContentRepository = require('./repositories/hubPromotedContent');
 const hubMenuRepository = require('./repositories/hubMenu');
@@ -32,6 +34,9 @@ const buildInfo = config.dev ? null : require('../build-info.json'); // eslint-d
 const hubMenuService = createHubMenuService(hubMenuRepository(new HubClient()));
 const hubFeaturedContentService = createHubFeaturedContentService(
   featuredContentRepository(new HubClient()),
+);
+const hubNewFeaturedContentService = createNewHubFeaturedContentService(
+  hubNewFeaturedContentRepository(new HubClient()),
 );
 const hubPromotedContentService = createHubPromotedContentService(
   promotedContentRepository(new HubClient()),
@@ -62,6 +67,7 @@ const app = createApp({
   hubTagsService,
   offenderService,
   searchService,
+  hubNewFeaturedContentService,
 });
 
 module.exports = app;

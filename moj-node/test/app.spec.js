@@ -70,6 +70,7 @@ describe('App', () => {
         },
         offenderService: {
           getEventsForToday: sinon.stub(),
+          getEventsFor: sinon.stub(),
         },
       }),
     )

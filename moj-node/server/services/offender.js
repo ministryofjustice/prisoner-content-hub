@@ -1,4 +1,10 @@
-const { parseISO, formatDistance, format, isValid } = require('date-fns');
+const {
+  parseISO,
+  formatDistance,
+  format,
+  isValid,
+  isBefore,
+} = require('date-fns');
 const { propOr, prop } = require('ramda');
 
 const { capitalize } = require('../utils');
@@ -11,6 +17,23 @@ const prettyDate = date => {
 const prettyTime = date => {
   if (!isValid(new Date(date))) return '';
   return format(parseISO(date), 'h:mmaaa');
+};
+
+const getTimeOfDay = date => {
+  const dateObject = new Date(date);
+  if (!isValid(dateObject)) return '';
+
+  const todayDateString = format(dateObject, 'yyyy-MM-dd');
+
+  if (isBefore(dateObject, parseISO(`${todayDateString} 12:00:00`))) {
+    return 'morning';
+  }
+
+  if (isBefore(dateObject, parseISO(`${todayDateString} 17:00:00`))) {
+    return 'afternoon';
+  }
+
+  return 'evening';
 };
 
 module.exports = function createOffenderService(repository) {
@@ -149,6 +172,52 @@ module.exports = function createOffenderService(repository) {
     }
   }
 
+  async function getEventsFor(bookingId, startDate, endDate) {
+    try {
+      const defaultEvents = {
+        morning: [],
+        afternoon: [],
+        evening: [],
+      };
+
+      if (
+        !bookingId ||
+        !isValid(new Date(startDate)) ||
+        !isValid(new Date(endDate))
+      )
+        return defaultEvents;
+
+      const events = await repository.getEventsFor(
+        bookingId,
+        startDate,
+        endDate,
+      );
+
+      if (!Array.isArray(events)) return defaultEvents;
+
+      events.forEach(event => {
+        const startTime = prettyTime(prop('startTime', event));
+        const endTime = prettyTime(prop('endTime', event));
+
+        defaultEvents[getTimeOfDay(event.startTime)].push({
+          title: event.eventSourceDesc,
+          startTime,
+          endTime,
+          location: event.eventLocation,
+          timeString: startTime,
+          eventType: event.eventType,
+        });
+      });
+
+      return defaultEvents;
+    } catch {
+      return {
+        error:
+          'We are not able to show your schedule for the selected week at this time',
+      };
+    }
+  }
+
   return {
     getOffenderDetailsFor,
     getIEPSummaryFor,
@@ -157,5 +226,6 @@ module.exports = function createOffenderService(repository) {
     getVisitsFor,
     getImportantDatesFor,
     getEventsForToday,
+    getEventsFor,
   };
 };
