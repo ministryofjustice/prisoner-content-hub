@@ -22,8 +22,14 @@ $real-dark-grey: #232425;
   margin-bottom: govuk-spacing(2);
 }
 
-.home-content img {
+.home-content > * img {
+  object-fit: cover;
   width: 100%;
+  height: 100%;
+}
+
+.home-content > div > a img {
+  height: 195px;
 }
 
 .home-content > a {
@@ -32,8 +38,22 @@ $real-dark-grey: #232425;
 }
 
 .home-content > a > div {
-  flex: 1 0 50%;
   position: relative;
+}
+
+.home-content > a > div:first-child {
+  flex: 1 0 66.66%;
+}
+
+.home-content > a > div:last-child {
+  flex: 1 0 33.34%;
+}
+
+@media (min-width: 61.3125em) {
+  .home-content > a > div:last-child,
+  .home-content > a > div:first-child {
+    flex: 1 0 50%;
+  }
 }
 
 .home-content > a > div:first-child > * {
@@ -59,11 +79,6 @@ $real-dark-grey: #232425;
 
 .home-content-storyline {
   font-size: 24px;
-}
-
-.home-content > a > div:last-child {
-  text-align: center;
-  overflow: hidden;
 }
 
 .home-content > :first-child,

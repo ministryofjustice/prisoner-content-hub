@@ -86,34 +86,36 @@
 {% block search %}{% endblock %}
 
 {% block content %}
-  <div class="govuk-width-container home-content">
+  <div class="home-content">
     <a href="/" class="govuk-link">
       <div>
         <h3 class="govuk-heading-l">Your stories:  There is a future for us</h3>
         <p class="home-content-storyline">Powerful, inspirational and honest testimony about forgiveness and hope.</p>
         <p class="content-link--video">Watch</p>
       </div>
-      <div class="home-content-img-series">
-        <img src="/public/images/neontroids.png" alt="">
+      <div>
+        <img src="/public/images/neontroids.png" class="fit-img-landscape" alt="">
       </div>
     </a>
     <div class="govuk-body home-content__four-items">
       <a href="/" class="govuk-link">
         <div class="home-content-img-series">
-          <img src="/public/images/neontroids.png" alt="">
+          <img src="/public/images/neontroids.png" class="fit-img-landscape" alt="">
         </div>
         <h3 class="govuk-heading-m" style="">Your stories:  There is a future for us</h3>
       </a>
       <a href="/" class="govuk-link">
-        <img src="/public/images/neontroids.png" alt="">
+        <img src="/public/images/neontroids.png" class="fit-img-landscape" alt="">
+        <h3 class="govuk-heading-m">Your stories:  There is a future for us</h3>
+      </a>
+    </div>
+    <div class="govuk-body home-content__four-items">
+      <a href="/" class="govuk-link">
+        <img src="/public/images/neontroids.png" class="fit-img-landscape" alt="">
         <h3 class="govuk-heading-m">Your stories:  There is a future for us</h3>
       </a>
       <a href="/" class="govuk-link">
-        <img src="/public/images/neontroids.png" alt="">
-        <h3 class="govuk-heading-m">Your stories:  There is a future for us</h3>
-      </a>
-      <a href="/" class="govuk-link">
-        <img src="/public/images/neontroids.png" alt="">
+        <img src="/public/images/neontroids.png" class="fit-img-landscape" alt="">
         <h3 class="govuk-heading-m">Your stories:  There is a future for us</h3>
       </a>
     </div>
@@ -123,4 +125,22 @@
 {% block bodyEnd %}
   <script src="/public/all.js"></script>
   <script>window.GOVUKFrontend.initAll();</script>
+  <!--[if gte IE 9]><!-->
+  <script>
+  document.documentElement.className = 'js'; // adds class="js" to <html> element
+
+  function fitImg(imgClass) {
+    var imgs = document.querySelectorAll(imgClass), length = imgs.length, i;
+    for (i = 0; i < length; ++i) {
+      var img = imgs[i],
+          url = img.src;
+      img.parentNode.style.fontSize = '0'; /* counteract extra spacing from inline-block */
+      img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
+      img.style.backgroundImage = "url('" + url + "')";
+      }
+    }
+  fitImg('.fit-img-landscape');
+  fitImg('.fit-img-portrait');
+  </script>
+  <!--<![endif]-->
 {% endblock %}
