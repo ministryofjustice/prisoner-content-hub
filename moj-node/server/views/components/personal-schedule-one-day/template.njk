@@ -9,18 +9,46 @@
     </div>
   </div>
 {% else %}
-  <div class="todays-events">
-    <div>
-      <h3 class="govuk-heading-m">Today's appointments</h3>
-      <a href="/" class="govuk-link see-timetable">See your timetable</a>
-    </div>
-    <div class="govuk-body">
-      {% for event in params %}
-      <div>
-        <span>{{event.timeString}}</span>
-        <span><strong>{{event.title}}</strong> {{event.location}}</span>
+  <div class="govuk-body govuk-width-container timetable-day">
+    {% for day, event in params %}
+      <h3 style="font-size: 36px; margin: 0;">{{event.title}}</h3>
+      <div style="display: flex;">
+        <h4 style="flex: 1 0 33%; margin: 10px 0;">Morning</h4>
+        <h4 style="flex: 1 0 33%; margin: 10px 0;">Afternoon</h4>
+        <h4 style="flex: 1 0 33%; margin: 10px 0;">Evening</h4>
       </div>
-      {% endfor %}
-    </div>
+      <div style="display: flex; align-content: space-between; align-items: stretch;">
+        <div class="govuk-body" style="background-color: #E9F3FA; flex: 1 0 33%;">
+          {% for morningEvent in event.morning %}
+          <div style="margin: 20px;">
+            <div>{{morningEvent.timeString}}</div>
+            <div><strong>{{morningEvent.description}}</strong> {{morningEvent.location}}</div>
+          </div>
+          {% else %}
+          <div style="margin: 20px;">No activities</div>
+          {% endfor %}
+        </div>
+        <div class="govuk-body" style="background-color: #D5E8F4; flex: 1 0 33%;">
+          {% for afternoonEvent in event.afternoon %}
+          <div style="margin: 20px;">
+            <div>{{afternoonEvent.timeString}}</div>
+            <div><strong>{{afternoonEvent.description}}</strong> {{afternoonEvent.location}}</div>
+          </div>
+          {% else %}
+          <div style="margin: 20px;">No activities</div>
+          {% endfor %}
+        </div>
+        <div class="govuk-body" style="background-color: #BDDCEF; flex: 1 0 33%;">
+          {% for eveningEvent in event.evening %}
+          <div style="margin: 20px;">
+            <div>{{eveningEvent.timeString}}</div>
+            <div><strong>{{eveningEvent.description}}</strong> {{eveningEvent.location}}</div>
+          </div>
+          {% else %}
+          <div style="margin: 20px;">No activities</div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
   </div>
 {% endif %}

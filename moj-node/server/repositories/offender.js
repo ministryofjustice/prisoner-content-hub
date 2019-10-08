@@ -48,8 +48,7 @@ function offenderRepository(httpClient) {
   }
 
   function getEventsFor(bookingId, startDate, endDate) {
-    const endpoint = `${config.nomis.api.bookings}/${bookingId}/events`;
-<<<<<<< HEAD
+    const endpoint = `${config.nomis.api.bookings}/${bookingId}/activities`;
     const query = [
       `fromDate=${startDate}`,
       `toDate=${endDate}`,
@@ -57,16 +56,6 @@ function offenderRepository(httpClient) {
     ];
 
     return httpClient.get(`${endpoint}?${query.join('&')}`);
-=======
-    const query = {
-      fromDate: startDate,
-      toDate: endDate,
-      'Page-Limit': 0,
-      'Sort-Fields': 'eventDate,startTime',
-    };
-
-    return httpClient.get(endpoint, { query });
->>>>>>> Add endpoint call for all events
   }
 
   return {

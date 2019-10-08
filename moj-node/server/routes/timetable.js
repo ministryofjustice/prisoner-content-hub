@@ -20,20 +20,20 @@ module.exports = function Home({ logger, offenderService }) {
       const startDate = todayDateString;
       const endDate = sevenDaysDateString;
 
-      const [events] = await Promise.all([
+      const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
       ]);
 
       const config = {
-        content: true,
-        header: true,
+        content: false,
+        header: false,
         postscript: true,
         newDesigns: res.locals.features.newDesigns,
-        detailsType: 'large',
+        detailsType: 'small',
         userName: path(['name'], userDetails),
       };
 
-      res.render('pages/home', {
+      res.render('pages/timetable', {
         notification,
         config,
         events,

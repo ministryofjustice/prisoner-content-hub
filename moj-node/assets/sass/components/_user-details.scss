@@ -14,6 +14,10 @@
   margin-top: govuk-spacing(5);
 }
 
+.user-details-small {
+  font-size: 24px;
+}
+
 .user-details-small::before,
 .user-details-large::before {
   width: 46px;

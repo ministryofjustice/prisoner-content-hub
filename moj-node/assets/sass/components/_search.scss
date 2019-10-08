@@ -82,6 +82,12 @@ $search-width: 600px;
   }
 }
 
+.search-button-small {
+  height: 46px;
+  width: 46px;
+  background-size: 24px;
+}
+
 .search-button.govuk-button:focus:not(:active):not(:hover) {
   box-shadow: none;
 }
@@ -90,6 +96,11 @@ $search-width: 600px;
   height: 60px;
   padding-left: govuk-spacing(3);
   border-right: none;
+}
+
+.search-box-small {
+  height: 46px;
+  border-width: 1px;
 }
 
 .twitter-typeahead {
