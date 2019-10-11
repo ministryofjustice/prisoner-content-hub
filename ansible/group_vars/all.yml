@@ -136,15 +136,6 @@ studio_users:
     shell: /bin/bash
     update_password: on_create
 
-  - username: oliveryoung
-    name: Oliver Young
-    groups:
-      - admin
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCIie1Hn8c8rpQadsUEi2OSRf3P+jG5tCAhsUhfSD43AqTt46wd6rgDN8cjhonKJ1DY3u4r7/6BJzPTVz/uO0wB/R2CTbL6KlBz03NIe3epySfPwpz4HYDEgk6tBv0jWqb0t4QsnYvQRcx4+49BhC/c02dMSF0M5VkXUcqlG99bQeetTSu+SvfUwVnU17kgsbr/ojIQSgc7xD8+cJb6nzQ9aWfDFHMb09DF5vwpZ+fTqmaFpK7iLBGIpONkvAHaVZjxbKnq6XXyw2X6kVI1j4tr4E6rjOakZMFgAOCf1YzocI4dEmepOLSx3547nMG1skygVWDmPBkK76PLbtQOWVT ollie@dude.local"
-    shell: /bin/bash
-    update_password: on_create
-
   - username: jonnield
     name: "Jon Nield"
     groups:
@@ -203,6 +194,8 @@ users_deleted:
   - username: nbartle
   - username: johnhackett
   - username: simonabraham
+  - username: oliveryoung
+  
 nginx_extra_http_options: |
   ##
   # SSL Settings from "modern" profile on
