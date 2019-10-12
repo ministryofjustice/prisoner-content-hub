@@ -98,6 +98,11 @@ $real-dark-grey: #232425;
   margin: govuk-spacing(1) govuk-spacing(3);
 }
 
+.home-content__four-items img {
+  height: 10rem;
+  object-fit: cover;
+}
+
 .home-content__four-items a:focus h3 {
   color: govuk-colour('black');
 }

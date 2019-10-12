@@ -49,7 +49,6 @@ module.exports = function Home({
         todaysEvents,
         popularTopics,
         featuredContent: featuredContent.featured[0],
-        featuredContent2: JSON.stringify(featuredContent.featured[0]),
       });
     } catch (exception) {
       next(exception);

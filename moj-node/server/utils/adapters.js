@@ -72,7 +72,6 @@ function featuredNewContentResponseFrom(response) {
         title: item.title,
         summary: item.summary,
         image: imageFor(item.image),
-        // image: imageOrDefaultFor(response.image, type),
       };
     },
   );
@@ -86,7 +85,6 @@ function featuredNewContentResponseFrom(response) {
         title: item.title,
         summary: item.summary,
         image: imageFor(item.image),
-        // image: imageOrDefaultFor(response.image, type),
       };
     }),
     upperFeatured,

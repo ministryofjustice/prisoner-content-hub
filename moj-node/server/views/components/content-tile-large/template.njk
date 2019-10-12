@@ -1,0 +1,35 @@
+{% macro tileImage(params) %}
+  {% if params.isSeries %}
+    <div class="home-content-img-series home-content__feature-image">
+      <img src="{{params.image.url}}" alt="">
+    </div>
+  {% else %}
+    <div class="home-content__feature-image">
+      <img src="{{params.image.url}}" alt="{{params.image.alt}}">
+    </div>
+  {% endif %}
+{% endmacro %}
+
+{% macro tileContent(params) %}
+  <div class="home-content__feature-text">
+    <h3 class="govuk-heading-l">{{params.title}}</h3>
+    <p class="home-content-storyline">{{params.summary}}</p>
+    {% if params.contentType === "moj_video_item" %}
+      <p class="content-link--video">Watch</p>
+    {% elif params.contentType === "moj_radio_item" %}
+      <p class="content-link--video">Listen</p>
+    {% else %}
+      <p class="content-link--article">Read</p>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+<a href="{{params.content.contentUrl}}" class="govuk-link">
+  {% if params.imageAlign === 'left' %}
+    {{ tileImage(params.content) }}
+    {{ tileContent(params.content) }}
+  {% else %}
+    {{ tileContent(params.content) }}
+    {{ tileImage(params.content) }}
+  {% endif %}
+</a>

@@ -1,0 +1,10 @@
+<a href="{{params.contentUrl}}" class="govuk-link">
+  {% if params.isSeries %}
+    <div class="home-content-img-series">
+      <img src="{{params.image.url}}" alt="">
+    </div>
+  {% else %}
+    <img src="{{params.image.url}}" alt="{{params.image.alt}}">
+  {% endif %}
+  <h3 class="govuk-heading-m" style="">{{params.title}}</h3>
+</a>

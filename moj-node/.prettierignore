@@ -6,6 +6,7 @@ assets/stylesheets
 assets/javascript/polyfills.js
 assets/javascript/all.js
 assets/javascript/search.js
+test/resource/featuredNewItem.json
 .vscode
 .cache
 build-info.json
