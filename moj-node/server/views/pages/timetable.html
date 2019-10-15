@@ -1,8 +1,6 @@
 {% from "../components/search/macro.njk" import hubSearch %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "../components/personal-schedule-today/macro.njk" import personalScheduleToday %}
-{% from "../components/content-tile-large/macro.njk" import contentTileLarge %}
-{% from "../components/content-tile-small/macro.njk" import contentTileSmall %}
 
 {% extends "../components/template.njk" %}
 
@@ -72,17 +70,10 @@
       </div>
       <div class="popular-topics">
         <h3 class="govuk-heading-s">Popular topics</h3>
-        <ul>
-          {% for itemtitle, link in popularTopics %}
-            <li>
-              <a href="{{link}}" class="govuk-link">{{itemtitle}}</a>
-            </li>
-          {% endfor %}
-        </ul>
       </div>
     </div>
-    {% if todaysEvents.length > 0 %}
-      {{personalScheduleToday(todaysEvents)}}
+    {% if events.length > 0 %}
+      {{personalScheduleOneDay(events)}}
     {% endif %}
   </div>
 {% endblock %}
@@ -91,21 +82,40 @@
 
 {% block content %}
   <div class="govuk-width-container home-content">
-    {{ contentTileLarge({content: featuredContent.upperFeatured, imageAlign: 'right'}) }}
+    <a href="/" class="govuk-link">
+      <div>
+        <h3 class="govuk-heading-l">Your stories:  There is a future for us</h3>
+        <p class="home-content-storyline">Powerful, inspirational and honest testimony about forgiveness and hope.</p>
+        <p class="content-link--video">Watch</p>
+      </div>
+      <div class="home-content-img-series">
+        <img src="/public/images/neontroids.png" alt="">
+      </div>
+    </a>
     <div class="govuk-body home-content__four-items">
-      {% for tile in featuredContent.smallTiles %}
-        {{ contentTileSmall(tile) }}
-      {% endfor %}
+      <a href="/" class="govuk-link">
+        <div class="home-content-img-series">
+          <img src="/public/images/neontroids.png" alt="">
+        </div>
+        <h3 class="govuk-heading-m" style="">Your stories:  There is a future for us</h3>
+      </a>
+      <a href="/" class="govuk-link">
+        <img src="/public/images/neontroids.png" alt="">
+        <h3 class="govuk-heading-m">Your stories:  There is a future for us</h3>
+      </a>
+      <a href="/" class="govuk-link">
+        <img src="/public/images/neontroids.png" alt="">
+        <h3 class="govuk-heading-m">Your stories:  There is a future for us</h3>
+      </a>
+      <a href="/" class="govuk-link">
+        <img src="/public/images/neontroids.png" alt="">
+        <h3 class="govuk-heading-m">Your stories:  There is a future for us</h3>
+      </a>
     </div>
-    {{ contentTileLarge({content: featuredContent.lowerFeatured, imageAlign: 'left'}) }}
   </div>
 {% endblock %}
 
 {% block bodyEnd %}
   <script src="/public/all.js"></script>
-  <script>
-    window
-      .GOVUKFrontend
-      .initAll();
-  </script>
+  <script>window.GOVUKFrontend.initAll();</script>
 {% endblock %}

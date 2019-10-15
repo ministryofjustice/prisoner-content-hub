@@ -1,7 +1,7 @@
 const offenderRepository = require('../../server/repositories/offender');
 
 describe('offenderRepository', () => {
-  describe('#getOffenderDetailsFor', () => {
+  describe('getOffenderDetailsFor', () => {
     it('calls the offender endpoint for a given ID', async () => {
       const client = {
         get: sinon.stub().resolves('SOME_RESULT'),
@@ -14,7 +14,7 @@ describe('offenderRepository', () => {
     });
   });
 
-  describe('#getIEPSummaryFor', () => {
+  describe('getIEPSummaryFor', () => {
     it('calls the IEP summary endpoint for a given ID', async () => {
       const client = {
         get: sinon.stub().resolves('SOME_RESULT'),
@@ -27,7 +27,7 @@ describe('offenderRepository', () => {
     });
   });
 
-  describe('#getBalancesFor', () => {
+  describe('getBalancesFor', () => {
     it('calls the balances endpoint for a given ID', async () => {
       const client = {
         get: sinon.stub().resolves('SOME_RESULT'),
@@ -40,7 +40,7 @@ describe('offenderRepository', () => {
     });
   });
 
-  describe('#getKeyWorkerFor', () => {
+  describe('getKeyWorkerFor', () => {
     it('calls the keyWorker endpoint for a given ID', async () => {
       const client = {
         get: sinon.stub().resolves('SOME_RESULT'),
@@ -53,7 +53,7 @@ describe('offenderRepository', () => {
     });
   });
 
-  describe('#getNextVisitFor', () => {
+  describe('getNextVisitFor', () => {
     it('calls the nextVisit endpoint for a given ID', async () => {
       const client = {
         get: sinon.stub().resolves('SOME_RESULT'),
@@ -66,7 +66,7 @@ describe('offenderRepository', () => {
     });
   });
 
-  describe('#getLastVisitFor', () => {
+  describe('getLastVisitFor', () => {
     it('calls the lastVisits endpoint for a given ID', async () => {
       const client = {
         get: sinon.stub().resolves('SOME_RESULT'),
@@ -79,7 +79,7 @@ describe('offenderRepository', () => {
     });
   });
 
-  describe('#sentenceDetailsFor', () => {
+  describe('sentenceDetailsFor', () => {
     it('calls the sentenceDetails endpoint for a given ID', async () => {
       const client = {
         get: sinon.stub().resolves('SOME_RESULT'),
@@ -92,7 +92,7 @@ describe('offenderRepository', () => {
     });
   });
 
-  describe('#getEventsForToday', () => {
+  describe('getEventsForToday', () => {
     it('calls the getEventsForToday endpoint for a given ID', async () => {
       const client = {
         get: sinon.stub().resolves('SOME_RESULT'),
@@ -101,6 +101,23 @@ describe('offenderRepository', () => {
       const result = await repository.getEventsForToday('FOO_ID');
 
       expect(client.get.lastCall.args[0]).to.include('/FOO_ID/events/today');
+      expect(result).to.equal('SOME_RESULT');
+    });
+  });
+
+  describe('getEventsFor', () => {
+    it('calls the getEventsFor endpoint for a given ID', async () => {
+      const client = {
+        get: sinon.stub().resolves('SOME_RESULT'),
+      };
+      const repository = offenderRepository(client);
+      const result = await repository.getEventsFor(
+        'FOO_ID',
+        '2019-04-07',
+        '2019-04-07',
+      );
+
+      expect(client.get.lastCall.args[0]).to.include('/FOO_ID/events');
       expect(result).to.equal('SOME_RESULT');
     });
   });

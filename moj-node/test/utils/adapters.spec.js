@@ -1,6 +1,7 @@
 const {
   contentResponseFrom,
   featuredContentResponseFrom,
+  featuredNewContentResponseFrom,
   mediaResponseFrom,
   seasonResponseFrom,
   termResponseFrom,
@@ -16,6 +17,8 @@ const videoShowResponse = require('../resources/videoShow.json');
 const termsResponse = require('../resources/terms.json');
 const featuredItemResponse = require('../resources/featuredItem.json');
 const featuredSeriesResponse = require('../resources/featuredSeries.json');
+const featuredNewItemResponse = require('../resources/featuredNewItem.json');
+const featuredNewSeriesResponse = require('../resources/featuredNewSeries.json');
 const flatPageContentResponse = require('../resources/flatPageContent.json');
 const seasonResponse = require('../resources/season.json');
 const landingPageResponse = require('../resources/landingPage.json');
@@ -87,6 +90,18 @@ describe('Adapters', () => {
     it('returns formated data for featured series', () => {
       const result = featuredContentResponseFrom(featuredSeriesResponse);
       expect(result).to.eql(featuredSeries());
+    });
+  });
+
+  describe('.featuredNewContentResponseFrom', () => {
+    it('returns formated data for featured item', () => {
+      const result = featuredNewContentResponseFrom(featuredNewItemResponse);
+      expect(result.upperFeatured).to.eql(featuredNewItem());
+    });
+
+    it('returns formated data for featured series', () => {
+      const result = featuredNewContentResponseFrom(featuredNewSeriesResponse);
+      expect(result.upperFeatured).to.eql(featuredNewSeries());
     });
   });
 
@@ -340,6 +355,34 @@ function featuredSeries() {
     duration: null,
     contentType: 'series',
     contentUrl: '/tags/678',
+  };
+}
+
+function featuredNewItem() {
+  return {
+    title: 'Featured Item',
+    summary: 'Featured Item Summary',
+    image: {
+      alt: 'Featured Item',
+      url: 'http://foo.bar/images/foo.jpg',
+    },
+    contentType: 'moj_video_item',
+    contentUrl: '/content/1234',
+    isSeries: false,
+  };
+}
+
+function featuredNewSeries() {
+  return {
+    title: 'Featured Item',
+    summary: 'Featured Item Summary',
+    image: {
+      alt: 'Featured Item',
+      url: 'http://foo.bar/images/foo.jpg',
+    },
+    contentType: 'moj_video_item',
+    contentUrl: '/content/1234',
+    isSeries: true,
   };
 }
 

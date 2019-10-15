@@ -42,6 +42,9 @@ module.exports = {
     series: `${hubEndpoint}/v1/api/content/series`,
     tags: `${hubEndpoint}/v1/api/vocabulary/tags`,
   },
+  apiV2: {
+    hubContent: `${hubEndpoint}/v2/api/content`,
+  },
   nomis: {
     clientToken: getEnv('NOMIS_API_TOKEN', 'ADD_ME'),
     api: {

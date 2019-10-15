@@ -3,10 +3,8 @@ const { path } = require('ramda');
 
 module.exports = function Home({
   logger,
-  hubFeaturedContentService,
-  hubPromotedContentService,
-  hubMenuService,
   offenderService,
+  hubNewFeaturedContentService,
 }) {
   const router = express.Router();
 
@@ -14,23 +12,14 @@ module.exports = function Home({
     try {
       logger.info('GET home');
 
-      const { establishmentId } = req.app.locals.envVars;
       const { notification } = req.session;
       const userDetails = path(['session', 'user'], req);
       const bookingId = path(['bookingId'], userDetails);
+      const { establishmentId } = req.app.locals.envVars;
 
-      const [
-        featuredContent,
-        promotionalContent,
-        tagsMenu,
-        homepageMenu,
-        todaysEvents,
-      ] = await Promise.all([
-        hubFeaturedContentService.hubFeaturedContent({ establishmentId }),
-        hubPromotedContentService.hubPromotedContent({ establishmentId }),
-        hubMenuService.tagsMenu(),
-        hubMenuService.homepageMenu(establishmentId),
+      const [todaysEvents, featuredContent] = await Promise.all([
         offenderService.getEventsForToday(bookingId),
+        hubNewFeaturedContentService.hubFeaturedContent({ establishmentId }),
       ]);
 
       const config = {
@@ -45,7 +34,7 @@ module.exports = function Home({
       const popularTopics = {
         Visits: '/content/3632',
         IEP: '/content/3663',
-        Timetable: '/content/3661',
+        Timetable: '/timetable',
         'Money and debt': '/content/3657',
         Games: '/content/3699',
         Music: '/content/3662',
@@ -55,14 +44,11 @@ module.exports = function Home({
       };
 
       res.render('pages/home', {
-        ...featuredContent,
         notification,
-        promotionalContent,
-        tagsMenu,
-        homepageMenu,
         config,
         todaysEvents,
         popularTopics,
+        featuredContent: featuredContent.featured[0],
       });
     } catch (exception) {
       next(exception);

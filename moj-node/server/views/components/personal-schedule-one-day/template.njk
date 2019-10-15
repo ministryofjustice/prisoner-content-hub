@@ -1,0 +1,26 @@
+{# {% extends "../component-or-error/macro.njk" %} #}
+{% if params.error %}
+  <div class="govuk-error-summary">
+    <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <p class="govuk-error-message">{{params.error}}</p>
+    </div>
+  </div>
+{% else %}
+  <div class="todays-events">
+    <div>
+      <h3 class="govuk-heading-m">Today's appointments</h3>
+      <a href="/" class="govuk-link see-timetable">See your timetable</a>
+    </div>
+    <div class="govuk-body">
+      {% for event in params %}
+      <div>
+        <span>{{event.timeString}}</span>
+        <span><strong>{{event.title}}</strong> {{event.location}}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endif %}
