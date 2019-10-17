@@ -44,7 +44,7 @@
 
 @media (min-width: 61.3125em) {
   .home-navigation__actions > :last-child {
-    padding-left: govuk-spacing(4);
+    padding-left: govuk-spacing(7);
   }
 }
 
@@ -63,20 +63,20 @@
 
 .popular-topics ul {
   list-style-type: none;
-  font-size: 19px;
+  font-size: 24px;
   font-weight: 700;
   padding: 0;
   margin: 0;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  height: 100px;
+  height: 120px;
   justify-content: space-between;
 }
 
 .popular-topics ul li {
   flex: 1 0 auto;
-  padding-bottom: govuk-spacing(1);
+  height: 31px;
 }
 
 .popular-topics ul li a {

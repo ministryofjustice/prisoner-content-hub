@@ -61,12 +61,8 @@ describe('App', () => {
 
     return request(
       app({
-        hubPromotedContentService: {
-          hubPromotedContent: sinon.stub().rejects(error),
-        },
-        hubMenuService: {
-          tagsMenu: sinon.stub(),
-          homepageMenu: sinon.stub(),
+        hubFeaturedContentService: {
+          hubFeaturedContent: sinon.stub().rejects(error),
         },
         offenderService: {
           getEventsForToday: sinon.stub(),

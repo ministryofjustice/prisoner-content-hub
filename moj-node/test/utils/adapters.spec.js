@@ -1,7 +1,7 @@
 const {
   contentResponseFrom,
   featuredContentResponseFrom,
-  featuredNewContentResponseFrom,
+  featuredContentTileResponseFrom,
   mediaResponseFrom,
   seasonResponseFrom,
   termResponseFrom,
@@ -17,8 +17,8 @@ const videoShowResponse = require('../resources/videoShow.json');
 const termsResponse = require('../resources/terms.json');
 const featuredItemResponse = require('../resources/featuredItem.json');
 const featuredSeriesResponse = require('../resources/featuredSeries.json');
-const featuredNewItemResponse = require('../resources/featuredNewItem.json');
-const featuredNewSeriesResponse = require('../resources/featuredNewSeries.json');
+const featuredItemTileResponse = require('../resources/featuredItemTile.json');
+const featuredSeriesTileResponse = require('../resources/featuredSeriesTile.json');
 const flatPageContentResponse = require('../resources/flatPageContent.json');
 const seasonResponse = require('../resources/season.json');
 const landingPageResponse = require('../resources/landingPage.json');
@@ -93,15 +93,17 @@ describe('Adapters', () => {
     });
   });
 
-  describe('.featuredNewContentResponseFrom', () => {
+  describe('.featuredContentTileResponseFrom', () => {
     it('returns formated data for featured item', () => {
-      const result = featuredNewContentResponseFrom(featuredNewItemResponse);
-      expect(result.upperFeatured).to.eql(featuredNewItem());
+      const result = featuredContentTileResponseFrom(featuredItemTileResponse);
+      expect(result.upperFeatured).to.eql(featuredItemTile());
     });
 
     it('returns formated data for featured series', () => {
-      const result = featuredNewContentResponseFrom(featuredNewSeriesResponse);
-      expect(result.upperFeatured).to.eql(featuredNewSeries());
+      const result = featuredContentTileResponseFrom(
+        featuredSeriesTileResponse,
+      );
+      expect(result.upperFeatured).to.eql(featuredSeriesTile());
     });
   });
 
@@ -358,8 +360,9 @@ function featuredSeries() {
   };
 }
 
-function featuredNewItem() {
+function featuredItemTile() {
   return {
+    id: '1234',
     title: 'Featured Item',
     summary: 'Featured Item Summary',
     image: {
@@ -372,8 +375,9 @@ function featuredNewItem() {
   };
 }
 
-function featuredNewSeries() {
+function featuredSeriesTile() {
   return {
+    id: '1234',
     title: 'Featured Item',
     summary: 'Featured Item Summary',
     image: {

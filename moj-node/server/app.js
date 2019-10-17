@@ -12,6 +12,7 @@ const sassMiddleware = require('node-sass-middleware');
 const session = require('cookie-session');
 
 const createIndexRouter = require('./routes/index');
+const createTopicsRouter = require('./routes/topics');
 const createHomeRouter = require('./routes/home');
 const createTimetableRouter = require('./routes/timetable');
 const createHealthRouter = require('./routes/health');
@@ -34,14 +35,12 @@ module.exports = function createApp({
   appInfo,
   logger,
   hubFeaturedContentService,
-  hubPromotedContentService,
   hubMenuService,
   hubContentService,
   hubTagsService,
   healthService,
   offenderService,
   searchService,
-  hubNewFeaturedContentService,
 }) {
   const app = express();
 
@@ -171,7 +170,13 @@ module.exports = function createApp({
     createIndexRouter({
       logger,
       hubFeaturedContentService,
-      hubPromotedContentService,
+    }),
+  );
+
+  app.use(
+    '/topics',
+    createTopicsRouter({
+      logger,
       hubMenuService,
     }),
   );
@@ -182,7 +187,7 @@ module.exports = function createApp({
       createHomeRouter({
         logger,
         offenderService,
-        hubNewFeaturedContentService,
+        hubFeaturedContentService,
       }),
     );
 

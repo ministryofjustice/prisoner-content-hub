@@ -12,3 +12,8 @@ module.exports.ESTABLISHMENTS = {
   792: 'Berwyn',
   793: 'Wayland',
 };
+
+module.exports.FACILITY_LIST_CONTENT_IDS = {
+  792: '/tags/847',
+  793: '/tags/881',
+};
