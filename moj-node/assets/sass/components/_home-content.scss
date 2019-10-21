@@ -113,8 +113,11 @@ $real-dark-grey: #232425;
   padding: govuk-spacing(2) govuk-spacing(3);
 }
 
-.home-content__four-items a:focus h3 {
-  color: govuk-colour('black');
+.home-content__four-items a:focus {
+  & h3,
+  & p {
+    color: govuk-colour('black');
+  }
 }
 
 .home-content-img-series {
