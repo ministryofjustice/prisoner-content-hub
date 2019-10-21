@@ -4,7 +4,7 @@ const { path } = require('ramda');
 module.exports = function Home({
   logger,
   offenderService,
-  hubNewFeaturedContentService,
+  hubFeaturedContentService,
 }) {
   const router = express.Router();
 
@@ -19,7 +19,7 @@ module.exports = function Home({
 
       const [todaysEvents, featuredContent] = await Promise.all([
         offenderService.getEventsForToday(bookingId),
-        hubNewFeaturedContentService.hubFeaturedContent({ establishmentId }),
+        hubFeaturedContentService.hubFeaturedContent({ establishmentId }),
       ]);
 
       const config = {

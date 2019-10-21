@@ -67,18 +67,15 @@
       text: 'Skip to main content'
     }) }}
 
-    {% if config.newDesigns %}
-      {% block topBar %}{% endblock %}
-      {% block userDetails %}{% endblock %}
-      {% block homeNavigation %}{% endblock %}
-    {% else %}
-      {{ pageHeader({
-        mainMenu: mainMenu,
-        topicsMenu: topicsMenu,
+    {% block topBar %}
+      {{ topBar({
         appName: envVars.APP_NAME,
-        user: user
+        showBar: true
       }) }}
-    {% endif %}
+    {% endblock %}
+
+    {% block userDetails %}{% endblock %}
+    {% block homeNavigation %}{% endblock %}
 
     {% block search %}
       <div class="govuk-width-container">

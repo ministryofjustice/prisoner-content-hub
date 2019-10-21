@@ -3,41 +3,14 @@ module.exports = function createHubFeaturedContentService(repository) {
     { establishmentId } = { establishmentId: 0 },
   ) {
     try {
-      const [
-        newsAndEvents,
-        dayToDay,
-        music,
-        healthyMindAndBody,
-        inspiration,
-        scienceAndNature,
-        artAndCulture,
-        history,
-        legalAndYourRights,
-      ] = await Promise.all([
-        repository.newsAndEvents({ establishmentId }),
-        repository.dayToDay({ establishmentId }),
-        repository.music({ establishmentId }),
-        repository.healthyMindAndBody({ establishmentId }),
-        repository.inspiration({ establishmentId }),
-        repository.scienceAndNature({ establishmentId }),
-        repository.artAndCulture({ establishmentId }),
-        repository.history({ establishmentId }),
-        repository.legalAndYourRights({ establishmentId }),
+      const [featured] = await Promise.all([
+        repository.contentFor({ establishmentId }),
       ]);
 
       return {
-        newsAndEvents,
-        dayToDay,
-        music,
-        healthyMindAndBody,
-        inspiration,
-        scienceAndNature,
-        artAndCulture,
-        history,
-        legalAndYourRights,
-        games: repository.games(),
+        featured,
       };
-    } catch (ex) {
+    } catch (error) {
       return null;
     }
   }

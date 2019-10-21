@@ -62,10 +62,11 @@ function featuredContentResponseFrom(response) {
   };
 }
 
-function featuredNewContentResponseFrom(response) {
+function featuredContentTileResponseFrom(response) {
   const [upperFeatured, lowerFeatured] = R.prop('large_tiles', response).map(
     item => {
       return {
+        id: item.id,
         contentUrl: `/content/${item.id}`,
         contentType: item.content_type,
         isSeries: item.series.length > 0,
@@ -79,6 +80,7 @@ function featuredNewContentResponseFrom(response) {
   return {
     smallTiles: R.prop('small_tiles', response).map(item => {
       return {
+        id: item.id,
         contentUrl: `/content/${item.id}`,
         contentType: item.content_type,
         isSeries: item.series.length > 0,
@@ -217,7 +219,7 @@ function searchResultFrom({ _id, _source }) {
 module.exports = {
   contentResponseFrom,
   featuredContentResponseFrom,
-  featuredNewContentResponseFrom,
+  featuredContentTileResponseFrom,
   mediaResponseFrom,
   seasonResponseFrom,
   termResponseFrom,

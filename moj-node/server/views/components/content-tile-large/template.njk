@@ -17,14 +17,14 @@
     {% if params.contentType === "moj_video_item" %}
       <p class="content-link--video">Watch</p>
     {% elif params.contentType === "moj_radio_item" %}
-      <p class="content-link--video">Listen</p>
+      <p class="content-link--audio">Listen</p>
     {% else %}
       <p class="content-link--article">Read</p>
     {% endif %}
   </div>
 {% endmacro %}
 
-<a href="{{params.content.contentUrl}}" class="govuk-link">
+<a data-featured-tile-id="{{ params.content.id }}" href="{{params.content.contentUrl}}" class="govuk-link">
   {% if params.imageAlign === 'left' %}
     {{ tileImage(params.content) }}
     {{ tileContent(params.content) }}

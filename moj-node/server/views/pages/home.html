@@ -41,13 +41,6 @@
   {% endif %}
 {% endblock %}
 
-{% block topBar %}
-  {{ topBar({
-    appName: envVars.APP_NAME,
-    showBar: true
-  }) }}
-{% endblock %}
-
 {% block userDetails %}
   <div class="govuk-width-container">
     {{ userDetails({
@@ -58,7 +51,7 @@
 {% endblock %}
 
 {% block homeNavigation %}
-  <div class="govuk-width-container home-navigation">
+  <div class="govuk-width-container home-navigation govuk-!-margin-top-3">
     <div class="home-navigation__actions">
       <div>
         <div class="govuk-clearfix home-navigation__search">
