@@ -5,46 +5,28 @@
 .home-navigation {
   display: flex;
   flex-direction: row;
-}
 
-@media (min-width: 61.3125em) {
-  .home-navigation {
+  @media (min-width: $desktop-breakpoint) {
     flex-direction: column;
   }
 }
 
 .home-navigation__actions {
   flex: 1 1 65%;
+  flex-wrap: wrap;
   display: flex;
   flex-direction: column;
-}
 
-@media (min-width: 61.3125em) {
-  .home-navigation__actions {
+  & > :first-child {
+    flex: 0 0 auto;
+    @media (min-width: $desktop-breakpoint) {
+      padding-right: govuk-spacing(4);
+    }
+  }
+
+  @media (min-width: $desktop-breakpoint) {
     flex: 1 1 auto;
     flex-direction: row;
-  }
-}
-
-.home-navigation__actions > :first-child {
-  flex: 0 0 auto;
-  padding-right: 20px;
-}
-
-@media (min-width: 61.3125em) {
-  .home-navigation__actions > :first-child {
-    flex: 0 0 auto;
-    padding-right: 0;
-  }
-}
-
-.home-navigation__actions > :last-child {
-  padding-right: govuk-spacing(4);
-}
-
-@media (min-width: 61.3125em) {
-  .home-navigation__actions > :last-child {
-    padding-left: govuk-spacing(7);
   }
 }
 
@@ -53,94 +35,96 @@
 }
 
 .popular-topics {
-  flex: 1 0 auto;
-}
+  flex: auto;
+  box-sizing: border-box;
 
-.popular-topics h3 {
-  font-weight: 400;
-  margin-bottom: govuk-spacing(2);
-}
+  & h3 {
+    font-weight: 400;
+    margin-bottom: govuk-spacing(2);
+  }
 
-.popular-topics ul {
-  list-style-type: none;
-  font-size: 24px;
-  font-weight: 700;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  height: 120px;
-  justify-content: space-between;
-}
+  & ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 
-.popular-topics ul li {
-  flex: 1 0 auto;
-  height: 31px;
-}
+    & li {
+      flex: 1 0 100%;
 
-.popular-topics ul li a {
-  text-decoration: none;
+      & a {
+        @include govuk-font(24, 'bold');
+        text-decoration: none;
+      }
+
+      @media (min-width: $tablet-breakpoint) {
+        flex: 1 0 auto;
+        height: 31px;
+      }
+    }
+
+    @media (min-width: $tablet-breakpoint) {
+      flex-direction: column;
+      height: 120px;
+    }
+  }
+
+  @media (min-width: $desktop-breakpoint) {
+    flex: 1 0 auto;
+  }
 }
 
 .todays-events {
   flex: 1 1 35%;
   border: govuk-spacing(1) solid govuk-colour('blue');
   padding: govuk-spacing(4);
-}
 
-@media (min-width: 61.3125em) {
-  .todays-events {
+  & h3 {
+    margin-bottom: govuk-spacing(2);
+  }
+
+  & > :first-child {
+    padding-left: govuk-spacing(8);
+    background-image: url(/public/images/icons/appointments.png);
+    background-repeat: no-repeat;
+  }
+
+  & > :last-child {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 24px;
+    margin-bottom: 0;
+
+    & > div > :first-child {
+      display: block;
+      margin-top: govuk-spacing(4);
+
+      @media (min-width: $desktop-breakpoint) {
+        display: inline-block;
+        width: 100px;
+        margin-top: 0;
+      }
+    }
+
+    @media (min-width: $desktop-breakpoint) {
+      flex: 1 1 70%;
+    }
+  }
+
+  @media (min-width: $desktop-breakpoint) {
     display: flex;
     flex: 1 1 auto;
     padding: govuk-spacing(2);
+
+    & > * {
+      flex: 1 1 30%;
+    }
   }
-}
-
-.todays-events > :first-child {
-  padding-left: govuk-spacing(8);
-  background-image: url(/public/images/icons/appointments.png);
-  background-repeat: no-repeat;
-}
-
-.todays-events > :last-child {
-  font-size: 24px;
-  margin-bottom: 0;
-}
-
-@media (min-width: 61.3125em) {
-  .todays-events > * {
-    flex: 1 1 30%;
-  }
-
-  .todays-events > :last-child {
-    flex: 1 1 70%;
-  }
-}
-
-.todays-events h3 {
-  margin-bottom: govuk-spacing(2);
 }
 
 .see-timetable {
   font-size: 19px;
-}
-
-.todays-events > :last-child {
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.todays-events > :last-child > div > :first-child {
-  display: block;
-  margin-top: govuk-spacing(4);
-}
-
-@media (min-width: 61.3125em) {
-  .todays-events > :last-child > div > :first-child {
-    display: inline-block;
-    width: 100px;
-    margin-top: 0;
-  }
 }

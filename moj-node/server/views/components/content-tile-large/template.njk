@@ -24,12 +24,14 @@
   </div>
 {% endmacro %}
 
-<a data-featured-tile-id="{{ params.content.id }}" href="{{params.content.contentUrl}}" class="govuk-link">
-  {% if params.imageAlign === 'left' %}
-    {{ tileImage(params.content) }}
-    {{ tileContent(params.content) }}
-  {% else %}
-    {{ tileContent(params.content) }}
-    {{ tileImage(params.content) }}
-  {% endif %}
+<a data-featured-tile-id="{{ params.content.id }}" href="{{params.content.contentUrl}}">
+  <div>
+    {% if params.imageAlign === 'left' %}
+      {{ tileImage(params.content) }}
+      {{ tileContent(params.content) }}
+    {% else %}
+      {{ tileContent(params.content) }}
+      {{ tileImage(params.content) }}
+    {% endif %}
+  </div>
 </a>

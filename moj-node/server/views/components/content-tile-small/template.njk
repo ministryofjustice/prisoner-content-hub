@@ -1,19 +1,21 @@
-<a data-featured-tile-id="{{params.id}}" href="{{params.contentUrl}}" class="govuk-link">
-  {% if params.isSeries %}
-    <div class="home-content-img-series">
-      <img src="{{params.image.url}}" alt="">
-    </div>
-  {% else %}
-    <img src="{{params.image.url}}" alt="{{params.image.alt}}">
-  {% endif %}
-  <h3 class="govuk-heading-m" style="">{{params.title}}</h3>
+<a data-featured-tile-id="{{params.id}}" href="{{params.contentUrl}}">
   <div>
-    {% if params.contentType === "moj_video_item" %}
-      <p class="content-link--video">Watch</p>
-    {% elif params.contentType === "moj_radio_item" %}
-      <p class="content-link--audio">Listen</p>
+    {% if params.isSeries %}
+      <div class="home-content-img-series">
+        <img src="{{params.image.url}}" alt="">
+      </div>
     {% else %}
-      <p class="content-link--article">Read</p>
+      <img src="{{params.image.url}}" alt="{{params.image.alt}}">
     {% endif %}
+    <h3 class="govuk-heading-m" style="">{{params.title}}</h3>
+    <div>
+      {% if params.contentType === "moj_video_item" %}
+        <p class="content-link--video">Watch</p>
+      {% elif params.contentType === "moj_radio_item" %}
+        <p class="content-link--audio">Listen</p>
+      {% else %}
+        <p class="content-link--article">Read</p>
+      {% endif %}
+    </div>
   </div>
 </a>

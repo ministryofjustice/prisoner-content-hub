@@ -1,5 +1,5 @@
 .govuk-width-container {
-  max-width: 1200px; // override gov container
+  max-width: $width-override; // override gov container
 }
 
 .govuk-main-wrapper {
@@ -21,9 +21,8 @@
 }
 
 .govuk-hub-comment-counter {
-  display: inline-block;
-  margin-right: 20px;
-  margin-top: 10px;
+  margin-right: govuk-spacing(4);
+  margin-top: govuk-spacing(2);
   float: left;
 }
 
@@ -35,7 +34,7 @@
 .govuk-hub-thumbs {
   height: 39px;
   width: 44px;
-  margin-right: 10px;
+  margin-right: govuk-spacing(4);
   float: left;
   cursor: pointer;
   border: 0;
@@ -83,12 +82,12 @@
 .govuk-hub-feedback-text {
   @include govuk-font($size: 19);
   color: govuk-colour('white');
-  margin-bottom: 20px;
+  margin-bottom: govuk-spacing(4);
 }
 
 .govuk-hub-article-feedback {
   border-top: solid 1px $govuk-border-colour;
-  padding-top: 30px;
+  padding-top: govuk-spacing(6);
 }
 
 .govuk-hub-article-feedback .govuk-hub-text {
