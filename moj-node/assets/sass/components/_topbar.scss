@@ -19,17 +19,24 @@
   flex: 1;
 }
 
-.top-bar :last-child {
+.top-bar > :last-child {
   text-align: right;
 }
 
 .top-bar h1 {
   margin-bottom: 0;
+  display: flex;
+  align-items: center;
 }
 
 .top-bar h1 a {
   color: govuk-colour('white');
   text-decoration: none;
+  flex: 1 0 auto;
+}
+
+.top-bar h1 img {
+  flex: 0 1 auto;
 }
 
 .top-bar h1 span {
