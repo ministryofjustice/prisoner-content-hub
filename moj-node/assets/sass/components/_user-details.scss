@@ -15,7 +15,7 @@
 }
 
 .user-details-small {
-  font-size: 24px;
+  @include govuk-font($size: 24);
 }
 
 .user-details-small::before,
