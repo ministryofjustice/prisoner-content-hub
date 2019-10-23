@@ -1,5 +1,10 @@
 @import 'node_modules/govuk-frontend/govuk/all';
 
+$width-override: 1200px;
+$desktop-breakpoint: $width-override;
+$tablet-breakpoint: map-get($govuk-breakpoints, 'tablet');
+$mobile-breakpoint: map-get($govuk-breakpoints, 'mobile');
+
 @import 'general';
 @import 'player';
 @import 'fonts';
