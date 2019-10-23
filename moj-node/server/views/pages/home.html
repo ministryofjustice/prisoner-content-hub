@@ -96,9 +96,22 @@
 
 {% block bodyEnd %}
   <script src="/public/all.js"></script>
+  <script>window.GOVUKFrontend.initAll();</script>
+  <!--[if gte IE 9]><!-->
   <script>
-    window
-      .GOVUKFrontend
-      .initAll();
+  document.documentElement.className = 'js'; // adds class="js" to <html> element
+  function fitImg(imgClass) {
+    var imgs = document.querySelectorAll(imgClass), length = imgs.length, i;
+    for (i = 0; i < length; ++i) {
+      var img = imgs[i],
+          url = img.src;
+      img.parentNode.style.fontSize = '0'; /* counteract extra spacing from inline-block */
+      img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
+      img.style.backgroundImage = "url('" + url + "')";
+      }
+    }
+  fitImg('.fit-img-landscape');
+  fitImg('.fit-img-portrait');
   </script>
+  <!--<![endif]-->
 {% endblock %}
