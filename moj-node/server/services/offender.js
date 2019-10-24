@@ -7,7 +7,6 @@ const {
   addDays,
 } = require('date-fns');
 const { propOr, prop } = require('ramda');
-
 const { capitalize } = require('../utils');
 
 const prettyDate = date => {
@@ -217,15 +216,27 @@ module.exports = function createOffenderService(repository) {
     let checkDateStr = format(checkDateObj, 'yyyy-MM-dd');
     const endDateObj = new Date(endDate);
     const endDateStr = format(endDateObj, 'yyyy-MM-dd');
+    const todayObj = new Date();
     const events = {};
 
     while (checkDateStr !== endDateStr) {
       checkDateStr = format(checkDateObj, 'yyyy-MM-dd');
 
+      const finished = isBefore(checkDateObj, todayObj);
+
       events[checkDateStr] = {
-        morning: [],
-        afternoon: [],
-        evening: [],
+        morning: {
+          finished,
+          events: [],
+        },
+        afternoon: {
+          finished,
+          events: [],
+        },
+        evening: {
+          finished,
+          events: [],
+        },
         title: getTimetableTitle(checkDateStr),
       };
 
@@ -266,22 +277,53 @@ module.exports = function createOffenderService(repository) {
         const dateString = isoDate(prop('startTime', event));
         const timeOfDay = getTimeOfDay(prop('startTime', event));
 
-        events[dateString][timeOfDay].push({
+        events[dateString][timeOfDay].events.push({
           description: event.eventSourceDesc,
           startTime,
           endTime,
           location: event.eventLocation,
           timeString: getTimetableEventTime(startTime, endTime),
           eventType: event.eventType,
+          finished: event.eventStatus !== 'SCH',
+          status: event.eventStatus,
+          paid: event.paid,
         });
+
+        if (event.eventStatus === 'SCH') {
+          events[dateString][timeOfDay].finished = false;
+        }
       });
 
-      return events;
+      return setDayBlocks(events);
     } catch {
       return {
         error: `We are not able to show your schedule for the selected week at this time`,
       };
     }
+  }
+
+  function setDayBlocks(events) {
+    /* eslint-disable no-param-reassign */
+    const nowDateString = format(new Date(), 'yyyy-MM-dd');
+
+    if (events[nowDateString]) {
+      const nowString = format(new Date(), 'yyyy-MM-dd HH:mm');
+      const currentTimeOfDay = getTimeOfDay(nowString);
+
+      events[nowDateString].morning.finished = false;
+      events[nowDateString].afternoon.finished = false;
+      events[nowDateString].evening.finished = false;
+
+      if (currentTimeOfDay === 'afternoon') {
+        events[nowDateString].morning.finished = true;
+      } else if (currentTimeOfDay === 'evening') {
+        events[nowDateString].morning.finished = true;
+        events[nowDateString].afternoon.finished = true;
+      }
+    }
+
+    return events;
+    /* eslint-enable no-param-reassign */
   }
 
   return {

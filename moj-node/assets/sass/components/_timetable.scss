@@ -30,3 +30,11 @@
 .timetable-header > nav > span {
   font-weight: 700;
 }
+
+.timetable-footer {
+  padding: govuk-spacing(5) 0;
+}
+
+.timetable-footer > nav {
+  flex: 1 0 auto;
+}

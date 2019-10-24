@@ -1,0 +1,17 @@
+<nav>
+  {% if params.lastWeek %}
+  <span>Last week</span>
+  {% else %}
+  <a href="/timetable/lastweek" class="govuk-link">Last week</a>
+  {% endif %}
+  {% if not params.lastWeek and not params.nextWeek %}
+  <span>This week</span>
+  {% else %}
+  <a href="/timetable" class="govuk-link">This week</a>
+  {% endif %}
+  {% if params.nextWeek %}
+  <span>Next week</span>
+  {% else %}
+  <a href="/timetable/nextweek" class="govuk-link">Next week</a>
+  {% endif %}
+</nav>
