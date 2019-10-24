@@ -1,7 +1,6 @@
 @import 'node_modules/govuk-frontend/govuk/settings/all';
 @import 'node_modules/govuk-frontend/govuk/tools/all';
 @import 'node_modules/govuk-frontend/govuk/helpers/all';
-@import 'node_modules/govuk-frontend/govuk/helpers/typography';
 
 .user-details {
   display: flex;
@@ -14,9 +13,8 @@
 
 .user-details-small,
 .user-details-large {
-  font-size: 48px;
+  @include govuk-font(48, 'bold');
   color: govuk-colour('black');
-  font-weight: 700;
   min-height: 46px;
   display: flex;
   align-items: center;
@@ -24,7 +22,7 @@
 }
 
 .user-details-small {
-  @include govuk-font($size: 24);
+  @include govuk-font(24, 'bold');
 }
 
 .user-details-small::before,

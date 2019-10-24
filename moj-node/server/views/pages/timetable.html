@@ -78,9 +78,21 @@
   <div class="govuk-width-container govuk-body timetable-header">
     <h1>Timetable</h1>
     <nav>
+      {% if config.lastWeek %}
+      <span>Last week</span>
+      {% else %}
       <a href="/timetable/lastweek" class="govuk-link">Last week</a>
+      {% endif %}
+      {% if not config.lastWeek and not config.nextWeek %}
       <span>This week</span>
+      {% else %}
+      <a href="/timetable" class="govuk-link">This week</a>
+      {% endif %}
+      {% if config.nextWeek %}
+      <span>Next week</span>
+      {% else %}
       <a href="/timetable/nextweek" class="govuk-link">Next week</a>
+      {% endif %}
     </nav>
   </div>
 {% endblock %}
