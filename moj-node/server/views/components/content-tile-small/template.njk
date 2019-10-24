@@ -2,10 +2,10 @@
   <div>
     {% if params.isSeries %}
       <div class="home-content-img-series">
-        <img src="{{params.image.url}}" alt="">
+        <img src="{{params.image.url}}" alt="" class="fit-img-landscape">
       </div>
     {% else %}
-      <img src="{{params.image.url}}" alt="{{params.image.alt}}">
+      <img src="{{params.image.url}}" alt="{{params.image.alt}}" class="fit-img-landscape">
     {% endif %}
     <h3 class="govuk-heading-m" style="">{{params.title}}</h3>
     <div>

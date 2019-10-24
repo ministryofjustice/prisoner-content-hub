@@ -1,11 +1,11 @@
 {% macro tileImage(params) %}
   {% if params.isSeries %}
     <div class="home-content-img-series home-content__feature-image">
-      <img src="{{params.image.url}}" alt="">
+      <img src="{{params.image.url}}" alt="" class="fit-img-landscape">
     </div>
   {% else %}
     <div class="home-content__feature-image">
-      <img src="{{params.image.url}}" alt="{{params.image.alt}}">
+      <img src="{{params.image.url}}" alt="{{params.image.alt}}" class="fit-img-landscape">
     </div>
   {% endif %}
 {% endmacro %}
