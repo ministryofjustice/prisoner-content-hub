@@ -5,7 +5,6 @@ const {
   isValid,
   isBefore,
   addDays,
-  isEqual,
 } = require('date-fns');
 const { propOr, prop } = require('ramda');
 
@@ -215,11 +214,13 @@ module.exports = function createOffenderService(repository) {
 
   const getInitialEvents = (startDate, endDate) => {
     let checkDateObj = new Date(startDate);
+    let checkDateStr = format(checkDateObj, 'yyyy-MM-dd');
     const endDateObj = new Date(endDate);
+    const endDateStr = format(endDateObj, 'yyyy-MM-dd');
     const events = {};
 
-    while (!isEqual(checkDateObj, endDateObj)) {
-      const checkDateStr = format(checkDateObj, 'yyyy-MM-dd');
+    while (checkDateStr !== endDateStr) {
+      checkDateStr = format(checkDateObj, 'yyyy-MM-dd');
 
       events[checkDateStr] = {
         morning: [],

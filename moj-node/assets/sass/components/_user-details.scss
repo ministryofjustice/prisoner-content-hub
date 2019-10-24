@@ -3,6 +3,15 @@
 @import 'node_modules/govuk-frontend/govuk/helpers/all';
 @import 'node_modules/govuk-frontend/govuk/helpers/typography';
 
+.user-details {
+  display: flex;
+  align-items: center;
+}
+
+.user-details > div {
+  flex: 1 0 50%;
+}
+
 .user-details-small,
 .user-details-large {
   font-size: 48px;

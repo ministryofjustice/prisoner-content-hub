@@ -30,6 +30,8 @@ $mobile-breakpoint: map-get($govuk-breakpoints, 'mobile');
 @import 'components/user-details';
 @import 'components/home-navigation';
 @import 'components/home-content';
+@import 'components/timetable';
+@import 'components/page-navigation';
 
 @import 'pages/flat-content';
 @import 'pages/step-by-step';

@@ -47,25 +47,25 @@
 {% endblock %}
 
 {% block pageNav %}
-  <div style="background-color: #F8F8F8;">
-    <nav class="govuk-width-container govuk-body" style="display: flex; align-items: center; padding: 10px 0;">
-      <a href="/" class="govuk-link" style="padding-right: 25px;">Homepage</a>
-      <span style="font-weight: 700; padding-right: 25px;">Timetable</span>
-      <a href="" class="govuk-link" style="padding-right: 25px;">Back</a>
+  <div class="page-navigation">
+    <nav class="govuk-width-container govuk-body">
+      <a href="/" class="govuk-link">Homepage</a>
+      <span>Timetable</span>
+      <a href="" class="govuk-link">Back</a>
       <a href="" class="govuk-link">Forward</a>
     </nav>
   </div>
 {% endblock %}
 
 {% block userDetails %}
-  <div class="govuk-width-container" style="display: flex; align-items: center;">
-    <div style="flex: 1 0 50%;">
+  <div class="govuk-width-container user-details">
+    <div>
       {{ userDetails({
         detailsType: config.detailsType,
         userName: config.userName
       }) }}
     </div>
-    <div class="govuk-clearfix" style="flex: 1 0 50%;">
+    <div class="govuk-clearfix">
       {{ hubSearch({ query: query, small: true }) }}
     </div>
   </div>
@@ -75,12 +75,12 @@
 {% endblock %}
 
 {% block header %}
-  <div class="govuk-width-container govuk-body" style="display: flex; align-items: center;">
-    <h1 style="flex: 1 0 50%; font-size: 48px;">Timetable</h1>
-    <nav style="flex: 1 0 50%; text-align: right;">
-      <a href="/" class="govuk-link" style="">Last week</a>
-      <span style="font-weight: 700; padding-left: 25px;">This week</span>
-      <a href="" class="govuk-link" style="padding-left: 25px;">Next week</a>
+  <div class="govuk-width-container govuk-body timetable-header">
+    <h1>Timetable</h1>
+    <nav>
+      <a href="/timetable/lastweek" class="govuk-link">Last week</a>
+      <span>This week</span>
+      <a href="/timetable/nextweek" class="govuk-link">Next week</a>
     </nav>
   </div>
 {% endblock %}
