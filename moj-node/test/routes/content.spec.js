@@ -388,13 +388,8 @@ describe('GET /content/:id', () => {
 
       return request(app)
         .get('/content/1')
-        .expect(200)
-        .expect('Content-Type', 'application/pdf')
-        .then(() => {
-          expect(hubContentService.streamFor.lastCall.args[0]).to.equal(
-            'www.foo.bar/file.pdf',
-          );
-        });
+        .expect(301)
+        .expect('Location', 'www.foo.bar/file.pdf');
     });
   });
 
