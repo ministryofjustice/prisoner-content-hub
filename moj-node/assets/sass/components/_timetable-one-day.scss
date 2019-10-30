@@ -1,0 +1,72 @@
+@import 'node_modules/govuk-frontend/govuk/settings/all';
+@import 'node_modules/govuk-frontend/govuk/tools/all';
+@import 'node_modules/govuk-frontend/govuk/helpers/all';
+
+.timetable-day > h3 {
+  @include govuk-font(36, 'bold');
+  margin: 0;
+}
+
+.timetable-day > div {
+  display: flex;
+}
+
+.timetable-day > :last-child {
+  align-content: space-between;
+  align-items: stretch;
+}
+
+.timetable-day h4 {
+  flex: 1 0 32.5%;
+  margin: govuk-spacing(2) 0 govuk-spacing(2) 0.5%;
+}
+
+.timetable-day h4:first-of-type {
+  margin-left: 0;
+}
+
+.timetable-day h4.day-block-finished {
+  opacity: 0.7;
+}
+
+.timetable-day-blocks > div {
+  flex: 1 0 32.5%;
+  margin-left: 0.5%;
+  background-color: #d5e8f4;
+}
+
+.timetable-day-blocks > :first-child {
+  background-color: #e9f3fa;
+  margin-left: 0;
+}
+
+.timetable-day-blocks > :last-child {
+  background-color: #bddcef;
+}
+
+.timetable-day-blocks > .day-block-finished {
+  background-color: #f7f7f8;
+  opacity: 0.7;
+}
+
+.timetable-day-blocks > div > div {
+  margin: govuk-spacing(4);
+}
+
+.timetable-day-blocks > div > .event-finished {
+  opacity: 0.7;
+}
+
+.timetable-day-blocks > .day-block-finished > .event-finished {
+  opacity: 1;
+}
+
+.timetable-day-blocks .event-appt {
+  border: govuk-spacing(1) solid govuk-colour('blue');
+  background-color: white;
+  padding: govuk-spacing(2);
+}
+
+.timetable-day-blocks > .day-block-finished > .event-appt {
+  border-color: #dee0e2;
+}

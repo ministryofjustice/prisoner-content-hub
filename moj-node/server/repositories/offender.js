@@ -48,7 +48,7 @@ function offenderRepository(httpClient) {
   }
 
   function getEventsFor(bookingId, startDate, endDate) {
-    const endpoint = `${config.nomis.api.bookings}/${bookingId}/events`;
+    const endpoint = `${config.nomis.api.bookings}/${bookingId}/activities`;
     const query = [
       `fromDate=${startDate}`,
       `toDate=${endDate}`,

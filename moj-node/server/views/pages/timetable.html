@@ -1,6 +1,7 @@
 {% from "../components/search/macro.njk" import hubSearch %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "../components/personal-schedule-today/macro.njk" import personalScheduleToday %}
+{% from "../components/personal-schedule-one-day/macro.njk" import personalScheduleOneDay %}
+{% from "../components/personal-schedule-nav/macro.njk" import personalScheduleNav %}
 
 {% extends "../components/template.njk" %}
 
@@ -26,7 +27,7 @@
 {% endblock %}
 
 {% block notification %}
-  {% if notification %}}
+  {% if notification %}
     <div class="govuk-width-container">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
@@ -42,76 +43,53 @@
 {% block topBar %}
   {{ topBar({
     appName: envVars.APP_NAME,
-    showBar: true
+    showBar: false
   }) }}
 {% endblock %}
 
-{% block userDetails %}
-  <div class="govuk-width-container">
-    {{ userDetails({
-      detailsType: config.detailsType,
-      userName: config.userName
-    }) }}
+{% block pageNav %}
+  <div class="page-navigation">
+    <nav class="govuk-width-container govuk-body">
+      <a href="/" class="govuk-link">Homepage</a>
+      <span>Timetable</span>
+      <a href="" class="govuk-link">Back</a>
+      <a href="" class="govuk-link">Forward</a>
+    </nav>
   </div>
 {% endblock %}
 
-{% block homeNavigation %}
-  <div class="govuk-width-container home-navigation">
-    <div class="home-navigation__actions">
-      <div>
-        <div class="govuk-clearfix home-navigation__search">
-          {{ hubSearch({ query: query }) }}
-        </div>
-        {{ govukButton({
-          text: "Browse all topics",
-          href: "/topics",
-          isStartButton: true
-        }) }}
-      </div>
-      <div class="popular-topics">
-        <h3 class="govuk-heading-s">Popular topics</h3>
-      </div>
+{% block userDetails %}
+  <div class="govuk-width-container user-details">
+    <div>
+      {{ userDetails({
+        detailsType: config.detailsType,
+        userName: config.userName
+      }) }}
     </div>
-    {% if events.length > 0 %}
-      {{personalScheduleOneDay(events)}}
-    {% endif %}
+    <div class="govuk-clearfix">
+      {{ hubSearch({ query: query, small: true }) }}
+    </div>
+  </div>
+  <div class="govuk-width-container">
+    <hr class="govuk-section-break govuk-search-section-break--visible">
   </div>
 {% endblock %}
+
+{% block header %}
+  <div class="govuk-width-container govuk-body timetable-header">
+    <h1>Timetable</h1>
+    {{ personalScheduleNav({ nextWeek: config.nextWeek, lastWeek: config.lastWeek }) }}
+  </div>
+{% endblock %}
+
+{% block homeNavigation %}{% endblock %}
 
 {% block search %}{% endblock %}
 
-{% block content %}
-  <div class="govuk-width-container home-content">
-    <a href="/" class="govuk-link">
-      <div>
-        <h3 class="govuk-heading-l">Your stories:  There is a future for us</h3>
-        <p class="home-content-storyline">Powerful, inspirational and honest testimony about forgiveness and hope.</p>
-        <p class="content-link--video">Watch</p>
-      </div>
-      <div class="home-content-img-series">
-        <img src="/public/images/neontroids.png" alt="">
-      </div>
-    </a>
-    <div class="govuk-body home-content__four-items">
-      <a href="/" class="govuk-link">
-        <div class="home-content-img-series">
-          <img src="/public/images/neontroids.png" alt="">
-        </div>
-        <h3 class="govuk-heading-m" style="">Your stories:  There is a future for us</h3>
-      </a>
-      <a href="/" class="govuk-link">
-        <img src="/public/images/neontroids.png" alt="">
-        <h3 class="govuk-heading-m">Your stories:  There is a future for us</h3>
-      </a>
-      <a href="/" class="govuk-link">
-        <img src="/public/images/neontroids.png" alt="">
-        <h3 class="govuk-heading-m">Your stories:  There is a future for us</h3>
-      </a>
-      <a href="/" class="govuk-link">
-        <img src="/public/images/neontroids.png" alt="">
-        <h3 class="govuk-heading-m">Your stories:  There is a future for us</h3>
-      </a>
-    </div>
+{% block timetable %}
+  {{personalScheduleOneDay(events | first)}}
+  <div class="govuk-width-container govuk-body timetable-header timetable-footer">
+    {{ personalScheduleNav({ nextWeek: config.nextWeek, lastWeek: config.lastWeek }) }}
   </div>
 {% endblock %}
 
