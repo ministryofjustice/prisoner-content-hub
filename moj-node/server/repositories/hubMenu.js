@@ -1,6 +1,10 @@
 const R = require('ramda');
 const config = require('../config');
-const { tagIdFrom, nameFrom } = require('../selectors/hub');
+const {
+  tagIdFrom,
+  nameFrom,
+  termDescriptionValueFrom,
+} = require('../selectors/hub');
 
 const berwynNav = require('../data/berwyn-homepage-nav.json');
 const waylandNav = require('../data/wayland-homepage-nav.json');
@@ -77,6 +81,7 @@ function hubMenuRepository(httpClient) {
     const tags = Object.keys(data).map(key => ({
       id: tagIdFrom(data[key]),
       linkText: nameFrom(data[key]),
+      description: termDescriptionValueFrom(data[key]),
       href: `/tags/${tagIdFrom(data[key])}`,
     }));
 
