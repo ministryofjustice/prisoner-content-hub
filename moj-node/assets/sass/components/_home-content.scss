@@ -94,14 +94,26 @@ $real-dark-grey: #232425;
   transition: transform 0.5s ease;
 }
 
-.home-content > a:hover,
-.home-content > a:focus,
 .home-content__four-items > a:hover,
 .home-content__four-items > a:focus {
   @include scale-tile;
   outline: none;
   & > div {
     @include tile-shadow;
+    background-color: $govuk-focus-colour;
+    & h3,
+    & p {
+      color: govuk-colour('black');
+    }
+  }
+}
+
+.home-content > a:hover,
+.home-content > a:focus {
+  @include scale-tile;
+  outline: none;
+  @include tile-shadow;
+  & > div {
     background-color: $govuk-focus-colour;
     & h3,
     & p {
