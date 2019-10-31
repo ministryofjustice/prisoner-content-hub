@@ -25,7 +25,9 @@ module.exports = {
   matomoUrl,
   backendUrl,
   cookieSecret: getEnv('COOKIE_SECRET', 'keyboard cat'),
-  establishmentName: getEnv('ESTABLISHMENT_NAME', 'berwyn'),
+  establishmentName: getEnv('ESTABLISHMENT_NAME', 'berwyn', {
+    requireInProduction: true,
+  }),
   hubEndpoint,
   ldap: {
     domain: getEnv('FQDN', 'MYDOMAIN'),

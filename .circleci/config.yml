@@ -123,6 +123,7 @@ jobs:
             ENABLE_PRISON_SWITCH="true" \
             HUB_API_ENDPOINT="https://drupal.digital-hub-stage.hmpps.dsd.io" \
             ELASTICSEARCH_ENDPOINT="UNSET" \
+            ESTABLISHMENT_NAME="berwyn" \
             npm run test:e2e:run
       - store_artifacts:
           path: ./moj-node/cypress/videos
