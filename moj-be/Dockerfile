@@ -1,4 +1,4 @@
-FROM drupal:8.7.3-apache
+FROM drupal:8.7.8-apache
 # Install Composer and it's dependencies
 RUN apt-get update && apt-get install curl && apt-get install git-core unzip -y
 
