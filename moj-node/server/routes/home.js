@@ -17,10 +17,12 @@ module.exports = function Home({
       const bookingId = path(['bookingId'], userDetails);
       const { establishmentId } = req.app.locals.envVars;
 
-      const [todaysEvents, featuredContent] = await Promise.all([
-        offenderService.getEventsForToday(bookingId),
-        hubFeaturedContentService.hubFeaturedContent({ establishmentId }),
-      ]);
+      const [{ todaysEvents, isTomorrow }, featuredContent] = await Promise.all(
+        [
+          offenderService.getEventsForToday(bookingId),
+          hubFeaturedContentService.hubFeaturedContent({ establishmentId }),
+        ],
+      );
 
       const config = {
         content: true,
@@ -47,6 +49,7 @@ module.exports = function Home({
         notification,
         config,
         todaysEvents,
+        isTomorrow,
         popularTopics,
         featuredContent: featuredContent.featured[0],
       });

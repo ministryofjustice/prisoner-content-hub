@@ -13,15 +13,18 @@ const getEventsForTodayData = [
         eventType: 'APP',
       },
     ],
-    data: [
-      {
-        title: 'Some title',
-        startTime: '11:30AM',
-        endTime: '12:30PM',
-        timeString: '11:30AM',
-        location: 'Some location',
-      },
-    ],
+    data: {
+      todaysEvents: [
+        {
+          title: 'Some title',
+          startTime: '11:30AM',
+          endTime: '12:30PM',
+          timeString: '11:30AM',
+          location: 'Some location',
+        },
+      ],
+      isTomorrow: false,
+    },
   },
   {
     title: 'single appointment no end time',
@@ -34,15 +37,18 @@ const getEventsForTodayData = [
         eventType: 'APP',
       },
     ],
-    data: [
-      {
-        title: 'Some title',
-        startTime: '11:30AM',
-        endTime: '',
-        timeString: '11:30AM',
-        location: 'Some location',
-      },
-    ],
+    data: {
+      todaysEvents: [
+        {
+          title: 'Some title',
+          startTime: '11:30AM',
+          endTime: '',
+          timeString: '11:30AM',
+          location: 'Some location',
+        },
+      ],
+      isTomorrow: false,
+    },
   },
   {
     title: 'single visit',
@@ -55,15 +61,18 @@ const getEventsForTodayData = [
         eventType: 'VISIT',
       },
     ],
-    data: [
-      {
-        title: 'Some title',
-        startTime: '11:30AM',
-        endTime: '12:30PM',
-        timeString: '11:30AM',
-        location: 'Some location',
-      },
-    ],
+    data: {
+      todaysEvents: [
+        {
+          title: 'Some title',
+          startTime: '11:30AM',
+          endTime: '12:30PM',
+          timeString: '11:30AM',
+          location: 'Some location',
+        },
+      ],
+      isTomorrow: false,
+    },
   },
   {
     title: 'single activity',
@@ -76,7 +85,10 @@ const getEventsForTodayData = [
         eventType: 'PRISON_ACT',
       },
     ],
-    data: [],
+    data: {
+      todaysEvents: [],
+      isTomorrow: false,
+    },
   },
 ];
 const getEventsForData = [

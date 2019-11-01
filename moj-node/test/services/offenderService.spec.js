@@ -145,15 +145,18 @@ describe('Offender Service', () => {
   describe('getEventsForToday', () => {
     it('should call the repository service with the correct bookingId', async () => {
       const repository = {
-        getEventsForToday: sinon.stub().returns([
-          {
-            eventSourceDesc: 'Some title',
-            startTime: '2019-04-07T11:30:30',
-            endTime: '2019-04-07T12:30:30',
-            eventLocation: 'Some location',
-            eventType: 'APP',
-          },
-        ]),
+        getEventsForToday: sinon.stub().returns({
+          todaysEvents: [
+            {
+              eventSourceDesc: 'Some title',
+              startTime: '2019-04-07T11:30:30',
+              endTime: '2019-04-07T12:30:30',
+              eventLocation: 'Some location',
+              eventType: 'APP',
+            },
+          ],
+          isTomorrow: false,
+        }),
       };
       const service = offenderService(repository);
       await service.getEventsForToday('FOO_ID');

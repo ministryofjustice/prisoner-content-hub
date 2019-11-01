@@ -11,11 +11,12 @@
 {% else %}
   <div class="todays-events">
     <div>
-      <h3 class="govuk-heading-m">Today's appointments</h3>
-      <a href="/" class="govuk-link see-timetable">See your timetable</a>
+      <h3 class="govuk-heading-m">
+      {% if params.isTomorrow %}Tomorrow{% else %}Today{% endif %}'s appointments</h3>
+      <a href="/timetable" class="govuk-link see-timetable">See your timetable</a>
     </div>
     <div class="govuk-body">
-      {% for event in params %}
+      {% for event in params.events %}
       <div>
         <span>{{event.timeString}}</span>
         <span><strong>{{event.title}}</strong> {{event.location}}</span>
