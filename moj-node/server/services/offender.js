@@ -180,11 +180,35 @@ module.exports = function createOffenderService(repository) {
     }
   }
 
-  async function getEventsForToday(bookingId) {
+  async function getActualHomeEvents(bookingId, time) {
+    const hour = Number.parseInt(format(time, 'H'), 10);
+
+    if (hour >= 19) {
+      const tomorrow = addDays(time, 1);
+      const startDate = isoDate(time);
+      const endDate = isoDate(tomorrow);
+
+      return {
+        events: await repository.getEventsFor(bookingId, startDate, endDate),
+        tomorrow: true,
+      };
+    }
+
+    return {
+      events: repository.getEventsForToday(bookingId),
+      tomorrow: false,
+    };
+  }
+
+  /*
+   * Note this actually gets tomorrow's events if it's after 7pm as per this requirement:
+   * https://trello.com/c/m5yt4sgm
+   */
+  async function getEventsForToday(bookingId, time = new Date()) {
     try {
       if (!bookingId) return [];
 
-      const events = await repository.getEventsForToday(bookingId);
+      const { events } = await getActualHomeEvents(bookingId, time);
 
       return !Array.isArray(events)
         ? []
