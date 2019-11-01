@@ -13,15 +13,6 @@ groups_to_create:
   - name: dxc
 
 studio_users:
-  - username: mattwhittaker
-    name: "Matt Whittaker"
-    groups:
-      - admin
-    ssh_key:
-      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCdWcVB+1g7DVELgkN6jZTH113BDQSnuDfL2z48FG6A6h7a946Ugyc/9YMzNJpMs78vyVNNJYmRGzbn4MUpRTGBKVFlx0Xzq5wLLTrhAUBpWfJZUCFq2UV2wbY4qXUpypklzrVadmGqvKKZtvPfz4wDKcsV3tAm7SZaKDNFLXlUZJuv8flIobIFccIQ9dw8tNUCCNAzOq4vPQLttUgSuCwjNFiltgyWIj01FRsJjT8+MX36WTZs06T3CKrRdLNIcwPZNvkVQEoj1b/WcCI+IINcrRMXJjrfhHld6E4+5QyIqZ8VAMHdP/jRd6i09NgcI3D3VN9+oett0XEbyCeXdf6v matt@Matts-MacBook"
-    shell: /bin/bash
-    update_password: on_create
-
   - username: jamesstanley
     name: "James Stanley"
     groups:
@@ -136,15 +127,6 @@ studio_users:
     shell: /bin/bash
     update_password: on_create
 
-  - username: jamiesabbatella
-    name: "Jamie Sabbatella"
-    groups:
-      - studio
-    ssh_key:
-      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPLuxIqqgtMroXSqg0Oq/WuswNg/eera+KVMjxkzDXjI jamie@ABA-JS"
-    shell: /bin/bash
-    update_password: on_create
-
   - username: johnmansell
     name: "John Mansell"
     groups:
@@ -179,6 +161,8 @@ users_deleted:
   - username: oliveryoung
   - username: slaughton
   - username: lazzurs
+  - username: mattwhittaker
+  - username: jamiesabbatella
 
 nginx_extra_http_options: |
   ##
