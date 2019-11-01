@@ -75,7 +75,7 @@
       </div>
     </div>
     {% if todaysEvents.length > 0 %}
-      {{personalScheduleToday(todaysEvents)}}
+      {{personalScheduleToday({events: todaysEvents, isTomorrow: isTomorrow})}}
     {% endif %}
   </div>
 {% endblock %}

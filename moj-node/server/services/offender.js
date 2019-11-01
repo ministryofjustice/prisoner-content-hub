@@ -182,21 +182,22 @@ module.exports = function createOffenderService(repository) {
 
   async function getActualHomeEvents(bookingId, time) {
     const hour = Number.parseInt(format(time, 'H'), 10);
+    const tomorrowCutOffHour = 19;
 
-    if (hour >= 19) {
+    if (hour >= tomorrowCutOffHour) {
       const tomorrow = addDays(time, 1);
-      const startDate = isoDate(time);
-      const endDate = isoDate(tomorrow);
+      const startDate = format(time, 'yyyy-MM-dd');
+      const endDate = format(tomorrow, 'yyyy-MM-dd');
 
       return {
         events: await repository.getEventsFor(bookingId, startDate, endDate),
-        tomorrow: true,
+        isTomorrow: true,
       };
     }
 
     return {
-      events: repository.getEventsForToday(bookingId),
-      tomorrow: false,
+      events: await repository.getEventsForToday(bookingId),
+      isTomorrow: false,
     };
   }
 
@@ -208,26 +209,30 @@ module.exports = function createOffenderService(repository) {
     try {
       if (!bookingId) return [];
 
-      const { events } = await getActualHomeEvents(bookingId, time);
+      const { events, isTomorrow } = await getActualHomeEvents(bookingId, time);
 
       return !Array.isArray(events)
-        ? []
-        : events
-            .filter(
-              event => event.eventType === 'APP' || event.eventType === 'VISIT',
-            )
-            .map(event => {
-              const startTime = prettyTime(prop('startTime', event));
-              const endTime = prettyTime(prop('endTime', event));
+        ? { todaysEvents: [], isTomorrow: false }
+        : {
+            todaysEvents: events
+              .filter(
+                event =>
+                  event.eventType === 'APP' || event.eventType === 'VISIT',
+              )
+              .map(event => {
+                const startTime = prettyTime(prop('startTime', event));
+                const endTime = prettyTime(prop('endTime', event));
 
-              return {
-                title: event.eventSourceDesc,
-                startTime,
-                endTime,
-                location: event.eventLocation,
-                timeString: startTime,
-              };
-            });
+                return {
+                  title: event.eventSourceDesc,
+                  startTime,
+                  endTime,
+                  location: event.eventLocation,
+                  timeString: startTime,
+                };
+              }),
+            isTomorrow,
+          };
     } catch {
       return {
         error: 'We are not able to show your schedule for today at this time',
