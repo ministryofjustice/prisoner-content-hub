@@ -105,7 +105,7 @@ describe('offenderRepository', () => {
     });
   });
 
-  describe.skip('getEventsFor', () => {
+  describe('getEventsFor', () => {
     it('calls the getEventsFor endpoint for a given ID', async () => {
       const client = {
         get: sinon.stub().resolves('SOME_RESULT'),

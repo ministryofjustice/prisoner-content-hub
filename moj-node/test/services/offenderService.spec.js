@@ -174,7 +174,7 @@ describe('Offender Service', () => {
     });
   });
 
-  describe.skip('getEventsFor', () => {
+  describe('getEventsFor', () => {
     it('should call the repository service with the correct bookingId', async () => {
       const repository = {
         getEventsFor: sinon.stub().returns([
@@ -188,7 +188,7 @@ describe('Offender Service', () => {
         ]),
       };
       const service = offenderService(repository);
-      await service.getEventsFor('FOO_ID', '2019-04-07', '2019-04-07');
+      await service.getEventsFor('FOO_ID', '2019-03-07', '2019-04-07');
 
       expect(repository.getEventsFor.lastCall.args[0]).to.equal('FOO_ID');
     });
