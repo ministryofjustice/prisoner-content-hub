@@ -3,7 +3,7 @@ const topicsResponse = require('../resources/tagsContent.json');
 const categoryMenuResponse = require('../resources/categoryMenuResponse.json');
 
 describe('hubMenuRepository', () => {
-  describe('#mainMenu', () => {
+  describe('mainMenu', () => {
     it('returns a navigation Menu', async () => {
       const httpClient = {
         get: sinon
@@ -37,7 +37,7 @@ describe('hubMenuRepository', () => {
     });
   });
 
-  describe('#topicsMenu', () => {
+  describe('topicsMenu', () => {
     it('returns a topicsMenu', async () => {
       const httpClient = {
         get: sinon.stub().returns(topicsResponse),
@@ -45,8 +45,8 @@ describe('hubMenuRepository', () => {
 
       const repository = hubMenuRepository(httpClient);
       const expected = [
-        { linkText: 'Baz', href: '/tags/0', id: '0' },
-        { linkText: 'Bat', href: '/tags/1', id: '1' },
+        { linkText: 'Baz', href: '/tags/0', id: '0', description: undefined },
+        { linkText: 'Bat', href: '/tags/1', id: '1', description: undefined },
       ];
       const result = await repository.tagsMenu();
 
@@ -65,7 +65,7 @@ describe('hubMenuRepository', () => {
     });
   });
 
-  describe('#seriesMenu', () => {
+  describe('seriesMenu', () => {
     it('returns a series Menu', async () => {
       const httpClient = {
         get: sinon
@@ -99,7 +99,7 @@ describe('hubMenuRepository', () => {
     });
   });
 
-  describe('#categoryMenu', () => {
+  describe('categoryMenu', () => {
     it('it returns a category menu', async () => {
       const httpClient = {
         get: sinon.stub().returns(categoryMenuResponse),
@@ -111,13 +111,20 @@ describe('hubMenuRepository', () => {
           id: 798,
           linkText: 'Creative design: Way2Learn',
           href: '/tags/798',
+          description: null,
         },
         {
           id: 799,
           linkText: 'Fitness for life: Way2Learn',
           href: '/tags/799',
+          description: null,
         },
-        { id: 800, linkText: 'Job smart: Way2Learn', href: '/tags/800' },
+        {
+          id: 800,
+          linkText: 'Job smart: Way2Learn',
+          href: '/tags/800',
+          description: null,
+        },
       ];
 
       const result = await repository.categoryMenu({
