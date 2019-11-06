@@ -2,9 +2,8 @@ const express = require('express');
 const { path } = require('ramda');
 const { format, addDays, subDays } = require('date-fns');
 
-const today = new Date();
-
 module.exports = function Home({ logger, offenderService }) {
+  const today = new Date();
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
