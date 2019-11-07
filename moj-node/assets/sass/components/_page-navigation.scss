@@ -23,3 +23,24 @@
 .page-navigation > nav > span {
   font-weight: 700;
 }
+
+#go-back,
+#go-forwards {
+  display: flex;
+  align-items: center;
+}
+
+#go-forwards::after,
+#go-back::before {
+  background-image: url('/public/images/icons/chevron-left.svg');
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  content: '';
+  width: govuk-spacing(4);
+  height: govuk-spacing(4);
+}
+
+#go-forwards::after {
+  background-image: url('/public/images/icons/chevron-right.svg');
+  background-position: 8px 50%;
+}
