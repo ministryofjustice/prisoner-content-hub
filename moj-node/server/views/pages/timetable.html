@@ -2,11 +2,12 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "../components/personal-schedule-one-day/macro.njk" import personalScheduleOneDay %}
 {% from "../components/personal-schedule-nav/macro.njk" import personalScheduleNav %}
+{% from "../components/page-navigation/macro.njk" import pageNavigation %}
 
 {% extends "../components/template.njk" %}
 
 {% block pageTitle %}
-  {{envVars.APP_NAME}}
+  {{ title }}
 {% endblock %}
 
 {% block head %}
@@ -40,22 +41,15 @@
   {% endif %}
 {% endblock %}
 
+{% block pageNavigation %}
+  {{ pageNavigation({ title: title }) }}
+{% endblock %}
+
 {% block topBar %}
   {{ topBar({
     appName: envVars.APP_NAME,
     showBar: false
   }) }}
-{% endblock %}
-
-{% block pageNav %}
-  <div class="page-navigation">
-    <nav class="govuk-width-container govuk-body">
-      <a href="/" class="govuk-link">Homepage</a>
-      <span>Timetable</span>
-      <a href="" class="govuk-link">Back</a>
-      <a href="" class="govuk-link">Forward</a>
-    </nav>
-  </div>
 {% endblock %}
 
 {% block userDetails %}

@@ -16,6 +16,16 @@
         setTimeout(stateToggle, 5000);
       }
     }
+
+    if (event.target.matches('#go-back')) {
+      event.preventDefault();
+      window.history.go(-1);
+    }
+
+    if (event.target.matches('#go-forward')) {
+      event.preventDefault();
+      window.history.go(1);
+    }
   });
 
   function toggleShowing(state) {
