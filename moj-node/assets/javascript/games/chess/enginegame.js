@@ -297,7 +297,11 @@ function engineGame(options) {
     engineStatus.book = 'none';
   }
 
-  board = new ChessBoard('board', cfg);
+  board = new Chessboard('board', cfg);
+
+  $('#board').on('scroll touchmove touchend touchstart contextmenu', function(e){
+    e.preventDefault();
+  });
 
   return {
     reset: function () {
