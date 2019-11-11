@@ -1,4 +1,5 @@
 const express = require('express');
+const { path } = require('ramda');
 
 module.exports = function Topics({ logger, hubMenuService }) {
   const router = express.Router();
@@ -9,6 +10,7 @@ module.exports = function Topics({ logger, hubMenuService }) {
 
       const { establishmentId } = req.app.locals.envVars;
       const { notification } = req.session;
+      const userDetails = path(['session', 'user'], req);
 
       const [tagsMenu, homepageMenu] = await Promise.all([
         hubMenuService.tagsMenu(),
@@ -16,10 +18,15 @@ module.exports = function Topics({ logger, hubMenuService }) {
       ]);
 
       const config = {
-        header: true,
+        content: false,
+        header: false,
+        postscript: true,
+        detailsType: 'small',
+        userName: path(['name'], userDetails),
       };
 
       res.render('pages/topics', {
+        title: 'Browse the Content Hub',
         notification,
         tagsMenu,
         homepageMenu,

@@ -1,0 +1,19 @@
+{% from "../user-details/macro.njk" import userDetails %}
+{% from "../search/macro.njk" import hubSearch %}
+<div class="govuk-width-container user-details">
+  <div>
+    {{ userDetails({
+      detailsType: params.detailsType,
+      userName: params.userName
+    }) }}
+  </div>
+  <div class="govuk-clearfix">
+    {{ hubSearch({
+      query: params.query,
+      small: params.small
+    }) }}
+  </div>
+</div>
+<div class="govuk-width-container">
+  <hr class="govuk-section-break govuk-search-section-break--visible">
+</div>

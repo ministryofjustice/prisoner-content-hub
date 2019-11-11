@@ -52,23 +52,13 @@ describe('GET /topics', () => {
         });
     });
 
-    it('has a back link', () => {
-      return request(app)
-        .get('/')
-        .expect(200)
-        .then(response => {
-          const $ = cheerio.load(response.text);
-          expect($('.govuk-back-link').length).to.equal(1);
-        });
-    });
-
     it('renders a list of tags', () => {
       return request(app)
         .get('/')
         .expect(200)
         .then(response => {
           const $ = cheerio.load(response.text);
-          const topics = $('.govuk-hub-topics ul li');
+          const topics = $('.hub-topics dl dt');
           expect(topics.length).to.equal(
             2,
             'The full list of topics should be rendered to the page',

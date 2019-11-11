@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="19px" viewBox="0 0 12 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>chevron_right</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Header/With-Controls-And-Name" transform="translate(-388.000000, -94.000000)" fill="#090A0A" fill-rule="nonzero">
+            <g id="Nav" transform="translate(0.000000, 75.000000)">
+                <polygon id="chevron_right" transform="translate(393.812162, 28.500000) scale(-1, 1) translate(-393.812162, -28.500000) " points="399.124757 20.9924325 396.875243 19.0075675 388.499568 28.5 396.875243 37.9924325 399.124757 36.0075675 392.500432 28.5"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

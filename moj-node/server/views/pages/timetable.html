@@ -1,8 +1,8 @@
-{% from "../components/search/macro.njk" import hubSearch %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "../components/personal-schedule-one-day/macro.njk" import personalScheduleOneDay %}
 {% from "../components/personal-schedule-nav/macro.njk" import personalScheduleNav %}
 {% from "../components/page-navigation/macro.njk" import pageNavigation %}
+{% from "../components/user-details-with-search/macro.njk" import userDetailsWithSearch %}
 
 {% extends "../components/template.njk" %}
 
@@ -53,31 +53,22 @@
 {% endblock %}
 
 {% block userDetails %}
-  <div class="govuk-width-container user-details">
-    <div>
-      {{ userDetails({
-        detailsType: config.detailsType,
-        userName: config.userName
-      }) }}
-    </div>
-    <div class="govuk-clearfix">
-      {{ hubSearch({ query: query, small: true }) }}
-    </div>
-  </div>
-  <div class="govuk-width-container">
-    <hr class="govuk-section-break govuk-search-section-break--visible">
-  </div>
+  {{ userDetailsWithSearch({
+    detailsType: config.detailsType,
+    userName: config.userName,
+    query: query,
+    small: true
+  }) }}
 {% endblock %}
 
 {% block header %}
   <div class="govuk-width-container govuk-body timetable-header">
-    <h1>Timetable</h1>
+    <h1>{{ title }}</h1>
     {{ personalScheduleNav({ nextWeek: config.nextWeek, lastWeek: config.lastWeek }) }}
   </div>
 {% endblock %}
 
 {% block homeNavigation %}{% endblock %}
-
 {% block search %}{% endblock %}
 
 {% block timetable %}

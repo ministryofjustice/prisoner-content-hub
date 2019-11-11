@@ -1,11 +1,12 @@
-{% from "../components/search/macro.njk" import hubSearch %}
 {% from "../components/back-button/macro.njk" import backButton %}
 {% from "../components/topics/macro.njk" import hubTopics %}
+{% from "../components/page-navigation/macro.njk" import pageNavigation %}
+{% from "../components/user-details-with-search/macro.njk" import userDetailsWithSearch %}
 
 {% extends "../components/template.njk" %}
 
 {% block pageTitle %}
-  {{envVars.APP_NAME}}
+  {{ title }}
 {% endblock %}
 
 {% block head %}
@@ -39,25 +40,44 @@
   {% endif %}
 {% endblock %}
 
-{% block header %}
-  {{ backButton() }}
+{% block pageNavigation %}
+  {{ pageNavigation({ title: title }) }}
 {% endblock %}
 
+{% block topBar %}
+  {{ topBar({
+    appName: envVars.APP_NAME,
+    showBar: false
+  }) }}
+{% endblock %}
+
+{% block userDetails %}
+  {{ userDetailsWithSearch({
+    detailsType: config.detailsType,
+    userName: config.userName,
+    query: query,
+    small: true
+  }) }}
+{% endblock %}
+
+{% block header %}
+  <div class="govuk-width-container govuk-body">
+    <h1>{{ title }}</h1>
+  </div>
+{% endblock %}
+
+{% block homeNavigation %}{% endblock %}
+{% block search %}{% endblock %}
+
 {% block main %}
-  <div id="browser-by-topic" class="govuk-width-container govuk-!-margin-top-6">
-    <div class="govuk-main-wrapper" id="postscript-content">
-      {{ hubTopics({
-        data: tagsMenu
-      }) }}
-    </div>
+  <div class="govuk-width-container">
+    {{ hubTopics({
+      data: tagsMenu
+    }) }}
   </div>
 {% endblock %}
 
 {% block bodyEnd %}
   <script src="/public/all.js"></script>
-  <script>
-    window
-      .GOVUKFrontend
-      .initAll();
-  </script>
+  <script>window.GOVUKFrontend.initAll();</script>
 {% endblock %}

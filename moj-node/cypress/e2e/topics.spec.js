@@ -4,10 +4,10 @@ describe('Topics page', () => {
   });
 
   describe('Navigation', () => {
-    it('contain the correct title and content', () => {
-      const heading = 'h2';
-      cy.get(heading).should('contain', 'Browse by topic');
-      const topicListItems = '.govuk-hub-topics > ul > li';
+    it('contain the correct title', () => {
+      const heading = 'h1';
+      cy.get(heading).should('contain', 'Browse the Content Hub');
+      const topicListItems = '.hub-topics > dl dt';
       cy.get(topicListItems)
         .its('length')
         .should('be.gt', 0);
@@ -19,13 +19,6 @@ describe('Topics page', () => {
       const searchButton = '#search-wrapper button';
       cy.get(searchButton).click();
       cy.location('pathname').should('include', '/search');
-    });
-
-    it('contain a back link', () => {
-      const backLink = '.govuk-back-link';
-      cy.get(backLink).should('contain', 'Back to home');
-      cy.get(backLink).click();
-      cy.location('pathname').should('eq', '/');
     });
   });
 });
