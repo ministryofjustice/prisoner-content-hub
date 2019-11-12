@@ -5,6 +5,7 @@
 .user-details {
   display: flex;
   align-items: center;
+  margin: govuk-spacing(5) auto;
 }
 
 .user-details > div {
@@ -18,11 +19,11 @@
   min-height: 46px;
   display: flex;
   align-items: center;
-  margin-top: govuk-spacing(5);
 }
 
 .user-details-small {
   @include govuk-font(24, 'bold');
+  margin: 0;
 }
 
 .user-details-small::before,
