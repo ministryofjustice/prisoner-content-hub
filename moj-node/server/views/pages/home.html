@@ -40,6 +40,13 @@
   {% endif %}
 {% endblock %}
 
+{% block topBar %}
+  {{ topBar({
+    appName: envVars.APP_NAME,
+    showBar: true
+  }) }}
+{% endblock %}
+
 {% block userDetails %}
   <div class="govuk-width-container">
     {{ userDetails({
