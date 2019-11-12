@@ -22,6 +22,15 @@ function getEstablishmentName(id) {
   return establishmentName[id];
 }
 
+function getGoogleAnalyticsId(id) {
+  const googleAnalyticsId = {
+    0: 'UA-152065860-3',
+    792: 'UA-152065860-1',
+    793: 'UA-152065860-2',
+  };
+  return googleAnalyticsId[id];
+}
+
 const capitalize = (str = '') => {
   return str
     .split('')
@@ -52,4 +61,5 @@ module.exports = {
   getEstablishmentName,
   isEmpty,
   capitalize,
+  getGoogleAnalyticsId,
 };

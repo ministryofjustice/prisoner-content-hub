@@ -27,7 +27,7 @@ const featureToggleMiddleware = require('./middleware/featureToggle');
 const establishmentToggle = require('./middleware/establishmentToggle');
 const { authMiddleware, createUserSession } = require('./middleware/auth');
 
-const { getEstablishmentId } = require('./utils');
+const { getEstablishmentId, getGoogleAnalyticsId } = require('./utils');
 
 const version = Date.now().toString();
 
@@ -136,12 +136,14 @@ module.exports = function createApp({
   );
 
   // GovUK Template Configuration
+  const establishmentId = getEstablishmentId(config.establishmentName);
   app.locals.asset_path = '/public/';
   app.locals.envVars = {
     MATOMO_URL: config.matomoUrl,
     APP_NAME: config.appName,
     backendUrl: config.backendUrl,
-    establishmentId: getEstablishmentId(config.establishmentName),
+    establishmentId,
+    gaId: getGoogleAnalyticsId(establishmentId),
   };
 
   // Don't cache dynamic resources
