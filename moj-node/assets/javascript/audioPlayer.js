@@ -5,10 +5,10 @@ $(document).ready(function() {
   var extendConfig = audio.data().config || {};
   var name = title + '|' + programmeCode;
 
-  var evt25 = once(matomoAudioEvent({ action: '25%', name: name }));
-  var evt50 = once(matomoAudioEvent({ action: '50%', name: name }));
-  var evt75 = once(matomoAudioEvent({ action: '75%', name: name }));
-  var evt90 = once(matomoAudioEvent({ action: '90%', name: name }));
+  var evt25 = once(analyticsAudioEvent({ action: '25%', name: name }));
+  var evt50 = once(analyticsAudioEvent({ action: '50%', name: name }));
+  var evt75 = once(analyticsAudioEvent({ action: '75%', name: name }));
+  var evt90 = once(analyticsAudioEvent({ action: '90%', name: name }));
 
   var config = {
     name: title,
@@ -37,8 +37,13 @@ $(document).ready(function() {
 
   audio.videoPlayer(Object.assign(config, extendConfig));
 
-  function matomoAudioEvent(config) {
+  function analyticsAudioEvent(config) {
     return function() {
+      gtag('event', 'radio_player_play', {
+        event_category: 'radio_player',
+        event_label: config.name,
+        value: parseInt(config.action),
+      });
       if (!_paq) return;
       _paq.push(['trackEvent', 'Radio', config.action, config.name]);
     };

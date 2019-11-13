@@ -75,5 +75,12 @@
 {%block matomo %}
   <script>
     _paq.push(['trackSiteSearch', '{{ query }}', false, "{{ data | length }}"]);
+    gtag('event', 'view_search_results', {
+      'search_term': '{{ query }}',
+    });
+    gtag('event', 'number_search_results', {
+      'event_category': 'engagement',
+      'event_label': '{{ data | length }}',
+    });
   </script>
 {% endblock %}
