@@ -6,10 +6,12 @@ const feedbackTracker = require('../../assets/javascript/feedback-tracking');
 describe('Feedback tracker', () => {
   beforeEach(() => {
     global._paq = [];
+    global.gtag = function() {};
   });
 
   afterEach(() => {
     delete global._paq;
+    delete global.gtag;
   });
 
   describe('when the thumbs up is clicked (LIKE)', () => {
@@ -52,7 +54,7 @@ describe('Feedback tracker', () => {
     });
   });
 
-  describe('when the thumbs up is clicked (UNLIKE)', () => {
+  describe('when the thumbs up is clicked twice (UNLIKE)', () => {
     it('correctly formats data to be sent to Piwik', () => {
       expect(_paq.length).to.equal(0);
 
