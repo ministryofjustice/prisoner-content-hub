@@ -109,15 +109,6 @@ studio_users:
     shell: /bin/bash
     update_password: on_create
 
-  - username: jonnield
-    name: "Jon Nield"
-    groups:
-      - admin
-    ssh_key:
-      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILtzhwLCa0ghnxTi7zNDu5SsSup7V+ndiyI4r+ltbJoy jonnield"
-    shell: /bin/bash
-    update_password: on_create
-
   - username: laurendarby
     name: "Lauren Darby"
     groups:
@@ -163,6 +154,7 @@ users_deleted:
   - username: lazzurs
   - username: mattwhittaker
   - username: jamiesabbatella
+  - username: jonnield
 
 nginx_extra_http_options: |
   ##
