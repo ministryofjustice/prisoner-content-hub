@@ -178,3 +178,21 @@ img.hub-logo {
   max-width: 50px;
   margin-right: 5px;
 }
+
+.hub-header {
+  margin-top: govuk-spacing(3);
+
+  & h1 {
+    @include govuk-font(48, 'bold');
+  }
+
+  & > :first-child {
+    float: none;
+    width: 100%;
+
+    @media (min-width: $desktop-breakpoint) {
+      width: 75%;
+      float: left;
+    }
+  }
+}

@@ -1,0 +1,155 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "../components/personal-schedule-one-day/macro.njk" import personalScheduleOneDay %}
+{% from "../components/personal-schedule-nav/macro.njk" import personalScheduleNav %}
+{% from "../components/page-navigation/macro.njk" import pageNavigation %}
+{% from "../components/user-details-with-search/macro.njk" import userDetailsWithSearch %}
+{% from "../components/content-tile-large/macro.njk" import contentTileLarge %}
+{% from "../components/content-tile-small/macro.njk" import contentTileSmall %}
+{% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
+
+{% extends "../components/template.njk" %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block head %}
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block notification %}
+  {% if notification %}
+    <div class="govuk-width-container">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <div class="notification notification--is-error">
+            <p>{{notification.text}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block pageNavigation %}
+  {{ pageNavigation({ title: title }) }}
+{% endblock %}
+
+{% block topBar %}
+  {{ topBar({
+    appName: envVars.APP_NAME,
+    showBar: false
+  }) }}
+{% endblock %}
+
+{% block userDetails %}
+  {{ userDetailsWithSearch({
+    detailsType: config.detailsType,
+    userName: config.userName,
+    query: query,
+    small: true
+  }) }}
+{% endblock %}
+
+{% block header %}
+  <div class="govuk-width-container govuk-body govuk-clearfix hub-header">
+    <div>
+      <h1 class="govuk-heading-l" id="title">{{ title }}</h1>
+      <div class="personalised-section">
+      </div>
+    </div>
+    <div class="help-container-tablet">
+      <h2 class="govuk-heading-m">In this section</h2>
+      <ul class="govuk-body">
+        {% for link in data.categoryMenu %}
+        <li>
+          <a href="{{link.href}}" class="govuk-link">{{link.linkText}}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="help-container">
+      <div class="help-block">
+        <h2 class="govuk-heading-m">In this section</h2>
+        <ul class="govuk-body">
+          {% for link in data.categoryMenu %}
+          <li>
+            <a href="{{link.href}}" class="govuk-link">{{link.linkText}}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        <h2 class="govuk-heading-m">Give us feedback</h2>
+        {{ hubFeedbackWidget({
+          title: data.title,
+          contentType: data.contentType,
+          establishment: envVars.APP_NAME,
+          sidebar: true
+        })}}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-body categories-container">
+    <h2>Featured content</h2>
+    <div class="category-content">
+      {{ contentTileLarge({content: data.relatedContent.data[0], imageAlign: 'right'}) }}
+      {% for tile in data.relatedContent.data %}
+        {% if loop.index === 1 or loop.index === 5 %}
+          <div class="category-content__three-items">
+        {% endif %}
+        {% if loop.index > 1 and loop.index <= 7 %}
+          {{ contentTileSmall(tile) }}
+        {% endif %}
+        {% if loop.index === 4 or loop.index === 7 %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <h2>Suggested content</h2>
+    <div class="category-content">
+      {{ contentTileLarge({content: data.suggestedContent[0], imageAlign: 'right'}) }}
+      <div class="category-content__three-items">
+        {% for tile in data.suggestedContent %}
+          {% if loop.index > 1 and loop.index <= 4 %}
+            {{ contentTileSmall(tile) }}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="feedback-tablet">
+      <h2 class="govuk-heading-m">Give us feedback</h2>
+      {{ hubFeedbackWidget({
+        id: 'feedback-widget-category-tablet',
+        title: data.title,
+        contentType: data.contentType,
+        establishment: envVars.APP_NAME,
+        sidebar: true
+      })}}
+    </div>
+  </div>
+{% endblock %}
+
+{% block homeNavigation %}{% endblock %}
+{% block search %}{% endblock %}
+
+{% block bodyEnd %}
+  <script src="/public/all.js"></script>
+  <script>window.GOVUKFrontend.initAll();</script>
+  <script>
+  document.documentElement.className = 'js'; // adds class="js" to <html> element
+  function fitImg(imgClass) {
+    var imgs = document.querySelectorAll(imgClass), length = imgs.length, i;
+    for (i = 0; i < length; ++i) {
+      var img = imgs[i],
+          url = img.src;
+      img.parentNode.style.fontSize = '0'; /* counteract extra spacing from inline-block */
+      img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
+      img.style.backgroundImage = "url('" + url + "')";
+      }
+    }
+  fitImg('.fit-img-landscape');
+  fitImg('.fit-img-portrait');
+  </script>
+{% endblock %}

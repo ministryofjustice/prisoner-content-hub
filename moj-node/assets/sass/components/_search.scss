@@ -10,7 +10,7 @@ $search-width: 600px;
     display: none;
   }
 
-  @media (min-width: $tablet-breakpoint) {
+  @media (min-width: $desktop-breakpoint) {
     width: $search-width;
   }
 }

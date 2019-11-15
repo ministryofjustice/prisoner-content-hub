@@ -15,16 +15,13 @@ describe('Landing page', () => {
       cy.visit(landingPages[key]);
 
       cy.log('Should have some navigation menu items');
-      cy.get('.govuk-hub-content-section-menu li').should(
-        'have.length.of.at.least',
-        1,
-      );
+      cy.get('.help-block li').should('have.length.of.at.least', 1);
 
       cy.log('Check that featured content is rendered on the page');
       cy.get('[data-featured-id]').then($el => {
         const initialNumOfFeatured = $el.length;
 
-        expect(initialNumOfFeatured).to.be.at.most(8);
+        expect(initialNumOfFeatured).to.be.at.least(1);
 
         cy.log('Navigate to one of the featured content');
 
