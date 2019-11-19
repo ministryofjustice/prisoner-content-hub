@@ -27,15 +27,30 @@
   function createSuggestionList(value) {
     var query = value._query.replace(/\s+/, ' ');
     var title = value.title;
-    var reg = new RegExp(query, 'gi');
     var url = value.url || '#';
-    var label = title.replace(reg, function (match) {
-      return '<strong>' + match + '</strong>';
-    });
+    var tokens = query.split(' ');
+
+    var title_tokens = title.split(' ');
+
+    for (var j = 0; j < title_tokens.length; j++) {
+      for (var i = 0; i < tokens.length; i++) {
+        var token = title_tokens[j].toLowerCase();
+        var query_token = tokens[i].toLowerCase();
+        var rx = new RegExp(query_token, 'i');
+        if (rx.test(token)) {
+          title_tokens[j] = title_tokens[j].replace(rx, function (match) {
+            return '<strong>' + match + '</strong>';
+          });
+          break;
+        }
+      }
+    }
+
+    var title = title_tokens.join(' ');
 
     // prettier-ignore
     return (
-      '<a role="option" class="govuk-link  govuk-link--no-visited-state tt-suggestion tt-selectable" href="' + url + '">' + label + '</a>'
+      '<a role="option" class="govuk-link  govuk-link--no-visited-state tt-suggestion tt-selectable" href="' + url + '">' + title + '</a>'
     );
   }
 })();
