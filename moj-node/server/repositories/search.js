@@ -13,11 +13,25 @@ function searchRepository(httpClient) {
           .must(
             esb
               .multiMatchQuery(
-                ['title^10', 'category_name^5', 'series_name^5'],
+                [
+                  'title^5',
+                  'title.keyword^1',
+                  'series_name^2',
+                  'series_name.keyword^1',
+                  'category_name^1',
+                  'category_name.keyword^1',
+                  'secondary_tag^1',
+                  'secondary_tag.keyword^1',
+                  'stand_first^1',
+                  'stand_first.keyword^1',
+                  'summary^1',
+                  'summary.keyword^1',
+                ],
                 query,
               )
-              .fuzziness('AUTO')
-              .prefixLength(2)
+              .type('best_fields')
+              .prefixLength(1)
+              .fuzziness(3)
               .operator('and'),
           )
           .should([
@@ -46,13 +60,52 @@ function searchRepository(httpClient) {
           .boolQuery()
           .must(
             esb
-              .multiMatchQuery(
-                ['title^10', 'category_name^5', 'series_name^5'],
-                query,
-              )
-              .fuzziness('AUTO')
-              .prefixLength(2)
-              .operator('and'),
+              .boolQuery()
+              .should([
+                esb
+                  .multiMatchQuery(
+                    [
+                      'title^5',
+                      'title.keyword^1',
+                      'series_name^2',
+                      'series_name.keyword^1',
+                      'category_name^1',
+                      'category_name.keyword^1',
+                      'secondary_tag^1',
+                      'secondary_tag.keyword^1',
+                      'stand_first^1',
+                      'stand_first.keyword^1',
+                      'summary^1',
+                      'summary.keyword^1',
+                    ],
+                    query,
+                  )
+                  .type('cross_fields')
+                  .operator('and'),
+                esb
+                  .multiMatchQuery(
+                    [
+                      'title^5',
+                      'title.keyword^1',
+                      'series_name^2',
+                      'series_name.keyword^1',
+                      'category_name^1',
+                      'category_name.keyword^1',
+                      'secondary_tag^1',
+                      'secondary_tag.keyword^1',
+                      'stand_first^1',
+                      'stand_first.keyword^1',
+                      'summary^1',
+                      'summary.keyword^1',
+                    ],
+                    query,
+                  )
+                  .type('best_fields')
+                  .prefixLength(1)
+                  .fuzziness(3)
+                  .operator('and'),
+              ])
+              .minimumShouldMatch(1),
           )
           .should([
             esb.termQuery('prison_name', prison),
