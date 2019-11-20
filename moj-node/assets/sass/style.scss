@@ -5,6 +5,8 @@ $desktop-breakpoint: $width-override;
 $tablet-breakpoint: map-get($govuk-breakpoints, 'tablet');
 $mobile-breakpoint: map-get($govuk-breakpoints, 'mobile');
 
+$real-dark-grey: #232425;
+
 @import 'general';
 @import 'player';
 @import 'fonts';

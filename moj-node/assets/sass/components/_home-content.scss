@@ -1,9 +1,6 @@
 @import 'node_modules/govuk-frontend/govuk/settings/all';
 @import 'node_modules/govuk-frontend/govuk/tools/all';
 @import 'node_modules/govuk-frontend/govuk/helpers/all';
-@import 'node_modules/govuk-frontend/govuk/helpers/typography';
-
-$real-dark-grey: #232425;
 
 @mixin tile-shadow {
   -webkit-box-shadow: 0 0 govuk-spacing(4) govuk-spacing(1) rgba(0, 0, 0, 0.75);
