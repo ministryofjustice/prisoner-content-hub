@@ -6,12 +6,10 @@ const feedbackTracker = require('../../assets/javascript/feedback-tracking');
 describe('Feedback tracker', () => {
   beforeEach(() => {
     global._paq = [];
-    global.gtag = function() {};
   });
 
   afterEach(() => {
     delete global._paq;
-    delete global.gtag;
   });
 
   describe('when the thumbs up is clicked (LIKE)', () => {

@@ -39,11 +39,6 @@ $(document).ready(function() {
 
   function analyticsAudioEvent(config) {
     return function() {
-      gtag('event', 'radio_player_play', {
-        event_category: 'radio_player',
-        event_label: config.name,
-        value: parseInt(config.action),
-      });
       if (!_paq) return;
       _paq.push(['trackEvent', 'Radio', config.action, config.name]);
     };
