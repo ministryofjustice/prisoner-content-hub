@@ -1,4 +1,4 @@
-<div id="feedback-widget">
+<div id="{{ params.id|default('feedback-widget', true) }}">
   <div class="govuk-hub-feedback">
     <button
       class="govuk-link govuk-hub-thumbs govuk-hub-thumbs--up"
@@ -54,6 +54,6 @@
 <script defer src="/public/javascript/feedback-tracking.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', function () {
-    feedbackTracker(document.getElementById('feedback-widget'));
+    feedbackTracker(document.getElementById('{{ params.id|default('feedback-widget', true) }}'));
   });
 </script>
