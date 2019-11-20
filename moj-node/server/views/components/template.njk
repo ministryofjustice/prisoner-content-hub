@@ -9,15 +9,6 @@
 <!DOCTYPE html>
 <html lang="{{ htmlLang | default('en') }}" class="govuk-template {{ htmlClasses }}">
   <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{envVars.gaId}}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', '{{envVars.gaId}}');
-    </script>
     <meta charset="utf-8"/>
     <title>
       {% block pageTitle %}{{envVars.APP_NAME}}
@@ -164,7 +155,6 @@
     {%block matomo %}
       <script>
         _paq.push(['trackPageView']);
-        gtag('send', 'pageview', location.pathname);
       </script>
     {% endblock %}
 

@@ -120,11 +120,6 @@
       }
 
       _paq.push(event);
-      gtag('event', config.action, {
-        event_category: config.category,
-        event_label: config.name,
-        value: config.value ? parseInt(config.value) : 0,
-      });
     }
 
     function sendUnSelectFeedbackEvent(config) {
