@@ -10,20 +10,7 @@
 {% endblock %}
 
 {% block head %}
-  <!--[if !IE 8]><!-->
   <link href="/public/stylesheets/application.css" rel="stylesheet"/>
-  <!--<![endif]-->
-
-  {# For Internet Explorer 8, you need to compile specific stylesheet #}
-  {# see https://github.com/alphagov/govuk-frontend/govuk/blob/master/docs/installation/supporting-internet-explorer-8.md #}
-  <!--[if IE 8]>
-    <link href="/govuk-frontend/govuk/all-ie8.css" rel="stylesheet" />
-  <![endif]-->
-
-  {# For older browsers to allow them to recognise HTML5 elements such as `<header>` #}
-  <!--[if lt IE 9]>
-    <script src="/html5-shiv/html5shiv.js"></script>
-  <![endif]-->
 {% endblock %}
 
 {% block notification %}
@@ -103,21 +90,18 @@
 {% block bodyEnd %}
   <script src="/public/all.js"></script>
   <script>window.GOVUKFrontend.initAll();</script>
-  <!--[if gte IE 9]>
   <script>
-  document.documentElement.className = 'js'; // adds class="js" to <html> element
-  function fitImg(imgClass) {
-    var imgs = document.querySelectorAll(imgClass), length = imgs.length, i;
-    for (i = 0; i < length; ++i) {
-      var img = imgs[i],
-          url = img.src;
-      img.parentNode.style.fontSize = '0'; /* counteract extra spacing from inline-block */
-      img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
-      img.style.backgroundImage = "url('" + url + "')";
+    document.documentElement.className = 'js'; // adds class="js" to <html> element
+    function fitImg(imgClass) {
+      var imgs = document.querySelectorAll(imgClass), length = imgs.length, i;
+      for (i = 0; i < length; ++i) {
+        var img = imgs[i],
+            url = img.src;
+        img.parentNode.style.fontSize = '0'; /* counteract extra spacing from inline-block */
+        img.src = "data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==";
+        img.style.backgroundImage = "url('" + url + "')";
+        }
       }
-    }
-  fitImg('.fit-img-landscape');
-  fitImg('.fit-img-portrait');
+    fitImg('.fit-img-landscape');
   </script>
-  <![endif]-->
 {% endblock %}
