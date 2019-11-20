@@ -16,7 +16,7 @@
     <p class="home-content-storyline">{{params.summary}}</p>
     {% if params.contentType === "moj_video_item" %}
       <p class="content-link--video">Watch</p>
-    {% elif params.contentType === "moj_radio_item" %}
+    {% elif params.contentType === "moj_radio_item" or params.contentType === "radio" %}
       <p class="content-link--audio">Listen</p>
     {% else %}
       <p class="content-link--article">Read</p>
@@ -24,7 +24,7 @@
   </div>
 {% endmacro %}
 
-<a data-featured-tile-id="{{ params.content.id }}" href="{{params.content.contentUrl}}">
+<a data-featured-tile-id="{{ params.content.id }}" data-featured-id="{{params.content.id}}" data-featured-title="{{ params.content.title }}" href="{{params.content.contentUrl}}">
   {% if params.imageAlign === 'left' %}
     {{ tileImage(params.content) }}
     {{ tileContent(params.content) }}

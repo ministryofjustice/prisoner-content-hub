@@ -1,4 +1,4 @@
-<a data-featured-tile-id="{{params.id}}" href="{{params.contentUrl}}">
+<a data-featured-tile-id="{{params.id}}" data-featured-id="{{params.id}}" data-featured-title="{{ params.title }}" href="{{params.contentUrl}}">
   <div>
     {% if params.isSeries %}
       <div class="home-content-img-series">
@@ -11,7 +11,7 @@
     <div>
       {% if params.contentType === "moj_video_item" %}
         <p class="content-link--video">Watch</p>
-      {% elif params.contentType === "moj_radio_item" %}
+      {% elif params.contentType === "moj_radio_item" or params.contentType === "radio" %}
         <p class="content-link--audio">Listen</p>
       {% else %}
         <p class="content-link--article">Read</p>
