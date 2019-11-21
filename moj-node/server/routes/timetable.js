@@ -69,6 +69,7 @@ module.exports = function Home({ logger, offenderService }) {
       };
 
       res.render('pages/timetable', {
+        title: 'Timetable',
         notification,
         config,
         events,
@@ -105,6 +106,7 @@ module.exports = function Home({ logger, offenderService }) {
       };
 
       res.render('pages/timetable', {
+        title: 'Timetable',
         notification,
         config,
         events,
