@@ -65,7 +65,7 @@ module.exports = function createContentRouter({
         case 'landing-page':
           config.postscript = true;
 
-          return res.render('pages/landing', {
+          return res.render('pages/category', {
             title: data.title,
             config,
             data,

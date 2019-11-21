@@ -25,13 +25,16 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 function convertPageContentFor(s) {
+  if (!s) return '';
   const specialCharacters = /[']/g;
   const withHtmlEntity = m => `&#${m.charCodeAt(0)};`;
   return s.replace(specialCharacters, withHtmlEntity);
 }
 
 Cypress.Commands.add('openLinkOrPDF', $ref => {
-  const title = $ref.find('[data-featured-title]').attr('data-featured-title');
+  const title =
+    $ref.find('[data-featured-title]').attr('data-featured-title') ||
+    $ref.attr('data-featured-title');
   const url = $ref.attr('href');
   const opensNewTab = $ref.attr('target');
 

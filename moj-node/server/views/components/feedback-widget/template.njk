@@ -28,7 +28,7 @@
     <strong data-item-feedback-text></strong>
   </div>
   <form
-    class="govuk-hub-comment-form govuk-u-hidden"
+    class="govuk-hub-comment-form govuk-u-hidden {% if params.sidebar %} govuk-hub-comment-form__sidebar {% endif %} "
     data-item-comment
     data-item-category="{{params.contentType}}"
     data-item-name="{{ params.title }}"

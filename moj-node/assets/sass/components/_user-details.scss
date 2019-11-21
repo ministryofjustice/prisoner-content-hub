@@ -5,11 +5,20 @@
 .user-details {
   display: flex;
   align-items: center;
-  margin: govuk-spacing(5) auto;
+  margin-top: govuk-spacing(5);
+  margin-bottom: govuk-spacing(5);
 }
 
 .user-details > div {
-  flex: 1 0 50%;
+  flex: 1 0 40%;
+
+  @media (min-width: $desktop-breakpoint) {
+    flex: 1 0 50%;
+  }
+}
+
+.user-details > :last-child {
+  flex: 1 1 50%;
 }
 
 .user-details-small,
@@ -24,6 +33,10 @@
 .user-details-small {
   @include govuk-font(24, 'bold');
   margin: 0;
+}
+
+.user-details-large {
+  margin-top: govuk-spacing(5);
 }
 
 .user-details-small::before,

@@ -458,11 +458,11 @@ describe('GET /content/:id', () => {
             'Foo Landing page',
             'Page title did not match',
           );
-          expect($('.content-items .item').length).to.equal(
-            2,
+          expect($('.category-content a').length).to.equal(
+            3,
             'it did not render the correct number of related items',
           );
-          expect($('.govuk-hub-content-section-menu a').length).to.equal(
+          expect($('.help-block a').length).to.equal(
             2,
             'show have rendered a category menu',
           );
