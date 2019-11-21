@@ -106,6 +106,9 @@
           </div>
         {% endif %}
       {% endfor %}
+      {% if data.relatedContent.data.length !== 4 and data.relatedContent.data.length !== 7 and data.relatedContent.data.length < 8 %}
+        </div>
+      {% endif %}
     </div>
     <h2>Suggested content</h2>
     <div class="category-content">
