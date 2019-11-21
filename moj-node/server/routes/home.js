@@ -1,5 +1,13 @@
 const express = require('express');
 const { path } = require('ramda');
+const {
+  FACILITY_LIST_CONTENT_IDS: facilitiesList,
+} = require('../constants/hub');
+
+const getFacilitiesListFor = id =>
+  Object.prototype.hasOwnProperty.call(facilitiesList, id)
+    ? facilitiesList[id]
+    : '/404';
 
 module.exports = function Home({
   logger,
@@ -12,10 +20,13 @@ module.exports = function Home({
     try {
       logger.info('GET home');
 
-      const { notification } = req.session;
+      const notification = path(['session', 'notification'], req);
       const userDetails = path(['session', 'user'], req);
       const bookingId = path(['bookingId'], userDetails);
-      const { establishmentId } = req.app.locals.envVars;
+      const establishmentId = path(
+        ['app', 'locals', 'envVars', 'establishmentId'],
+        req,
+      );
 
       const [{ todaysEvents, isTomorrow }, featuredContent] = await Promise.all(
         [
@@ -34,15 +45,15 @@ module.exports = function Home({
       };
 
       const popularTopics = {
-        Visits: '/content/3632',
-        IEP: '/content/3663',
-        Timetable: '/timetable',
-        'Money and debt': '/content/3657',
-        Games: '/content/3699',
+        Visits: '/content/4203',
+        IEP: '/content/4204',
+        Games: '/content/3621',
+        Inspiration: '/content/3659',
         Music: '/content/3662',
-        Facilities: '/content/3862',
-        'PSIs and PSOs': '/tags/796',
-        Catalogues: '/content/3658',
+        'PSIs & PSOs': '/tags/796',
+        'Facilities list & catalogues': getFacilitiesListFor(establishmentId),
+        'Healthy mind & body': '/content/3657',
+        'Money & debt': '/content/4201',
       };
 
       res.render('pages/home', {

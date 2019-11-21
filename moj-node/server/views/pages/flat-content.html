@@ -1,7 +1,7 @@
-{% from "../components/back-button/macro.njk" import backButton %}
 {% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 {% from "../components/suggested-content/macro.njk" import hubSuggestedContent %}
-
+{% from "../components/page-navigation/macro.njk" import pageNavigation %}
+{% from "../components/user-details-with-search/macro.njk" import userDetailsWithSearch %}
 {% extends "../components/template.njk" %}
 
 {% block pageTitle %}
@@ -12,9 +12,29 @@
   <link href="/public/stylesheets/application.css" rel="stylesheet"/>
 {% endblock %}
 
-{% block header %}
-  {{ backButton() }}
+{% block pageNavigation %}
+  {{ pageNavigation({ title: title }) }}
 {% endblock %}
+
+{% block topBar %}
+  {{ topBar({
+    appName: envVars.APP_NAME,
+    showBar: false
+  }) }}
+{% endblock %}
+
+{% block userDetails %}
+  {{ userDetailsWithSearch({
+    detailsType: config.detailsType,
+    userName: config.userName,
+    query: query,
+    small: true
+  }) }}
+{% endblock %}
+
+{% block header %}{% endblock %}
+{% block homeNavigation %}{% endblock %}
+{% block search %}{% endblock %}
 
 {% block main %}
   <div class="govuk-width-container">
@@ -37,12 +57,6 @@
           establishment: envVars.APP_NAME
         })}}
       </div>
-
-      {% if backHomeEnabled %}
-        <div>
-          <a href="/" class="govuk-button">Back to home</a>
-        </div>
-      {% endif %}
     </main>
   </div>
 {% endblock %}

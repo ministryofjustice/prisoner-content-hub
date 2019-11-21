@@ -8,6 +8,9 @@
 
 .black-background {
   background: govuk-colour('black');
+  margin-bottom: 0;
+  padding-top: govuk-spacing(5);
+  padding-bottom: govuk-spacing(8);
 }
 
 .govuk-hub-comment-form {

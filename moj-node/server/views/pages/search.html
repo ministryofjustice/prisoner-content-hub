@@ -1,9 +1,10 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-{% from "../components/back-button/macro.njk" import backButton %}
 {% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 {% extends "../components/template.njk" %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "../components/page-navigation/macro.njk" import pageNavigation %}
+{% from "../components/user-details-with-search/macro.njk" import userDetailsWithSearch %}
 
 {% block pageTitle %}
   {{ title }}
@@ -13,9 +14,29 @@
   <link href="/public/stylesheets/application.css" rel="stylesheet"/>
 {% endblock %}
 
-{% block header %}
-  {{ backButton() }}
+{% block pageNavigation %}
+  {{ pageNavigation({ title: title }) }}
 {% endblock %}
+
+{% block topBar %}
+  {{ topBar({
+    appName: envVars.APP_NAME,
+    showBar: false
+  }) }}
+{% endblock %}
+
+{% block userDetails %}
+  {{ userDetailsWithSearch({
+    detailsType: config.detailsType,
+    userName: config.userName,
+    query: query,
+    small: true
+  }) }}
+{% endblock %}
+
+{% block header %}{% endblock %}
+{% block homeNavigation %}{% endblock %}
+{% block search %}{% endblock %}
 
 {% block main %}
   <div class="govuk-width-container">
