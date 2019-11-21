@@ -1,4 +1,5 @@
 const express = require('express');
+const { path } = require('ramda');
 
 module.exports = function Tags({ logger, hubTagsService }) {
   const router = express.Router();
@@ -13,16 +14,25 @@ module.exports = function Tags({ logger, hubTagsService }) {
         return next();
       }
 
-      const { establishmentId } = req.app.locals.envVars;
+      const establishmentId = path(
+        ['app', 'locals', 'envVars', 'establishmentId'],
+        req,
+      );
+      const userDetails = path(['session', 'user'], req);
+      const newDesigns = path(['locals', 'features', 'newDesigns'], req);
       const config = {
         content: true,
         header: false,
         postscript: false,
+        newDesigns,
+        detailsType: 'small',
+        userName: path(['name'], userDetails),
       };
 
       const data = await hubTagsService.termFor(id, establishmentId);
 
       return res.render('pages/tags', {
+        title: data.name,
         tagId: id,
         data,
         config,

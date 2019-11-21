@@ -1,4 +1,5 @@
-{% from "../../components/back-button/macro.njk" import backButton %}
+{% from "../../components/page-navigation/macro.njk" import pageNavigation %}
+{% from "../../components/user-details-with-search/macro.njk" import userDetailsWithSearch %}
 {% extends "../../components/template.njk" %}
 
 {% block pageTitle %}
@@ -10,9 +11,20 @@
   <link href="/public/javascript/games/neontroids/neontroids.css" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
-{% block header %}
-  {{ backButton() }}
+{% block pageNavigation %}
+  {{ pageNavigation({ title: title }) }}
 {% endblock %}
+
+{% block topBar %}
+  {{ topBar({
+    appName: envVars.APP_NAME,
+    showBar: false
+  }) }}
+{% endblock %}
+
+{% block userDetails %}{% endblock %}
+{% block header %}{% endblock %}
+{% block homeNavigation %}{% endblock %}
 
 {% block search %}{% endblock %}
 

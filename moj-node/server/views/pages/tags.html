@@ -1,21 +1,38 @@
-{% from "../components/back-button/macro.njk" import backButton %}
 {% from "../components/sub-menu/macro.njk" import hubSubMenu %}
 {% from "../components/secondary-tag-page-header/macro.njk" import secondaryTagPageHeader %}
 {% from "../components/related-content/macro.njk" import hubRelatedContent %}
 {% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
+{% from "../components/page-navigation/macro.njk" import pageNavigation %}
+{% from "../components/user-details-with-search/macro.njk" import userDetailsWithSearch %}
 
 {% extends "../components/template.njk" %}
 
-{% block pageTitle %}
-  {{ data.name }}
+{% block pageNavigation %}
+  {{ pageNavigation({ title: title }) }}
 {% endblock %}
+
+{% block topBar %}
+  {{ topBar({
+    appName: envVars.APP_NAME,
+    showBar: false
+  }) }}
+{% endblock %}
+
+{% block userDetails %}
+  {{ userDetailsWithSearch({
+    detailsType: config.detailsType,
+    userName: config.userName,
+    query: query,
+    small: true
+  }) }}
+{% endblock %}
+
+{% block header %}{% endblock %}
+{% block homeNavigation %}{% endblock %}
+{% block search %}{% endblock %}
 
 {% block head %}
   <link href="/public/stylesheets/application.css" rel="stylesheet"/>
-{% endblock %}
-
-{% block header %}
-  {{ backButton() }}
 {% endblock %}
 
 {% block main %}

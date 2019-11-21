@@ -1,4 +1,4 @@
-const { prop } = require('ramda');
+const { prop, path } = require('ramda');
 const express = require('express');
 const { relativeUrlFrom } = require('../utils');
 
@@ -20,13 +20,24 @@ module.exports = function createContentRouter({
       return next();
     }
 
+    const notification = path(['session', 'notification'], req);
+    const userDetails = path(['session', 'user'], req);
+    const newDesigns = path(['locals', 'features', 'newDesigns'], req);
+
     const config = {
       content: true,
       header: false,
       postscript: false,
+      newDesigns,
+      detailsType: 'small',
+      userName: path(['name'], userDetails),
     };
 
-    const { establishmentId, backendUrl } = req.app.locals.envVars;
+    const establishmentId = path(
+      ['app', 'locals', 'envVars', 'establishmentId'],
+      req,
+    );
+    const backendUrl = path(['app', 'locals', 'envVars', 'backendUrl'], req);
 
     try {
       const data = await hubContentService.contentFor(id, establishmentId);
@@ -35,24 +46,30 @@ module.exports = function createContentRouter({
       switch (contentType) {
         case 'radio':
           return res.render('pages/audio', {
+            title: data.title,
             config,
             data,
           });
         case 'video':
           return res.render('pages/video', {
+            title: data.title,
             config,
             data,
           });
         case 'page':
           return res.render('pages/flat-content', {
-            data,
-            backHomeEnabled: true,
-          });
-        case 'landing-page':
-          return res.render('pages/landing', {
+            title: data.title,
             config,
             data,
-            backHomeEnabled: true,
+          });
+        case 'landing-page':
+          config.postscript = true;
+
+          return res.render('pages/landing', {
+            title: data.title,
+            config,
+            data,
+            notification,
           });
         case 'pdf': {
           const url = relativeUrlFrom(data.url, backendUrl);
