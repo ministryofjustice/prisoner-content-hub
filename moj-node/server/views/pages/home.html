@@ -90,6 +90,7 @@
 {% block bodyEnd %}
   <script src="/public/all.js"></script>
   <script>window.GOVUKFrontend.initAll();</script>
+  <!--[if gte IE 9]>
   <script>
     document.documentElement.className = 'js'; // adds class="js" to <html> element
     function fitImg(imgClass) {
@@ -104,4 +105,5 @@
       }
     fitImg('.fit-img-landscape');
   </script>
+  <![endif]-->
 {% endblock %}
