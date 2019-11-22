@@ -141,10 +141,19 @@ module.exports = function createOffenderService(repository) {
     }
   }
 
-  async function getVisitsFor(bookingId) {
+  async function getVisitsFor(bookingId, startDate = new Date()) {
     try {
       const nextVisitData = await repository.getNextVisitFor(bookingId);
       const nextVisit = prettyDate(prop('startTime', nextVisitData));
+
+      const visitsData = await repository.getVisitsFor(
+        bookingId,
+        format(startDate, 'yyyy-MM-dd'),
+      );
+
+      if (!Array.isArray(visitsData)) {
+        throw new Error('Invalid data returned from API');
+      }
 
       return {
         nextVisit,
@@ -165,7 +174,7 @@ module.exports = function createOffenderService(repository) {
             ? prop('visitTypeDescription', nextVisitData).split(' ')[0]
             : 'Unavailable',
       };
-    } catch {
+    } catch (e) {
       return {
         error: 'We are not able to show your visits at this time',
       };

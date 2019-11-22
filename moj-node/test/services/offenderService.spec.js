@@ -109,6 +109,7 @@ describe('Offender Service', () => {
           visitTypeDescription: '',
           leadVisitor: '',
         }),
+        getVisitsFor: sinon.stub().returns([]),
       };
       const service = offenderService(repository);
       const data = await service.getVisitsFor('FOO_ID');
