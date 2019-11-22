@@ -6,6 +6,7 @@
 {% from "../components/content-tile-large/macro.njk" import contentTileLarge %}
 {% from "../components/content-tile-small/macro.njk" import contentTileSmall %}
 {% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
+{% from "../components/personal-visits/macro.njk" import personalVisits %}
 
 {% extends "../components/template.njk" %}
 
@@ -56,6 +57,9 @@
     <div>
       <h1 class="govuk-heading-l" id="title">{{ title }}</h1>
       <div class="personalised-section">
+      {% if config.category === 'visits' %}
+        {{ personalVisits({data: data.personalisedData }) }}
+      {% endif %}
       </div>
     </div>
     <div class="help-container-tablet">

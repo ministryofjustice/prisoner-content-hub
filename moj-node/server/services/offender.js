@@ -143,12 +143,27 @@ module.exports = function createOffenderService(repository) {
 
   async function getVisitsFor(bookingId) {
     try {
-      const lastVisit = await repository.getLastVisitFor(bookingId);
-      const nextVisit = await repository.getNextVisitFor(bookingId);
+      const nextVisitData = await repository.getNextVisitFor(bookingId);
+      const nextVisit = prettyDate(prop('startTime', nextVisitData));
 
       return {
-        lastVisit: prettyDate(prop('startTime', lastVisit)),
-        nextVisit: prettyDate(prop('startTime', nextVisit)),
+        nextVisit,
+        nextVisitDay:
+          nextVisit !== 'Unavailable'
+            ? format(parseISO(prop('startTime', nextVisitData)), 'EEEE')
+            : 'Unavailable',
+        nextVisitDate:
+          nextVisit !== 'Unavailable'
+            ? format(parseISO(prop('startTime', nextVisitData)), 'dd MMMM')
+            : 'Unavailable',
+        visitorName:
+          nextVisit !== 'Unavailable'
+            ? prop('leadVisitor', nextVisitData)
+            : 'Unavailable',
+        visitType:
+          nextVisit !== 'Unavailable'
+            ? prop('visitTypeDescription', nextVisitData).split(' ')[0]
+            : 'Unavailable',
       };
     } catch {
       return {
