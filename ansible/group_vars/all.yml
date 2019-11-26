@@ -118,15 +118,6 @@ studio_users:
     shell: /bin/bash
     update_password: on_create
 
-  - username: johnmansell
-    name: "John Mansell"
-    groups:
-      - studio
-    ssh_key:
-      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGP8v9hmjAw0SabuuTHE1ieA7cxLjRUjv9c98R+JLxnQ JoNo@BITS-JTM"
-    shell: /bin/bash
-    update_password: on_create
-
   - username: ttaylor
     name: "Tim Taylor"
     groups:
@@ -141,7 +132,7 @@ studio_users:
     groups:
       - studio
     ssh_key:
-      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPLuxIqqgtMroXSqg0Oq/WuswNg/eera+KVMjxkzDXjI jamie@ABA-JS"
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDIW08GgRFJyWmJPcRBIbMJeMZJfSpoStRc1qOe0CmROlKe6MGGixHs8FLm0WbVSkxju6Hr4G2nCBatuBEgwtLMc+P4FRC4INDjLPV/yqdQ/lTs3xMExfOlUV8euXCHMJZHHNRaoriIStDinf2zLLpt9F3msB4MhBwKSpYDmOGDfU1wjDFjc6l5gO8C1H00c4Z1wwpPZ5fq2a7jXAaPzToiTCMsqEScaRgnsXTQPz/FwWCbqGBi+boUsZ86MRxnkyQYxbMZpZ33G+2nDXqvI1b4G46JzVN3MspMSJIUHdxasGb/wwLeOPjRbGnDI+f/o3TlKZnNuSp9H3bqGZ/lhROEV54xQFEqGoBuY4vGwUKZQdvJboMELDafSSWNo/LHJmcGHVndFf1hImWZm6D77AhC56F2LQrPgzo7m6osIOSg6oErGzj/K2GNfEZ1zHrefVPT7siY0j/wLEEuAU1rQYDYJsKqYpBCXdn5BYjCUNTf3GqWBQEkJyP6+aIspNyq2nYWQ0RnjFfVs/aEDBiVn7Q6mowHD/YRAnS0nKNvwD9FinPkHMCv2zsaDsJB9j2AN9mcjrLONrGROWFzTX4X2IbpxjyQi4SYf9XAiczMiDTKP+fiOzUjsGeeKCeudQ9SRC/3q7XC6j1MkZJJugMQR/2dOlHQ91Fsv6fNzMMQ/hscYw== jamie.sabbatella@digital.jsutice.gov.uk"
     shell: /bin/bash
     update_password: on_create
 
@@ -163,6 +154,7 @@ users_deleted:
   - username: lazzurs
   - username: mattwhittaker
   - username: jonnield
+  - username: johnmansell
 
 nginx_extra_http_options: |
   ##
