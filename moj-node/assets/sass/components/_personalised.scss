@@ -34,3 +34,55 @@
   display: none;
   margin: 0 0 13px;
 }
+
+.iep-info p > span {
+  display: block;
+  font-weight: 700;
+  padding-top: govuk-spacing(1);
+}
+.iep-indicator {
+  display: inline-block;
+  width: 28.7%;
+  margin-top: 0;
+  padding: 0 10px;
+  text-align: center;
+  @include govuk-font(24, 'bold');
+}
+.iep-indicator::after {
+  content: '\25bc';
+  display: block;
+  text-align: center;
+}
+.iep-level {
+  color: govuk-colour('white');
+  font-weight: bold;
+  padding: govuk-spacing(2);
+  float: left;
+  width: 28.7%;
+  margin-right: govuk-spacing(2);
+  text-align: center;
+  @include govuk-font(24, 'bold');
+}
+.iep-level--basic {
+  background-color: #1d70b8;
+}
+.iep-level--standard {
+  background-color: #28a197;
+}
+.iep-level--enhanced {
+  background-color: #4c2c92;
+  margin-right: 0;
+}
+.iep-indicator--standard {
+  margin-left: calc(28.7% + 30px);
+}
+.iep-indicator--enhanced {
+  margin-left: calc(57.4% + 60px);
+}
+.iepReview {
+  @include govuk-font(24);
+
+  & > span {
+    font-weight: 700;
+  }
+}

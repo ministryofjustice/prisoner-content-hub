@@ -5,6 +5,7 @@ const {
   isValid,
   isBefore,
   addDays,
+  addMonths,
 } = require('date-fns');
 const { propOr, prop } = require('ramda');
 const { capitalize } = require('../utils');
@@ -90,14 +91,13 @@ module.exports = function createOffenderService(repository) {
   async function getIEPSummaryFor(bookingId) {
     try {
       const iePSummary = await repository.getIEPSummaryFor(bookingId);
+      const lastIepDate = parseISO(iePSummary.iepDate);
+      const reviewDate = addMonths(lastIepDate, 3);
 
       return {
-        reviewDate: 'Unavailable',
+        reviewDate: format(reviewDate, 'EEEE d MMMM') || 'Unavailable',
         iepLevel: iePSummary.iepLevel,
-        daysSinceReview: formatDistance(
-          parseISO(iePSummary.iepDate),
-          new Date(),
-        ),
+        daysSinceReview: formatDistance(lastIepDate, new Date()),
       };
     } catch {
       return {
@@ -174,7 +174,7 @@ module.exports = function createOffenderService(repository) {
             ? prop('visitTypeDescription', nextVisitData).split(' ')[0]
             : 'Unavailable',
       };
-    } catch (e) {
+    } catch {
       return {
         error: 'We are not able to show your visits at this time',
       };
