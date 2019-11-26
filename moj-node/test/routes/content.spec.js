@@ -459,7 +459,7 @@ describe('GET /content/:id', () => {
             'Page title did not match',
           );
           expect($('.category-content a').length).to.equal(
-            3,
+            2,
             'it did not render the correct number of related items',
           );
           expect($('.help-block a').length).to.equal(

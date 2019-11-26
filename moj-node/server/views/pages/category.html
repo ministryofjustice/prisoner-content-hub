@@ -92,7 +92,7 @@
 
 {% block content %}
   <div class="govuk-body categories-container">
-    <h2>Featured content</h2>
+    <h2>Featured</h2>
     <div class="category-content">
       {{ contentTileLarge({content: data.relatedContent.data[0], imageAlign: 'right'}) }}
       {% for tile in data.relatedContent.data %}
@@ -109,17 +109,6 @@
       {% if data.relatedContent.data.length !== 4 and data.relatedContent.data.length !== 7 and data.relatedContent.data.length < 8 %}
         </div>
       {% endif %}
-    </div>
-    <h2>Suggested content</h2>
-    <div class="category-content">
-      {{ contentTileLarge({content: data.suggestedContent[0], imageAlign: 'right'}) }}
-      <div class="category-content__three-items">
-        {% for tile in data.suggestedContent %}
-          {% if loop.index > 1 and loop.index <= 4 %}
-            {{ contentTileSmall(tile) }}
-          {% endif %}
-        {% endfor %}
-      </div>
     </div>
     <div class="feedback-tablet">
       <h2 class="govuk-heading-m">Give us feedback</h2>
