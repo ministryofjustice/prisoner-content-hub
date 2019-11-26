@@ -35,7 +35,7 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
         IEP: '/content/4204',
         Games: '/content/3621',
         Inspiration: '/content/3659',
-        Music: '/content/3662',
+        'Music & talk': '/content/3662',
         'PSIs & PSOs': '/tags/796',
         'Facilities list & catalogues': getFacilitiesListFor(establishmentId),
         'Healthy mind & body': '/content/3657',
