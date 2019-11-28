@@ -140,7 +140,7 @@ jobs:
             - "cd:f0:02:14:7c:5c:9a:66:41:22:19:2d:61:e3:58:d8"
       - run:
           name: Deploy to Dev
-          command: ssh -t ciuser@pfs-prod-hub-3.uksouth.cloudapp.azure.com 'sudo /etc/docker-decomposed.secrets.sh'
+          command: ssh -t ciuser@pfs-prod-hub-3.uksouth.cloudapp.azure.com 'sudo /etc/docker-decomposed-secrets.sh'
 
 workflows:
   version: 2
