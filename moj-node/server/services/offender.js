@@ -6,6 +6,7 @@ const {
   isBefore,
   addDays,
   addMonths,
+  startOfMonth,
 } = require('date-fns');
 const { propOr, prop } = require('ramda');
 const { capitalize } = require('../utils');
@@ -78,8 +79,8 @@ const getTimeOfDay = date => {
 
 module.exports = function createOffenderService(repository) {
   async function getOffenderDetailsFor(prisonerId) {
-    const response = await repository.getOffenderDetailsFor(prisonerId);
-    const { bookingId, offenderNo, firstName, lastName } = response;
+    const offenderDetails = await repository.getOffenderDetailsFor(prisonerId);
+    const { bookingId, offenderNo, firstName, lastName } = offenderDetails;
 
     return {
       bookingId,
@@ -141,29 +142,42 @@ module.exports = function createOffenderService(repository) {
     }
   }
 
-  async function getVisitsFor(bookingId, startDate = new Date()) {
+  function getAllowedVisits(level) {
+    if (level === 'Basic') {
+      return 1;
+    }
+    if (level === 'Standard') {
+      return 5;
+    }
+    return 8;
+  }
+
+  async function getVisitsFor(bookingId, now = new Date()) {
     try {
       const nextVisitData = await repository.getNextVisitFor(bookingId);
-      const nextVisit = prettyDate(prop('startTime', nextVisitData));
+      const iePSummary = await repository.getIEPSummaryFor(bookingId);
+      const startTime = prop('startTime', nextVisitData);
+      const nextVisit = prettyDate(startTime);
+      const allowedVisits = getAllowedVisits(iePSummary.iepLevel);
 
-      const visitsData = await repository.getVisitsFor(
+      const startDate = format(startOfMonth(now), 'yyyy-MM-dd');
+      const endDate = format(now, 'yyyy-MM-dd');
+      const visits = await repository.getVisitsFor(
         bookingId,
-        format(startDate, 'yyyy-MM-dd'),
+        startDate,
+        endDate,
       );
-
-      if (!Array.isArray(visitsData)) {
-        throw new Error('Invalid data returned from API');
-      }
+      const remainingVisits = visits ? allowedVisits - visits.length : 0;
 
       return {
         nextVisit,
         nextVisitDay:
           nextVisit !== 'Unavailable'
-            ? format(parseISO(prop('startTime', nextVisitData)), 'EEEE')
+            ? format(parseISO(startTime), 'EEEE')
             : 'Unavailable',
         nextVisitDate:
           nextVisit !== 'Unavailable'
-            ? format(parseISO(prop('startTime', nextVisitData)), 'dd MMMM')
+            ? format(parseISO(startTime), 'dd MMMM')
             : 'Unavailable',
         visitorName:
           nextVisit !== 'Unavailable'
@@ -173,6 +187,8 @@ module.exports = function createOffenderService(repository) {
           nextVisit !== 'Unavailable'
             ? prop('visitTypeDescription', nextVisitData).split(' ')[0]
             : 'Unavailable',
+        remainingVisits,
+        remainingMonth: format(now, 'MMMM'),
       };
     } catch {
       return {

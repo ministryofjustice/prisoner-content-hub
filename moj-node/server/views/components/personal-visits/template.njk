@@ -28,7 +28,10 @@
       <p id="visitor-name">{{ params.data.visitorName }}</p>
       {% endif %}
     </div>
-    <div>
+    <div class="remaining-visits">
+      <p>You can book</p>
+      <p>{{ params.data.remainingVisits }} more visit{% if params.data.remainingVisits !== 1 %}s{% endif %}</p>
+      <p>in {{ params.data.remainingMonth }}</p>
     </div>
   {% endif %}
   </div>

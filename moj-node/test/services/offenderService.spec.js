@@ -110,9 +110,12 @@ describe('Offender Service', () => {
           leadVisitor: '',
         }),
         getVisitsFor: sinon.stub().returns([]),
+        getIEPSummaryFor: sinon.stub().returns({
+          iepLevel: 'Basic',
+        }),
       };
       const service = offenderService(repository);
-      const data = await service.getVisitsFor('FOO_ID');
+      const data = await service.getVisitsFor('FOO_ID', new Date('2019-11-01'));
 
       expect(repository.getNextVisitFor.lastCall.args[0]).to.equal('FOO_ID');
 
@@ -122,6 +125,8 @@ describe('Offender Service', () => {
         nextVisitDay: 'Saturday',
         visitType: '',
         visitorName: '',
+        remainingMonth: 'November',
+        remainingVisits: 1,
       });
     });
   });

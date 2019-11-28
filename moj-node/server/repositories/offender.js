@@ -35,9 +35,9 @@ function offenderRepository(httpClient) {
     );
   }
 
-  function getVisitsFor(bookingId, startDate) {
+  function getVisitsFor(bookingId, startDate, endDate = '') {
     const endpoint = `${config.nomis.api.bookings}/${bookingId}/visits`;
-    const query = [`fromDate=${startDate}`, `toDate=${startDate}`];
+    const query = [`fromDate=${startDate}`, `toDate=${endDate}`];
 
     return httpClient.get(`${endpoint}?${query.join('&')}`);
   }

@@ -86,3 +86,19 @@
     font-weight: 700;
   }
 }
+.remaining-visits {
+  @include govuk-font(24);
+
+  & p {
+    margin: 0;
+  }
+
+  & p:nth-of-type(2) {
+    @include govuk-font(48, 'bold');
+    margin: govuk-spacing(2) 0;
+  }
+
+  & :last-child {
+    font-weight: 700;
+  }
+}
