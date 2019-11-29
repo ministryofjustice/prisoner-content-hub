@@ -67,7 +67,7 @@
         </ul>
       </div>
     </div>
-    {% if todaysEvents.length > 0 %}
+    {% if config.establishmentId === 792 and todaysEvents.length > 0 %}
       {{personalScheduleToday({events: todaysEvents, isTomorrow: isTomorrow})}}
     {% endif %}
   </div>
