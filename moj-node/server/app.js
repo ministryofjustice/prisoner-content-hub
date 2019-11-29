@@ -18,10 +18,10 @@ const createTimetableRouter = require('./routes/timetable');
 const createHealthRouter = require('./routes/health');
 const createContentRouter = require('./routes/content');
 const createVisitsRouter = require('./routes/visits');
+const createIepRouter = require('./routes/iep');
 const createTagRouter = require('./routes/tags');
 const createGamesRouter = require('./routes/games');
 const createGettingAJobRouter = require('./routes/gettingAJob');
-const createMeRouter = require('./routes/me');
 const createSearchRouter = require('./routes/search');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
@@ -210,6 +210,15 @@ module.exports = function createApp({
         logger,
       }),
     );
+
+    app.use(
+      '/iep',
+      createIepRouter({
+        hubContentService,
+        offenderService,
+        logger,
+      }),
+    );
   }
 
   app.use(
@@ -233,8 +242,6 @@ module.exports = function createApp({
     ['/working-in-wayland', '/working-in-berwyn'],
     createGettingAJobRouter({ logger, hubContentService, hubMenuService }),
   );
-
-  app.use('/me', createMeRouter({ logger, offenderService }));
   app.use('/search', createSearchRouter({ logger, searchService }));
 
   app.use('*', (req, res) => {

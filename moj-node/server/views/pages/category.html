@@ -7,6 +7,7 @@
 {% from "../components/content-tile-small/macro.njk" import contentTileSmall %}
 {% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 {% from "../components/personal-visits/macro.njk" import personalVisits %}
+{% from "../components/personal-iep/macro.njk" import personalIncentives %}
 
 {% extends "../components/template.njk" %}
 
@@ -59,6 +60,9 @@
       <div class="personalised-section">
       {% if config.category === 'visits' %}
         {{ personalVisits({data: data.personalisedData }) }}
+      {% endif %}
+      {% if config.category === 'iep' %}
+        {{ personalIncentives({data: data.personalisedData }) }}
       {% endif %}
       </div>
     </div>

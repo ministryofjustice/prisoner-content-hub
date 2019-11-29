@@ -35,7 +35,7 @@ describe('Offender Service', () => {
       const repository = {
         getIEPSummaryFor: sinon.stub().returns({
           iepLevel: 'POTANUS',
-          iepDate: '2019-06-17T23:00:00.000Z',
+          iepDate: '2019-06-17T06:00:00.000Z',
           lastName: 'AARELL',
         }),
       };
@@ -45,9 +45,9 @@ describe('Offender Service', () => {
 
       expect(repository.getIEPSummaryFor.lastCall.args[0]).to.equal('FOO_ID');
       expect(data).to.eql({
-        reviewDate: 'Unavailable',
+        reviewDate: 'Tuesday 17 September',
         iepLevel: 'POTANUS',
-        daysSinceReview: '17 days',
+        daysSinceReview: '16 days',
       });
 
       clock.restore();
@@ -109,6 +109,7 @@ describe('Offender Service', () => {
           visitTypeDescription: '',
           leadVisitor: '',
         }),
+        getVisitsFor: sinon.stub().returns([]),
       };
       const service = offenderService(repository);
       const data = await service.getVisitsFor('FOO_ID');

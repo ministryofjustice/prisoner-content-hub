@@ -5,6 +5,7 @@ const {
   isValid,
   isBefore,
   addDays,
+  addMonths,
 } = require('date-fns');
 const { propOr, prop } = require('ramda');
 const { capitalize } = require('../utils');
@@ -90,14 +91,13 @@ module.exports = function createOffenderService(repository) {
   async function getIEPSummaryFor(bookingId) {
     try {
       const iePSummary = await repository.getIEPSummaryFor(bookingId);
+      const lastIepDate = parseISO(iePSummary.iepDate);
+      const reviewDate = addMonths(lastIepDate, 3);
 
       return {
-        reviewDate: 'Unavailable',
+        reviewDate: format(reviewDate, 'EEEE d MMMM') || 'Unavailable',
         iepLevel: iePSummary.iepLevel,
-        daysSinceReview: formatDistance(
-          parseISO(iePSummary.iepDate),
-          new Date(),
-        ),
+        daysSinceReview: formatDistance(lastIepDate, new Date()),
       };
     } catch {
       return {
@@ -141,10 +141,19 @@ module.exports = function createOffenderService(repository) {
     }
   }
 
-  async function getVisitsFor(bookingId) {
+  async function getVisitsFor(bookingId, startDate = new Date()) {
     try {
       const nextVisitData = await repository.getNextVisitFor(bookingId);
       const nextVisit = prettyDate(prop('startTime', nextVisitData));
+
+      const visitsData = await repository.getVisitsFor(
+        bookingId,
+        format(startDate, 'yyyy-MM-dd'),
+      );
+
+      if (!Array.isArray(visitsData)) {
+        throw new Error('Invalid data returned from API');
+      }
 
       return {
         nextVisit,
