@@ -42,6 +42,7 @@ module.exports = function Home({
         newDesigns: res.locals.features.newDesigns,
         detailsType: 'large',
         userName: path(['name'], userDetails),
+        establishmentId,
       };
 
       const popularTopics = {
