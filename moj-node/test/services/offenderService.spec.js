@@ -101,20 +101,26 @@ describe('Offender Service', () => {
       const repository = {
         getLastVisitFor: sinon.stub().returns({
           startTime: '2014-02-11T11:30:30',
+          visitTypeDescription: '',
+          leadVisitor: '',
         }),
         getNextVisitFor: sinon.stub().returns({
           startTime: '2019-12-07T11:30:30',
+          visitTypeDescription: '',
+          leadVisitor: '',
         }),
       };
       const service = offenderService(repository);
       const data = await service.getVisitsFor('FOO_ID');
 
-      expect(repository.getLastVisitFor.lastCall.args[0]).to.equal('FOO_ID');
       expect(repository.getNextVisitFor.lastCall.args[0]).to.equal('FOO_ID');
 
       expect(data).to.eql({
-        lastVisit: 'Tuesday 11 February 2014',
         nextVisit: 'Saturday 07 December 2019',
+        nextVisitDate: '07 December',
+        nextVisitDay: 'Saturday',
+        visitType: '',
+        visitorName: '',
       });
     });
   });

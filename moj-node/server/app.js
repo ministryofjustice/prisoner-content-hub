@@ -17,6 +17,7 @@ const createHomeRouter = require('./routes/home');
 const createTimetableRouter = require('./routes/timetable');
 const createHealthRouter = require('./routes/health');
 const createContentRouter = require('./routes/content');
+const createVisitsRouter = require('./routes/visits');
 const createTagRouter = require('./routes/tags');
 const createGamesRouter = require('./routes/games');
 const createGettingAJobRouter = require('./routes/gettingAJob');
@@ -198,6 +199,15 @@ module.exports = function createApp({
       createTimetableRouter({
         logger,
         offenderService,
+      }),
+    );
+
+    app.use(
+      '/visits',
+      createVisitsRouter({
+        hubContentService,
+        offenderService,
+        logger,
       }),
     );
   }

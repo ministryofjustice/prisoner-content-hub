@@ -1,0 +1,36 @@
+@import 'node_modules/govuk-frontend/govuk/settings/all';
+@import 'node_modules/govuk-frontend/govuk/tools/all';
+@import 'node_modules/govuk-frontend/govuk/helpers/all';
+
+#visits {
+  display: flex;
+
+  & > * {
+    flex: 1 0 33%;
+  }
+
+  & h3 {
+    @include govuk-font(24);
+    font-weight: 400;
+  }
+}
+
+.type-of-visit > *,
+.next-visit > * {
+  margin: 0;
+}
+
+.next-visit-type,
+.next-visit-day {
+  @include govuk-font(48, 'bold');
+  margin: govuk-spacing(2) 0;
+}
+
+.next-visit-date {
+  @include govuk-font(24, 'bold');
+}
+
+#visitor-name {
+  display: none;
+  margin: 0 0 13px;
+}
