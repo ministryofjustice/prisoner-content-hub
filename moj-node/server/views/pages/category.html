@@ -8,6 +8,7 @@
 {% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 {% from "../components/personal-visits/macro.njk" import personalVisits %}
 {% from "../components/personal-iep/macro.njk" import personalIncentives %}
+{% from "../components/personal-balance/macro.njk" import personalBalances %}
 
 {% extends "../components/template.njk" %}
 
@@ -63,6 +64,9 @@
       {% endif %}
       {% if config.category === 'iep' %}
         {{ personalIncentives({data: data.personalisedData }) }}
+      {% endif %}
+      {% if config.category === 'money' %}
+        {{ personalBalances({data: data.personalisedData }) }}
       {% endif %}
       </div>
     </div>

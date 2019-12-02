@@ -24,8 +24,8 @@
       <h3>Type of visit</h3>
       <p class="next-visit-type">{{ params.data.visitType }}</p>
       {% if params.data.visitorName %}
-      <button type="button" class="govuk-button" id="show-visitor-name" onclick="showVisitorName()">Show visitor name</button>
-      <p id="visitor-name">{{ params.data.visitorName }}</p>
+      <button type="button" class="govuk-button" id="show-visitor-name" onclick="showHiddenBlock('visitor-name')">Show visitor name</button>
+      <p id="visitor-name" class="hidden-block-text">{{ params.data.visitorName }}</p>
       {% endif %}
     </div>
     <div>
@@ -33,18 +33,4 @@
   {% endif %}
   </div>
   <p><a href="/timetable" class="govuk-link">View your full timetable</a></p>
-  <script>
-  function showVisitorName() {
-    const button = document.getElementById('show-visitor-name');
-    const visitorName = document.getElementById('visitor-name');
-
-    button.style.display = 'none';
-    visitorName.style.display = 'block';
-
-    window.setTimeout(function() {
-      button.style.display = 'block';
-      visitorName.style.display = 'none';
-    }, 3000);
-  }
-  </script>
 {% endif %}

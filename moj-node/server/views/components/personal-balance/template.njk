@@ -1,49 +1,41 @@
 {# {% extends "../component-or-error/macro.njk" %} #}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{% if params.error %}
+{% if params.data.error %}
   <div class="govuk-grid-column-two-thirds govuk-error-summary" id="keyWorker">
     <h2 class="govuk-error-summary__title">
       There is a problem
     </h2>
     <div class="govuk-error-summary__body">
-      <p class="govuk-error-message">{{params.error}}</p>
+      <p class="govuk-error-message">{{params.data.error}}</p>
     </div>
   </div>
 {% else %}
-  <div class="govuk-grid-column-two-thirds" id="money">
-    <h2 class="govuk-heading-m">Money</h2>
-    {{
-      govukSummaryList({
-        classes: 'govuk-summary-list--no-border',
-        rows: [
-          {
-            key: {
-              text: "Spends"
-            },
-            value: {
-              html: '<strong data-state="hidden" class="govuk-tag u-clickable"> <span>' + params.spends + ' ' + params.currency + '</span> <span>View balance</span> </strong>'
-            }
-          },
-          {
-            key: {
-              text: "Private"
-            },
-            value: {
-              html: '<strong data-state="hidden" class="govuk-tag u-clickable"> <span>' + params.cash + ' ' + params.currency + '</span> <span>View balance</span> </strong>'
-            }
-          },
-          {
-            key: {
-              text: "Savings"
-            },
-            value: {
-              html: '<strong data-state="hidden" class="govuk-tag u-clickable"> <span>' + params.savings + ' ' + params.currency + '</span> <span>View balance</span> </strong>'
-            }
-          }
-        ]
-      })
-    }}
-    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+  <div id="money">
+    <h2>Your account balances</h2>
+    <div class="balances">
+      <p>Spends</p>
+      <div>
+        <button type="button" class="govuk-button" id="show-balance-spends" onclick="showHiddenBlock('balance-spends')">View balance</button>
+        <p id="balance-spends" class="hidden-block-text">{{ params.data.spends }}</p>
+      </div>
+      <p>Private</p>
+      <div>
+        <button type="button" class="govuk-button" id="show-balance-private" onclick="showHiddenBlock('balance-private')">View balance</button>
+        <p id="balance-private" class="hidden-block-text">{{ params.data.cash }}</p>
+      </div>
+    </div>
+    <div class="balances">
+      <p>PIN Phone</p>
+      <div>
+        <button type="button" class="govuk-button" id="show-balance-pin-phone" onclick="showHiddenBlock('balance-pin-phone')">View balance</button>
+        <p id="balance-pin-phone" class="hidden-block-text">Unavailable</p>
+      </div>
+      <p>Savings</p>
+      <div>
+        <button type="button" class="govuk-button" id="show-balance-savings" onclick="showHiddenBlock('balance-savings')">View balance</button>
+        <p id="balance-savings" class="hidden-block-text">{{ params.data.savings }}</p>
+      </div>
+    </div>
   </div>
 {% endif %}

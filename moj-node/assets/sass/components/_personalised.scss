@@ -30,7 +30,7 @@
   @include govuk-font(24, 'bold');
 }
 
-#visitor-name {
+.hidden-block-text {
   display: none;
   margin: 0 0 13px;
 }
@@ -84,5 +84,44 @@
 
   & > span {
     font-weight: 700;
+  }
+}
+
+#money > h2 {
+  @include govuk-font(24);
+}
+.balances {
+  @include govuk-font(24, 'bold');
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: govuk-spacing(5);
+
+  @media (min-width: $desktop-breakpoint) {
+    width: 66%;
+  }
+
+  & > * {
+    flex: 1 0 25%;
+  }
+
+  & p,
+  & button {
+    margin: 0;
+  }
+
+  & > div {
+    padding-right: govuk-spacing(5);
+
+    & > button {
+      width: 100%;
+    }
+
+    & > p {
+      outline: 1px solid grey;
+      text-align: right;
+      padding: 4px govuk-spacing(1) 4px 0;
+    }
   }
 }

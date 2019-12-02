@@ -19,6 +19,7 @@ const createHealthRouter = require('./routes/health');
 const createContentRouter = require('./routes/content');
 const createVisitsRouter = require('./routes/visits');
 const createIepRouter = require('./routes/iep');
+const createMoneyRouter = require('./routes/money');
 const createTagRouter = require('./routes/tags');
 const createGamesRouter = require('./routes/games');
 const createGettingAJobRouter = require('./routes/gettingAJob');
@@ -214,6 +215,15 @@ module.exports = function createApp({
     app.use(
       '/iep',
       createIepRouter({
+        hubContentService,
+        offenderService,
+        logger,
+      }),
+    );
+
+    app.use(
+      '/money',
+      createMoneyRouter({
         hubContentService,
         offenderService,
         logger,
