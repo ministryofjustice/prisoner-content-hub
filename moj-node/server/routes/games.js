@@ -13,9 +13,7 @@ module.exports = function createGamesRouter({ logger }) {
   router.get('/chess', (req, res) => {
     logger.info('GET /games/chess');
     const userDetails = path(['session', 'user'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], req);
 
-    config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
 
@@ -31,9 +29,7 @@ module.exports = function createGamesRouter({ logger }) {
   router.get('/sudoku', (req, res) => {
     logger.info('GET /games/sudoku');
     const userDetails = path(['session', 'user'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], req);
 
-    config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
 
@@ -49,9 +45,7 @@ module.exports = function createGamesRouter({ logger }) {
   router.get('/neontroids', (req, res) => {
     logger.info('GET /games/neontroids');
     const userDetails = path(['session', 'user'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], req);
 
-    config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
 

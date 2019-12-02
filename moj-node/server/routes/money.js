@@ -16,13 +16,11 @@ module.exports = function createVisitsRouter({
     const notification = path(['session', 'notification'], req);
     const userDetails = path(['session', 'user'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], req);
 
     const config = {
       content: true,
       header: false,
       postscript: true,
-      newDesigns,
       detailsType: 'small',
       userName: path(['name'], userDetails),
       category: 'money',

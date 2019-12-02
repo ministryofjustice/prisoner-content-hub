@@ -9,6 +9,7 @@ describe('GET /', () => {
   let hubFeaturedContentService;
   let router;
   let app;
+  let offenderService;
 
   beforeEach(() => {
     featuredItem = {
@@ -40,22 +41,25 @@ describe('GET /', () => {
         ],
       }),
     };
+    offenderService = {
+      getEventsForToday: sinon.stub().returns({
+        todaysEvents: [],
+        isTomorrow: false,
+      }),
+    };
   });
 
   describe('Homepage', () => {
     beforeEach(() => {
       router = createIndexRouter({
         logger,
+        offenderService,
         hubFeaturedContentService,
       });
 
       app = setupBasicApp();
       app.use(
         (req, res, next) => {
-          // TODO: Remove this when new designs implemented fully in template
-          res.locals = {
-            features: { newDesigns: true },
-          };
           next();
         },
         (req, res, next) => {

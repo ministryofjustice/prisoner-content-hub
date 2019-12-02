@@ -22,13 +22,11 @@ module.exports = function createContentRouter({
 
     const notification = path(['session', 'notification'], req);
     const userDetails = path(['session', 'user'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], req);
 
     const config = {
       content: true,
       header: false,
       postscript: false,
-      newDesigns,
       detailsType: 'small',
       userName: path(['name'], userDetails),
     };

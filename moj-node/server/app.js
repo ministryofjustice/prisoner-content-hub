@@ -13,7 +13,6 @@ const session = require('cookie-session');
 
 const createIndexRouter = require('./routes/index');
 const createTopicsRouter = require('./routes/topics');
-const createHomeRouter = require('./routes/home');
 const createTimetableRouter = require('./routes/timetable');
 const createHealthRouter = require('./routes/health');
 const createContentRouter = require('./routes/content');
@@ -165,14 +164,13 @@ module.exports = function createApp({
   // Routing
 
   // Authentication
-  if (config.features.newDesigns) {
-    app.use(authMiddleware(), createUserSession({ offenderService }));
-  }
+  app.use(authMiddleware(), createUserSession({ offenderService }));
 
   app.use(
     '/',
     createIndexRouter({
       logger,
+      offenderService,
       hubFeaturedContentService,
     }),
   );
@@ -185,51 +183,49 @@ module.exports = function createApp({
     }),
   );
 
-  if (config.features.newDesigns) {
-    app.use(
-      '/home',
-      createHomeRouter({
-        logger,
-        offenderService,
-        hubFeaturedContentService,
-      }),
-    );
+  app.use(
+    '/',
+    createIndexRouter({
+      logger,
+      offenderService,
+      hubFeaturedContentService,
+    }),
+  );
 
-    app.use(
-      '/timetable',
-      createTimetableRouter({
-        logger,
-        offenderService,
-      }),
-    );
+  app.use(
+    '/timetable',
+    createTimetableRouter({
+      logger,
+      offenderService,
+    }),
+  );
 
-    app.use(
-      '/visits',
-      createVisitsRouter({
-        hubContentService,
-        offenderService,
-        logger,
-      }),
-    );
+  app.use(
+    '/visits',
+    createVisitsRouter({
+      hubContentService,
+      offenderService,
+      logger,
+    }),
+  );
 
-    app.use(
-      '/iep',
-      createIepRouter({
-        hubContentService,
-        offenderService,
-        logger,
-      }),
-    );
+  app.use(
+    '/iep',
+    createIepRouter({
+      hubContentService,
+      offenderService,
+      logger,
+    }),
+  );
 
-    app.use(
-      '/money',
-      createMoneyRouter({
-        hubContentService,
-        offenderService,
-        logger,
-      }),
-    );
-  }
+  app.use(
+    '/money',
+    createMoneyRouter({
+      hubContentService,
+      offenderService,
+      logger,
+    }),
+  );
 
   app.use(
     '/content',
