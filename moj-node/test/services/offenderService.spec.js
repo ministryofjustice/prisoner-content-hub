@@ -69,9 +69,9 @@ describe('Offender Service', () => {
 
       expect(repository.getBalancesFor.lastCall.args[0]).to.equal('FOO_ID');
       expect(data).to.eql({
-        spends: '100',
-        cash: '100',
-        savings: '0',
+        spends: '£100.00',
+        cash: '£100.00',
+        savings: '£0.00',
         currency: 'GBP',
       });
     });

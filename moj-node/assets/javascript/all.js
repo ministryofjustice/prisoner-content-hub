@@ -52,3 +52,16 @@
     return null;
   }
 })();
+
+function showHiddenBlock(block) {
+  const button = document.getElementById('show-' + block);
+  const hiddenData = document.getElementById(block);
+
+  button.style.display = 'none';
+  hiddenData.style.display = 'block';
+
+  window.setTimeout(function() {
+    button.style.display = 'block';
+    hiddenData.style.display = 'none';
+  }, 3000);
+}
