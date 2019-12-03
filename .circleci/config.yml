@@ -140,7 +140,7 @@ jobs:
             - "36:39:b2:8b:1a:6e:03:37:69:91:58:c4:fe:81:fe:d9"
       - run:
           name: Deploy to Development
-          command: ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com 'sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}'
+          command: ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}"
 
   deploy_stage:
     machine:
@@ -152,7 +152,7 @@ jobs:
             - "36:39:b2:8b:1a:6e:03:37:69:91:58:c4:fe:81:fe:d9"
       - run:
           name: Deploy to Staging
-          command: ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com 'sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}'
+          command: ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}"
 
   deploy_prod:
     machine:
@@ -165,8 +165,8 @@ jobs:
       - run:
           name: Deploy to Production
           command: |
-            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com 'sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}' && \
-            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com 'sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}'
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}" && \
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}"
 
 workflows:
   version: 2
