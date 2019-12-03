@@ -130,7 +130,7 @@ jobs:
       - store_artifacts:
           path: ./moj-node/cypress/screenshots
 
-  deploy:
+  deploy_dev:
     machine:
       enabled: true
     working_directory: ~/digital-hub
@@ -139,8 +139,34 @@ jobs:
           fingerprints:
             - "36:39:b2:8b:1a:6e:03:37:69:91:58:c4:fe:81:fe:d9"
       - run:
-          name: Deploy to Dev
-          command: ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com 'sudo /etc/docker-decomposed-secrets.sh'
+          name: Deploy to Development
+          command: ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com 'sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}'
+
+  deploy_stage:
+    machine:
+      enabled: true
+    working_directory: ~/digital-hub
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "36:39:b2:8b:1a:6e:03:37:69:91:58:c4:fe:81:fe:d9"
+      - run:
+          name: Deploy to Staging
+          command: ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com 'sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}'
+
+  deploy_prod:
+    machine:
+      enabled: true
+    working_directory: ~/digital-hub
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "36:39:b2:8b:1a:6e:03:37:69:91:58:c4:fe:81:fe:d9"
+      - run:
+          name: Deploy to Production
+          command: |
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com 'sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}' && \
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com 'sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}'
 
 workflows:
   version: 2
@@ -158,9 +184,23 @@ workflows:
             - hold
       - hold:
           type: approval
-      - deploy:
+      - deploy_dev:
           requires:
-            - build
+            - run_e2e_test
+          filters:
+            branches:
+              only: master
+      - deploy_stage:
+          type: approval
+          requires:
+            - deploy_dev
+          filters:
+            branches:
+              only: master
+      - deploy_prod:
+          type: approval
+          requires:
+            - deploy_stage
           filters:
             branches:
               only: master
