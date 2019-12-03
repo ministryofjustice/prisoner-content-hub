@@ -47,6 +47,18 @@ jobs:
                 git tag -a "$(date '+%d-%m-%Y')-$CIRCLE_BUILD_NUM" $CIRCLE_SHA1 -m "$(git log $(git describe --tags --abbrev=0)..HEAD --pretty=%B)"
                 git push origin "$(date '+%d-%m-%Y')-$CIRCLE_BUILD_NUM"
             fi
+      - capture_build_number:
+          name: Save build number (for deployment)
+          command: |
+            CIRCLE_BUILD_NUM_DOCKER=${CIRCLE_BUILD_NUM}
+            mkdir -p /tmp/workspace/docker-build
+            cd /tmp/workspace/docker-build
+            echo ${CIRCLE_BUILD_NUM_DOCKER} > docker-build-number.txt
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - docker-build
+
   build_cms:
     <<: *defaults
     steps:
@@ -135,38 +147,49 @@ jobs:
       enabled: true
     working_directory: ~/digital-hub
     steps:
+      - attach_workspace: &attach_workspace
+          at: /tmp/workspace
       - add_ssh_keys:
           fingerprints:
             - "36:39:b2:8b:1a:6e:03:37:69:91:58:c4:fe:81:fe:d9"
       - run:
           name: Deploy to Development
-          command: ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}"
+          command: |
+            export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
 
   deploy_stage:
     machine:
       enabled: true
     working_directory: ~/digital-hub
     steps:
+      - attach_workspace: &attach_workspace
+          at: /tmp/workspace
       - add_ssh_keys:
           fingerprints:
             - "36:39:b2:8b:1a:6e:03:37:69:91:58:c4:fe:81:fe:d9"
       - run:
           name: Deploy to Staging
-          command: ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}"
+          command: |
+            export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
 
   deploy_prod:
     machine:
       enabled: true
     working_directory: ~/digital-hub
     steps:
+      - attach_workspace: &attach_workspace
+          at: /tmp/workspace
       - add_ssh_keys:
           fingerprints:
             - "36:39:b2:8b:1a:6e:03:37:69:91:58:c4:fe:81:fe:d9"
       - run:
           name: Deploy to Production
           command: |
-            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}" && \
-            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM}"
+            export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}" && \
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
 
 workflows:
   version: 2
