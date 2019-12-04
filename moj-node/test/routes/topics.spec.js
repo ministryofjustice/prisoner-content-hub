@@ -58,8 +58,8 @@ describe('GET /topics', () => {
           const $ = cheerio.load(response.text);
           const topics = $('.hub-topics dl dt');
           expect(topics.length).to.equal(
-            2,
-            'The full list of topics should be rendered to the page',
+            5,
+            'The full list of topics including personal links should be rendered to the page',
           );
           expect(topics.first().find('a').text()).to.contain(
             'foo',

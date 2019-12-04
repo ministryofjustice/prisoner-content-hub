@@ -47,6 +47,26 @@
     {{ hubTopics({
       data: allTopics
     }) }}
+    <div class="topics-big-links govuk-body">
+      <a href="/visits" class="next-visit-link">Your next visit</a>
+      <a href="/money" class="account-balances-link">Your account balances</a>
+      <a href="/iep" class="iep-level-link">Current IEP level and the date you can get it reviewed</a>
+    </div>
+    <section class="hub-topics">
+      <dl>
+        <div>
+          <dt><a href="/visits" title="Your visit information" class="govuk-link govuk-link--no-visited-state">Your visit information</a></dt>
+          <dd>You can now see your next visits in the Content Hub</dd>
+        </div>
+        <div>
+          <dt><a href="/money" title="Account balances now in the Hub" class="govuk-link govuk-link--no-visited-state">Account balances now in the Hub</a></dt>
+          <dd>Check your spends, private and savings with the Content Hub</dd>
+        </div>
+        <div>
+          <dt><a href="/iep" title="See your IEP level and review date" class="govuk-link govuk-link--no-visited-state">See your IEP level and review date</a></dt>
+          <dd>Learn how and when you can upgrade to Standard or Enhanced IEP</dd>
+        </div>
+      </dl>
   </div>
 {% endblock %}
 

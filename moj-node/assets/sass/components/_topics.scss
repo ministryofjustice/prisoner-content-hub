@@ -35,3 +35,30 @@
     }
   }
 }
+
+.topics-big-links {
+  display: flex;
+  align-items: stretch;
+  min-height: 250px;
+
+  & > a {
+    flex: 1 1 33%;
+    text-align: center;
+    text-decoration: none;
+    color: govuk-colour('white');
+    background-color: #025ea5;
+    @include govuk-font(36, 'bold');
+    padding: govuk-spacing(5);
+    align-items: center;
+    display: flex;
+    margin-right: govuk-spacing(2);
+  }
+
+  & .account-balances-link {
+    background-color: govuk-colour('turquoise');
+  }
+
+  & .iep-level-link {
+    background-color: govuk-colour('light-purple');
+  }
+}
