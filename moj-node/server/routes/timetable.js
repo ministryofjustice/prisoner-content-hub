@@ -3,14 +3,14 @@ const { path } = require('ramda');
 const { format, addDays, subDays } = require('date-fns');
 
 module.exports = function Home({ logger, offenderService }) {
-  const today = new Date();
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
     try {
       logger.info('GET timetable');
 
-      const { notification } = req.session;
+      const today = new Date();
+      const notification = path(['session', 'notification'], req);
       const userDetails = path(['session', 'user'], req);
       const bookingId = path(['bookingId'], userDetails);
       const startDate = format(today, 'yyyy-MM-dd');
@@ -46,7 +46,8 @@ module.exports = function Home({ logger, offenderService }) {
     try {
       logger.info('GET timetable/lastweek');
 
-      const { notification } = req.session;
+      const today = new Date();
+      const notification = path(['session', 'notification'], req);
       const userDetails = path(['session', 'user'], req);
       const bookingId = path(['bookingId'], userDetails);
       const yesterday = subDays(today, 1);
@@ -83,7 +84,8 @@ module.exports = function Home({ logger, offenderService }) {
     try {
       logger.info('GET timetable/nextweek');
 
-      const { notification } = req.session;
+      const today = new Date();
+      const notification = path(['session', 'notification'], req);
       const userDetails = path(['session', 'user'], req);
       const bookingId = path(['bookingId'], userDetails);
       const nextWeekStart = addDays(today, 7);
