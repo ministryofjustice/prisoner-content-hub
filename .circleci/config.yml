@@ -156,7 +156,7 @@ jobs:
           name: Deploy to Development
           command: |
             export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
-            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-dev.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
 
   deploy_stage:
     machine:
@@ -172,7 +172,7 @@ jobs:
           name: Deploy to Staging
           command: |
             export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
-            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-stage.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
 
   deploy_prod:
     machine:
@@ -188,8 +188,8 @@ jobs:
           name: Deploy to Production
           command: |
             export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
-            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}" && \
-            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@pfs3.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-wayland-prod.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}" && \
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-berwyn-prod.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
 
 workflows:
   version: 2
