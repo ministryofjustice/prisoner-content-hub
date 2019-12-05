@@ -213,17 +213,29 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy_stage:
+      - approve_deploy_stage:
           type: approval
           requires:
             - deploy_dev
           filters:
             branches:
               only: master
-      - deploy_prod:
+      - deploy_stage:
+          requires:
+            - approve_deploy_stage
+          filters:
+            branches:
+              only: master
+      - approve_deploy_prod:
           type: approval
           requires:
             - deploy_stage
+          filters:
+            branches:
+              only: master
+      - deploy_prod:
+          requires:
+            - approve_deploy_prod
           filters:
             branches:
               only: master
