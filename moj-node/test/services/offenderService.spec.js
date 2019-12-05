@@ -108,6 +108,7 @@ describe('Offender Service', () => {
           startTime: '2019-12-07T11:30:30',
           visitTypeDescription: '',
           leadVisitor: '',
+          eventStatus: 'SCH',
         }),
         getVisitsFor: sinon.stub().returns([]),
       };
@@ -118,7 +119,7 @@ describe('Offender Service', () => {
 
       expect(data).to.eql({
         nextVisit: 'Saturday 07 December 2019',
-        nextVisitDate: '07 December',
+        nextVisitDate: '7 December',
         nextVisitDay: 'Saturday',
         visitType: '',
         visitorName: '',

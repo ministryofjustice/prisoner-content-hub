@@ -22,7 +22,7 @@
       window.history.go(-1);
     }
 
-    if (event.target.matches('#go-forward')) {
+    if (event.target.matches('#go-forwards')) {
       event.preventDefault();
       window.history.go(1);
     }
