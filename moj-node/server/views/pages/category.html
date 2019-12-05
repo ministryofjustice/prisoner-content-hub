@@ -25,7 +25,7 @@
     <div class="govuk-width-container">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-          <div class="notification notification--is-error">
+          <div class="notification notification--three-quarters notification--is-error">
             <p>{{notification.text}}</p>
           </div>
         </div>
@@ -59,24 +59,24 @@
     <div>
       <h1 class="govuk-heading-l" id="title">{{ title }}</h1>
       <div class="personalised-section">
-      {% if config.category === 'visits' %}
-        {{ personalVisits({data: data.personalisedData }) }}
-      {% endif %}
-      {% if config.category === 'iep' %}
-        {{ personalIncentives({data: data.personalisedData }) }}
-      {% endif %}
-      {% if config.category === 'money' %}
-        {{ personalBalances({data: data.personalisedData }) }}
-      {% endif %}
+        {% if config.category === 'visits' %}
+          {{ personalVisits({data: data.personalisedData }) }}
+        {% endif %}
+        {% if config.category === 'iep' %}
+          {{ personalIncentives({data: data.personalisedData }) }}
+        {% endif %}
+        {% if config.category === 'money' %}
+          {{ personalBalances({data: data.personalisedData }) }}
+        {% endif %}
       </div>
     </div>
     <div class="help-container-tablet">
       <h2 class="govuk-heading-m">In this section</h2>
       <ul class="govuk-body">
         {% for link in data.categoryMenu %}
-        <li>
-          <a href="{{link.href}}" class="govuk-link">{{link.linkText}}</a>
-        </li>
+          <li>
+            <a href="{{link.href}}" class="govuk-link">{{link.linkText}}</a>
+          </li>
         {% endfor %}
       </ul>
     </div>
@@ -85,9 +85,9 @@
         <h2 class="govuk-heading-m">In this section</h2>
         <ul class="govuk-body">
           {% for link in data.categoryMenu %}
-          <li>
-            <a href="{{link.href}}" class="govuk-link">{{link.linkText}}</a>
-          </li>
+            <li>
+              <a href="{{link.href}}" class="govuk-link">{{link.linkText}}</a>
+            </li>
           {% endfor %}
         </ul>
         <h2 class="govuk-heading-m">Give us feedback</h2>
@@ -110,38 +110,42 @@
       {% for tile in data.relatedContent.data %}
         {% if loop.index === 1 or loop.index === 5 %}
           <div class="category-content__three-items">
-        {% endif %}
-        {% if loop.index > 1 and loop.index <= 7 %}
-          {{ contentTileSmall(tile) }}
-        {% endif %}
-        {% if loop.index === 4 or loop.index === 7 %}
+          {% endif %}
+          {% if loop.index > 1 and loop.index <= 7 %}
+            {{ contentTileSmall(tile) }}
+          {% endif %}
+          {% if loop.index === 4 or loop.index === 7 %}
           </div>
         {% endif %}
       {% endfor %}
       {% if data.relatedContent.data.length !== 4 and data.relatedContent.data.length !== 7 and data.relatedContent.data.length < 8 %}
-        </div>
-      {% endif %}
-    </div>
-    <div class="feedback-tablet">
-      <h2 class="govuk-heading-m">Give us feedback</h2>
-      {{ hubFeedbackWidget({
+      </div>
+    {% endif %}
+  </div>
+  <div class="feedback-tablet">
+    <h2 class="govuk-heading-m">Give us feedback</h2>
+    {{ hubFeedbackWidget({
         id: 'feedback-widget-category-tablet',
         title: data.title,
         contentType: data.contentType,
         establishment: envVars.APP_NAME,
         sidebar: true
       })}}
-    </div>
   </div>
+</div>
 {% endblock %}
 
 {% block homeNavigation %}{% endblock %}
 {% block search %}{% endblock %}
 
 {% block bodyEnd %}
-  <script src="/public/all.js"></script>
-  <script>window.GOVUKFrontend.initAll();</script>
-  <!--[if gte IE 9]>
+<script src="/public/all.js"></script>
+<script>
+  window
+    .GOVUKFrontend
+    .initAll();
+</script>
+<!--[if gte IE 9]>
   <script>
   document.documentElement.className = 'js'; // adds class="js" to <html> element
   function fitImg(imgClass) {

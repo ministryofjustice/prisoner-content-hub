@@ -9,10 +9,22 @@
   background-color: govuk-colour('blue');
   line-height: 1.25;
   box-sizing: border-box;
-  padding: govuk-spacing(1);
-  margin-bottom: govuk-spacing(3);
   border: 5px solid transparent;
   text-align: center;
+  display: block;
+  margin: govuk-spacing(4) 0;
+  & p {
+    margin: govuk-spacing(4);
+  }
+}
+
+.notification--three-quarters {
+  margin: govuk-spacing(4) 0;
+  @media (min-width: $desktop-breakpoint) {
+    margin: 0;
+    margin-bottom: govuk-spacing(4);
+    width: 75%;
+  }
 }
 
 .notification--is-error {
