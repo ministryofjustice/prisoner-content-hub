@@ -3,7 +3,7 @@
     <div class="govuk-body{% if params.finished %} day-block-finished{% endif %}">
   {% endif %}
   <div class="{% if event.finished %} event-finished{% endif %}{% if event.eventType === 'APP' %} event-appt{% endif %}">
-    <div>{{event.timeString}}</div>
+    <div class="timetable-time">{{event.timeString}}</div>
     <div><strong>{{event.description}}</strong> {{event.location}}</div>
   </div>
   {% if loop.last %}
@@ -11,6 +11,6 @@
   {% endif %}
 {% else %}
 <div class="govuk-body{% if params.finished %} day-block-finished{% endif %}">
-  <div>No activities</div>
+  <div><strong>No activities</strong></div>
 </div>
 {% endfor %}

@@ -18,7 +18,7 @@
     <div class="govuk-body">
       {% for event in params.events %}
       <div>
-        <span>{{event.timeString}}</span>
+        <span class="timetable-time">{{event.timeString}}</span>
         <span><strong>{{event.title}}</strong> {{event.location}}</span>
       </div>
       {% endfor %}
