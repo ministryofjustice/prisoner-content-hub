@@ -38,3 +38,33 @@
 .timetable-footer > nav {
   flex: 1 0 auto;
 }
+
+.timetable-time {
+  text-transform: lowercase;
+}
+
+.timetable-nav > :first-child,
+.timetable-nav > :last-child {
+  display: inline-flex;
+  align-items: center;
+}
+
+.timetable-nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.timetable-nav > :last-child::after,
+.timetable-nav > :first-child::before {
+  background-image: url('/public/images/icons/chevron-left.svg');
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  content: '';
+  width: govuk-spacing(4);
+  height: govuk-spacing(4);
+}
+
+.timetable-nav > :last-child::after {
+  background-image: url('/public/images/icons/chevron-right.svg');
+  background-position: 8px 50%;
+}
