@@ -19,9 +19,9 @@
         <h4{% if event.evening.finished %} class="day-block-finished"{% endif %}>Evening</h4>
       </div>
       <div class="timetable-day-blocks">
-        {{ personalScheduleDayBlock(event.morning) }}
-        {{ personalScheduleDayBlock(event.afternoon) }}
-        {{ personalScheduleDayBlock(event.evening) }}
+        {{ personalScheduleDayBlock({ events: event.morning.events, timeOfDay: 'morning' }) }}
+        {{ personalScheduleDayBlock({ events: event.afternoon.events, timeOfDay: 'afternoon' }) }}
+        {{ personalScheduleDayBlock({ events: event.evening.events, timeOfDay: 'evening' }) }}
       </div>
     {% endfor %}
   </div>

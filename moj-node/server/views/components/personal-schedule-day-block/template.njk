@@ -11,6 +11,19 @@
   {% endif %}
 {% else %}
 <div class="govuk-body{% if params.finished %} day-block-finished{% endif %}">
-  <div><strong>No activities</strong></div>
+  <div>
+    <div class="timetable-time">
+    {% if params.timeOfDay === 'morning' %}
+    8:00AM - 12:00PM
+    {% endif %}
+    {% if params.timeOfDay === 'afternoon' %}
+    12:00PM - 5:00PM
+    {% endif %}
+    {% if params.timeOfDay === 'evening' %}
+    5:00PM - 10:00PM
+    {% endif %}
+    </div>
+    <div><strong>No activities</strong></div>
+  </div>
 </div>
 {% endfor %}
