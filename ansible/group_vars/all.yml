@@ -13,15 +13,6 @@ groups_to_create:
   - name: dxc
 
 studio_users:
-  - username: jamesstanley
-    name: "James Stanley"
-    groups:
-      - admin
-    ssh_key:
-      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFDX6wczpIffw6rqRSSSwOHvP1KKU+rFcKZRJEZvcSac jamesstanley@DESKTOP-26TT176"
-    shell: /bin/bash
-    update_password: on_create
-
   - username: gemmabarnes
     name: "Gemma Barnes"
     groups:
@@ -155,6 +146,7 @@ users_deleted:
   - username: mattwhittaker
   - username: jonnield
   - username: johnmansell
+  - username: jamesstanley
 
 nginx_extra_http_options: |
   ##
