@@ -28,6 +28,8 @@
 #go-forwards {
   display: flex;
   align-items: center;
+  text-decoration: none;
+  color: govuk-colour('blue');
 }
 
 #go-forwards::after,

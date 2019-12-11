@@ -20,7 +20,7 @@
 }
 
 .timetable-header > nav > * {
-  padding-left: govuk-spacing(5);
+  margin-left: govuk-spacing(5);
 }
 
 .timetable-header > nav > :first-child {
@@ -52,6 +52,13 @@
 .timetable-nav {
   display: flex;
   justify-content: flex-end;
+}
+
+.timetable-nav > a,
+.timetable-nav > a:link,
+.timetable-nav > a:visited {
+  text-decoration: none;
+  color: govuk-colour('blue');
 }
 
 .timetable-nav > :last-child::after,
