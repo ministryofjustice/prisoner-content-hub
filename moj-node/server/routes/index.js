@@ -50,7 +50,7 @@ const createIndexRouter = ({
         'PSIs & PSOs': '/tags/796',
         'Facilities list & catalogues': getFacilitiesListFor(establishmentId),
         'Healthy mind & body': '/content/3657',
-        // 'Money & debt': '/content/4201',
+        // 'Money & debt': '/money',
         Chaplaincy: '/tags/901',
       };
       analyticsService.sendPageTrack({
