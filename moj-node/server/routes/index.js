@@ -42,7 +42,7 @@ const createIndexRouter = ({
 
       const popularTopics = {
         Coronavirus: '/tags/894',
-        Visits: '/content/4203',
+        Visits: '/visits',
         // Incentives: '/content/4204',
         Games: '/content/3621',
         Inspiration: '/content/3659',
