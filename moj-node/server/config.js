@@ -31,7 +31,7 @@ module.exports = {
   hubEndpoint,
   ldap: {
     domain: getEnv('FQDN', 'MYDOMAIN'),
-    domainController: `ldap://${getEnv('FQDN', 'myad.example')}`,
+    domainController: `ldap://${getEnv('DOMAIN_CONTROLLER', 'myad.example')}`,
   },
   api: {
     matomo: `${matomoEndpoint}/index.php`,
