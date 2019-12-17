@@ -16,7 +16,7 @@ module.exports = function createIepRouter({
     const notification = path(['session', 'notification'], req);
     const userDetails = path(['session', 'user'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], req);
+    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
     const config = {
       content: true,

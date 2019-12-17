@@ -1,4 +1,4 @@
-{% if params.userName %}
+{% if params.userName and params.newDesigns %}
   <h2 class="govuk-body user-details-{{ params.detailsType }}">{{ params.userName }}</h2>
 {% else %}
   {# TODO: Remove this once authentication is live #}
