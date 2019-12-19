@@ -1,27 +1,35 @@
+const { path } = require('ramda');
 const express = require('express');
 
 module.exports = function createSearchRouter({ searchService, logger }) {
   const router = express.Router();
 
-  const viewConfig = {
-    content: false,
-    header: false,
-    postscript: false,
-  };
-
   router.get('/', async (req, res, next) => {
     logger.info('GET /search');
 
-    const { establishmentId } = req.app.locals.envVars;
+    const establishmentId = path(
+      ['app', 'locals', 'envVars', 'establishmentId'],
+      req,
+    );
     let results = [];
-    const { query } = req.query;
+    const query = path(['query', 'query'], req);
+    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+    const userDetails = path(['session', 'user'], req);
+    const config = {
+      content: false,
+      header: false,
+      postscript: false,
+      newDesigns,
+      detailsType: 'small',
+      userName: path(['name'], userDetails),
+    };
 
     try {
       results = await searchService.find({ query, establishmentId });
 
       return res.render('pages/search', {
         title: 'Search',
-        config: viewConfig,
+        config,
         data: results,
         query,
       });
@@ -33,8 +41,11 @@ module.exports = function createSearchRouter({ searchService, logger }) {
   router.get('/suggest', async (req, res) => {
     logger.info('GET /search/suggest');
 
-    const { establishmentId } = req.app.locals.envVars;
-    const { query } = req.query;
+    const establishmentId = path(
+      ['app', 'locals', 'envVars', 'establishmentId'],
+      req,
+    );
+    const query = path(['query', 'query'], req);
 
     try {
       const results = await searchService.typeAhead({
