@@ -1,4 +1,4 @@
-describe('Secondary tag page related content', () => {
+describe.skip('Secondary tag page related content', () => {
   describe('when there are more related content', () => {
     it('loads more related content', function test() {
       cy.server({
