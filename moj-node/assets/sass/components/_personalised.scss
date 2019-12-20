@@ -43,7 +43,7 @@
 .iep-indicator {
   display: inline-block;
   width: 28.7%;
-  margin-top: 0;
+  margin: 0 0 govuk-spacing(1);
   padding: 0 10px;
   text-align: center;
   @include govuk-font(24, 'bold');
@@ -64,13 +64,13 @@
   @include govuk-font(24, 'bold');
 }
 .iep-level--basic {
-  background-color: #1d70b8;
+  background-color: #2b8cc4;
 }
 .iep-level--standard {
   background-color: #28a197;
 }
 .iep-level--enhanced {
-  background-color: #4c2c92;
+  background-color: #6f72af;
   margin-right: 0;
 }
 .iep-indicator--standard {
