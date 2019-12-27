@@ -11,6 +11,7 @@ module.exports = function Topics({ logger, hubMenuService }) {
       const { establishmentId } = req.app.locals.envVars;
       const { notification } = req.session;
       const userDetails = path(['session', 'user'], req);
+      const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
       const [tagsMenu, homepageMenu] = await Promise.all([
         hubMenuService.tagsMenu(),
@@ -21,6 +22,7 @@ module.exports = function Topics({ logger, hubMenuService }) {
         content: false,
         header: false,
         postscript: true,
+        newDesigns,
         detailsType: 'small',
         userName: path(['name'], userDetails),
       };

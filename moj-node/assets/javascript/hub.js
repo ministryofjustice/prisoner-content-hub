@@ -99,6 +99,10 @@
       return hours + ':' + minutes + 'am';
     }
 
+    if (hours > 12) {
+      hours = hours - 12;
+    }
+
     return hours + ':' + minutes + 'pm';
   }
 })();

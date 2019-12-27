@@ -18,7 +18,10 @@
 }
 
 .page-navigation > nav > :last-child {
-  padding-right: 0;
+  margin-right: 0;
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .page-navigation > nav > span {

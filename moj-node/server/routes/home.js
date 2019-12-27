@@ -27,6 +27,7 @@ module.exports = function Home({
         ['app', 'locals', 'envVars', 'establishmentId'],
         req,
       );
+      const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
       const [{ todaysEvents, isTomorrow }, featuredContent] = await Promise.all(
         [
@@ -39,7 +40,7 @@ module.exports = function Home({
         content: true,
         header: true,
         postscript: true,
-        newDesigns: res.locals.features.newDesigns,
+        newDesigns,
         detailsType: 'large',
         userName: path(['name'], userDetails),
         establishmentId,

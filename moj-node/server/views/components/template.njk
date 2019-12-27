@@ -92,18 +92,6 @@
 
     {% block notification %}{% endblock %}
 
-    {% if config.header %}
-      <div class="govuk-hub-header__background {{ data.headerClass }}">
-        <div class="govuk-width-container">
-          {% block beforeContent %}{% endblock %}
-          <header class="govuk-main-wrapper" id="header-content">
-            {% block promotedContent %}{% endblock %}
-            {% block subMenu %}{% endblock %}
-          </header>
-        </div>
-      </div>
-    {% endif %}
-
     {% block main %}{% endblock %}
 
     {% block timetable %}{% endblock %}

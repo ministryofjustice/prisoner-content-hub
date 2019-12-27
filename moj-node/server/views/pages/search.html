@@ -4,7 +4,7 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "../components/page-navigation/macro.njk" import pageNavigation %}
-{% from "../components/user-details-with-search/macro.njk" import userDetailsWithSearch %}
+{% from "../components/user-details/macro.njk" import userDetails %}
 
 {% block pageTitle %}
   {{ title }}
@@ -26,12 +26,10 @@
 {% endblock %}
 
 {% block userDetails %}
-  {{ userDetailsWithSearch({
+  {{ userDetails({
     detailsType: config.detailsType,
     userName: config.userName,
-    newDesigns: config.newDesigns,
-    query: query,
-    small: true
+    newDesigns: config.newDesigns
   }) }}
 {% endblock %}
 
