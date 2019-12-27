@@ -14,6 +14,7 @@
 
 .page-navigation > nav > * {
   margin-right: govuk-spacing(5);
+  @include govuk-font(24);
 }
 
 .page-navigation > nav > :last-child {

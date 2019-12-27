@@ -14,7 +14,7 @@
   <div class="home-content__feature-text">
     <h3 class="govuk-heading-l">{{params.title}}</h3>
     <p class="home-content-storyline">{{params.summary}}</p>
-    {% if params.contentType === "moj_video_item" %}
+    {% if params.contentType === "moj_video_item" or params.contentType === "video" %}
       <p class="content-link--video">Watch</p>
     {% elif params.contentType === "moj_radio_item" or params.contentType === "radio" %}
       <p class="content-link--audio">Listen</p>

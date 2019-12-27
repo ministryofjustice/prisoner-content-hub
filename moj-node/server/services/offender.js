@@ -53,7 +53,7 @@ const getTimetableEventTime = (startTime, endTime) => {
   }
 
   if (endTime !== '') {
-    return `${startTime} - ${endTime}`;
+    return `${startTime} to ${endTime}`;
   }
 
   return startTime;

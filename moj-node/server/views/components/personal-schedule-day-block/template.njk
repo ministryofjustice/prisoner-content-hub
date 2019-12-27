@@ -4,13 +4,13 @@
   {% endif %}
   <div class="{% if event.finished %} event-finished{% endif %}{% if event.eventType === 'APP' %} event-appt{% endif %}">
     <div class="timetable-time">{{event.timeString}}</div>
-    <div><strong>{{event.description}}</strong> {{event.location}}</div>
+    <div class="timetable-desc"><strong>{{event.description}}</strong> {{event.location}}</div>
   </div>
   {% if loop.last %}
     </div>
   {% endif %}
 {% else %}
 <div class="govuk-body{% if params.finished %} day-block-finished{% endif %}">
-  <div><strong>No activities</strong></div>
+  <div class="timetable-empty"><strong>No activities</strong></div>
 </div>
 {% endfor %}

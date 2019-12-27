@@ -54,11 +54,16 @@
   justify-content: flex-end;
 }
 
+.timetable-nav > * {
+  @include govuk-font(24);
+}
+
 .timetable-nav > a,
 .timetable-nav > a:link,
 .timetable-nav > a:visited {
   text-decoration: none;
   color: govuk-colour('blue');
+  @include govuk-font(24);
 }
 
 .timetable-nav > :last-child::after,
