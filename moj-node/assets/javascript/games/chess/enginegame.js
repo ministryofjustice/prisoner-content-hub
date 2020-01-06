@@ -299,8 +299,10 @@ function engineGame(options) {
 
   board = new Chessboard('board', cfg);
 
-  $('#board').on('scroll touchmove touchend touchstart contextmenu', function(e){
-    e.preventDefault();
+  $(function() {
+    $('#board').on('scroll touchmove touchend touchstart contextmenu', function(e){
+      e.preventDefault();
+    });
   });
 
   return {

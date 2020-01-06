@@ -57,6 +57,8 @@ module.exports = function createContentRouter({
             data,
           });
         case 'page':
+          config.content = false;
+
           return res.render('pages/flat-content', {
             title: data.title,
             config,

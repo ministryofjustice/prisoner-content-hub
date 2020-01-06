@@ -9,7 +9,7 @@
     {% endif %}
     <h3 class="govuk-heading-m" style="">{{params.title}}</h3>
     <div>
-      {% if params.contentType === "moj_video_item" %}
+      {% if params.contentType === "moj_video_item" or params.contentType === "video" %}
         <p class="content-link--video">Watch</p>
       {% elif params.contentType === "moj_radio_item" or params.contentType === "radio" %}
         <p class="content-link--audio">Listen</p>

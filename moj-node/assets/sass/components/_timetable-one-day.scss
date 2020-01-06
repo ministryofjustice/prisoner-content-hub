@@ -19,6 +19,7 @@
 .timetable-day h4 {
   flex: 1 0 32.5%;
   margin: govuk-spacing(2) 0 govuk-spacing(2) 0.5%;
+  @include govuk-font(24, 'bold');
 }
 
 .timetable-day h4:first-of-type {
@@ -69,4 +70,12 @@
 
 .timetable-day-blocks > .day-block-finished > .event-appt {
   border-color: #dee0e2;
+}
+
+.timetable-day-blocks {
+  .timetable-empty,
+  .timetable-time,
+  .timetable-desc {
+    @include govuk-font(24);
+  }
 }

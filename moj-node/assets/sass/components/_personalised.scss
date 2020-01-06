@@ -35,6 +35,14 @@
   margin: 0 0 13px;
 }
 
+#iepSummary {
+  width: 100%;
+
+  @media (min-width: $desktop-breakpoint) {
+    width: 75%;
+  }
+}
+
 .iep-info p > span {
   display: block;
   font-weight: 700;
@@ -42,11 +50,15 @@
 }
 .iep-indicator {
   display: inline-block;
-  width: 28.7%;
-  margin-top: 0;
+  width: 30%;
+  margin: 0 0 govuk-spacing(1);
   padding: 0 10px;
   text-align: center;
   @include govuk-font(24, 'bold');
+
+  @media (min-width: $desktop-breakpoint) {
+    width: 29.3%;
+  }
 }
 .iep-indicator::after {
   content: '\25bc';
@@ -58,26 +70,38 @@
   font-weight: bold;
   padding: govuk-spacing(2);
   float: left;
-  width: 28.7%;
+  width: 30%;
   margin-right: govuk-spacing(2);
   text-align: center;
   @include govuk-font(24, 'bold');
+
+  @media (min-width: $desktop-breakpoint) {
+    width: 29.3%;
+  }
 }
 .iep-level--basic {
-  background-color: #1d70b8;
+  background-color: #2b8cc4;
 }
 .iep-level--standard {
   background-color: #28a197;
 }
 .iep-level--enhanced {
-  background-color: #4c2c92;
+  background-color: #6f72af;
   margin-right: 0;
 }
 .iep-indicator--standard {
-  margin-left: calc(28.7% + 30px);
+  margin-left: calc(30% + 30px);
+
+  @media (min-width: $desktop-breakpoint) {
+    margin-left: calc(29.3% + 30px);
+  }
 }
 .iep-indicator--enhanced {
-  margin-left: calc(57.4% + 60px);
+  margin-left: calc(60% + 60px);
+
+  @media (min-width: $desktop-breakpoint) {
+    margin-left: calc(58.6% + 60px);
+  }
 }
 .iepReview {
   @include govuk-font(24);
@@ -104,6 +128,11 @@
 
   & > * {
     flex: 1 0 25%;
+  }
+
+  & p {
+    text-align: right;
+    padding-right: govuk-spacing(2);
   }
 
   & p,

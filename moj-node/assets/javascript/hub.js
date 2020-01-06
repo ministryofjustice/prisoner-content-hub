@@ -64,9 +64,9 @@
     setInterval(function() {
       var date = new Date();
       var currentTime = todaysTime.textContent.trim();
-      var minutes = date.getMinutes();
+      var minutes = ('0' + date.getMinutes()).slice(-2);
       var hours = date.getHours();
-      var nextTime = formateTime(hours) + ':' + formateTime(minutes);
+      var nextTime = formatTime(hours, minutes);
       if (currentTime !== nextTime) {
         todaysTime.textContent = nextTime;
       }
@@ -94,7 +94,15 @@
     return target.matches(selector) || target.matches(selector + ' *');
   }
 
-  function formateTime(time) {
-    return time < 10 ? '0' + time : time;
+  function formatTime(hours, minutes) {
+    if (hours >= 1 && hours <= 11) {
+      return hours + ':' + minutes + 'am';
+    }
+
+    if (hours > 12) {
+      hours = hours - 12;
+    }
+
+    return hours + ':' + minutes + 'pm';
   }
 })();

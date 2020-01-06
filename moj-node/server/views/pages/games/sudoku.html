@@ -1,7 +1,7 @@
 {% from "../../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "../../components/page-navigation/macro.njk" import pageNavigation %}
-{% from "../../components/user-details-with-search/macro.njk" import userDetailsWithSearch %}
+{% from "../../components/user-details/macro.njk" import userDetails %}
 {% extends "../../components/template.njk" %}
 
 {% block pageTitle %}
@@ -25,12 +25,10 @@
 {% endblock %}
 
 {% block userDetails %}
-  {{ userDetailsWithSearch({
+  {{ userDetails({
     detailsType: config.detailsType,
     userName: config.userName,
-    newDesigns: config.newDesigns,
-    query: query,
-    small: true
+    newDesigns: config.newDesigns
   }) }}
 {% endblock %}
 
