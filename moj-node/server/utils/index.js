@@ -32,13 +32,7 @@ function getGoogleAnalyticsId(id) {
 }
 
 const capitalize = (str = '') => {
-  return str
-    .split('')
-    .map((letter, index) => {
-      if (index === 0) return letter.toUpperCase();
-      return letter.toLowerCase();
-    })
-    .join('');
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
 function relativeUrlFrom(url = '', override) {
