@@ -276,7 +276,7 @@ module.exports = function createOffenderService(repository) {
                   title: event.eventSourceDesc,
                   startTime,
                   endTime,
-                  location: event.eventLocation,
+                  location: capitalize(event.eventLocation),
                   timeString: startTime,
                 };
               }),
@@ -359,7 +359,7 @@ module.exports = function createOffenderService(repository) {
           description: event.eventSourceDesc,
           startTime,
           endTime,
-          location: event.eventLocation,
+          location: capitalize(event.eventLocation),
           timeString: getTimetableEventTime(startTime, endTime),
           eventType: event.eventType,
           finished: event.eventStatus !== 'SCH',
