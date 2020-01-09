@@ -4,7 +4,7 @@
     <div>
       <dt><a href="{{ item.href }}" title="{{ item.linkText }}" class="govuk-link govuk-link--no-visited-state">{{ item.linkText }}</a></dt>
       {% if item.description %}
-        <dd>{{ item.description }}</dd>
+        <dd>{{ item.description | safe }}</dd>
       {% endif %}
     </div>
     {% endfor %}
