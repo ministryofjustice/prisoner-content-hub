@@ -29,6 +29,9 @@
       margin: 0;
       font-family: 'GDS Transport', Arial, sans-serif;
       @include govuk-font(19);
+      p {
+        margin-block-start: 0;
+      }
     }
   }
 }
