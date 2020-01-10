@@ -8,7 +8,7 @@ const {
   addMonths,
 } = require('date-fns');
 const { propOr, prop } = require('ramda');
-const { capitalize } = require('../utils');
+const { capitalize, capitalizePersonName } = require('../utils');
 
 const prettyDate = date => {
   if (!isValid(new Date(date))) return 'Unavailable';
@@ -192,7 +192,7 @@ module.exports = function createOffenderService(repository) {
             : 'Unavailable',
         visitorName:
           nextVisit !== 'Unavailable'
-            ? prop('leadVisitor', nextVisitData)
+            ? capitalizePersonName(prop('leadVisitor', nextVisitData))
             : 'Unavailable',
         visitType:
           nextVisit !== 'Unavailable'

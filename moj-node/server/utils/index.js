@@ -32,6 +32,7 @@ function getGoogleAnalyticsId(id) {
 }
 
 const capitalize = (str = '') => {
+  if (str === '') return '';
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
@@ -48,6 +49,24 @@ function fixUrlForProduction(url) {
   return url;
 }
 
+function capitalizeAll(input, separator = ' ') {
+  if (input === '') return '';
+
+  const names = input.split(separator);
+
+  return names.map(name => capitalize(name.trim())).join(separator);
+}
+
+function capitalizePersonName(input, separator = ' ') {
+  if (input === '') return '';
+
+  const names = input.split(separator);
+
+  return names
+    .map(name => capitalizeAll(capitalize(name.trim()), '-'))
+    .join(separator);
+}
+
 module.exports = {
   relativeUrlFrom,
   fixUrlForProduction,
@@ -55,5 +74,7 @@ module.exports = {
   getEstablishmentName,
   isEmpty,
   capitalize,
+  capitalizeAll,
   getGoogleAnalyticsId,
+  capitalizePersonName,
 };
