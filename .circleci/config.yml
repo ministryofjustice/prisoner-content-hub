@@ -133,7 +133,7 @@ jobs:
             MATOMO_TOKEN="foobar" \
             MATOMO_API_URI="http://hub-matomo" \
             ENABLE_PRISON_SWITCH="true" \
-            HUB_API_ENDPOINT="http://pfs-stage-hub-1.uksouth.cloudapp.azure.com:11001" \            
+            HUB_API_ENDPOINT="http://pfs-stage-hub-1.uksouth.cloudapp.azure.com:11001" \
             ELASTICSEARCH_ENDPOINT="UNSET" \
             ESTABLISHMENT_NAME="berwyn" \
             npm run test:e2e:run
