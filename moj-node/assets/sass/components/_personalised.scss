@@ -80,13 +80,13 @@
   }
 }
 .iep-level--basic {
-  background-color: #2b8cc4;
+  background-color: govuk-colour('blue');
 }
 .iep-level--standard {
-  background-color: #28a197;
+  background-color: govuk-colour('turquoise');
 }
 .iep-level--enhanced {
-  background-color: #6f72af;
+  background-color: govuk-colour('purple');
   margin-right: 0;
 }
 .iep-indicator--standard {
