@@ -8,15 +8,15 @@ module.exports = function Topics({ logger, hubMenuService }) {
     try {
       logger.info('GET index');
 
-      const { establishmentId } = req.app.locals.envVars;
-      const { notification } = req.session;
+      const notification = path(['session', 'notification'], req);
       const userDetails = path(['session', 'user'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+      const establishmentId = path(
+        ['app', 'locals', 'envVars', 'establishmentId'],
+        req,
+      );
 
-      const [tagsMenu, homepageMenu] = await Promise.all([
-        hubMenuService.tagsMenu(),
-        hubMenuService.homepageMenu(establishmentId),
-      ]);
+      const allTopics = await hubMenuService.allTopics(establishmentId);
 
       const config = {
         content: false,
@@ -30,8 +30,7 @@ module.exports = function Topics({ logger, hubMenuService }) {
       res.render('pages/topics', {
         title: 'Browse the Content Hub',
         notification,
-        tagsMenu,
-        homepageMenu,
+        allTopics,
         config,
       });
     } catch (exception) {
