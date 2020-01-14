@@ -43,6 +43,7 @@ module.exports = {
     hubTerm: `${hubEndpoint}/v1/api/term`,
     series: `${hubEndpoint}/v1/api/content/series`,
     tags: `${hubEndpoint}/v1/api/vocabulary/tags`,
+    primary: `${hubEndpoint}/jsonapi/node/landing_page?fields[node--landing_page]=title,field_moj_description,drupal_internal__nid,field_moj_prisons`,
   },
   apiV2: {
     hubContent: `${hubEndpoint}/v2/api/content`,

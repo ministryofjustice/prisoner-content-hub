@@ -3,8 +3,16 @@ function createHubMenuService(repository) {
     return repository.seriesMenu();
   }
 
+  function primaryMenu() {
+    return repository.primaryMenu();
+  }
+
   function tagsMenu() {
     return repository.tagsMenu();
+  }
+
+  function allTopics(prisonId) {
+    return repository.allTopics(prisonId);
   }
 
   function homepageMenu(prisonId) {
@@ -22,9 +30,11 @@ function createHubMenuService(repository) {
   return {
     seriesMenu,
     tagsMenu,
+    primaryMenu,
     homepageMenu,
     gettingAJobMenu,
     categoryMenu,
+    allTopics,
   };
 }
 

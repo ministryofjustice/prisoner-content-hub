@@ -11,7 +11,16 @@ const waylandNav = require('../data/wayland-homepage-nav.json');
 const berwynGAJMenu = require('../data/berwyn-step-by-step.json');
 const waylandGAJMenu = require('../data/wayland-step-by-step.json');
 
-function hubMenuRepository(httpClient) {
+function hubMenuRepository(httpClient, jsonClient) {
+  const sortAlphabetically = (a, b) => {
+    if (
+      a.linkText.charAt(0).toLowerCase() > b.linkText.charAt(0).toLowerCase()
+    ) {
+      return 1;
+    }
+    return -1;
+  };
+
   async function mainMenu() {
     const query = {
       _menu: 'main',
@@ -23,6 +32,18 @@ function hubMenuRepository(httpClient) {
   async function tagsMenu() {
     const response = await httpClient.get(config.api.tags);
     return parseTagsResponse(response);
+  }
+
+  async function primaryMenu(prisonId = 0) {
+    const response = await jsonClient.get(config.api.primary);
+    return parseJsonResponse(response, prisonId);
+  }
+
+  async function allTopics(prisonId) {
+    const tags = await tagsMenu();
+    const primary = await primaryMenu(prisonId);
+
+    return tags.concat(primary).sort(sortAlphabetically);
   }
 
   async function seriesMenu() {
@@ -75,6 +96,41 @@ function hubMenuRepository(httpClient) {
     }));
   }
 
+  function parseJsonResponse(data, prisonId) {
+    if (data === null) return [];
+
+    const prisonUids = {
+      792: 'fd1e1db7-d0be-424a-a3a6-3b0f49e33293', // berwyn
+      793: 'b73767ea-2cbb-4ad5-ba22-09379cc07241', // wayland
+    };
+
+    const items = Object.keys(data.data)
+      .filter(key => {
+        const { relationships } = data.data[key];
+        const prisons = R.path(['field_moj_prisons', 'data'], relationships);
+        const matchingPrison = prisons.some(
+          prison => prison.id === prisonUids[prisonId],
+        );
+
+        return prisons.length === 0 || matchingPrison;
+      })
+      .map(key => {
+        const { attributes } = data.data[key];
+
+        return {
+          id: attributes.drupal_internal__nid,
+          linkText: attributes.title,
+          description: R.path(
+            ['field_moj_description', 'processed'],
+            attributes,
+          ),
+          href: `/content/${attributes.drupal_internal__nid}`,
+        };
+      });
+
+    return items.sort(sortAlphabetically);
+  }
+
   function parseTagsResponse(data) {
     if (data === null) return [];
 
@@ -84,15 +140,6 @@ function hubMenuRepository(httpClient) {
       description: termDescriptionValueFrom(data[key]),
       href: `/tags/${tagIdFrom(data[key])}`,
     }));
-
-    const sortAlphabetically = (a, b) => {
-      if (
-        a.linkText.charAt(0).toLowerCase() > b.linkText.charAt(0).toLowerCase()
-      ) {
-        return 1;
-      }
-      return -1;
-    };
 
     return tags.sort(sortAlphabetically);
   }
@@ -131,10 +178,12 @@ function hubMenuRepository(httpClient) {
   return {
     mainMenu,
     tagsMenu,
+    primaryMenu,
     seriesMenu,
     homepageMenu,
     gettingAJobMenu,
     categoryMenu,
+    allTopics,
   };
 }
 

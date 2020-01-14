@@ -29,7 +29,9 @@ const searchRepository = require('./repositories/search');
 const buildInfo = config.dev ? null : require('../build-info.json'); // eslint-disable-line import/no-unresolved
 
 // Connect services with repositories
-const hubMenuService = createHubMenuService(hubMenuRepository(new HubClient()));
+const hubMenuService = createHubMenuService(
+  hubMenuRepository(new HubClient(), new StandardClient()),
+);
 const hubFeaturedContentService = createHubFeaturedContentService(
   hubFeaturedContentRepository(new HubClient()),
 );
