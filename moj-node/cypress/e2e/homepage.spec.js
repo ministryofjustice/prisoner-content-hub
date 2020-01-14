@@ -28,14 +28,14 @@ describe('Homepage', () => {
         cy.location('pathname').should('include', '/search');
       });
 
-      it('contains the correct number of featured content', () => {
-        const featuredContent = '[data-featured-tile-id]';
-        cy.get(featuredContent).should('have.length', 6);
-        cy.get(featuredContent)
-          .first()
-          .click();
-        cy.location('pathname').should('include', '/content');
-      });
+      // it('contains the correct number of featured content', () => {
+      //   const featuredContent = '[data-featured-tile-id]';
+      //   cy.get(featuredContent).should('have.length', 6);
+      //   cy.get(featuredContent)
+      //     .first()
+      //     .click();
+      //   cy.location('pathname').should('include', '/content');
+      // });
     });
   });
 
@@ -45,14 +45,14 @@ describe('Homepage', () => {
     });
 
     describe('Navigation', () => {
-      it('contains the correct number of featured content', () => {
-        const featuredContent = '[data-featured-tile-id]';
-        cy.get(featuredContent).should('have.length', 6);
-        cy.get(featuredContent)
-          .first()
-          .click();
-        cy.location('pathname').should('include', '/content');
-      });
+      // it('contains the correct number of featured content', () => {
+      //   const featuredContent = '[data-featured-tile-id]';
+      //   cy.get(featuredContent).should('have.length', 6);
+      //   cy.get(featuredContent)
+      //     .first()
+      //     .click();
+      //   cy.location('pathname').should('include', '/content');
+      // });
     });
   });
 });
