@@ -1,4 +1,4 @@
-<a data-featured-tile-id="{{params.id}}" data-featured-id="{{params.id}}" data-featured-title="{{ params.title }}" href="{{params.contentUrl}}" {% if params.contentType === 'pdf' %}class="piwik_download" target="_blank"{% endif %}>
+<a data-featured-tile-id="{{params.id}}" data-featured-id="{{params.id}}" data-featured-title="{{ params.title }}" href="{{params.contentUrl}}" {% if params.contentType === 'pdf' or  params.contentType === 'moj_pdf_item' %}class="piwik_download" target="_blank"{% endif %}>
   <div>
     {% if params.isSeries %}
       <div class="home-content-img-series">
