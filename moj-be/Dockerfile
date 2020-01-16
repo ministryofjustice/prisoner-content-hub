@@ -30,8 +30,12 @@ COPY modules/custom modules/custom
 COPY sites/ sites/
 
 # Copy Apache configuration
+RUN rm /etc/apache2/apache2.conf
+COPY ./apache/apache2.conf /etc/apache2/apache2.conf
+
+# Copy Sites configuration
 RUN rm -f /etc/apache2/sites-enabled/*
-COPY ./apache/* /etc/apache2/sites-enabled/
+COPY ./apache/hub-be.conf /etc/apache2/sites-enabled/hub-be.conf
 
 # Update permisions
 RUN chown -R www-data:www-data sites modules themes
