@@ -14,6 +14,6 @@ module.exports.ESTABLISHMENTS = {
 };
 
 module.exports.FACILITY_LIST_CONTENT_IDS = {
-  792: '/tags/847',
-  793: '/tags/881',
+  792: '/content/3990',
+  793: '/content/4539',
 };

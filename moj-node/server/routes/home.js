@@ -48,7 +48,7 @@ module.exports = function Home({
 
       const popularTopics = {
         Visits: '/content/4203',
-        IEP: '/content/4204',
+        Incentives: '/content/4204',
         Games: '/content/3621',
         Inspiration: '/content/3659',
         'Music & talk': '/content/3662',
