@@ -229,3 +229,33 @@
   content: url('/public/images/icons/audio.svg');
   background-color: govuk-colour('green');
 }
+.older-content {
+  margin-top: govuk-spacing(5);
+  color: govuk-colour('white');
+  float: right;
+  @include govuk-font(24);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+
+  &:link,
+  &:hover,
+  &:visited {
+    text-decoration: none;
+    color: govuk-colour('white');
+  }
+  &:active,
+  &:focus {
+    color: govuk-colour('black');
+  }
+
+  &::after {
+    background-repeat: no-repeat;
+    content: '';
+    width: govuk-spacing(4);
+    height: govuk-spacing(4);
+    background-image: url('/public/images/icons/chevron-right-white.svg');
+    background-position: 8px 50%;
+  }
+}
