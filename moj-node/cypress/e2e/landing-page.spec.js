@@ -4,7 +4,6 @@ describe('Landing page', () => {
     heathyMindAndBody: '/content/3657',
     legalAndYourRights: '/content/3658',
     inspiration: '/content/3659',
-    scienceAndNature: '/content/3660',
     artAndCultures: '/content/3661',
     history: '/content/3699',
     music: '/content/3662',
