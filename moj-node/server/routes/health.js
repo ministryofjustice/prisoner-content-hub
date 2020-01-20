@@ -6,7 +6,7 @@ module.exports = function Health({ appInfo, healthService }) {
   router.get('/', async (req, res, next) => {
     try {
       const healthStatus = await healthService.status();
-
+      res.set('Content-Language', 'en-GB');
       res.json({
         ...appInfo.getBuildInfo(),
         ...healthStatus,
