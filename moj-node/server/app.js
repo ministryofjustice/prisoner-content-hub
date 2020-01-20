@@ -13,7 +13,6 @@ const session = require('cookie-session');
 
 const createIndexRouter = require('./routes/index');
 const createTopicsRouter = require('./routes/topics');
-const createHomeRouter = require('./routes/home');
 const createTimetableRouter = require('./routes/timetable');
 const createHealthRouter = require('./routes/health');
 const createContentRouter = require('./routes/content');
@@ -186,15 +185,6 @@ module.exports = function createApp({
   );
 
   if (config.features.newDesigns) {
-    app.use(
-      '/home',
-      createHomeRouter({
-        logger,
-        offenderService,
-        hubFeaturedContentService,
-      }),
-    );
-
     app.use(
       '/timetable',
       createTimetableRouter({
