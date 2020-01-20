@@ -1,4 +1,5 @@
 const express = require('express');
+const { path } = require('ramda');
 const {
   FACILITY_LIST_CONTENT_IDS: facilitiesList,
 } = require('../constants/hub');
@@ -15,8 +16,13 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
     try {
       logger.info('GET index');
 
-      const { establishmentId } = req.app.locals.envVars;
-      const { notification } = req.session;
+      const notification = path(['session', 'notification'], req);
+      const userDetails = path(['session', 'user'], req);
+      const establishmentId = path(
+        ['app', 'locals', 'envVars', 'establishmentId'],
+        req,
+      );
+      const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
       const featuredContent = await hubFeaturedContentService.hubFeaturedContent(
         { establishmentId },
@@ -26,8 +32,10 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
         content: true,
         header: true,
         postscript: true,
-        newDesigns: res.locals.features.newDesigns,
+        newDesigns,
+        userName: path(['name'], userDetails),
         detailsType: 'large',
+        establishmentId,
       };
 
       const popularTopics = {
