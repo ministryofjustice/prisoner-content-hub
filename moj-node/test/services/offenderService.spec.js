@@ -72,6 +72,7 @@ describe('Offender Service', () => {
         spends: '£100.00',
         cash: '£100.00',
         savings: '£0.00',
+        phone: '£NaN',
         currency: 'GBP',
       });
     });

@@ -109,6 +109,7 @@ module.exports = function createOffenderService(repository) {
   async function getBalancesFor(bookingId) {
     try {
       const balances = await repository.getBalancesFor(bookingId);
+      // const phone = await repository.getPhoneCreditFor(bookingId);
       const defaultValue = 'Unavailable';
       const getOrDefault = propOr(defaultValue);
       const getOrCurrency = propOr('GBP');
@@ -136,6 +137,10 @@ module.exports = function createOffenderService(repository) {
           balanceData.savings !== defaultValue
             ? formatBalance(balanceData.savings, balanceData.currency)
             : balanceData.savings,
+        phone:
+          balanceData.phone !== defaultValue
+            ? formatBalance(balanceData.phone, balanceData.currency)
+            : balanceData.phone,
         currency: balanceData.currency,
       };
     } catch {

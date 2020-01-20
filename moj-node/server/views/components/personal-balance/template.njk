@@ -26,14 +26,15 @@
       </div>
     </div>
     <div class="balances">
+      <p>PIN phone</p>
+      <div>
+        <button type="button" class="govuk-button" id="show-phone-credit" onclick="showHiddenBlock('phone-credit')">View balance</button>
+        <p id="phone-credit" class="hidden-block-text">{{ params.data.phone }}</p>
+      </div>
       <p>Savings</p>
       <div>
         <button type="button" class="govuk-button" id="show-balance-savings" onclick="showHiddenBlock('balance-savings')">View balance</button>
         <p id="balance-savings" class="hidden-block-text">{{ params.data.savings }}</p>
-      </div>
-      <p>&nbsp;</p>
-      <div>
-        &nbsp;
       </div>
     </div>
   </div>

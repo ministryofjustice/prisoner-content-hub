@@ -48,6 +48,18 @@ module.exports = {
   apiV2: {
     hubContent: `${hubEndpoint}/v2/api/content`,
   },
+  phone: {
+    server: '80.229.21.48',
+    port: '9005',
+    passPhrase: '',
+    iterations: 2500,
+    salt: '',
+    initialisationVector:
+      '',
+    api: {
+      credit: getEnv('BT_PIN', 'bt.pin'),
+    },
+  },
   nomis: {
     clientToken: getEnv('NOMIS_API_TOKEN', 'ADD_ME'),
     api: {
