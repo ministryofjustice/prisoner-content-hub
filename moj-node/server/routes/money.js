@@ -16,6 +16,7 @@ module.exports = function createVisitsRouter({
     const notification = path(['session', 'notification'], req);
     const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
+    const offenderNo = path(['session', 'user', 'offenderNo'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
     const config = {
@@ -31,7 +32,10 @@ module.exports = function createVisitsRouter({
     const establishmentId = path(['locals', 'establishmentId'], res);
 
     try {
-      const balances = await offenderService.getBalancesFor(bookingId);
+      const balances = await offenderService.getBalancesFor(
+        bookingId,
+        offenderNo,
+      );
       const data = await hubContentService.contentFor(id, establishmentId);
       data.personalisedData = balances;
 
