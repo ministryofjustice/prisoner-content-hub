@@ -1,6 +1,16 @@
 const express = require('express');
 const { path } = require('ramda');
 
+const fixUrls = element => {
+  const { id, description, href, linkText } = element;
+  switch (element.href) {
+    case '/content/4204':
+      return { id, description, href: '/iep', linkText };
+    default:
+      return { id, description, href, linkText };
+  }
+};
+
 module.exports = function Topics({ logger, hubMenuService }) {
   const router = express.Router();
 
@@ -16,7 +26,7 @@ module.exports = function Topics({ logger, hubMenuService }) {
         req,
       );
 
-      const allTopics = await hubMenuService.allTopics(establishmentId);
+      const topics = await hubMenuService.allTopics(establishmentId);
 
       const config = {
         content: false,
@@ -30,7 +40,7 @@ module.exports = function Topics({ logger, hubMenuService }) {
       res.render('pages/topics', {
         title: 'Browse the Content Hub',
         notification,
-        allTopics,
+        allTopics: topics.map(fixUrls),
         config,
       });
     } catch (exception) {
