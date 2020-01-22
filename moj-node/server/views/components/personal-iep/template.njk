@@ -16,12 +16,12 @@
     {% if params.data.iepLevel === 'Basic' %}iep-indicator--basic{% endif %}
     {% if params.data.iepLevel === 'Standard' %}iep-indicator--standard{% endif %}
     {% if params.data.iepLevel === 'Enhanced' %}iep-indicator--enhanced{% endif %}
-    ">Your current IEP level</p>
+    ">Your current level</p>
     <div class="iep-levels govuk-clearfix">
       <div class="iep-level iep-level--basic">Basic</div>
       <div class="iep-level iep-level--standard">Standard</div>
       <div class="iep-level iep-level--enhanced">Enhanced</div>
     </div>
-    <p class="iepReview">Your IEP level can be reviewed on <span>{{ params.data.reviewDate }}</span></p>
+    <p class="iepReview">Your level can be reviewed on <span>{{ params.data.reviewDate }}</span></p>
   </div>
 {% endif %}

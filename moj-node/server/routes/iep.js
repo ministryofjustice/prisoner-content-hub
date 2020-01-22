@@ -39,7 +39,7 @@ module.exports = function createIepRouter({
       data.personalisedData = iep;
 
       return res.render('pages/category', {
-        title: 'IEP (Incentive and Earned Privileges)',
+        title: 'Incentives',
         config,
         data,
         notification,
