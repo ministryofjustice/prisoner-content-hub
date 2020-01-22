@@ -82,7 +82,7 @@ describe('App', () => {
           'The code block should not be empty',
         );
         expect(res.text).to.contain(
-          'at Context.it',
+          'at Context.',
           'there should be an error in the code block',
         );
 
