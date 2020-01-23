@@ -4,8 +4,8 @@ const { path } = require('ramda');
 const fixUrls = element => {
   const { id, description, href, linkText } = element;
   switch (element.href) {
-    case '/content/4204':
-      return { id, description, href: '/iep', linkText };
+    // case '/content/4204':
+    //   return { id, description, href: '/iep', linkText };
     default:
       return { id, description, href, linkText };
   }
