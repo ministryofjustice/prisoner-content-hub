@@ -2,14 +2,48 @@ const offenderRepository = require('../../server/repositories/offender');
 
 describe('offenderRepository', () => {
   describe('getOffenderDetailsFor', () => {
-    it('calls the offender endpoint for a given ID', async () => {
+    it('validates the offender number before making a call to the API', async () => {
+      const offenderNumber = '1234567';
+      const client = {
+        get: sinon.stub(),
+      };
+      const repository = offenderRepository(client);
+
+      let exception = null;
+
+      try {
+        await repository.getOffenderDetailsFor(offenderNumber);
+      } catch (e) {
+        exception = e;
+      }
+
+      expect(exception.message).to.equal('Invalid offender number');
+      expect(client.get.called).to.equal(false);
+    });
+    it('should make the offender number uppercase before making a call to the API', async () => {
+      const offenderNumber = 'a1234bc';
       const client = {
         get: sinon.stub().resolves('SOME_RESULT'),
       };
       const repository = offenderRepository(client);
-      const result = await repository.getOffenderDetailsFor('FOO_ID');
+      const result = await repository.getOffenderDetailsFor(offenderNumber);
 
-      expect(client.get.lastCall.args[0]).to.include('/offenderNo/FOO_ID');
+      expect(client.get.lastCall.args[0]).to.include(
+        `/offenderNo/${offenderNumber.toUpperCase()}`,
+      );
+      expect(result).to.equal('SOME_RESULT');
+    });
+    it('calls the offender endpoint for a given ID', async () => {
+      const offenderNumber = 'A1234BC';
+      const client = {
+        get: sinon.stub().resolves('SOME_RESULT'),
+      };
+      const repository = offenderRepository(client);
+      const result = await repository.getOffenderDetailsFor(offenderNumber);
+
+      expect(client.get.lastCall.args[0]).to.include(
+        `/offenderNo/${offenderNumber}`,
+      );
       expect(result).to.equal('SOME_RESULT');
     });
   });

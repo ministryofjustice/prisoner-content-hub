@@ -59,8 +59,11 @@ module.exports.createUserSession = ({ offenderService }) => {
     } catch (error) {
       logger.error(error);
       const errorStatus = path(['response', 'status'], error);
-
-      if (errorStatus >= 500) {
+      if (!errorStatus) {
+        request.session.notification = createNotification(
+          notificationContent.userNotFound,
+        );
+      } else if (errorStatus >= 500) {
         request.session.notification = createNotification(
           notificationContent.systemError,
         );
