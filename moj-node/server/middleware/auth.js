@@ -3,7 +3,7 @@ const { path } = require('ramda');
 const config = require('../config');
 const logger = require('../../log');
 
-const offenderNumber = path(['user', 'offenderNo']);
+const getOffenderNumberFrom = path(['user', 'offenderNo']);
 
 const notificationContent = {
   userNotFound:
@@ -23,7 +23,7 @@ module.exports.authMiddleware = (ntlm = expressNTLM) => {
         DomainName: 'MOCK_DOMAIN',
         UserName:
           request.query.mockUser ||
-          offenderNumber(request.session) ||
+          getOffenderNumberFrom(request.session) ||
           'G9542VP',
         Workstation: 'MOCK_WORKSTATION',
       };
@@ -50,10 +50,12 @@ module.exports.createUserSession = ({ offenderService }) => {
         );
         request.session.user = offenderDetails;
         delete request.session.notification;
-      } else if (
-        !offenderNo ||
-        offenderNo !== offenderNumber(request.session)
-      ) {
+      } else if (offenderNo !== getOffenderNumberFrom(request.session)) {
+        logger.warn(
+          `Session closed, username did not match: ${offenderNo} => ${getOffenderNumberFrom(
+            request.session,
+          )}`,
+        );
         delete request.session.user;
       }
     } catch (error) {
