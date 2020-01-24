@@ -164,9 +164,9 @@ module.exports = function createApp({
   // Routing
 
   // Authentication
-  if (config.features.newDesigns) {
-    app.use(authMiddleware(), createUserSession({ offenderService }));
-  }
+  // if (config.features.newDesigns) {
+  app.use(authMiddleware(), createUserSession({ offenderService }));
+  // }
 
   app.use(
     '/',
