@@ -1,10 +1,18 @@
 const config = require('../config');
 
+function validateOffenderNumberFor(offenderNo) {
+  const pattern = new RegExp(/[A-Z][0-9]{4}[A-Z]{2}/i);
+  return pattern.test(offenderNo);
+}
+
 function offenderRepository(httpClient) {
   function getOffenderDetailsFor(offenderNo) {
-    return httpClient.get(
-      `${config.nomis.api.bookings}/offenderNo/${offenderNo}`,
-    );
+    if (validateOffenderNumberFor(offenderNo)) {
+      return httpClient.get(
+        `${config.nomis.api.bookings}/offenderNo/${offenderNo.toUpperCase()}`,
+      );
+    }
+    throw new Error('Invalid offender number');
   }
 
   function getIEPSummaryFor(bookingId) {
