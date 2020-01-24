@@ -51,8 +51,13 @@ module.exports.createUserSession = ({ offenderService }) => {
         request.session.user = offenderDetails;
         delete request.session.notification;
       } else if (offenderNo !== getOffenderNumberFrom(request.session)) {
+        const forwarded = path(['headers', 'x-forwarded-for'], request);
+        const ip = forwarded
+          ? forwarded.split(/, /)[0]
+          : path(['connection', 'remoteAddress'], request);
+
         logger.warn(
-          `Session closed, username did not match: ${offenderNo} => ${getOffenderNumberFrom(
+          `(${ip}) Session closed, username did not match: ${offenderNo} => ${getOffenderNumberFrom(
             request.session,
           )}`,
         );
