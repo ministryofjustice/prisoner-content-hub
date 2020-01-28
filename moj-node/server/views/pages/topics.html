@@ -32,7 +32,7 @@
 
 {% block topBar %}
   {{ topBar({
-    appName: envVars.APP_NAME,
+    establishmentName: establishmentName,
     showBar: false
   }) }}
 {% endblock %}
@@ -64,5 +64,9 @@
 
 {% block bodyEnd %}
   <script src="/public/all.js"></script>
-  <script>window.GOVUKFrontend.initAll();</script>
+  <script>
+    window
+      .GOVUKFrontend
+      .initAll();
+  </script>
 {% endblock %}

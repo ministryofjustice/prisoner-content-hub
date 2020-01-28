@@ -40,7 +40,7 @@
 
 {% block topBar %}
   {{ topBar({
-    appName: envVars.APP_NAME,
+    establishmentName: establishmentName,
     showBar: false
   }) }}
 {% endblock %}
@@ -93,7 +93,7 @@
         {{ hubFeedbackWidget({
           title: data.title,
           contentType: data.contentType,
-          establishment: envVars.APP_NAME,
+          establishment: establishmentName,
           sidebar: true
         })}}
       </div>
@@ -127,7 +127,7 @@
         id: 'feedback-widget-category-tablet',
         title: data.title,
         contentType: data.contentType,
-        establishment: envVars.APP_NAME,
+        establishment: establishmentName,
         sidebar: true
       })}}
   </div>

@@ -20,7 +20,7 @@
 
 {% block topBar %}
   {{ topBar({
-    appName: envVars.APP_NAME,
+    establishmentName: establishmentName,
     showBar: false
   }) }}
 {% endblock %}
@@ -61,7 +61,7 @@
       title: data.title,
       contentType: data.contentType,
       series: data.seriesName,
-      establishment: envVars.APP_NAME
+      establishment: establishmentName
     }) }}
 
       <div class="govuk-hub-media-player__description">

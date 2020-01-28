@@ -16,8 +16,8 @@ module.exports = function establishmentToggle(req, res, next) {
   const establishmentId = getEstablishmentId(req.session.prison);
   const establishmentName = getEstablishmentName(establishmentId);
 
-  req.app.locals.envVars.establishmentId = establishmentId;
-  req.app.locals.envVars.APP_NAME = `HMP ${capitalize(establishmentName)}`;
+  res.locals.establishmentId = establishmentId;
+  res.locals.establishmentName = `HMP ${capitalize(establishmentName)}`;
 
   next();
 };

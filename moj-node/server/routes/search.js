@@ -7,21 +7,19 @@ module.exports = function createSearchRouter({ searchService, logger }) {
   router.get('/', async (req, res, next) => {
     logger.info('GET /search');
 
-    const establishmentId = path(
-      ['app', 'locals', 'envVars', 'establishmentId'],
-      req,
-    );
+    const establishmentId = path(['locals', 'establishmentId'], res);
+
     let results = [];
     const query = path(['query', 'query'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
-    const userDetails = path(['session', 'user'], req);
+    const userName = path(['session', 'user', 'name'], req);
     const config = {
       content: false,
       header: false,
       postscript: false,
-      newDesigns,
       detailsType: 'small',
-      userName: path(['name'], userDetails),
+      newDesigns,
+      userName,
     };
 
     try {
@@ -41,10 +39,8 @@ module.exports = function createSearchRouter({ searchService, logger }) {
   router.get('/suggest', async (req, res) => {
     logger.info('GET /search/suggest');
 
-    const establishmentId = path(
-      ['app', 'locals', 'envVars', 'establishmentId'],
-      req,
-    );
+    const establishmentId = path(['locals', 'establishmentId'], res);
+
     const query = path(['query', 'query'], req);
 
     try {

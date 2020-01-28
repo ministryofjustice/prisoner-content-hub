@@ -18,7 +18,7 @@
 
 {% block topBar %}
   {{ topBar({
-    appName: envVars.APP_NAME,
+    establishmentName: establishmentName,
     showBar: false
   }) }}
 {% endblock %}
@@ -53,7 +53,7 @@
         {{ hubFeedbackWidget({
           title: data.title,
           contentType: data.contentType,
-          establishment: envVars.APP_NAME
+          establishment: establishmentName
         })}}
       </div>
     </main>

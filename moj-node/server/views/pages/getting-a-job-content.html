@@ -20,7 +20,7 @@
 
 {% block topBar %}
   {{ topBar({
-    appName: envVars.APP_NAME,
+    establishmentName: establishmentName,
     showBar: false
   }) }}
 {% endblock %}
@@ -53,7 +53,7 @@
               title: data.title,
               contentType: 'step-by-step',
               series: 'getting-a-job',
-              establishment: envVars.APP_NAME
+              establishment: establishmentName
             })}}
           </div>
         </div>
