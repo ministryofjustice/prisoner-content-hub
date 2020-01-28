@@ -21,22 +21,19 @@ module.exports = function createContentRouter({
     }
 
     const notification = path(['session', 'notification'], req);
-    const userDetails = path(['session', 'user'], req);
+    const userName = path(['session', 'user', 'name'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
     const config = {
       content: true,
       header: false,
       postscript: false,
-      newDesigns,
       detailsType: 'small',
-      userName: path(['name'], userDetails),
+      newDesigns,
+      userName,
     };
 
-    const establishmentId = path(
-      ['app', 'locals', 'envVars', 'establishmentId'],
-      req,
-    );
+    const establishmentId = path(['locals', 'establishmentId'], res);
     const backendUrl = path(['app', 'locals', 'envVars', 'backendUrl'], req);
 
     try {

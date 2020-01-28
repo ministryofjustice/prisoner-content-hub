@@ -16,7 +16,7 @@ const elasticSearchEndpoint = getEnv(
 );
 
 module.exports = {
-  appName: getEnv('APP_NAME', 'HMP Hub Local', {
+  appName: getEnv('APP_NAME', `digital-hub-frontend`, {
     requireInProduction: true,
   }),
   dev: !isProduction && !isTest,

@@ -6,7 +6,7 @@
 {% extends "../components/template.njk" %}
 
 {% block pageTitle %}
-  {{envVars.APP_NAME}}
+  {{establishmentName}}
 {% endblock %}
 
 {% block head %}
@@ -29,7 +29,7 @@
 
 {% block topBar %}
   {{ topBar({
-    appName: envVars.APP_NAME,
+    establishmentName: establishmentName,
     showBar: true
   }) }}
 {% endblock %}
@@ -91,7 +91,11 @@
 
 {% block bodyEnd %}
   <script src="/public/all.js"></script>
-  <script>window.GOVUKFrontend.initAll();</script>
+  <script>
+    window
+      .GOVUKFrontend
+      .initAll();
+  </script>
   <!--[if gte IE 9]>
   <script>
     document.documentElement.className = 'js'; // adds class="js" to <html> element

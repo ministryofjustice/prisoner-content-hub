@@ -19,12 +19,9 @@ module.exports = function Topics({ logger, hubMenuService }) {
       logger.info('GET index');
 
       const notification = path(['session', 'notification'], req);
-      const userDetails = path(['session', 'user'], req);
+      const userName = path(['session', 'user', 'name'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
-      const establishmentId = path(
-        ['app', 'locals', 'envVars', 'establishmentId'],
-        req,
-      );
+      const establishmentId = path(['locals', 'establishmentId'], res);
 
       const topics = await hubMenuService.allTopics(establishmentId);
 
@@ -32,9 +29,9 @@ module.exports = function Topics({ logger, hubMenuService }) {
         content: false,
         header: false,
         postscript: true,
-        newDesigns,
         detailsType: 'small',
-        userName: path(['name'], userDetails),
+        newDesigns,
+        userName,
       };
 
       res.render('pages/topics', {

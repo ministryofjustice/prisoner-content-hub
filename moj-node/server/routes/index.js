@@ -17,11 +17,8 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
       logger.info('GET index');
 
       const notification = path(['session', 'notification'], req);
-      const userDetails = path(['session', 'user'], req);
-      const establishmentId = path(
-        ['app', 'locals', 'envVars', 'establishmentId'],
-        req,
-      );
+      const userName = path(['session', 'user', 'name'], req);
+      const establishmentId = path(['locals', 'establishmentId'], res);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
       const featuredContent = await hubFeaturedContentService.hubFeaturedContent(
@@ -32,9 +29,9 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
         content: true,
         header: true,
         postscript: true,
-        newDesigns,
-        userName: path(['name'], userDetails),
         detailsType: 'large',
+        newDesigns,
+        userName,
         establishmentId,
       };
 

@@ -14,19 +14,16 @@ module.exports = function Tags({ logger, hubTagsService }) {
         return next();
       }
 
-      const establishmentId = path(
-        ['app', 'locals', 'envVars', 'establishmentId'],
-        req,
-      );
-      const userDetails = path(['session', 'user'], req);
+      const userName = path(['session', 'user', 'name'], req);
+      const establishmentId = path(['locals', 'establishmentId'], res);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
       const config = {
         content: true,
         header: false,
         postscript: false,
-        newDesigns,
         detailsType: 'small',
-        userName: path(['name'], userDetails),
+        newDesigns,
+        userName,
       };
 
       const data = await hubTagsService.termFor(id, establishmentId);
@@ -51,8 +48,9 @@ module.exports = function Tags({ logger, hubTagsService }) {
     }
 
     try {
-      const { establishmentId } = req.app.locals.envVars;
-      const { contentType } = req.query;
+      const establishmentId = path(['locals', 'establishmentId'], res);
+      const contentType = path(['query', 'contentType'], req);
+
       const method =
         contentType === 'series' ? 'relatedSeriesFor' : 'relatedContentFor';
 

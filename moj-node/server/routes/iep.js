@@ -14,7 +14,7 @@ module.exports = function createIepRouter({
     logger.info('GET /iep');
 
     const notification = path(['session', 'notification'], req);
-    const userDetails = path(['session', 'user'], req);
+    const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
@@ -22,16 +22,13 @@ module.exports = function createIepRouter({
       content: true,
       header: false,
       postscript: true,
-      newDesigns,
       detailsType: 'small',
-      userName: path(['name'], userDetails),
       category: 'iep',
+      newDesigns,
+      userName,
     };
 
-    const establishmentId = path(
-      ['app', 'locals', 'envVars', 'establishmentId'],
-      req,
-    );
+    const establishmentId = path(['locals', 'establishmentId'], res);
 
     try {
       const iep = await offenderService.getIEPSummaryFor(bookingId);

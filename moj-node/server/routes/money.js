@@ -14,7 +14,7 @@ module.exports = function createVisitsRouter({
     logger.info('GET /money');
 
     const notification = path(['session', 'notification'], req);
-    const userDetails = path(['session', 'user'], req);
+    const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
@@ -22,16 +22,13 @@ module.exports = function createVisitsRouter({
       content: true,
       header: false,
       postscript: true,
-      newDesigns,
       detailsType: 'small',
-      userName: path(['name'], userDetails),
       category: 'money',
+      newDesigns,
+      userName,
     };
 
-    const establishmentId = path(
-      ['app', 'locals', 'envVars', 'establishmentId'],
-      req,
-    );
+    const establishmentId = path(['locals', 'establishmentId'], res);
 
     try {
       const balances = await offenderService.getBalancesFor(bookingId);

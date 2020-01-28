@@ -141,7 +141,7 @@ module.exports = function createApp({
   app.locals.asset_path = '/public/';
   app.locals.envVars = {
     MATOMO_URL: config.matomoUrl,
-    APP_NAME: config.appName,
+    establishmentName: config.establishmentName,
     backendUrl: config.backendUrl,
     establishmentId,
     gaId: getGoogleAnalyticsId(establishmentId),

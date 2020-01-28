@@ -20,7 +20,7 @@
 
 {% block topBar %}
   {{ topBar({
-    appName: envVars.APP_NAME,
+    establishmentName: establishmentName,
     showBar: false
   }) }}
 {% endblock %}
@@ -73,7 +73,7 @@
     {{ hubFeedbackWidget({
       title: "Search - " + query,
       contentType: 'search',
-      establishment: envVars.APP_NAME
+      establishment: establishmentName
     })}}
   </div>
 

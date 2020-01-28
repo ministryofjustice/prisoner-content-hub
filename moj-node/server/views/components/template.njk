@@ -10,7 +10,10 @@
 <html lang="{{ htmlLang | default('en') }}" class="govuk-template {{ htmlClasses }}">
   <head>
     <meta charset="utf-8"/>
-    <title>{% block pageTitle %}{{envVars.APP_NAME}}{% endblock %}</title>
+    <title>
+      {% block pageTitle %}{{establishmentName}}
+      {% endblock %}
+    </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="{{ themeColor | default('#0b0c0c') }}"/>
     <meta name="robots" content="noindex, nofollow, noimageindex">
@@ -67,7 +70,7 @@
 
     {% block topBar %}
       {{ topBar({
-        appName: envVars.APP_NAME,
+        establishmentName: establishmentName,
         showBar: false
       }) }}
     {% endblock %}
