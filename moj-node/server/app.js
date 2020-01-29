@@ -25,7 +25,7 @@ const createGettingAJobRouter = require('./routes/gettingAJob');
 const createSearchRouter = require('./routes/search');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
-const establishmentToggle = require('./middleware/establishmentToggle');
+const configureEstablishment = require('./middleware/configureEstablishment');
 const { authMiddleware, createUserSession } = require('./middleware/auth');
 
 const { getEstablishmentId, getGoogleAnalyticsId } = require('./utils');
@@ -154,9 +154,11 @@ module.exports = function createApp({
   app.use(featureToggleMiddleware(config.features));
 
   // establishment toggle
-  if (config.features.prisonSwitch === 'true') {
-    app.use(establishmentToggle);
-  }
+  app.use(
+    configureEstablishment({
+      shouldAllowSwitch: config.features.prisonSwitch === 'true',
+    }),
+  );
 
   // Health end point
   app.use('/health', createHealthRouter({ appInfo, healthService }));

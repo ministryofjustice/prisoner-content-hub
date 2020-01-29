@@ -30,8 +30,8 @@ module.exports = function Topics({ logger, hubMenuService }) {
         header: false,
         postscript: true,
         detailsType: 'small',
-        newDesigns,
         userName,
+        newDesigns,
       };
 
       res.render('pages/topics', {

@@ -10,11 +10,12 @@ module.exports = function Home({ logger, offenderService }) {
       logger.info('GET timetable');
 
       const today = new Date();
-      const notification = path(['session', 'notification'], req);
-      const userDetails = path(['session', 'user'], req);
-      const bookingId = path(['bookingId'], userDetails);
       const startDate = format(today, 'yyyy-MM-dd');
       const endDate = format(addDays(today, 6), 'yyyy-MM-dd');
+      const notification = path(['session', 'notification'], req);
+      const userName = path(['session', 'user', 'name'], req);
+      const bookingId = path(['session', 'user', 'bookingId'], req);
+      const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -24,11 +25,11 @@ module.exports = function Home({ logger, offenderService }) {
         content: false,
         header: false,
         postscript: true,
-        newDesigns: res.locals.features.newDesigns,
         detailsType: 'small',
-        userName: path(['name'], userDetails),
         lastWeek: false,
         nextWeek: false,
+        userName,
+        newDesigns,
       };
 
       res.render('pages/timetable', {
@@ -48,11 +49,12 @@ module.exports = function Home({ logger, offenderService }) {
 
       const today = new Date();
       const notification = path(['session', 'notification'], req);
-      const userDetails = path(['session', 'user'], req);
-      const bookingId = path(['bookingId'], userDetails);
       const yesterday = subDays(today, 1);
       const startDate = format(subDays(today, 7), 'yyyy-MM-dd');
       const endDate = format(yesterday, 'yyyy-MM-dd');
+      const userName = path(['session', 'user', 'name'], req);
+      const bookingId = path(['session', 'user', 'bookingId'], req);
+      const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -62,11 +64,11 @@ module.exports = function Home({ logger, offenderService }) {
         content: false,
         header: false,
         postscript: true,
-        newDesigns: res.locals.features.newDesigns,
         detailsType: 'small',
-        userName: path(['name'], userDetails),
         lastWeek: true,
         nextWeek: false,
+        userName,
+        newDesigns,
       };
 
       res.render('pages/timetable', {
@@ -86,11 +88,12 @@ module.exports = function Home({ logger, offenderService }) {
 
       const today = new Date();
       const notification = path(['session', 'notification'], req);
-      const userDetails = path(['session', 'user'], req);
-      const bookingId = path(['bookingId'], userDetails);
       const nextWeekStart = addDays(today, 7);
       const startDate = format(nextWeekStart, 'yyyy-MM-dd');
       const endDate = format(addDays(nextWeekStart, 6), 'yyyy-MM-dd');
+      const userName = path(['session', 'user', 'name'], req);
+      const bookingId = path(['session', 'user', 'bookingId'], req);
+      const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -100,11 +103,11 @@ module.exports = function Home({ logger, offenderService }) {
         content: false,
         header: false,
         postscript: true,
-        newDesigns: res.locals.features.newDesigns,
         detailsType: 'small',
-        userName: path(['name'], userDetails),
         lastWeek: false,
         nextWeek: true,
+        userName,
+        newDesigns,
       };
 
       res.render('pages/timetable', {

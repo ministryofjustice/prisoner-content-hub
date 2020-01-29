@@ -28,10 +28,7 @@ module.exports = function createVisitsRouter({
       userName,
     };
 
-    const establishmentId = path(
-      ['app', 'locals', 'envVars', 'establishmentId'],
-      req,
-    );
+    const establishmentId = path(['locals', 'establishmentId'], res);
 
     try {
       const visits = await offenderService.getVisitsFor(bookingId);

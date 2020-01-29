@@ -25,11 +25,7 @@ const hubMenuService = {
 };
 
 const setPrisonMiddleware = establishmentId => (req, res, next) => {
-  req.app.locals = {
-    envVars: {
-      establishmentId,
-    },
-  };
+  res.locals = { establishmentId };
   next();
 };
 
