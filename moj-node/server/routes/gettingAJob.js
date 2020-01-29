@@ -24,7 +24,7 @@ module.exports = function createStepByStepRouter({
   router.get('/', (req, res) => {
     logger.info(`GET ${req.originalUrl}`);
 
-    const { establishmentId } = req.app.locals.envVars;
+    const establishmentId = path(['locals', 'establishmentId'], res);
 
     const establishmentName = ESTABLISHMENTS[establishmentId];
     const title = `Working in ${establishmentName}`;
@@ -34,7 +34,7 @@ module.exports = function createStepByStepRouter({
       793: 'How to do to get, or change, a job in this prison.',
     };
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
-    const userDetails = path(['session', 'user'], req);
+    const userName = path(['session', 'user', 'name'], req);
 
     const breadcrumbs = [
       {
@@ -52,7 +52,7 @@ module.exports = function createStepByStepRouter({
       postscript: true,
       newDesigns,
       detailsType: 'small',
-      userName: path(['name'], userDetails),
+      userName,
       establishmentId,
     };
 
@@ -73,11 +73,11 @@ module.exports = function createStepByStepRouter({
       792: '/working-in-berwyn',
       793: '/working-in-wayland',
     };
-    const { establishmentId } = req.app.locals.envVars;
+    const establishmentId = path(['locals', 'establishmentId'], res);
     const establishmentName = ESTABLISHMENTS[establishmentId];
     const menu = hubMenuService.gettingAJobMenu(establishmentId);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
-    const userDetails = path(['session', 'user'], req);
+    const userName = path(['session', 'user', 'name'], req);
 
     const config = {
       content: true,
@@ -85,7 +85,7 @@ module.exports = function createStepByStepRouter({
       postscript: true,
       newDesigns,
       detailsType: 'small',
-      userName: path(['name'], userDetails),
+      userName,
       establishmentId,
     };
 

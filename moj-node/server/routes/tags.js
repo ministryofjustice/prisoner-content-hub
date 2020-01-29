@@ -55,7 +55,7 @@ module.exports = function Tags({ logger, hubTagsService }) {
         contentType === 'series' ? 'relatedSeriesFor' : 'relatedContentFor';
 
       const data = await hubTagsService[method]({
-        id: req.params.id,
+        id,
         establishmentId,
         ...req.query,
       });
