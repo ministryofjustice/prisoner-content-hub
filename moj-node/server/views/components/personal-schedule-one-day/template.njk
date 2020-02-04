@@ -1,16 +1,8 @@
-{# {% extends "../component-or-error/macro.njk" %} #}
 {% from "../personal-schedule-day-block/macro.njk" import personalScheduleDayBlock %}
-{% if params.error %}
-  <div class="govuk-error-summary">
-    <h2 class="govuk-error-summary__title">
-      There is a problem
-    </h2>
-    <div class="govuk-error-summary__body">
-      <p class="govuk-error-message">{{params.error}}</p>
-    </div>
-  </div>
-{% else %}
-  <div class="govuk-width-container govuk-body timetable-day">
+<div class="govuk-width-container govuk-body timetable-day">
+  {% if params.error %}
+    <p>Unavailable</p>
+  {% else %}
     {% for day, event in params %}
       <h3>{{event.title}}</h3>
       <div>
@@ -24,5 +16,5 @@
         {{ personalScheduleDayBlock(event.evening) }}
       </div>
     {% endfor %}
-  </div>
-{% endif %}
+  {% endif %}
+</div>
