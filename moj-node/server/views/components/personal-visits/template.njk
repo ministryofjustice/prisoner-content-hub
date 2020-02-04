@@ -1,36 +1,24 @@
-{# {% extends "../component-or-error/macro.njk" %} #}
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-
+<div id="visits">
 {% if params.data.error %}
-  <div class="govuk-grid-column-two-thirds govuk-error-summary" id="visits">
-    <h2 class="govuk-error-summary__title">
-      There is a problem
-    </h2>
-    <div class="govuk-error-summary__body">
-      <p class="govuk-error-message">{{params.data.error}}</p>
-    </div>
-  </div>
+  <p>Unavailable.</p>
+{% elif params.data.nextVisit === 'Unavailable' %}
+  <p>Not booked yet.</p>
 {% else %}
-  <div id="visits">
-  {% if params.data.nextVisit === 'Unavailable' %}
-    <p>Not booked yet.</p>
-  {% else %}
-    <div class="next-visit">
-      <h3>Your next visit</h3>
-      <p class="next-visit-day">{{ params.data.nextVisitDay }}</p>
-      <p class="next-visit-date">{{ params.data.nextVisitDate }}</p>
-    </div>
-    <div class="type-of-visit">
-      <h3>&nbsp;</h3>
-      <p class="next-visit-type">{{ params.data.visitType }}</p>
-      {% if params.data.visitorName %}
-      <button type="button" class="govuk-button" id="show-visitor-name" onclick="showHiddenBlock('visitor-name')">Show visitor name</button>
-      <p id="visitor-name" class="hidden-block-text">{{ params.data.visitorName }}</p>
-      {% endif %}
-    </div>
-    <div>
-    </div>
-  {% endif %}
+  <div class="next-visit">
+    <h3>Your next visit</h3>
+    <p class="next-visit-day">{{ params.data.nextVisitDay }}</p>
+    <p class="next-visit-date">{{ params.data.nextVisitDate }}</p>
   </div>
-  <p><a href="/timetable" class="govuk-link">View your full timetable</a></p>
+  <div class="type-of-visit">
+    <h3>&nbsp;</h3>
+    <p class="next-visit-type">{{ params.data.visitType }}</p>
+    {% if params.data.visitorName %}
+    <button type="button" class="govuk-button" id="show-visitor-name" onclick="showHiddenBlock('visitor-name')">Show visitor name</button>
+    <p id="visitor-name" class="hidden-block-text">{{ params.data.visitorName }}</p>
+    {% endif %}
+  </div>
+  <div>
+  </div>
 {% endif %}
+</div>
+<p><a href="/timetable" class="govuk-link">View your full timetable</a></p>
