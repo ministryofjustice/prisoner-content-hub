@@ -1,40 +1,28 @@
-{# {% extends "../component-or-error/macro.njk" %} #}
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "../personal-balance-single/macro.njk" import personalBalanceSingle %}
 
-{% if params.data.error %}
-  <div class="govuk-grid-column-two-thirds govuk-error-summary" id="keyWorker">
-    <h2 class="govuk-error-summary__title">
-      There is a problem
-    </h2>
-    <div class="govuk-error-summary__body">
-      <p class="govuk-error-message">{{params.data.error}}</p>
+<div id="money">
+  <h2>Your account balances</h2>
+  <div class="balances">
+    {{ personalBalanceSingle({
+      type: 'spends',
+      error: params.data.error,
+      amount: params.data.spends
+    })}}
+    {{ personalBalanceSingle({
+      type: 'private',
+      error: params.data.error,
+      amount: params.data.cash
+    })}}
+  </div>
+  <div class="balances">
+    {{ personalBalanceSingle({
+      type: 'savings',
+      error: params.data.error,
+      amount: params.data.savings
+    })}}
+    <p>&nbsp;</p>
+    <div>
+      &nbsp;
     </div>
   </div>
-{% else %}
-  <div id="money">
-    <h2>Your account balances</h2>
-    <div class="balances">
-      <p>Spends</p>
-      <div>
-        <button type="button" class="govuk-button" id="show-balance-spends" onclick="showHiddenBlock('balance-spends')">View balance</button>
-        <p id="balance-spends" class="hidden-block-text">{{ params.data.spends }}</p>
-      </div>
-      <p>Private</p>
-      <div>
-        <button type="button" class="govuk-button" id="show-balance-private" onclick="showHiddenBlock('balance-private')">View balance</button>
-        <p id="balance-private" class="hidden-block-text">{{ params.data.cash }}</p>
-      </div>
-    </div>
-    <div class="balances">
-      <p>Savings</p>
-      <div>
-        <button type="button" class="govuk-button" id="show-balance-savings" onclick="showHiddenBlock('balance-savings')">View balance</button>
-        <p id="balance-savings" class="hidden-block-text">{{ params.data.savings }}</p>
-      </div>
-      <p>&nbsp;</p>
-      <div>
-        &nbsp;
-      </div>
-    </div>
-  </div>
-{% endif %}
+</div>
