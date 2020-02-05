@@ -1,4 +1,5 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "../components/personal-schedule-one-day/macro.njk" import personalScheduleOneDay %}
 {% from "../components/personal-schedule-nav/macro.njk" import personalScheduleNav %}
 {% from "../components/page-navigation/macro.njk" import pageNavigation %}
@@ -17,12 +18,11 @@
 {% block notification %}
   {% if notification %}
     <div class="govuk-width-container">
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-          <div class="notification notification--is-error">
-            <p>{{notification.text}}</p>
-          </div>
-        </div>
+      <div class="notification">
+        {{ govukWarningText({
+          text: notification.text,
+          iconFallbackText: "Warning"
+        }) }}
       </div>
     </div>
   {% endif %}

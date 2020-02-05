@@ -4,17 +4,22 @@
 @import 'node_modules/govuk-frontend/govuk/helpers/typography';
 
 .notification {
-  @include govuk-font($size: 19, $weight: 'bold');
-  color: govuk-colour('white');
-  background-color: govuk-colour('blue');
+  border: govuk-spacing(1) solid govuk-colour('blue');
+  background: govuk-colour('white');
   line-height: 1.25;
   box-sizing: border-box;
-  border: 5px solid transparent;
-  text-align: center;
   display: block;
-  margin: govuk-spacing(4) 0;
-  & p {
-    margin: govuk-spacing(4);
+  padding: 0 govuk-spacing(4);
+  margin: govuk-spacing(3) 0;
+  & .govuk-warning-text {
+    margin: 0;
+  }
+  & .govuk-warning-text .govuk-warning-text__icon {
+    border-color: govuk-colour('blue');
+    background-color: govuk-colour('blue');
+  }
+  & .govuk-warning-text .govuk-warning-text__text {
+    @include govuk-font($size: 24, $weight: 'bold');
   }
 }
 
