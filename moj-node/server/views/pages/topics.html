@@ -1,3 +1,4 @@
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "../components/topics/macro.njk" import hubTopics %}
 {% from "../components/page-navigation/macro.njk" import pageNavigation %}
 {% from "../components/user-details/macro.njk" import userDetails %}
@@ -13,14 +14,13 @@
 {% endblock %}
 
 {% block notification %}
-  {% if notification %}}
+  {% if notification %}
     <div class="govuk-width-container">
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-          <div class="notification notification--is-error">
-            <p>{{notification.text}}</p>
-          </div>
-        </div>
+      <div class="notification">
+        {{ govukWarningText({
+          text: notification.text,
+          iconFallbackText: "Warning"
+        }) }}
       </div>
     </div>
   {% endif %}

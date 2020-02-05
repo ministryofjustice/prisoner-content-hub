@@ -1,14 +1,4 @@
-{# {% extends "../component-or-error/macro.njk" %} #}
-{% if params.error %}
-  <div class="govuk-error-summary govuk-width-container">
-    <h2 class="govuk-error-summary__title">
-      There is a problem
-    </h2>
-    <div class="govuk-error-summary__body">
-      <p class="govuk-error-message">{{params.error}}</p>
-    </div>
-  </div>
-{% else %}
+{% if params.establishmentId === 792 and params.events.length > 0 %}
   <div class="todays-events">
     <div>
       <h3 class="govuk-heading-m">
@@ -16,12 +6,16 @@
       <a href="/timetable" class="govuk-link see-timetable">See your timetable</a>
     </div>
     <div class="govuk-body">
-      {% for event in params.events %}
-      <div>
-        <span class="timetable-time">{{event.timeString}}</span>
-        <span><strong>{{event.title}}</strong> {{event.location}}</span>
-      </div>
-      {% endfor %}
+      {% if params.error %}
+        <p>Unavailable</p>
+      {% else %}
+        {% for event in params.events %}
+        <div>
+          <span class="timetable-time">{{event.timeString}}</span>
+          <span><strong>{{event.title}}</strong> {{event.location}}</span>
+        </div>
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
 {% endif %}

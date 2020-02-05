@@ -1,27 +1,15 @@
-{# {% extends "../component-or-error/macro.njk" %} #}
-{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-
-{% if params.data.error %}
-  <div class="govuk-grid-column-two-thirds govuk-error-summary" id="keyWorker">
-    <h2 class="govuk-error-summary__title">
-      There is a problem
-    </h2>
-    <div class="govuk-error-summary__body">
-      <p class="govuk-error-message">{{params.data.error}}</p>
-    </div>
+<div id="iepSummary" class="iep-info govuk-body">
+  {% if not params.data.error %}
+  <p class="iep-indicator
+  {% if params.data.iepLevel === 'Basic' %}iep-indicator--basic{% endif %}
+  {% if params.data.iepLevel === 'Standard' %}iep-indicator--standard{% endif %}
+  {% if params.data.iepLevel === 'Enhanced' %}iep-indicator--enhanced{% endif %}
+  ">Your current level</p>
+  {% endif %}
+  <div class="iep-levels govuk-clearfix">
+    <div class="iep-level iep-level--basic">Basic</div>
+    <div class="iep-level iep-level--standard">Standard</div>
+    <div class="iep-level iep-level--enhanced">Enhanced</div>
   </div>
-{% else %}
-  <div id="iepSummary" class="iep-info govuk-body">
-    <p class="iep-indicator
-    {% if params.data.iepLevel === 'Basic' %}iep-indicator--basic{% endif %}
-    {% if params.data.iepLevel === 'Standard' %}iep-indicator--standard{% endif %}
-    {% if params.data.iepLevel === 'Enhanced' %}iep-indicator--enhanced{% endif %}
-    ">Your current level</p>
-    <div class="iep-levels govuk-clearfix">
-      <div class="iep-level iep-level--basic">Basic</div>
-      <div class="iep-level iep-level--standard">Standard</div>
-      <div class="iep-level iep-level--enhanced">Enhanced</div>
-    </div>
-    <p class="iepReview">Your level can be reviewed on <span>{{ params.data.reviewDate }}</span></p>
-  </div>
-{% endif %}
+  <p class="iepReview">Your level {% if params.data.error %}is unavailable{% else %}can be reviewed on <span>{{ params.data.reviewDate }}</span>{% endif %}</p>
+</div>
