@@ -5,7 +5,7 @@ defaults: &defaults
 
 version: 2
 jobs:
-  build:
+  build_frontend:
     <<: *defaults
     steps:
       - checkout
@@ -16,15 +16,11 @@ jobs:
       - run:
           name: Build node frontend container
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                cd moj-node && \
-                BUILD_NUMBER="$CIRCLE_BUILD_NUM" \
-                GIT_REF="$CIRCLE_SHA1" \
-                GIT_DATE="$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1)" \
-                make build
-            else
-                cd moj-node && make build
-            fi
+            cd moj-node && \
+            BUILD_NUMBER="$CIRCLE_BUILD_NUM" \
+            GIT_REF="$CIRCLE_SHA1" \
+            GIT_DATE="$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1)" \
+            make build
       - save_cache:
           key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
           paths:
@@ -34,19 +30,19 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
                 cd moj-node && make push
+            else
+                cd moj-node && make push-dev && make push-stage
             fi
       - add_ssh_keys:
           fingerprints:
             - "0a:04:a1:27:17:3e:3d:8a:20:91:79:a1:9e:af:85:6c"
       - run:
-          name: tag build
+          name: tag git
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                git config user.name "Circle CI"
-                git config user.email "circle@circleci.com"
-                git tag -a "$(date '+%d-%m-%Y')-$CIRCLE_BUILD_NUM" $CIRCLE_SHA1 -m "$(git log $(git describe --tags --abbrev=0)..HEAD --pretty=%B)"
-                git push origin "$(date '+%d-%m-%Y')-$CIRCLE_BUILD_NUM"
-            fi
+            git config user.name "Circle CI"
+            git config user.email "circle@circleci.com"
+            git tag -a "$(date '+%d-%m-%Y')-$CIRCLE_BUILD_NUM" $CIRCLE_SHA1 -m "$(git log $(git describe --tags --abbrev=0)..HEAD --pretty=%B)"
+            git push origin "$(date '+%d-%m-%Y')-$CIRCLE_BUILD_NUM"
       - run:
           name: Save build number (for deployment)
           command: |
@@ -155,8 +151,12 @@ jobs:
       - run:
           name: Deploy to Development
           command: |
-            export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
-            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-dev.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
+              ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-dev.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
+            else
+              ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-dev.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v dev"
+            fi
 
   deploy_stage:
     machine:
@@ -171,8 +171,12 @@ jobs:
       - run:
           name: Deploy to Staging
           command: |
-            export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
-            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-stage.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
+              ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-stage.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
+            else
+              ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-stage.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v stage"
+            fi
 
   deploy_prod:
     machine:
@@ -195,10 +199,10 @@ workflows:
   version: 2
   build_test_deploy:
     jobs:
-      - build
+      - build_frontend
       - run_e2e_test:
           requires:
-            - build
+            - build_frontend
       - build_cms:
           requires:
             - hold
@@ -210,22 +214,13 @@ workflows:
       - deploy_dev:
           requires:
             - run_e2e_test
-          filters:
-            branches:
-              only: master
       - approve_deploy_stage:
           type: approval
           requires:
             - deploy_dev
-          filters:
-            branches:
-              only: master
       - deploy_stage:
           requires:
             - approve_deploy_stage
-          filters:
-            branches:
-              only: master
       - approve_deploy_prod:
           type: approval
           requires:
