@@ -1,4 +1,5 @@
 const expressNTLM = require('express-ntlm');
+const { authenticate } = require('ldap-authentication');
 const { path } = require('ramda');
 const config = require('../config');
 const logger = require('../../log');
@@ -37,6 +38,47 @@ module.exports.authMiddleware = (ntlm = expressNTLM) => {
     domain: config.ldap.domain,
     domaincontroller: config.ldap.domainController,
   });
+};
+
+/*
+
+
+      const newUserName = getLdapUser(
+        path(['query', 'uid'], req),
+        path(['query', 'pwd'], req),
+        path(['app', 'locals', 'ldap'], res),
+        logger,
+      );
+*/
+
+module.exports.getLdapUser = async (username, password, ldapConfig) => {
+  const options = {
+    ldapOpts: {
+      url: ldapConfig.url,
+      // tlsOptions: {
+      //   ca: [fs.readFileSync('mycacert.pem')]
+      // }
+    },
+    adminDn: ldapConfig.adminDn,
+    adminPassword: ldapConfig.adminPassword,
+    userPassword: password,
+    userSearchBase: ldapConfig.userSearchBase,
+    usernameAttribute: 'cn',
+    username,
+    // starttls: true
+  };
+
+  try {
+    logger.info(`LDAP: Requesting authentication for user ${username}`);
+    const ldap = await authenticate(options);
+
+    logger.info('LDAP: Authentication successful');
+
+    return path(['sAMAccountName'], ldap);
+  } catch (e) {
+    logger.error(`LDAP: Authentication failed: ${e.message}`);
+    return new Error();
+  }
 };
 
 module.exports.createUserSession = ({ offenderService }) => {
