@@ -32,6 +32,12 @@ module.exports = {
   ldap: {
     domain: getEnv('FQDN', 'MYDOMAIN'),
     domainController: `ldap://${getEnv('DOMAIN_CONTROLLER', 'myad.example')}`,
+    url: getEnv('LDAP_URL', 'keyboard cat'),
+    adminDn: getEnv('LDAP_ADMIN_DN', 'keyboard cat'),
+    adminPassword: getEnv('LDAP_ADMIN_PWD', 'keyboard cat'),
+    userSearchBase: getEnv('LDAP_USER_SEARCH_BASE', 'keyboard cat'),
+    username: '',
+    userPassword: '',
   },
   api: {
     matomo: `${matomoEndpoint}/index.php`,
