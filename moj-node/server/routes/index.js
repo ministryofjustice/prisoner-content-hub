@@ -1,5 +1,6 @@
 const express = require('express');
 const { path } = require('ramda');
+const { authenticate } = require('ldap-authentication');
 const {
   FACILITY_LIST_CONTENT_IDS: facilitiesList,
 } = require('../constants/hub');
@@ -8,6 +9,36 @@ const getFacilitiesListFor = id =>
   Object.prototype.hasOwnProperty.call(facilitiesList, id)
     ? facilitiesList[id]
     : '/404';
+
+const getLdapUser = async (username, password, config, logger) => {
+  const options = {
+    ldapOpts: {
+      url: config.url,
+      // tlsOptions: {
+      //   ca: [fs.readFileSync('mycacert.pem')]
+      // }
+    },
+    adminDn: config.adminDn,
+    adminPassword: config.adminPassword,
+    userPassword: password,
+    userSearchBase: config.userSearchBase,
+    usernameAttribute: 'cn',
+    username,
+    // starttls: true
+  };
+
+  try {
+    logger.info(`LDAP: Requesting authentication for user ${username}`);
+    const ldap = await authenticate(options);
+
+    logger.info('LDAP: Authentication successful');
+
+    return path(['sAMAccountName'], ldap);
+  } catch (e) {
+    logger.error(`LDAP: Authentication failed: ${e.message}`);
+    return new Error();
+  }
+};
 
 module.exports = function Index({ logger, hubFeaturedContentService }) {
   const router = express.Router();
@@ -25,6 +56,13 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
         { establishmentId },
       );
 
+      const newUserName = getLdapUser(
+        path(['query', 'uid'], req),
+        path(['query', 'pwd'], req),
+        path(['app', 'locals', 'ldap'], res),
+        logger,
+      );
+
       const config = {
         content: true,
         header: true,
@@ -33,6 +71,7 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
         newDesigns,
         userName,
         establishmentId,
+        newUserName,
       };
 
       const popularTopics = {

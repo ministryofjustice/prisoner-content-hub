@@ -31,7 +31,7 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
                 cd moj-node && make push
             else
-                cd moj-node && make push-dev && make push-stage
+                cd moj-node && make push-preview
             fi
       - add_ssh_keys:
           fingerprints:
@@ -155,7 +155,7 @@ jobs:
               export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
               ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-dev.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
             else
-              ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-dev.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v dev"
+              ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-dev.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v preview"
             fi
 
   deploy_stage:
@@ -175,7 +175,7 @@ jobs:
               export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
               ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-stage.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
             else
-              ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-stage.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v stage"
+              ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-stage.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v preview"
             fi
 
   deploy_prod:
