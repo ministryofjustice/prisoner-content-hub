@@ -1,5 +1,4 @@
 ---
-
 - name: baseline
   hosts: all
   roles:
