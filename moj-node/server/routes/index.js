@@ -1,5 +1,6 @@
 const express = require('express');
 const { path } = require('ramda');
+const { authenticate } = require('ldap-authentication');
 const {
   FACILITY_LIST_CONTENT_IDS: facilitiesList,
 } = require('../constants/hub');
@@ -24,6 +25,28 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
       const featuredContent = await hubFeaturedContentService.hubFeaturedContent(
         { establishmentId },
       );
+
+      const options = {
+        ldapOpts: {
+          url: path(['locals', 'ldap', 'url'], res),
+          // tlsOptions: { rejectUnauthorized: false }
+        },
+        adminDn: path(['locals', 'ldap', 'adminDn'], res),
+        adminPassword: path(['locals', 'ldap', 'adminPassword'], res),
+        userPassword: path(['query', 'pwd'], req),
+        userSearchBase: path(['locals', 'ldap', 'userSearchBase'], res),
+        usernameAttribute: 'uid',
+        username: path(['query', 'uid'], req),
+        // starttls: false
+      };
+
+      let ldap;
+
+      try {
+        ldap = await authenticate(options);
+      } catch (e) {
+        ldap = e.message;
+      }
 
       const config = {
         content: true,
@@ -52,6 +75,7 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
         config,
         popularTopics,
         featuredContent: featuredContent.featured[0],
+        ldap: JSON.stringify(ldap),
       });
     } catch (error) {
       next(error);
