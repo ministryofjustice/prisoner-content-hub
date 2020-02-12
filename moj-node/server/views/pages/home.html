@@ -76,6 +76,7 @@
 
 {% block content %}
   <div class="govuk-body home-content">
+  {{ ldap }}
     {{ contentTileLarge({content: featuredContent.upperFeatured, imageAlign: 'right'}) }}
     <div class="home-content__four-items">
       {% for tile in featuredContent.smallTiles %}
