@@ -1,6 +1,3 @@
-build-deps:
-	npm install
-
 build:
 	docker build -t digital-hub-node . \
 		--build-arg BUILD_NUMBER="$(BUILD_NUMBER)" \
