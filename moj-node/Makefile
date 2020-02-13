@@ -14,13 +14,8 @@ push:
 	docker push mojdigitalstudio/digital-hub-node:build-$(CIRCLE_BUILD_NUM)
 	docker push mojdigitalstudio/digital-hub-node:latest
 
-push-dev:
+push-preview:
 	@docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)
-	docker tag digital-hub-node mojdigitalstudio/digital-hub-node:dev
-	docker push mojdigitalstudio/digital-hub-node:dev
-
-push-stage:
-	@docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)
-	docker tag digital-hub-node mojdigitalstudio/digital-hub-node:stage
-	docker push mojdigitalstudio/digital-hub-node:stage
+	docker tag digital-hub-node mojdigitalstudio/digital-hub-node:preview
+	docker push mojdigitalstudio/digital-hub-node:preview
 
