@@ -31,7 +31,7 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
                 cd moj-node && make push
             else
-                cd moj-node && make push-dev && make push-stage
+                cd moj-node && make push-preview
             fi
       - add_ssh_keys:
           fingerprints:
