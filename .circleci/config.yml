@@ -245,7 +245,7 @@ workflows:
       - deploy_dev:
           <<: *master_branch
           requires:
-            - run_e2e_test
+            - build_frontend
       - approve_deploy_stage:
           <<: *master_branch
           type: approval
