@@ -143,47 +143,47 @@ jobs:
           root: /tmp/workspace
           paths:
             - docker-build
-  run_e2e_test:
-    docker:
-      - image: circleci/node:10.15.3-browsers
-    working_directory: /home/circleci/app
-    steps:
-      - checkout
-      - run:
-          name: Update NPM
-          command: "sudo npm install -g npm@latest"
-      - restore_cache:
-          key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
-      - run:
-          name: Install dependencies
-          command: cd moj-node && npm ci
-      - save_cache:
-          key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
-          paths:
-            - ./moj-node/node_modules
-      - run:
-          name: Run E2E tests against Staging
-          command: |
-            cd moj-node && \
-            npm run build && \
-            BUILD_NUMBER="$CIRCLE_BUILD_NUM" \
-            GIT_REF="$CIRCLE_SHA1" \
-            GIT_DATE="$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1)" \
-            npm run record-build-info && \
-            APP_NAME="HMP Local" \
-            NODE_ENV=production \
-            MATOMO_URL="foo.bar" \
-            MATOMO_TOKEN="foobar" \
-            MATOMO_API_URI="http://hub-matomo" \
-            ENABLE_PRISON_SWITCH="true" \
-            HUB_API_ENDPOINT="http://pfs-stage-hub-1.uksouth.cloudapp.azure.com:11001" \
-            ELASTICSEARCH_ENDPOINT="UNSET" \
-            ESTABLISHMENT_NAME="berwyn" \
-            npm run test:e2e:run
-      - store_artifacts:
-          path: ./cypress/videos
-      - store_artifacts:
-          path: ./cypress/screenshots
+  # run_e2e_test:
+  #   docker:
+  #     - image: circleci/node:10.15.3-browsers
+  #   working_directory: /home/circleci/app
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Update NPM
+  #         command: "sudo npm install -g npm@latest"
+  #     - restore_cache:
+  #         key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
+  #     - run:
+  #         name: Install dependencies
+  #         command: cd moj-node && npm ci
+  #     - save_cache:
+  #         key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
+  #         paths:
+  #           - ./moj-node/node_modules
+  #     - run:
+  #         name: Run E2E tests against Staging
+  #         command: |
+  #           cd moj-node && \
+  #           npm run build && \
+  #           BUILD_NUMBER="$CIRCLE_BUILD_NUM" \
+  #           GIT_REF="$CIRCLE_SHA1" \
+  #           GIT_DATE="$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1)" \
+  #           npm run record-build-info && \
+  #           APP_NAME="HMP Local" \
+  #           NODE_ENV=production \
+  #           MATOMO_URL="foo.bar" \
+  #           MATOMO_TOKEN="foobar" \
+  #           MATOMO_API_URI="http://hub-matomo" \
+  #           ENABLE_PRISON_SWITCH="true" \
+  #           HUB_API_ENDPOINT="http://pfs-stage-hub-1.uksouth.cloudapp.azure.com:11001" \
+  #           ELASTICSEARCH_ENDPOINT="UNSET" \
+  #           ESTABLISHMENT_NAME="berwyn" \
+  #           npm run test:e2e:run
+  #     - store_artifacts:
+  #         path: ./cypress/videos
+  #     - store_artifacts:
+  #         path: ./cypress/screenshots
   deploy_dev:
     <<: *default_machine
     steps:
@@ -238,14 +238,14 @@ workflows:
             - approve_preview_build_deploy_stage
       - build_frontend:
           <<: *master_branch
-      - run_e2e_test:
-          <<: *master_branch
-          requires:
-            - build_frontend
+      # - run_e2e_test:
+      #     <<: *master_branch
+      #     requires:
+      #       - build_frontend
       - deploy_dev:
           <<: *master_branch
           requires:
-            - run_e2e_test
+            - build_frontend
       - approve_deploy_stage:
           <<: *master_branch
           type: approval
