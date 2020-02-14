@@ -2,10 +2,59 @@ defaults: &defaults
   working_directory: ~/digital-hub
   docker:
     - image: mojdigitalstudio/circleci-build-container
+default_machine: &default_machine
+  machine:
+    enabled: true
+  working_directory: ~/digital-hub
+master_branch: &master_branch
+  filters:
+    branches:
+      only: master
+feature_branch: &feature_branch
+  filters:
+    branches:
+      ignore: master
 
-version: 2
+version: 2.1
+commands:
+  deploy_to_environment:
+    description: "Deploy build to environment"
+    parameters:
+      to:
+        type: string
+        default: latest
+    steps:
+      - attach_workspace: &attach_workspace
+          at: /tmp/workspace
+      - add_ssh_keys:
+          fingerprints:
+            - "36:39:b2:8b:1a:6e:03:37:69:91:58:c4:fe:81:fe:d9"
+      - run:
+          name: Deploy to Development
+          command: |
+            export VERSION_TO_DEPLOY="$(cat /tmp/workspace/docker-build/version-to-deploy.txt)" && \
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@<< parameters.to >>.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v ${VERSION_TO_DEPLOY}"
+
 jobs:
-  build_frontend:
+  test_branch:
+    docker:
+      - image: circleci/node:10.15.3-browsers
+    working_directory: ~/digital-hub
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
+      - run:
+          name: Install dependencies
+          command: cd moj-node && npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
+          paths:
+            - ./moj-node/node_modules
+      - run:
+          name: Run Unit and Integration tests
+          command: cd moj-node && npm run lint && npm run test
+  preview_build:
     <<: *defaults
     steps:
       - checkout
@@ -14,7 +63,7 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
       - run:
-          name: Build node frontend container
+          name: Build frontend Docker image
           command: |
             cd moj-node && \
             BUILD_NUMBER="$CIRCLE_BUILD_NUM" \
@@ -26,18 +75,59 @@ jobs:
           paths:
             - ./moj-node/node_modules
       - run:
-          name: push moj-node to docker
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                cd moj-node && make push
-            else
-                cd moj-node && make push-preview
-            fi
+          name: Push frontend Docker image
+          command: cd moj-node && make push-preview
       - add_ssh_keys:
           fingerprints:
             - "0a:04:a1:27:17:3e:3d:8a:20:91:79:a1:9e:af:85:6c"
       - run:
-          name: tag git
+          name: Save build number (for deployment)
+          command: |
+            mkdir -p /tmp/workspace/docker-build
+            cd /tmp/workspace/docker-build
+            echo preview > version-to-deploy.txt
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - docker-build
+  preview_build_deploy_dev:
+    <<: *default_machine
+    steps:
+      - deploy_to_environment:
+          to: hub-dev
+  preview_build_deploy_stage:
+    <<: *default_machine
+    steps:
+      - deploy_to_environment:
+          to: hub-stage
+  build_frontend:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - restore_cache:
+          key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
+      - run:
+          name: Build frontend Docker image
+          command: |
+            cd moj-node && \
+            BUILD_NUMBER="$CIRCLE_BUILD_NUM" \
+            GIT_REF="$CIRCLE_SHA1" \
+            GIT_DATE="$(git log --format=%cd -n1 --date=iso $CIRCLE_SHA1)" \
+            make build
+      - save_cache:
+          key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
+          paths:
+            - ./moj-node/node_modules
+      - run:
+          name: Push frontend Docker image
+          command: cd moj-node && make push
+      - add_ssh_keys:
+          fingerprints:
+            - "0a:04:a1:27:17:3e:3d:8a:20:91:79:a1:9e:af:85:6c"
+      - run:
+          name: Create Git Tag
           command: |
             git config user.name "Circle CI"
             git config user.email "circle@circleci.com"
@@ -46,56 +136,13 @@ jobs:
       - run:
           name: Save build number (for deployment)
           command: |
-            CIRCLE_BUILD_NUM_DOCKER=${CIRCLE_BUILD_NUM}
             mkdir -p /tmp/workspace/docker-build
             cd /tmp/workspace/docker-build
-            echo ${CIRCLE_BUILD_NUM_DOCKER} > docker-build-number.txt
+            echo build-${CIRCLE_BUILD_NUM} > version-to-deploy.txt
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
             - docker-build
-
-  build_cms:
-    <<: *defaults
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - restore_cache:
-          key: moj-be/vendor-{{ checksum "moj-be/composer.lock" }}
-      - run:
-          name: Build backend container
-          command: cd moj-be && make build
-      - save_cache:
-          key: moj-be/vendor-{{ checksum "moj-be/composer.lock" }}
-          paths:
-            - ./moj-be/vendor
-      - run:
-          name: push be to docker
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                cd moj-be && make push
-            fi
-
-  build_matomo:
-    <<: *defaults
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Build matomo
-          command: |
-            cd moj-matomo && \
-            make build-deps && \
-            make build && \
-            make clean
-      - run:
-          name: Push moj-matomo to repository
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                cd moj-matomo && make push
-            fi
-
   run_e2e_test:
     docker:
       - image: circleci/node:10.15.3-browsers
@@ -103,19 +150,19 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Update npm
+          name: Update NPM
           command: "sudo npm install -g npm@latest"
       - restore_cache:
           key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
       - run:
-          name: Install Dependencies
+          name: Install dependencies
           command: cd moj-node && npm ci
       - save_cache:
           key: dependency-cache-{{ checksum "moj-node/package-lock.json" }}
           paths:
-            - moj-node/node_modules
+            - ./moj-node/node_modules
       - run:
-          name: E2E test
+          name: Run E2E tests against Staging
           command: |
             cd moj-node && \
             npm run build && \
@@ -134,54 +181,21 @@ jobs:
             ESTABLISHMENT_NAME="berwyn" \
             npm run test:e2e:run
       - store_artifacts:
-          path: ./moj-node/cypress/videos
+          path: ./cypress/videos
       - store_artifacts:
-          path: ./moj-node/cypress/screenshots
-
+          path: ./cypress/screenshots
   deploy_dev:
-    machine:
-      enabled: true
-    working_directory: ~/digital-hub
+    <<: *default_machine
     steps:
-      - attach_workspace: &attach_workspace
-          at: /tmp/workspace
-      - add_ssh_keys:
-          fingerprints:
-            - "36:39:b2:8b:1a:6e:03:37:69:91:58:c4:fe:81:fe:d9"
-      - run:
-          name: Deploy to Development
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
-              ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-dev.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
-            else
-              ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-dev.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v preview"
-            fi
-
+      - deploy_to_environment:
+          to: hub-dev
   deploy_stage:
-    machine:
-      enabled: true
-    working_directory: ~/digital-hub
+    <<: *default_machine
     steps:
-      - attach_workspace: &attach_workspace
-          at: /tmp/workspace
-      - add_ssh_keys:
-          fingerprints:
-            - "36:39:b2:8b:1a:6e:03:37:69:91:58:c4:fe:81:fe:d9"
-      - run:
-          name: Deploy to Staging
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
-              ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-stage.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
-            else
-              ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-stage.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v preview"
-            fi
-
+      - deploy_to_environment:
+          to: hub-stage
   deploy_prod:
-    machine:
-      enabled: true
-    working_directory: ~/digital-hub
+    <<: *default_machine
     steps:
       - attach_workspace: &attach_workspace
           at: /tmp/workspace
@@ -191,46 +205,62 @@ jobs:
       - run:
           name: Deploy to Production
           command: |
-            export CIRCLE_BUILD_NUM_DOCKER="$(cat /tmp/workspace/docker-build/docker-build-number.txt)" && \
-            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-wayland-prod.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}" && \
-            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-berwyn-prod.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${CIRCLE_BUILD_NUM_DOCKER}"
+            export VERSION_TO_DEPLOY="$(cat /tmp/workspace/docker-build/version-to-deploy.txt)" && \
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-wayland-prod.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${VERSION_TO_DEPLOY}" && \
+            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-berwyn-prod.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v build-${VERSION_TO_DEPLOY}"
 
 workflows:
   version: 2
-  build_test_deploy:
+  build-test-deploy:
     jobs:
-      - build_frontend
+      - test_branch:
+          <<: *feature_branch
+      - approve_preview_build:
+          <<: *feature_branch
+          type: approval
+      - preview_build:
+          <<: *feature_branch
+          requires:
+            - test_branch
+            - approve_preview_build
+      - preview_build_deploy_dev:
+          <<: *feature_branch
+          requires:
+            - preview_build
+      - approve_preview_build_deploy_stage:
+          <<: *feature_branch
+          type: approval
+          requires:
+            - preview_build_deploy_dev
+      - preview_build_deploy_stage:
+          <<: *feature_branch
+          requires:
+            - approve_preview_build_deploy_stage
+      - build_frontend:
+          <<: *master_branch
       - run_e2e_test:
+          <<: *master_branch
           requires:
             - build_frontend
-      - build_cms:
-          requires:
-            - hold
-      - build_matomo:
-          requires:
-            - hold
-      - hold:
-          type: approval
       - deploy_dev:
+          <<: *master_branch
           requires:
             - run_e2e_test
       - approve_deploy_stage:
+          <<: *master_branch
           type: approval
           requires:
             - deploy_dev
       - deploy_stage:
+          <<: *master_branch
           requires:
             - approve_deploy_stage
       - approve_deploy_prod:
+          <<: *master_branch
           type: approval
           requires:
             - deploy_stage
-          filters:
-            branches:
-              only: master
       - deploy_prod:
+          <<: *master_branch
           requires:
             - approve_deploy_prod
-          filters:
-            branches:
-              only: master
