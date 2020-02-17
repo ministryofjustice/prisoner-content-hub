@@ -239,10 +239,10 @@ workflows:
             - approve_preview_build_deploy_stage
       - build_frontend:
           <<: *master_branch
-      # - run_e2e_test:
-      #     <<: *master_branch
-      #     requires:
-      #       - build_frontend
+      - run_e2e_test:
+          <<: *master_branch
+          requires:
+            - build_frontend
       - deploy_dev:
           <<: *master_branch
           requires:
