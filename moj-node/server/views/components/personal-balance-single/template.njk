@@ -4,6 +4,6 @@
   <button type="button" class="govuk-button" id="show-balance-{{ params.type }}" onclick="showHiddenBlock('balance-{{ params.type }}')">View balance</button>
   <p id="balance-{{ params.type }}" class="hidden-block-text">{{ params.amount }}</p>
   {% else %}
-  <p>Unavailable</p>
+  <p class="unavailable">Not available</p>
   {% endif %}
 </div>
