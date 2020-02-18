@@ -38,7 +38,7 @@ commands:
 jobs:
   test_branch:
     docker:
-      - image: circleci/node:10.15.3-browsers
+      - image: circleci/node:12-browsers
     working_directory: ~/digital-hub
     steps:
       - checkout
@@ -145,7 +145,7 @@ jobs:
             - docker-build
   run_e2e_test:
     docker:
-      - image: circleci/node:10.15.3-browsers
+      - image: circleci/node:12-browsers
     working_directory: /home/circleci/app
     steps:
       - checkout
