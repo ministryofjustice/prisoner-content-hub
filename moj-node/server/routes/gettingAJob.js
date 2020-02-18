@@ -54,6 +54,7 @@ module.exports = function createStepByStepRouter({
       detailsType: 'small',
       userName,
       establishmentId,
+      returnUrl: req.originalUrl,
     };
 
     return res.render('pages/getting-a-job', {

@@ -1,7 +1,9 @@
 <div class="govuk-width-container{% if params.detailsType !== 'large' %} user-details{% endif %}">
   <div>
     {% if params.userName and params.newDesigns %}
-      <h2 class="govuk-body user-details-{{ params.detailsType }}">{{ params.userName }}</h2>
+      <h2 class="govuk-body user-details-{{ params.detailsType }}">{{ params.userName }}</h2><a href="/auth/logout?returnUrl={{ params.returnUrl }}">Logout</a>
+    {% else %}
+      <a href="/auth/login?returnUrl={{ params.returnUrl }}">Login</a>
     {% endif %}
   </div>
   {% if params.detailsType !== 'large' %}

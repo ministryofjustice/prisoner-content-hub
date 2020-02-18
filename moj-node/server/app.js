@@ -18,6 +18,7 @@ const createHealthRouter = require('./routes/health');
 const createContentRouter = require('./routes/content');
 const createVisitsRouter = require('./routes/visits');
 const createIepRouter = require('./routes/iep');
+const createAuthRouter = require('./routes/auth');
 const createMoneyRouter = require('./routes/money');
 const createTagRouter = require('./routes/tags');
 const createGamesRouter = require('./routes/games');
@@ -183,6 +184,13 @@ module.exports = function createApp({
     createTopicsRouter({
       logger,
       hubMenuService,
+    }),
+  );
+
+  app.use(
+    '/auth',
+    createAuthRouter({
+      logger,
     }),
   );
 

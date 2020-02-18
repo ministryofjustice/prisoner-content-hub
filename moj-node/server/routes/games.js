@@ -18,6 +18,7 @@ module.exports = function createGamesRouter({ logger }) {
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
+    config.returnUrl = req.originalUrl;
 
     return res.render('pages/games/chess', {
       title: 'Chess',
@@ -36,6 +37,7 @@ module.exports = function createGamesRouter({ logger }) {
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
+    config.returnUrl = req.originalUrl;
 
     return res.render('pages/games/sudoku', {
       title: 'Sudoku',
@@ -54,6 +56,7 @@ module.exports = function createGamesRouter({ logger }) {
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
+    config.returnUrl = req.originalUrl;
 
     return res.render('pages/games/neontroids', {
       title: 'Neontroids',
