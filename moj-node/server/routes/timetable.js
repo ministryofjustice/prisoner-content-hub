@@ -30,6 +30,7 @@ module.exports = function Home({ logger, offenderService }) {
         nextWeek: false,
         userName,
         newDesigns,
+        returnUrl: req.originalUrl,
       };
 
       res.render('pages/timetable', {
@@ -69,6 +70,7 @@ module.exports = function Home({ logger, offenderService }) {
         nextWeek: false,
         userName,
         newDesigns,
+        returnUrl: req.originalUrl,
       };
 
       res.render('pages/timetable', {
@@ -108,6 +110,7 @@ module.exports = function Home({ logger, offenderService }) {
         nextWeek: true,
         userName,
         newDesigns,
+        returnUrl: req.originalUrl,
       };
 
       res.render('pages/timetable', {

@@ -8,7 +8,7 @@
 }
 
 .top-bar {
-  font-size: 24px;
+  @include govuk-font(24, 'regular');
   display: flex;
   color: govuk-colour('white');
   align-items: center;
@@ -43,6 +43,39 @@
   font-weight: 400;
 }
 
-.top-bar-time :last-child {
-  font-weight: 700;
+.timeLogout {
+  padding: govuk-spacing(1) 0;
+
+  & a {
+    color: govuk-colour('white');
+    font-weight: 700;
+
+    &:link,
+    &:hover,
+    &:visited {
+      color: govuk-colour('white');
+    }
+
+    &:active,
+    &:focus {
+      color: $govuk-focus-text-colour;
+      background-color: $govuk-focus-colour;
+      outline: 3px solid transparent;
+      box-shadow: 0 -2px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
+      text-decoration: none;
+    }
+  }
+}
+
+.top-bar-time {
+  & :last-child {
+    font-weight: 700;
+  }
+  &.loggedIn {
+    @include govuk-font(19, 'regular');
+
+    & :last-child {
+      font-weight: 400;
+    }
+  }
 }
