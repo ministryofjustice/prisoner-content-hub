@@ -26,6 +26,7 @@ module.exports = function createVisitsRouter({
       category: 'visits',
       newDesigns,
       userName,
+      returnUrl: req.originalUrl,
     };
 
     const establishmentId = path(['locals', 'establishmentId'], res);

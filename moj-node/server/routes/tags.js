@@ -24,6 +24,7 @@ module.exports = function Tags({ logger, hubTagsService }) {
         detailsType: 'small',
         newDesigns,
         userName,
+        returnUrl: req.originalUrl,
       };
 
       const data = await hubTagsService.termFor(id, establishmentId);
