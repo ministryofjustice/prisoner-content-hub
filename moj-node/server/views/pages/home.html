@@ -30,7 +30,9 @@
 {% block topBar %}
   {{ topBar({
     establishmentName: establishmentName,
-    showBar: true
+    showBar: true,
+    userName: config.userName,
+    returnUrl: config.returnUrl
   }) }}
 {% endblock %}
 
