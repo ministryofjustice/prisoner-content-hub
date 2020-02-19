@@ -64,6 +64,7 @@
     "helmet": "^3.20.0",
     "jplayer": "^2.9.2",
     "jquery": "^3.4.1",
+    "ldap-authentication": "^2.1.2",
     "mkdirp": "^0.5.1",
     "node-sass-middleware": "0.11.0",
     "nunjucks": "^3.2.0",
