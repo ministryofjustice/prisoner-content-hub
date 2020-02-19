@@ -23,6 +23,7 @@ const createTagRouter = require('./routes/tags');
 const createGamesRouter = require('./routes/games');
 const createGettingAJobRouter = require('./routes/gettingAJob');
 const createSearchRouter = require('./routes/search');
+const createAuthRouter = require('./routes/auth');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const configureEstablishment = require('./middleware/configureEstablishment');
@@ -169,6 +170,13 @@ module.exports = function createApp({
     createTopicsRouter({
       logger,
       hubMenuService,
+    }),
+  );
+
+  app.use(
+    '/auth',
+    createAuthRouter({
+      logger,
     }),
   );
 
