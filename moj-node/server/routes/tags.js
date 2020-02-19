@@ -24,6 +24,7 @@ const createTagRouter = ({ logger, hubTagsService, analyticsService }) => {
         detailsType: 'small',
         newDesigns,
         userName,
+        returnUrl: req.originalUrl,
       };
       const sessionId = path(['session', 'id'], req);
 
