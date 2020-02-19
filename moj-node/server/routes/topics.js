@@ -32,6 +32,7 @@ module.exports = function Topics({ logger, hubMenuService }) {
         detailsType: 'small',
         userName,
         newDesigns,
+        returnUrl: req.originalUrl,
       };
 
       res.render('pages/topics', {
