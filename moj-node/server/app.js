@@ -193,6 +193,13 @@ const createApp = ({
     }),
   );
 
+  app.use(
+    '/auth',
+    createAuthRouter({
+      logger,
+    }),
+  );
+
   if (config.features.newDesigns) {
     app.use(
       '/timetable',
