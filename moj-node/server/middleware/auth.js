@@ -1,6 +1,5 @@
-const expressNTLM = require('express-ntlm');
+const { ldapAuthentication } = require('ldap-authentication');
 const { path } = require('ramda');
-const config = require('../config');
 const { logger } = require('../utils/logger');
 
 const getOffenderNumberFrom = path(['user', 'offenderNo']);
@@ -16,75 +15,103 @@ function createNotification(text) {
   return { text };
 }
 
-module.exports.authMiddleware = (ntlm = expressNTLM) => {
+module.exports.authenticateUser = ({
+  authenticate = ldapAuthentication,
+  config = {},
+} = {}) => {
+  async function getLdapUser(username, password) {
+    const options = {
+      ldapOpts: {
+        url: config.url,
+        tlsOptions: config.tlsOptions,
+      },
+      starttls: config.starttls,
+      adminDn: config.adminDn,
+      adminPassword: config.adminPassword,
+      userSearchBase: config.userSearchBase,
+      usernameAttribute: 'cn',
+      username,
+      userPassword: password,
+    };
+
+    try {
+      logger.info(`LDAP: Requesting authentication for user ${username}`);
+      const ldap = await authenticate(options);
+
+      logger.info('LDAP: Authentication successful');
+
+      return path(['sAMAccountName'], ldap);
+    } catch (error) {
+      logger.error(`LDAP: Authentication failed: ${error.message}`);
+      return new Error();
+    }
+  }
+
   if (config.mockAuth === 'true') {
-    return (request, response, next) => {
-      request.ntlm = {
-        DomainName: 'MOCK_DOMAIN',
-        UserName:
-          request.query.mockUser ||
-          getOffenderNumberFrom(request.session) ||
+    return (req, res, next) => {
+      req.user = {
+        id:
+          path(['query', 'mockUser'], req) ||
+          getOffenderNumberFrom(req.session) ||
           'G9542VP',
-        Workstation: 'MOCK_WORKSTATION',
       };
       next();
     };
   }
-  return ntlm({
-    debug(...args) {
-      logger.debug(args);
-    },
-    domain: config.ldap.domain,
-    domaincontroller: config.ldap.domainController,
-  });
+
+  return async (req, res, next) => {
+    const { username, password } = req.body;
+    req.user = { id: await getLdapUser(username, password) };
+    next();
+  };
 };
 
 module.exports.createUserSession = ({ offenderService }) => {
-  return async (request, response, next) => {
+  return async (req, res, next) => {
     try {
-      const offenderNo = request.ntlm.UserName;
+      const offenderNo = req.user.id;
 
-      if (offenderNo && !request.session.user) {
+      if (offenderNo && !req.session.user) {
         const offenderDetails = await offenderService.getOffenderDetailsFor(
           offenderNo,
         );
-        request.session.user = offenderDetails;
-        delete request.session.notification;
-      } else if (offenderNo !== getOffenderNumberFrom(request.session)) {
-        const forwarded = path(['headers', 'x-forwarded-for'], request);
+        req.session.user = offenderDetails;
+        delete req.session.notification;
+      } else if (offenderNo !== getOffenderNumberFrom(req.session)) {
+        const forwarded = path(['headers', 'x-forwarded-for'], req);
         const ip = forwarded
           ? forwarded.split(/, /)[0]
-          : path(['connection', 'remoteAddress'], request);
+          : path(['connection', 'remoteAddress'], req);
 
         logger.warn(
           `(${ip}) Session closed, username did not match: ${offenderNo} => ${getOffenderNumberFrom(
-            request.session,
+            req.session,
           )}`,
         );
-        delete request.session.user;
+        delete req.session.user;
       }
     } catch (error) {
       logger.error(error);
       const errorStatus = path(['response', 'status'], error);
       if (!errorStatus) {
-        request.session.notification = createNotification(
+        req.session.notification = createNotification(
           notificationContent.userNotFound,
         );
       } else if (errorStatus >= 500) {
-        request.session.notification = createNotification(
+        req.session.notification = createNotification(
           notificationContent.systemError,
         );
       } else if (errorStatus === 404) {
-        request.session.notification = createNotification(
+        req.session.notification = createNotification(
           notificationContent.userNotFound,
         );
       } else if (errorStatus >= 400) {
-        request.session.notification = createNotification(
+        req.session.notification = createNotification(
           notificationContent.systemError,
         );
       }
     } finally {
-      response.locals.user = request.session.user;
+      res.locals.user = req.session.user;
       next();
     }
   };
