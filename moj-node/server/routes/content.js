@@ -31,6 +31,7 @@ module.exports = function createContentRouter({
       detailsType: 'small',
       newDesigns,
       userName,
+      returnUrl: req.originalUrl,
     };
 
     const establishmentId = path(['locals', 'establishmentId'], res);

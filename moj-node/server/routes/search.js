@@ -20,6 +20,7 @@ module.exports = function createSearchRouter({ searchService, logger }) {
       detailsType: 'small',
       newDesigns,
       userName,
+      returnUrl: req.originalUrl,
     };
 
     try {
