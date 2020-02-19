@@ -4,9 +4,14 @@
       <img class="hub-logo" src="/public/images/icons/content-hub.png" alt="logo">
       <a href="/" style="">Content Hub <span>{{ params.establishmentName }}</span></a>
     </h1>
-    <div class="top-bar-time">
-      <span data-target-id="todays-date">&nbsp;</span>
-      <span data-target-id="todays-time"></span>
+    <div class="timeLogout">
+      <div class="top-bar-time{% if params.userName %} loggedIn{% endif %}">
+        <span data-target-id="todays-date">&nbsp;</span>
+        <span data-target-id="todays-time"></span>
+      </div>
+      {% if params.userName %}
+        <a href="/auth/logout?returnUrl={{ params.returnUrl }}">Sign out</a>
+      {% endif %}
     </div>
   </div>
 </header>

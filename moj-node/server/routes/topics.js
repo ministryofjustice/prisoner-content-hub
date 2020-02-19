@@ -33,6 +33,7 @@ const createTopicsRouter = ({ logger, hubMenuService, analyticsService }) => {
         detailsType: 'small',
         userName,
         newDesigns,
+        returnUrl: req.originalUrl,
       };
       analyticsService.sendPageTrack({
         hostname: req.hostname,
