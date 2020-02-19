@@ -8,6 +8,7 @@ const helmet = require('helmet');
 const log = require('bunyan-request-logger')({ name: config.appName });
 const nunjucks = require('nunjucks');
 const path = require('path');
+const fs = require('fs');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
@@ -27,11 +28,13 @@ const { createAnalyticsRouter } = require('./routes/analytics');
 const { createFeedbackRouter } = require('./routes/feedback');
 const { createGettingAJobRouter } = require('./routes/gettingAJob');
 const { createSearchRouter } = require('./routes/search');
-
+const createAuthRouter = require('./routes/auth');
 const { featureToggleMiddleware } = require('./middleware/featureToggle');
 const {
   configureEstablishment,
 } = require('./middleware/configureEstablishment');
+
+const { authenticateUser, createUserSession } = require('./middleware/auth');
 
 const { getEstablishmentId, getGoogleAnalyticsId } = require('./utils');
 
@@ -174,6 +177,7 @@ const createApp = ({
     res.locals.feedbackId = uuid();
     next();
   });
+  // Routing
 
   app.use(
     '/',
@@ -193,10 +197,27 @@ const createApp = ({
     }),
   );
 
+  const getCert = certPath => {
+    try {
+      const cert = fs.readFileSync(certPath);
+      return { ca: [cert] };
+    } catch (error) {
+      logger.error(error.message);
+      return null;
+    }
+  };
+
+  const ldapConfig = {
+    ...config.ldap,
+    tlsOptions: getCert(config.ldap.certPath),
+  };
+
   app.use(
     '/auth',
     createAuthRouter({
       logger,
+      authenticateUser: authenticateUser({ config: ldapConfig }),
+      createUserSession: createUserSession({ offenderService }),
     }),
   );
 
