@@ -24,7 +24,9 @@
 {% block topBar %}
   {{ topBar({
     establishmentName: establishmentName,
-    showBar: false
+    showBar: false,
+    userName: config.userName,
+    returnUrl: config.returnUrl
   }) }}
 {% endblock %}
 

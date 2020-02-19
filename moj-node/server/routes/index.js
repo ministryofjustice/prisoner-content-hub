@@ -33,6 +33,7 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
         newDesigns,
         userName,
         establishmentId,
+        returnUrl: req.originalUrl,
       };
 
       const popularTopics = {
