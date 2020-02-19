@@ -38,6 +38,7 @@ const createIndexRouter = ({
         newDesigns,
         userName,
         establishmentId,
+        returnUrl: req.originalUrl,
       };
 
       const popularTopics = {

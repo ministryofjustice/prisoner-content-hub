@@ -35,6 +35,7 @@ const createTimetableRouter = ({
         nextWeek: false,
         userName,
         newDesigns,
+        returnUrl: req.originalUrl,
       };
       analyticsService.sendPageTrack({
         hostname: req.hostname,
@@ -81,6 +82,7 @@ const createTimetableRouter = ({
         nextWeek: false,
         userName,
         newDesigns,
+        returnUrl: req.originalUrl,
       };
       analyticsService.sendPageTrack({
         hostname: req.hostname,
@@ -127,6 +129,7 @@ const createTimetableRouter = ({
         nextWeek: true,
         userName,
         newDesigns,
+        returnUrl: req.originalUrl,
       };
       analyticsService.sendPageTrack({
         hostname: req.hostname,
