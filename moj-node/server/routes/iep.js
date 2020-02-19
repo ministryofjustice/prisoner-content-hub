@@ -27,6 +27,7 @@ const createIepRouter = ({
       category: 'iep',
       newDesigns,
       userName,
+      returnUrl: req.originalUrl,
     };
 
     const establishmentId = path(['locals', 'establishmentId'], res);

@@ -33,7 +33,9 @@
 {% block topBar %}
   {{ topBar({
     establishmentName: establishmentName,
-    showBar: false
+    showBar: false,
+    userName: config.userName,
+    returnUrl: config.returnUrl
   }) }}
 {% endblock %}
 
@@ -41,8 +43,7 @@
   {{ userDetails({
     detailsType: config.detailsType,
     userName: config.userName,
-    newDesigns: config.newDesigns,
-    returnUrl: config.returnUrl
+    newDesigns: config.newDesigns
   }) }}
 {% endblock %}
 

@@ -56,6 +56,7 @@ const createGettingAJobRouter = ({
       detailsType: 'small',
       userName,
       establishmentId,
+      returnUrl: req.originalUrl,
     };
 
     analyticsService.sendPageTrack({
@@ -97,6 +98,7 @@ const createGettingAJobRouter = ({
       detailsType: 'small',
       userName,
       establishmentId,
+      returnUrl: req.originalUrl,
     };
 
     try {
