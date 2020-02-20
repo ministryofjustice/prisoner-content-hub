@@ -38,7 +38,7 @@ module.exports = function Login({
       };
 
       res.render('pages/login', {
-        title: 'Login',
+        title: 'Sign in',
         notification,
         config,
       });
