@@ -65,6 +65,7 @@
   <p class="govuk-body">You are already logged in.</p>
   {% else %}
     <form method="post" action="/auth/login">
+    <input type="hidden" name="returnUrl" value="{{ config.returnUrl }}" />
     {{ govukInput({
       label: {
         text: "Username"
