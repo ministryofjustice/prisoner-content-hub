@@ -3,7 +3,7 @@ const { path } = require('ramda');
 
 module.exports = function Login({
   logger,
-  jsonParser,
+  formParser,
   authenticateUser,
   createUserSession,
 }) {
@@ -11,7 +11,7 @@ module.exports = function Login({
 
   router.post(
     '/login',
-    jsonParser,
+    formParser,
     authenticateUser,
     createUserSession,
     (req, res) => {
