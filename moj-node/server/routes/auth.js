@@ -25,6 +25,7 @@ module.exports = function Login({
 
       const notification = path(['session', 'notification'], req);
       const userName = path(['session', 'user', 'name'], req);
+      const form = path(['session', 'form'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
       const config = {
@@ -41,6 +42,7 @@ module.exports = function Login({
         title: 'Sign in',
         notification,
         config,
+        form: { ...form, errorList: Object.values(form.errors) },
       });
     } catch (exception) {
       next(exception);

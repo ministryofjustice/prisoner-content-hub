@@ -46,7 +46,10 @@ describe('auth', () => {
         const mockLdap = sinon.stub().resolves({ sAMAccountName: 'MOCK_USER' });
         const middleware = authenticateUser({ authenticate: mockLdap });
 
-        const request = { body: { username: 'MOCK', password: 'USER' } };
+        const request = {
+          body: { username: 'MOCK', password: 'USER' },
+          session: {},
+        };
         await middleware(request, {}, next);
 
         expect(next.called).to.equal(true, 'next should have been called');

@@ -15,6 +15,19 @@ function createNotification(text) {
   return { text };
 }
 
+function isValidUsername(username) {
+  const pattern = new RegExp(/[A-Z][0-9]{4}[A-Z]{2}/i);
+  return pattern.test(username);
+}
+
+function isValidPassword(password) {
+  return password ? typeof password === 'string' && password.length > 0 : false;
+}
+
+function createFormError(field, error) {
+  return { href: `#${field}-error`, text: error };
+}
+
 module.exports.authenticateUser = ({
   authenticate = ldapAuthentication,
   config = {},
@@ -61,6 +74,30 @@ module.exports.authenticateUser = ({
 
   return async (req, res, next) => {
     const { username, password } = req.body;
+
+    req.session.form = {
+      data: { username, password },
+      errors: {},
+    };
+
+    if (!isValidPassword(password)) {
+      req.session.form.errors.password = createFormError(
+        'password',
+        'Enter a valid password',
+      );
+    }
+
+    if (!isValidUsername(username)) {
+      req.session.form.errors.username = createFormError(
+        'username',
+        'Enter a valid username',
+      );
+    }
+
+    if (Object.keys(req.session.form.errors) > 0) {
+      res.redirect('/auth/login');
+    }
+
     req.user = { id: await getLdapUser(username, password) };
     next();
   };
