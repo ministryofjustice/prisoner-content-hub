@@ -3,14 +3,21 @@ const { path } = require('ramda');
 
 module.exports = function Login({
   logger,
+  jsonParser,
   authenticateUser,
   createUserSession,
 }) {
   const router = express.Router();
 
-  router.post('/login', authenticateUser, createUserSession, (req, res) => {
-    return res.redirect(req.query.returnUrl);
-  });
+  router.post(
+    '/login',
+    jsonParser,
+    authenticateUser,
+    createUserSession,
+    (req, res) => {
+      return res.redirect(req.query.returnUrl);
+    },
+  );
 
   router.get('/login', async (req, res, next) => {
     try {
