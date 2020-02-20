@@ -215,6 +215,7 @@ const createApp = ({
     '/auth',
     createAuthRouter({
       logger,
+      jsonParser: bodyParser.json(),
       authenticateUser: authenticateUser({ config: ldapConfig }),
       createUserSession: createUserSession({ offenderService }),
     }),
