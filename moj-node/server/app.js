@@ -11,6 +11,7 @@ const path = require('path');
 const fs = require('fs');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('cookie-session');
+const bodyParser = require('body-parser');
 
 const createIndexRouter = require('./routes/index');
 const createTopicsRouter = require('./routes/topics');
@@ -199,6 +200,7 @@ module.exports = function createApp({
     '/auth',
     createAuthRouter({
       logger,
+      jsonParser: bodyParser.json(),
       authenticateUser: authenticateUser({ config: ldapConfig }),
       createUserSession: createUserSession({ offenderService }),
     }),
