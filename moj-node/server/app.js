@@ -200,7 +200,7 @@ module.exports = function createApp({
     '/auth',
     createAuthRouter({
       logger,
-      jsonParser: bodyParser.json(),
+      formParser: bodyParser.urlencoded(),
       authenticateUser: authenticateUser({ config: ldapConfig }),
       createUserSession: createUserSession({ offenderService }),
     }),
