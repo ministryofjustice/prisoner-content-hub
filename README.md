@@ -17,7 +17,7 @@ The following software is required
 
     Docker
     CMake
-    Node v10.5.3
+    Node v12
     Composer
  
 ## Starting the service

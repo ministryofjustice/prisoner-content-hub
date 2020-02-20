@@ -45,8 +45,8 @@ describe('hubMenuRepository', () => {
 
       const repository = hubMenuRepository(httpClient);
       const expected = [
-        { linkText: 'Baz', href: '/tags/0', id: '0', description: undefined },
         { linkText: 'Bat', href: '/tags/1', id: '1', description: undefined },
+        { linkText: 'Baz', href: '/tags/0', id: '0', description: undefined },
       ];
       const result = await repository.tagsMenu();
 
