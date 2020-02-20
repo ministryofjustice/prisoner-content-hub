@@ -15,7 +15,7 @@ module.exports = function Login({
     authenticateUser,
     createUserSession,
     (req, res) => {
-      return res.redirect(req.query.returnUrl);
+      return res.redirect(req.body.returnUrl);
     },
   );
 
