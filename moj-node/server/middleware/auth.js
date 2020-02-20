@@ -25,7 +25,7 @@ module.exports.authenticateUser = ({
         url: config.url,
         tlsOptions: config.tlsOptions,
       },
-      starttls: config.starttls,
+      starttls: config.starttls === 'true',
       adminDn: config.adminDn,
       adminPassword: config.adminPassword,
       userSearchBase: config.userSearchBase,
