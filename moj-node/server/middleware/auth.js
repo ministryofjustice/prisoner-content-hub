@@ -1,4 +1,4 @@
-const { ldapAuthentication } = require('ldap-authentication');
+const { authenticate: ldapAuthentication } = require('ldap-authentication');
 const { path } = require('ramda');
 const { logger } = require('../utils/logger');
 
