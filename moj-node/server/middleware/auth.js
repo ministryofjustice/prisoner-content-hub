@@ -15,6 +15,19 @@ function createNotification(text) {
   return { text };
 }
 
+function isValidUsername(username) {
+  const pattern = new RegExp(/[A-Z][0-9]{4}[A-Z]{2}/i);
+  return pattern.test(username);
+}
+
+function isValidPassword(password) {
+  return password ? typeof password === 'string' && password.length > 0 : false;
+}
+
+function createFormError(field, error) {
+  return { href: `#${field}-error`, text: error };
+}
+
 module.exports.authenticateUser = ({
   authenticate = ldapAuthentication,
   config = {},
@@ -34,17 +47,12 @@ module.exports.authenticateUser = ({
       userPassword: password,
     };
 
-    try {
-      logger.info(`LDAP: Requesting authentication for user ${username}`);
-      const ldap = await authenticate(options);
+    logger.info(`LDAP: Requesting authentication for user ${username}`);
+    const ldap = await authenticate(options);
 
-      logger.info('LDAP: Authentication successful');
+    logger.info('LDAP: Authentication successful');
 
-      return path(['sAMAccountName'], ldap);
-    } catch (error) {
-      logger.error(`LDAP: Authentication failed: ${error.message}`);
-      return new Error();
-    }
+    return path(['sAMAccountName'], ldap);
   }
 
   if (config.mockAuth === 'true') {
@@ -61,8 +69,49 @@ module.exports.authenticateUser = ({
 
   return async (req, res, next) => {
     const { username, password } = req.body;
-    req.user = { id: await getLdapUser(username, password) };
-    next();
+
+    const form = {
+      data: { username, password },
+      errors: {},
+    };
+
+    if (!isValidPassword(password)) {
+      form.errors.password = createFormError(
+        'password',
+        'Enter a valid password',
+      );
+    }
+
+    if (!isValidUsername(username)) {
+      form.errors.username = createFormError(
+        'username',
+        'Enter a valid username',
+      );
+    }
+
+    if (Object.keys(form.errors).length > 0) {
+      req.session.form = form;
+      return res.redirect('/auth/login');
+    }
+
+    try {
+      req.user = { id: await getLdapUser(username, password) };
+      return next();
+    } catch (error) {
+      if (error.name === 'LdapAuthenticationError') {
+        form.errors.username = createFormError(
+          'username',
+          'Either your username or password is incorrect',
+        );
+      } else {
+        logger.error(error.message);
+        req.session.notification = createNotification(
+          notificationContent.systemError,
+        );
+      }
+      req.session.form = form;
+      return res.redirect('/auth/login');
+    }
   };
 };
 
