@@ -1,5 +1,5 @@
 const express = require('express');
-const { path } = require('ramda');
+const { path, pathOr } = require('ramda');
 
 module.exports = function Login({
   logger,
@@ -25,7 +25,7 @@ module.exports = function Login({
 
       const notification = path(['session', 'notification'], req);
       const userName = path(['session', 'user', 'name'], req);
-      const form = path(['session', 'form'], req);
+      const form = pathOr({}, ['session', 'form'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
       const config = {
@@ -42,8 +42,14 @@ module.exports = function Login({
         title: 'Sign in',
         notification,
         config,
-        form: { ...form, errorList: Object.values(form.errors) },
+        form: {
+          ...form,
+          errorList: form.errors ? Object.values(form.errors) : [],
+        },
       });
+
+      delete req.session.form;
+      delete req.session.notification;
     } catch (exception) {
       next(exception);
     }

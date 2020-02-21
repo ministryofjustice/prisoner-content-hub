@@ -47,17 +47,12 @@ module.exports.authenticateUser = ({
       userPassword: password,
     };
 
-    try {
-      logger.info(`LDAP: Requesting authentication for user ${username}`);
-      const ldap = await authenticate(options);
+    logger.info(`LDAP: Requesting authentication for user ${username}`);
+    const ldap = await authenticate(options);
 
-      logger.info('LDAP: Authentication successful');
+    logger.info('LDAP: Authentication successful');
 
-      return path(['sAMAccountName'], ldap);
-    } catch (error) {
-      logger.error(`LDAP: Authentication failed: ${error.message}`);
-      return new Error();
-    }
+    return path(['sAMAccountName'], ldap);
   }
 
   if (config.mockAuth === 'true') {
@@ -75,31 +70,48 @@ module.exports.authenticateUser = ({
   return async (req, res, next) => {
     const { username, password } = req.body;
 
-    req.session.form = {
+    const form = {
       data: { username, password },
       errors: {},
     };
 
     if (!isValidPassword(password)) {
-      req.session.form.errors.password = createFormError(
+      form.errors.password = createFormError(
         'password',
         'Enter a valid password',
       );
     }
 
     if (!isValidUsername(username)) {
-      req.session.form.errors.username = createFormError(
+      form.errors.username = createFormError(
         'username',
         'Enter a valid username',
       );
     }
 
-    if (Object.keys(req.session.form.errors) > 0) {
-      res.redirect('/auth/login');
+    if (Object.keys(form.errors).length > 0) {
+      req.session.form = form;
+      return res.redirect('/auth/login');
     }
 
-    req.user = { id: await getLdapUser(username, password) };
-    next();
+    try {
+      req.user = { id: await getLdapUser(username, password) };
+      return next();
+    } catch (error) {
+      if (error.name === 'LdapAuthenticationError') {
+        form.errors.username = createFormError(
+          'username',
+          'Either your username or password is incorrect',
+        );
+      } else {
+        logger.error(error.message);
+        req.session.notification = createNotification(
+          notificationContent.systemError,
+        );
+      }
+      req.session.form = form;
+      return res.redirect('/auth/login');
+    }
   };
 };
 

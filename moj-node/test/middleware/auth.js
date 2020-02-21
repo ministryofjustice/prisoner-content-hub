@@ -1,3 +1,4 @@
+const { LdapAuthenticationError } = require('ldap-authentication');
 const config = require('../../server/config');
 const {
   authenticateUser,
@@ -17,11 +18,11 @@ describe('auth', () => {
         const next = sinon.spy();
         const middleware = authenticateUser({ config: { mockAuth: 'true' } });
 
-        const request = { query: { mockUser: 'MOCK_USER' } };
+        const request = { query: { mockUser: 'A1234BC' } };
         await middleware(request, {}, next);
 
         expect(next.called).to.equal(true, 'next should have been called');
-        expect(request.user).to.have.property('id', 'MOCK_USER');
+        expect(request.user).to.have.property('id', 'A1234BC');
       });
 
       it('should allow user to be stored in the session', async () => {
@@ -30,12 +31,12 @@ describe('auth', () => {
 
         const request = {
           query: {},
-          session: { user: { offenderNo: 'MOCK_USER' } },
+          session: { user: { offenderNo: 'A1234BC' } },
         };
         await middleware(request, {}, next);
 
         expect(next.called).to.equal(true, 'next should have been called');
-        expect(request.user).to.have.property('id', 'MOCK_USER');
+        expect(request.user).to.have.property('id', 'A1234BC');
       });
     });
 
@@ -43,11 +44,11 @@ describe('auth', () => {
       it('should use LDAP', async () => {
         config.mockAuth = 'false';
         const next = sinon.spy();
-        const mockLdap = sinon.stub().resolves({ sAMAccountName: 'MOCK_USER' });
+        const mockLdap = sinon.stub().resolves({ sAMAccountName: 'A1234BC' });
         const middleware = authenticateUser({ authenticate: mockLdap });
 
         const request = {
-          body: { username: 'MOCK', password: 'USER' },
+          body: { username: 'A1234BC', password: 'USER' },
           session: {},
         };
         await middleware(request, {}, next);
@@ -57,7 +58,111 @@ describe('auth', () => {
           true,
           'mockLdap should have been called',
         );
-        expect(request.user).to.have.property('id', 'MOCK_USER');
+        expect(request.user).to.have.property('id', 'A1234BC');
+      });
+      it('should validate username and create error if invalid', async () => {
+        config.mockAuth = 'false';
+        const next = sinon.spy();
+        const mockLdap = sinon.spy();
+        const middleware = authenticateUser({ authenticate: mockLdap });
+
+        const request = {
+          body: { username: 'FOO BAR', password: 'password' },
+          session: {},
+        };
+        const response = {
+          redirect: sinon.spy(),
+        };
+        await middleware(request, response, next);
+
+        expect(response.redirect.called).to.equal(
+          true,
+          'should have redirected',
+        );
+        expect(response.redirect.lastCall.args[0]).to.equal(
+          '/auth/login',
+          'should have redirected to login page',
+        );
+        expect(request.session.form.errors).to.have.property('username');
+      });
+      it('should validate password and create error if invalid', async () => {
+        config.mockAuth = 'false';
+        const next = sinon.spy();
+        const mockLdap = sinon.spy();
+        const middleware = authenticateUser({ authenticate: mockLdap });
+
+        const request = {
+          body: { username: 'A1234BC', password: '' },
+          session: {},
+        };
+        const response = {
+          redirect: sinon.spy(),
+        };
+        await middleware(request, response, next);
+
+        expect(response.redirect.called).to.equal(
+          true,
+          'should have redirected',
+        );
+        expect(response.redirect.lastCall.args[0]).to.equal(
+          '/auth/login',
+          'should have redirected to login page',
+        );
+        expect(request.session.form.errors).to.have.property('password');
+      });
+
+      it('should create a system notification when LDAP fails', async () => {
+        config.mockAuth = 'false';
+        const next = sinon.spy();
+        const mockLdap = sinon.stub().rejects('BOOM!');
+        const middleware = authenticateUser({ authenticate: mockLdap });
+
+        const request = {
+          body: { username: 'A1234BC', password: 'password' },
+          session: {},
+        };
+        const response = {
+          redirect: sinon.spy(),
+        };
+        await middleware(request, response, next);
+
+        expect(response.redirect.called).to.equal(
+          true,
+          'should have redirected',
+        );
+        expect(response.redirect.lastCall.args[0]).to.equal(
+          '/auth/login',
+          'should have redirected to login page',
+        );
+        expect(request.session).to.have.property('notification');
+      });
+
+      it('should create a form error when user credentials are incorrect', async () => {
+        config.mockAuth = 'false';
+        const next = sinon.spy();
+        const mockLdap = sinon
+          .stub()
+          .rejects(new LdapAuthenticationError('BOOM!'));
+        const middleware = authenticateUser({ authenticate: mockLdap });
+
+        const request = {
+          body: { username: 'A1234BC', password: 'password' },
+          session: {},
+        };
+        const response = {
+          redirect: sinon.spy(),
+        };
+        await middleware(request, response, next);
+
+        expect(response.redirect.called).to.equal(
+          true,
+          'should have redirected',
+        );
+        expect(response.redirect.lastCall.args[0]).to.equal(
+          '/auth/login',
+          'should have redirected to login page',
+        );
+        expect(request.session.form.errors).to.have.property('username');
       });
     });
   });
