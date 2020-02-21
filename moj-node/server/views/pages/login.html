@@ -2,6 +2,7 @@
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "../components/topics/macro.njk" import hubTopics %}
 {% from "../components/page-navigation/macro.njk" import pageNavigation %}
 {% from "../components/user-details/macro.njk" import userDetails %}
@@ -61,51 +62,61 @@
 
 {% block main %}
   <div class="govuk-width-container">
-  {% if config.userName %}
-  <p class="govuk-body">You are already logged in.</p>
-  {% else %}
-    <form method="post" action="/auth/login">
-    <input type="hidden" name="returnUrl" value="{{ config.returnUrl }}" />
-    {{ govukInput({
-      label: {
-        text: "Username"
-      },
-      classes: "govuk-!-width-one-half",
-      id: "username",
-      name: "username"
-    }) }}
-    <div style="display: flex; align-items: flex-end;">
-      <div style="flex: 1 0 50%;">
-      {{ govukInput({
-        label: {
-          text: "Password"
-        },
-        type: "password",
-        id: "password",
-        name: "password"
-      }) }}
-      </div>
-      <div style="flex: 1 0 50%; padding-left: 10px;">
-        {{ govukButton({
-          text: "Show",
-          classes: "govuk-button--secondary",
-          type: "button"
+    {% if config.userName %}
+      <p class="govuk-body">You are already logged in.</p>
+    {% else %}
+      {% if form.errorList | length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: form.errorList
         }) }}
-      </div>
-    </div>
-    <div style="width: 50%;">
-    {{ govukDetails({
-      summaryText: "Forgotten username or password?",
-      html: "<p>Your username and password are the same as you use to sign in to your laptop.</p><p>If you cannot remember your username and password please report this to a digital champion or send an app to IT.</p>"
-    }) }}
-    </div>
-    {{ govukButton({
-      text: "Sign in",
-      isStartButton: true,
-      type: "submit"
-    }) }}
-    </form>
-  {% endif %}
+      {% endif %}
+      <form method="post" action="/auth/login">
+        <input type="hidden" name="returnUrl" value="{{ config.returnUrl }}"/>
+        {{ govukInput({
+          label: {
+            text: "Username"
+          },
+          classes: "govuk-!-width-one-half",
+          id: "username",
+          name: "username",
+          value: form.data.username,
+            errorMessage: form.errors.username
+        }) }}
+        <div style="display: flex; align-items: flex-end;">
+          <div style="flex: 1 0 50%;">
+            {{ govukInput({
+              label: {
+                text: "Password"
+              },
+              type: "password",
+              id: "password",
+              name: "password",
+              value: form.data.password,
+              errorMessage: form.errors.password
+            }) }}
+          </div>
+          <div style="flex: 1 0 50%; padding-left: 10px;">
+            {{ govukButton({
+              text: "Show",
+              classes: "govuk-button--secondary",
+              type: "button"
+            }) }}
+          </div>
+        </div>
+        <div style="width: 50%;">
+          {{ govukDetails({
+            summaryText: "Forgotten username or password?",
+            html: "<p>Your username and password are the same as you use to sign in to your laptop.</p><p>If you cannot remember your username and password please report this to a digital champion or send an app to IT.</p>"
+          }) }}
+        </div>
+        {{ govukButton({
+          text: "Sign in",
+          isStartButton: true,
+          type: "submit"
+        }) }}
+      </form>
+    {% endif %}
   </div>
 {% endblock %}
 
