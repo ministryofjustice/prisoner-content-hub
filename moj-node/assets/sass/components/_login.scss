@@ -1,0 +1,20 @@
+@import 'node_modules/govuk-frontend/govuk/settings/all';
+@import 'node_modules/govuk-frontend/govuk/tools/all';
+@import 'node_modules/govuk-frontend/govuk/helpers/all';
+
+.login-fields {
+  display: flex;
+  align-items: flex-end;
+
+  & > div {
+    flex: 1 0 50%;
+  }
+
+  & > div:last-child {
+    padding-left: govuk-spacing(2);
+  }
+}
+
+.login-errors {
+  width: 50%;
+}
