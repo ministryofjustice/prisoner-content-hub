@@ -12,9 +12,11 @@
           <h3 class="govuk-hub-navigation__heading">Browse by topic</h3>
           <ul class="govuk-hub-navigation__list govuk-!-margin-bottom-4">
             {% for menuItem in params.topicsMenu %}
+              {% if menuItem.linkText %}
               <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item-topic">
                 <a href="{{menuItem.href}}">{{menuItem.linkText}}</a>
               </li>
+              {% endif %}
             {% endfor %}
           </ul>
       </div>
