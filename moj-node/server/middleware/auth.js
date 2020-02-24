@@ -98,9 +98,12 @@ module.exports.authenticateUser = ({
       req.user = { id: await getLdapUser(username, password) };
       return next();
     } catch (error) {
-      if (error.name === 'LdapAuthenticationError') {
-        form.errors.username = createFormError(
-          'username',
+      if (
+        error.name === 'LdapAuthenticationError' ||
+        error.name === 'InvalidCredentialsError'
+      ) {
+        form.errors.ldap = createFormError(
+          'ldap',
           'Either your username or password is incorrect',
         );
       } else {
