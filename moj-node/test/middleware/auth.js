@@ -5,6 +5,13 @@ const {
   createUserSession,
 } = require('../../server/middleware/auth');
 
+class InvalidCredentialsError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'InvalidCredentialsError';
+  }
+}
+
 describe('auth', () => {
   describe('.authMiddleware', () => {
     const originalConfig = { ...config };
@@ -137,7 +144,7 @@ describe('auth', () => {
         expect(request.session).to.have.property('notification');
       });
 
-      it('should create a form error when user credentials are incorrect', async () => {
+      it('should create a form error when the username is incorrect', async () => {
         config.mockAuth = 'false';
         const next = sinon.spy();
         const mockLdap = sinon
@@ -162,7 +169,34 @@ describe('auth', () => {
           '/auth/login',
           'should have redirected to login page',
         );
-        expect(request.session.form.errors).to.have.property('username');
+        expect(request.session.form.errors).to.have.property('ldap');
+      });
+      it('should create a form error when the password is incorrect', async () => {
+        config.mockAuth = 'false';
+        const next = sinon.spy();
+        const mockLdap = sinon
+          .stub()
+          .rejects(new InvalidCredentialsError('BOOM!'));
+        const middleware = authenticateUser({ authenticate: mockLdap });
+
+        const request = {
+          body: { username: 'A1234BC', password: 'password' },
+          session: {},
+        };
+        const response = {
+          redirect: sinon.spy(),
+        };
+        await middleware(request, response, next);
+
+        expect(response.redirect.called).to.equal(
+          true,
+          'should have redirected',
+        );
+        expect(response.redirect.lastCall.args[0]).to.equal(
+          '/auth/login',
+          'should have redirected to login page',
+        );
+        expect(request.session.form.errors).to.have.property('ldap');
       });
     });
   });
