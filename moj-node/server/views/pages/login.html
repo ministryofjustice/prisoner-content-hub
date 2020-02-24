@@ -99,7 +99,7 @@
           <div style="flex: 1 0 50%; padding-left: 10px;">
             {{ govukButton({
               text: "Show",
-              classes: "govuk-button--secondary",
+              classes: "govuk-button--secondary toggle-password",
               type: "button"
             }) }}
           </div>
@@ -121,7 +121,9 @@
 {% endblock %}
 
 {% block bodyEnd %}
+  <script src="/public/jquery.min.js"></script>
   <script src="/public/all.js"></script>
+  <script src="/public/javascript/toggle-password.js"></script>
   <script>
     window
       .GOVUKFrontend
