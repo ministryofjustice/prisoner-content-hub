@@ -83,8 +83,8 @@
           value: form.data.username,
             errorMessage: form.errors.username
         }) }}
-        <div style="display: flex; align-items: flex-end;">
-          <div style="flex: 1 0 50%;">
+        <div class="login-fields">
+          <div>
             {{ govukInput({
               label: {
                 text: "Password"
@@ -96,7 +96,7 @@
               errorMessage: form.errors.password
             }) }}
           </div>
-          <div style="flex: 1 0 50%; padding-left: 10px;">
+          <div>
             {{ govukButton({
               text: "Show",
               classes: "govuk-button--secondary toggle-password",
@@ -104,7 +104,7 @@
             }) }}
           </div>
         </div>
-        <div style="width: 50%;">
+        <div class="login-errors">
           {{ govukDetails({
             summaryText: "Forgotten username or password?",
             html: "<p>Your username and password are the same as you use to sign in to your laptop.</p><p>If you cannot remember your username and password please report this to a digital champion or send an app to IT.</p>"
