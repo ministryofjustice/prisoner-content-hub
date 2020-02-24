@@ -36,6 +36,9 @@ describe('App', () => {
         hubMenuService: {
           tagsMenu: sinon.stub(),
         },
+        offenderService: {
+          getOffenderDetailsFor: sinon.stub(),
+        },
       }),
     )
       .get('/')
@@ -67,6 +70,7 @@ describe('App', () => {
         offenderService: {
           getEventsForToday: sinon.stub(),
           getEventsFor: sinon.stub(),
+          getOffenderDetailsFor: sinon.stub(),
         },
       }),
     )
@@ -111,6 +115,9 @@ function app(opts) {
     hubMenuService: {
       navigationMenu: sinon.stub().returns({ mainMenu: [], topicsMenu: [] }),
       seriesMenu: sinon.stub().returns([]),
+    },
+    offenderService: {
+      getOffenderDetailsFor: sinon.stub(),
     },
     hubContentService: { contentFor: sinon.stub().returns({}) },
     searchService: { find: sinon.stub() },

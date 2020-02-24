@@ -11,12 +11,14 @@ module.exports = function createHubContentService({
     }
 
     const content = await contentRepository.contentFor(id);
-
-    const suggestedContent = await contentRepository.suggestedContentFor({
-      id,
-      establishmentId,
-    });
     const contentType = prop('contentType', content);
+    const suggestedContent =
+      contentType === 'radio' || contentType === 'video'
+        ? await contentRepository.suggestedContentFor({
+            id,
+            establishmentId,
+          })
+        : [];
     const prisonId = prop('establishmentId', content);
 
     if (!canAccessContent(establishmentId, prisonId)) {
@@ -34,12 +36,10 @@ module.exports = function createHubContentService({
       case 'landing-page':
         return landingPage(establishmentId, {
           ...content,
-          suggestedContent,
         });
       default:
         return {
           ...content,
-          suggestedContent,
         };
     }
   }

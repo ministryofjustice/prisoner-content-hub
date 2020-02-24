@@ -7,9 +7,6 @@ describe('#hubContentService', () => {
         contentFor: sinon
           .stub()
           .returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
-        suggestedContentFor: sinon
-          .stub()
-          .returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
       };
       const service = createHubContentService({ contentRepository });
       const result = await service.contentFor('contentId');
@@ -18,11 +15,6 @@ describe('#hubContentService', () => {
         title: 'foo',
         href: 'www.foo.com',
         type: 'foo',
-        suggestedContent: {
-          href: 'www.foo.com',
-          title: 'foo',
-          type: 'foo',
-        },
       });
     });
 
@@ -40,7 +32,7 @@ describe('#hubContentService', () => {
           }),
           suggestedContentFor: sinon
             .stub()
-            .returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
+            .returns([{ title: 'foo', href: 'www.foo.com', type: 'foo' }]),
           termFor: sinon.stub().returns({ name: 'foo series name', id: 'foo' }),
           nextEpisodesFor: sinon
             .stub()
@@ -60,11 +52,13 @@ describe('#hubContentService', () => {
           contentType,
           seriesId: 'seriesId',
           seriesName: 'foo series name',
-          suggestedContent: {
-            href: 'www.foo.com',
-            title: 'foo',
-            type: 'foo',
-          },
+          suggestedContent: [
+            {
+              href: 'www.foo.com',
+              title: 'foo',
+              type: 'foo',
+            },
+          ],
           episodeId: 'episodeId',
           tagsId: [12],
           season: [{ id: 2, title: 'bar episode' }], // hides the current episode from season
