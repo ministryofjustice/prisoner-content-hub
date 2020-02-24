@@ -70,9 +70,11 @@
 
       <ul id="tags-list" class="govuk-hub-navigation__list govuk-hub-navigation__list--linear govuk-!-margin-bottom-6">
         {% for tagItem in data.tags %}
+          {% if tagItem.name %}
           <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item-topic">
             <a title="{{tagItem.name}}" href="/tags/{{tagItem.id}}">{{tagItem.name}}</a>
           </li>
+          {% endif %}
         {% endfor %}
       </ul>
 
