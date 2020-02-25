@@ -31,6 +31,7 @@ function createFormError(field, error) {
 module.exports.authenticateUser = ({
   authenticate = ldapAuthentication,
   config = {},
+  mockAuth = false,
 } = {}) => {
   async function getLdapUser(username, password) {
     const options = {
@@ -55,7 +56,7 @@ module.exports.authenticateUser = ({
     return path(['sAMAccountName'], ldap);
   }
 
-  if (config.mockAuth === 'true') {
+  if (mockAuth) {
     return (req, res, next) => {
       req.user = {
         id:
@@ -63,7 +64,7 @@ module.exports.authenticateUser = ({
           getOffenderNumberFrom(req.session) ||
           'G9542VP',
       };
-      next();
+      return next();
     };
   }
 
