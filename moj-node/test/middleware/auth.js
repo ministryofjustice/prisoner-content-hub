@@ -23,7 +23,7 @@ describe('auth', () => {
     describe('When configured to mock authentication', () => {
       it('should allow user to be mocked through query parameters', async () => {
         const next = sinon.spy();
-        const middleware = authenticateUser({ config: { mockAuth: 'true' } });
+        const middleware = authenticateUser({ mockAuth: true });
 
         const request = { query: { mockUser: 'A1234BC' } };
         await middleware(request, {}, next);
@@ -34,7 +34,7 @@ describe('auth', () => {
 
       it('should allow user to be stored in the session', async () => {
         const next = sinon.spy();
-        const middleware = authenticateUser({ config: { mockAuth: 'true' } });
+        const middleware = authenticateUser({ mockAuth: true });
 
         const request = {
           query: {},
@@ -49,7 +49,6 @@ describe('auth', () => {
 
     describe('When configured to NOT mock authentication', () => {
       it('should use LDAP', async () => {
-        config.mockAuth = 'false';
         const next = sinon.spy();
         const mockLdap = sinon.stub().resolves({ sAMAccountName: 'A1234BC' });
         const middleware = authenticateUser({ authenticate: mockLdap });
@@ -68,7 +67,6 @@ describe('auth', () => {
         expect(request.user).to.have.property('id', 'A1234BC');
       });
       it('should validate username and create error if invalid', async () => {
-        config.mockAuth = 'false';
         const next = sinon.spy();
         const mockLdap = sinon.spy();
         const middleware = authenticateUser({ authenticate: mockLdap });
@@ -93,7 +91,6 @@ describe('auth', () => {
         expect(request.session.form.errors).to.have.property('username');
       });
       it('should validate password and create error if invalid', async () => {
-        config.mockAuth = 'false';
         const next = sinon.spy();
         const mockLdap = sinon.spy();
         const middleware = authenticateUser({ authenticate: mockLdap });
@@ -119,7 +116,6 @@ describe('auth', () => {
       });
 
       it('should create a system notification when LDAP fails', async () => {
-        config.mockAuth = 'false';
         const next = sinon.spy();
         const mockLdap = sinon.stub().rejects('BOOM!');
         const middleware = authenticateUser({ authenticate: mockLdap });
@@ -145,7 +141,6 @@ describe('auth', () => {
       });
 
       it('should create a form error when the username is incorrect', async () => {
-        config.mockAuth = 'false';
         const next = sinon.spy();
         const mockLdap = sinon
           .stub()
@@ -172,7 +167,6 @@ describe('auth', () => {
         expect(request.session.form.errors).to.have.property('ldap');
       });
       it('should create a form error when the password is incorrect', async () => {
-        config.mockAuth = 'false';
         const next = sinon.spy();
         const mockLdap = sinon
           .stub()
