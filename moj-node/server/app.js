@@ -204,7 +204,10 @@ module.exports = function createApp({
     createAuthRouter({
       logger,
       formParser: bodyParser.urlencoded(),
-      authenticateUser: authenticateUser({ config: ldapConfig }),
+      authenticateUser: authenticateUser({
+        config: ldapConfig,
+        mockAuth: config.mockAuth,
+      }),
       createUserSession: createUserSession({ offenderService }),
     }),
   );
