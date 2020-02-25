@@ -7,7 +7,7 @@ const { logger } = require('./test-helpers');
 describe('App', () => {
   const originalConfig = { ...config };
   beforeEach(() => {
-    config.mockAuth = 'true';
+    config.mockAuth = true;
   });
   afterEach(() => {
     config.mockAuth = originalConfig.mockAuth;

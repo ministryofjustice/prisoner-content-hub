@@ -35,7 +35,7 @@ module.exports = function Login({
         detailsType: 'small',
         userName,
         newDesigns,
-        returnUrl: req.originalUrl,
+        returnUrl: req.query.returnUrl || '/',
       };
 
       res.render('pages/login', {

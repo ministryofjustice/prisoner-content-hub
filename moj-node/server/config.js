@@ -63,7 +63,7 @@ module.exports = {
     newDesigns: getEnv('FEATURE_NEW_DESIGNS', false),
     prisonSwitch: getEnv('ENABLE_PRISON_SWITCH', false),
   },
-  mockAuth: getEnv('MOCK_AUTH', 'false'),
+  mockAuth: getEnv('MOCK_AUTH', 'false') === 'true',
   analytics: {
     endpoint: getEnv(
       'ANALYTICS_ENDPOINT',
