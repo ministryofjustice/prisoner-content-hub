@@ -97,7 +97,7 @@ class SuggestedContentApiClass
   {
     $node = $this->node_storage->load($nid);
     $secondary_tag_ids = $this->getTagIds($node->field_moj_secondary_tags);
-    $matching_ids = $this->getSecondaryTagItemsFor($secondary_tag_ids, $number, $prison);
+    $matching_ids = array_unique($this->getSecondaryTagItemsFor($secondary_tag_ids, $number, $prison));
 
     if (count($matching_ids) < $number) {
       $matching_any_secondary_tags_ids = $this->getTagItemsFor($secondary_tag_ids, $number, $prison, false);
