@@ -81,6 +81,7 @@
   flex: 1 1 35%;
   border: govuk-spacing(1) solid govuk-colour('blue');
   padding: govuk-spacing(4);
+  margin-bottom: govuk-spacing(5);
 
   & h3 {
     margin-bottom: govuk-spacing(2);
@@ -122,6 +123,25 @@
 
     & > * {
       flex: 1 1 30%;
+    }
+  }
+}
+
+.todays-events__placeholder {
+  display: block;
+  width: 100%;
+
+  & > div {
+    // TODO: fix and remove important
+    display: block !important;
+    margin-top: 0 !important;
+    width: 66% !important;
+    background-color: govuk-colour('light-grey');
+    height: 44%;
+    margin-bottom: govuk-spacing(2);
+
+    &:last-of-type {
+      width: 33% !important;
     }
   }
 }
