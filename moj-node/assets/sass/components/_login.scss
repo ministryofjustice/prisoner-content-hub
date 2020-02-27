@@ -2,7 +2,7 @@
 @import 'node_modules/govuk-frontend/govuk/tools/all';
 @import 'node_modules/govuk-frontend/govuk/helpers/all';
 
-.login-fields {
+.signin-fields {
   display: flex;
   align-items: flex-end;
 
@@ -15,6 +15,6 @@
   }
 }
 
-.login-errors {
+.signin-width {
   width: 50%;
 }
