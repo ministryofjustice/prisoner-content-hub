@@ -1,7 +1,6 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "../components/topics/macro.njk" import hubTopics %}
 {% from "../components/page-navigation/macro.njk" import pageNavigation %}
@@ -61,9 +60,9 @@
 {% block search %}{% endblock %}
 
 {% block main %}
-  <div class="govuk-width-container">
+  <div class="govuk-width-container signin">
     {% if config.userName %}
-      <p class="govuk-body">You are already logged in.</p>
+      <p class="govuk-body signin-width">You are already logged in.</p>
     {% else %}
       {% if form.errorList | length %}
         {{ govukErrorSummary({
@@ -71,19 +70,23 @@
           errorList: form.errorList
         }) }}
       {% endif %}
+      <p class="govuk-body signin-width">Your username and password are the same ones you use to sign in to your laptop.</p>
       <form method="post" action="/auth/login">
         <input type="hidden" name="returnUrl" value="{{ config.returnUrl }}"/>
         {{ govukInput({
           label: {
             text: "Username"
           },
+          hint: {
+            text: 'This is your prisoner number, for example A1234BC.'
+          },
           classes: "govuk-!-width-one-half",
           id: "username",
           name: "username",
           value: form.data.username,
-            errorMessage: form.errors.username
+          errorMessage: form.errors.username
         }) }}
-        <div class="login-fields">
+        <div class="signin-fields">
           <div>
             {{ govukInput({
               label: {
@@ -103,12 +106,6 @@
               type: "button"
             }) }}
           </div>
-        </div>
-        <div class="login-errors">
-          {{ govukDetails({
-            summaryText: "Forgotten username or password?",
-            html: "<p>Your username and password are the same as you use to sign in to your laptop.</p><p>If you cannot remember your username and password please report this to a digital champion or send an app to IT.</p>"
-          }) }}
         </div>
         {{ govukButton({
           text: "Sign in",
