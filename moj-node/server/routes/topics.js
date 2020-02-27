@@ -18,7 +18,6 @@ module.exports = function Topics({ logger, hubMenuService }) {
     try {
       logger.info('GET index');
 
-      const notification = path(['session', 'notification'], req);
       const userName = path(['session', 'user', 'name'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
       const establishmentId = path(['locals', 'establishmentId'], res);
@@ -37,7 +36,6 @@ module.exports = function Topics({ logger, hubMenuService }) {
 
       res.render('pages/topics', {
         title: 'Browse the Content Hub',
-        notification,
         allTopics: topics.map(fixUrls),
         config,
       });

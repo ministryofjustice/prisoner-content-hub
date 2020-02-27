@@ -16,7 +16,6 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
     try {
       logger.info('GET index');
 
-      const notification = path(['session', 'notification'], req);
       const userName = path(['session', 'user', 'name'], req);
       const establishmentId = path(['locals', 'establishmentId'], res);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
@@ -49,7 +48,6 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
       };
 
       res.render('pages/home', {
-        notification,
         config,
         popularTopics,
         featuredContent: featuredContent.featured[0],
