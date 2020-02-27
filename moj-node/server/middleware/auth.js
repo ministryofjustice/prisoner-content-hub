@@ -130,6 +130,7 @@ module.exports.createUserSession = ({ offenderService }) => {
         );
         req.session.user = offenderDetails;
         delete req.session.notification;
+        res.locals.user = req.session.user;
       } else if (offenderNo !== getOffenderNumberFrom(req.session)) {
         const forwarded = path(['headers', 'x-forwarded-for'], req);
         const ip = forwarded
@@ -141,7 +142,9 @@ module.exports.createUserSession = ({ offenderService }) => {
             req.session,
           )}`,
         );
+
         delete req.session.user;
+        return res.redirect('/auth/login');
       }
     } catch (error) {
       logger.error(error);
@@ -163,9 +166,11 @@ module.exports.createUserSession = ({ offenderService }) => {
           notificationContent.systemError,
         );
       }
-    } finally {
-      res.locals.user = req.session.user;
-      next();
+
+      delete req.session.user;
+      return res.redirect('/auth/login');
     }
+
+    return next();
   };
 };
