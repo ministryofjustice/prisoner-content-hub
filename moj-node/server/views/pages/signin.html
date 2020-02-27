@@ -71,7 +71,7 @@
         }) }}
       {% endif %}
       <p class="govuk-body signin-width">Your username and password are the same ones you use to sign in to your laptop.</p>
-      <form method="post" action="/auth/login">
+      <form method="post" action="/auth/signin">
         <input type="hidden" name="returnUrl" value="{{ config.returnUrl }}"/>
         {{ govukInput({
           label: {

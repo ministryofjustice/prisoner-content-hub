@@ -2,6 +2,14 @@
 @import 'node_modules/govuk-frontend/govuk/tools/all';
 @import 'node_modules/govuk-frontend/govuk/helpers/all';
 
+.signin {
+  & .govuk-label,
+  & .govuk-hint,
+  & .govuk-body {
+    @include govuk-font(24, 'regular');
+  }
+}
+
 .signin-fields {
   display: flex;
   align-items: flex-end;
