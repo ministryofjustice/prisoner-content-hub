@@ -13,7 +13,6 @@ module.exports = function createIepRouter({
 
     logger.info('GET /iep');
 
-    const notification = path(['session', 'notification'], req);
     const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
@@ -40,7 +39,6 @@ module.exports = function createIepRouter({
         title: 'Incentives',
         config,
         data,
-        notification,
       });
     } catch (exp) {
       return next(exp);

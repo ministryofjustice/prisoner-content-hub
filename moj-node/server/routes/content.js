@@ -20,7 +20,6 @@ module.exports = function createContentRouter({
       return next();
     }
 
-    const notification = path(['session', 'notification'], req);
     const userName = path(['session', 'user', 'name'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
@@ -69,7 +68,6 @@ module.exports = function createContentRouter({
             title: data.title,
             config,
             data,
-            notification,
           });
         case 'pdf': {
           const url = relativeUrlFrom(data.url, backendUrl);
