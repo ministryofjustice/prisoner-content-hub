@@ -85,8 +85,8 @@ describe('auth', () => {
           'should have redirected',
         );
         expect(response.redirect.lastCall.args[0]).to.equal(
-          '/auth/login',
-          'should have redirected to login page',
+          '/auth/signin',
+          'should have redirected to signin page',
         );
         expect(request.session.form.errors).to.have.property('username');
       });
@@ -109,8 +109,8 @@ describe('auth', () => {
           'should have redirected',
         );
         expect(response.redirect.lastCall.args[0]).to.equal(
-          '/auth/login',
-          'should have redirected to login page',
+          '/auth/signin',
+          'should have redirected to signin page',
         );
         expect(request.session.form.errors).to.have.property('password');
       });
@@ -134,8 +134,8 @@ describe('auth', () => {
           'should have redirected',
         );
         expect(response.redirect.lastCall.args[0]).to.equal(
-          '/auth/login',
-          'should have redirected to login page',
+          '/auth/signin',
+          'should have redirected to signin page',
         );
         expect(request.session).to.have.property('notification');
       });
@@ -161,8 +161,8 @@ describe('auth', () => {
           'should have redirected',
         );
         expect(response.redirect.lastCall.args[0]).to.equal(
-          '/auth/login',
-          'should have redirected to login page',
+          '/auth/signin',
+          'should have redirected to signin page',
         );
         expect(request.session.form.errors).to.have.property('ldap');
       });
@@ -187,8 +187,8 @@ describe('auth', () => {
           'should have redirected',
         );
         expect(response.redirect.lastCall.args[0]).to.equal(
-          '/auth/login',
-          'should have redirected to login page',
+          '/auth/signin',
+          'should have redirected to signin page',
         );
         expect(request.session.form.errors).to.have.property('ldap');
       });
