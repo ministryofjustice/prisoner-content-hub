@@ -10,7 +10,7 @@ module.exports = function Login({
   const router = express.Router();
 
   router.post(
-    '/login',
+    '/signin',
     formParser,
     authenticateUser,
     createUserSession,
@@ -19,9 +19,9 @@ module.exports = function Login({
     },
   );
 
-  router.get('/login', async (req, res, next) => {
+  router.get('/signin', async (req, res, next) => {
     try {
-      logger.info('GET /auth/login');
+      logger.info('GET /auth/signin');
 
       const notification = path(['session', 'notification'], req);
       const userName = path(['session', 'user', 'name'], req);
@@ -38,7 +38,7 @@ module.exports = function Login({
         returnUrl: req.query.returnUrl || '/',
       };
 
-      res.render('pages/login', {
+      res.render('pages/signin', {
         title: 'Sign in',
         notification,
         config,
