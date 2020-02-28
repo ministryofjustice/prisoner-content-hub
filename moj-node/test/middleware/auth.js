@@ -199,9 +199,8 @@ describe('auth', () => {
     describe('When there is a session', () => {
       it('should not change the session and call next', async () => {
         const session = { user: { offenderNo: 'TEST' } };
-        const ntlm = { UserName: 'TEST' };
-        const request = { session, ntlm };
-        const response = { locals: {}, status: 200 };
+        const request = { session, user: { id: 'TEST' } };
+        const response = { locals: {}, status: 200, redirect: sinon.spy() };
         const next = sinon.spy();
         const offenderService = {
           getOffenderDetailsFor: sinon.spy(),
@@ -220,10 +219,6 @@ describe('auth', () => {
           'TEST',
           'the session should NOT have been changed',
         );
-        expect(response.locals.user).to.eql(
-          request.session.user,
-          'the user should have been added to locals',
-        );
       });
     });
     describe('When the user is authenticated and there is no session', () => {
@@ -231,7 +226,7 @@ describe('auth', () => {
         const session = {};
         const user = { id: 'TEST_USERNAME' };
         const request = { session, user };
-        const response = { locals: {}, status: 200 };
+        const response = { locals: {}, status: 200, redirect: sinon.spy() };
         const next = sinon.spy();
         const offenderService = {
           getOffenderDetailsFor: sinon.stub().resolves({
@@ -262,7 +257,8 @@ describe('auth', () => {
         const session = { user: 'TEST' };
         const user = { id: null };
         const request = { session, user };
-        const response = { locals: {}, status: 404 };
+        const redirect = sinon.spy();
+        const response = { locals: {}, status: 404, redirect };
         const next = sinon.spy();
         const offenderService = {
           getOffenderDetailsFor: sinon.spy(),
@@ -284,7 +280,10 @@ describe('auth', () => {
           undefined,
           'there should be no user in locals',
         );
-        expect(next.called).to.equal(true, 'next should have been called');
+        expect(redirect.called).to.equal(
+          true,
+          'redirect should have been called',
+        );
       });
     });
   });
