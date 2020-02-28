@@ -67,6 +67,26 @@ function capitalizePersonName(input, separator = ' ') {
     .join(separator);
 }
 
+function fillContentItems(contentItems = [], number = 4) {
+  const numberItems = contentItems.length;
+
+  if (numberItems % number === 0) {
+    return contentItems;
+  }
+
+  const remainingItems =
+    contentItems.length < number
+      ? number - contentItems.length
+      : number - (contentItems.length % number);
+  let newItems = [];
+
+  if (remainingItems > 0) {
+    newItems = new Array(remainingItems);
+  }
+
+  return contentItems.concat(newItems);
+}
+
 module.exports = {
   relativeUrlFrom,
   fixUrlForProduction,
@@ -77,4 +97,5 @@ module.exports = {
   capitalizeAll,
   getGoogleAnalyticsId,
   capitalizePersonName,
+  fillContentItems,
 };

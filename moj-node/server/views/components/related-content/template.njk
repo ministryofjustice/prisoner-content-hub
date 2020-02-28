@@ -1,82 +1,14 @@
-{% from "../featured-content-item/macro.njk" import hubFeaturedContentItem %}
+{% from "../content-tile-small/macro.njk" import contentTileSmall %}
 
-<div data-content-type="{{params.data.contentType}}" data-content-id="{{params.id}}" id="related-contents" class="govuk-grid-row content-items">
+<div data-content-type="{{params.data.contentType}}" data-content-id="{{params.id}}" class="home-content__four-items">
   {% for item in params.data.data %}
-    <div class="item govuk-grid-column-one-quarter">
-      {{
-        hubFeaturedContentItem({
-          id: item.id,
-          title: item.title,
-          summary: item.summary,
-          size: "small",
-          type: item.contentType,
-          contentType: item.contentType,
-          graphic: item.image,
-          duration: item.duration,
-          contentUrl: item.contentUrl
-        })
-      }}
-    </div>
+    {{ contentTileSmall({
+      id: item.id,
+      title: item.title,
+      contentType: item.contentType,
+      image: item.image,
+      contentUrl: item.contentUrl
+    }) }}
   {% endfor %}
 </div>
 
-{% if params.lazyLoadContent %}
-
-<div class="ajax-loader" hidden>
-  <img src="/public/images/ajax-loader.gif" />
-</div>
-
-<script id="template" type="x-tmpl-mustache">
-  <% #relatedContent %>
-    <div class="item govuk-grid-column-one-quarter">
-      <a data-featured-id="<% id %>" class="govuk-hub-featured-link" href="<% contentUrl %>">
-        <article class="govuk-hub-featured-content-item small">
-            <div data-featured-item-background="<% image.url %>" class="govuk-hub-featured-content-item__image" style="background-image:url(<% image.url %>)">
-              <div class="govuk-hub-featured-content-item__overlay">
-                <header class="govuk-hub-featured-content-item__header">
-                  <h3 data-featured-title="<% title %>" class="govuk-hub-featured-content-item__header-title govuk-heading-m govuk-!-font-size-24"><% title %></h3>
-                </header>
-                <div class="govuk-hub-featured-content-item__main">
-                  <p class="govuk-hub-featured-content-item__description govuk-body"><% summary %></p>
-                  <div title="<% linkText %>" class="govuk-hub-featured-content-item-icon govuk-hub-featured-content-item__main-play govuk-link"><span class="<% linkIcon %>"><span class="path1"></span><span class="path2"></span></span><span class="space"><% linkText %></span></div>
-                  <span class="govuk-hub-featured-content-item__main-icon <% iconType %>">
-                    <span data-featured-item-duration="<% duration %>" class="govuk-body govuk-hub-featured-content-item__main-duration"> <% duration %></span>
-                  </span>
-                </div>
-                <div class="govuk-hub-featured-content-item__category-stripe govuk-hub-{{contentType}}"></div>
-              </div>
-            </div>
-        </article>
-      </a>
-    </div>
-  <% /relatedContent %>
-</script>
-
-<script src="/public/mustache.min.js"></script>
-<script src="/public/javascript/relatedContentLoader.js"></script>
-<script src="/public/javascript/renderFeaturedItem.js"></script>
-
-{# {% set sortOrder = param.id == 644 ? 'DESC' : 'ASC' %} #}
-{% if param.id == 644 %}
-  {% set sortOrder = 'DESC' %}
-{%else%}
-  {% set sortOrder = 'ASC' %}
-{% endif %}
-
-<script>
-  var template = document.getElementById('template').innerHTML;
-  var rootElement = document.getElementById('related-contents');
-  var renderFeaturedItems = createRenderer(template, rootElement);
-
-  window.addEventListener('DOMContentLoaded', function() {
-    relatedContentLoader({
-      loader: document.querySelector('.ajax-loader'),
-      endpointUrl: '/tags/related-content/{{params.id}}?sortOrder={{sortOrder}}&contentType={{params.data.contentType}}&perPage=8',
-      initialOffset: Number('{{ params.data.data | length}}'),
-      perPage: Number('{{ params.data.data | length}}'),
-      onUpdate: renderFeaturedItems
-    });
-  });
-</script>
-
-{% endif %}

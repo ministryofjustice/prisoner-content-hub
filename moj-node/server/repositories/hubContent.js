@@ -3,7 +3,7 @@ const qs = require('querystring');
 
 const config = require('../config');
 const logger = require('../../log');
-const { isEmpty } = require('../utils');
+const { isEmpty, fillContentItems } = require('../utils');
 
 const {
   contentResponseFrom,
@@ -95,7 +95,7 @@ module.exports = function hubContentRepository(httpClient) {
       return [];
     }
 
-    return seasonResponseFrom(response);
+    return fillContentItems(seasonResponseFrom(response));
   }
 
   async function nextEpisodesFor({
@@ -142,7 +142,7 @@ module.exports = function hubContentRepository(httpClient) {
   async function relatedContentFor({
     id,
     establishmentId,
-    perPage = 8,
+    perPage = 40,
     offset = 0,
     sortOrder = 'ASC',
   } = {}) {
@@ -164,7 +164,7 @@ module.exports = function hubContentRepository(httpClient) {
 
     if (!Array.isArray(response)) return [];
 
-    return contentResponseFrom(response);
+    return fillContentItems(contentResponseFrom(response));
   }
 
   async function suggestedContentFor({
@@ -188,7 +188,7 @@ module.exports = function hubContentRepository(httpClient) {
 
     if (!Array.isArray(response)) return [];
 
-    return contentResponseFrom(response);
+    return fillContentItems(contentResponseFrom(response));
   }
 
   function parseMenuResponse(data = []) {

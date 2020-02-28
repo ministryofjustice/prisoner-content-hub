@@ -1,4 +1,4 @@
-{% from "../featured-content-item/macro.njk" import hubFeaturedContentItem %}
+{% from "../content-tile-small/macro.njk" import contentTileSmall %}
 
 {% if params.data | length %}
 <section>
@@ -7,23 +7,15 @@
       <h3 class="govuk-hub-featured-content__category-title">You might like</h3>
     </div>
   </div>
-  <div class="govuk-grid-row content-items">
+  <div class="home-content__four-items">
     {% for item in params.data %}
-      <div class="item govuk-grid-column-one-quarter">
-        {{
-          hubFeaturedContentItem({
-            id: item.id,
-            title: item.title,
-            summary: item.summary,
-            size: "small",
-            type: params.contentType,
-            contentType: item.contentType,
-            graphic: item.image,
-            duration: item.duration,
-            contentUrl: item.contentUrl
-          })
-        }}
-      </div>
+      {{ contentTileSmall({
+        id: item.id,
+        title: item.title,
+        contentType: item.contentType,
+        image: item.image,
+        contentUrl: item.contentUrl
+      }) }}
     {% endfor %}
   </div>
 </section>
