@@ -92,7 +92,7 @@ module.exports.authenticateUser = ({
 
     if (Object.keys(form.errors).length > 0) {
       req.session.form = form;
-      return res.redirect('/auth/login');
+      return res.redirect('/auth/signin');
     }
 
     try {
@@ -114,7 +114,7 @@ module.exports.authenticateUser = ({
         );
       }
       req.session.form = form;
-      return res.redirect('/auth/login');
+      return res.redirect('/auth/signin');
     }
   };
 };

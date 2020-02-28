@@ -4,7 +4,7 @@
       {% if params.isTomorrow %}Tomorrow{% else %}Today{% endif %}'s appointments</h3>
     {% if not isLoggedIn %}
       <span class="govuk-body">
-        <a href="/auth/login?returnUrl=/" class="govuk-link see-timetable">Sign in</a> to see your timetable</span>
+        <a href="/auth/signin?returnUrl=/" class="govuk-link see-timetable">Sign in</a> to see your timetable</span>
     {% else %}
       <a href="/timetable" class="govuk-link see-timetable">See your timetable</a>
     {% endif %}
