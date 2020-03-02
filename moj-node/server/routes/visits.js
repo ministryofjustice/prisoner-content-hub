@@ -13,7 +13,6 @@ module.exports = function createVisitsRouter({
 
     logger.info('GET /visits');
 
-    const notification = path(['session', 'notification'], req);
     const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
@@ -40,7 +39,6 @@ module.exports = function createVisitsRouter({
         title: 'Visits',
         config,
         data,
-        notification,
       });
     } catch (exp) {
       return next(exp);
