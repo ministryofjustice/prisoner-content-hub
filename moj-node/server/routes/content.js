@@ -18,7 +18,6 @@ const createContentRouter = ({
       return next();
     }
 
-    const notification = path(['session', 'notification'], req);
     const userName = path(['session', 'user', 'name'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
@@ -93,7 +92,6 @@ const createContentRouter = ({
             title: data.title,
             config,
             data,
-            notification,
           });
         case 'pdf': {
           const url = relativeUrlFrom(data.url, backendUrl);
