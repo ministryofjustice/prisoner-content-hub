@@ -26,7 +26,7 @@ const createSearchRouter = require('./routes/search');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const configureEstablishment = require('./middleware/configureEstablishment');
-const { authMiddleware, createUserSession } = require('./middleware/auth');
+// const { authMiddleware, createUserSession } = require('./middleware/auth');
 
 const { getEstablishmentId, getGoogleAnalyticsId } = require('./utils');
 
@@ -166,7 +166,7 @@ module.exports = function createApp({
 
   // Authentication
   // if (config.features.newDesigns) {
-  app.use(authMiddleware(), createUserSession({ offenderService }));
+  // app.use(authMiddleware(), createUserSession({ offenderService }));
   // }
 
   app.use(
