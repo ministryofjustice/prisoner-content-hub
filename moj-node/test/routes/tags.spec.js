@@ -185,14 +185,8 @@ describe('GET /tags', () => {
                 data.relatedContent.data[0].title,
                 'did not render the correct related item title',
               );
-              expect($('[data-featured-id="foo"]').text()).to.include(
-                data.relatedContent.data[0].summary,
-                'did not render the correct related item summary',
-              );
 
-              expect(
-                $('[data-featured-item-background]').attr('style'),
-              ).to.include(
+              expect($('.tile-image').attr('src')).to.include(
                 data.relatedContent.data[0].image.url,
                 'did not render the correct related item image',
               );

@@ -65,7 +65,6 @@
     "jplayer": "^2.9.2",
     "jquery": "^3.4.1",
     "mkdirp": "^0.5.1",
-    "mustache": "^3.0.1",
     "node-sass-middleware": "0.11.0",
     "nunjucks": "^3.2.0",
     "ramda": "^0.26.1",

@@ -11,6 +11,12 @@ module.exports = function createHubContentService({
     }
 
     const content = await contentRepository.contentFor(id);
+    const prisonId = prop('establishmentId', content);
+
+    if (!canAccessContent(establishmentId, prisonId)) {
+      return {};
+    }
+
     const contentType = prop('contentType', content);
     const suggestedContent =
       contentType === 'radio' || contentType === 'video'
@@ -19,11 +25,6 @@ module.exports = function createHubContentService({
             establishmentId,
           })
         : [];
-    const prisonId = prop('establishmentId', content);
-
-    if (!canAccessContent(establishmentId, prisonId)) {
-      return {};
-    }
 
     switch (contentType) {
       case 'radio':

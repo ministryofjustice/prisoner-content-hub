@@ -126,11 +126,6 @@ describe('GET /content/:id', () => {
             'Suggested content',
             "The suggested content title doesn't match",
           );
-          expect(
-            $(
-              '#suggested-content .govuk-hub-featured-content-item__main-duration',
-            ).text(),
-          ).to.include('18:12', "The suggested content duration doesn't match");
         });
     });
   });
@@ -209,11 +204,6 @@ describe('GET /content/:id', () => {
             'Suggested content',
             "The suggested content title doesn't match",
           );
-          expect(
-            $(
-              '#suggested-content .govuk-hub-featured-content-item__main-duration',
-            ).text(),
-          ).to.include('18:12', "The suggested content duration doesn't match");
         });
     });
 
@@ -301,11 +291,6 @@ describe('GET /content/:id', () => {
             'Suggested content',
             "The suggested content title doesn't match",
           );
-          expect(
-            $(
-              '#suggested-content .govuk-hub-featured-content-item__main-duration',
-            ).text(),
-          ).to.include('18:12', "The suggested content duration doesn't match");
         });
     });
   });

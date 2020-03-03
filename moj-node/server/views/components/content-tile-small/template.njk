@@ -1,13 +1,15 @@
-<a data-featured-tile-id="{{params.id}}" data-featured-id="{{params.id}}" data-featured-title="{{ params.title }}" href="{{params.contentUrl}}" {% if params.contentType === 'pdf' or  params.contentType === 'moj_pdf_item' %}class="piwik_download" target="_blank"{% endif %}>
-  <div>
-    {% if params.isSeries %}
-      <div class="home-content-img-series">
-        <img src="{{params.image.url}}" alt="" class="fit-img-landscape">
-      </div>
-    {% else %}
-      <img src="{{params.image.url}}" alt="{{params.image.alt}}" class="fit-img-landscape">
-    {% endif %}
-    <h3 class="govuk-heading-m" style="">{{params.title}}</h3>
+{% if params.id %}
+  <a data-featured-tile-id="{{params.id}}" data-featured-id="{{params.id}}" data-featured-title="{{ params.title }}" href="{{params.contentUrl}}" {% if params.contentType === 'pdf' or  params.contentType === 'moj_pdf_item' %}class="piwik_download" target="_blank"{% endif %}>
+    <div>
+      {% if params.isSeries %}
+        <div class="home-content-img-series">
+          <img src="{{params.image.url}}" alt="" class="tile-image fit-img-landscape">
+        </div>
+      {% else %}
+        <img src="{{params.image.url}}" alt="{{params.image.alt}}" class="tile-image fit-img-landscape">
+      {% endif %}
+      <h3 class="govuk-heading-m" style="">{{params.title}}</h3>
+    </div>
     <div>
       {% if params.contentType === "moj_video_item" or params.contentType === "video" %}
         <p class="content-link--video">Watch</p>
@@ -17,5 +19,7 @@
         <p class="content-link--article">Read</p>
       {% endif %}
     </div>
-  </div>
-</a>
+  </a>
+{% else %}
+  <div class="empty-tile"></div>
+{% endif %}

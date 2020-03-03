@@ -112,7 +112,7 @@ describe('hubContentRepository', () => {
       expect(client.get.lastCall.args[0]).to.include('id');
       expect(requestQueryString).to.include('fooPrisonID');
 
-      expect(result.length).to.equal(2);
+      expect(result.length).to.equal(4);
     });
   });
 
@@ -202,7 +202,7 @@ describe('hubContentRepository', () => {
       expect(requestQueryString).to.include('id');
       expect(requestQueryString).to.include('fooBarQuery');
 
-      expect(result.length).to.equal(2);
+      expect(result.length).to.equal(4);
 
       const keys = Object.keys(result[0]);
       expectedKeys.forEach(key => {
@@ -256,7 +256,7 @@ describe('hubContentRepository', () => {
       expect(requestQueryString).to.include('id');
       expect(requestQueryString).to.include('fooBarQuery');
 
-      expect(result.length).to.equal(2);
+      expect(result.length).to.equal(4);
 
       const keys = Object.keys(result[0]);
       expectedKeys.forEach(key => {

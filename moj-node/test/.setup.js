@@ -2,7 +2,6 @@ require('dotenv').config({ path: '.env-test' });
 
 const jsdom = require('jsdom');
 const chai = require('chai');
-const Mustache = require('mustache');
 const chaiAsPromised = require('chai-as-promised');
 const sinon = require('sinon');
 const chaiString = require('chai-string');
@@ -73,5 +72,3 @@ global.navigator = {
 global.expect = chai.expect;
 global.sinon = sinon;
 global.expect = expect;
-
-global.Mustache = Mustache;
