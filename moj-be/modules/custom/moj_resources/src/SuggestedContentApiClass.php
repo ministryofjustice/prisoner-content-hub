@@ -201,8 +201,8 @@ class SuggestedContentApiClass
   private function getInitialQuery($prison_id = 0)
   {
     $prison_ids = [
-      'berwyn' => 792,
-      'wayland' => 793
+      '792' => 'berwyn',
+      '793' => 'wayland'
     ];
 
     $types = array('page', 'moj_pdf_item', 'moj_radio_item', 'moj_video_item',);
@@ -211,7 +211,7 @@ class SuggestedContentApiClass
       ->condition('type', $types, 'IN')
       ->accessCheck(false);
 
-    if (in_array($prison_id, $prison_ids, true)) {
+    if (array_key_exists($prison_id, $prison_ids)) {
       $prison_results = $results
         ->orConditionGroup()
         ->condition('field_moj_prisons', $prison_id, '=')
