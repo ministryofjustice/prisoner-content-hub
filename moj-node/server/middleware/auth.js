@@ -24,8 +24,8 @@ function isValidPassword(password) {
   return password ? typeof password === 'string' && password.length > 0 : false;
 }
 
-function createFormError(field, error) {
-  return { href: `#${field}-error`, text: error };
+function createFormError(field, error, position = 0) {
+  return { href: `#${field}`, text: error, position };
 }
 
 module.exports.authenticateUser = ({
@@ -80,6 +80,7 @@ module.exports.authenticateUser = ({
       form.errors.password = createFormError(
         'password',
         'Enter a password in the correct format',
+        1,
       );
     }
 
@@ -87,6 +88,7 @@ module.exports.authenticateUser = ({
       form.errors.username = createFormError(
         'username',
         'Enter a username in the correct format',
+        0,
       );
     }
 
