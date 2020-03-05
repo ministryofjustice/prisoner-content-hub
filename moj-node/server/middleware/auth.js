@@ -72,7 +72,7 @@ module.exports.authenticateUser = ({
     const { username, password } = req.body;
 
     const form = {
-      data: { username, password },
+      data: { username },
       errors: {},
     };
 
