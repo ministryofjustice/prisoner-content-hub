@@ -24,8 +24,8 @@ function isValidPassword(password) {
   return password ? typeof password === 'string' && password.length > 0 : false;
 }
 
-function createFormError(field, error) {
-  return { href: `#${field}-error`, text: error };
+function createFormError(field, error, position = 0) {
+  return { href: `#${field}`, text: error, position };
 }
 
 module.exports.authenticateUser = ({
@@ -79,14 +79,16 @@ module.exports.authenticateUser = ({
     if (!isValidPassword(password)) {
       form.errors.password = createFormError(
         'password',
-        'Enter a valid password',
+        'Enter a password in the correct format',
+        1,
       );
     }
 
     if (!isValidUsername(username)) {
       form.errors.username = createFormError(
         'username',
-        'Enter a valid username',
+        'Enter a username in the correct format',
+        0,
       );
     }
 
@@ -104,8 +106,8 @@ module.exports.authenticateUser = ({
         error.name === 'InvalidCredentialsError'
       ) {
         form.errors.ldap = createFormError(
-          'ldap',
-          'Either your username or password is incorrect',
+          'username',
+          'There is a problem with the username or password you have entered. Check and try again',
         );
       } else {
         logger.error(error.message);
