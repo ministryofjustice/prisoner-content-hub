@@ -79,14 +79,14 @@ module.exports.authenticateUser = ({
     if (!isValidPassword(password)) {
       form.errors.password = createFormError(
         'password',
-        'Enter a valid password',
+        'Enter a password in the correct format',
       );
     }
 
     if (!isValidUsername(username)) {
       form.errors.username = createFormError(
         'username',
-        'Enter a valid username',
+        'Enter a username in the correct format',
       );
     }
 
@@ -104,8 +104,8 @@ module.exports.authenticateUser = ({
         error.name === 'InvalidCredentialsError'
       ) {
         form.errors.ldap = createFormError(
-          'ldap',
-          'Either your username or password is incorrect',
+          'username',
+          'There is a problem with the username or password you have entered. Check and try again',
         );
       } else {
         logger.error(error.message);

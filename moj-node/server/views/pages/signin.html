@@ -63,7 +63,7 @@
 {% block main %}
   <div class="govuk-width-container signin">
     {% if config.userName %}
-      <p class="govuk-body signin-width">You are already logged in.</p>
+      <p class="govuk-body signin-width">You are already logged in</p>
     {% else %}
       {% if form.errorList | length %}
         {{ govukErrorSummary({
@@ -71,7 +71,7 @@
           errorList: form.errorList
         }) }}
       {% endif %}
-      <p class="govuk-body signin-width">Your username and password are the same ones you use to sign in to your laptop.</p>
+      <p class="govuk-body signin-width">Your username and password are the same ones you use to sign in to your laptop</p>
       <form method="post" action="/auth/signin">
         <input type="hidden" name="returnUrl" value="{{ config.returnUrl }}"/>
         {{ govukInput({
@@ -79,7 +79,7 @@
             text: "Username"
           },
           hint: {
-            text: 'This is your prisoner number, for example A1234BC.'
+            text: 'This is your prisoner number, for example A1234BC'
           },
           classes: "govuk-!-width-one-half",
           id: "username",
