@@ -45,7 +45,11 @@ module.exports = function Login({
         config,
         form: {
           ...form,
-          errorList: form.errors ? Object.values(form.errors) : [],
+          errorList: form.errors
+            ? Object.values(form.errors).sort((a, b) =>
+                a.position > b.position ? 1 : -1,
+              )
+            : [],
         },
       });
 
