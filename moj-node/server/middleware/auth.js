@@ -8,7 +8,7 @@ const notificationContent = {
   userNotFound:
     'You are not signed in. Some services will not be available to you. If you think you should be signed in, please report this to a digital champion or send an app to IT.',
   systemError:
-    'Sorry, there is a technical problem and some features might not be working. We know about this problem and are working to fix it. Please try again later.',
+    'There is a technical problem and we cannot show your personal information. We know about this and are working to fix it. You can still use the rest of the Content Hub',
 };
 
 function createNotification(text) {
