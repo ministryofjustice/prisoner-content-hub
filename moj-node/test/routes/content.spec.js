@@ -67,7 +67,7 @@ describe('GET /content/:id', () => {
             'Foo series',
             'Page title did not match',
           );
-          expect($('#audioPlayer').attr('data-media')).to.equal(
+          expect($('#hub-audio source').attr('src')).to.equal(
             'foo.mp3',
             'Page media did not match',
           );
@@ -177,7 +177,7 @@ describe('GET /content/:id', () => {
             'Baz series',
             'Page title did not match',
           );
-          expect($('#videoPlayerContainer').attr('data-video')).to.equal(
+          expect($('#hub-video source').attr('src')).to.equal(
             'baz.mp4',
             'Page media did not match',
           );
@@ -240,7 +240,7 @@ describe('GET /content/:id', () => {
             'Baz series',
             'Page title did not match',
           );
-          expect($('#videoPlayerContainer').attr('data-video')).to.equal(
+          expect($('#hub-video source').attr('src')).to.equal(
             'baz.mp4',
             'Page media did not match',
           );

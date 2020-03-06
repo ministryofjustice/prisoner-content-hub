@@ -1,8 +1,7 @@
 $(document).ready(function() {
-  var audio = $('#audioPlayer');
+  var audio = $('#hub-audio');
   var programmeCode = audio.data().programmeCode;
   var title = audio.data().title;
-  var extendConfig = audio.data().config || {};
   var name = programmeCode + '|' + title;
 
   var evt0 = once(analyticsAudioEvent({ label: '0%', action: name }));
@@ -12,16 +11,6 @@ $(document).ready(function() {
   var evt90 = once(analyticsAudioEvent({ label: '90%', action: name }));
 
   var config = {
-    name: title,
-    size: {
-      width: '100%',
-      height: 'auto',
-    },
-    media: {
-      preload: 'metadata',
-      mp3: audio.data().media,
-      poster: audio.data().poster,
-    },
     timeupdate: function(event) {
       var percentage = Math.round(event.jPlayer.status.currentPercentAbsolute);
       var currentTime = parseInt(event.jPlayer.status.currentTime);
@@ -39,8 +28,6 @@ $(document).ready(function() {
       }
     },
   };
-
-  audio.videoPlayer(Object.assign(config, extendConfig));
 
   function analyticsAudioEvent(config) {
     return function() {

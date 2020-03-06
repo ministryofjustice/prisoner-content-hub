@@ -1,14 +1,19 @@
 .govuk-hub-media-player {
   margin: 0 auto;
-  float: none;
-  display: table;
+  width: 75%;
 }
 
 .govuk-hub-media-player__header {
-  margin-bottom: govuk-spacing(4);
+  margin-bottom: govuk-spacing(1);
+  display: flex;
+
+  & .media-thumbnail {
+    width: 100px;
+    margin-right: govuk-spacing(4);
+  }
 }
+
 .govuk-hub-media-player__show-tag {
-  float: left;
   margin-right: govuk-spacing(4);
 }
 
@@ -33,12 +38,7 @@
 }
 
 .govuk-hub-media-player__player {
-  display: block;
-  margin-bottom: 10px;
-
-  .articlePlayer {
-    background-color: govuk-colour('black');
-  }
+  margin-bottom: govuk-spacing(2);
 }
 
 .govuk-hub-media-player__description {
@@ -58,7 +58,7 @@
   .icon-link {
     font-size: 30px;
     position: relative;
-    top: 5px;
+    top: govuk-spacing(1);
   }
 
   .space {
@@ -75,5 +75,61 @@
   }
   &:hover {
     color: govuk-colour('white');
+  }
+}
+
+.video-js {
+  margin-bottom: govuk-spacing(6);
+
+  & .vjs-poster,
+  & .vjs-tech,
+  & .vjs-slider,
+  & .vjs-control {
+    &:focus {
+      outline-color: govuk-colour('yellow');
+      opacity: 1;
+    }
+  }
+
+  & .vjs-current-time,
+  & .vjs-duration {
+    display: block;
+  }
+
+  & .vjs-picture-in-picture-control,
+  & .vjs-remaining-time {
+    display: none;
+  }
+
+  &:hover {
+    & .vjs-big-play-button {
+      background-color: transparent;
+      opacity: 1;
+    }
+  }
+
+  & .vjs-big-play-button {
+    width: 104px;
+    height: 103px;
+    border: 0;
+    background-image: url(./../images/preimg.png);
+    background-color: transparent;
+    background-position: 50% 50%;
+
+    &:focus {
+      outline-color: govuk-colour('yellow');
+      background-color: transparent;
+      opacity: 1;
+    }
+    &:hover {
+      background-color: transparent;
+      opacity: 1;
+    }
+    & .vjs-icon-placeholder {
+      &:before {
+        content: '';
+        display: none;
+      }
+    }
   }
 }

@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block head %}
+  <link href="/public/stylesheets/video-js.min.css" rel="stylesheet" />
   <link href="/public/stylesheets/application.css" rel="stylesheet"/>
 {% endblock %}
 
@@ -39,53 +40,69 @@
 {% block search %}{% endblock %}
 
 {% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters govuk-hub-media-player">
-
-      <header class="govuk-hub-media-player__header">
-        <img width="100" height="100" id="thumbnail" src="{{ data.image.url }}" alt="{{ data.image.alt }}" class="govuk-hub-media-player__show-tag"/>
-        <div class="govuk-hub-title-container">
-          <p class="govuk-hub-media-player__catgeory govuk-heading-m">
-            <a href="/tags/{{data.seriesId}}" id="series" title="{{ data.seriesName }}" class="govuk-link govuk-hub-media-player__catgeory-link">{{ data.seriesName }}</a>
-          </p>
-          <h1 id="title" class="govuk-hub-media-player__title govuk-heading-xl govuk-body govuk-!-font-size-36 govuk-body govuk-!-font-weight-bold">{{ data.title }}</h1>
-        </div>
-      </header>
-
-      <div class="govuk-hub-media-player__player govuk-hub-media-video">
-        <div id="videoPlayer" class="webPlayer light">
-          <div id="videoPlayerContainer" class="videoPlayer" data-video="{{ data.media }}"></div>
-        </div>
-        {{ hubFeedbackWidget({
-          contentId: data.id,
-          title: data.title,
-          contentType: data.contentType,
-          series: data.seriesName,
-          feedbackId: feedbackId,
-          categories: data.categories,
-          secondaryTags: data.secondaryTags
-        })}}
+  <div class="govuk-hub-media-player">
+    <header class="govuk-hub-media-player__header">
+      <div class="media-thumbnail">
+        <img id="thumbnail" src="{{ data.image.url }}" alt="{{ data.image.alt }}" class="govuk-hub-media-player__show-tag"/>
       </div>
-
-      <div class="govuk-hub-media-player__description">
-        <div id="body" class="govuk-body">{{ data.description.sanitized | safe }}</div>
-        {# <a href="#" title="Play" id="read-more" class="govuk-hub-media-player-item-icon govuk-hub-media-player-item__main-play govuk-link"><span class="icon-link"><span class="path1"></span><span class="path2"></span></span><span class="space">Read more</span></a> #}
+      <div class="govuk-hub-title-container">
+        <p class="govuk-hub-media-player__catgeory govuk-heading-m">
+          <a href="/tags/{{data.seriesId}}" id="series" title="{{ data.seriesName }}" class="govuk-link govuk-hub-media-player__catgeory-link">{{ data.seriesName }}</a>
+        </p>
+        <h1 id="title" class="govuk-hub-media-player__title govuk-heading-xl govuk-body govuk-!-font-size-36 govuk-body govuk-!-font-weight-bold">{{ data.title }}</h1>
       </div>
+    </header>
 
-      <ul id="tags-list" class="secondary-tags-list govuk-body">
-        {% for tagItem in data.tags %}
-          {% if tagItem.name %}
-            <li>
-              <a title="{{tagItem.name}}" href="/tags/{{tagItem.id}}">{{tagItem.name}}</a>
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
+    <div>
+      <video
+        id="hub-video"
+        class="video-js vjs-default-skin vjs-big-play-centered vjs-show-big-play-button-on-pause"
+        controls
+        preload="auto"
+        poster="{{ data.image.url }}"
+        data-setup='{
+          "fluid": true,
+          "controlBar": {
+            "children": [
+                "playToggle",
+                "volumePanel",
+                "currentTimeDisplay",
+                "progressControl",
+                "durationDisplay",
+                "fullscreenToggle"
+            ]
+          }
+        }'
+      >
+        <source src="{{ data.media }}" type="video/mp4" />
+      </video>
+      {{ hubFeedbackWidget({
+        contentId: data.id,
+        title: data.title,
+        contentType: data.contentType,
+        series: data.seriesName,
+        feedbackId: feedbackId,
+        categories: data.categories,
+        secondaryTags: data.secondaryTags
+      })}}
+    </div>
 
-      <div id="next-episodes" class="govuk-hub-media-player__watch-next">
-        {{ nextEpisodesContent({ data: data.season }) }}
-      </div>
+    <div class="govuk-hub-media-player__description">
+      <div id="body" class="govuk-body">{{ data.description.sanitized | safe }}</div>
+    </div>
 
+    <ul id="tags-list" class="govuk-hub-navigation__list govuk-hub-navigation__list--linear govuk-!-margin-bottom-6">
+      {% for tagItem in data.tags %}
+        {% if tagItem.name %}
+        <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item-topic">
+          <a title="{{tagItem.name}}" href="/tags/{{tagItem.id}}">{{tagItem.name}}</a>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <div id="next-episodes" class="govuk-hub-media-player__watch-next">
+      {{ nextEpisodesContent({ data: data.season }) }}
     </div>
   </div>
   <div class="govuk-grid-row">
@@ -98,24 +115,5 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  <script src="/public/jplayer/jquery.jplayer.min.js"></script>
-  <script src="/public/javascript/jplayer.cleanskin.min.js"></script>
-
-  <script>
-    $(document).ready(function () {
-      $('#videoPlayer').videoPlayer({
-        name: '{{ data.title }}',
-        size: {
-          width: '100%',
-          height: '100%'
-        },
-        media: {
-          preload: 'metadata',
-          m4v: '{{ data.media }}',
-          supplied: "m4v",
-          poster: "{{ data.image.url }}"
-        }
-      });
-    });
-  </script>
+  <script src="/public/javascript/videojs.min.js"></script>
 {% endblock %}
