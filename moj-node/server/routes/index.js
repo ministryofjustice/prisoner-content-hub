@@ -30,7 +30,7 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
         postscript: true,
         detailsType: 'large',
         newDesigns,
-        userName,
+        userName: userName ? `Hi, ${userName}` : null,
         establishmentId,
         returnUrl: req.originalUrl,
       };
