@@ -3,6 +3,10 @@
 @import 'node_modules/govuk-frontend/govuk/helpers/all';
 
 .signin {
+  & p {
+    margin: govuk-spacing(6) 0;
+  }
+
   & .govuk-label,
   & .govuk-hint,
   & .govuk-body {
