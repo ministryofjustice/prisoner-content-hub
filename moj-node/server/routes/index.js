@@ -35,7 +35,7 @@ const createIndexRouter = ({
         postscript: true,
         detailsType: 'large',
         newDesigns,
-        userName,
+        userName: userName ? `Hi, ${userName}` : null,
         establishmentId,
         returnUrl: req.originalUrl,
       };
