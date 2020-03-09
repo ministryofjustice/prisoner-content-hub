@@ -34,12 +34,10 @@ describe('#hubContentService', () => {
             .stub()
             .returns([{ title: 'foo', href: 'www.foo.com', type: 'foo' }]),
           termFor: sinon.stub().returns({ name: 'foo series name', id: 'foo' }),
-          nextEpisodesFor: sinon
-            .stub()
-            .returns([
-              { id: 1, title: 'foo episode' },
-              { id: 2, title: 'bar episode' },
-            ]),
+          nextEpisodesFor: sinon.stub().returns([
+            { id: 1, title: 'foo episode' },
+            { id: 2, title: 'bar episode' },
+          ]),
         };
 
         const service = createHubContentService({ contentRepository });
