@@ -69,10 +69,10 @@
         {# <a href="#" title="Play" id="read-more" class="govuk-hub-media-player-item-icon govuk-hub-media-player-item__main-play govuk-link"><span class="icon-link"><span class="path1"></span><span class="path2"></span></span><span class="space">Read more</span></a> #}
       </div>
 
-      <ul id="tags-list" class="govuk-hub-navigation__list govuk-hub-navigation__list--linear govuk-!-margin-bottom-6">
+      <ul id="tags-list" class="secondary-tags-list govuk-body">
         {% for tagItem in data.tags %}
           {% if tagItem.name %}
-          <li class="govuk-hub-navigation__list-item govuk-hub-navigation__list-item-topic">
+          <li>
             <a title="{{tagItem.name}}" href="/tags/{{tagItem.id}}">{{tagItem.name}}</a>
           </li>
           {% endif %}
