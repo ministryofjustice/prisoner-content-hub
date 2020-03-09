@@ -36,7 +36,7 @@ module.exports = function Login({
         userName,
         newDesigns,
         returnUrl: req.query.returnUrl || '/',
-        hideBar: !!notification,
+        hideBar: true,
       };
 
       res.render('pages/signin', {
