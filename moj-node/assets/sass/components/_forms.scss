@@ -1,7 +1,4 @@
-.input-text--large {
-  font-family: 'GDS Transport', Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.signin input {
   @include govuk-font(24);
   line-height: 1.25;
   box-sizing: border-box;
@@ -10,16 +7,11 @@
   border: 2px solid #0b0c0c;
 }
 
-.input-button--large {
-  font-family: 'GDS Transport', Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.signin button {
   @include govuk-font(24);
   height: 60px;
 }
 
-.form--bold-labels {
-  & label {
-    font-weight: bold !important;
-  }
+.signin .govuk-label {
+  font-weight: bold;
 }
