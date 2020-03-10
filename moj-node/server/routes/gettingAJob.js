@@ -1,6 +1,6 @@
 const express = require('express');
 const { isEmpty, path } = require('ramda');
-const { ESTABLISHMENTS } = require('../constants/hub');
+const { ESTABLISHMENTS: establishments } = require('../constants/hub');
 
 function addCurrentPageToMenu(url, menu) {
   return menu.map(menuItem => {
@@ -26,7 +26,7 @@ module.exports = function createStepByStepRouter({
 
     const establishmentId = path(['locals', 'establishmentId'], res);
 
-    const establishmentName = ESTABLISHMENTS[establishmentId];
+    const establishmentName = establishments[establishmentId];
     const title = `Working in ${establishmentName}`;
     const menu = hubMenuService.gettingAJobMenu(establishmentId);
     const standFirst = {
@@ -74,7 +74,7 @@ module.exports = function createStepByStepRouter({
       793: '/working-in-wayland',
     };
     const establishmentId = path(['locals', 'establishmentId'], res);
-    const establishmentName = ESTABLISHMENTS[establishmentId];
+    const establishmentName = establishments[establishmentId];
     const menu = hubMenuService.gettingAJobMenu(establishmentId);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const userName = path(['session', 'user', 'name'], req);

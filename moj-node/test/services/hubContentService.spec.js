@@ -1,4 +1,4 @@
-const createHubContentService = require('../../server/services/hubContent');
+const { createHubContentService } = require('../../server/services/hubContent');
 
 describe('#hubContentService', () => {
   describe('content', () => {

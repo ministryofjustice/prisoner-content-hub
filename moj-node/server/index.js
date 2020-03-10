@@ -11,8 +11,8 @@ const appInfoService = require('./services/appInfo');
 const createHubMenuService = require('./services/hubMenu');
 const createHubFeaturedContentService = require('./services/hubFeaturedContent');
 const createHubPromotedContentService = require('./services/hubPromotedContent');
-const createHubContentService = require('./services/hubContent');
-const createHealthService = require('./services/health');
+const { createHubContentService } = require('./services/hubContent');
+const { createHealthService } = require('./services/health');
 const createHubTagsService = require('./services/hubTags');
 const createNomisOffenderService = require('./services/offender');
 const createSearchService = require('./services/search');
@@ -55,7 +55,11 @@ const searchService = createSearchService({
 
 const app = createApp({
   appInfo: appInfoService(buildInfo),
-  healthService: createHealthService(new StandardClient()),
+  healthService: createHealthService({
+    client: new StandardClient(),
+    config,
+    logger,
+  }),
   logger,
   hubFeaturedContentService,
   hubPromotedContentService,
