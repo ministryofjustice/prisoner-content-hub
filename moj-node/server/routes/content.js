@@ -34,7 +34,7 @@ module.exports = function createContentRouter({
     };
 
     const establishmentId = path(['locals', 'establishmentId'], res);
-    const backendUrl = path(['app', 'locals', 'envVars', 'backendUrl'], req);
+    const backendUrl = path(['app', 'locals', 'config', 'backendUrl'], req);
 
     try {
       const data = await hubContentService.contentFor(id, establishmentId);

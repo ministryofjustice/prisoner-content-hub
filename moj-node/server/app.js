@@ -134,10 +134,8 @@ module.exports = function createApp({
   // GovUK Template Configuration
   const establishmentId = getEstablishmentId(config.establishmentName);
   app.locals.asset_path = '/public/';
-  app.locals.envVars = {
-    MATOMO_URL: config.matomoUrl,
-    establishmentName: config.establishmentName,
-    backendUrl: config.backendUrl,
+  app.locals.config = {
+    ...config,
     establishmentId,
     gaId: getGoogleAnalyticsId(establishmentId),
   };
