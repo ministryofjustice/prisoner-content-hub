@@ -6,10 +6,12 @@ describe('hubMenuRepository', () => {
   describe('mainMenu', () => {
     it('returns a navigation Menu', async () => {
       const httpClient = {
-        get: sinon.stub().returns([
-          { title: 'Foo', link: 'www.foo.com', id: '1' },
-          { title: 'Bar', link: 'www.bar.com', id: '2' },
-        ]),
+        get: sinon
+          .stub()
+          .returns([
+            { title: 'Foo', link: 'www.foo.com', id: '1' },
+            { title: 'Bar', link: 'www.bar.com', id: '2' },
+          ]),
       };
 
       const repository = hubMenuRepository(httpClient);
@@ -66,10 +68,12 @@ describe('hubMenuRepository', () => {
   describe('seriesMenu', () => {
     it('returns a series Menu', async () => {
       const httpClient = {
-        get: sinon.stub().returns([
-          { title: 'Foo', link: 'www.foo.com', id: '1' },
-          { title: 'Bar', link: 'www.bar.com', id: '2' },
-        ]),
+        get: sinon
+          .stub()
+          .returns([
+            { title: 'Foo', link: 'www.foo.com', id: '1' },
+            { title: 'Bar', link: 'www.bar.com', id: '2' },
+          ]),
       };
 
       const repository = hubMenuRepository(httpClient);
