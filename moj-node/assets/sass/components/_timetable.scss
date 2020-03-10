@@ -1,82 +1,80 @@
-@import 'node_modules/govuk-frontend/govuk/settings/all';
-@import 'node_modules/govuk-frontend/govuk/tools/all';
-@import 'node_modules/govuk-frontend/govuk/helpers/all';
-
 .timetable-header {
   display: flex;
   align-items: center;
-}
 
-.timetable-header > * {
-  flex: 1 0 50%;
-}
+  & > * {
+    flex: 1 0 50%;
+  }
 
-.timetable-header h1 {
-  @include govuk-font(48, 'bold');
-}
+  & h1 {
+    @include govuk-font(48, 'bold');
+  }
 
-.timetable-header nav {
-  text-align: right;
-}
+  & nav {
+    text-align: right;
+  }
 
-.timetable-header > nav > * {
-  margin-left: govuk-spacing(5);
-}
+  & > nav {
+    & > * {
+      margin-left: govuk-spacing(5);
+    }
 
-.timetable-header > nav > :first-child {
-  padding-left: 0;
-}
+    & > :first-child {
+      padding-left: 0;
+    }
 
-.timetable-header > nav > span {
-  font-weight: 700;
+    & > span {
+      font-weight: 700;
+    }
+  }
 }
 
 .timetable-footer {
   padding: govuk-spacing(5) 0;
-}
 
-.timetable-footer > nav {
-  flex: 1 0 auto;
+  & > nav {
+    flex: 1 0 auto;
+  }
 }
 
 .timetable-time {
   text-transform: lowercase;
 }
 
-.timetable-nav > :first-child,
-.timetable-nav > :last-child {
-  display: inline-flex;
-  align-items: center;
-}
-
 .timetable-nav {
   display: flex;
   justify-content: flex-end;
-}
 
-.timetable-nav > * {
-  @include govuk-font(24);
-}
+  & > :first-child,
+  & > :last-child {
+    display: inline-flex;
+    align-items: center;
+  }
 
-.timetable-nav > a,
-.timetable-nav > a:link,
-.timetable-nav > a:visited {
-  text-decoration: none;
-  color: govuk-colour('blue');
-  @include govuk-font(24);
-}
+  & > * {
+    @include govuk-font(24);
+  }
 
-.timetable-nav > :last-child::after,
-.timetable-nav > :first-child::before {
-  background-image: url('/public/images/icons/chevron-left.svg');
-  background-repeat: no-repeat;
-  background-position: 0 50%;
-  content: '';
-  width: govuk-spacing(4);
-  height: govuk-spacing(4);
-}
+  & > a,
+  & > a:link,
+  & > a:visited {
+    text-decoration: none;
+    color: govuk-colour('blue');
+    @include govuk-font(24);
+  }
 
-.timetable-nav > :last-child::after {
-  background-image: url('/public/images/icons/chevron-right.svg');
-  background-position: 8px 50%;
+  & > :last-child::after,
+  & > :first-child::before {
+    background-image: url('/public/images/icons/chevron-left.svg');
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    content: '';
+    width: govuk-spacing(4);
+    height: govuk-spacing(4);
+  }
+
+  & > :last-child::after {
+    background-image: url('/public/images/icons/chevron-right.svg');
+    background-position: 8px 50%;
+  }
 }

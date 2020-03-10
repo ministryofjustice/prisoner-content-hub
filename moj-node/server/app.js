@@ -29,10 +29,7 @@ const createAuthRouter = require('./routes/auth');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const configureEstablishment = require('./middleware/configureEstablishment');
-<<<<<<< HEAD
-=======
 const { authenticateUser, createUserSession } = require('./middleware/auth');
->>>>>>> Create authentication middleware (#577)
 
 const { getEstablishmentId, getGoogleAnalyticsId } = require('./utils');
 
