@@ -1,7 +1,3 @@
-@import 'node_modules/govuk-frontend/govuk/settings/all';
-@import 'node_modules/govuk-frontend/govuk/tools/all';
-@import 'node_modules/govuk-frontend/govuk/helpers/all';
-
 .signin {
   & p {
     margin: govuk-spacing(6) 0;
@@ -11,6 +7,24 @@
   & .govuk-hint,
   & .govuk-body {
     @include govuk-font(24, 'regular');
+  }
+
+  & input {
+    @include govuk-font(24);
+    line-height: 1.25;
+    box-sizing: border-box;
+    height: 60px;
+    padding: govuk-spacing(3);
+    border: 2px solid #0b0c0c;
+  }
+
+  & button {
+    @include govuk-font(24);
+    height: 60px;
+  }
+
+  & .govuk-label {
+    font-weight: bold;
   }
 }
 
