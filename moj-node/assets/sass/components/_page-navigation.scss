@@ -1,31 +1,27 @@
-@import 'node_modules/govuk-frontend/govuk/settings/all';
-@import 'node_modules/govuk-frontend/govuk/tools/all';
-@import 'node_modules/govuk-frontend/govuk/helpers/all';
-
 .page-navigation {
   background-color: #f8f8f8;
-}
 
-.page-navigation > nav {
-  display: flex;
-  align-items: center;
-  padding: govuk-spacing(2) 0;
-}
+  & > nav {
+    display: flex;
+    align-items: center;
+    padding: govuk-spacing(2) 0;
 
-.page-navigation > nav > * {
-  margin-right: govuk-spacing(5);
-  @include govuk-font(24);
-}
+    & > * {
+      margin-right: govuk-spacing(5);
+      @include govuk-font(24);
+    }
 
-.page-navigation > nav > :last-child {
-  margin-right: 0;
-  flex-grow: 1;
-  display: flex;
-  justify-content: flex-end;
-}
+    & > :last-child {
+      margin-right: 0;
+      flex-grow: 1;
+      display: flex;
+      justify-content: flex-end;
+    }
 
-.page-navigation > nav > span {
-  font-weight: 700;
+    & > span {
+      font-weight: 700;
+    }
+  }
 }
 
 #go-back,
