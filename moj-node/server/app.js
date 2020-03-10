@@ -26,7 +26,6 @@ const createSearchRouter = require('./routes/search');
 
 const featureToggleMiddleware = require('./middleware/featureToggle');
 const configureEstablishment = require('./middleware/configureEstablishment');
-// const { authMiddleware, createUserSession } = require('./middleware/auth');
 
 const { getEstablishmentId, getGoogleAnalyticsId } = require('./utils');
 
@@ -79,7 +78,6 @@ module.exports = function createApp({
   // Resource Delivery Configuration
   app.use(compression());
 
-  // Cachebusting version string
   if (config.production) {
     // Version only changes on reboot
     app.locals.version = version;
@@ -89,9 +87,7 @@ module.exports = function createApp({
       res.locals.version = Date.now().toString();
       return next();
     });
-  }
 
-  if (!config.production) {
     app.use(
       '/public',
       sassMiddleware({
@@ -161,13 +157,6 @@ module.exports = function createApp({
 
   // Health end point
   app.use('/health', createHealthRouter({ appInfo, healthService }));
-
-  // Routing
-
-  // Authentication
-  // if (config.features.newDesigns) {
-  // app.use(authMiddleware(), createUserSession({ offenderService }));
-  // }
 
   app.use(
     '/',
