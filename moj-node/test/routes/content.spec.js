@@ -332,15 +332,6 @@ describe('GET /content/:id', () => {
   });
 
   describe('Pdf pages', () => {
-    const hubContentService = {
-      contentFor: sinon.stub().returns({
-        id: 1,
-        title: 'foo pdf file',
-        contentType: 'pdf',
-        url: 'www.foo.bar/file.pdf',
-      }),
-    };
-
     const stream = {
       on: sinon.stub(),
       pipe: res =>
@@ -349,15 +340,20 @@ describe('GET /content/:id', () => {
           .pipe(res),
     };
 
-    const client = {
-      get: sinon.stub().returns(stream),
+    const hubContentService = {
+      contentFor: sinon.stub().returns({
+        id: 1,
+        title: 'foo pdf file',
+        contentType: 'pdf',
+        url: 'www.foo.bar/file.pdf',
+      }),
+      streamFor: sinon.stub().returns(stream),
     };
 
     it('returns a PDF', () => {
       const router = createHubContentRouter({
         logger,
         hubContentService,
-        client,
       });
       const app = setupBasicApp();
 
@@ -368,7 +364,9 @@ describe('GET /content/:id', () => {
         .expect(200)
         .expect('Content-Type', 'application/pdf')
         .then(() => {
-          expect(client.get.lastCall.args[0]).to.equal('www.foo.bar/file.pdf');
+          expect(hubContentService.streamFor.lastCall.args[0]).to.equal(
+            'www.foo.bar/file.pdf',
+          );
         });
     });
   });
