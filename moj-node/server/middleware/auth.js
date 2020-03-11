@@ -53,6 +53,9 @@ module.exports.authenticateUser = ({
 
     logger.info('LDAP: Authentication successful');
 
+    // TODO: Remove this debug line
+    logger.info(`AVAILABLE_FIELDS => ${Object.keys(ldap).join(', ')}`);
+
     return path(['sAMAccountName'], ldap);
   }
 
@@ -101,6 +104,9 @@ module.exports.authenticateUser = ({
       req.user = { id: await getLdapUser(username, password) };
       return next();
     } catch (error) {
+      // TODO: Remove this debug line
+      logger.info(`AUTH_ERROR =>  ${error.name}`);
+
       if (
         error.name === 'LdapAuthenticationError' ||
         error.name === 'InvalidCredentialsError'
