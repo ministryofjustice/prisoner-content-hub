@@ -349,7 +349,7 @@ describe('GET /content/:id', () => {
           .pipe(res),
     };
 
-    const requestClient = {
+    const client = {
       get: sinon.stub().returns(stream),
     };
 
@@ -357,7 +357,7 @@ describe('GET /content/:id', () => {
       const router = createHubContentRouter({
         logger,
         hubContentService,
-        requestClient,
+        client,
       });
       const app = setupBasicApp();
 
@@ -368,9 +368,7 @@ describe('GET /content/:id', () => {
         .expect(200)
         .expect('Content-Type', 'application/pdf')
         .then(() => {
-          expect(requestClient.get.lastCall.args[0]).to.equal(
-            'www.foo.bar/file.pdf',
-          );
+          expect(client.get.lastCall.args[0]).to.equal('www.foo.bar/file.pdf');
         });
     });
   });

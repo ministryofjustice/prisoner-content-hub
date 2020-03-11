@@ -7,7 +7,7 @@ const StandardClient = require('../clients/standard');
 module.exports = function createContentRouter({
   hubContentService,
   logger,
-  requestClient = new StandardClient(),
+  client = new StandardClient(),
 }) {
   const router = express.Router();
 
@@ -34,7 +34,7 @@ module.exports = function createContentRouter({
     };
 
     const establishmentId = path(['locals', 'establishmentId'], res);
-    const backendUrl = path(['app', 'locals', 'envVars', 'backendUrl'], req);
+    const backendUrl = path(['app', 'locals', 'config', 'backendUrl'], req);
 
     try {
       const data = await hubContentService.contentFor(id, establishmentId);
@@ -73,7 +73,7 @@ module.exports = function createContentRouter({
         case 'pdf': {
           const url = relativeUrlFrom(data.url, backendUrl);
           logger.info('PROD - Sending PDF to client from:', url);
-          const stream = await requestClient.get(url, {
+          const stream = await client.get(url, {
             responseType: 'stream',
           });
 

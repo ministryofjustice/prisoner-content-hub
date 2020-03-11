@@ -1,16 +1,71 @@
-const R = require('ramda');
+const { pathEq, prop, path } = require('ramda');
 
-const logger = require('../../log');
-const config = require('../config');
+const statuses = {
+  UP: 'UP',
+  DOWN: 'DOWN',
+  PARTIALLY_DEGRADED: 'PARTIALLY_DEGRADED',
+};
 
-module.exports = function createHealthService(client) {
+function createHealthService({ client, config, logger }) {
+  const { UP, DOWN, PARTIALLY_DEGRADED } = statuses;
+
+  function allOk(...args) {
+    const fn = s => s === UP;
+    const all = args.every(fn);
+    const some = args.some(fn);
+
+    if (all) {
+      return UP;
+    }
+
+    if (some) {
+      return PARTIALLY_DEGRADED;
+    }
+
+    return DOWN;
+  }
+
+  async function getDrupalHealth() {
+    const drupalUrl = path(['api', 'hubHealth'], config);
+    const result = await client.get(drupalUrl);
+    const isUp = pathEq(['db', 'status'], 'up');
+
+    return {
+      drupal: isUp(result) ? UP : DOWN,
+    };
+  }
+
+  async function getMatomoHealth() {
+    const matomoUrl = path(['api', 'matomo'], config);
+    const result = await client.get(matomoUrl, {
+      query: {
+        module: 'API',
+        method: 'API.getPiwikVersion',
+        token_auth: config.matomoToken,
+      },
+    });
+
+    const isUp = /<(result)>.+<\/\1>/g.test(result);
+
+    return {
+      matomo: isUp ? UP : DOWN,
+    };
+  }
+
+  async function getElasticSearchHealth() {
+    const elasticsearchUrl = path(['elasticsearch', 'health'], config);
+    const result = await client.get(elasticsearchUrl);
+
+    return {
+      elasticsearch: prop('status', result) !== 'red' ? UP : DOWN,
+    };
+  }
+
   async function status() {
     try {
-      logger.info('Requested', config.api.hubHealth);
-
-      const hubStatus = await getDrupalHealth(client);
-      const matomoStatus = await getMatomoHealth(client);
-      const elasticSearchStatus = await getElasticSearchHealth(client);
+      const hubStatus = await getDrupalHealth();
+      const matomoStatus = await getMatomoHealth();
+      const elasticSearchStatus = await getElasticSearchHealth();
 
       return {
         status: allOk(
@@ -27,64 +82,20 @@ module.exports = function createHealthService(client) {
     } catch (exp) {
       logger.error(exp);
       return {
-        status: 'DOWN',
+        status: DOWN,
         dependencies: {
-          drupal: 'DOWN',
-          matomo: 'DOWN',
-          elasticsearch: 'DOWN',
+          drupal: DOWN,
+          matomo: DOWN,
+          elasticsearch: DOWN,
         },
       };
     }
   }
 
   return { status };
+}
+
+module.exports = {
+  statuses,
+  createHealthService,
 };
-
-function allOk(...args) {
-  const fn = status => status === 'UP';
-  const all = args.every(fn);
-  const some = args.some(fn);
-
-  if (all) {
-    return 'UP';
-  }
-
-  if (some) {
-    return 'PARTIALLY_DEGRADED';
-  }
-
-  return 'DOWN';
-}
-
-async function getDrupalHealth(client) {
-  const result = await client.get(config.api.hubHealth);
-  const isUp = R.pathEq(['db', 'status'], 'up');
-
-  return {
-    drupal: isUp(result) ? 'UP' : 'DOWN',
-  };
-}
-
-async function getMatomoHealth(client) {
-  const result = await client.get(config.api.matomo, {
-    query: {
-      module: 'API',
-      method: 'API.getPiwikVersion',
-      token_auth: config.matomoToken,
-    },
-  });
-
-  const isUp = /<(result)>.+<\/\1>/g.test(result);
-
-  return {
-    matomo: isUp ? 'UP' : 'DOWN',
-  };
-}
-
-async function getElasticSearchHealth(client) {
-  const result = await client.get(config.elasticsearch.health, {});
-
-  return {
-    elasticsearch: R.prop('status', result) !== 'red' ? 'UP' : 'DOWN',
-  };
-}

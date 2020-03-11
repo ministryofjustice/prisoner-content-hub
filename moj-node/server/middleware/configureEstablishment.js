@@ -10,7 +10,7 @@ const defaults = { shouldAllowSwitch: false };
 module.exports = ({ shouldAllowSwitch } = defaults) =>
   function configureEstablishment(req, res, next) {
     const defaultPrisonFrom = request =>
-      path(['app', 'locals', 'envVars', 'establishmentName'], request);
+      path(['app', 'locals', 'config', 'establishmentName'], request);
     const existingPrisonFrom = request =>
       pathOr(defaultPrisonFrom(request), ['session', 'prison'], request);
     const selectedPrisonFrom = request =>

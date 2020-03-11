@@ -18,7 +18,7 @@ function setupBasicApp() {
     autoescape: true,
   });
 
-  app.locals.envVars = {};
+  app.locals.config = {};
 
   return app;
 }
@@ -50,9 +50,15 @@ function consoleLogError(err, req, res) {
   res.status(500).send('Something broke!');
 }
 
+const createClient = () => ({
+  get: sinon.stub(),
+  post: sinon.stub(),
+});
+
 module.exports = {
   setupBasicApp,
   logger,
   createFeaturedItem,
   consoleLogError,
+  createClient,
 };

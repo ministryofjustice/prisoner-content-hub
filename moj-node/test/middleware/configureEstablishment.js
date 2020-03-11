@@ -7,7 +7,7 @@ describe('configureEstablishment', () => {
   const defaultRequest = {
     app: {
       locals: {
-        envVars: {
+        config: {
           establishmentName: defaultPrison,
         },
       },

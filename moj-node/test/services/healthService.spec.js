@@ -1,36 +1,54 @@
-const createHealthService = require('../../server/services/health');
+const {
+  createHealthService,
+  statuses,
+} = require('../../server/services/health');
+const { logger, createClient } = require('../test-helpers');
+
+const config = {
+  api: {
+    hubHealth: 'https://foo.bar/baz',
+    matomo: 'https://foo.bar/baz',
+  },
+  elasticsearch: {
+    health: 'https://foo.bar/baz',
+  },
+};
+
+const { UP, DOWN, PARTIALLY_DEGRADED } = statuses;
 
 describe('HealthService', () => {
-  context('when the all services are up', () => {
+  const client = createClient();
+
+  beforeEach(() => {
+    client.get.reset();
+  });
+  context('When the all services are up', () => {
     it('returns status of the application', async () => {
-      const client = {
-        get: sinon
-          .stub()
-          .returns({
-            backend: {
-              timestamp: 1564392127,
-              'Drupal Version': '8.7.3',
-            },
-            db: {
-              database: 'mysql',
-              status: 'up',
-            },
-          })
-          .onSecondCall().returns(`
+      client.get
+        .returns({
+          backend: {
+            timestamp: 1564392127,
+            'Drupal Version': '8.7.3',
+          },
+          db: {
+            database: 'mysql',
+            status: 'up',
+          },
+        })
+        .onSecondCall().returns(`
             <?xml version="1.0" encoding="utf-8" ?>
             <result>3.10.0</result>
-          `),
-      };
-      const service = createHealthService(client);
+      `);
+      const service = createHealthService({ client, logger, config });
       const status = await service.status();
 
       expect(client.get.callCount).to.equal(3);
       expect(status).to.eql({
-        status: 'UP',
+        status: UP,
         dependencies: {
-          drupal: 'UP',
-          matomo: 'UP',
-          elasticsearch: 'UP',
+          drupal: UP,
+          matomo: UP,
+          elasticsearch: UP,
         },
       });
     });
@@ -38,30 +56,27 @@ describe('HealthService', () => {
 
   context('when the some services are down', () => {
     it('returns status of the application', async () => {
-      const client = {
-        get: sinon
-          .stub()
-          .returns(null)
-          .onSecondCall()
-          .returns(
-            `
+      client.get
+        .returns(null)
+        .onSecondCall()
+        .returns(
+          `
             <?xml version="1.0" encoding="utf-8" ?>
             <result>3.10.0</result>
           `,
-          )
-          .onThirdCall()
-          .returns({ status: 'green' }),
-      };
-      const service = createHealthService(client);
+        )
+        .onThirdCall()
+        .returns({ status: 'green' });
+      const service = createHealthService({ client, logger, config });
       const status = await service.status();
 
       expect(client.get.callCount).to.equal(3);
       expect(status).to.eql({
-        status: 'PARTIALLY_DEGRADED',
+        status: PARTIALLY_DEGRADED,
         dependencies: {
-          drupal: 'DOWN',
-          matomo: 'UP',
-          elasticsearch: 'UP',
+          drupal: DOWN,
+          matomo: UP,
+          elasticsearch: UP,
         },
       });
     });
@@ -69,25 +84,22 @@ describe('HealthService', () => {
 
   context('when the all services are down', () => {
     it('returns status of the application', async () => {
-      const client = {
-        get: sinon
-          .stub()
-          .returns(null)
-          .onSecondCall()
-          .returns(null)
-          .onThirdCall()
-          .returns({ status: 'red' }),
-      };
-      const service = createHealthService(client);
+      client.get
+        .returns(null)
+        .onSecondCall()
+        .returns(null)
+        .onThirdCall()
+        .returns({ status: 'red' });
+      const service = createHealthService({ client, logger, config });
       const status = await service.status();
 
       expect(client.get.callCount).to.equal(3);
       expect(status).to.eql({
-        status: 'DOWN',
+        status: DOWN,
         dependencies: {
-          drupal: 'DOWN',
-          matomo: 'DOWN',
-          elasticsearch: 'DOWN',
+          drupal: DOWN,
+          matomo: DOWN,
+          elasticsearch: DOWN,
         },
       });
     });

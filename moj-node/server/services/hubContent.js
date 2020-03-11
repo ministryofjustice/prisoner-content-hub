@@ -1,6 +1,6 @@
 const { prop, filter, not, equals, map } = require('ramda');
 
-module.exports = function createHubContentService({
+function createHubContentService({
   contentRepository,
   menuRepository,
   categoryFeaturedContentRepository,
@@ -106,7 +106,7 @@ module.exports = function createHubContentService({
   return {
     contentFor,
   };
-};
+}
 
 function canAccessContent(establishmentId, prisonId) {
   if (!prisonId || !establishmentId) return true;
@@ -117,3 +117,7 @@ function canAccessContent(establishmentId, prisonId) {
 
   return false;
 }
+
+module.exports = {
+  createHubContentService,
+};
