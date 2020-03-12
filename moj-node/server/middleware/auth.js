@@ -4,7 +4,7 @@ const logger = require('../../log');
 
 const getOffenderNumberFrom = path(['user', 'offenderNo']);
 
-const notificationContent = {
+const notifications = {
   userNotFound:
     'You are not signed in. Some services will not be available to you. If you think you should be signed in, please report this to a digital champion or send an app to IT.',
   systemError:
@@ -124,7 +124,7 @@ module.exports.authenticateUser = ({
       } else {
         logger.error(error.message);
         req.session.notification = createNotification(
-          notificationContent.systemError,
+          notifications.systemError,
         );
       }
       req.session.form = form;
@@ -165,19 +165,19 @@ module.exports.createUserSession = ({ offenderService }) => {
       const errorStatus = path(['response', 'status'], error);
       if (!errorStatus) {
         req.session.notification = createNotification(
-          notificationContent.userNotFound,
+          notifications.userNotFound,
         );
       } else if (errorStatus >= 500) {
         req.session.notification = createNotification(
-          notificationContent.systemError,
+          notifications.systemError,
         );
       } else if (errorStatus === 404) {
         req.session.notification = createNotification(
-          notificationContent.userNotFound,
+          notifications.userNotFound,
         );
       } else if (errorStatus >= 400) {
         req.session.notification = createNotification(
-          notificationContent.systemError,
+          notifications.systemError,
         );
       }
 

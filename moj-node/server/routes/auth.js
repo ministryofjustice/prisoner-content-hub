@@ -47,8 +47,8 @@ module.exports = function Login({
           ...form,
           errorList: form.errors
             ? Object.values(form.errors).sort((a, b) =>
-              a.position > b.position ? 1 : -1,
-            )
+                a.position > b.position ? 1 : -1,
+              )
             : [],
         },
       });
