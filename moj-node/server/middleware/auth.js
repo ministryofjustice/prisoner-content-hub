@@ -11,6 +11,15 @@ const notificationContent = {
     'There is a technical problem and we cannot show your personal information. We know about this and are working to fix it. You can still use the rest of the Content Hub',
 };
 
+const formErrors = {
+  invalidUsername: 'Enter a username in the correct format',
+  invalidPassword: 'Enter a password in the correct format',
+  invalidCredentials:
+    'There is a problem with the username or password you have entered. Check and try again',
+  accountProblem:
+    'There is a problem with your account and we are unable to log you in',
+};
+
 function createNotification(text) {
   return { text };
 }
@@ -53,9 +62,6 @@ module.exports.authenticateUser = ({
 
     logger.info('LDAP: Authentication successful');
 
-    // TODO: Remove this debug line
-    logger.info(`AVAILABLE_FIELDS => ${Object.keys(ldap).join(', ')}`);
-
     return path(['sAMAccountName'], ldap);
   }
 
@@ -82,7 +88,7 @@ module.exports.authenticateUser = ({
     if (!isValidPassword(password)) {
       form.errors.password = createFormError(
         'password',
-        'Enter a password in the correct format',
+        formErrors.invalidPassword,
         1,
       );
     }
@@ -90,7 +96,7 @@ module.exports.authenticateUser = ({
     if (!isValidUsername(username)) {
       form.errors.username = createFormError(
         'username',
-        'Enter a username in the correct format',
+        formErrors.invalidUsername,
         0,
       );
     }
@@ -104,16 +110,16 @@ module.exports.authenticateUser = ({
       req.user = { id: await getLdapUser(username, password) };
       return next();
     } catch (error) {
-      // TODO: Remove this debug line
-      logger.info(`AUTH_ERROR =>  ${error.name}`);
-
-      if (
-        error.name === 'LdapAuthenticationError' ||
-        error.name === 'InvalidCredentialsError'
-      ) {
+      if (error.name === 'InvalidCredentialsError') {
         form.errors.ldap = createFormError(
           'username',
-          'There is a problem with the username or password you have entered. Check and try again',
+          formErrors.invalidCredentials,
+        );
+      } else if (error.name === 'LdapAuthenticationError') {
+        logger.error(`AUTH_ACCOUNT_ERROR: ${username}`);
+        form.errors.ldap = createFormError(
+          'username',
+          formErrors.accountProblem,
         );
       } else {
         logger.error(error.message);
