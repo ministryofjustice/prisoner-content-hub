@@ -1,6 +1,6 @@
 {% from "../sub-menu/macro.njk" import hubSubMenu %}
 
-<div id="category-{{params.categoryId}}" class="govuk-hub-landing-page-header govuk-hub-landing-page-header--with-stripe">
+<div id="category-{{params.categoryId}}" class="govuk-hub-tag-page-header govuk-hub-tag-page-header--with-stripe">
   <div class="govuk-width-container">
     <div class="govuk-main-wrapper">
       <div class="govuk-grid-row">
@@ -58,7 +58,7 @@
 
         {% elif params.image.url %}
           <div class="govuk-grid-column-one-half">
-            <div data-page-featured-image class="govuk-hub-landing-page-header__content-image" style="background-image: url({{params.image.url}});"></div>
+            <div data-page-featured-image class="govuk-hub-tag-page-header__content-image" style="background-image: url({{params.image.url}});"></div>
           </div>
         {% endif %}
       </div>
