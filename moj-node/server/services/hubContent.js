@@ -45,6 +45,10 @@ function createHubContentService({
     }
   }
 
+  async function streamFor(url) {
+    return contentRepository.streamFor(url);
+  }
+
   async function media(establishmentId, data) {
     const id = prop('id', data);
     const seriesId = prop('seriesId', data);
@@ -105,6 +109,7 @@ function createHubContentService({
 
   return {
     contentFor,
+    streamFor,
   };
 }
 

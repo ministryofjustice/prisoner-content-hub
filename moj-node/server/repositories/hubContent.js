@@ -217,6 +217,12 @@ module.exports = function hubContentRepository(httpClient) {
     }
   }
 
+  async function streamFor(url) {
+    return httpClient.get(url, {
+      responseType: 'stream',
+    });
+  }
+
   return {
     contentFor,
     termFor,
@@ -226,5 +232,6 @@ module.exports = function hubContentRepository(httpClient) {
     relatedContentFor,
     menuFor,
     suggestedContentFor,
+    streamFor,
   };
 };
