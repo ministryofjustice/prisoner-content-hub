@@ -12,12 +12,10 @@ describe('GET /topics', () => {
 
   beforeEach(() => {
     hubMenuService = {
-      allTopics: sinon
-        .stub()
-        .returns([
-          { linkText: 'foo', href: '/content/foo' },
-          { linkText: 'bar', href: '/content/bar' },
-        ]),
+      allTopics: sinon.stub().returns([
+        { linkText: 'foo', href: '/content/foo' },
+        { linkText: 'bar', href: '/content/bar' },
+      ]),
     };
     analyticsService = {
       sendPageTrack: sinon.stub(),
