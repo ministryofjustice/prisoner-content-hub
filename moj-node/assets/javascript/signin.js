@@ -8,50 +8,47 @@ $(document).ready(function() {
     $(this).html(content);
   });
 
+  function cleanErrors() {
+    $('.govuk-form-group').removeClass('govuk-form-group--error');
+    $('.govuk-error-message,.govuk-error-summary').remove();
+    $('.signin').prepend(
+      '<div class="govuk-error-summary" style="display: none;" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary"><h2 class="govuk-error-summary__title" id="error-summary-title">There is a problem</h2><div class="govuk-error-summary__body"><ul class="govuk-list govuk-error-summary__list"></ul></div></div>',
+    );
+  }
+
+  function addFieldError(fieldName, message) {
+    $(`#${fieldName}`)
+      .parent()
+      .addClass('govuk-form-group--error');
+    $(
+      `<span id="${fieldName}-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> ${message}</span>`,
+    ).insertBefore(`#${fieldName}`);
+    $('.govuk-error-summary').show();
+    $('.govuk-error-summary__list').prepend(
+      `<li><a href="#${fieldName}">${message}</a></li>`,
+    );
+  }
 
   $('#signin-form').submit(function(e) {
-    e.preventDefault();
-    let errors = false;
-    const pattern = new RegExp(/[A-Z][0-9]{4}[A-Z]{2}/i);
+    var hasError = false;
+    var pattern = new RegExp(/[A-Z][0-9]{4}[A-Z]{2}/i);
+
+    cleanErrors();
 
     if (!pattern.test($('#username').val())) {
-      errors = true;
-      $('#username').parent().addClass('govuk-form-group--error');
-      $('<span id="username-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter a username in the correct format</span>').insertBefore('#username');
+      hasError = true;
+      addFieldError('username', 'Enter a username in the correct format');
     }
 
     if ($('#password').val().length === 0) {
-      errors = true;
-      $('#password').parent().addClass('govuk-form-group--error');
-      $('<span id="password-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter a password in the correct format</span>').insertBefore('#password');
+      hasError = true;
+      addFieldError('password', 'Enter a password in the correct format');
     }
 
-    /*
-    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
-<h2 class="govuk-error-summary__title" id="error-summary-title">
-There is a problem
-</h2>
-<div class="govuk-error-summary__body">
+    if (!hasError) {
+      return;
+    }
 
-<ul class="govuk-list govuk-error-summary__list">
-
-  <li>
-
-    <a href="#username">Enter a username in the correct format</a>
-
-  </li>
-
-  <li>
-
-    <a href="#password">Enter a password in the correct format</a>
-
-  </li>
-
-</ul>
-</div>
-</div>
-    */
-
-    return errors;
+    e.preventDefault();
   });
 });
