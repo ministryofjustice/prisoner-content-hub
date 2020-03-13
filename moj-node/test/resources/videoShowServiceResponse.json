@@ -27,7 +27,10 @@
       "contentUrl": "/content/98"
     }
   ],
-  "tags": [{ "id": 0, "name": "foo" }, { "id": 1, "name": "bar" }],
+  "tags": [
+    { "id": 0, "name": "foo" },
+    { "id": 1, "name": "bar" }
+  ],
   "suggestedContent": [
     {
       "id": 666,

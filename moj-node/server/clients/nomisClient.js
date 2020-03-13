@@ -47,7 +47,12 @@ class NomisClient {
       },
       raxConfig: {
         instance: client,
-        statusCodesToRetry: [[100, 199], [401, 401], [429, 429], [500, 599]],
+        statusCodesToRetry: [
+          [100, 199],
+          [401, 401],
+          [429, 429],
+          [500, 599],
+        ],
         onRetryAttempt: async originalRequest => {
           const retryConfig = retryAxios.getConfig(originalRequest);
           const requestConfig = originalRequest.config;
