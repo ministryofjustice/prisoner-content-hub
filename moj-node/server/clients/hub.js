@@ -1,6 +1,6 @@
 const qs = require('querystring');
 const { baseClient } = require('./baseClient');
-const logger = require('../../log');
+const { logger } = require('../../logger');
 const config = require('../config');
 
 const { getEstablishmentId } = require('../utils');
@@ -32,4 +32,6 @@ class HubContentClient {
   }
 }
 
-module.exports = HubContentClient;
+module.exports = {
+  HubClient: HubContentClient,
+};

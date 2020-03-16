@@ -1,4 +1,6 @@
-const hubCategoryFeaturedContentRepository = require('../../server/repositories/categoryFeaturedContent');
+const {
+  categoryFeaturedContentRepository,
+} = require('../../server/repositories/categoryFeaturedContent');
 
 describe('hubCategoryFeaturedContentRepository', () => {
   describe('#contentFor', () => {
@@ -7,7 +9,7 @@ describe('hubCategoryFeaturedContentRepository', () => {
         const client = generateFeatureContentClient([
           { contentType: 'moj_radio_item' },
         ]);
-        const repository = hubCategoryFeaturedContentRepository(client);
+        const repository = categoryFeaturedContentRepository(client);
 
         const expectedKeys = [
           'id',
@@ -39,7 +41,7 @@ describe('hubCategoryFeaturedContentRepository', () => {
 
     describe('When no content is returned from the endpoint', () => {
       it('returns no data', async () => {
-        const repository = hubCategoryFeaturedContentRepository(
+        const repository = categoryFeaturedContentRepository(
           generateNoDataResponse(),
         );
         const content = await repository.contentFor(1);

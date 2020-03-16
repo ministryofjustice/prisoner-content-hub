@@ -83,4 +83,6 @@ function offenderRepository(httpClient) {
   };
 }
 
-module.exports = offenderRepository;
+module.exports = {
+  offenderRepository,
+};

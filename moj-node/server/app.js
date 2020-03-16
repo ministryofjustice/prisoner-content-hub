@@ -31,7 +31,7 @@ const { getEstablishmentId, getGoogleAnalyticsId } = require('./utils');
 
 const version = Date.now().toString();
 
-module.exports = function createApp({
+const createApp = ({
   appInfo,
   logger,
   hubFeaturedContentService,
@@ -41,7 +41,7 @@ module.exports = function createApp({
   healthService,
   offenderService,
   searchService,
-}) {
+}) => {
   const app = express();
 
   const appViews = [
@@ -261,4 +261,8 @@ module.exports = function createApp({
   }
 
   return app;
+};
+
+module.exports = {
+  createApp,
 };

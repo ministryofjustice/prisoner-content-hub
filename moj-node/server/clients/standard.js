@@ -1,6 +1,6 @@
 const qs = require('querystring');
 const { baseClient } = require('./baseClient');
-const logger = require('../../log');
+const { logger } = require('../../logger');
 
 class StandardClient {
   constructor(client = baseClient) {
@@ -38,4 +38,6 @@ class StandardClient {
   }
 }
 
-module.exports = StandardClient;
+module.exports = {
+  StandardClient,
+};

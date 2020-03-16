@@ -44,9 +44,13 @@ function dynamicAppInfo() {
   };
 }
 
-module.exports = function createAppInfoService(buildInfo = null) {
+const appInfoService = (buildInfo = null) => {
   if (!buildInfo) {
     return dynamicAppInfo();
   }
   return staticAppInfo(buildInfo);
+};
+
+module.exports = {
+  appInfoService,
 };

@@ -1,4 +1,4 @@
-function createHubMenuService(repository) {
+const createHubMenuService = repository => {
   function seriesMenu() {
     return repository.seriesMenu();
   }
@@ -36,6 +36,8 @@ function createHubMenuService(repository) {
     categoryMenu,
     allTopics,
   };
-}
+};
 
-module.exports = createHubMenuService;
+module.exports = {
+  createHubMenuService,
+};

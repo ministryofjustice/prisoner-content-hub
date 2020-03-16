@@ -1,4 +1,4 @@
-const offenderRepository = require('../../server/repositories/offender');
+const { offenderRepository } = require('../../server/repositories/offender');
 
 describe('offenderRepository', () => {
   describe('getOffenderDetailsFor', () => {

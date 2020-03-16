@@ -1,11 +1,11 @@
-const hubContentRepository = require('../../server/repositories/hubContent');
+const { contentRepository } = require('../../server/repositories/hubContent');
 const termResponse = require('../resources/terms.json');
 
-describe('hubContentRepository', () => {
+describe('contentRepository', () => {
   describe('#contentFor', () => {
     it('returns null if no id is passed', async () => {
       const client = generateClient({ response: 'data' });
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const result = await repository.contentFor();
 
       expect(client.get.callCount).to.equal(0);
@@ -14,7 +14,7 @@ describe('hubContentRepository', () => {
 
     it('returns content for a given id', async () => {
       const client = generateClient({ content_type: 'moj_video_item' });
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
 
       const result = await repository.contentFor('id');
 
@@ -47,7 +47,7 @@ describe('hubContentRepository', () => {
   describe('#termFor', () => {
     it('returns null if no id is passed', async () => {
       const client = generateClient({ response: 'data' });
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const result = await repository.termFor();
 
       expect(client.get.callCount).to.equal(0);
@@ -55,7 +55,7 @@ describe('hubContentRepository', () => {
     });
     it('returns terms data for a given id', async () => {
       const client = generateClient(termResponse);
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const result = await repository.termFor('id');
 
       const expectedKeys = [
@@ -79,7 +79,7 @@ describe('hubContentRepository', () => {
   describe('#seasonFor', () => {
     it('returns empty if no id is passed', async () => {
       const client = generateClient({ response: 'data' });
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const result = await repository.seasonFor({});
 
       expect(client.get.callCount).to.equal(0);
@@ -88,7 +88,7 @@ describe('hubContentRepository', () => {
 
     it('returns empty if response is invalid', async () => {
       const client = generateClient({ response: 'data' });
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const result = await repository.seasonFor({ id: 1 });
 
       expect(client.get.callCount).to.equal(
@@ -102,7 +102,7 @@ describe('hubContentRepository', () => {
         { content_type: 'moj_video_item' },
         { content_type: 'moj_radio_item' },
       ]);
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const result = await repository.seasonFor({
         id: 'id',
         establishmentId: 'fooPrisonID',
@@ -119,7 +119,7 @@ describe('hubContentRepository', () => {
   describe('#nextEpisodesFor', () => {
     it('returns empty if no id is passed', async () => {
       const client = generateClient(null);
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const result = await repository.nextEpisodesFor({});
 
       expect(client.get.callCount).to.equal(0);
@@ -128,7 +128,7 @@ describe('hubContentRepository', () => {
 
     it('returns empty if when invalid data is returned from the api call', async () => {
       const client = generateClient({ response: 'invalid' });
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const result = await repository.nextEpisodesFor({ id: 1, episodeId: 1 });
 
       expect(client.get.callCount).to.equal(1);
@@ -140,7 +140,7 @@ describe('hubContentRepository', () => {
         { content_type: 'moj_video_item' },
         { content_type: 'moj_radio_item' },
       ]);
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const result = await repository.nextEpisodesFor({
         id: 'id',
         episodeId: 'fooEpisodeId',
@@ -160,7 +160,7 @@ describe('hubContentRepository', () => {
   describe('#relatedContentFor', () => {
     it('returns empty if no id is passed', async () => {
       const client = generateClient({ response: 'data' });
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const result = await repository.relatedContentFor({});
 
       expect(client.get.callCount).to.equal(0);
@@ -169,7 +169,7 @@ describe('hubContentRepository', () => {
 
     it('returns empty when invalid data is returned from the api', async () => {
       const client = generateClient({ response: 'data' });
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const result = await repository.relatedContentFor({ id: 1 });
 
       expect(client.get.callCount).to.equal(1);
@@ -180,7 +180,7 @@ describe('hubContentRepository', () => {
         { content_type: 'moj_radio_item' },
         { content_type: 'moj_radio_item' },
       ]);
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
 
       const result = await repository.relatedContentFor({
         id: 'id',
@@ -214,7 +214,7 @@ describe('hubContentRepository', () => {
   describe('#suggestedContentFor', () => {
     it('returns empty if no id is passed', async () => {
       const client = generateClient({ response: 'data' });
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const result = await repository.suggestedContentFor({});
 
       expect(client.get.callCount).to.equal(0);
@@ -223,7 +223,7 @@ describe('hubContentRepository', () => {
 
     it('returns empty when invalid data is returned from the api', async () => {
       const client = generateClient({ response: 'data' });
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const result = await repository.suggestedContentFor({ id: 1 });
 
       expect(client.get.callCount).to.equal(1);
@@ -234,7 +234,7 @@ describe('hubContentRepository', () => {
         { content_type: 'moj_radio_item' },
         { content_type: 'moj_radio_item' },
       ]);
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
 
       const result = await repository.suggestedContentFor({
         id: 'id',
@@ -268,7 +268,7 @@ describe('hubContentRepository', () => {
   describe('#menuFor', () => {
     it('returns null if no id is passed', async () => {
       const client = generateClient({ response: 'data' });
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const result = await repository.menuFor();
 
       expect(client.get.callCount).to.equal(0);
@@ -279,7 +279,7 @@ describe('hubContentRepository', () => {
         { title: 'Foo', link: 'www.foo.com', id: '1' },
         { title: 'Bar', link: 'www.bar.com', id: '2' },
       ]);
-      const repository = hubContentRepository(client);
+      const repository = contentRepository(client);
       const content = await repository.menuFor('id');
 
       const expected = [

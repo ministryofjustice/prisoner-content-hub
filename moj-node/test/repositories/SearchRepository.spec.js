@@ -1,4 +1,4 @@
-const searchRepository = require('../../server/repositories/search');
+const { searchRepository } = require('../../server/repositories/search');
 
 describe('searchRepository', () => {
   describe('#find', () => {

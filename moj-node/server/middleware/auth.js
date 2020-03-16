@@ -1,7 +1,7 @@
 const expressNTLM = require('express-ntlm');
 const { path } = require('ramda');
 const config = require('../config');
-const logger = require('../../log');
+const { logger } = require('../../logger');
 
 const getOffenderNumberFrom = path(['user', 'offenderNo']);
 

@@ -21,4 +21,6 @@ function hubFeaturedContentRepository(httpClient) {
   };
 }
 
-module.exports = hubFeaturedContentRepository;
+module.exports = {
+  hubFeaturedContentRepository,
+};
