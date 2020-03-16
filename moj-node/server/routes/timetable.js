@@ -16,6 +16,7 @@ module.exports = function Home({ logger, offenderService }) {
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+      const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -30,6 +31,7 @@ module.exports = function Home({ logger, offenderService }) {
         nextWeek: false,
         userName,
         newDesigns,
+        matomoUrl,
       };
 
       res.render('pages/timetable', {
@@ -55,6 +57,7 @@ module.exports = function Home({ logger, offenderService }) {
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+      const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -69,6 +72,7 @@ module.exports = function Home({ logger, offenderService }) {
         nextWeek: false,
         userName,
         newDesigns,
+        matomoUrl,
       };
 
       res.render('pages/timetable', {
@@ -94,6 +98,7 @@ module.exports = function Home({ logger, offenderService }) {
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+      const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -108,6 +113,7 @@ module.exports = function Home({ logger, offenderService }) {
         nextWeek: true,
         userName,
         newDesigns,
+        matomoUrl,
       };
 
       res.render('pages/timetable', {

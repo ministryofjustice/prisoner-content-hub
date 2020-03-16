@@ -17,6 +17,7 @@ module.exports = function Tags({ logger, hubTagsService }) {
       const userName = path(['session', 'user', 'name'], req);
       const establishmentId = path(['locals', 'establishmentId'], res);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+      const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
       const config = {
         content: true,
         header: false,
@@ -24,6 +25,7 @@ module.exports = function Tags({ logger, hubTagsService }) {
         detailsType: 'small',
         newDesigns,
         userName,
+        matomoUrl,
       };
 
       const data = await hubTagsService.termFor(id, establishmentId);

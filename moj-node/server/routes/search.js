@@ -8,6 +8,7 @@ module.exports = function createSearchRouter({ searchService, logger }) {
     logger.info('GET /search');
 
     const establishmentId = path(['locals', 'establishmentId'], res);
+    const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
     let results = [];
     const query = path(['query', 'query'], req);
@@ -20,6 +21,7 @@ module.exports = function createSearchRouter({ searchService, logger }) {
       detailsType: 'small',
       newDesigns,
       userName,
+      matomoUrl,
     };
 
     try {

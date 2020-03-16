@@ -17,6 +17,7 @@ module.exports = function createIepRouter({
     const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+    const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
     const config = {
       content: true,
@@ -26,6 +27,7 @@ module.exports = function createIepRouter({
       category: 'iep',
       newDesigns,
       userName,
+      matomoUrl,
     };
 
     const establishmentId = path(['locals', 'establishmentId'], res);

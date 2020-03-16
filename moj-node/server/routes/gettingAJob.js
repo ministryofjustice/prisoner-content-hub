@@ -25,6 +25,7 @@ module.exports = function createStepByStepRouter({
     logger.info(`GET ${req.originalUrl}`);
 
     const establishmentId = path(['locals', 'establishmentId'], res);
+    const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
     const establishmentName = establishments[establishmentId];
     const title = `Working in ${establishmentName}`;
@@ -54,6 +55,7 @@ module.exports = function createStepByStepRouter({
       detailsType: 'small',
       userName,
       establishmentId,
+      matomoUrl,
     };
 
     return res.render('pages/getting-a-job', {
@@ -78,6 +80,7 @@ module.exports = function createStepByStepRouter({
     const menu = hubMenuService.gettingAJobMenu(establishmentId);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const userName = path(['session', 'user', 'name'], req);
+    const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
     const config = {
       content: true,
@@ -87,6 +90,7 @@ module.exports = function createStepByStepRouter({
       detailsType: 'small',
       userName,
       establishmentId,
+      matomoUrl,
     };
 
     try {

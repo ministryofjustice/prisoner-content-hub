@@ -23,6 +23,7 @@ module.exports = function Topics({ logger, hubMenuService }) {
       const userName = path(['session', 'user', 'name'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
       const establishmentId = path(['locals', 'establishmentId'], res);
+      const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
       const topics = await hubMenuService.allTopics(establishmentId);
 
@@ -33,6 +34,7 @@ module.exports = function Topics({ logger, hubMenuService }) {
         detailsType: 'small',
         userName,
         newDesigns,
+        matomoUrl,
       };
 
       res.render('pages/topics', {
