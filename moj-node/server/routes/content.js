@@ -17,6 +17,7 @@ module.exports = function createContentRouter({ hubContentService, logger }) {
     const notification = path(['session', 'notification'], req);
     const userName = path(['session', 'user', 'name'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+    const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
     const config = {
       content: true,
@@ -25,6 +26,7 @@ module.exports = function createContentRouter({ hubContentService, logger }) {
       detailsType: 'small',
       newDesigns,
       userName,
+      matomoUrl,
     };
 
     const establishmentId = path(['locals', 'establishmentId'], res);

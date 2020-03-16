@@ -20,6 +20,7 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
       const userName = path(['session', 'user', 'name'], req);
       const establishmentId = path(['locals', 'establishmentId'], res);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+      const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
       const featuredContent = await hubFeaturedContentService.hubFeaturedContent(
         { establishmentId },
@@ -33,6 +34,7 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
         newDesigns,
         userName,
         establishmentId,
+        matomoUrl,
       };
 
       const popularTopics = {
