@@ -76,7 +76,7 @@ const getTimeOfDay = date => {
   return 'evening';
 };
 
-module.exports = function createOffenderService(repository) {
+const createOffenderService = repository => {
   async function getOffenderDetailsFor(prisonerId) {
     const response = await repository.getOffenderDetailsFor(prisonerId);
     const { bookingId, offenderNo, firstName, lastName } = response;
@@ -414,4 +414,8 @@ module.exports = function createOffenderService(repository) {
     getEventsForToday,
     getEventsFor,
   };
+};
+
+module.exports = {
+  createNomisOffenderService: createOffenderService,
 };

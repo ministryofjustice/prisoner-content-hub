@@ -1,6 +1,6 @@
 const request = require('supertest');
 
-const createApp = require('../server/app');
+const { createApp } = require('../server/app');
 const config = require('../server/config');
 const { logger } = require('./test-helpers');
 

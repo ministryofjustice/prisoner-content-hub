@@ -1,4 +1,4 @@
-const createSearchService = require('../../server/services/search');
+const { createSearchService } = require('../../server/services/search');
 
 describe('SearchService', () => {
   describe('#find', () => {

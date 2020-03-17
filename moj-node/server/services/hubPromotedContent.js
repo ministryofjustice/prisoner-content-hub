@@ -1,4 +1,4 @@
-module.exports = function createHubPromotedContentService(repository) {
+const createHubPromotedContentService = repository => {
   async function hubPromotedContent(
     { establishmentId } = { establishmentId: 0 },
   ) {
@@ -11,4 +11,8 @@ module.exports = function createHubPromotedContentService(repository) {
   return {
     hubPromotedContent,
   };
+};
+
+module.exports = {
+  createHubPromotedContentService,
 };

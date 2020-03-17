@@ -132,4 +132,6 @@ function searchRepository(httpClient) {
   };
 }
 
-module.exports = searchRepository;
+module.exports = {
+  searchRepository,
+};

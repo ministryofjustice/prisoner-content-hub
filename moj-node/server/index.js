@@ -1,30 +1,40 @@
-const createApp = require('./app');
-const logger = require('../log');
+const { createApp } = require('./app');
+const { logger } = require('../logger');
 const config = require('./config');
 
-const HubClient = require('./clients/hub');
-const StandardClient = require('./clients/standard');
-const NomisClient = require('./clients/nomisClient');
+const { HubClient } = require('./clients/hub');
+const { StandardClient } = require('./clients/standard');
+const { NomisClient } = require('./clients/nomisClient');
 
 // Services
-const appInfoService = require('./services/appInfo');
-const createHubMenuService = require('./services/hubMenu');
-const createHubFeaturedContentService = require('./services/hubFeaturedContent');
-const createHubPromotedContentService = require('./services/hubPromotedContent');
+const { appInfoService } = require('./services/appInfo');
+const { createHubMenuService } = require('./services/hubMenu');
+const {
+  createHubFeaturedContentService,
+} = require('./services/hubFeaturedContent');
+const {
+  createHubPromotedContentService,
+} = require('./services/hubPromotedContent');
 const { createHubContentService } = require('./services/hubContent');
 const { createHealthService } = require('./services/health');
-const createHubTagsService = require('./services/hubTags');
-const createNomisOffenderService = require('./services/offender');
-const createSearchService = require('./services/search');
+const { createHubTagsService } = require('./services/hubTags');
+const { createNomisOffenderService } = require('./services/offender');
+const { createSearchService } = require('./services/search');
 
 // Repositories
-const hubFeaturedContentRepository = require('./repositories/hubFeaturedContent');
-const categoryFeaturedContentRepository = require('./repositories/categoryFeaturedContent');
-const promotedContentRepository = require('./repositories/hubPromotedContent');
-const hubMenuRepository = require('./repositories/hubMenu');
-const contentRepository = require('./repositories/hubContent');
-const offenderRepository = require('./repositories/offender');
-const searchRepository = require('./repositories/search');
+const {
+  hubFeaturedContentRepository,
+} = require('./repositories/hubFeaturedContent');
+const {
+  categoryFeaturedContentRepository,
+} = require('./repositories/categoryFeaturedContent');
+const {
+  promotedContentRepository,
+} = require('./repositories/hubPromotedContent');
+const { hubMenuRepository } = require('./repositories/hubMenu');
+const { contentRepository } = require('./repositories/hubContent');
+const { offenderRepository } = require('./repositories/offender');
+const { searchRepository } = require('./repositories/search');
 
 const buildInfo = config.dev ? null : require('../build-info.json'); // eslint-disable-line import/no-unresolved
 

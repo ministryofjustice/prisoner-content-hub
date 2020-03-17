@@ -1,4 +1,6 @@
-const createHubPromotedContentService = require('../../server/services/hubPromotedContent');
+const {
+  createHubPromotedContentService,
+} = require('../../server/services/hubPromotedContent');
 
 const promotedContentRepository = {
   hubPromotedContent: sinon.stub().returns('promotedContent'),

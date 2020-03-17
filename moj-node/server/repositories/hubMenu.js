@@ -187,4 +187,6 @@ function hubMenuRepository(httpClient, jsonClient) {
   };
 }
 
-module.exports = hubMenuRepository;
+module.exports = {
+  hubMenuRepository,
+};

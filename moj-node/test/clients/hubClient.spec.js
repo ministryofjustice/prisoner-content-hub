@@ -1,5 +1,5 @@
 const nock = require('nock');
-const HubClient = require('../../server/clients/hub');
+const { HubClient } = require('../../server/clients/hub');
 
 describe('HubClient', () => {
   describe('.get', () => {

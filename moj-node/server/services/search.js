@@ -1,9 +1,9 @@
 const utils = require('../utils');
 
-module.exports = function createSearchService({
+const createSearchService = ({
   searchRepository,
   getEstablishmentName = utils.getEstablishmentName,
-}) {
+}) => {
   function find({ query, limit, from, establishmentId }) {
     const prison = getEstablishmentName(establishmentId);
 
@@ -28,4 +28,8 @@ module.exports = function createSearchService({
     find,
     typeAhead,
   };
+};
+
+module.exports = {
+  createSearchService,
 };

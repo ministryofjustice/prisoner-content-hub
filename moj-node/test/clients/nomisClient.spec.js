@@ -1,5 +1,5 @@
 const nock = require('nock');
-const NomisClient = require('../../server/clients/nomisClient');
+const { NomisClient } = require('../../server/clients/nomisClient');
 
 describe('NomisClient', () => {
   before(() => {

@@ -2,7 +2,7 @@ const R = require('ramda');
 const qs = require('querystring');
 
 const config = require('../config');
-const logger = require('../../log');
+const { logger } = require('../../logger');
 const { isEmpty, fillContentItems } = require('../utils');
 
 const {
@@ -16,7 +16,7 @@ const {
   pdfResponseFrom,
 } = require('../utils/adapters');
 
-module.exports = function hubContentRepository(httpClient) {
+const hubContentRepository = httpClient => {
   async function contentFor(id) {
     const endpoint = `${config.api.hubContent}/${id}`;
 
@@ -234,4 +234,8 @@ module.exports = function hubContentRepository(httpClient) {
     suggestedContentFor,
     streamFor,
   };
+};
+
+module.exports = {
+  contentRepository: hubContentRepository,
 };

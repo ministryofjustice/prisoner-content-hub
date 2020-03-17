@@ -1,6 +1,6 @@
 const { prop } = require('ramda');
 
-module.exports = function createHubTagsService(repository) {
+const createHubTagsService = repository => {
   async function termFor(id, establishmentId) {
     const content = await repository.termFor(id);
 
@@ -63,4 +63,8 @@ module.exports = function createHubTagsService(repository) {
     relatedContentFor,
     relatedSeriesFor,
   };
+};
+
+module.exports = {
+  createHubTagsService,
 };

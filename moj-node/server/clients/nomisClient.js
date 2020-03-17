@@ -2,7 +2,7 @@ const retryAxios = require('retry-axios');
 const { path } = require('ramda');
 const { baseClient } = require('./baseClient');
 const config = require('../config');
-const logger = require('../../log');
+const { logger } = require('../../logger');
 
 function responseCodeFor(request) {
   return path(['response', 'status'], request);
@@ -82,4 +82,6 @@ class NomisClient {
   }
 }
 
-module.exports = NomisClient;
+module.exports = {
+  NomisClient,
+};

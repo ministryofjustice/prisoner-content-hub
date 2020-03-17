@@ -1,5 +1,5 @@
 const nock = require('nock');
-const StandardClient = require('../../server/clients/standard');
+const { StandardClient } = require('../../server/clients/standard');
 
 describe('StandardClient', () => {
   before(() => {

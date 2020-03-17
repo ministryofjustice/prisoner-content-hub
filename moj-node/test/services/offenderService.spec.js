@@ -1,4 +1,6 @@
-const offenderService = require('../../server/services/offender');
+const {
+  createNomisOffenderService,
+} = require('../../server/services/offender');
 const { getEventsForTodayData, getEventsForData } = require('../test-data');
 
 describe('Offender Service', () => {
@@ -13,7 +15,7 @@ describe('Offender Service', () => {
           lastName: 'AARELL',
         }),
       };
-      const service = offenderService(repository);
+      const service = createNomisOffenderService(repository);
       const data = await service.getOffenderDetailsFor('FOO_ID');
 
       expect(repository.getOffenderDetailsFor.lastCall.args[0]).to.equal(
@@ -40,7 +42,7 @@ describe('Offender Service', () => {
         }),
       };
 
-      const service = offenderService(repository);
+      const service = createNomisOffenderService(repository);
       const data = await service.getIEPSummaryFor('FOO_ID');
 
       expect(repository.getIEPSummaryFor.lastCall.args[0]).to.equal('FOO_ID');
@@ -64,7 +66,7 @@ describe('Offender Service', () => {
           currency: 'GBP',
         }),
       };
-      const service = offenderService(repository);
+      const service = createNomisOffenderService(repository);
       const data = await service.getBalancesFor('FOO_ID');
 
       expect(repository.getBalancesFor.lastCall.args[0]).to.equal('FOO_ID');
@@ -85,7 +87,7 @@ describe('Offender Service', () => {
           lastName: 'JAYMORES',
         }),
       };
-      const service = offenderService(repository);
+      const service = createNomisOffenderService(repository);
       const data = await service.getKeyWorkerFor('FOO_ID');
 
       expect(repository.getKeyWorkerFor.lastCall.args[0]).to.equal('FOO_ID');
@@ -112,7 +114,7 @@ describe('Offender Service', () => {
         }),
         getVisitsFor: sinon.stub().returns([]),
       };
-      const service = offenderService(repository);
+      const service = createNomisOffenderService(repository);
       const data = await service.getVisitsFor('FOO_ID');
 
       expect(repository.getNextVisitFor.lastCall.args[0]).to.equal('FOO_ID');
@@ -136,7 +138,7 @@ describe('Offender Service', () => {
           licenceExpiryDate: '2019-05-07T11:30:30',
         }),
       };
-      const service = offenderService(repository);
+      const service = createNomisOffenderService(repository);
       const data = await service.getImportantDatesFor('FOO_ID');
 
       expect(repository.sentenceDetailsFor.lastCall.args[0]).to.equal('FOO_ID');
@@ -166,7 +168,7 @@ describe('Offender Service', () => {
           isTomorrow: false,
         }),
       };
-      const service = offenderService(repository);
+      const service = createNomisOffenderService(repository);
       await service.getEventsForToday('FOO_ID');
 
       expect(repository.getEventsForToday.lastCall.args[0]).to.equal('FOO_ID');
@@ -177,7 +179,7 @@ describe('Offender Service', () => {
         const repository = {
           getEventsForToday: sinon.stub().returns(singleTestData.repo),
         };
-        const service = offenderService(repository);
+        const service = createNomisOffenderService(repository);
         const data = await service.getEventsForToday('FOO_ID');
 
         expect(data).to.eql(singleTestData.data);
@@ -198,7 +200,7 @@ describe('Offender Service', () => {
           },
         ]),
       };
-      const service = offenderService(repository);
+      const service = createNomisOffenderService(repository);
       await service.getEventsFor('FOO_ID', '2019-03-07', '2019-04-07');
 
       expect(repository.getEventsFor.lastCall.args[0]).to.equal('FOO_ID');
@@ -209,7 +211,7 @@ describe('Offender Service', () => {
         const repository = {
           getEventsFor: sinon.stub().returns(repo),
         };
-        const service = offenderService(repository);
+        const service = createNomisOffenderService(repository);
         const serviceData = await service.getEventsFor(
           'FOO_ID',
           startDate,

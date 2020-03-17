@@ -23,4 +23,6 @@ function hubPromotedContentRepository(httpClient) {
   };
 }
 
-module.exports = hubPromotedContentRepository;
+module.exports = {
+  promotedContentRepository: hubPromotedContentRepository,
+};

@@ -1,7 +1,7 @@
 const R = require('ramda');
 const qs = require('querystring');
 
-const logger = require('../../log');
+const { logger } = require('../../logger');
 const config = require('../config');
 
 const { featuredContentResponseFrom } = require('../utils/adapters');
@@ -34,4 +34,6 @@ function hubCategoryFeaturedContentRepository(httpClient) {
   };
 }
 
-module.exports = hubCategoryFeaturedContentRepository;
+module.exports = {
+  categoryFeaturedContentRepository: hubCategoryFeaturedContentRepository,
+};

@@ -10,4 +10,6 @@ const log = bunyan.createLogger({
   level: 'debug',
 });
 
-module.exports = log;
+module.exports = {
+  logger: log,
+};

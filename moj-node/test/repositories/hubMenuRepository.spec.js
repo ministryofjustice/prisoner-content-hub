@@ -1,4 +1,4 @@
-const hubMenuRepository = require('../../server/repositories/hubMenu');
+const { hubMenuRepository } = require('../../server/repositories/hubMenu');
 const topicsResponse = require('../resources/tagsContent.json');
 const categoryMenuResponse = require('../resources/categoryMenuResponse.json');
 

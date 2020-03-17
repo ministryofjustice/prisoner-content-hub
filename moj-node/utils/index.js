@@ -7,11 +7,7 @@ const mkdirp = require('mkdirp');
 const production = process.env.NODE_ENV === 'production';
 const test = process.env.NODE_ENV === 'test';
 
-module.exports.recordBuildInfoTo = function recordBuildInfoTo(
-  target,
-  contents,
-  callback,
-) {
+const recordBuildInfoTo = (target, contents, callback) => {
   writeFile(target, JSON.stringify(contents, null, 2), callback);
 };
 
@@ -23,7 +19,7 @@ function writeFile(path, contents, callback) {
   });
 }
 
-module.exports.getEnv = function get(name, fallback, options = {}) {
+const getEnv = (name, fallback, options = {}) => {
   if (process.env[name]) {
     return process.env[name];
   }
@@ -33,5 +29,9 @@ module.exports.getEnv = function get(name, fallback, options = {}) {
   throw new Error(`Missing env var ${name}`);
 };
 
-module.exports.isProduction = production;
-module.exports.isTest = test;
+module.exports = {
+  isProduction: production,
+  isTest: test,
+  recordBuildInfoTo,
+  getEnv,
+};
