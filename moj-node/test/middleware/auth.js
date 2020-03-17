@@ -137,7 +137,7 @@ describe('auth', () => {
           '/auth/signin',
           'should have redirected to signin page',
         );
-        expect(request.session).to.have.property('notification');
+        expect(request.session.form.errors).to.have.property('ldap');
       });
 
       it('should create a form error when the username is incorrect', async () => {
