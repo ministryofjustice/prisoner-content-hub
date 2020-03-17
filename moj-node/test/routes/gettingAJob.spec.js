@@ -1,7 +1,7 @@
 const request = require('supertest');
 const cheerio = require('cheerio');
 
-const createGettingAJobRouter = require('../../server/routes/gettingAJob');
+const { createGettingAJobRouter } = require('../../server/routes/gettingAJob');
 const { setupBasicApp, logger } = require('../test-helpers');
 
 const flatContentResponse = require('../resources/flatContentResponse.json');

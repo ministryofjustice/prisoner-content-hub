@@ -1,7 +1,7 @@
 const { path } = require('ramda');
 const express = require('express');
 
-module.exports = function createGamesRouter({ logger }) {
+const createGamesRouter = ({ logger }) => {
   const router = express.Router();
 
   const config = {
@@ -65,4 +65,8 @@ module.exports = function createGamesRouter({ logger }) {
   });
 
   return router;
+};
+
+module.exports = {
+  createGamesRouter,
 };

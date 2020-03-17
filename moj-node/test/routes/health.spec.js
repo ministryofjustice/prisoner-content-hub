@@ -1,6 +1,6 @@
 const request = require('supertest');
 
-const createHealthRouter = require('../../server/routes/health');
+const { createHealthRouter } = require('../../server/routes/health');
 const { setupBasicApp } = require('../test-helpers');
 
 describe('/health', () => {

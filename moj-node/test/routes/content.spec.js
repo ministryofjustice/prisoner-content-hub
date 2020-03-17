@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const fs = require('fs');
 const path = require('path');
 
-const createHubContentRouter = require('../../server/routes/content');
+const { createContentRouter } = require('../../server/routes/content');
 const { setupBasicApp, logger } = require('../test-helpers');
 
 const radioShowResponse = require('../resources/radioShowServiceResponse.json');
@@ -15,7 +15,7 @@ describe('GET /content/:id', () => {
     const invalidService = {
       contentFor: () => ({ type: 'invalid' }),
     };
-    const router = createHubContentRouter({
+    const router = createContentRouter({
       logger,
       hubContentService: invalidService,
     });
@@ -36,7 +36,7 @@ describe('GET /content/:id', () => {
         contentFor: sinon.stub().returns(radioShowResponse),
       };
 
-      const router = createHubContentRouter({ logger, hubContentService });
+      const router = createContentRouter({ logger, hubContentService });
       app = setupBasicApp();
 
       app.use('/content', router);
@@ -138,7 +138,7 @@ describe('GET /content/:id', () => {
         contentFor: sinon.stub().returns(videoShowResponse),
       };
 
-      const router = createHubContentRouter({ logger, hubContentService });
+      const router = createContentRouter({ logger, hubContentService });
       app = setupBasicApp();
 
       app.use('/content', router);
@@ -302,7 +302,7 @@ describe('GET /content/:id', () => {
       const hubContentService = {
         contentFor: sinon.stub().returns(flatContentResponse),
       };
-      const router = createHubContentRouter({ logger, hubContentService });
+      const router = createContentRouter({ logger, hubContentService });
       app = setupBasicApp();
 
       app.use('/content', router);
@@ -351,7 +351,7 @@ describe('GET /content/:id', () => {
     };
 
     it('returns a PDF', () => {
-      const router = createHubContentRouter({
+      const router = createContentRouter({
         logger,
         hubContentService,
       });
@@ -424,7 +424,7 @@ describe('GET /content/:id', () => {
       const hubContentService = {
         contentFor: sinon.stub().returns(serviceResponse),
       };
-      const router = createHubContentRouter({ logger, hubContentService });
+      const router = createContentRouter({ logger, hubContentService });
       const app = setupBasicApp();
 
       app.use('/content', router);

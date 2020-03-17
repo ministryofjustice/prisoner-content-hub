@@ -1,7 +1,7 @@
 const request = require('supertest');
 const cheerio = require('cheerio');
 
-const createTopicsRouter = require('../../server/routes/topics');
+const { createTopicsRouter } = require('../../server/routes/topics');
 const { setupBasicApp, logger, consoleLogError } = require('../test-helpers');
 
 describe('GET /topics', () => {

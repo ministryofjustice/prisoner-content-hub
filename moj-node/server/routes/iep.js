@@ -1,11 +1,7 @@
 const { path } = require('ramda');
 const express = require('express');
 
-module.exports = function createIepRouter({
-  hubContentService,
-  offenderService,
-  logger,
-}) {
+const createIepRouter = ({ hubContentService, offenderService, logger }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -49,4 +45,8 @@ module.exports = function createIepRouter({
   });
 
   return router;
+};
+
+module.exports = {
+  createIepRouter,
 };

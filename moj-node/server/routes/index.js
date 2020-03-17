@@ -9,7 +9,7 @@ const getFacilitiesListFor = id =>
     ? facilitiesList[id]
     : '/404';
 
-module.exports = function Index({ logger, hubFeaturedContentService }) {
+const createIndexRouter = ({ logger, hubFeaturedContentService }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -61,4 +61,8 @@ module.exports = function Index({ logger, hubFeaturedContentService }) {
   });
 
   return router;
+};
+
+module.exports = {
+  createIndexRouter,
 };

@@ -1,7 +1,7 @@
 const request = require('supertest');
 const cheerio = require('cheerio');
 
-const createHubTagsRouter = require('../../server/routes/tags');
+const { createTagRouter } = require('../../server/routes/tags');
 const { setupBasicApp, logger } = require('../test-helpers');
 
 describe('GET /tags', () => {
@@ -11,7 +11,7 @@ describe('GET /tags', () => {
         const invalidService = {
           termFor: sinon.stub().rejects('error'),
         };
-        const router = createHubTagsRouter({
+        const router = createTagRouter({
           logger,
           hubTagsService: invalidService,
         });
@@ -57,7 +57,7 @@ describe('GET /tags', () => {
           const hubTagsService = {
             termFor: sinon.stub().returns(data),
           };
-          const router = createHubTagsRouter({
+          const router = createTagRouter({
             logger,
             hubTagsService,
           });
@@ -97,7 +97,7 @@ describe('GET /tags', () => {
               },
             }),
           };
-          const router = createHubTagsRouter({
+          const router = createTagRouter({
             logger,
             hubTagsService,
           });
@@ -132,7 +132,7 @@ describe('GET /tags', () => {
               },
             }),
           };
-          const router = createHubTagsRouter({
+          const router = createTagRouter({
             logger,
             hubTagsService,
           });
@@ -163,7 +163,7 @@ describe('GET /tags', () => {
           const hubTagsService = {
             termFor: sinon.stub().returns(data),
           };
-          const router = createHubTagsRouter({
+          const router = createTagRouter({
             logger,
             hubTagsService,
           });
@@ -217,7 +217,7 @@ describe('GET /tags', () => {
       const hubTagsService = {
         relatedContentFor: sinon.stub().returns(data),
       };
-      const router = createHubTagsRouter({ logger, hubTagsService });
+      const router = createTagRouter({ logger, hubTagsService });
       const app = setupBasicApp();
 
       app.use('/', router);

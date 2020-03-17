@@ -1,7 +1,7 @@
 const { path } = require('ramda');
 const express = require('express');
 
-module.exports = function createSearchRouter({ searchService, logger }) {
+const createSearchRouter = ({ searchService, logger }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -42,7 +42,6 @@ module.exports = function createSearchRouter({ searchService, logger }) {
     logger.info('GET /search/suggest');
 
     const establishmentId = path(['locals', 'establishmentId'], res);
-
     const query = path(['query', 'query'], req);
 
     try {
@@ -58,4 +57,8 @@ module.exports = function createSearchRouter({ searchService, logger }) {
   });
 
   return router;
+};
+
+module.exports = {
+  createSearchRouter,
 };
