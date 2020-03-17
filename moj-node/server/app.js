@@ -11,21 +11,23 @@ const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('cookie-session');
 
-const createIndexRouter = require('./routes/index');
-const createTopicsRouter = require('./routes/topics');
-const createTimetableRouter = require('./routes/timetable');
-const createHealthRouter = require('./routes/health');
-const createContentRouter = require('./routes/content');
-const createVisitsRouter = require('./routes/visits');
-const createIepRouter = require('./routes/iep');
-const createMoneyRouter = require('./routes/money');
-const createTagRouter = require('./routes/tags');
-const createGamesRouter = require('./routes/games');
-const createGettingAJobRouter = require('./routes/gettingAJob');
-const createSearchRouter = require('./routes/search');
+const { createIndexRouter } = require('./routes/index');
+const { createTopicsRouter } = require('./routes/topics');
+const { createTimetableRouter } = require('./routes/timetable');
+const { createHealthRouter } = require('./routes/health');
+const { createContentRouter } = require('./routes/content');
+const { createVisitsRouter } = require('./routes/visits');
+const { createIepRouter } = require('./routes/iep');
+const { createMoneyRouter } = require('./routes/money');
+const { createTagRouter } = require('./routes/tags');
+const { createGamesRouter } = require('./routes/games');
+const { createGettingAJobRouter } = require('./routes/gettingAJob');
+const { createSearchRouter } = require('./routes/search');
 
-const featureToggleMiddleware = require('./middleware/featureToggle');
-const configureEstablishment = require('./middleware/configureEstablishment');
+const { featureToggleMiddleware } = require('./middleware/featureToggle');
+const {
+  configureEstablishment,
+} = require('./middleware/configureEstablishment');
 
 const { getEstablishmentId, getGoogleAnalyticsId } = require('./utils');
 

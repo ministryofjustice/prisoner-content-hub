@@ -2,7 +2,7 @@ const { prop, path } = require('ramda');
 const express = require('express');
 const { relativeUrlFrom } = require('../utils');
 
-module.exports = function createContentRouter({ hubContentService, logger }) {
+const createContentRouter = ({ hubContentService, logger }) => {
   const router = express.Router();
 
   router.get('/:id', async (req, res, next) => {
@@ -90,4 +90,8 @@ module.exports = function createContentRouter({ hubContentService, logger }) {
   });
 
   return router;
+};
+
+module.exports = {
+  createContentRouter,
 };

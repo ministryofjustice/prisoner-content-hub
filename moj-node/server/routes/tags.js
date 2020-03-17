@@ -1,7 +1,7 @@
 const express = require('express');
 const { path } = require('ramda');
 
-module.exports = function Tags({ logger, hubTagsService }) {
+const createTagRouter = ({ logger, hubTagsService }) => {
   const router = express.Router();
 
   router.get('/:id', async (req, res, next) => {
@@ -69,4 +69,8 @@ module.exports = function Tags({ logger, hubTagsService }) {
   });
 
   return router;
+};
+
+module.exports = {
+  createTagRouter,
 };

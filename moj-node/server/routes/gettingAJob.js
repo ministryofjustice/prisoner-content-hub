@@ -14,11 +14,11 @@ function addCurrentPageToMenu(url, menu) {
   });
 }
 
-module.exports = function createStepByStepRouter({
+const createGettingAJobRouter = ({
   logger,
   hubContentService,
   hubMenuService,
-}) {
+}) => {
   const router = express.Router();
 
   router.get('/', (req, res) => {
@@ -137,4 +137,8 @@ module.exports = function createStepByStepRouter({
   });
 
   return router;
+};
+
+module.exports = {
+  createGettingAJobRouter,
 };

@@ -2,7 +2,7 @@ const express = require('express');
 const { path } = require('ramda');
 const { format, addDays, subDays } = require('date-fns');
 
-module.exports = function Home({ logger, offenderService }) {
+const createTimetableRouter = ({ logger, offenderService }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -128,4 +128,8 @@ module.exports = function Home({ logger, offenderService }) {
   });
 
   return router;
+};
+
+module.exports = {
+  createTimetableRouter,
 };

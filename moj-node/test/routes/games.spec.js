@@ -1,7 +1,7 @@
 const request = require('supertest');
 const cheerio = require('cheerio');
 
-const createGamesRouter = require('../../server/routes/games');
+const { createGamesRouter } = require('../../server/routes/games');
 const { setupBasicApp, logger } = require('../test-helpers');
 
 describe('GET /games', () => {

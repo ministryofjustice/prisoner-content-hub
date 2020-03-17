@@ -1,11 +1,7 @@
 const { path } = require('ramda');
 const express = require('express');
 
-module.exports = function createVisitsRouter({
-  hubContentService,
-  offenderService,
-  logger,
-}) {
+const createMoneyRouter = ({ hubContentService, offenderService, logger }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -49,4 +45,8 @@ module.exports = function createVisitsRouter({
   });
 
   return router;
+};
+
+module.exports = {
+  createMoneyRouter,
 };

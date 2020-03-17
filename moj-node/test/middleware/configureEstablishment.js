@@ -1,4 +1,6 @@
-const createEstablishmentMiddleware = require('../../server/middleware/configureEstablishment');
+const {
+  configureEstablishment,
+} = require('../../server/middleware/configureEstablishment');
 
 describe('configureEstablishment', () => {
   const defaultPrison = 'wayland';
@@ -22,7 +24,7 @@ describe('configureEstablishment', () => {
 
   describe('When configured to allow prison switching', () => {
     it('should default when no alternative in query param or in the session', () => {
-      const configureEstablishment = createEstablishmentMiddleware({
+      const configureEstablishmentSwitched = configureEstablishment({
         shouldAllowSwitch: true,
       });
 
@@ -34,7 +36,7 @@ describe('configureEstablishment', () => {
 
       const res = { locals: {} };
 
-      configureEstablishment(req, res, next);
+      configureEstablishmentSwitched(req, res, next);
 
       expect(req.session).to.have.property(
         'prison',
@@ -51,7 +53,7 @@ describe('configureEstablishment', () => {
     });
 
     it('should override when the prison provided in the session', () => {
-      const configureEstablishment = createEstablishmentMiddleware({
+      const configureEstablishmentSwitched = configureEstablishment({
         shouldAllowSwitch: true,
       });
 
@@ -63,7 +65,7 @@ describe('configureEstablishment', () => {
 
       const res = { locals: {} };
 
-      configureEstablishment(req, res, next);
+      configureEstablishmentSwitched(req, res, next);
 
       expect(req.session).to.have.property(
         'prison',
@@ -80,7 +82,7 @@ describe('configureEstablishment', () => {
     });
 
     it('should override when the prison provided as a query param', () => {
-      const configureEstablishment = createEstablishmentMiddleware({
+      const configureEstablishmentSwitched = configureEstablishment({
         shouldAllowSwitch: true,
       });
 
@@ -92,7 +94,7 @@ describe('configureEstablishment', () => {
 
       const res = { locals: {} };
 
-      configureEstablishment(req, res, next);
+      configureEstablishmentSwitched(req, res, next);
 
       expect(req.session).to.have.property(
         'prison',
@@ -111,7 +113,7 @@ describe('configureEstablishment', () => {
 
   describe('When configured to NOT allow for prison switching', () => {
     it('should use the default configuration', () => {
-      const configureEstablishment = createEstablishmentMiddleware({
+      const configureEstablishmentSwitched = configureEstablishment({
         shouldAllowSwitch: false,
       });
 
@@ -123,7 +125,7 @@ describe('configureEstablishment', () => {
 
       const res = { locals: {} };
 
-      configureEstablishment(req, res, next);
+      configureEstablishmentSwitched(req, res, next);
 
       expect(req.session).to.have.property(
         'prison',

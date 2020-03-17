@@ -1,6 +1,6 @@
 const express = require('express');
 
-module.exports = function Health({ appInfo, healthService }) {
+const createHealthRouter = ({ appInfo, healthService }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -17,4 +17,8 @@ module.exports = function Health({ appInfo, healthService }) {
   });
 
   return router;
+};
+
+module.exports = {
+  createHealthRouter,
 };

@@ -1,4 +1,4 @@
-module.exports = function handleFeatureToggles(features = {}) {
+const featureToggleMiddleware = (features = {}) => {
   return (req, res, next) => {
     const result = Object.keys(features).reduce((acc, currentFeature) => {
       acc[currentFeature] = features[currentFeature];
@@ -9,4 +9,8 @@ module.exports = function handleFeatureToggles(features = {}) {
 
     next();
   };
+};
+
+module.exports = {
+  featureToggleMiddleware,
 };

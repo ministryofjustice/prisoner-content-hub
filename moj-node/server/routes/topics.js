@@ -12,7 +12,7 @@ const fixUrls = element => {
   }
 };
 
-module.exports = function Topics({ logger, hubMenuService }) {
+const createTopicsRouter = ({ logger, hubMenuService }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -49,4 +49,8 @@ module.exports = function Topics({ logger, hubMenuService }) {
   });
 
   return router;
+};
+
+module.exports = {
+  createTopicsRouter,
 };
