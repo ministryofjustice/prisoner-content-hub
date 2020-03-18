@@ -3,10 +3,20 @@ const { path } = require('ramda');
 const logger = require('../../log');
 
 const retryAttempts = 3;
-// const retryCoolDownPeriod = 5 * 60 * 1000;
-const retryCoolDownPeriod = 30000;
+const retryCoolDownPeriod = 5 * 60 * 1000;
 
 const getOffenderNumberFrom = path(['user', 'offenderNo']);
+
+function minutesAndSecondsFrom(milliseconds) {
+  const pluralize = (unit, quantity) =>
+    quantity > 1 ? `${quantity} ${unit}s` : `${quantity} ${unit}`;
+  const seconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+  return seconds > 60
+    ? `${pluralize('minute', minutes)} ${pluralize('second', remainingSeconds)}`
+    : pluralize('second', seconds);
+}
 
 const notifications = {
   userNotFound:
@@ -22,7 +32,9 @@ const formErrors = {
     'There is a problem with the username or password you have entered. Check and try again',
   accountProblem:
     'There is a problem with your account and we are unable to log you in',
-  lockedOut: 'You have been locked out for 5 minutes',
+  lockedOut: `Sign in disabled for ${minutesAndSecondsFrom(
+    retryCoolDownPeriod,
+  )}`,
   unhandledFailure: 'We are unable to log you in',
 };
 
@@ -47,6 +59,7 @@ const authenticateUser = function authenticateUser({
   authenticate = ldapAuthentication,
   config = {},
   mockAuth = false,
+  getCurrentTime = () => new Date().getTime(),
 } = {}) {
   async function getLdapUser(username, password) {
     const options = {
@@ -97,16 +110,16 @@ const authenticateUser = function authenticateUser({
       errors: {},
     };
 
-    const currentTime = new Date().getTime();
+    const currentTime = getCurrentTime();
 
     if (signInDisabledUntilTime && currentTime < signInDisabledUntilTime) {
-      const remaining = Math.abs(
-        Math.floor((currentTime - signInDisabledUntilTime) / 1000),
-      );
+      const remainingTime = signInDisabledUntilTime - currentTime;
       form.errors = {
         ldap: createFormError(
           'username',
-          `Sign-in has been disabled, wait ${remaining} seconds`,
+          `Sign in has been disabled, wait ${minutesAndSecondsFrom(
+            remainingTime,
+          )}`,
         ),
       };
       handleFormSubmissionError(req, res, form);
