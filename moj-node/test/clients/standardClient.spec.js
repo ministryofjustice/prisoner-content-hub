@@ -14,7 +14,6 @@ describe('StandardClient', () => {
     it('makes a request simple GET request', async () => {
       nock('https://some-api.com')
         .get('/')
-        .query(false)
         .reply(200, ['SOME_DATA']);
 
       const client = new StandardClient();

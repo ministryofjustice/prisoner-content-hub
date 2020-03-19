@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/order
-const config = require('../server/config');
+const config = require('./config');
 
 const express = require('express');
 const addRequestId = require('express-request-id')();
