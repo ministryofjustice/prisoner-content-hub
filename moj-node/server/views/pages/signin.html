@@ -72,7 +72,7 @@
         }) }}
       {% endif %}
       <p class="govuk-body signin-width">Your username and password are the same ones you use to sign in to your laptop</p>
-      <form method="post" action="/auth/signin">
+      <form method="post" action="/auth/signin" id="signin-form">
         <input type="hidden" name="returnUrl" value="{{ config.returnUrl }}"/>
         {{ govukInput({
           label: {
@@ -121,7 +121,7 @@
 {% block bodyEnd %}
   <script src="/public/jquery.min.js"></script>
   <script src="/public/all.js"></script>
-  <script src="/public/javascript/toggle-password.js"></script>
+  <script src="/public/javascript/signin.js"></script>
   <script>
     window
       .GOVUKFrontend
