@@ -164,6 +164,22 @@ const createGamesRouter = ({ analyticsService, logger }) => {
     });
   });
 
+  router.get('/breakout', (req, res) => {
+    logger.info('GET /games/breakout');
+    const userDetails = path(['session', 'user'], req);
+    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+    config.newDesigns = newDesigns;
+    config.detailsType = 'small';
+    config.userName = path(['name'], userDetails);
+    return res.render('pages/games/breakout', {
+      title: 'Breakout',
+      data: {
+        title: 'Breakout',
+      },
+      config,
+    });
+  });
+
   return router;
 };
 
