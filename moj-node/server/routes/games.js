@@ -64,6 +64,24 @@ const createGamesRouter = ({ logger }) => {
     });
   });
 
+  router.get('/mimstris', (req, res) => {
+    logger.info('GET /games/mimstris');
+    const userDetails = path(['session', 'user'], req);
+    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+
+    config.newDesigns = newDesigns;
+    config.detailsType = 'small';
+    config.userName = path(['name'], userDetails);
+
+    return res.render('pages/games/mimstris', {
+      title: 'Mimstris',
+      data: {
+        title: 'Mimstris',
+      },
+      config,
+    });
+  });
+
   return router;
 };
 

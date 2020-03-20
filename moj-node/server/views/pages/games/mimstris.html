@@ -1,0 +1,70 @@
+{% from "../../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "../../components/page-navigation/macro.njk" import pageNavigation %}
+{% from "../../components/user-details/macro.njk" import userDetails %}
+{% extends "../../components/template.njk" %}
+
+{% block pageTitle %}
+  {{ data.title }}
+{% endblock %}
+
+{% block head %}
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
+  <link href="/public/javascript/games/mimstris/main.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block pageNavigation %}
+  {{ pageNavigation({ title: title }) }}
+{% endblock %}
+
+{% block topBar %}
+  {{ topBar({
+    establishmentName: establishmentName,
+    showBar: false
+  }) }}
+{% endblock %}
+
+{% block userDetails %}{% endblock %}
+
+{% block header %}{% endblock %}
+{% block homeNavigation %}{% endblock %}
+{% block search %}{% endblock %}
+
+{% block main %}
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+      <div class="govuk-grid-row govuk-!-margin-bottom-6">
+        <div class="govuk-grid-column-one-half">
+          <div id="app" class="govuk-body"></div>
+        </div>
+
+        <div class="govuk-grid-column-one-half">
+          <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">Mimstris</h1>
+          <p class="govuk-body"><b>How to play:</b></p>
+          <p class="govuk-body">
+            A	= Left
+            <br>D = Right
+            <br>S = Down
+            <br>Z = Rotate left
+            <br>X = Rotate right
+            <br>Enter = Pause game</p>
+        </div>
+      </div>
+
+      <div class="govuk-hub-article-feedback">
+        <p class="govuk-body">Tell us what you think:</p>
+        {{ hubFeedbackWidget({
+          title: "Sudoku",
+          contentType: "game",
+          series: null,
+          establishment: establishmentName
+      })}}
+      </div>
+
+    </main>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  <script src="/public/javascript/games/mimstris/main.js"></script>
+{% endblock %}
