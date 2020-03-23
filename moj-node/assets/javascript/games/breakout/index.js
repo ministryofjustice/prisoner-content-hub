@@ -6,6 +6,7 @@ var gameCanvas = document.getElementById("gameCanvas");
     var dy = -5 ;
     var ballRadius = 10;
     var randomColor = getRandomColor();
+    var blockColor = ["#d4351c", 	"#ffdd00", "#00703c", "#1d70b8", "#003078",  "#5694ca", "#4c2c92"];
     var paddleHeight = 10;
     var paddleWidth = 100;
     var paddleX = (gameCanvas.width-paddleWidth) / 2;
@@ -13,11 +14,11 @@ var gameCanvas = document.getElementById("gameCanvas");
     var leftPressed = false;
     var brickRowCount = 3;
     var brickColumnCount = 5;
-    var brickWidth = 90;
+    var brickWidth = 100;
     var brickHeight = 40;
-    var brickPadding = 15;
+    var brickPadding = 20;
     var brickOffsetTop = 60;
-    var brickOffsetLeft = 130;
+    var brickOffsetLeft = 250;
     var score = 0;
     var lives = 3;
     var bricks = [];
@@ -48,7 +49,7 @@ function drawBall() {
 function drawPaddle() {
     ctx.beginPath();
     ctx.rect(paddleX, gameCanvas.height-paddleHeight, paddleWidth, paddleHeight);
-    ctx.fillStyle = "#0095DD";
+    ctx.fillStyle = "#1d70b8";
     ctx.fill();
     ctx.closePath();
 }
@@ -63,7 +64,7 @@ function drawBricks() {
                 bricks[c][r].y = brickY;
                 ctx.beginPath();
                 ctx.rect(brickX, brickY, brickWidth, brickHeight);
-                ctx.fillStyle = "#0095DD";
+                ctx.fillStyle = blockColor[c];
                 ctx.fill();
                 ctx.closePath();
             }
@@ -97,16 +98,24 @@ function draw() {
 
     else {
     lives--;
+        if (lives === 3) {
+            requestAnimationFrame();
+        }
+
         if(!lives) {
             alert("GAME OVER you scored " + score + " points" );
             document.location.reload();
+            requestAnimationFrame();
             }
         else {
+            requestAnimationFrame(function(){ alert("You lost a life"); }, 10);
             x = gameCanvas.width/2;
             y = gameCanvas.height-30;
             dx = 5;
             dy = -5;
             paddleX = (gameCanvas.width-paddleWidth)/2;
+            rightPressed = false;
+            leftPressed = false;
             }
         }
     }
@@ -174,15 +183,15 @@ function collisionDetection() {
 }
 
 function drawScore() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
+    ctx.font = "bold 18px Arial";
+    ctx.fillStyle = "	#0b0c0c";
     ctx.fillText("Score: "+score, 8, 20);
 }
 
 function drawLives() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#0095DD";
-    ctx.fillText("Lives: "+lives, gameCanvas.width-65, 20);
+    ctx.font = "bold 18px Arial";
+    ctx.fillStyle = "	#0b0c0c";
+    ctx.fillText("Lives: "+lives, gameCanvas.width-80, 20);
 }
 
 draw();
