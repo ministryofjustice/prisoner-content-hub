@@ -38,15 +38,17 @@ const createIndexRouter = ({ logger, hubFeaturedContentService }) => {
       };
 
       const popularTopics = {
+        Coronavirus: '/tags/894',
         Visits: '/content/4203',
-        Incentives: '/content/4204',
+        // Incentives: '/content/4204',
         Games: '/content/3621',
         Inspiration: '/content/3659',
         'Music & talk': '/content/3662',
         'PSIs & PSOs': '/tags/796',
         'Facilities list & catalogues': getFacilitiesListFor(establishmentId),
         'Healthy mind & body': '/content/3657',
-        'Money & debt': '/content/4201',
+        // 'Money & debt': '/content/4201',
+        Chaplaincy: '/tags/901',
       };
 
       res.render('pages/home', {
