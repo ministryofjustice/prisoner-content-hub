@@ -1,17 +1,18 @@
 // var options = {
-//     dimensions: { x: 20, y: 20 },
-//     wordList: [
-//         'hugh',
-//         'pugh',
-//         'barney',
-//         'mcgrue',
-//         'cuthbert',
-//         'dibble',
-//         'grub',
-//         'windy',
-//         'trumpton',
-//         'television'
-//     ]
+//   dimensions: { x: 20, y: 20 },
+//   wordList: [
+//     'hugh',
+//     'pugh',
+//     'barney',
+//     'mcgrue',
+//     'cuthbert',
+//     'dibble',
+//     'grub',
+//     'windy',
+//     'trumpton',
+//     'television',
+//     'windmill'
+//   ]
 // };
 
 var options = {
@@ -27,7 +28,13 @@ var options = {
     'llama',
     'gorilla',
     'fish',
-    'sloth'
+    'sloth',
+    'orangutan',
+    'whale',
+    'pheasant',
+    'alpaca',
+    'mouse',
+    'tarantula'
   ]
 };
 
@@ -63,7 +70,6 @@ function WordGrid(options) {
 
     numberOfPlacedWords++;
 
-    var clue = 'figure it out';
     var hint = 'something esoteric';
 
     words.push({
@@ -71,7 +77,7 @@ function WordGrid(options) {
       direction: isVertical ? 'DOWN' : 'ACROSS',
       row: y,
       column: x,
-      clue: clue,
+      clue: 'It might be a ' + word,
       answer: word,
       hint: hint
     });
@@ -375,6 +381,83 @@ function WordGrid(options) {
 
 }
 
-var wg = new WordGrid(options);
-console.log(wg.renderGrid());
-console.log(wg.getWords());
+function CrosswordGame(wordGrid) {
+
+  var grid = wordGrid.getGrid();
+  var words = wordGrid.getWords();
+
+  function createClue(number, word) {
+    var clue = $('<li class="crossword__clue">' + word.clue + '</li>');
+    clue.val(number);
+    return clue;
+  }
+
+  function addInputTo(cell, word, number) {
+    var direction = word.direction === 'DOWN' ? 'down' : 'across';
+    if (cell.find('input').length === 0) {
+      cell.append('<input class="crossword__cell__input" type="text" maxlength="1" />');
+    }
+    var input = cell.find('input');
+    input.attr('data-' + direction, number);
+  }
+
+  // build game grid;
+  this.render = function () {
+    var board = $('#crossword-board');
+    for (var y = 0; y < grid.length; y++) {
+      var row = $('<div class="crossword__row"></div>')
+      for (var x = 0; x < grid[y].length; x++) {
+        var cell = $('<div  class="crossword__cell"></div>');
+        cell.appendTo(row);
+      }
+      row.appendTo(board);
+    }
+
+    var down = [];
+    var across = [];
+
+    // apply labels;
+    for (var i = 0; i < words.length; i++) {
+      var word = words[i];
+      var startOfWord = board.find('.crossword__row').eq(word.row).find('.crossword__cell').eq(word.column);
+      var number;
+      if (word.direction === 'DOWN') {
+        down.push(word);
+        number = down.length;
+      } else if (word.direction === 'ACROSS') {
+        across.push(word);
+        number = across.length;
+      }
+      for (var j = 0; j < word.answer.length; j++) {
+        var cell;
+        if (word.direction === 'DOWN') {
+          cell = board.find('.crossword__row').eq(word.row + j).find('.crossword__cell').eq(word.column);
+          addInputTo(cell, word, number);
+        } else if (word.direction = 'ACROSS') {
+          cell = board.find('.crossword__row').eq(word.row).find('.crossword__cell').eq(word.column + j);
+          addInputTo(cell, word, number);
+        }
+      }
+      var label = $('<span class="crossword__cell__label"></span>');
+      label.text(number);
+      label.appendTo(startOfWord);
+    }
+
+    var cluesDown = $('#crossword-clues-down');
+    for (var i = 0; i < down.length; i++) {
+      cluesDown.append(createClue(i + 1, down[i]));
+    }
+
+    var cluesAcross = $('#crossword-clues-across');
+    for (var i = 0; i < across.length; i++) {
+      cluesAcross.append(createClue(i + 1, across[i]));
+    }
+
+  }
+}
+
+(function () {
+  var wg = new WordGrid(options);
+  var game = new CrosswordGame(wg);
+  game.render();
+})();
