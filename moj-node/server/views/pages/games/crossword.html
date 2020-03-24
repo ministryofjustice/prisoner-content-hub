@@ -48,22 +48,30 @@
         <div class="govuk-grid-column-three-quarters">
           <div id="crossword-board"></div>
         </div>
-
-        <div class="govuk-grid-column-one-quarter"></div>
-
-        <div class="govuk-hub-article-feedback">
-          <p class="govuk-body">Tell us what you think:</p>
-          {{ hubFeedbackWidget({
-          title: "Sudoku",
-          contentType: "game",
-          series: null,
-          establishment: establishmentName
-      })}}
+        <div class="govuk-grid-column-one-quarter">
+          <div id="crossword-clues">
+            <h2 class="govuk-heading-s">Down</h2>
+            <ol id="crossword-clues-down"></ol>
+            <h2 class="govuk-heading-s">Across</h2>
+            <ol id="crossword-clues-across"></ol>
+          </div>
         </div>
-      </main>
-    </div>
-  {% endblock %}
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-full">
+            <div class="govuk-hub-article-feedback">
+              <p class="govuk-body">Tell us what you think:</p>
+              {{ hubFeedbackWidget({
+                title: "Sudoku",
+                contentType: "game",
+                series: null,
+                establishment: establishmentName
+              })}}
+            </div>
+          </div>
+        </main>
+      </div>
+    {% endblock %}
 
-  {% block bodyEnd %}
-    <script src="/public/javascript/games/crossword/index.js"></script>
-  {% endblock %}
+    {% block bodyEnd %}
+      <script src="/public/javascript/games/crossword/index.js"></script>
+    {% endblock %}

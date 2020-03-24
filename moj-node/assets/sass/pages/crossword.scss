@@ -1,0 +1,70 @@
+$crossword-cell-size: 40px;
+$crossword-board-size: 800px;
+
+#crossword-board {
+  background-color: govuk-colour('black');
+  margin: 0;
+  padding: 0;
+  width: $crossword-board-size;
+  float: left;
+
+  & > .crossword__row {
+    float: left;
+    margin: 0;
+    padding: 0;
+    &::after {
+      content: '';
+      clear: both;
+    }
+
+    & > .crossword__cell {
+      position: relative;
+      float: left;
+      margin: 0;
+      padding: 0;
+      height: $crossword-cell-size;
+      width: $crossword-cell-size;
+
+      & > span.crossword__cell__label {
+        position: absolute;
+        z-index: 1;
+        top: -12px;
+        left: -12px;
+        width: 24px;
+        height: 24px;
+        border-radius: 12px;
+        line-height: 24px;
+        font-size: 12px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: govuk-colour('blue');
+        color: govuk-colour('white');
+        pointer-events: none;
+      }
+
+      & > .crossword__cell__input {
+        height: $crossword-cell-size;
+        width: $crossword-cell-size;
+        font-family: 'GDS Transport', Arial, sans-serif;
+        font-weight: 400;
+        font-size: 24px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 36px;
+        background-color: govuk-colour('white');
+        border: 2px solid govuk-colour('black');
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  &::after {
+    content: '';
+    clear: both;
+  }
+}
+
+.crossword__clue {
+  @include govuk-font($size: 19);
+  margin-bottom: govuk-spacing(2);
+}
