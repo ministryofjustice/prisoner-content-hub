@@ -1,0 +1,186 @@
+{% from "../../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "../../components/page-navigation/macro.njk" import pageNavigation %}
+{% from "../../components/user-details/macro.njk" import userDetails %}
+{% extends "../../components/template.njk" %}
+
+{% block pageTitle %}
+  {{ data.title }}
+{% endblock %}
+
+{% block head %}
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
+  <link href="/public/javascript/games/invadersfromspace/css/index.css" rel="stylesheet" type="text/css"/>
+{% endblock %}
+
+{% block pageNavigation %}
+  {{ pageNavigation({ title: title }) }}
+{% endblock %}
+
+{% block topBar %}
+  {{ topBar({
+    establishmentName: establishmentName,
+    showBar: false
+  }) }}
+{% endblock %}
+
+{% block userDetails %}{% endblock %}
+
+{% block header %}{% endblock %}
+{% block homeNavigation %}{% endblock %}
+{% block search %}{% endblock %}
+
+{% block main %}
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+      <div class="govuk-grid-row govuk-!-margin-bottom-6">
+        <div class="govuk-grid-column-full">
+          <div id="container">
+            <div class="hide" id="menu-button">Menu</div>
+            <canvas id="game-canvas"></canvas>
+
+            <div id="menu-container" class="hide menu-container">
+              <div class='header'>Invaders from Space</div>
+              <div id='about-button' class='hide button'>About</div>
+              <div id='instructions-button' class='hide button'>Instructions</div>
+              <div id='resume-button' class='hide button'>Resume</div>
+              <div id='restart-button' class='hide button'>Restart</div>
+            </div>
+
+            <div id='about' class='hide'>
+              <div id='close-about' class='hide'>close[x]</div>
+              <p>
+                This is a remake of the classic arcade game, Space Invaders.
+                <br>
+                Made by Jay Hwang
+              </p>
+            </div>
+
+            <div id='instructions' class='hide'>
+              <div id='close-instructions' class='hide'>close[x]</div>
+              <p>
+                Press space to shoot, and use the arrow keys to move.
+
+                <br>
+
+                Every once in a while, a mystery ufo will spawn. If you manage
+                to kill it, it may drop items that upgrade your ship.
+                Be sure to pick these up quickly because they will disappear!
+              </p>
+            </div>
+
+            <div id="invader-info" class="show">
+              <p>= 10 points</p>
+              <p>= 20 points</p>
+              <p>= 40 points</p>
+              <p>= ??? points</p>
+
+            </div>
+
+            <div id='splash-instruction' class='show'>
+              <p>SPACE TO SHOOT</p>
+              <p>ARROW KEYS TO MOVE</p>
+            </div>
+
+            <div id='play-game'>
+              <p>CLICK TO START</p>
+            </div>
+
+            <!-- Sprite images -->
+
+            <img
+              id="audio"
+              src="/public/javascript/games/invadersfromspace/images/audio.jpg" />
+
+            <img
+              class='hide'
+              id='mute'
+              src='/public/javascript/games/invadersfromspace/images/mute.jpg' />
+
+            <img
+              class='hide'
+              id='game-over'
+              src='/public/javascript/games/invadersfromspace/images/game-over.jpg' />
+
+            <p id="main-logo">Invaders from Space</p>
+
+            <!-- <img
+              id="play-game"
+              src="/public/javascript/games/invadersfromspace/images/play-game.jpg" /> -->
+
+            <img
+              class="hide"
+              id="defender"
+              src="/public/javascript/games/invadersfromspace/images/defender.jpg" />
+
+            <img
+              class='hide'
+              id='defender-death'
+              src='/public/javascript/games/invadersfromspace/images/defender-death.jpg' />
+
+            <img
+              class=""
+              id="grunt-1"
+              src="/public/javascript/games/invadersfromspace/images/grunt-1.jpg" />
+
+            <img
+              class="hide"
+              id="grunt-2"
+              src="/public/javascript/games/invadersfromspace/images/grunt-2.jpg" />
+
+            <img
+              class=""
+              id="soldier-1"
+              src="/public/javascript/games/invadersfromspace/images/soldier-1.jpg" />
+
+            <img
+              class="hide"
+              id="soldier-2"
+              src="/public/javascript/games/invadersfromspace/images/soldier-2.jpg" />
+
+            <img
+              class=""
+              id="invader-1"
+              src='/public/javascript/games/invadersfromspace/images/invader-1.jpg' />
+
+            <img
+              class="hide"
+              id="invader-2"
+              src='/public/javascript/games/invadersfromspace/images/invader-2.jpg' />
+
+            <img
+              class=""
+              id="ufo"
+              src="/public/javascript/games/invadersfromspace/images/ufo.jpg" />
+
+            <img
+              class="hide"
+              id="lives"
+              src="/public/javascript/games/invadersfromspace/images/lives.jpg" />
+
+            <img
+              class="hide"
+              id="ship-death"
+              src="/public/javascript/games/invadersfromspace/images/ship-death.jpg" />
+          </div>
+        </div>
+      </div>
+
+      <div class="govuk-hub-article-feedback">
+        <p class="govuk-body">Tell us what you think:</p>
+        {{ hubFeedbackWidget({
+          title: "invadersfromspace",
+          contentType: "game",
+          series: null,
+          establishment: establishmentName
+      })}}
+      </div>
+
+    </main>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  <script src="/public/javascript/games/invadersfromspace/howler.core.min.js"></script>
+  <script src="/public/javascript/games/invadersfromspace/bundle.js"></script>
+{% endblock %}

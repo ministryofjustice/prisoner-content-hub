@@ -1,0 +1,330 @@
+#container {
+  height: 600px;
+  width: 900px;
+  position: relative;
+  background-color: #000;
+  margin: 0 auto;
+}
+
+#game-canvas {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#invader-info {
+  position: absolute;
+  bottom: 230px;
+  left: 415px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  width: 200px;
+  height: 145px;
+
+  font-family: 'GDS Transport', Arial, sans-serif;
+  font-size: 20px;
+  color: #fff;
+}
+
+#invader-info p {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+#splash-instruction {
+  position: absolute;
+  bottom: 170px;
+  left: 215px;
+  width: 500px;
+  height: 40px;
+
+  text-align: center;
+  font-family: 'GDS Transport', Arial, sans-serif;
+  font-size: 23px;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+#audio {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+
+  height: 40px;
+  width: 40px;
+}
+
+#mute {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+
+  height: 40px;
+  width: 40px;
+}
+
+#audio:hover {
+  cursor: pointer;
+}
+
+#mute:hover {
+  cursor: pointer;
+}
+
+#menu-button {
+  font-family: 'GDS Transport', Arial, sans-serif;
+  font-size: 23px;
+  color: #e7e7e7;
+
+  position: absolute;
+  top: 11px;
+  left: 420px;
+
+  width: 300px;
+  height: 30px;
+  z-index: 5;
+}
+
+#menu-button:hover {
+  cursor: pointer;
+  color: #ffff6d;
+}
+
+#menu-container {
+  position: absolute;
+  bottom: 100px;
+  left: 300px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  background-color: grey;
+  height: 400px;
+  width: 300px;
+
+  font-family: 'GDS Transport', Arial, sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: #fff;
+
+  border-radius: 10px;
+}
+
+.header {
+  color: #ee300c;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+#about-button:hover {
+  cursor: pointer;
+  color: #ffff6d;
+}
+
+#about {
+  padding: 0 10px 0 10px;
+
+  position: absolute;
+  bottom: 100px;
+  left: 300px;
+
+  background-color: grey;
+  height: 400px;
+  width: 300px;
+
+  font-family: 'GDS Transport', Arial, sans-serif;
+  letter-spacing: 1px;
+  line-height: 25px;
+  color: #000;
+
+  text-align: center;
+  border-radius: 10px;
+}
+
+#port-link {
+  color: #ffff6d;
+  text-decoration: none;
+  transition: color .15s ease-in;
+}
+
+#port-link:hover {
+  color: #fff;
+  transition: color .15s ease-in;
+}
+
+#close-about {
+  margin-left: 200px;
+  margin-top: 5px;
+  color: #fff;
+}
+
+#close-about:hover {
+  cursor: pointer;
+  color: #ffff6d;
+}
+
+#instructions-button:hover {
+  cursor: pointer;
+  color: #ffff6d;
+}
+
+#instructions {
+  padding: 0 15px 0 15px;
+
+  position: absolute;
+  bottom: 100px;
+  left: 300px;
+
+  background-color: grey;
+  height: 400px;
+  width: 300px;
+
+  font-family: 'GDS Transport', Arial, sans-serif;
+  letter-spacing: 1px;
+  line-height: 25px;
+  color: #000;
+
+  text-align: center;
+  border-radius: 10px;
+}
+
+#close-instructions {
+  margin-left: 200px;
+  margin-top: 5px;
+  color: #fff;
+}
+
+#close-instructions:hover {
+  cursor: pointer;
+  color: #ffff6d;
+}
+
+#close-instructions:hover {
+  cursor: pointer;
+  color: #ffff6d;
+}
+
+#resume-button:hover {
+  cursor: pointer;
+  color: #ffff6d;
+}
+
+#restart-button:hover {
+  cursor: pointer;
+  color: #ffff6d;
+}
+
+#main-logo {
+  position: absolute;
+  font-family: 'GDS Transport', Arial, sans-serif;
+  text-align: center;
+  font-weight: 700;
+  font-size: 72px;
+
+  top: 0;
+  left: 215px;
+
+  height: 200px;
+  width: 500px;
+  margin: 0;
+  color: white;
+}
+
+#grunt-1 {
+  position: absolute;
+  left: 355px;
+  bottom: 350px;
+
+  height: 30px;
+  width: 30px;
+}
+
+#soldier-1 {
+  position: absolute;
+  left: 355px;
+  bottom: 310px;
+
+  height: 30px;
+  width: 30px;
+}
+
+#invader-1 {
+  position: absolute;
+  left: 355px;
+  bottom: 270px;
+
+  height: 30px;
+  width: 30px;
+}
+
+#ufo {
+  position: absolute;
+  left: 344px;
+  bottom: 226px;
+
+  height: 32px;
+  width: 55px;
+}
+
+#play-game {
+  position: absolute;
+  bottom: 30px;
+  left: 307px;
+
+  z-index: 5;
+  height: 50px;
+  width: 300px;
+  transition: all .2s ease-in;
+  border: 2px solid #fff;
+  border-radius: 3px;
+
+  font-family: 'GDS Transport', Arial, sans-serif;
+  font-size: 23px;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+#play-game:hover {
+  cursor: pointer;
+  transition: all .2s ease-in;
+  background: rgba(255,255,255,0.4);
+}
+
+#play-game p {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: -23px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hide {
+  display: none;
+  z-index: -5;
+}
+
+.show {
+  z-index: 15;
+}
+
+#game-over {
+  position: absolute;
+  z-index: 5;
+  bottom: 150px;
+  left: 180px;
+}
