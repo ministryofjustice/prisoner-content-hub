@@ -38,6 +38,11 @@ var options = {
   ]
 };
 
+var directions = {
+  ACROSS: 'across',
+  DOWN: 'down'
+};
+
 function WordGrid(options) {
 
   var size = options.dimensions;
@@ -68,19 +73,16 @@ function WordGrid(options) {
       }
     }
 
-    numberOfPlacedWords++;
-
-    var hint = 'something esoteric';
-
     words.push({
       number: numberOfPlacedWords,
-      direction: isVertical ? 'DOWN' : 'ACROSS',
+      direction: isVertical ? directions.DOWN : directions.ACROSS,
       row: y,
       column: x,
       clue: 'It might be a ' + word,
-      answer: word,
-      hint: hint
+      answer: word
     });
+
+    numberOfPlacedWords++;
   }
 
   function addFirstWord(word) {
@@ -386,28 +388,55 @@ function CrosswordGame(wordGrid) {
   var grid = wordGrid.getGrid();
   var words = wordGrid.getWords();
 
+  function getGameBoard() {
+    return $('#crossword-board');
+  }
+
+  function findCellAtPosition(x, y) {
+    return getGameBoard().find('.crossword__row').eq(y).find('.crossword__cell').eq(x);
+  }
+
+  function createWordSelectionHandler(wordId, number, direction) {
+    return function () {
+      var word = words[wordId];
+      findCellAtPosition(word.column, word.row).find('input').focus();
+      var board = getGameBoard();
+      board.find('.crossword__cell__input').removeClass('crossword__cell__input--selected');
+      board.find('[data-' + direction + '=' + number + ']').addClass('crossword__cell__input--selected');
+    }
+  }
+
+  function clearHighlighting() {
+    getGameBoard().find('.crossword__cell__input').removeClass('crossword__cell__input--selected');
+  }
+
   function createClue(number, word) {
     var clue = $('<li class="crossword__clue">' + word.clue + '</li>');
+    clue.attr('data-number', number);
+    clue.attr('data-direction', word.direction);
+    clue.attr('data-word-id', word.number);
     clue.val(number);
+    clue.on('click', createWordSelectionHandler(word.number, number, word.direction));
     return clue;
   }
 
   function addInputTo(cell, word, number) {
-    var direction = word.direction === 'DOWN' ? 'down' : 'across';
     if (cell.find('input').length === 0) {
       cell.append('<input class="crossword__cell__input" type="text" maxlength="1" />');
     }
     var input = cell.find('input');
-    input.attr('data-' + direction, number);
+    input.off('click').on('click', createWordSelectionHandler(word.number, number, word.direction));
+    input.on('blur', clearHighlighting);
+    input.attr('data-' + word.direction, number);
   }
 
   // build game grid;
   this.render = function () {
-    var board = $('#crossword-board');
+    var board = getGameBoard();
     for (var y = 0; y < grid.length; y++) {
       var row = $('<div class="crossword__row"></div>')
       for (var x = 0; x < grid[y].length; x++) {
-        var cell = $('<div  class="crossword__cell"></div>');
+        var cell = $('<div class="crossword__cell"></div>');
         cell.appendTo(row);
       }
       row.appendTo(board);
@@ -419,22 +448,22 @@ function CrosswordGame(wordGrid) {
     // apply labels;
     for (var i = 0; i < words.length; i++) {
       var word = words[i];
-      var startOfWord = board.find('.crossword__row').eq(word.row).find('.crossword__cell').eq(word.column);
+      var startOfWord = findCellAtPosition(word.column, word.row);
       var number;
-      if (word.direction === 'DOWN') {
+      if (word.direction === directions.DOWN) {
         down.push(word);
         number = down.length;
-      } else if (word.direction === 'ACROSS') {
+      } else if (word.direction === directions.ACROSS) {
         across.push(word);
         number = across.length;
       }
       for (var j = 0; j < word.answer.length; j++) {
         var cell;
-        if (word.direction === 'DOWN') {
-          cell = board.find('.crossword__row').eq(word.row + j).find('.crossword__cell').eq(word.column);
+        if (word.direction === directions.DOWN) {
+          cell = findCellAtPosition(word.column, word.row + j);
           addInputTo(cell, word, number);
-        } else if (word.direction = 'ACROSS') {
-          cell = board.find('.crossword__row').eq(word.row).find('.crossword__cell').eq(word.column + j);
+        } else if (word.direction = directions.ACROSS) {
+          cell = findCellAtPosition(word.column + j, word.row);
           addInputTo(cell, word, number);
         }
       }
@@ -444,13 +473,13 @@ function CrosswordGame(wordGrid) {
     }
 
     var cluesDown = $('#crossword-clues-down');
-    for (var i = 0; i < down.length; i++) {
-      cluesDown.append(createClue(i + 1, down[i]));
+    for (var j = 0; j < down.length; j++) {
+      cluesDown.append(createClue(j + 1, down[j]));
     }
 
     var cluesAcross = $('#crossword-clues-across');
-    for (var i = 0; i < across.length; i++) {
-      cluesAcross.append(createClue(i + 1, across[i]));
+    for (var j = 0; j < across.length; j++) {
+      cluesAcross.append(createClue(j + 1, across[j]));
     }
 
   }
