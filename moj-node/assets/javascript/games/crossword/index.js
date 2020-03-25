@@ -1,20 +1,3 @@
-// var options = {
-//   dimensions: { x: 20, y: 20 },
-//   wordList: [
-//     'hugh',
-//     'pugh',
-//     'barney',
-//     'mcgrue',
-//     'cuthbert',
-//     'dibble',
-//     'grub',
-//     'windy',
-//     'trumpton',
-//     'television',
-//     'windmill'
-//   ]
-// };
-
 var options = {
   dimensions: { x: 20, y: 20 },
   wordList: [
@@ -34,7 +17,10 @@ var options = {
     'pheasant',
     'alpaca',
     'mouse',
-    'tarantula'
+    'tarantula',
+    'albatross',
+    'kangaroo',
+    'crocodile'
   ]
 };
 
@@ -126,7 +112,6 @@ function WordGrid(options) {
     if (grid[y - offset]) {
       return true;
     } else {
-      console.log('No row above', y, offset);
       return false;
     }
   }
@@ -136,7 +121,6 @@ function WordGrid(options) {
     if (grid[y + offset]) {
       return true;
     } else {
-      console.log('No row below', y, offset);
       return false;
     }
   }
@@ -146,7 +130,6 @@ function WordGrid(options) {
     if (grid[y + yOffset]) {
       return true;
     } else {
-      console.log('Row does not exist', y);
       return false;
     }
   }
@@ -157,7 +140,6 @@ function WordGrid(options) {
     if (grid[y + yOffset][x + xOffset] === '') {
       return true;
     } else {
-      console.log('Cell not empty at position', x + xOffset, y + yOffset);
       return false;
     }
   }
@@ -168,17 +150,14 @@ function WordGrid(options) {
     if (grid[y + yOffset][x + xOffset] === letter) {
       return true;
     } else {
-      console.log('Letter mismatch at position', x + xOffset, y + yOffset, letter);
       return false;
     }
   }
 
 
   function checkWordPosition(word, x, y, isVertical) {
-    console.log('Checking position', word, x, y)
     if (isVertical) {
       for (var i = -1; i < word.length + 1; i++) {
-        console.log('checking', x, y + i);
         if (!rowExists(y, i) || (!isEmptyAtPosition(x, y, null, i) && !hasLetterAtPosition(x, y, null, i, word[i])) ||
           ((!isEmptyAtPosition(x, y, 1, i) || !isEmptyAtPosition(x, y, -1, i)) && !hasLetterAtPosition(x, y, null, i, word[i]))) {
           return false;
@@ -187,7 +166,6 @@ function WordGrid(options) {
     } else {
       1
       for (var i = -1; i < word.length + 1; i++) {
-        console.log('checking', x + i, y);
         if (!hasRowBelow(y) || !hasRowAbove(y) || (!isEmptyAtPosition(x, y, i) && !hasLetterAtPosition(x, y, i, null, word[i])) ||
           ((!isEmptyAtPosition(x, y, i, 1) || !isEmptyAtPosition(x, y, i, -1)) && !hasLetterAtPosition(x, y, i, null, word[i]))) {
           return false;
@@ -198,7 +176,6 @@ function WordGrid(options) {
   }
 
   function fitWordByLetterPositionV(index, word, x, y) {
-    console.log('vertical');
     var position;
 
     if ((!hasRowAbove(y) || isEmptyAtPosition(x, y, null, -1)) && (!hasRowBelow(y) || isEmptyAtPosition(x, y, null, 1))) {
@@ -213,7 +190,6 @@ function WordGrid(options) {
 
     if ((!rowExists(y) || isEmptyAtPosition(x, y, -1)) && (!rowExists(y) || isEmptyAtPosition(x, y, 1))) {
       if (checkWordPosition(word, x - index, y)) {
-        console.log(word);
         position = {
           x: x - index,
           y: y,
@@ -225,12 +201,10 @@ function WordGrid(options) {
     if (position) {
       return position;
     }
-    console.log('Invalid position', word, x, y);
     return false;
   }
 
   function fitWordByLetterPositionH(index, word, x, y) {
-    console.log('horizontal');
     var position;
 
     if (isEmptyAtPosition(x, y, -1) && isEmptyAtPosition(x, y, 1)) {
@@ -256,7 +230,6 @@ function WordGrid(options) {
     if (position) {
       return position;
     }
-    console.log('Invalid position', word, x, y);
     return false;
   }
 
@@ -264,7 +237,6 @@ function WordGrid(options) {
     for (var x = 0; x < grid[y].length; x++) {
       var cell = grid[y][x];
       if (cell === word[index]) {
-        console.log('match!', cell, word, x, y, index);
         var position;
         // if (numberOfPlacedWords % 2) {
         //     position = fitWordByLetterPositionH(index, word, x, y);
@@ -324,7 +296,6 @@ function WordGrid(options) {
 
   function addWords(wordList) {
     sortWords(wordList);
-    console.log(wordList);
     addFirstWord(wordList.shift());
 
     var wordsChecked = 0;
