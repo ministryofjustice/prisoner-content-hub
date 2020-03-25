@@ -69,6 +69,10 @@ $cell-scale-factor: 1.2;
       & > .crossword__cell__input--correct {
         background-color: govuk-colour('green');
         color: govuk-colour('white');
+        &:focus {
+          background-color: $govuk-focus-colour;
+          color: govuk-colour('black');
+        }
       }
     }
   }
