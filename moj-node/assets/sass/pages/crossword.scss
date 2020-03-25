@@ -1,5 +1,6 @@
 $crossword-cell-size: 40px;
 $crossword-board-size: 800px;
+$cell-scale-factor: 1.2;
 
 #crossword-board {
   background-color: govuk-colour('black');
@@ -27,13 +28,13 @@ $crossword-board-size: 800px;
 
       & > span.crossword__cell__label {
         position: absolute;
-        z-index: 1;
         top: -12px;
         left: -12px;
         width: 24px;
         height: 24px;
         border-radius: 12px;
         line-height: 24px;
+        font-family: 'GDS Transport', Arial, sans-serif;
         font-size: 12px;
         text-align: center;
         vertical-align: middle;
@@ -58,6 +59,9 @@ $crossword-board-size: 800px;
 
       & > .crossword__cell__input--selected {
         background-color: $govuk-focus-colour;
+        // TODO: Add scale factor
+        // &:focus {
+        // }
       }
     }
   }
@@ -70,5 +74,9 @@ $crossword-board-size: 800px;
 
 .crossword__clue {
   @include govuk-font($size: 19);
-  margin-bottom: govuk-spacing(2);
+  padding: govuk-spacing(2);
+}
+
+.crossword__clue--selected {
+  font-weight: bold;
 }
