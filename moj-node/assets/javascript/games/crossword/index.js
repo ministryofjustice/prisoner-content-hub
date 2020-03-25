@@ -376,23 +376,46 @@ function CrosswordGame(wordGrid) {
     return findCellAtPosition(x, y).find('input');
   }
 
+  // TODO: REFACTOR THIS
   function checkWordFor(cell) {
-    if (cell.is('[data-across]')) {
-      var number = cell.data('across');
-      var word = gameBoard.find('[data-across=' + number + ']');
+    function branchingWordIsValidFor(cell, direction) {
+      var number = $(cell).data(direction);
+      var word = gameBoard.find('[data-' + direction + '=' + number + ']');
+      var correct = 0;
       word.each(function (i, letter) {
         if ($(letter).val().toLowerCase() === $(letter).data('letter').toLowerCase()) {
+          correct++;
+        }
+      });
+      return correct === word.length;
+    }
+
+    function checkLettersFor(letter) {
+      if ($(letter).is('[data-across]') && $(letter).is('[data-down]')) {
+        return branchingWordIsValidFor(letter, directions.ACROSS) || branchingWordIsValidFor(letter, directions.DOWN);
+      } else if ($(letter).is('[data-across]')) {
+        return branchingWordIsValidFor(letter, directions.ACROSS);
+      } else if ($(letter).is('[data-down]')) {
+        return branchingWordIsValidFor(letter, directions.DOWN);
+      }
+    }
+
+    if ($(cell).is('[data-across]')) {
+      var number = $(cell).data('across');
+      var word = gameBoard.find('[data-across=' + number + ']');
+      word.each(function (i, letter) {
+        if (checkLettersFor(letter)) {
           $(letter).addClass('crossword__cell__input--correct');
         } else {
           $(letter).removeClass('crossword__cell__input--correct');
         }
       });
     }
-    if (cell.is('[data-down]')) {
-      var number = cell.data('down');
+    if ($(cell).is('[data-down]')) {
+      var number = $(cell).data('down');
       var word = gameBoard.find('[data-down=' + number + ']');
       word.each(function (i, letter) {
-        if ($(letter).val().toLowerCase() === $(letter).data('letter').toLowerCase()) {
+        if (checkLettersFor(letter)) {
           $(letter).addClass('crossword__cell__input--correct');
         } else {
           $(letter).removeClass('crossword__cell__input--correct');
@@ -409,8 +432,6 @@ function CrosswordGame(wordGrid) {
     var index = word.index(this);
     if (index < length - 1) {
       gameBoard.find('[data-' + direction + '=' + number + ']').eq(index + 1).focus();
-    } else {
-      checkWordFor(gameBoard.find('[data-' + direction + '=' + number + ']').eq(0));
     }
   }
 
@@ -488,6 +509,7 @@ function CrosswordGame(wordGrid) {
     input.off('click').on('click', createInputClickHandler(number, word));
     input.off('blur').on('blur', function () { checkWordFor($(this)); })
     input.on('keydown', createInputKeyDownHandler(number, word));
+    input.on('keyup', function () { checkWordFor(gameBoard.find('[data-' + word.direction + '=' + number + ']').eq(0)); });
     input.attr('data-' + word.direction, number);
     input.attr('data-' + word.direction + '-index', index);
     input.attr('data-letter', word.answer[index]);
