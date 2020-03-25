@@ -55,6 +55,10 @@ $crossword-board-size: 800px;
         border: 2px solid govuk-colour('black');
         box-sizing: border-box;
       }
+
+      & > .crossword__cell__input--selected {
+        background-color: $govuk-focus-colour;
+      }
     }
   }
 
