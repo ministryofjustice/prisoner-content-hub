@@ -376,6 +376,31 @@ function CrosswordGame(wordGrid) {
     return findCellAtPosition(x, y).find('input');
   }
 
+  function checkWordFor(cell) {
+    if (cell.is('[data-across]')) {
+      var number = cell.data('across');
+      var word = gameBoard.find('[data-across=' + number + ']');
+      word.each(function (i, letter) {
+        if ($(letter).val().toLowerCase() === $(letter).data('letter').toLowerCase()) {
+          $(letter).addClass('crossword__cell__input--correct');
+        } else {
+          $(letter).removeClass('crossword__cell__input--correct');
+        }
+      });
+    }
+    if (cell.is('[data-down]')) {
+      var number = cell.data('down');
+      var word = gameBoard.find('[data-down=' + number + ']');
+      word.each(function (i, letter) {
+        if ($(letter).val().toLowerCase() === $(letter).data('letter').toLowerCase()) {
+          $(letter).addClass('crossword__cell__input--correct');
+        } else {
+          $(letter).removeClass('crossword__cell__input--correct');
+        }
+      });
+    }
+  }
+
   function getNextLetter() {
     var direction = state.selected.direction;
     var number = state.selected.number;
@@ -384,6 +409,8 @@ function CrosswordGame(wordGrid) {
     var index = word.index(this);
     if (index < length - 1) {
       gameBoard.find('[data-' + direction + '=' + number + ']').eq(index + 1).focus();
+    } else {
+      checkWordFor(gameBoard.find('[data-' + direction + '=' + number + ']').eq(0));
     }
   }
 
@@ -459,12 +486,14 @@ function CrosswordGame(wordGrid) {
     }
     var input = cell.find('input');
     input.off('click').on('click', createInputClickHandler(number, word));
+    input.off('blur').on('blur', function () { checkWordFor($(this)); })
     input.on('keydown', createInputKeyDownHandler(number, word));
     input.attr('data-' + word.direction, number);
     input.attr('data-' + word.direction + '-index', index);
+    input.attr('data-letter', word.answer[index]);
   }
 
-  function addLabelTo(cell, number, word) {
+  function addLabelTo(cell, number) {
     var label = $('<span class="crossword__cell__label"></span>');
     label.text(number);
     label.appendTo(cell);
@@ -514,7 +543,7 @@ function CrosswordGame(wordGrid) {
       var word = words[i];
       var startOfWord = findCellAtPosition(word.column, word.row);
       number = startOfWord.find('input').data(word.direction);
-      addLabelTo(startOfWord, number, word);
+      addLabelTo(startOfWord, number);
       startOfWord.off('click').on('click', createInputClickHandler(number, word));
     }
 

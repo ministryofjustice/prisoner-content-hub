@@ -56,6 +56,7 @@ $cell-scale-factor: 1.2;
         background-color: govuk-colour('white');
         border: 2px solid govuk-colour('black');
         box-sizing: border-box;
+        color: govuk-colour('black');
       }
 
       & > .crossword__cell__input--selected {
@@ -63,6 +64,11 @@ $cell-scale-factor: 1.2;
         // TODO: Add scale factor
         // &:focus {
         // }
+      }
+
+      & > .crossword__cell__input--correct {
+        background-color: govuk-colour('green');
+        color: govuk-colour('white');
       }
     }
   }
