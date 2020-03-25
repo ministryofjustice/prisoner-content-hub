@@ -8,6 +8,7 @@ $cell-scale-factor: 1.2;
   padding: 0;
   width: $crossword-board-size;
   float: left;
+  padding: $crossword-cell-size;
 
   & > .crossword__row {
     float: left;
