@@ -383,6 +383,11 @@ function CrosswordGame(wordGrid) {
   function updateScore() {
     var numberOfSolvedClues = $('#crossword-clues .crossword__clue--correct').length;
     $('#crossword-score').text('Solved ' + numberOfSolvedClues + ' out of ' + words.length);
+    if (numberOfSolvedClues === words.length) {
+      $('#crossword-notification').removeClass('visually-hidden');
+    } else {
+      $('#crossword-notification').addClass('visually-hidden');
+    }
   }
 
   // TODO: REFACTOR THIS

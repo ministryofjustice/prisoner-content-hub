@@ -116,5 +116,7 @@ $cell-scale-factor: 1.2;
   float: left;
 }
 
-#crossword-score {
+.visually-hidden {
+  display: none;
+  visibility: hidden;
 }
