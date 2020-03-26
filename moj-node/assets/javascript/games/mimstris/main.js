@@ -36184,8 +36184,8 @@ var undo = function undo() {
 var DOWN_KEYS = ['s'];
 var LEFT_KEYS = ['a'];
 var RIGHT_KEYS = ['d'];
-var ROTATE_LEFT_KEYS = ['z'];
-var ROTATE_RIGHT_KEYS = ['x'];
+var ROTATE_LEFT_KEYS = ['w'];
+var ROTATE_RIGHT_KEYS = ['e'];
 var START_KEYS = ['enter'];
 var UNDO_KEYS = ['f'];
 
