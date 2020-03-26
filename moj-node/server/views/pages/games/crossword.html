@@ -1,5 +1,6 @@
 {% from "../../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% from "../../components/page-navigation/macro.njk" import pageNavigation %}
 {% from "../../components/user-details/macro.njk" import userDetails %}
 {% extends "../../components/template.njk" %}
@@ -42,6 +43,16 @@
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
           <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6 govuk-!-margin-top-3">Crossword</h1>
+        </div>
+      </div>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <div id="crossword-notification" class="visually-hidden">
+            {{ govukPanel({
+              titleText: "Congratulations",
+              html: "You have completed the crossword"
+            }) }}
+          </div>
         </div>
       </div>
       <div class="govuk-grid-row govuk-!-margin-bottom-6">
