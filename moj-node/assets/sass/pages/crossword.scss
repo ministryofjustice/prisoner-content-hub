@@ -112,8 +112,18 @@ $cell-scale-factor: 1.2;
 
 #crossword-info {
   @include govuk-font($size: 19);
-  margin-top: govuk-spacing(5);
   float: left;
+}
+
+#crossword-score {
+  @include govuk-font($size: 19);
+  display: inline-block;
+  position: relative;
+  margin-top: 0;
+  margin-bottom: 22px;
+  padding: 8px 10px 7px;
+  text-align: center;
+  vertical-align: top;
 }
 
 .visually-hidden {
