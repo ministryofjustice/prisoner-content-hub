@@ -47,6 +47,9 @@
       <div class="govuk-grid-row govuk-!-margin-bottom-6">
         <div class="govuk-grid-column-three-quarters">
           <div id="crossword-board"></div>
+          <div id="crossword-info">
+            <span id="crossword-score"></span>
+          </div>
         </div>
         <div class="govuk-grid-column-one-quarter">
           <div id="crossword-clues">
@@ -61,7 +64,7 @@
             <div class="govuk-hub-article-feedback">
               <p class="govuk-body">Tell us what you think:</p>
               {{ hubFeedbackWidget({
-                title: "Sudoku",
+                title: "Crossword",
                 contentType: "game",
                 series: null,
                 establishment: establishmentName
