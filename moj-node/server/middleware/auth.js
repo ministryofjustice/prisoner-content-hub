@@ -2,7 +2,21 @@ const { authenticate: ldapAuthentication } = require('ldap-authentication');
 const { path } = require('ramda');
 const { logger } = require('../utils/logger');
 
+const retryAttempts = 5;
+const retryCoolDownPeriod = 5 * 60 * 1000;
+
 const getOffenderNumberFrom = path(['user', 'offenderNo']);
+
+function minutesAndSecondsFrom(milliseconds) {
+  const pluralize = (unit, quantity) =>
+    quantity > 1 ? `${quantity} ${unit}s` : `${quantity} ${unit}`;
+  const seconds = Math.floor(milliseconds / 1000);
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+  return seconds > 60
+    ? `${pluralize('minute', minutes)} ${pluralize('second', remainingSeconds)}`
+    : pluralize('second', seconds);
+}
 
 const notifications = {
   userNotFound:
@@ -18,6 +32,10 @@ const formErrors = {
     'There is a problem with the username or password you have entered. Check and try again',
   accountProblem:
     'There is a problem with your account and we are unable to log you in',
+  lockedOut: `Sign in has been disabled for ${minutesAndSecondsFrom(
+    retryCoolDownPeriod,
+  )}`,
+  unhandledFailure: 'We are unable to log you in',
 };
 
 function createNotification(text) {
@@ -41,6 +59,7 @@ const authenticateUser = function authenticateUser({
   authenticate = ldapAuthentication,
   config = {},
   mockAuth = false,
+  getCurrentTime = () => new Date().getTime(),
 } = {}) {
   async function getLdapUser(username, password) {
     const options = {
@@ -65,6 +84,11 @@ const authenticateUser = function authenticateUser({
     return path(['sAMAccountName'], ldap);
   }
 
+  function handleFormSubmissionError(req, res, form, url = '/auth/signin') {
+    req.session.form = form;
+    return res.redirect(url);
+  }
+
   if (mockAuth) {
     return (req, res, next) => {
       req.user = {
@@ -79,11 +103,27 @@ const authenticateUser = function authenticateUser({
 
   return async (req, res, next) => {
     const { username, password } = req.body;
+    const { signInDisabledUntilTime } = req.session;
 
     const form = {
-      data: { username },
+      data: {},
       errors: {},
     };
+
+    const currentTime = getCurrentTime();
+
+    if (signInDisabledUntilTime && currentTime < signInDisabledUntilTime) {
+      const remainingTime = signInDisabledUntilTime - currentTime;
+      form.errors = {
+        ldap: createFormError(
+          'username',
+          `Sign in has been disabled, wait ${minutesAndSecondsFrom(
+            remainingTime,
+          )}`,
+        ),
+      };
+      handleFormSubmissionError(req, res, form);
+    }
 
     if (!isValidPassword(password)) {
       form.errors.password = createFormError(
@@ -102,8 +142,7 @@ const authenticateUser = function authenticateUser({
     }
 
     if (Object.keys(form.errors).length > 0) {
-      req.session.form = form;
-      return res.redirect('/auth/signin');
+      return handleFormSubmissionError(req, res, form);
     }
 
     try {
@@ -111,10 +150,21 @@ const authenticateUser = function authenticateUser({
       return next();
     } catch (error) {
       if (error.name === 'InvalidCredentialsError') {
-        form.errors.ldap = createFormError(
-          'username',
-          formErrors.invalidCredentials,
-        );
+        const { signInAttemptsRemaining = retryAttempts } = req.session;
+        const updatedAttemptsRemaining = signInAttemptsRemaining - 1;
+        if (updatedAttemptsRemaining === 0) {
+          logger.error(`AUTH_DISABLE_SIGN_IN: ${username}`);
+          const retryPeriodFromNow = currentTime + retryCoolDownPeriod;
+          req.session.signInAttemptsRemaining = retryAttempts;
+          req.session.signInDisabledUntilTime = retryPeriodFromNow;
+          form.errors.ldap = createFormError('username', formErrors.lockedOut);
+        } else {
+          req.session.signInAttemptsRemaining = updatedAttemptsRemaining;
+          form.errors.ldap = createFormError(
+            'username',
+            formErrors.invalidCredentials,
+          );
+        }
       } else if (error.name === 'LdapAuthenticationError') {
         logger.error(`AUTH_ACCOUNT_ERROR: ${username}`);
         form.errors.ldap = createFormError(
@@ -123,17 +173,22 @@ const authenticateUser = function authenticateUser({
         );
       } else {
         logger.error(error.message);
-        req.session.notification = createNotification(
-          notifications.systemError,
+        form.errors.ldap = createFormError(
+          'username',
+          formErrors.unhandledFailure,
         );
       }
-      req.session.form = form;
-      return res.redirect('/auth/signin');
+      return handleFormSubmissionError(req, res, form);
     }
   };
 };
 
 const createUserSession = function createUserSession({ offenderService }) {
+  function deleteUserSessionAndRedirect(req, res) {
+    delete req.session.user;
+    return res.redirect('/auth/login');
+  }
+
   return async (req, res, next) => {
     try {
       const offenderNo = req.user.id;
@@ -157,8 +212,7 @@ const createUserSession = function createUserSession({ offenderService }) {
           )}`,
         );
 
-        delete req.session.user;
-        return res.redirect('/auth/login');
+        return deleteUserSessionAndRedirect(req, res);
       }
     } catch (error) {
       logger.error(error);
@@ -181,8 +235,7 @@ const createUserSession = function createUserSession({ offenderService }) {
         );
       }
 
-      delete req.session.user;
-      return res.redirect('/auth/login');
+      return deleteUserSessionAndRedirect(req, res);
     }
 
     return next();
