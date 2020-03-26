@@ -2,7 +2,7 @@ const { authenticate: ldapAuthentication } = require('ldap-authentication');
 const { path } = require('ramda');
 const logger = require('../../log');
 
-const retryAttempts = 3;
+const retryAttempts = 5;
 const retryCoolDownPeriod = 5 * 60 * 1000;
 
 const getOffenderNumberFrom = path(['user', 'offenderNo']);
@@ -32,7 +32,7 @@ const formErrors = {
     'There is a problem with the username or password you have entered. Check and try again',
   accountProblem:
     'There is a problem with your account and we are unable to log you in',
-  lockedOut: `Sign in disabled for ${minutesAndSecondsFrom(
+  lockedOut: `Sign in has been disabled for ${minutesAndSecondsFrom(
     retryCoolDownPeriod,
   )}`,
   unhandledFailure: 'We are unable to log you in',

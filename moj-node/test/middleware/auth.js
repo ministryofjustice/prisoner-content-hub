@@ -209,6 +209,16 @@ describe('auth', () => {
         };
         await middleware(request, response, next);
         expect(request.session.signInAttemptsRemaining).to.eql(
+          4,
+          `should have decremented (4)`,
+        );
+        await middleware(request, response, next);
+        expect(request.session.signInAttemptsRemaining).to.eql(
+          3,
+          `should have decremented (3)`,
+        );
+        await middleware(request, response, next);
+        expect(request.session.signInAttemptsRemaining).to.eql(
           2,
           `should have decremented (2)`,
         );
@@ -219,12 +229,12 @@ describe('auth', () => {
         );
         await middleware(request, response, next);
         expect(request.session.signInAttemptsRemaining).to.eql(
-          3,
+          5,
           `should have reset`,
         );
       });
 
-      it('should disable sign in after 3 attempts for 5 minutes', async () => {
+      it('should disable sign in after 5 attempts for 5 minutes', async () => {
         const next = sinon.spy();
         const mockLdap = sinon
           .stub()
@@ -250,9 +260,11 @@ describe('auth', () => {
         await middleware(request, response, next);
         await middleware(request, response, next);
         await middleware(request, response, next);
+        await middleware(request, response, next);
+        await middleware(request, response, next);
         expect(mockLdap.callCount).to.equal(
-          3,
-          'mockLdap should have been called 3 times',
+          5,
+          'mockLdap should have been called 5 times',
         );
         expect(request.session.signInDisabledUntilTime).to.eql(
           now + FIVE_MINUTES,
@@ -262,14 +274,14 @@ describe('auth', () => {
         await middleware(request, response, next);
         expect(Object.keys(request.session.form.errors).length).to.eql(1);
         expect(mockLdap.callCount).to.equal(
-          3,
+          5,
           'mockLdap should not have been called',
         );
 
         mockGetCurrentTime.returns(now + SIX_MINUTES);
         await middleware(request, response, next);
         expect(mockLdap.callCount).to.equal(
-          4,
+          6,
           'mockLdap should have been called again',
         );
       });
