@@ -82,6 +82,24 @@ const createGamesRouter = ({ logger }) => {
     });
   });
 
+  router.get('/invadersfromspace', (req, res) => {
+    logger.info('GET /games/invadersfromspace');
+    const userDetails = path(['session', 'user'], req);
+    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+
+    config.newDesigns = newDesigns;
+    config.detailsType = 'small';
+    config.userName = path(['name'], userDetails);
+
+    return res.render('pages/games/invadersfromspace', {
+      title: 'Invaders from Space',
+      data: {
+        title: 'Invaders from Space',
+      },
+      config,
+    });
+  });
+
   return router;
 };
 
