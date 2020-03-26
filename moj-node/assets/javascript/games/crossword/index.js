@@ -380,6 +380,11 @@ function CrosswordGame(wordGrid) {
     return findCellAtPosition(x, y).find('input');
   }
 
+  function updateScore() {
+    var numberOfSolvedClues = $('#crossword-clues .crossword__clue--correct').length;
+    $('#crossword-score').text('Solved ' + numberOfSolvedClues + ' out of ' + words.length);
+  }
+
   // TODO: REFACTOR THIS
   function checkWordFor(cell) {
     function branchingWordIsValidFor(cell, direction) {
@@ -443,6 +448,8 @@ function CrosswordGame(wordGrid) {
         clue.removeClass('crossword__clue--correct');
       }
     }
+
+    updateScore();
   }
 
   function getNextLetter() {
@@ -602,6 +609,7 @@ function CrosswordGame(wordGrid) {
       cluesAcross.append(createClue(j + 1, across[j]));
     }
 
+    updateScore();
   }
 }
 
