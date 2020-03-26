@@ -83,11 +83,29 @@ $cell-scale-factor: 1.2;
   }
 }
 
+#crossword-clues {
+  & ol {
+    list-style: decimal inside;
+    padding: 0;
+  }
+}
+
 .crossword__clue {
   @include govuk-font($size: 19);
   padding: govuk-spacing(2);
+  &:nth-child(even) {
+    background-color: govuk-colour('light-grey');
+  }
 }
 
 .crossword__clue--selected {
   font-weight: bold;
+}
+
+.crossword__clue--correct {
+  &:after {
+    content: '✔';
+    color: govuk-colour('green');
+    margin-left: govuk-spacing(2);
+  }
 }
