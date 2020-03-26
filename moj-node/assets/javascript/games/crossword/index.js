@@ -4,27 +4,27 @@ var options = {
     'elephant',
     'zebra',
     'parrot',
-    'monkey',
-    'dog',
-    'cat',
-    'octopus',
-    'llama',
-    'gorilla',
-    'fish',
-    'sloth',
-    'orangutan',
-    'whale',
-    'pheasant',
-    'alpaca',
-    'mouse',
-    'tarantula',
-    'albatross',
-    'kangaroo',
-    'crocodile',
-    'koala',
-    'shark',
-    'ant',
-    'turtle'
+    // 'monkey',
+    // 'dog',
+    // 'cat',
+    // 'octopus',
+    // 'llama',
+    // 'gorilla',
+    // 'fish',
+    // 'sloth',
+    // 'orangutan',
+    // 'whale',
+    // 'pheasant',
+    // 'alpaca',
+    // 'mouse',
+    // 'tarantula',
+    // 'albatross',
+    // 'kangaroo',
+    // 'crocodile',
+    // 'koala',
+    // 'shark',
+    // 'ant',
+    // 'turtle'
   ]
 };
 
@@ -367,6 +367,8 @@ function CrosswordGame(wordGrid) {
   };
   var gameBoard = $('#crossword-board');
   var clues = $('#crossword-clues');
+  var cluesDown = $('#crossword-clues-down');
+  var cluesAcross = $('#crossword-clues-across');
 
   function createSelected(number, direction) {
     return { number, direction };
@@ -382,7 +384,7 @@ function CrosswordGame(wordGrid) {
 
   function updateScore() {
     var numberOfSolvedClues = $('#crossword-clues .crossword__clue--correct').length;
-    $('#crossword-score').text('Solved ' + numberOfSolvedClues + ' out of ' + words.length);
+    $('#crossword-score').text('Solved ' + numberOfSolvedClues + ' out of ' + words.length + ' clues');
     if (numberOfSolvedClues === words.length) {
       $('#crossword-notification').removeClass('visually-hidden');
     } else {
@@ -556,6 +558,11 @@ function CrosswordGame(wordGrid) {
 
   // build game grid;
   this.render = function () {
+
+    gameBoard.empty();
+    cluesAcross.empty();
+    cluesDown.empty();
+
     // render empty board
     for (var y = 0; y < grid.length; y++) {
       var row = $('<div class="crossword__row"></div>')
@@ -603,23 +610,31 @@ function CrosswordGame(wordGrid) {
     }
 
     // render down clues
-    var cluesDown = $('#crossword-clues-down');
     for (var j = 0; j < down.length; j++) {
       cluesDown.append(createClue(j + 1, down[j]));
     }
 
     // render across clues
-    var cluesAcross = $('#crossword-clues-across');
     for (var j = 0; j < across.length; j++) {
       cluesAcross.append(createClue(j + 1, across[j]));
     }
 
     updateScore();
   }
+
+  this.setupControls = function () {
+    render = this.render.bind(this);
+    $('#crossword-reset').on('click', function (e) {
+      e.preventDefault()
+      render();
+    });
+  }
+
 }
 
 (function () {
   var wg = new WordGrid(options);
   var game = new CrosswordGame(wg);
   game.render();
+  game.setupControls();
 })();
