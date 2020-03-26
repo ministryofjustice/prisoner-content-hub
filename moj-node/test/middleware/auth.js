@@ -137,7 +137,7 @@ describe('auth', () => {
           '/auth/signin',
           'should have redirected to signin page',
         );
-        expect(request.session).to.have.property('notification');
+        expect(request.session.form.errors).to.have.property('ldap');
       });
 
       it('should create a form error when the username is incorrect', async () => {
@@ -191,6 +191,99 @@ describe('auth', () => {
           'should have redirected to signin page',
         );
         expect(request.session.form.errors).to.have.property('ldap');
+      });
+
+      it('should count the number of remaining sign in attempts', async () => {
+        const next = sinon.spy();
+        const mockLdap = sinon
+          .stub()
+          .rejects(new InvalidCredentialsError('BOOM!'));
+        const middleware = authenticateUser({ authenticate: mockLdap });
+
+        const request = {
+          body: { username: 'A1234BC', password: 'password' },
+          session: {},
+        };
+        const response = {
+          redirect: sinon.spy(),
+        };
+        await middleware(request, response, next);
+        expect(request.session.signInAttemptsRemaining).to.eql(
+          4,
+          `should have decremented (4)`,
+        );
+        await middleware(request, response, next);
+        expect(request.session.signInAttemptsRemaining).to.eql(
+          3,
+          `should have decremented (3)`,
+        );
+        await middleware(request, response, next);
+        expect(request.session.signInAttemptsRemaining).to.eql(
+          2,
+          `should have decremented (2)`,
+        );
+        await middleware(request, response, next);
+        expect(request.session.signInAttemptsRemaining).to.eql(
+          1,
+          `should have decremented (1)`,
+        );
+        await middleware(request, response, next);
+        expect(request.session.signInAttemptsRemaining).to.eql(
+          5,
+          `should have reset`,
+        );
+      });
+
+      it('should disable sign in after 5 attempts for 5 minutes', async () => {
+        const next = sinon.spy();
+        const mockLdap = sinon
+          .stub()
+          .rejects(new InvalidCredentialsError('BOOM!'));
+
+        const FIVE_MINUTES = 5 * 60 * 1000;
+        const SIX_MINUTES = 6 * 60 * 1000;
+        const now = new Date().getTime();
+        const mockGetCurrentTime = sinon.stub();
+        mockGetCurrentTime.returns(now);
+        const middleware = authenticateUser({
+          authenticate: mockLdap,
+          getCurrentTime: mockGetCurrentTime,
+        });
+
+        const request = {
+          body: { username: 'A1234BC', password: 'password' },
+          session: {},
+        };
+        const response = {
+          redirect: sinon.spy(),
+        };
+        await middleware(request, response, next);
+        await middleware(request, response, next);
+        await middleware(request, response, next);
+        await middleware(request, response, next);
+        await middleware(request, response, next);
+        expect(mockLdap.callCount).to.equal(
+          5,
+          'mockLdap should have been called 5 times',
+        );
+        expect(request.session.signInDisabledUntilTime).to.eql(
+          now + FIVE_MINUTES,
+          `should have disabled account until 5 minutes from now`,
+        );
+
+        await middleware(request, response, next);
+        expect(Object.keys(request.session.form.errors).length).to.eql(1);
+        expect(mockLdap.callCount).to.equal(
+          5,
+          'mockLdap should not have been called',
+        );
+
+        mockGetCurrentTime.returns(now + SIX_MINUTES);
+        await middleware(request, response, next);
+        expect(mockLdap.callCount).to.equal(
+          6,
+          'mockLdap should have been called again',
+        );
       });
     });
   });
