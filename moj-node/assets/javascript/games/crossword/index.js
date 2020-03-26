@@ -20,7 +20,11 @@ var options = {
     'tarantula',
     'albatross',
     'kangaroo',
-    'crocodile'
+    'crocodile',
+    'koala',
+    'shark',
+    'ant',
+    'turtle'
   ]
 };
 
@@ -403,24 +407,41 @@ function CrosswordGame(wordGrid) {
     if ($(cell).is('[data-across]')) {
       var number = $(cell).data('across');
       var word = gameBoard.find('[data-across=' + number + ']');
+      var clue = clues.find('#crossword-clues-across li[data-number=' + number + ']');
+      var correct = 0;
       word.each(function (i, letter) {
         if (checkLettersFor(letter)) {
           $(letter).addClass('crossword__cell__input--correct');
+          correct++;
         } else {
           $(letter).removeClass('crossword__cell__input--correct');
         }
       });
+      if (correct === word.length) {
+        clue.addClass('crossword__clue--correct');
+      } else {
+        clue.removeClass('crossword__clue--correct');
+      }
     }
+
     if ($(cell).is('[data-down]')) {
       var number = $(cell).data('down');
       var word = gameBoard.find('[data-down=' + number + ']');
+      var clue = clues.find('#crossword-clues-down li[data-number=' + number + ']');
+      var correct = 0;
       word.each(function (i, letter) {
         if (checkLettersFor(letter)) {
           $(letter).addClass('crossword__cell__input--correct');
+          correct++;
         } else {
           $(letter).removeClass('crossword__cell__input--correct');
         }
       });
+      if (correct === word.length) {
+        clue.addClass('crossword__clue--correct');
+      } else {
+        clue.removeClass('crossword__clue--correct');
+      }
     }
   }
 
