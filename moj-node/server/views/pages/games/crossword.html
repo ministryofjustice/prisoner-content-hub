@@ -58,6 +58,7 @@
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
           <div id="crossword-info">
+            <button id="crossword-new-game" class="govuk-button">New Game</button>
             <button id="crossword-reset" class="govuk-button">Reset</button>
             <span id="crossword-score"></span>
           </div>
@@ -69,10 +70,11 @@
         </div>
         <div class="govuk-grid-column-one-quarter">
           <div id="crossword-clues">
-            <h2 class="govuk-heading-m">Clues</h2>
-            <h3 class="govuk-heading-s">Down</h3>
+            <h2 class="govuk-heading-m">Current Clue</h2>
+            <p id="crossword-clues-current"></p>
+            <h2 class="govuk-heading-m">Down</h2>
             <ol id="crossword-clues-down"></ol>
-            <h3 class="govuk-heading-s">Across</h3>
+            <h2 class="govuk-heading-m">Across</h2>
             <ol id="crossword-clues-across"></ol>
           </div>
         </div>
