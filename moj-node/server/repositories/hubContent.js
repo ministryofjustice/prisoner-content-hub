@@ -144,7 +144,7 @@ const hubContentRepository = httpClient => {
     establishmentId,
     perPage = 40,
     offset = 0,
-    sortOrder = 'ASC',
+    sortOrder = 'DESC',
   } = {}) {
     const endpoint = `${config.api.hubContent}/related`;
     const query = {
