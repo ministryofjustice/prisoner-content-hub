@@ -84,6 +84,7 @@ $cell-scale-factor: 1.2;
 }
 
 #crossword-clues {
+  @include govuk-font($size: 19);
   & ol {
     list-style: decimal inside;
     padding: 0;
@@ -91,7 +92,7 @@ $cell-scale-factor: 1.2;
 }
 
 .crossword__clue {
-  @include govuk-font($size: 19);
+  color: govuk-colour('blue');
   padding: govuk-spacing(2);
   &:nth-child(even) {
     background-color: govuk-colour('light-grey');
@@ -99,6 +100,7 @@ $cell-scale-factor: 1.2;
 }
 
 .crossword__clue--selected {
+  color: govuk-colour('black');
   font-weight: bold;
 }
 

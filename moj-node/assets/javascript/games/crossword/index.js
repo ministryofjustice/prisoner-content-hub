@@ -1,50 +1,58 @@
-var options = {
-  dimensions: { x: 20, y: 20 },
-  wordList: [
-    'elephant',
-    'zebra',
-    'parrot',
-    // 'monkey',
-    // 'dog',
-    // 'cat',
-    // 'octopus',
-    // 'llama',
-    // 'gorilla',
-    // 'fish',
-    // 'sloth',
-    // 'orangutan',
-    // 'whale',
-    // 'pheasant',
-    // 'alpaca',
-    // 'mouse',
-    // 'tarantula',
-    // 'albatross',
-    // 'kangaroo',
-    // 'crocodile',
-    // 'koala',
-    // 'shark',
-    // 'ant',
-    // 'turtle'
-  ]
-};
+var NUMBER_OF_WORDS = 16;
+var SIZE_OF_GRID_X = 20;
+var SIZE_OF_GRID_Y = 20;
+var WORD_LIST = [
+  'elephant',
+  'zebra',
+  'parrot',
+  'monkey',
+  'dog',
+  'cat',
+  'octopus',
+  'llama',
+  'gorilla',
+  'fish',
+  'sloth',
+  'orangutan',
+  'whale',
+  'pheasant',
+  'alpaca',
+  'mouse',
+  'tarantula',
+  'albatross',
+  'kangaroo',
+  'crocodile',
+  'koala',
+  'shark',
+  'ant',
+  'turtle'
+];
 
 var directions = {
   ACROSS: 'across',
   DOWN: 'down'
 };
 
-function WordGrid(options) {
+function selectRandomEntriesFrom(array, amount) {
+  var from = array.slice();
+  var selected = [];
+  for (var i = 0; i < amount; i++) {
+    selected.push(from.splice(Math.floor(Math.random() * from.length), 1)[0]);
+  }
+  return selected
+}
 
-  var size = options.dimensions;
+function WordGrid(listOfWords) {
+
   var words = [];
   var numberOfPlacedWords = 0;
   var grid = [];
 
-  function createGrid(dimensions) {
+  function createGrid() {
     var grid = [];
-    for (var yPos = 0; yPos < dimensions.y; yPos++) {
+    for (var yPos = 0; yPos < SIZE_OF_GRID_Y; yPos++) {
       var row = [];
-      for (var xPos = 0; xPos < dimensions.x; xPos++) {
+      for (var xPos = 0; xPos < SIZE_OF_GRID_X; xPos++) {
         row.push('');
       }
       grid.push(row);
@@ -76,7 +84,7 @@ function WordGrid(options) {
   }
 
   function addFirstWord(word) {
-    var start = Math.floor(options.dimensions.x / 2);
+    var start = Math.floor(SIZE_OF_GRID_X / 2);
     var offset = Math.floor(word.length / 2);
     var index = start - offset;
     if (index < 0) {
@@ -263,7 +271,7 @@ function WordGrid(options) {
   function findPositionFor(letters, word) {
     var rows = [];
 
-    for (var i = 0; i < size.y; i++) {
+    for (var i = 0; i < SIZE_OF_GRID_Y; i++) {
       rows.push(i);
     }
 
@@ -327,8 +335,8 @@ function WordGrid(options) {
     }
   }
 
-  grid = createGrid(size);
-  addWords(options.wordList)
+  grid = createGrid();
+  addWords(listOfWords)
 
   return {
     renderGrid: function () {
@@ -488,6 +496,7 @@ function CrosswordGame(wordGrid) {
       gameBoard.find('[data-' + word.direction + '=' + number + ']').addClass('crossword__cell__input--selected');
       clues.find('.crossword__clue').removeClass('crossword__clue--selected');
       $(this).addClass('crossword__clue--selected');
+      $('#crossword-clues-current').text('' + number + '. ' + $(this).text());
     }
   }
 
@@ -508,7 +517,9 @@ function CrosswordGame(wordGrid) {
       gameBoard.find('.crossword__cell__input').removeClass('crossword__cell__input--selected');
       gameBoard.find('[data-' + word.direction + '=' + number + ']').addClass('crossword__cell__input--selected');
       clues.find('.crossword__clue').removeClass('crossword__clue--selected');
-      clues.find('[data-word-id=' + word.number + ']').addClass('crossword__clue--selected');
+      var clue = clues.find('[data-word-id=' + word.number + ']');
+      clue.addClass('crossword__clue--selected');
+      $('#crossword-clues-current').text('' + number + '. ' + clue.text());
     }
   }
 
@@ -562,6 +573,7 @@ function CrosswordGame(wordGrid) {
     gameBoard.empty();
     cluesAcross.empty();
     cluesDown.empty();
+    $('#crossword-clues-current').text('Nothing selected');
 
     // render empty board
     for (var y = 0; y < grid.length; y++) {
@@ -625,7 +637,14 @@ function CrosswordGame(wordGrid) {
   this.setupControls = function () {
     render = this.render.bind(this);
     $('#crossword-reset').on('click', function (e) {
-      e.preventDefault()
+      e.preventDefault();
+      render();
+    });
+    $('#crossword-new-game').on('click', function (e) {
+      e.preventDefault();
+      var wg = new WordGrid(selectRandomEntriesFrom(WORD_LIST, NUMBER_OF_WORDS));
+      grid = wg.getGrid();
+      words = wg.getWords();
       render();
     });
   }
@@ -633,7 +652,7 @@ function CrosswordGame(wordGrid) {
 }
 
 (function () {
-  var wg = new WordGrid(options);
+  var wg = new WordGrid(selectRandomEntriesFrom(WORD_LIST, NUMBER_OF_WORDS));
   var game = new CrosswordGame(wg);
   game.render();
   game.setupControls();
