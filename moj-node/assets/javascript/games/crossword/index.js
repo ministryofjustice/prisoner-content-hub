@@ -1,31 +1,44 @@
-var NUMBER_OF_WORDS = 16;
+var NUMBER_OF_WORDS = 25;
 var SIZE_OF_GRID_X = 20;
 var SIZE_OF_GRID_Y = 20;
 var WORD_LIST = [
-  'elephant',
-  'zebra',
-  'parrot',
-  'monkey',
-  'dog',
-  'cat',
-  'octopus',
-  'llama',
-  'gorilla',
-  'fish',
-  'sloth',
-  'orangutan',
-  'whale',
-  'pheasant',
-  'alpaca',
-  'mouse',
-  'tarantula',
-  'albatross',
-  'kangaroo',
-  'crocodile',
-  'koala',
-  'shark',
-  'ant',
-  'turtle'
+  { answer: 'mars', clue: 'Planet - A tasty treat' },
+  { answer: 'crocodile', clue: 'Large aquatic reptile' },
+  { answer: 'dog', clue: 'Man\'s best friend' },
+  { answer: 'chicken', clue: 'Farmyard fowl' },
+  { answer: 'horse', clue: 'Hungry as a _____' },
+  { answer: 'llama', clue: 'Four legged animal from Peru' },
+  { answer: 'beauty', clue: 'In the eye of the beholder' },
+  { answer: 'dragon', clue: 'Mythical beast' },
+  { answer: 'parrot', clue: 'Feathered mimic' },
+  { answer: 'tarantula', clue: 'A type of large spider' },
+  { answer: 'potting', clue: 'Putting plants in containers' },
+  { answer: 'slipper', clue: 'Indoor footwear' },
+  { answer: 'monkey', clue: 'Cheeky, long tailed primate' },
+  { answer: 'helmet', clue: 'Protective headgear' },
+  { answer: 'twist', clue: 'Late, unexpected change in a story' },
+  { answer: 'elbow', clue: 'Arm joint' },
+  { answer: 'elephant', clue: 'The largest of the land mammals' },
+  { answer: 'incentive', clue: 'Motivation or encouragement to do something' },
+  { answer: 'privilege', clue: 'A special right or advantage granted' },
+  { answer: 'sleet', clue: 'Rain with ice' },
+  { answer: 'treason', clue: 'Crime against the state' },
+  { answer: 'salmon', clue: 'A fishy shade of pink' },
+  { answer: 'pod', clue: 'Like peas in a ___' },
+  { answer: 'suspect', clue: 'Believed guilty' },
+  { answer: 'tattoo', clue: 'Design marked on the skin' },
+  { answer: 'cat', clue: 'Feline - Popular pet' },
+  { answer: 'fish', clue: 'Popular with chips' },
+  { answer: 'sloth', clue: 'A slow tree dweller' },
+  { answer: 'ant', clue: 'Tiny insect' },
+  { answer: 'gorilla', clue: 'Large ape' },
+  { answer: 'kiwi', clue: 'A fruity bird' },
+  { answer: 'shark', clue: 'Large ocean predator' },
+  { answer: 'kangaroo', clue: 'Australian mammal with a lot of bounce' },
+  { answer: 'zebra', clue: 'It\'s black and white with this animal' },
+  { answer: 'mouse', clue: 'As quiet as a _____' },
+  { answer: 'mile', clue: 'A measure of distance' },
+  { answer: 'octopus', clue: 'Eight legged sea creature' },
 ];
 
 var directions = {
@@ -62,12 +75,12 @@ function WordGrid(listOfWords) {
 
   function placeWord(word, x, y, isVertical) {
     if (isVertical) {
-      for (var yOffset = 0; yOffset < word.length; yOffset++) {
-        grid[y + yOffset][x] = word[yOffset];
+      for (var yOffset = 0; yOffset < word.answer.length; yOffset++) {
+        grid[y + yOffset][x] = word.answer[yOffset];
       }
     } else {
-      for (var xOffset = 0; xOffset < word.length; xOffset++) {
-        grid[y][x + xOffset] = word[xOffset];
+      for (var xOffset = 0; xOffset < word.answer.length; xOffset++) {
+        grid[y][x + xOffset] = word.answer[xOffset];
       }
     }
 
@@ -76,8 +89,8 @@ function WordGrid(listOfWords) {
       direction: isVertical ? directions.DOWN : directions.ACROSS,
       row: y,
       column: x,
-      clue: 'It might be a ' + word,
-      answer: word
+      clue: word.clue,
+      answer: word.answer
     });
 
     numberOfPlacedWords++;
@@ -85,7 +98,7 @@ function WordGrid(listOfWords) {
 
   function addFirstWord(word) {
     var start = Math.floor(SIZE_OF_GRID_X / 2);
-    var offset = Math.floor(word.length / 2);
+    var offset = Math.floor(word.answer.length / 2);
     var index = start - offset;
     if (index < 0) {
       return false;
@@ -250,11 +263,6 @@ function WordGrid(listOfWords) {
       var cell = grid[y][x];
       if (cell === word[index]) {
         var position;
-        // if (numberOfPlacedWords % 2) {
-        //     position = fitWordByLetterPositionH(index, word, x, y);
-        // } else {
-        //     position = fitWordByLetterPositionV(index, word, x, y);
-        // }
         position = fitWordByLetterPositionH(index, word, x, y);
         if (!position) {
           position = fitWordByLetterPositionV(index, word, x, y);
@@ -290,20 +298,20 @@ function WordGrid(listOfWords) {
   }
 
   function addWord(word) {
-    var letters = getLettersFor(word);
-    var position = findPositionFor(letters, word);
+    var letters = getLettersFor(word.answer);
+    var position = findPositionFor(letters, word.answer);
 
     if (position) {
       placeWord(word, position.x, position.y, position.isVertical);
       return true;
     }
 
-    console.warn('Crossword: could not place word "' + word + '"');
+    // console.warn('Crossword: could not place word "' + word.answer + '"');
     return false;
   }
 
   function sortWords(wordList) {
-    wordList.sort(function (first, second) { return second.length - first.length; });
+    wordList.sort(function (first, second) { return second.answer.length - first.answer.length; });
   }
 
   function addWords(wordList) {
@@ -316,7 +324,7 @@ function WordGrid(listOfWords) {
         break;
       }
 
-      if (wordList[0].length < 2) {
+      if (wordList[0].answer.length < 2) {
         wordList.shift();
         continue;
       }
