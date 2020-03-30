@@ -387,7 +387,7 @@ function CrosswordGame(wordGrid) {
   var cluesAcross = $('#crossword-clues-across');
 
   function createSelected(number, direction) {
-    return { number, direction };
+    return { number: number, direction: direction };
   };
 
   function findCellAtPosition(x, y) {
@@ -532,24 +532,23 @@ function CrosswordGame(wordGrid) {
   }
 
   function isTypeableCharacter(charCode) {
-    return (charCode >= 48 && charCode <= 90) ||
-      (charCode >= 96 && charCode <= 111) ||
-      (charCode >= 186 && charCode <= 192) ||
-      (charCode >= 219 && charCode <= 222);
+    return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(charCode) > -1;
   }
 
   function createInputKeyDownHandler(number, word) {
     return function inputKeyDownHandler(e) {
-      if (e.which === 8) {
+      var key = e.key.toUpperCase();
+
+      if (key === 'BACKSPACE') {
         e.preventDefault();
         if ($(this).val().length > 0) {
           $(this).val('');
         } else {
           getPreviousLetter.call(this);
         }
-      } else if (isTypeableCharacter(e.which)) {
+      } else if (isTypeableCharacter(key)) {
         e.preventDefault();
-        $(this).val(String.fromCharCode(e.which));
+        $(this).val(key);
         getNextLetter.call(this);
       }
     }
