@@ -519,7 +519,9 @@ function CrosswordGame(wordGrid) {
   }
 
   function createInputClickHandler(number, word) {
-    return function inputClickHandler() {
+    return function inputClickHandler(e) {
+      e.preventDefault();
+      e.stopPropagation();
       $(this).focus();
       state.selected = createSelected(number, word.direction);
       gameBoard.find('.crossword__cell__input').removeClass('crossword__cell__input--selected');
@@ -535,19 +537,19 @@ function CrosswordGame(wordGrid) {
     return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(charCode) > -1;
   }
 
-  function createInputKeyDownHandler(number, word) {
+  function createInputKeyDownHandler() {
     return function inputKeyDownHandler(e) {
+      e.preventDefault();
+      e.stopPropagation();
       var key = e.key.toUpperCase();
 
       if (key === 'BACKSPACE') {
-        e.preventDefault();
         if ($(this).val().length > 0) {
           $(this).val('');
         } else {
           getPreviousLetter.call(this);
         }
       } else if (isTypeableCharacter(key)) {
-        e.preventDefault();
         $(this).val(key);
         getNextLetter.call(this);
       }
