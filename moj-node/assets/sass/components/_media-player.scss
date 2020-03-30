@@ -35,6 +35,10 @@
 .govuk-hub-media-player__player {
   display: block;
   margin-bottom: 10px;
+
+  .articlePlayer {
+    background-color: govuk-colour('black');
+  }
 }
 
 .govuk-hub-media-player__description {

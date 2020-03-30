@@ -75,6 +75,10 @@
     max-width: 729px;
   }
 
+  .videoPlayer img {
+    max-width: 100%;
+  }
+
   panel {
     @extend .govuk-panel, .govuk-panel--confirmation;
     display: block;
