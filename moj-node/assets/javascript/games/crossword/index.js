@@ -287,9 +287,9 @@ function WordGrid(listOfWords) {
       rows.reverse();
     }
 
-    for (var r of rows) {
-      for (var l of letters) {
-        var position = findLetterInRow(l.index, word, r);
+    for (var i = 0; i < rows.length; i++) {
+      for (var j = 0; j < letters.length; j++) {
+        var position = findLetterInRow(letters[j].index, word, rows[i]);
         if (position) {
           return position;
         }

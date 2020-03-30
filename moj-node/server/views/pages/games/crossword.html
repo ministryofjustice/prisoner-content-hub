@@ -78,22 +78,23 @@
             <ol id="crossword-clues-across"></ol>
           </div>
         </div>
-        <div class="govuk-grid-row">
-          <div class="govuk-grid-column-full">
-            <div class="govuk-hub-article-feedback">
-              <p class="govuk-body">Tell us what you think:</p>
-              {{ hubFeedbackWidget({
+      </div>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+          <div class="govuk-hub-article-feedback">
+            <p class="govuk-body">Tell us what you think:</p>
+            {{ hubFeedbackWidget({
                 title: "Crossword",
                 contentType: "game",
                 series: null,
                 establishment: establishmentName
               })}}
-            </div>
           </div>
-        </main>
-      </div>
-    {% endblock %}
+        </div>
+      </main>
+    </div>
+  {% endblock %}
 
-    {% block bodyEnd %}
-      <script src="/public/javascript/games/crossword/index.js"></script>
-    {% endblock %}
+  {% block bodyEnd %}
+    <script src="/public/javascript/games/crossword/index.js"></script>
+  {% endblock %}
