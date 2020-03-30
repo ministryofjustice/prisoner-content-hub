@@ -11,6 +11,11 @@
 {% block head %}
   <link href="/public/stylesheets/application.css" rel="stylesheet"/>
   <link href="/public/javascript/games/sudoku/sudokuJS.css" rel="stylesheet" type="text/css"/>
+  <style type="text/css">
+  canvas {
+    background-color: #f3f2f1;
+  }
+  </style>
 {% endblock %}
 
 {% block pageNavigation %}
@@ -39,14 +44,19 @@
 {% block main %}
   <div class="govuk-width-container">
     <main class="govuk-main-wrapper">
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-          <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6 govuk-!-margin-top-3">Breakout</h1>
-        </div>
+      <div class="govuk-grid-row govuk-!-margin-bottom-6">
       </div>
       <div class="govuk-grid-row govuk-!-margin-bottom-6">
-        <div class="govuk-grid-column-full">
+        <div class="govuk-grid-column-two-thirds">
           <canvas id="gameCanvas" width="780" height="620"></canvas>
+        </div>
+        <div class="govuk-grid-column-one-third">
+            <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">Breakout</h1>
+          <p class="govuk-body"><b>How to play:</b></p>
+          <p class="govuk-body">
+                < = Move left
+            <br>> = Move right
+            <br>Spacebar = Release ball</p>
         </div>
       </div>
 
