@@ -1,7 +1,6 @@
 $search-width: 600px;
 
 #search-wrapper {
-  @extend .govuk-body;
   width: 100%;
   position: relative;
   float: left;
@@ -79,6 +78,9 @@ $search-width: 600px;
   }
   &:focus {
     background-image: url('/public/images/icons/search-black.svg');
+  }
+  &.govuk-button {
+    margin: 0;
   }
 }
 
