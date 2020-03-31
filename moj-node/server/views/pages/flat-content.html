@@ -58,3 +58,37 @@
     </main>
   </div>
 {% endblock %}
+
+
+{% block bodyEnd %}
+  {% if data.videos %}
+    <script src="/public/jplayer/jquery.jplayer.min.js"></script>
+    <script src="/public/javascript/jplayer.cleanskin.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        {% for video in data.videos %}
+        initPlayer({{ loop.index }}, "{{ video[0] }}", "{{ video[1] }}");
+        {% endfor %}
+      });
+
+      function initPlayer(index, imageUrl, videoUrl) {
+        var playerHtml = '<div class="govuk-hub-media-player__player govuk-hub-media-video articlePlayer"><div id="videoPlayer' + index + '" class="webPlayer light articlePlayer"><div id="videoPlayerContainer' + index + '" class="videoPlayer" data-video="' + videoUrl + '"></div></div>';
+
+        $("#body p:contains('VIDEO|')").filter(":first").replaceWith(playerHtml);
+        $('#videoPlayer' + index).videoPlayer({
+          name: '{{ data.title }}',
+          size: {
+            width: '100%',
+            height: '100%'
+          },
+          media: {
+            preload: 'metadata',
+            m4v: videoUrl,
+            supplied: "m4v",
+            poster: imageUrl
+          }
+        });
+      }
+    </script>
+  {% endif %}
+{% endblock %}

@@ -1,4 +1,5 @@
 const { prop, filter, not, equals, map } = require('ramda');
+const { fixUrlForProduction } = require('../utils/index');
 
 function createHubContentService({
   contentRepository,
@@ -25,6 +26,25 @@ function createHubContentService({
             establishmentId,
           })
         : [];
+    const videoDataRegExp = new RegExp('<p>VIDEO\\|[^|<]+\\|[^|<]+<', 'g');
+    /* eslint-disable func-names */
+    const videoMatches = Array.from(
+      content.description.raw.matchAll(videoDataRegExp),
+      function(m) {
+        return m[0];
+      },
+    );
+    /* eslint-enable func-names */
+
+    if (videoMatches.length > 0) {
+      content.videos = videoMatches.map(videoMatch => {
+        return videoMatch
+          .replace('<p>VIDEO|', '')
+          .slice(0, -1)
+          .split('|')
+          .map(url => fixUrlForProduction(url));
+      });
+    }
 
     switch (contentType) {
       case 'radio':

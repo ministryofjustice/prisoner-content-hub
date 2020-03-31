@@ -4,9 +4,12 @@ describe('#hubContentService', () => {
   describe('content', () => {
     it('returns content for a given ID', async () => {
       const contentRepository = {
-        contentFor: sinon
-          .stub()
-          .returns({ title: 'foo', href: 'www.foo.com', type: 'foo' }),
+        contentFor: sinon.stub().returns({
+          title: 'foo',
+          href: 'www.foo.com',
+          type: 'foo',
+          description: { raw: '' },
+        }),
       };
       const service = createHubContentService({ contentRepository });
       const result = await service.contentFor('contentId');
@@ -15,6 +18,9 @@ describe('#hubContentService', () => {
         title: 'foo',
         href: 'www.foo.com',
         type: 'foo',
+        description: {
+          raw: '',
+        },
       });
     });
 
@@ -29,6 +35,7 @@ describe('#hubContentService', () => {
             seriesId: 'seriesId',
             episodeId: 'episodeId',
             tagsId: [12],
+            description: { raw: '' },
           }),
           suggestedContentFor: sinon
             .stub()
@@ -57,6 +64,9 @@ describe('#hubContentService', () => {
               type: 'foo',
             },
           ],
+          description: {
+            raw: '',
+          },
           episodeId: 'episodeId',
           tagsId: [12],
           season: [{ id: 2, title: 'bar episode' }], // hides the current episode from season
@@ -94,6 +104,7 @@ describe('#hubContentService', () => {
       featuredContentId: 'featuredContentId',
       categoryId: 'categoryId',
       establishmentId,
+      description: { raw: '' },
     };
 
     const createContentRepository = () => ({
