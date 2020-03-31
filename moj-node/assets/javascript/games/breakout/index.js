@@ -244,14 +244,6 @@ function drawLevel() {
   ctx.fillText("Level: "+level, 8, 20);
 }
 
-function drawLevelStart() {
-  setTimeout( function(){
-    ctx.font = "19 px GDS Transport";
-    ctx.fillRect(0, 300, gameCanvas.width, 30);
-    ctx.fillStyle = "white";
-    ctx.fillText("Level: "+level, 370, 320)
-  }, 2000);}
-
 function drawLives() {
     ctx.font = "19px GDS Transport";
     ctx.fillStyle = "	#0b0c0c";
@@ -263,9 +255,10 @@ function loseGame() {
   ctx.fillStyle = "#1d70b8";
   ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
   ctx.fillStyle = "white";
-  ctx.font = "GDS Transport";
-  ctx.fillText("Game over you scored " + gameScore + " points" , 200 , 290);
-  ctx.fillText("Press ENTER to restart the game" , 200 , 330);
+  ctx.font = "30px GDS Transport";
+  ctx.fillText("Game over" , 310 , 250);
+  ctx.fillText("You scored " + gameScore + " points" , 260 , 290);
+  ctx.fillText("Press ENTER to restart the game" , 180 , 330);
 
   document.addEventListener('keyup', function(e){
     if(e.keyCode === 13 || e.key === "Enter")
@@ -278,9 +271,10 @@ function winGame() {
   ctx.fillStyle = "#1d70b8";
   ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
   ctx.fillStyle = "white";
-  ctx.font = "GDS Transport";
-  ctx.fillText("YOU WIN :)" , 350 , 290);
-  ctx.fillText("Press ENTER to start a new game" , 250 , 330);
+  ctx.font = "30px GDS Transport";
+  ctx.fillText("Smash it!" , 330 , 250);
+  ctx.fillText("YOU WIN   :)" , 315 , 290);
+  ctx.fillText("Press ENTER to start a new game" , 180, 330);
 
   document.addEventListener('keyup', function(e){
     if(e.keyCode === 13 || e.key === "Enter")
