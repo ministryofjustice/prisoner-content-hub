@@ -27,13 +27,16 @@ function createHubContentService({
           })
         : [];
     const videoDataRegExp = new RegExp('<p>VIDEO\\|[^|<]+\\|[^|<]+<', 'g');
+    let videoMatches = [];
     /* eslint-disable func-names */
-    const videoMatches = Array.from(
-      content.description.raw.matchAll(videoDataRegExp),
-      function(m) {
-        return m[0];
-      },
-    );
+    if (content.description) {
+      videoMatches = Array.from(
+        content.description.raw.matchAll(videoDataRegExp),
+        function(m) {
+          return m[0];
+        },
+      );
+    }
     /* eslint-enable func-names */
 
     if (videoMatches.length > 0) {
