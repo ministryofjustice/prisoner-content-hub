@@ -1,16 +1,32 @@
 const config = require('../config');
 
 function analyticsRepository(httpClient) {
-  function sendEvent({ type, category, action, label, value }) {
+  function sendEvent({ category, action, label, value }) {
     const postData = {
       v: '1',
       tid: config.analytics.siteId,
       cid: '555',
-      t: type,
+      t: 'event',
       ec: category,
       ea: action,
       el: label,
-      ev: value,
+    };
+
+    if (value) {
+      postData.value = value;
+    }
+
+    return httpClient.postFormData(config.analytics.endpoint, postData);
+  }
+  function sendPageTrack({ hostname, page, title }) {
+    const postData = {
+      v: '1',
+      tid: config.analytics.siteId,
+      cid: '555',
+      t: 'pageview',
+      dh: hostname,
+      dp: page,
+      dt: title,
     };
 
     return httpClient.postFormData(config.analytics.endpoint, postData);
@@ -18,6 +34,7 @@ function analyticsRepository(httpClient) {
 
   return {
     sendEvent,
+    sendPageTrack,
   };
 }
 

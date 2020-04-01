@@ -5,10 +5,10 @@ $(document).ready(function() {
   var extendConfig = audio.data().config || {};
   var name = title + '|' + programmeCode;
 
-  var evt25 = once(analyticsAudioEvent({ value: 25, action: name }));
-  var evt50 = once(analyticsAudioEvent({ value: 50, action: name }));
-  var evt75 = once(analyticsAudioEvent({ value: 75, action: name }));
-  var evt90 = once(analyticsAudioEvent({ value: 90, action: name }));
+  var evt25 = once(analyticsAudioEvent({ label: '25%', action: name }));
+  var evt50 = once(analyticsAudioEvent({ label: '50%', action: name }));
+  var evt75 = once(analyticsAudioEvent({ label: '75%', action: name }));
+  var evt90 = once(analyticsAudioEvent({ label: '90%', action: name }));
 
   var config = {
     name: title,
@@ -43,8 +43,8 @@ $(document).ready(function() {
       sendEvent({
         category: 'Radio',
         action: config.action,
-        label: 'Percentage',
-        value: config.value,
+        label: config.label,
+        value: 1,
       });
     };
   }

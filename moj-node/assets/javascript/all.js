@@ -1,12 +1,30 @@
 function sendEvent(data) {
-  data.type = 'event';
-
   $.ajax({
     type: "POST",
-    url: '/analytics',
+    url: '/analytics/event',
     data: data
   });
 }
+
+function sendPageTrack(data) {
+  $.ajax({
+    type: "POST",
+    url: '/analytics/page',
+    data: data
+  });
+}
+
+$(document).ready(function() {
+  $("a.piwik_download").click(function() {
+    var data = {
+      category: 'Link Tracking',
+      action: document.location.href,
+      label: $(this).attr('href'),
+    };
+
+    sendEvent(data)
+  });
+});
 
 (function() {
   document.body.addEventListener('click', function(event) {

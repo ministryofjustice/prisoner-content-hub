@@ -1,7 +1,6 @@
 const createAnalyticsService = ({ analyticsRepository }) => {
-  function sendEvent({ type, category, action, label, value }) {
+  function sendEvent({ category, action, label, value }) {
     return analyticsRepository.sendEvent({
-      type,
       category,
       action,
       label,
@@ -9,8 +8,17 @@ const createAnalyticsService = ({ analyticsRepository }) => {
     });
   }
 
+  function sendPageTrack({ hostname, page, title }) {
+    return analyticsRepository.sendPageTrack({
+      hostname,
+      page,
+      title,
+    });
+  }
+
   return {
     sendEvent,
+    sendPageTrack,
   };
 };
 

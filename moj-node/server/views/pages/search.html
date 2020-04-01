@@ -81,6 +81,10 @@
 
 {%block matomo %}
   <script>
-    _paq.push(['trackSiteSearch', '{{ query }}', false, "{{ data | length }}"]);
+    sendEvent({
+        category: "Search",
+        action: "{{ query }}",
+        label: "{{ data | length }}",
+      });
   </script>
 {% endblock %}
