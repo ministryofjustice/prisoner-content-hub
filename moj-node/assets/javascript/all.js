@@ -1,4 +1,6 @@
 function sendEvent(data) {
+  data.type = 'event';
+
   $.ajax({
     type: "POST",
     url: '/analytics',

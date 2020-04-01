@@ -1,7 +1,7 @@
 const createAnalyticsService = ({ analyticsRepository }) => {
-  function sendEvent({ event, category, action, label, value }) {
+  function sendEvent({ type, category, action, label, value }) {
     return analyticsRepository.sendEvent({
-      event,
+      type,
       category,
       action,
       label,

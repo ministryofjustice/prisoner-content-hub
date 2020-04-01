@@ -65,4 +65,8 @@ module.exports = {
     prisonSwitch: getEnv('ENABLE_PRISON_SWITCH', false),
   },
   mockAuth: getEnv('MOCK_AUTH', 'false'),
+  analytics: {
+    endpoint: 'https://www.google-analytics.com/collect',
+    siteId: 'UA-152065860-1',
+  },
 };

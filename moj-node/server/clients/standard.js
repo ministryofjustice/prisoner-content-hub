@@ -41,6 +41,36 @@ class StandardClient {
         return null;
       });
   }
+
+  postFormData(endpoint, data) {
+    const querystring = Object.keys(data)
+      .map(key => `${key}=${encodeURIComponent(data[key])}`)
+      .join('&');
+
+    return this.client
+      .post(endpoint, querystring, {
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+        },
+      })
+      .then(res => {
+        logger.info(
+          `Requested (POST URLENCODED) ${endpoint} with`,
+          querystring,
+        );
+
+        return res.data;
+      })
+      .catch(exp => {
+        logger.info(
+          `Failed to request (POST URLENCODED) ${endpoint} with`,
+          querystring,
+        );
+        logger.error(exp);
+
+        return null;
+      });
+  }
 }
 
 module.exports = {

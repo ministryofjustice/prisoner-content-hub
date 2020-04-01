@@ -8,7 +8,7 @@ const createAnalyticsRouter = ({ analyticsService, logger }) => {
     logger.info('GET /analytics');
 
     analyticsService.sendEvent({
-      event: path(['body', 'event'], req),
+      type: path(['body', 'type'], req),
       category: path(['body', 'category'], req),
       action: path(['body', 'action'], req),
       label: path(['body', 'label'], req),
