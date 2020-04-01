@@ -10,6 +10,7 @@ const nunjucks = require('nunjucks');
 const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('cookie-session');
+const bodyParser = require('body-parser');
 
 const { createIndexRouter } = require('./routes/index');
 const { createTopicsRouter } = require('./routes/topics');
@@ -21,6 +22,7 @@ const { createIepRouter } = require('./routes/iep');
 const { createMoneyRouter } = require('./routes/money');
 const { createTagRouter } = require('./routes/tags');
 const { createGamesRouter } = require('./routes/games');
+const { createAnalyticsRouter } = require('./routes/analytics');
 const { createGettingAJobRouter } = require('./routes/gettingAJob');
 const { createSearchRouter } = require('./routes/search');
 
@@ -43,6 +45,7 @@ const createApp = ({
   healthService,
   offenderService,
   searchService,
+  analyticsService,
 }) => {
   const app = express();
 
@@ -79,6 +82,9 @@ const createApp = ({
 
   // Resource Delivery Configuration
   app.use(compression());
+
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
 
   if (config.production) {
     // Version only changes on reboot
@@ -228,6 +234,7 @@ const createApp = ({
   );
 
   app.use('/games', createGamesRouter({ logger }));
+  app.use('/analytics', createAnalyticsRouter({ analyticsService, logger }));
   app.use(
     ['/working-in-wayland', '/working-in-berwyn'],
     createGettingAJobRouter({ logger, hubContentService, hubMenuService }),

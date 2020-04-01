@@ -39,8 +39,15 @@ $(document).ready(function() {
 
   function analyticsAudioEvent(config) {
     return function() {
-      if (!_paq) return;
-      _paq.push(['trackEvent', 'Radio', config.action, config.name]);
+      // if (!_paq) return;
+      sendEvent({
+        event: 'trackEvent',
+        category: 'Radio',
+        action: config.action,
+        label: config.action,
+        value: config.name,
+      });
+      // _paq.push(['trackEvent', 'Radio', config.action, config.name]);
     };
   }
 

@@ -20,6 +20,7 @@ const { createHealthService } = require('./services/health');
 const { createHubTagsService } = require('./services/hubTags');
 const { createNomisOffenderService } = require('./services/offender');
 const { createSearchService } = require('./services/search');
+const { createAnalyticsService } = require('./services/analytics');
 
 // Repositories
 const {
@@ -35,6 +36,7 @@ const { hubMenuRepository } = require('./repositories/hubMenu');
 const { contentRepository } = require('./repositories/hubContent');
 const { offenderRepository } = require('./repositories/offender');
 const { searchRepository } = require('./repositories/search');
+const { analyticsRepository } = require('./repositories/analytics');
 
 const buildInfo = config.dev ? null : require('../build-info.json'); // eslint-disable-line import/no-unresolved
 
@@ -62,6 +64,9 @@ const offenderService = createNomisOffenderService(
 const searchService = createSearchService({
   searchRepository: searchRepository(new StandardClient()),
 });
+const analyticsService = createAnalyticsService({
+  analyticsRepository: analyticsRepository(new StandardClient()),
+});
 
 const app = createApp({
   appInfo: appInfoService(buildInfo),
@@ -78,6 +83,7 @@ const app = createApp({
   hubTagsService,
   offenderService,
   searchService,
+  analyticsService,
 });
 
 module.exports = app;
