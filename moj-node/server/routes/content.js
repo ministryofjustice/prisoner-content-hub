@@ -23,7 +23,6 @@ const createContentRouter = ({ hubContentService, logger }) => {
       content: true,
       header: false,
       postscript: false,
-      detailsType: 'small',
       newDesigns,
       userName,
       matomoUrl,
