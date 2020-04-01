@@ -66,7 +66,10 @@ module.exports = {
   },
   mockAuth: getEnv('MOCK_AUTH', 'false'),
   analytics: {
-    endpoint: 'https://www.google-analytics.com/collect',
-    siteId: 'UA-152065860-1',
+    endpoint: getEnv(
+      'ANALYTICS_ENDPOINT',
+      'https://www.google-analytics.com/collect',
+    ),
+    siteId: getEnv('ANALYTICS_SITE_ID', 'UA-152065860-4'),
   },
 };
