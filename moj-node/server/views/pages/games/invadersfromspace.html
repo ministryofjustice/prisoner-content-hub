@@ -5,7 +5,7 @@
 {% extends "../../components/template.njk" %}
 
 {% block pageTitle %}
-  {{ data.title }}
+  {{ title }}
 {% endblock %}
 
 {% block head %}
@@ -90,17 +90,17 @@
 
             <img
               id="audio"
-              src="/public/javascript/games/invadersfromspace/images/audio.jpg" />
+              src="/public/javascript/games/invadersfromspace/images/audio.jpg"/>
 
             <img
               class='hide'
               id='mute'
-              src='/public/javascript/games/invadersfromspace/images/mute.jpg' />
+              src='/public/javascript/games/invadersfromspace/images/mute.jpg'/>
 
             <img
               class='hide'
               id='game-over'
-              src='/public/javascript/games/invadersfromspace/images/game-over.jpg' />
+              src='/public/javascript/games/invadersfromspace/images/game-over.jpg'/>
 
             <p id="main-logo">Invaders from Space</p>
 
@@ -111,57 +111,57 @@
             <img
               class="hide"
               id="defender"
-              src="/public/javascript/games/invadersfromspace/images/defender.jpg" />
+              src="/public/javascript/games/invadersfromspace/images/defender.jpg"/>
 
             <img
               class='hide'
               id='defender-death'
-              src='/public/javascript/games/invadersfromspace/images/defender-death.jpg' />
+              src='/public/javascript/games/invadersfromspace/images/defender-death.jpg'/>
 
             <img
               class=""
               id="grunt-1"
-              src="/public/javascript/games/invadersfromspace/images/grunt-1.jpg" />
+              src="/public/javascript/games/invadersfromspace/images/grunt-1.jpg"/>
 
             <img
               class="hide"
               id="grunt-2"
-              src="/public/javascript/games/invadersfromspace/images/grunt-2.jpg" />
+              src="/public/javascript/games/invadersfromspace/images/grunt-2.jpg"/>
 
             <img
               class=""
               id="soldier-1"
-              src="/public/javascript/games/invadersfromspace/images/soldier-1.jpg" />
+              src="/public/javascript/games/invadersfromspace/images/soldier-1.jpg"/>
 
             <img
               class="hide"
               id="soldier-2"
-              src="/public/javascript/games/invadersfromspace/images/soldier-2.jpg" />
+              src="/public/javascript/games/invadersfromspace/images/soldier-2.jpg"/>
 
             <img
               class=""
               id="invader-1"
-              src='/public/javascript/games/invadersfromspace/images/invader-1.jpg' />
+              src='/public/javascript/games/invadersfromspace/images/invader-1.jpg'/>
 
             <img
               class="hide"
               id="invader-2"
-              src='/public/javascript/games/invadersfromspace/images/invader-2.jpg' />
+              src='/public/javascript/games/invadersfromspace/images/invader-2.jpg'/>
 
             <img
               class=""
               id="ufo"
-              src="/public/javascript/games/invadersfromspace/images/ufo.jpg" />
+              src="/public/javascript/games/invadersfromspace/images/ufo.jpg"/>
 
             <img
               class="hide"
               id="lives"
-              src="/public/javascript/games/invadersfromspace/images/lives.jpg" />
+              src="/public/javascript/games/invadersfromspace/images/lives.jpg"/>
 
             <img
               class="hide"
               id="ship-death"
-              src="/public/javascript/games/invadersfromspace/images/ship-death.jpg" />
+              src="/public/javascript/games/invadersfromspace/images/ship-death.jpg"/>
           </div>
         </div>
       </div>
@@ -169,11 +169,10 @@
       <div class="govuk-hub-article-feedback">
         <p class="govuk-body">Tell us what you think:</p>
         {{ hubFeedbackWidget({
-          title: "invadersfromspace",
+          title: title,
           contentType: "game",
-          series: null,
-          establishment: establishmentName
-      })}}
+          feedbackId: feedbackId
+        })}}
       </div>
 
     </main>

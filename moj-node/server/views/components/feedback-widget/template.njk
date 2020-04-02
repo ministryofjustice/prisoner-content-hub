@@ -1,26 +1,20 @@
-<div id="{{ params.id|default('feedback-widget', true) }}">
-  <div class="govuk-hub-feedback">
-    <button
-      class="govuk-link govuk-hub-thumbs govuk-hub-thumbs--up"
-      data-item-feedback
-      data-item-category="{{params.contentType}}"
-      data-item-name="{{ params.title }}"
-      data-item-action="LIKE"
-      data-item-value="1"
+<div id="{{ params.id|default('feedback-widget', true) }}"
+      data-item-name="{{params.name}}"
+      data-item-type="{{params.contentType}}"
+      data-item-title="{{ params.title|default(params.name, true) }}"
       data-item-series="{{params.series}}"
-      data-item-establishment="{{params.establishment}}"
+      data-item-feedback-id="{{params.feedbackId}}"
+  >
+  <div class="govuk-hub-feedback">
+    <button data-feedback-sentiment
+      class="govuk-link govuk-hub-thumbs govuk-hub-thumbs--up"
+      value="LIKE"
       type="button"
     ></button>
 
-    <button
+    <button data-feedback-sentiment
       class="govuk-link govuk-hub-thumbs govuk-hub-thumbs--down"
-      data-item-feedback
-      data-item-category="{{params.contentType}}"
-      data-item-name="{{ params.title }}"
-      data-item-action="DISLIKE"
-      data-item-value="-1"
-      data-item-series="{{params.series}}"
-      data-item-establishment="{{params.establishment}}"
+      value="DISLIKE"
       type="button"
     ></button>
   </div>
@@ -28,25 +22,19 @@
     <strong data-item-feedback-text></strong>
   </div>
   <form
+    data-feedback-form
     class="govuk-hub-comment-form govuk-u-hidden {% if params.sidebar %} govuk-hub-comment-form__sidebar {% endif %} "
-    data-item-comment
-    data-item-category="{{params.contentType}}"
-    data-item-name="{{ params.title }}"
-    data-item-action=""
-    data-item-value=""
-    data-item-series="{{params.series}}"
-    data-item-establishment="{{params.establishment}}"
   >
     <div class="govuk-form-group govuk-!-margin-bottom-2">
       <label id="more-detail" class="govuk-hint">
         <strong>Is there anything else you want to tell us about it?</strong>
       </label>
       <p class="govuk-body govuk-hub-text">Feedback is treated anonymously, unless it breaks prison rules or raises safety concerns.</p>
-      <textarea data-item-comment-box class="govuk-textarea govuk-!-margin-bottom-0 govuk-!-padding-2" id="more-detail" name="value" rows="4" placeholder="Optional" maxlength="240" required></textarea>
+      <textarea data-feedback-comment class="govuk-textarea govuk-!-margin-bottom-0 govuk-!-padding-2" id="more-detail" name="value" rows="4" placeholder="Optional" maxlength="240" required></textarea>
     </div>
     <div class="govuk-hub-comment-form__footer">
       <div class="govuk-hub-comment-counter">
-        <span data-item-counter>240</span> characters left</div>
+        <span data-feedback-comment-counter >240</span> characters left</div>
       <button type="submit" class="govuk-button">Send</button>
     </div>
   </form>
@@ -54,6 +42,6 @@
 <script defer src="/public/javascript/feedback-tracking.js"></script>
 <script>
   window.addEventListener('DOMContentLoaded', function () {
-    feedbackTracker(document.getElementById('{{ params.id|default('feedback-widget', true) }}'));
+    feedbackTracker('{{ params.id|default("feedback-widget", true) }}');
   });
 </script>

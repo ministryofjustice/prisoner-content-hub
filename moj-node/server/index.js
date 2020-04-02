@@ -21,6 +21,7 @@ const { createHubTagsService } = require('./services/hubTags');
 const { createNomisOffenderService } = require('./services/offender');
 const { createSearchService } = require('./services/search');
 const { createAnalyticsService } = require('./services/analytics');
+const { createFeedbackService } = require('./services/feedback');
 
 // Repositories
 const {
@@ -37,6 +38,7 @@ const { contentRepository } = require('./repositories/hubContent');
 const { offenderRepository } = require('./repositories/offender');
 const { searchRepository } = require('./repositories/search');
 const { analyticsRepository } = require('./repositories/analytics');
+const { feedbackRepository } = require('./repositories/feedback');
 
 const buildInfo = config.dev ? null : require('../build-info.json'); // eslint-disable-line import/no-unresolved
 
@@ -67,6 +69,9 @@ const searchService = createSearchService({
 const analyticsService = createAnalyticsService({
   analyticsRepository: analyticsRepository(new StandardClient()),
 });
+const feedbackService = createFeedbackService({
+  feedbackRepository: feedbackRepository(new StandardClient()),
+});
 
 const app = createApp({
   appInfo: appInfoService(buildInfo),
@@ -84,6 +89,7 @@ const app = createApp({
   offenderService,
   searchService,
   analyticsService,
+  feedbackService,
 });
 
 module.exports = app;

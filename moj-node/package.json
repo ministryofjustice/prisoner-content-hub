@@ -68,7 +68,8 @@
     "node-sass-middleware": "0.11.0",
     "nunjucks": "^3.2.0",
     "ramda": "^0.26.1",
-    "retry-axios": "^1.0.1"
+    "retry-axios": "^1.0.1",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.2",

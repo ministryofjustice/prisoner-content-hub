@@ -56,11 +56,12 @@
           <div id="videoPlayerContainer" class="videoPlayer" data-video="{{ data.media }}"></div>
         </div>
         {{ hubFeedbackWidget({
-        title: data.title,
-        contentType: data.contentType,
-        series: data.seriesName,
-        establishment: establishmentName
-      })}}
+          contentId: data.id,
+          title: data.title,
+          contentType: data.contentType,
+          series: data.seriesName,
+          feedbackId: feedbackId
+        })}}
       </div>
 
       <div class="govuk-hub-media-player__description">
@@ -71,9 +72,9 @@
       <ul id="tags-list" class="secondary-tags-list govuk-body">
         {% for tagItem in data.tags %}
           {% if tagItem.name %}
-          <li>
-            <a title="{{tagItem.name}}" href="/tags/{{tagItem.id}}">{{tagItem.name}}</a>
-          </li>
+            <li>
+              <a title="{{tagItem.name}}" href="/tags/{{tagItem.id}}">{{tagItem.name}}</a>
+            </li>
           {% endif %}
         {% endfor %}
       </ul>
