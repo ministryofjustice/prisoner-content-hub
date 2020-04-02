@@ -4,7 +4,7 @@ const express = require('express');
 const createFeedbackRouter = ({ feedbackService, logger }) => {
   const router = express.Router();
 
-  router.post('/', (req, res) => {
+  router.post('/:feedbackId', (req, res) => {
     logger.info('GET /feedback');
 
     const sessionId = path(['session', 'id'], req);
@@ -13,7 +13,7 @@ const createFeedbackRouter = ({ feedbackService, logger }) => {
       title: path(['body', 'title'], req),
       url: path(['body', 'url'], req),
       contentType: path(['body', 'contentType'], req),
-      feedbackId: path(['body', 'id'], req),
+      feedbackId: path(['params', 'feedbackId'], req),
       series: path(['body', 'series'], req),
       sentiment: path(['body', 'sentiment'], req),
       comment: path(['body', 'comment'], req),
