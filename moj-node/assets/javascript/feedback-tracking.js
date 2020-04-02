@@ -2,7 +2,7 @@
   function sendFeedback(data) {
     $.ajax({
       type: 'POST',
-      url: '/feedback',
+      url: '/feedback/' + data.id,
       data: data
     });
   }
