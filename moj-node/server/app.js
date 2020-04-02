@@ -222,6 +222,7 @@ const createApp = ({
     createContentRouter({
       logger,
       hubContentService,
+      analyticsService,
     }),
   );
 

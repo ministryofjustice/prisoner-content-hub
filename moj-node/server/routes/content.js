@@ -2,7 +2,11 @@ const { prop, path } = require('ramda');
 const express = require('express');
 const { relativeUrlFrom } = require('../utils');
 
-const createContentRouter = ({ hubContentService, logger }) => {
+const createContentRouter = ({
+  hubContentService,
+  analyticsService,
+  logger,
+}) => {
   const router = express.Router();
 
   router.get('/:id', async (req, res, next) => {
@@ -68,6 +72,13 @@ const createContentRouter = ({ hubContentService, logger }) => {
         case 'pdf': {
           const url = relativeUrlFrom(data.url, backendUrl);
           logger.info('PROD - Sending PDF to client from:', url);
+          // logger.info(JSON.stringify(data))
+          analyticsService.sendPageTrack({
+            hostname: req.hostname,
+            page: `/content/${id}`,
+            title: data.title,
+          });
+
           const stream = await hubContentService.streamFor(url);
 
           // X-Download-Options prevents Internet Explorer from executing downloads

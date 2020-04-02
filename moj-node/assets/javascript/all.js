@@ -14,18 +14,6 @@ function sendPageTrack(data) {
   });
 }
 
-$(document).ready(function() {
-  $("a.piwik_download").click(function() {
-    var data = {
-      category: 'Link Tracking',
-      action: document.location.href,
-      label: $(this).attr('href'),
-    };
-
-    sendEvent(data)
-  });
-});
-
 (function() {
   document.body.addEventListener('click', function(event) {
     if (matchesAll('[data-state]', event.target)) {

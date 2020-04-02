@@ -24,7 +24,7 @@
   </div>
 {% endmacro %}
 
-<a data-featured-tile-id="{{ params.content.id }}" data-featured-id="{{params.content.id}}" data-featured-title="{{ params.content.title }}" href="{{params.content.contentUrl}}" {% if params.content.contentType === 'pdf' or  params.content.contentType === 'moj_pdf_item' %}class="piwik_download" target="_blank"{% endif %}>
+<a data-featured-tile-id="{{ params.content.id }}" data-featured-id="{{params.content.id}}" data-featured-title="{{ params.content.title }}" href="{{params.content.contentUrl}}" {% if params.content.contentType === 'pdf' or  params.content.contentType === 'moj_pdf_item' %}target="_blank"{% endif %}>
   {% if params.imageAlign === 'left' %}
     {{ tileImage(params.content) }}
     {{ tileContent(params.content) }}
