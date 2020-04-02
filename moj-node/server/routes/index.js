@@ -24,6 +24,7 @@ const createIndexRouter = ({
       const userName = path(['session', 'user', 'name'], req);
       const establishmentId = path(['locals', 'establishmentId'], res);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+      const sessionId = path(['session', 'id'], req);
 
       const featuredContent = await hubFeaturedContentService.hubFeaturedContent(
         { establishmentId },
@@ -56,6 +57,7 @@ const createIndexRouter = ({
         hostname: req.hostname,
         page: '/',
         title: 'Home',
+        sessionId,
       });
 
       res.render('pages/home', {

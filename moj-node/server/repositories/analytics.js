@@ -1,11 +1,11 @@
 const config = require('../config');
 
 function analyticsRepository(httpClient) {
-  function sendEvent({ category, action, label, value }) {
+  function sendEvent({ category, action, label, value, sessionId }) {
     const postData = {
       v: '1',
       tid: config.analytics.siteId,
-      cid: '555',
+      cid: sessionId,
       t: 'event',
       ec: category,
       ea: action,
@@ -18,11 +18,11 @@ function analyticsRepository(httpClient) {
 
     return httpClient.postFormData(config.analytics.endpoint, postData);
   }
-  function sendPageTrack({ hostname, page, title }) {
+  function sendPageTrack({ hostname, page, title, sessionId }) {
     const postData = {
       v: '1',
       tid: config.analytics.siteId,
-      cid: '555',
+      cid: sessionId,
       t: 'pageview',
       dh: hostname,
       dp: page,

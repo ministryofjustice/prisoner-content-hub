@@ -7,11 +7,14 @@ const createAnalyticsRouter = ({ analyticsService, logger }) => {
   router.post('/event', (req, res) => {
     logger.info('GET /analytics/event');
 
+    const sessionId = path(['session', 'id'], req);
+
     analyticsService.sendEvent({
       category: path(['body', 'category'], req),
       action: path(['body', 'action'], req),
       label: path(['body', 'label'], req),
       value: path(['body', 'value'], req),
+      sessionId,
     });
 
     return res.send('OK');
@@ -20,10 +23,13 @@ const createAnalyticsRouter = ({ analyticsService, logger }) => {
   router.post('/page', (req, res) => {
     logger.info('GET /analytics/page');
 
+    const sessionId = path(['session', 'id'], req);
+
     analyticsService.sendPageTrack({
       hostname: path(['body', 'host'], req),
       page: path(['body', 'page'], req),
       title: path(['body', 'title'], req),
+      sessionId,
     });
 
     return res.send('OK');

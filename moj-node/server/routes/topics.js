@@ -23,7 +23,7 @@ const createTopicsRouter = ({ logger, hubMenuService, analyticsService }) => {
       const userName = path(['session', 'user', 'name'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
       const establishmentId = path(['locals', 'establishmentId'], res);
-
+      const sessionId = path(['session', 'id'], req);
       const topics = await hubMenuService.allTopics(establishmentId);
 
       const config = {
@@ -38,6 +38,7 @@ const createTopicsRouter = ({ logger, hubMenuService, analyticsService }) => {
         hostname: req.hostname,
         page: '/topics',
         title: 'Browse the Content Hub',
+        sessionId,
       });
 
       res.render('pages/topics', {

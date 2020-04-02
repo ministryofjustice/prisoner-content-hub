@@ -20,6 +20,7 @@ const createTimetableRouter = ({
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+      const sessionId = path(['session', 'id'], req);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -39,6 +40,7 @@ const createTimetableRouter = ({
         hostname: req.hostname,
         page: '/timetable',
         title: 'Timetable',
+        sessionId,
       });
 
       res.render('pages/timetable', {
@@ -64,6 +66,7 @@ const createTimetableRouter = ({
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+      const sessionId = path(['session', 'id'], req);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -83,6 +86,7 @@ const createTimetableRouter = ({
         hostname: req.hostname,
         page: '/timetable/lastweek',
         title: 'Timetable',
+        sessionId,
       });
 
       res.render('pages/timetable', {
@@ -108,6 +112,7 @@ const createTimetableRouter = ({
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+      const sessionId = path(['session', 'id'], req);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -127,6 +132,7 @@ const createTimetableRouter = ({
         hostname: req.hostname,
         page: '/timetable/nextweek',
         title: 'Timetable',
+        sessionId,
       });
 
       res.render('pages/timetable', {

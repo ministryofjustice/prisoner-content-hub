@@ -36,6 +36,7 @@ const createContentRouter = ({
     try {
       const data = await hubContentService.contentFor(id, establishmentId);
       const contentType = prop('contentType', data);
+      const sessionId = path(['session', 'id'], req);
 
       switch (contentType) {
         case 'radio':
@@ -43,6 +44,7 @@ const createContentRouter = ({
             hostname: req.hostname,
             page: `/content/${id}`,
             title: `${data.title}`,
+            sessionId,
           });
 
           return res.render('pages/audio', {
@@ -55,6 +57,7 @@ const createContentRouter = ({
             hostname: req.hostname,
             page: `/content/${id}`,
             title: `${data.title}`,
+            sessionId,
           });
 
           return res.render('pages/video', {
@@ -68,6 +71,7 @@ const createContentRouter = ({
             hostname: req.hostname,
             page: `/content/${id}`,
             title: `${data.title}`,
+            sessionId,
           });
 
           return res.render('pages/flat-content', {
@@ -81,6 +85,7 @@ const createContentRouter = ({
             hostname: req.hostname,
             page: `/content/${id}`,
             title: `${data.title}`,
+            sessionId,
           });
 
           return res.render('pages/category', {
@@ -97,6 +102,7 @@ const createContentRouter = ({
             category: 'PDFs',
             action: `${data.title}`,
             label: 'Downloads',
+            sessionId,
             value: 1,
           });
 

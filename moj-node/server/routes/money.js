@@ -30,6 +30,7 @@ const createMoneyRouter = ({
     };
 
     const establishmentId = path(['locals', 'establishmentId'], res);
+    const sessionId = path(['session', 'id'], req);
 
     try {
       const balances = await offenderService.getBalancesFor(bookingId);
@@ -39,6 +40,7 @@ const createMoneyRouter = ({
         hostname: req.hostname,
         page: '/money',
         title: 'Money and Debt',
+        sessionId,
       });
 
       return res.render('pages/category', {

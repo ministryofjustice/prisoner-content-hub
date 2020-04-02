@@ -25,12 +25,14 @@ const createTagRouter = ({ logger, hubTagsService, analyticsService }) => {
         newDesigns,
         userName,
       };
+      const sessionId = path(['session', 'id'], req);
 
       const data = await hubTagsService.termFor(id, establishmentId);
       analyticsService.sendPageTrack({
         hostname: req.hostname,
         page: `/tags/${id}`,
         title: data.name,
+        sessionId,
       });
 
       return res.render('pages/tags', {
