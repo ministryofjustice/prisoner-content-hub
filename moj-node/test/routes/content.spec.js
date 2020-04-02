@@ -349,11 +349,15 @@ describe('GET /content/:id', () => {
       }),
       streamFor: sinon.stub().returns(stream),
     };
+    const analyticsService = {
+      sendPageTrack: sinon.stub(),
+    };
 
     it('returns a PDF', () => {
       const router = createContentRouter({
         logger,
         hubContentService,
+        analyticsService,
       });
       const app = setupBasicApp();
 
