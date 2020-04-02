@@ -68,7 +68,7 @@ describe('HealthService', () => {
       const service = createHealthService({ client, logger, config });
       const status = await service.status();
 
-      expect(client.get.callCount).to.equal(3);
+      expect(client.get.callCount).to.equal(2);
       expect(status).to.eql({
         status: PARTIALLY_DEGRADED,
         dependencies: {
@@ -90,7 +90,7 @@ describe('HealthService', () => {
       const service = createHealthService({ client, logger, config });
       const status = await service.status();
 
-      expect(client.get.callCount).to.equal(3);
+      expect(client.get.callCount).to.equal(2);
       expect(status).to.eql({
         status: DOWN,
         dependencies: {
