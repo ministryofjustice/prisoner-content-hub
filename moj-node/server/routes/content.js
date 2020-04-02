@@ -72,11 +72,11 @@ const createContentRouter = ({
         case 'pdf': {
           const url = relativeUrlFrom(data.url, backendUrl);
           logger.info('PROD - Sending PDF to client from:', url);
-          // logger.info(JSON.stringify(data))
+
           analyticsService.sendPageTrack({
             hostname: req.hostname,
             page: `/content/${id}`,
-            title: data.title,
+            title: `${data.title} (PDF)`,
           });
 
           const stream = await hubContentService.streamFor(url);
