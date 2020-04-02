@@ -84,8 +84,6 @@ describe('HealthService', () => {
       client.get
         .returns(null)
         .onSecondCall()
-        .returns(null)
-        .onThirdCall()
         .returns({ status: 'red' });
       const service = createHealthService({ client, logger, config });
       const status = await service.status();
