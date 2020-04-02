@@ -23,7 +23,6 @@ const createTopicsRouter = ({ logger, hubMenuService, analyticsService }) => {
       const userName = path(['session', 'user', 'name'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
       const establishmentId = path(['locals', 'establishmentId'], res);
-      const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
       const topics = await hubMenuService.allTopics(establishmentId);
 
@@ -34,7 +33,6 @@ const createTopicsRouter = ({ logger, hubMenuService, analyticsService }) => {
         detailsType: 'small',
         userName,
         newDesigns,
-        matomoUrl,
       };
       analyticsService.sendPageTrack({
         hostname: req.hostname,

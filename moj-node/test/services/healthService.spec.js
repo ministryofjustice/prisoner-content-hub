@@ -7,7 +7,6 @@ const { logger, createClient } = require('../test-helpers');
 const config = {
   api: {
     hubHealth: 'https://foo.bar/baz',
-    matomo: 'https://foo.bar/baz',
   },
   elasticsearch: {
     health: 'https://foo.bar/baz',
@@ -47,7 +46,6 @@ describe('HealthService', () => {
         status: UP,
         dependencies: {
           drupal: UP,
-          matomo: UP,
           elasticsearch: UP,
         },
       });
@@ -75,7 +73,6 @@ describe('HealthService', () => {
         status: PARTIALLY_DEGRADED,
         dependencies: {
           drupal: DOWN,
-          matomo: UP,
           elasticsearch: UP,
         },
       });
@@ -98,7 +95,6 @@ describe('HealthService', () => {
         status: DOWN,
         dependencies: {
           drupal: DOWN,
-          matomo: DOWN,
           elasticsearch: DOWN,
         },
       });

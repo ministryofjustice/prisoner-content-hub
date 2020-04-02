@@ -35,23 +35,6 @@ function createHealthService({ client, config, logger }) {
     };
   }
 
-  async function getMatomoHealth() {
-    const matomoUrl = path(['api', 'matomo'], config);
-    const result = await client.get(matomoUrl, {
-      query: {
-        module: 'API',
-        method: 'API.getPiwikVersion',
-        token_auth: config.matomoToken,
-      },
-    });
-
-    const isUp = /<(result)>.+<\/\1>/g.test(result);
-
-    return {
-      matomo: isUp ? UP : DOWN,
-    };
-  }
-
   async function getElasticSearchHealth() {
     const elasticsearchUrl = path(['elasticsearch', 'health'], config);
     const result = await client.get(elasticsearchUrl);
@@ -64,18 +47,12 @@ function createHealthService({ client, config, logger }) {
   async function status() {
     try {
       const hubStatus = await getDrupalHealth();
-      const matomoStatus = await getMatomoHealth();
       const elasticSearchStatus = await getElasticSearchHealth();
 
       return {
-        status: allOk(
-          hubStatus.drupal,
-          matomoStatus.matomo,
-          elasticSearchStatus.elasticsearch,
-        ),
+        status: allOk(hubStatus.drupal, elasticSearchStatus.elasticsearch),
         dependencies: {
           ...hubStatus,
-          ...matomoStatus,
           ...elasticSearchStatus,
         },
       };
@@ -85,7 +62,6 @@ function createHealthService({ client, config, logger }) {
         status: DOWN,
         dependencies: {
           drupal: DOWN,
-          matomo: DOWN,
           elasticsearch: DOWN,
         },
       };

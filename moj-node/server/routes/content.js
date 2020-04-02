@@ -21,7 +21,6 @@ const createContentRouter = ({
     const notification = path(['session', 'notification'], req);
     const userName = path(['session', 'user', 'name'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
-    const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
     const config = {
       content: true,
@@ -29,7 +28,6 @@ const createContentRouter = ({
       postscript: false,
       newDesigns,
       userName,
-      matomoUrl,
     };
 
     const establishmentId = path(['locals', 'establishmentId'], res);

@@ -26,7 +26,6 @@ const createGettingAJobRouter = ({
     logger.info(`GET ${req.originalUrl}`);
 
     const establishmentId = path(['locals', 'establishmentId'], res);
-    const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
     const establishmentName = establishments[establishmentId];
     const title = `Working in ${establishmentName}`;
@@ -56,7 +55,6 @@ const createGettingAJobRouter = ({
       detailsType: 'small',
       userName,
       establishmentId,
-      matomoUrl,
     };
 
     analyticsService.sendPageTrack({
@@ -87,7 +85,6 @@ const createGettingAJobRouter = ({
     const menu = hubMenuService.gettingAJobMenu(establishmentId);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const userName = path(['session', 'user', 'name'], req);
-    const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
     const config = {
       content: true,
@@ -97,7 +94,6 @@ const createGettingAJobRouter = ({
       detailsType: 'small',
       userName,
       establishmentId,
-      matomoUrl,
     };
 
     try {
