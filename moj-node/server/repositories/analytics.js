@@ -12,7 +12,7 @@ function analyticsRepository(httpClient) {
       el: label,
     };
 
-    if (value) {
+    if (value !== undefined) {
       postData.value = value;
     }
 

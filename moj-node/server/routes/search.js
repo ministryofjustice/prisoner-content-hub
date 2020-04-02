@@ -1,7 +1,7 @@
 const { path } = require('ramda');
 const express = require('express');
 
-const createSearchRouter = ({ searchService, logger }) => {
+const createSearchRouter = ({ searchService, analyticsService, logger }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -26,6 +26,12 @@ const createSearchRouter = ({ searchService, logger }) => {
 
     try {
       results = await searchService.find({ query, establishmentId });
+      analyticsService.sendEvent({
+        category: 'Search',
+        action: query,
+        label: JSON.stringify(results),
+        value: results.length,
+      });
 
       return res.render('pages/search', {
         title: 'Search',

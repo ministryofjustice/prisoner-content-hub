@@ -24,6 +24,11 @@ const hubMenuService = {
   ]),
 };
 
+const analyticsService = {
+  sendPageTrack: sinon.stub(),
+  sendEvent: sinon.stub(),
+};
+
 const setPrisonMiddleware = establishmentId => (req, res, next) => {
   res.locals = { establishmentId };
   next();
@@ -34,6 +39,7 @@ describe('GET /working-in-(berwyn|wayland)', () => {
     logger,
     hubContentService,
     hubMenuService,
+    analyticsService,
   });
 
   describe('/', () => {

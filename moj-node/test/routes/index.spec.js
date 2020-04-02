@@ -44,9 +44,14 @@ describe('GET /', () => {
 
   describe('Homepage', () => {
     beforeEach(() => {
+      const analyticsService = {
+        sendPageTrack: sinon.stub(),
+        sendEvent: sinon.stub(),
+      };
       router = createIndexRouter({
         logger,
         hubFeaturedContentService,
+        analyticsService,
       });
 
       app = setupBasicApp();

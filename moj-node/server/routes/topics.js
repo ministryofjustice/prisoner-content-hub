@@ -12,7 +12,7 @@ const fixUrls = element => {
   }
 };
 
-const createTopicsRouter = ({ logger, hubMenuService }) => {
+const createTopicsRouter = ({ logger, hubMenuService, analyticsService }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -36,6 +36,11 @@ const createTopicsRouter = ({ logger, hubMenuService }) => {
         newDesigns,
         matomoUrl,
       };
+      analyticsService.sendPageTrack({
+        hostname: req.hostname,
+        page: '/topics',
+        title: 'Browse the Content Hub',
+      });
 
       res.render('pages/topics', {
         title: 'Browse the Content Hub',

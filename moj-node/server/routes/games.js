@@ -1,7 +1,7 @@
 const { path } = require('ramda');
 const express = require('express');
 
-const createGamesRouter = ({ logger }) => {
+const createGamesRouter = ({ analyticsService, logger }) => {
   const router = express.Router();
 
   const config = {
@@ -18,6 +18,11 @@ const createGamesRouter = ({ logger }) => {
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
+    analyticsService.sendPageTrack({
+      hostname: req.hostname,
+      page: '/games/chess',
+      title: 'Chess',
+    });
 
     return res.render('pages/games/chess', {
       title: 'Chess',
@@ -36,6 +41,11 @@ const createGamesRouter = ({ logger }) => {
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
+    analyticsService.sendPageTrack({
+      hostname: req.hostname,
+      page: '/games/sudoku',
+      title: 'Sudoku',
+    });
 
     return res.render('pages/games/sudoku', {
       title: 'Sudoku',
@@ -54,6 +64,11 @@ const createGamesRouter = ({ logger }) => {
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
+    analyticsService.sendPageTrack({
+      hostname: req.hostname,
+      page: '/games/neontroids',
+      title: 'Neontroids',
+    });
 
     return res.render('pages/games/neontroids', {
       title: 'Neontroids',
@@ -72,6 +87,11 @@ const createGamesRouter = ({ logger }) => {
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
+    analyticsService.sendPageTrack({
+      hostname: req.hostname,
+      page: '/games/mimstris',
+      title: 'Mimstris',
+    });
 
     return res.render('pages/games/mimstris', {
       title: 'Mimstris',
@@ -90,6 +110,11 @@ const createGamesRouter = ({ logger }) => {
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
+    analyticsService.sendPageTrack({
+      hostname: req.hostname,
+      page: '/games/invadersfromspace',
+      title: 'Invaders from Space',
+    });
 
     return res.render('pages/games/invadersfromspace', {
       title: 'Invaders from Space',

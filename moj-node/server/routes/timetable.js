@@ -2,7 +2,11 @@ const express = require('express');
 const { path } = require('ramda');
 const { format, addDays, subDays } = require('date-fns');
 
-const createTimetableRouter = ({ logger, offenderService }) => {
+const createTimetableRouter = ({
+  logger,
+  offenderService,
+  analyticsService,
+}) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -33,6 +37,11 @@ const createTimetableRouter = ({ logger, offenderService }) => {
         newDesigns,
         matomoUrl,
       };
+      analyticsService.sendPageTrack({
+        hostname: req.hostname,
+        page: '/timetable',
+        title: 'Timetable',
+      });
 
       res.render('pages/timetable', {
         title: 'Timetable',
@@ -74,6 +83,11 @@ const createTimetableRouter = ({ logger, offenderService }) => {
         newDesigns,
         matomoUrl,
       };
+      analyticsService.sendPageTrack({
+        hostname: req.hostname,
+        page: '/timetable/lastweek',
+        title: 'Timetable',
+      });
 
       res.render('pages/timetable', {
         title: 'Timetable',
@@ -115,6 +129,11 @@ const createTimetableRouter = ({ logger, offenderService }) => {
         newDesigns,
         matomoUrl,
       };
+      analyticsService.sendPageTrack({
+        hostname: req.hostname,
+        page: '/timetable/nextweek',
+        title: 'Timetable',
+      });
 
       res.render('pages/timetable', {
         title: 'Timetable',

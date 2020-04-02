@@ -7,7 +7,11 @@ const { setupBasicApp, logger } = require('../test-helpers');
 describe('GET /games', () => {
   describe('/chess', () => {
     it('renders a chess game page', () => {
-      const router = createGamesRouter({ logger });
+      const analyticsService = {
+        sendPageTrack: sinon.stub(),
+        sendEvent: sinon.stub(),
+      };
+      const router = createGamesRouter({ logger, analyticsService });
       const app = setupBasicApp();
 
       app.use('/games', router);
@@ -25,7 +29,11 @@ describe('GET /games', () => {
 
   describe('/sudoku', () => {
     it('renders a sudoku game page', () => {
-      const router = createGamesRouter({ logger });
+      const analyticsService = {
+        sendPageTrack: sinon.stub(),
+        sendEvent: sinon.stub(),
+      };
+      const router = createGamesRouter({ logger, analyticsService });
       const app = setupBasicApp();
 
       app.use('/games', router);
@@ -43,7 +51,11 @@ describe('GET /games', () => {
 
   describe('/neontroids', () => {
     it('renders a neontroids game page', () => {
-      const router = createGamesRouter({ logger });
+      const analyticsService = {
+        sendPageTrack: sinon.stub(),
+        sendEvent: sinon.stub(),
+      };
+      const router = createGamesRouter({ logger, analyticsService });
       const app = setupBasicApp();
 
       app.use('/games', router);

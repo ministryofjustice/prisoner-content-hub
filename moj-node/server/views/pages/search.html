@@ -78,13 +78,3 @@
   </div>
 
 {% endblock %}
-
-{%block matomo %}
-  <script>
-    sendEvent({
-        category: "Search",
-        action: "{{ query }}",
-        label: "{{ data | length }}",
-      });
-  </script>
-{% endblock %}

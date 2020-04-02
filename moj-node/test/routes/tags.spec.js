@@ -57,9 +57,14 @@ describe('GET /tags', () => {
           const hubTagsService = {
             termFor: sinon.stub().returns(data),
           };
+          const analyticsService = {
+            sendPageTrack: sinon.stub(),
+            sendEvent: sinon.stub(),
+          };
           const router = createTagRouter({
             logger,
             hubTagsService,
+            analyticsService,
           });
           const app = setupBasicApp();
 
@@ -97,9 +102,14 @@ describe('GET /tags', () => {
               },
             }),
           };
+          const analyticsService = {
+            sendPageTrack: sinon.stub(),
+            sendEvent: sinon.stub(),
+          };
           const router = createTagRouter({
             logger,
             hubTagsService,
+            analyticsService,
           });
           const app = setupBasicApp();
 
@@ -132,9 +142,14 @@ describe('GET /tags', () => {
               },
             }),
           };
+          const analyticsService = {
+            sendPageTrack: sinon.stub(),
+            sendEvent: sinon.stub(),
+          };
           const router = createTagRouter({
             logger,
             hubTagsService,
+            analyticsService,
           });
           const app = setupBasicApp();
 
@@ -163,9 +178,14 @@ describe('GET /tags', () => {
           const hubTagsService = {
             termFor: sinon.stub().returns(data),
           };
+          const analyticsService = {
+            sendPageTrack: sinon.stub(),
+            sendEvent: sinon.stub(),
+          };
           const router = createTagRouter({
             logger,
             hubTagsService,
+            analyticsService,
           });
           const app = setupBasicApp();
 
@@ -217,7 +237,15 @@ describe('GET /tags', () => {
       const hubTagsService = {
         relatedContentFor: sinon.stub().returns(data),
       };
-      const router = createTagRouter({ logger, hubTagsService });
+      const analyticsService = {
+        sendPageTrack: sinon.stub(),
+        sendEvent: sinon.stub(),
+      };
+      const router = createTagRouter({
+        logger,
+        hubTagsService,
+        analyticsService,
+      });
       const app = setupBasicApp();
 
       app.use('/', router);

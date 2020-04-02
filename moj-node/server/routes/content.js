@@ -41,12 +41,24 @@ const createContentRouter = ({
 
       switch (contentType) {
         case 'radio':
+          analyticsService.sendPageTrack({
+            hostname: req.hostname,
+            page: `/content/${id}`,
+            title: `${data.title}`,
+          });
+
           return res.render('pages/audio', {
             title: data.title,
             config,
             data,
           });
         case 'video':
+          analyticsService.sendPageTrack({
+            hostname: req.hostname,
+            page: `/content/${id}`,
+            title: `${data.title}`,
+          });
+
           return res.render('pages/video', {
             title: data.title,
             config,
@@ -54,6 +66,11 @@ const createContentRouter = ({
           });
         case 'page':
           config.content = false;
+          analyticsService.sendPageTrack({
+            hostname: req.hostname,
+            page: `/content/${id}`,
+            title: `${data.title}`,
+          });
 
           return res.render('pages/flat-content', {
             title: data.title,
@@ -62,6 +79,11 @@ const createContentRouter = ({
           });
         case 'landing-page':
           config.postscript = true;
+          analyticsService.sendPageTrack({
+            hostname: req.hostname,
+            page: `/content/${id}`,
+            title: `${data.title}`,
+          });
 
           return res.render('pages/category', {
             title: data.title,
@@ -73,10 +95,11 @@ const createContentRouter = ({
           const url = relativeUrlFrom(data.url, backendUrl);
           logger.info('PROD - Sending PDF to client from:', url);
 
-          analyticsService.sendPageTrack({
-            hostname: req.hostname,
-            page: `/content/${id}`,
-            title: `${data.title} (PDF)`,
+          analyticsService.sendEvent({
+            category: 'PDFs',
+            action: `${data.title}`,
+            label: 'Downloads',
+            value: 1,
           });
 
           const stream = await hubContentService.streamFor(url);

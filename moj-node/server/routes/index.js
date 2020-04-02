@@ -9,7 +9,11 @@ const getFacilitiesListFor = id =>
     ? facilitiesList[id]
     : '/404';
 
-const createIndexRouter = ({ logger, hubFeaturedContentService }) => {
+const createIndexRouter = ({
+  logger,
+  hubFeaturedContentService,
+  analyticsService,
+}) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -50,6 +54,11 @@ const createIndexRouter = ({ logger, hubFeaturedContentService }) => {
         // 'Money & debt': '/content/4201',
         Chaplaincy: '/tags/901',
       };
+      analyticsService.sendPageTrack({
+        hostname: req.hostname,
+        page: '/',
+        title: 'Home',
+      });
 
       res.render('pages/home', {
         notification,

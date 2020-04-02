@@ -169,6 +169,7 @@ const createApp = ({
     createIndexRouter({
       logger,
       hubFeaturedContentService,
+      analyticsService,
     }),
   );
 
@@ -177,6 +178,7 @@ const createApp = ({
     createTopicsRouter({
       logger,
       hubMenuService,
+      analyticsService,
     }),
   );
 
@@ -186,6 +188,7 @@ const createApp = ({
       createTimetableRouter({
         logger,
         offenderService,
+        analyticsService,
       }),
     );
 
@@ -194,6 +197,7 @@ const createApp = ({
       createVisitsRouter({
         hubContentService,
         offenderService,
+        analyticsService,
         logger,
       }),
     );
@@ -203,6 +207,7 @@ const createApp = ({
       createIepRouter({
         hubContentService,
         offenderService,
+        analyticsService,
         logger,
       }),
     );
@@ -212,6 +217,7 @@ const createApp = ({
       createMoneyRouter({
         hubContentService,
         offenderService,
+        analyticsService,
         logger,
       }),
     );
@@ -231,16 +237,25 @@ const createApp = ({
     createTagRouter({
       logger,
       hubTagsService,
+      analyticsService,
     }),
   );
 
-  app.use('/games', createGamesRouter({ logger }));
+  app.use('/games', createGamesRouter({ analyticsService, logger }));
   app.use('/analytics', createAnalyticsRouter({ analyticsService, logger }));
   app.use(
     ['/working-in-wayland', '/working-in-berwyn'],
-    createGettingAJobRouter({ logger, hubContentService, hubMenuService }),
+    createGettingAJobRouter({
+      logger,
+      hubContentService,
+      hubMenuService,
+      analyticsService,
+    }),
   );
-  app.use('/search', createSearchRouter({ logger, searchService }));
+  app.use(
+    '/search',
+    createSearchRouter({ logger, searchService, analyticsService }),
+  );
 
   app.use('*', (req, res) => {
     res.status(404);

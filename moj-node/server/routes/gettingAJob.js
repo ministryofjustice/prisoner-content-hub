@@ -18,6 +18,7 @@ const createGettingAJobRouter = ({
   logger,
   hubContentService,
   hubMenuService,
+  analyticsService,
 }) => {
   const router = express.Router();
 
@@ -57,6 +58,12 @@ const createGettingAJobRouter = ({
       establishmentId,
       matomoUrl,
     };
+
+    analyticsService.sendPageTrack({
+      hostname: req.hostname,
+      page: req.originalUrl,
+      title,
+    });
 
     return res.render('pages/getting-a-job', {
       breadcrumbs,
@@ -121,6 +128,12 @@ const createGettingAJobRouter = ({
           text: data.title,
         },
       ];
+
+      analyticsService.sendPageTrack({
+        hostname: req.hostname,
+        page: req.originalUrl,
+        title: data.title,
+      });
 
       return res.render('pages/getting-a-job-content', {
         config,
