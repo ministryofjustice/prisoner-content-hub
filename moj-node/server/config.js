@@ -67,4 +67,11 @@ module.exports = {
     ),
     siteId: getEnv('ANALYTICS_SITE_ID', 'UA-152065860-4'),
   },
+  feedback: {
+    endpoint: getEnv(
+      'FEEDBACK_URL',
+      'http://localhost:9200/local-feedback/_doc',
+      { requireInProduction: true },
+    ),
+  },
 };

@@ -26,9 +26,6 @@ const createGamesRouter = ({ analyticsService, logger }) => {
 
     return res.render('pages/games/chess', {
       title: 'Chess',
-      data: {
-        title: 'Chess',
-      },
       config,
     });
   });
@@ -49,9 +46,6 @@ const createGamesRouter = ({ analyticsService, logger }) => {
 
     return res.render('pages/games/sudoku', {
       title: 'Sudoku',
-      data: {
-        title: 'Sudoku',
-      },
       config,
     });
   });
@@ -72,9 +66,6 @@ const createGamesRouter = ({ analyticsService, logger }) => {
 
     return res.render('pages/games/neontroids', {
       title: 'Neontroids',
-      data: {
-        title: 'Neontroids',
-      },
       config,
     });
   });
@@ -95,9 +86,6 @@ const createGamesRouter = ({ analyticsService, logger }) => {
 
     return res.render('pages/games/mimstris', {
       title: 'Mimstris',
-      data: {
-        title: 'Mimstris',
-      },
       config,
     });
   });
@@ -118,9 +106,6 @@ const createGamesRouter = ({ analyticsService, logger }) => {
 
     return res.render('pages/games/invadersfromspace', {
       title: 'Invaders from Space',
-      data: {
-        title: 'Invaders from Space',
-      },
       config,
     });
   });

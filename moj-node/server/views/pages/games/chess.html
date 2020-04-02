@@ -5,7 +5,7 @@
 {% extends "../../components/template.njk" %}
 
 {% block pageTitle %}
-  {{ data.title }}
+  {{ title }}
 {% endblock %}
 
 {% block head %}
@@ -168,11 +168,10 @@
     <div class="govuk-hub-article-feedback govuk-!-margin-bottom-9">
       <p class="govuk-body">Tell us what you think:</p>
       {{ hubFeedbackWidget({
-      title: "Chess",
-      contentType: "game",
-      series: null,
-      establishment: establishmentName
-    })}}
+        title: title,
+        contentType: "game",
+        feedbackId: feedbackId
+      })}}
     </div>
   </div>
 

@@ -11,6 +11,7 @@ const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
+const { v4: uuid } = require('uuid');
 
 const { createIndexRouter } = require('./routes/index');
 const { createTopicsRouter } = require('./routes/topics');
@@ -23,6 +24,7 @@ const { createMoneyRouter } = require('./routes/money');
 const { createTagRouter } = require('./routes/tags');
 const { createGamesRouter } = require('./routes/games');
 const { createAnalyticsRouter } = require('./routes/analytics');
+const { createFeedbackRouter } = require('./routes/feedback');
 const { createGettingAJobRouter } = require('./routes/gettingAJob');
 const { createSearchRouter } = require('./routes/search');
 
@@ -46,6 +48,7 @@ const createApp = ({
   offenderService,
   searchService,
   analyticsService,
+  feedbackService,
 }) => {
   const app = express();
 
@@ -164,6 +167,14 @@ const createApp = ({
   // Health end point
   app.use('/health', createHealthRouter({ appInfo, healthService }));
 
+  app.use((req, res, next) => {
+    if (req.session && !req.session.id) {
+      req.session.id = uuid();
+    }
+    res.locals.feedbackId = uuid();
+    next();
+  });
+
   app.use(
     '/',
     createIndexRouter({
@@ -243,6 +254,7 @@ const createApp = ({
 
   app.use('/games', createGamesRouter({ analyticsService, logger }));
   app.use('/analytics', createAnalyticsRouter({ analyticsService, logger }));
+  app.use('/feedback', createFeedbackRouter({ feedbackService, logger }));
   app.use(
     ['/working-in-wayland', '/working-in-berwyn'],
     createGettingAJobRouter({

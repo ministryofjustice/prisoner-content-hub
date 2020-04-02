@@ -62,11 +62,13 @@
       <p class="govuk-hub-article-feedback govuk-hub-feedback-text">Tell us what you think about this topic:</p>
     {% endif %}
     {{ hubFeedbackWidget({
-        title: data.title,
-        contentType: data.contentType,
-        series: data.name,
-        establishment: establishmentName
-      })}}
+      contentId: data.id,
+      title: data.title,
+      name: data.name,
+      contentType: data.contentType,
+      series: data.name,
+      feedbackId: feedbackId
+    })}}
   </div>
 
 {% endblock %}
