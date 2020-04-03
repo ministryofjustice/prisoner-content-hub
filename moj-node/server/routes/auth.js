@@ -6,6 +6,7 @@ module.exports = function Login({
   formParser,
   authenticateUser,
   createUserSession,
+  analyticsService,
 }) {
   const router = express.Router();
 
@@ -27,6 +28,7 @@ module.exports = function Login({
       const userName = path(['session', 'user', 'name'], req);
       const form = pathOr({}, ['session', 'form'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+      const sessionId = path(['session', 'id'], req);
 
       const config = {
         content: false,
@@ -38,6 +40,13 @@ module.exports = function Login({
         returnUrl: req.query.returnUrl || '/',
         hideBar: true,
       };
+
+      analyticsService.sendPageTrack({
+        hostname: req.hostname,
+        page: '/auth/signin',
+        title: 'Sign in',
+        sessionId,
+      });
 
       res.render('pages/signin', {
         title: 'Sign in',
