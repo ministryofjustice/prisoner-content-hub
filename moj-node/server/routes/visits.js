@@ -18,7 +18,7 @@ const createVisitsRouter = ({
     const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
-
+    const sessionId = path(['session', 'id'], req);
     const config = {
       content: true,
       header: false,
@@ -34,7 +34,6 @@ const createVisitsRouter = ({
     try {
       const visits = await offenderService.getVisitsFor(bookingId);
       const data = await hubContentService.contentFor(id, establishmentId);
-      const sessionId = path(['session', 'id'], req);
       data.personalisedData = visits;
       analyticsService.sendPageTrack({
         hostname: req.hostname,

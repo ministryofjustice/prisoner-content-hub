@@ -13,6 +13,7 @@ const createSearchRouter = ({ searchService, analyticsService, logger }) => {
     const query = path(['query', 'query'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const userName = path(['session', 'user', 'name'], req);
+    const sessionId = path(['session', 'id'], req);
     const config = {
       content: false,
       header: false,
@@ -29,6 +30,7 @@ const createSearchRouter = ({ searchService, analyticsService, logger }) => {
         action: query,
         label: JSON.stringify(results),
         value: results.length,
+        sessionId,
       });
 
       return res.render('pages/search', {
