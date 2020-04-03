@@ -180,6 +180,7 @@ jobs:
             ELASTICSEARCH_ENDPOINT="UNSET" \
             ESTABLISHMENT_NAME="berwyn" \
             NOMIS_API_ENDPOINT="https://foo.bar" \
+            FEEDBACK_URL="http://foo.bar" \
             npm run test:e2e:run
       - store_artifacts:
           path: ./cypress/videos
