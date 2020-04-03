@@ -221,6 +221,7 @@ const createApp = ({
         mockAuth: config.mockAuth,
       }),
       createUserSession: createUserSession({ offenderService }),
+      analyticsService,
     }),
   );
 
