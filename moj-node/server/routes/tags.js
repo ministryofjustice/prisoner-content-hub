@@ -1,7 +1,7 @@
 const express = require('express');
 const { path } = require('ramda');
 
-const createTagRouter = ({ logger, hubTagsService }) => {
+const createTagRouter = ({ logger, hubTagsService, analyticsService }) => {
   const router = express.Router();
 
   router.get('/:id', async (req, res, next) => {
@@ -17,7 +17,6 @@ const createTagRouter = ({ logger, hubTagsService }) => {
       const userName = path(['session', 'user', 'name'], req);
       const establishmentId = path(['locals', 'establishmentId'], res);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
-      const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
       const config = {
         content: true,
         header: false,
@@ -25,10 +24,16 @@ const createTagRouter = ({ logger, hubTagsService }) => {
         detailsType: 'small',
         newDesigns,
         userName,
-        matomoUrl,
       };
+      const sessionId = path(['session', 'id'], req);
 
       const data = await hubTagsService.termFor(id, establishmentId);
+      analyticsService.sendPageTrack({
+        hostname: req.hostname,
+        page: `/tags/${id}`,
+        title: data.name,
+        sessionId,
+      });
 
       return res.render('pages/tags', {
         title: data.name,

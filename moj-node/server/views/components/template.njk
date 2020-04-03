@@ -10,10 +10,7 @@
 <html lang="{{ htmlLang | default('en') }}" class="govuk-template {{ htmlClasses }}">
   <head>
     <meta charset="utf-8"/>
-    <title>
-      {% block pageTitle %}{{establishmentName}}
-      {% endblock %}
-    </title>
+    <title>{% block pageTitle %}{{establishmentName}}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="{{ themeColor | default('#0b0c0c') }}"/>
     <meta name="robots" content="noindex, nofollow, noimageindex">
@@ -23,34 +20,6 @@
 
     {# The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback #}
     <meta property="og:image" content="{{ assetPath | default('/assets') }}/images/govuk-opengraph-image.png">
-
-    {% block analytics %}
-      <!-- Matomo -->
-      <script>
-        var _paq = _paq || [];
-        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-        _paq.push(['enableLinkTracking']);
-        _paq.push(['enableJSErrorTracking']);
-        (function () {
-          var u = "//{{config.matomoUrl}}/";
-          _paq.push([
-            'setTrackerUrl', u + 'piwik.php'
-          ]);
-          _paq.push(['setSiteId', '1']);
-          var d = document,
-            g = d.createElement('script'),
-            s = d.getElementsByTagName('script')[0];
-          g.type = 'text/javascript';
-          g.async = true;
-          g.defer = true;
-          g.src = u + 'piwik.js';
-          s
-            .parentNode
-            .insertBefore(g, s);
-        })();
-      </script>
-      <!-- End Matomo Code -->
-    {% endblock %}
 
     <script src="/public/javascript/polyfills.js"></script>
   </head>
@@ -138,12 +107,6 @@
     <script src="/public/javascript/search.js"></script>
 
     {% block bodyEnd %}{% endblock %}
-
-    {%block matomo %}
-      <script>
-        _paq.push(['trackPageView']);
-      </script>
-    {% endblock %}
 
   </body>
 </html>

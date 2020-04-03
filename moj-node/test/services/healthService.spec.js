@@ -7,7 +7,6 @@ const { logger, createClient } = require('../test-helpers');
 const config = {
   api: {
     hubHealth: 'https://foo.bar/baz',
-    matomo: 'https://foo.bar/baz',
   },
   elasticsearch: {
     health: 'https://foo.bar/baz',
@@ -42,12 +41,11 @@ describe('HealthService', () => {
       const service = createHealthService({ client, logger, config });
       const status = await service.status();
 
-      expect(client.get.callCount).to.equal(3);
+      expect(client.get.callCount).to.equal(2);
       expect(status).to.eql({
         status: UP,
         dependencies: {
           drupal: UP,
-          matomo: UP,
           elasticsearch: UP,
         },
       });
@@ -70,12 +68,11 @@ describe('HealthService', () => {
       const service = createHealthService({ client, logger, config });
       const status = await service.status();
 
-      expect(client.get.callCount).to.equal(3);
+      expect(client.get.callCount).to.equal(2);
       expect(status).to.eql({
         status: PARTIALLY_DEGRADED,
         dependencies: {
           drupal: DOWN,
-          matomo: UP,
           elasticsearch: UP,
         },
       });
@@ -87,18 +84,15 @@ describe('HealthService', () => {
       client.get
         .returns(null)
         .onSecondCall()
-        .returns(null)
-        .onThirdCall()
         .returns({ status: 'red' });
       const service = createHealthService({ client, logger, config });
       const status = await service.status();
 
-      expect(client.get.callCount).to.equal(3);
+      expect(client.get.callCount).to.equal(2);
       expect(status).to.eql({
         status: DOWN,
         dependencies: {
           drupal: DOWN,
-          matomo: DOWN,
           elasticsearch: DOWN,
         },
       });

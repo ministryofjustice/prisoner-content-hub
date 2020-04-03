@@ -6,6 +6,8 @@ assets/stylesheets
 assets/javascript/polyfills.js
 assets/javascript/all.js
 assets/javascript/search.js
+assets/javascript/feedback-tracking.js
+assets/javascript/audioPlayer.js
 test/resource/featuredItemTile.json
 .vscode
 .cache

@@ -1,7 +1,7 @@
 const { path } = require('ramda');
 const express = require('express');
 
-const createGamesRouter = ({ logger }) => {
+const createGamesRouter = ({ analyticsService, logger }) => {
   const router = express.Router();
 
   const config = {
@@ -14,16 +14,20 @@ const createGamesRouter = ({ logger }) => {
     logger.info('GET /games/chess');
     const userDetails = path(['session', 'user'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+    const sessionId = path(['session', 'id'], req);
 
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
+    analyticsService.sendPageTrack({
+      hostname: req.hostname,
+      page: '/games/chess',
+      title: 'Chess',
+      sessionId,
+    });
 
     return res.render('pages/games/chess', {
       title: 'Chess',
-      data: {
-        title: 'Chess',
-      },
       config,
     });
   });
@@ -32,16 +36,20 @@ const createGamesRouter = ({ logger }) => {
     logger.info('GET /games/sudoku');
     const userDetails = path(['session', 'user'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+    const sessionId = path(['session', 'id'], req);
 
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
+    analyticsService.sendPageTrack({
+      hostname: req.hostname,
+      page: '/games/sudoku',
+      title: 'Sudoku',
+      sessionId,
+    });
 
     return res.render('pages/games/sudoku', {
       title: 'Sudoku',
-      data: {
-        title: 'Sudoku',
-      },
       config,
     });
   });
@@ -50,16 +58,20 @@ const createGamesRouter = ({ logger }) => {
     logger.info('GET /games/neontroids');
     const userDetails = path(['session', 'user'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+    const sessionId = path(['session', 'id'], req);
 
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
+    analyticsService.sendPageTrack({
+      hostname: req.hostname,
+      page: '/games/neontroids',
+      title: 'Neontroids',
+      sessionId,
+    });
 
     return res.render('pages/games/neontroids', {
       title: 'Neontroids',
-      data: {
-        title: 'Neontroids',
-      },
       config,
     });
   });
@@ -68,16 +80,20 @@ const createGamesRouter = ({ logger }) => {
     logger.info('GET /games/mimstris');
     const userDetails = path(['session', 'user'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+    const sessionId = path(['session', 'id'], req);
 
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
+    analyticsService.sendPageTrack({
+      hostname: req.hostname,
+      page: '/games/mimstris',
+      title: 'Mimstris',
+      sessionId,
+    });
 
     return res.render('pages/games/mimstris', {
       title: 'Mimstris',
-      data: {
-        title: 'Mimstris',
-      },
       config,
     });
   });
@@ -86,16 +102,20 @@ const createGamesRouter = ({ logger }) => {
     logger.info('GET /games/invadersfromspace');
     const userDetails = path(['session', 'user'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+    const sessionId = path(['session', 'id'], req);
 
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
+    analyticsService.sendPageTrack({
+      hostname: req.hostname,
+      page: '/games/invadersfromspace',
+      title: 'Invaders from Space',
+      sessionId,
+    });
 
     return res.render('pages/games/invadersfromspace', {
       title: 'Invaders from Space',
-      data: {
-        title: 'Invaders from Space',
-      },
       config,
     });
   });

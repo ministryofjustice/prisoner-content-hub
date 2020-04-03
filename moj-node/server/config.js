@@ -1,9 +1,7 @@
 const { getEnv, isProduction, isTest } = require('../utils/index');
 
 const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
-const matomoUrl = getEnv('MATOMO_URL', { requireInProduction: true });
 const backendUrl = getEnv('BACKEND_URL', 'http://hub-be:80');
-const matomoEndpoint = getEnv('MATOMO_API_URI', { requireInProduction: true });
 const nomisEndpoint = getEnv('NOMIS_API_ENDPOINT', 'https://api.nomis', {
   requireInProduction: true,
 });
@@ -22,7 +20,6 @@ module.exports = {
   dev: !isProduction && !isTest,
   test: isTest,
   production: isProduction,
-  matomoUrl,
   backendUrl,
   cookieSecret: getEnv('COOKIE_SECRET', 'keyboard cat'),
   establishmentName: getEnv('ESTABLISHMENT_NAME', 'berwyn', {
@@ -34,7 +31,6 @@ module.exports = {
     domainController: `ldap://${getEnv('DOMAIN_CONTROLLER', 'myad.example')}`,
   },
   api: {
-    matomo: `${matomoEndpoint}/index.php`,
     hubHealth: `${hubEndpoint}/api/health`,
     hubContent: `${hubEndpoint}/v1/api/content`,
     hubCategory: `${hubEndpoint}/v1/api/category`,
@@ -59,10 +55,23 @@ module.exports = {
     health: `${elasticSearchEndpoint}/_cluster/health?pretty`,
     search: `${elasticSearchEndpoint}/elasticsearch_index_hubdb_content_index/_search`,
   },
-  matomoToken: getEnv('MATOMO_TOKEN', 'faketoken'),
   features: {
     newDesigns: getEnv('FEATURE_NEW_DESIGNS', false),
     prisonSwitch: getEnv('ENABLE_PRISON_SWITCH', false),
   },
   mockAuth: getEnv('MOCK_AUTH', 'false'),
+  analytics: {
+    endpoint: getEnv(
+      'ANALYTICS_ENDPOINT',
+      'https://www.google-analytics.com/collect',
+    ),
+    siteId: getEnv('ANALYTICS_SITE_ID', 'UA-152065860-4'),
+  },
+  feedback: {
+    endpoint: getEnv(
+      'FEEDBACK_URL',
+      'http://localhost:9200/local-feedback/_doc',
+      { requireInProduction: true },
+    ),
+  },
 };

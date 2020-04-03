@@ -5,10 +5,10 @@ $(document).ready(function() {
   var extendConfig = audio.data().config || {};
   var name = title + '|' + programmeCode;
 
-  var evt25 = once(analyticsAudioEvent({ action: '25%', name: name }));
-  var evt50 = once(analyticsAudioEvent({ action: '50%', name: name }));
-  var evt75 = once(analyticsAudioEvent({ action: '75%', name: name }));
-  var evt90 = once(analyticsAudioEvent({ action: '90%', name: name }));
+  var evt25 = once(analyticsAudioEvent({ label: '25%', action: name }));
+  var evt50 = once(analyticsAudioEvent({ label: '50%', action: name }));
+  var evt75 = once(analyticsAudioEvent({ label: '75%', action: name }));
+  var evt90 = once(analyticsAudioEvent({ label: '90%', action: name }));
 
   var config = {
     name: title,
@@ -23,6 +23,7 @@ $(document).ready(function() {
     },
     timeupdate: function(event) {
       var percentage = Math.round(event.jPlayer.status.currentPercentAbsolute);
+
       if (percentage >= 25 && percentage < 50) {
         evt25();
       } else if (percentage >= 50 && percentage < 75) {
@@ -39,8 +40,12 @@ $(document).ready(function() {
 
   function analyticsAudioEvent(config) {
     return function() {
-      if (!_paq) return;
-      _paq.push(['trackEvent', 'Radio', config.action, config.name]);
+      sendEvent({
+        category: 'Radio',
+        action: config.action,
+        label: config.label,
+        value: 1
+      });
     };
   }
 

@@ -2,7 +2,11 @@ const express = require('express');
 const { path } = require('ramda');
 const { format, addDays, subDays } = require('date-fns');
 
-const createTimetableRouter = ({ logger, offenderService }) => {
+const createTimetableRouter = ({
+  logger,
+  offenderService,
+  analyticsService,
+}) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -16,7 +20,7 @@ const createTimetableRouter = ({ logger, offenderService }) => {
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
-      const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
+      const sessionId = path(['session', 'id'], req);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -31,8 +35,13 @@ const createTimetableRouter = ({ logger, offenderService }) => {
         nextWeek: false,
         userName,
         newDesigns,
-        matomoUrl,
       };
+      analyticsService.sendPageTrack({
+        hostname: req.hostname,
+        page: '/timetable',
+        title: 'Timetable',
+        sessionId,
+      });
 
       res.render('pages/timetable', {
         title: 'Timetable',
@@ -57,7 +66,7 @@ const createTimetableRouter = ({ logger, offenderService }) => {
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
-      const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
+      const sessionId = path(['session', 'id'], req);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -72,8 +81,13 @@ const createTimetableRouter = ({ logger, offenderService }) => {
         nextWeek: false,
         userName,
         newDesigns,
-        matomoUrl,
       };
+      analyticsService.sendPageTrack({
+        hostname: req.hostname,
+        page: '/timetable/lastweek',
+        title: 'Timetable',
+        sessionId,
+      });
 
       res.render('pages/timetable', {
         title: 'Timetable',
@@ -98,7 +112,7 @@ const createTimetableRouter = ({ logger, offenderService }) => {
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
-      const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
+      const sessionId = path(['session', 'id'], req);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -113,8 +127,13 @@ const createTimetableRouter = ({ logger, offenderService }) => {
         nextWeek: true,
         userName,
         newDesigns,
-        matomoUrl,
       };
+      analyticsService.sendPageTrack({
+        hostname: req.hostname,
+        page: '/timetable/nextweek',
+        title: 'Timetable',
+        sessionId,
+      });
 
       res.render('pages/timetable', {
         title: 'Timetable',

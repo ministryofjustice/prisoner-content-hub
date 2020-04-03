@@ -50,10 +50,11 @@
           <div class="govuk-hub-article-feedback govuk-!-margin-top-9">
             <p class="govuk-body">Tell us what you think:</p>
             {{ hubFeedbackWidget({
+              contentId: data.id,
               title: data.title,
-              contentType: 'step-by-step',
-              series: 'getting-a-job',
-              establishment: establishmentName
+              contentType: 'STEP_BY_STEP',
+              series: 'Getting a job',
+              feedbackId: feedbackId
             })}}
           </div>
         </div>

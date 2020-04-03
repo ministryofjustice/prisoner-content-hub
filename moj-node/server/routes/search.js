@@ -1,19 +1,19 @@
 const { path } = require('ramda');
 const express = require('express');
 
-const createSearchRouter = ({ searchService, logger }) => {
+const createSearchRouter = ({ searchService, analyticsService, logger }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
     logger.info('GET /search');
 
     const establishmentId = path(['locals', 'establishmentId'], res);
-    const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
     let results = [];
     const query = path(['query', 'query'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const userName = path(['session', 'user', 'name'], req);
+    const sessionId = path(['session', 'id'], req);
     const config = {
       content: false,
       header: false,
@@ -21,11 +21,17 @@ const createSearchRouter = ({ searchService, logger }) => {
       detailsType: 'small',
       newDesigns,
       userName,
-      matomoUrl,
     };
 
     try {
       results = await searchService.find({ query, establishmentId });
+      analyticsService.sendEvent({
+        category: 'Search',
+        action: query,
+        label: JSON.stringify(results),
+        value: results.length,
+        sessionId,
+      });
 
       return res.render('pages/search', {
         title: 'Search',

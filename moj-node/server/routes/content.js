@@ -2,7 +2,11 @@ const { prop, path } = require('ramda');
 const express = require('express');
 const { relativeUrlFrom } = require('../utils');
 
-const createContentRouter = ({ hubContentService, logger }) => {
+const createContentRouter = ({
+  hubContentService,
+  analyticsService,
+  logger,
+}) => {
   const router = express.Router();
 
   router.get('/:id', async (req, res, next) => {
@@ -17,7 +21,6 @@ const createContentRouter = ({ hubContentService, logger }) => {
     const notification = path(['session', 'notification'], req);
     const userName = path(['session', 'user', 'name'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
-    const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
 
     const config = {
       content: true,
@@ -25,7 +28,6 @@ const createContentRouter = ({ hubContentService, logger }) => {
       postscript: false,
       newDesigns,
       userName,
-      matomoUrl,
     };
 
     const establishmentId = path(['locals', 'establishmentId'], res);
@@ -34,15 +36,30 @@ const createContentRouter = ({ hubContentService, logger }) => {
     try {
       const data = await hubContentService.contentFor(id, establishmentId);
       const contentType = prop('contentType', data);
+      const sessionId = path(['session', 'id'], req);
 
       switch (contentType) {
         case 'radio':
+          analyticsService.sendPageTrack({
+            hostname: req.hostname,
+            page: `/content/${id}`,
+            title: `${data.title}`,
+            sessionId,
+          });
+
           return res.render('pages/audio', {
             title: data.title,
             config,
             data,
           });
         case 'video':
+          analyticsService.sendPageTrack({
+            hostname: req.hostname,
+            page: `/content/${id}`,
+            title: `${data.title}`,
+            sessionId,
+          });
+
           return res.render('pages/video', {
             title: data.title,
             config,
@@ -50,6 +67,12 @@ const createContentRouter = ({ hubContentService, logger }) => {
           });
         case 'page':
           config.content = false;
+          analyticsService.sendPageTrack({
+            hostname: req.hostname,
+            page: `/content/${id}`,
+            title: `${data.title}`,
+            sessionId,
+          });
 
           return res.render('pages/flat-content', {
             title: data.title,
@@ -58,6 +81,12 @@ const createContentRouter = ({ hubContentService, logger }) => {
           });
         case 'landing-page':
           config.postscript = true;
+          analyticsService.sendPageTrack({
+            hostname: req.hostname,
+            page: `/content/${id}`,
+            title: `${data.title}`,
+            sessionId,
+          });
 
           return res.render('pages/category', {
             title: data.title,
@@ -68,6 +97,15 @@ const createContentRouter = ({ hubContentService, logger }) => {
         case 'pdf': {
           const url = relativeUrlFrom(data.url, backendUrl);
           logger.info('PROD - Sending PDF to client from:', url);
+
+          analyticsService.sendEvent({
+            category: 'PDFs',
+            action: `${data.title}`,
+            label: 'Downloads',
+            sessionId,
+            value: 1,
+          });
+
           const stream = await hubContentService.streamFor(url);
 
           // X-Download-Options prevents Internet Explorer from executing downloads

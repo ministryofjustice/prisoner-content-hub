@@ -9,7 +9,11 @@ const getFacilitiesListFor = id =>
     ? facilitiesList[id]
     : '/404';
 
-const createIndexRouter = ({ logger, hubFeaturedContentService }) => {
+const createIndexRouter = ({
+  logger,
+  hubFeaturedContentService,
+  analyticsService,
+}) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -20,7 +24,7 @@ const createIndexRouter = ({ logger, hubFeaturedContentService }) => {
       const userName = path(['session', 'user', 'name'], req);
       const establishmentId = path(['locals', 'establishmentId'], res);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
-      const matomoUrl = path(['app', 'locals', 'config', 'matomoUrl'], req);
+      const sessionId = path(['session', 'id'], req);
 
       const featuredContent = await hubFeaturedContentService.hubFeaturedContent(
         { establishmentId },
@@ -34,7 +38,6 @@ const createIndexRouter = ({ logger, hubFeaturedContentService }) => {
         newDesigns,
         userName,
         establishmentId,
-        matomoUrl,
       };
 
       const popularTopics = {
@@ -50,6 +53,12 @@ const createIndexRouter = ({ logger, hubFeaturedContentService }) => {
         // 'Money & debt': '/content/4201',
         Chaplaincy: '/tags/901',
       };
+      analyticsService.sendPageTrack({
+        hostname: req.hostname,
+        page: '/',
+        title: 'Home',
+        sessionId,
+      });
 
       res.render('pages/home', {
         notification,

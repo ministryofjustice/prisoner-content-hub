@@ -51,14 +51,14 @@
         <p class="govuk-body">Tell us what you think:</p>
         {{ hubFeedbackWidget({
           title: data.title,
+          contentId: data.id,
           contentType: data.contentType,
-          establishment: establishmentName
+          feedbackId: feedbackId
         })}}
       </div>
     </main>
   </div>
 {% endblock %}
-
 
 {% block bodyEnd %}
   {% if data.videos %}
@@ -67,14 +67,16 @@
     <script>
       $(document).ready(function () {
         {% for video in data.videos %}
-        initPlayer({{ loop.index }}, "{{ video[0] }}", "{{ video[1] }}");
+          initPlayer({{ loop.index }}, "{{ video[0] }}", "{{ video[1] }}");
         {% endfor %}
       });
 
       function initPlayer(index, imageUrl, videoUrl) {
         var playerHtml = '<div class="govuk-hub-media-player__player govuk-hub-media-video articlePlayer"><div id="videoPlayer' + index + '" class="webPlayer light articlePlayer"><div id="videoPlayerContainer' + index + '" class="videoPlayer" data-video="' + videoUrl + '"></div></div>';
 
-        $("#body p:contains('VIDEO|')").filter(":first").replaceWith(playerHtml);
+        $("#body p:contains('VIDEO|')")
+          .filter(":first")
+          .replaceWith(playerHtml);
         $('#videoPlayer' + index).videoPlayer({
           name: '{{ data.title }}',
           size: {

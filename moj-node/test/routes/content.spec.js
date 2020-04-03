@@ -35,8 +35,16 @@ describe('GET /content/:id', () => {
       const hubContentService = {
         contentFor: sinon.stub().returns(radioShowResponse),
       };
+      const analyticsService = {
+        sendPageTrack: sinon.stub(),
+        sendEvent: sinon.stub(),
+      };
 
-      const router = createContentRouter({ logger, hubContentService });
+      const router = createContentRouter({
+        logger,
+        hubContentService,
+        analyticsService,
+      });
       app = setupBasicApp();
 
       app.use('/content', router);
@@ -137,8 +145,16 @@ describe('GET /content/:id', () => {
       const hubContentService = {
         contentFor: sinon.stub().returns(videoShowResponse),
       };
+      const analyticsService = {
+        sendPageTrack: sinon.stub(),
+        sendEvent: sinon.stub(),
+      };
 
-      const router = createContentRouter({ logger, hubContentService });
+      const router = createContentRouter({
+        logger,
+        hubContentService,
+        analyticsService,
+      });
       app = setupBasicApp();
 
       app.use('/content', router);
@@ -302,7 +318,15 @@ describe('GET /content/:id', () => {
       const hubContentService = {
         contentFor: sinon.stub().returns(flatContentResponse),
       };
-      const router = createContentRouter({ logger, hubContentService });
+      const analyticsService = {
+        sendPageTrack: sinon.stub(),
+        sendEvent: sinon.stub(),
+      };
+      const router = createContentRouter({
+        logger,
+        hubContentService,
+        analyticsService,
+      });
       app = setupBasicApp();
 
       app.use('/content', router);
@@ -349,11 +373,16 @@ describe('GET /content/:id', () => {
       }),
       streamFor: sinon.stub().returns(stream),
     };
+    const analyticsService = {
+      sendPageTrack: sinon.stub(),
+      sendEvent: sinon.stub(),
+    };
 
     it('returns a PDF', () => {
       const router = createContentRouter({
         logger,
         hubContentService,
+        analyticsService,
       });
       const app = setupBasicApp();
 
@@ -424,7 +453,15 @@ describe('GET /content/:id', () => {
       const hubContentService = {
         contentFor: sinon.stub().returns(serviceResponse),
       };
-      const router = createContentRouter({ logger, hubContentService });
+      const analyticsService = {
+        sendPageTrack: sinon.stub(),
+        sendEvent: sinon.stub(),
+      };
+      const router = createContentRouter({
+        logger,
+        hubContentService,
+        analyticsService,
+      });
       const app = setupBasicApp();
 
       app.use('/content', router);

@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/order
-const config = require('../server/config');
+const config = require('./config');
 
 const express = require('express');
 const addRequestId = require('express-request-id')();
@@ -10,6 +10,8 @@ const nunjucks = require('nunjucks');
 const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('cookie-session');
+const bodyParser = require('body-parser');
+const { v4: uuid } = require('uuid');
 
 const { createIndexRouter } = require('./routes/index');
 const { createTopicsRouter } = require('./routes/topics');
@@ -21,6 +23,8 @@ const { createIepRouter } = require('./routes/iep');
 const { createMoneyRouter } = require('./routes/money');
 const { createTagRouter } = require('./routes/tags');
 const { createGamesRouter } = require('./routes/games');
+const { createAnalyticsRouter } = require('./routes/analytics');
+const { createFeedbackRouter } = require('./routes/feedback');
 const { createGettingAJobRouter } = require('./routes/gettingAJob');
 const { createSearchRouter } = require('./routes/search');
 
@@ -43,6 +47,8 @@ const createApp = ({
   healthService,
   offenderService,
   searchService,
+  analyticsService,
+  feedbackService,
 }) => {
   const app = express();
 
@@ -79,6 +85,9 @@ const createApp = ({
 
   // Resource Delivery Configuration
   app.use(compression());
+
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
 
   if (config.production) {
     // Version only changes on reboot
@@ -158,11 +167,20 @@ const createApp = ({
   // Health end point
   app.use('/health', createHealthRouter({ appInfo, healthService }));
 
+  app.use((req, res, next) => {
+    if (req.session && !req.session.id) {
+      req.session.id = uuid();
+    }
+    res.locals.feedbackId = uuid();
+    next();
+  });
+
   app.use(
     '/',
     createIndexRouter({
       logger,
       hubFeaturedContentService,
+      analyticsService,
     }),
   );
 
@@ -171,6 +189,7 @@ const createApp = ({
     createTopicsRouter({
       logger,
       hubMenuService,
+      analyticsService,
     }),
   );
 
@@ -180,6 +199,7 @@ const createApp = ({
       createTimetableRouter({
         logger,
         offenderService,
+        analyticsService,
       }),
     );
 
@@ -188,6 +208,7 @@ const createApp = ({
       createVisitsRouter({
         hubContentService,
         offenderService,
+        analyticsService,
         logger,
       }),
     );
@@ -197,6 +218,7 @@ const createApp = ({
       createIepRouter({
         hubContentService,
         offenderService,
+        analyticsService,
         logger,
       }),
     );
@@ -206,6 +228,7 @@ const createApp = ({
       createMoneyRouter({
         hubContentService,
         offenderService,
+        analyticsService,
         logger,
       }),
     );
@@ -216,6 +239,7 @@ const createApp = ({
     createContentRouter({
       logger,
       hubContentService,
+      analyticsService,
     }),
   );
 
@@ -224,15 +248,26 @@ const createApp = ({
     createTagRouter({
       logger,
       hubTagsService,
+      analyticsService,
     }),
   );
 
-  app.use('/games', createGamesRouter({ logger }));
+  app.use('/games', createGamesRouter({ analyticsService, logger }));
+  app.use('/analytics', createAnalyticsRouter({ analyticsService, logger }));
+  app.use('/feedback', createFeedbackRouter({ feedbackService, logger }));
   app.use(
     ['/working-in-wayland', '/working-in-berwyn'],
-    createGettingAJobRouter({ logger, hubContentService, hubMenuService }),
+    createGettingAJobRouter({
+      logger,
+      hubContentService,
+      hubMenuService,
+      analyticsService,
+    }),
   );
-  app.use('/search', createSearchRouter({ logger, searchService }));
+  app.use(
+    '/search',
+    createSearchRouter({ logger, searchService, analyticsService }),
+  );
 
   app.use('*', (req, res) => {
     res.status(404);
