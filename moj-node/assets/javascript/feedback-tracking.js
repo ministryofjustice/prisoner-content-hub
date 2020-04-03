@@ -49,9 +49,7 @@
 
     function updateCharacterCount(characterCount) {
       var characterCount = characterCount || 0;
-      $('[data-feedback-comment-counter]').text(
-        CHARACTER_LIMIT - characterCount,
-      );
+      $('[data-feedback-comment-counter]').text(CHARACTER_LIMIT - characterCount);
     }
 
     function enableFormSubmit() {
@@ -79,9 +77,7 @@
 
     function updateSentimentIcons(sentiment) {
       $('[data-feedback-sentiment]').removeClass('is-selected');
-      $('[data-feedback-sentiment][value="' + sentiment + '"]').addClass(
-        'is-selected',
-      );
+      $('[data-feedback-sentiment][value="' + sentiment + '"]').addClass('is-selected');
     }
 
     widget.find('[data-feedback-sentiment]').on('click', function (e) {
