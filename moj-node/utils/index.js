@@ -12,11 +12,11 @@ const recordBuildInfoTo = (target, contents, callback) => {
 };
 
 function writeFile(path, contents, callback) {
-  mkdirp(dirname(path), err => {
-    if (err) return callback(err);
-
-    fs.writeFile(path, contents, callback);
-  });
+  mkdirp(dirname(path))
+    .then(() => {
+      fs.writeFile(path, contents, callback);
+    })
+    .catch(err => callback(err));
 }
 
 const getEnv = (name, fallback, options = {}) => {
