@@ -8,9 +8,7 @@ describe('Topics page', () => {
       const heading = 'h1';
       cy.get(heading).should('contain', 'Browse the Content Hub');
       const topicListItems = '.hub-topics > dl dt';
-      cy.get(topicListItems)
-        .its('length')
-        .should('be.gt', 0);
+      cy.get(topicListItems).its('length').should('be.gt', 0);
     });
 
     it('contains search', () => {

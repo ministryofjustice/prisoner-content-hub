@@ -8,9 +8,7 @@ describe('Homepage', () => {
       it('contains the correct number of items of popular topics', () => {
         const popularTopics = '.popular-topics';
         cy.get(popularTopics).should('contain', 'Popular topics');
-        cy.get(popularTopics)
-          .get('ul > li')
-          .should('have.length', 9);
+        cy.get(popularTopics).get('ul > li').should('have.length', 9);
       });
 
       it('contains a link to browse all topics', () => {

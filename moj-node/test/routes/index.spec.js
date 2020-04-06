@@ -87,22 +87,13 @@ describe('GET /', () => {
             '2 large featured items should be rendered',
           );
           expect(
-            $('[data-featured-tile-id="small"]')
-              .first()
-              .find('h3')
-              .text(),
+            $('[data-featured-tile-id="small"]').first().find('h3').text(),
           ).to.include('foo title', 'Correct title rendered (Small Tile)');
           expect(
-            $('[data-featured-tile-id="large"]')
-              .first()
-              .find('h3')
-              .text(),
+            $('[data-featured-tile-id="large"]').first().find('h3').text(),
           ).to.include('foo title', 'Correct title rendered (Large Tile)');
           expect(
-            $('[data-featured-tile-id="large"]')
-              .first()
-              .find('p')
-              .text(),
+            $('[data-featured-tile-id="large"]').first().find('p').text(),
           ).to.include(
             'foo summary',
             'Correct description rendered (Large Tile)',
@@ -138,17 +129,13 @@ describe('GET /', () => {
         .then(response => {
           const $ = cheerio.load(response.text);
 
-          expect(
-            $('div.popular-topics')
-              .first()
-              .find('h3')
-              .text(),
-          ).to.equal('Popular topics');
-          expect(
-            $('div.popular-topics')
-              .first()
-              .find('ul li').length,
-          ).to.equal(9, 'Correct number of menu items');
+          expect($('div.popular-topics').first().find('h3').text()).to.equal(
+            'Popular topics',
+          );
+          expect($('div.popular-topics').first().find('ul li').length).to.equal(
+            9,
+            'Correct number of menu items',
+          );
         });
     });
   });

@@ -45,8 +45,9 @@ describe('configureEstablishment', () => {
       );
       expect(res.locals).to.have.property(
         'establishmentName',
-        `HMP ${defaultPrison.slice(0, 1).toUpperCase() +
-          defaultPrison.slice(1)}`,
+        `HMP ${
+          defaultPrison.slice(0, 1).toUpperCase() + defaultPrison.slice(1)
+        }`,
       );
       expect(res.locals).to.have.property('establishmentId');
       expect(next.called).to.equal(true, 'next should have been called');
@@ -74,8 +75,9 @@ describe('configureEstablishment', () => {
       );
       expect(res.locals).to.have.property(
         'establishmentName',
-        `HMP ${overridePrison.slice(0, 1).toUpperCase() +
-          overridePrison.slice(1)}`,
+        `HMP ${
+          overridePrison.slice(0, 1).toUpperCase() + overridePrison.slice(1)
+        }`,
       );
       expect(res.locals).to.have.property('establishmentId');
       expect(next.called).to.equal(true, 'next should have been called');
@@ -103,8 +105,9 @@ describe('configureEstablishment', () => {
       );
       expect(res.locals).to.have.property(
         'establishmentName',
-        `HMP ${overridePrison.slice(0, 1).toUpperCase() +
-          overridePrison.slice(1)}`,
+        `HMP ${
+          overridePrison.slice(0, 1).toUpperCase() + overridePrison.slice(1)
+        }`,
       );
       expect(res.locals).to.have.property('establishmentId');
       expect(next.called).to.equal(true, 'next should have been called');
@@ -134,8 +137,9 @@ describe('configureEstablishment', () => {
       );
       expect(res.locals).to.have.property(
         'establishmentName',
-        `HMP ${defaultPrison.slice(0, 1).toUpperCase() +
-          defaultPrison.slice(1)}`,
+        `HMP ${
+          defaultPrison.slice(0, 1).toUpperCase() + defaultPrison.slice(1)
+        }`,
       );
       expect(res.locals).to.have.property('establishmentId');
       expect(next.called).to.equal(true, 'next should have been called');
