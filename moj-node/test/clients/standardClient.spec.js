@@ -12,7 +12,9 @@ describe('StandardClient', () => {
 
   describe('.get', () => {
     it('makes a request simple GET request', async () => {
-      nock('https://some-api.com').get('/').reply(200, ['SOME_DATA']);
+      nock('https://some-api.com')
+        .get('/')
+        .reply(200, ['SOME_DATA']);
 
       const client = new StandardClient();
       const result = await client.get('https://some-api.com');
@@ -42,7 +44,9 @@ describe('StandardClient', () => {
     });
 
     it('returns an null when the request fails', async () => {
-      nock('https://some-api.com').get('/bar').reply(404, ['SOME_DATA']);
+      nock('https://some-api.com')
+        .get('/bar')
+        .reply(404, ['SOME_DATA']);
 
       const client = new StandardClient();
       const result = await client.get('https://some-api.com/bar');

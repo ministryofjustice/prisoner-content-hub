@@ -116,12 +116,14 @@
   outline: none;
   border: 0;
   position: absolute;
-  z-index: 1;
-  bottom: 0;
-  width: 100%;
+  z-index: 100;
   background: rgba(0,0,0,.8);
   padding: 1em;
   line-height: 1;
+  color: #fff;
+  left: 50%;
+  top: 50%;
+  font-size: 24px;
 }
 #table {
   opacity: 0;

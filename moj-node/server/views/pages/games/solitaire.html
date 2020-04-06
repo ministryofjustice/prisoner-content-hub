@@ -5,7 +5,7 @@
 {% extends "../../components/template.njk" %}
 
 {% block pageTitle %}
-  {{ data.title }}
+  {{ title }}
 {% endblock %}
 
 {% block head %}
@@ -48,7 +48,7 @@
         </div>
 
         <div class="govuk-grid-column-full">
-          <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">Solitaire</h1>
+          <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">{{ title }}</h1>
           <div class="container">
             <div id="score" class="govuk-body">
               <div class="timer">
@@ -99,7 +99,7 @@
               </div>
             </div>
           </div>
-          <button id="auto-win">Auto Win</button>
+          <button id="auto-win">Finish the game!</button>
           <canvas id="confetti"></canvas>
           <ul class="template">
             <li data-rank="2">
@@ -323,11 +323,10 @@
       <div class="govuk-hub-article-feedback">
         <p class="govuk-body">Tell us what you think:</p>
         {{ hubFeedbackWidget({
-          title: "solitaire",
+          title: title,
           contentType: "game",
-          series: null,
-          establishment: establishmentName
-      })}}
+          feedbackId: feedbackId
+        })}}
       </div>
 
     </main>

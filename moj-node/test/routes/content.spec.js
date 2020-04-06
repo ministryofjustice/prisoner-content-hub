@@ -23,7 +23,9 @@ describe('GET /content/:id', () => {
 
     app.use('/content', router);
 
-    return request(app).get('/content/1').expect(404);
+    return request(app)
+      .get('/content/1')
+      .expect(404);
   });
 
   describe('Radio page', () => {

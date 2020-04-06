@@ -123,7 +123,11 @@ describe('GET /search', () => {
           .then(response => {
             const $ = cheerio.load(response.text);
 
-            expect($('title').text().toLowerCase()).to.contain(
+            expect(
+              $('title')
+                .text()
+                .toLowerCase(),
+            ).to.contain(
               'error',
               'The error page should be displayed if the search fails',
             );
