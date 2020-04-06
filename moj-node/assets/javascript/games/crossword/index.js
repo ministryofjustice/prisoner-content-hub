@@ -38,7 +38,7 @@ var WORD_LIST = [
   { answer: 'zebra', clue: 'It\'s black and white with this animal' },
   { answer: 'mouse', clue: 'As quiet as a _____' },
   { answer: 'mile', clue: 'A measure of distance' },
-  { answer: 'octopus', clue: 'Eight legged sea creature' },
+  { answer: 'octopus', clue: 'Eight legged sea creature' }
 ];
 
 var directions = {

@@ -124,17 +124,18 @@ const createGamesRouter = ({ analyticsService, logger }) => {
     logger.info('GET /games/crossword');
     const userDetails = path(['session', 'user'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+    const sessionId = path(['session', 'id'], req);
 
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
 
     return res.render('pages/games/crossword', {
+      hostname: req.hostname,
+      page: '/games/crossword',
       title: 'Crossword',
-      data: {
-        title: 'Crossword',
-      },
       config,
+      sessionId,
     });
   });
 

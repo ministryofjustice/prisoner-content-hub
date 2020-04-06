@@ -11,7 +11,6 @@
 
 {% block head %}
   <link href="/public/stylesheets/application.css" rel="stylesheet"/>
-  <link href="/public/javascript/games/sudoku/sudokuJS.css" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block pageNavigation %}
@@ -84,11 +83,10 @@
           <div class="govuk-hub-article-feedback">
             <p class="govuk-body">Tell us what you think:</p>
             {{ hubFeedbackWidget({
-                title: "Crossword",
-                contentType: "game",
-                series: null,
-                establishment: establishmentName
-              })}}
+              title: title,
+              contentType: "game",
+              feedbackId: feedbackId
+            })}}
           </div>
         </div>
       </div>
