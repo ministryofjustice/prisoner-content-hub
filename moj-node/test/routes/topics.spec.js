@@ -61,18 +61,11 @@ describe('GET /topics', () => {
             2,
             'The full list of topics should be rendered to the page',
           );
-          expect(
-            topics
-              .first()
-              .find('a')
-              .text(),
-          ).to.contain('foo', 'The correct topic label should be rendered');
-          expect(
-            topics
-              .first()
-              .find('a')
-              .attr('href'),
-          ).to.contain(
+          expect(topics.first().find('a').text()).to.contain(
+            'foo',
+            'The correct topic label should be rendered',
+          );
+          expect(topics.first().find('a').attr('href')).to.contain(
             '/content/foo',
             'The correct topic link should be rendered',
           );

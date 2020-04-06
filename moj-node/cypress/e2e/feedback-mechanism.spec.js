@@ -4,14 +4,10 @@ describe('Feedback mechanism', () => {
   });
   describe('When a user clicks the like button', () => {
     it('it sends the correct events', () => {
-      cy.window()
-        .its('_feedback')
-        .should('exist');
+      cy.window().its('_feedback').should('exist');
 
       ['id', 'title', 'url', 'contentType'].forEach(property => {
-        cy.window()
-          .its('_feedback')
-          .should('have.property', property);
+        cy.window().its('_feedback').should('have.property', property);
       });
 
       cy.get('.govuk-hub-thumbs--up').click();
@@ -36,14 +32,10 @@ describe('Feedback mechanism', () => {
 
   describe('When a user clicks the dislike button', () => {
     it('it sends the correct events', () => {
-      cy.window()
-        .its('_feedback')
-        .should('exist');
+      cy.window().its('_feedback').should('exist');
 
       ['id', 'title', 'url', 'contentType'].forEach(property => {
-        cy.window()
-          .its('_feedback')
-          .should('have.property', property);
+        cy.window().its('_feedback').should('have.property', property);
       });
 
       cy.get('.govuk-hub-thumbs--down').click();
@@ -74,14 +66,10 @@ describe('Feedback mechanism on search page', () => {
   });
   describe('When a user clicks the like button', () => {
     it('it sends the correct events', () => {
-      cy.window()
-        .its('_feedback')
-        .should('exist');
+      cy.window().its('_feedback').should('exist');
 
       ['id', 'title', 'url', 'contentType'].forEach(property => {
-        cy.window()
-          .its('_feedback')
-          .should('have.property', property);
+        cy.window().its('_feedback').should('have.property', property);
       });
 
       cy.window()
@@ -110,14 +98,10 @@ describe('Feedback mechanism on search page', () => {
 
   describe('When a user clicks the dislike button', () => {
     it('it sends the correct events', () => {
-      cy.window()
-        .its('_feedback')
-        .should('exist');
+      cy.window().its('_feedback').should('exist');
 
       ['id', 'title', 'url', 'contentType'].forEach(property => {
-        cy.window()
-          .its('_feedback')
-          .should('have.property', property);
+        cy.window().its('_feedback').should('have.property', property);
       });
 
       cy.window()
