@@ -58,7 +58,6 @@
     "dotenv": "^8.2.0",
     "elastic-builder": "^2.6.0",
     "express": "~4.17.1",
-    "express-ntlm": "^2.5.0",
     "express-request-id": "^1.4.1",
     "govuk-frontend": "^3.6.0",
     "helmet": "^3.22.0",
