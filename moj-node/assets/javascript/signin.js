@@ -1,5 +1,5 @@
-$(document).ready(function() {
-  $('.toggle-password').click(function() {
+$(document).ready(function () {
+  $('.toggle-password').click(function () {
     $(this).toggleClass('toggle-password--enabled');
     var input = $('#password');
     var type = input.attr('type') === 'password' ? 'text' : 'password';
@@ -17,9 +17,7 @@ $(document).ready(function() {
   }
 
   function addFieldError(fieldName, message) {
-    $(`#${fieldName}`)
-      .parent()
-      .addClass('govuk-form-group--error');
+    $(`#${fieldName}`).parent().addClass('govuk-form-group--error');
     $(
       `<span id="${fieldName}-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> ${message}</span>`,
     ).insertBefore(`#${fieldName}`);
@@ -29,7 +27,7 @@ $(document).ready(function() {
     );
   }
 
-  $('#signin-form').submit(function(e) {
+  $('#signin-form').submit(function (e) {
     var hasError = false;
     var pattern = new RegExp(/[A-Z][0-9]{4}[A-Z]{2}/i);
 
