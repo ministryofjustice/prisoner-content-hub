@@ -81,10 +81,7 @@ describe('HealthService', () => {
 
   context('when the all services are down', () => {
     it('returns status of the application', async () => {
-      client.get
-        .returns(null)
-        .onSecondCall()
-        .returns({ status: 'red' });
+      client.get.returns(null).onSecondCall().returns({ status: 'red' });
       const service = createHealthService({ client, logger, config });
       const status = await service.status();
 
