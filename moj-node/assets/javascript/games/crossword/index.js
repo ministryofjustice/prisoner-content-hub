@@ -1,44 +1,160 @@
-var NUMBER_OF_WORDS = 25;
+var NUMBER_OF_WORDS = 20;
 var SIZE_OF_GRID_X = 20;
 var SIZE_OF_GRID_Y = 20;
 var WORD_LIST = [
-  { answer: 'mars', clue: 'Planet - A tasty treat' },
-  { answer: 'crocodile', clue: 'Large aquatic reptile' },
   { answer: 'dog', clue: 'Man\'s best friend' },
   { answer: 'chicken', clue: 'Farmyard fowl' },
-  { answer: 'horse', clue: 'Hungry as a _____' },
-  { answer: 'llama', clue: 'Four legged animal from Peru' },
-  { answer: 'beauty', clue: 'In the eye of the beholder' },
-  { answer: 'dragon', clue: 'Mythical beast' },
-  { answer: 'parrot', clue: 'Feathered mimic' },
-  { answer: 'tarantula', clue: 'A type of large spider' },
-  { answer: 'potting', clue: 'Putting plants in containers' },
-  { answer: 'slipper', clue: 'Indoor footwear' },
-  { answer: 'monkey', clue: 'Cheeky, long tailed primate' },
-  { answer: 'helmet', clue: 'Protective headgear' },
-  { answer: 'twist', clue: 'Late, unexpected change in a story' },
-  { answer: 'elbow', clue: 'Arm joint' },
-  { answer: 'elephant', clue: 'The largest of the land mammals' },
-  { answer: 'incentive', clue: 'Motivation or encouragement to do something' },
-  { answer: 'privilege', clue: 'A special right or advantage granted' },
-  { answer: 'sleet', clue: 'Rain with ice' },
+  { answer: 'salmon', clue: 'Fishy shade of pink' },
+  {
+    answer: 'incentive',
+    clue: 'Motivation or encouragement to do something'
+  },
+  { answer: 'privilege', clue: 'Special right or advantage granted' },
+  { answer: 'kangaroo', clue: 'Bouncy australian marsupial' },
+  { answer: 'mile', clue: 'Measure of distance' },
+  { answer: 'kiwi', clue: 'Fruity bird' },
   { answer: 'treason', clue: 'Crime against the state' },
-  { answer: 'salmon', clue: 'A fishy shade of pink' },
-  { answer: 'pod', clue: 'Like peas in a ___' },
-  { answer: 'suspect', clue: 'Believed guilty' },
-  { answer: 'tattoo', clue: 'Design marked on the skin' },
-  { answer: 'cat', clue: 'Feline - Popular pet' },
-  { answer: 'fish', clue: 'Popular with chips' },
-  { answer: 'sloth', clue: 'A slow tree dweller' },
-  { answer: 'ant', clue: 'Tiny insect' },
-  { answer: 'gorilla', clue: 'Large ape' },
-  { answer: 'kiwi', clue: 'A fruity bird' },
-  { answer: 'shark', clue: 'Large ocean predator' },
-  { answer: 'kangaroo', clue: 'Australian mammal with a lot of bounce' },
-  { answer: 'zebra', clue: 'It\'s black and white with this animal' },
+  { answer: 'twist', clue: 'Late, unexpected change in a story' },
+  { answer: 'dragon', clue: 'Mythical beast' },
+  { answer: 'llama', clue: 'Four legged animal from Peru' },
   { answer: 'mouse', clue: 'As quiet as a _____' },
-  { answer: 'mile', clue: 'A measure of distance' },
-  { answer: 'octopus', clue: 'Eight legged sea creature' }
+  { answer: 'mars', clue: 'Planet - A tasty treat' },
+  { answer: 'parrot', clue: 'Feathered mimic' },
+  { answer: 'tattoo', clue: 'Design marked on the skin' },
+  { answer: 'tapes', clue: 'Cassettes' },
+  { answer: 'latin', clue: 'Old Roman language' },
+  { answer: 'eel', clue: 'A wriggly fish' },
+  { answer: 'rarer', clue: 'Less common' },
+  { answer: 'old', clue: 'Not new' },
+  { answer: 'rhode', clue: '_____ Island' },
+  { answer: 'jupiter', clue: 'The largest planet' },
+  { answer: 'tornado', clue: 'Violent spinning wind-storm' },
+  { answer: 'minimum', clue: 'Least possible quantity' },
+  { answer: 'earth', clue: 'Takes 365 days to rotate around the sun' },
+  { answer: 'iceberg', clue: 'A type of lettuce' },
+  { answer: 'pharaoh', clue: 'Ancient Egyptian king' },
+  { answer: 'drink', clue: 'Beverage' },
+  { answer: 'origami', clue: 'Japanese art of paper folding' },
+  { answer: 'bishop', clue: 'Chess piece' },
+  { answer: 'cycling', clue: 'Riding a bike' },
+  { answer: 'phobia', clue: 'Irrational fear' },
+  { answer: 'emerald', clue: 'Green gem' },
+  { answer: 'madrid', clue: 'Capital of Spain' },
+  { answer: 'paris', clue: 'Capital of France' },
+  { answer: 'london', clue: 'Capital of United Kingdom' },
+  { answer: 'athens', clue: 'Capital of Greece' },
+  { answer: 'rome', clue: 'Capital of Italy' },
+  { answer: 'brussels', clue: 'Capital of Belgium' },
+  { answer: 'russia', clue: 'Largest country in the world' },
+  { answer: 'kettle', clue: 'Vessel for boiling water' },
+  { answer: 'cattle', clue: 'Farm livestock' },
+  { answer: 'king', clue: 'Male monarch' },
+  { answer: 'queen', clue: 'Female monarch' },
+  { answer: 'diamond', clue: 'Precious stone' },
+  { answer: 'sweden', clue: 'Scandinavian country' },
+  { answer: 'wasp', clue: 'Stinging insect' },
+  { answer: 'easel', clue: 'Painting stand' },
+  { answer: 'sleepy', clue: 'Drowsy' },
+  { answer: 'icerink', clue: 'Skating arena' },
+  { answer: 'spouses', clue: 'Husbands and wives' },
+  { answer: 'tractor', clue: 'Farm vehicle' },
+  { answer: 'pride', clue: 'Group of lions' },
+  { answer: 'big', clue: 'Large' },
+  { answer: 'ski', clue: 'Slide on snow' },
+  { answer: 'cane', clue: 'Christmas treat, candy ____' },
+  {
+    answer: 'roots',
+    clue: 'The parts of plants that are under the ground'
+  },
+  { answer: 'ghost', clue: 'Spook that lives in a haunted house' },
+  { answer: 'look', clue: 'Glance' },
+  { answer: 'weekend', clue: 'Saturday and Sunday' },
+  { answer: 'pony', clue: 'A small horse' },
+  {
+    answer: 'glasses',
+    clue: 'You wear them above your nose to see better'
+  },
+  { answer: 'shampoo', clue: 'A liquid soap used for your hair' },
+  { answer: 'lemon', clue: 'A sour yellow fruit' },
+  { answer: 'ship', clue: 'A huge boat' },
+  { answer: 'shark', clue: 'A dangerous huge fish with sharp teeth' },
+  { answer: 'piano', clue: 'Musical instrument with white and black keys' },
+  { answer: 'pencil', clue: 'Small wooden writing stick' },
+  {
+    answer: 'homework',
+    clue: 'An assignment given in class to be done at home'
+  },
+  { answer: 'shouting', clue: 'Talking very loud' },
+  { answer: 'middle', clue: 'The center part' },
+  { answer: 'bottle', clue: 'A small water container' },
+  { answer: 'bus', clue: 'A large road vehicle with lots of seats' },
+  { answer: 'bread', clue: 'Popular food made from flour and water' },
+  { answer: 'tower', clue: 'Tall, narrow building' },
+  { answer: 'choose', clue: 'To decide between options' },
+  { answer: 'impossible', clue: 'Can\'t be true, can\'t exist' },
+  { answer: 'beach', clue: 'The sand along the seashore' },
+  { answer: 'clever', clue: 'Smart, bright, intelligent' },
+  { answer: 'candle', clue: 'Wax burned to give light' },
+  {
+    answer: 'stars',
+    clue: 'Small bright objects shining in the sky at night'
+  },
+  { answer: 'statue', clue: 'Human like figure made of stone' },
+  { answer: 'today', clue: 'A day before tomorrow' },
+  { answer: 'teddy', clue: 'Toy bear' },
+  { answer: 'clock', clue: 'An object that shows the time of day' },
+  { answer: 'carrot', clue: 'A long orange vegetable' },
+  { answer: 'cheese', clue: 'Solid food made from milk' },
+  { answer: 'job', clue: 'Work, employment' },
+  { answer: 'calm', clue: 'Peaceful' },
+  { answer: 'radar', clue: 'Aeroplane tracking device' },
+  { answer: 'celebrity', clue: 'A famous person' },
+  { answer: 'hello', clue: 'Something you say to greet people' },
+  { answer: 'towel', clue: 'Absorbent cloth for drying something' },
+  { answer: 'foot', clue: 'A part of the body below the ankle' },
+  { answer: 'hot', clue: 'Opposite of cold' },
+  { answer: 'confident', clue: 'Opposite of shy' },
+  { answer: 'february', clue: 'Has 28 days, and 29 in a leap year' },
+  { answer: 'crepe', clue: 'A very thin pancake' },
+  { answer: 'solo', clue: 'A performance by one person' },
+  { answer: 'lime', clue: 'Green citrus fruit' },
+  { answer: 'blister', clue: 'Bubble raised on the skin' },
+  { answer: 'trinket', clue: 'A small ornament' },
+  { answer: 'global', clue: 'Worldwide' },
+  { answer: 'panda', clue: 'Creature that eats bamboo shoots' },
+  { answer: 'oxford', clue: 'English university city' },
+  { answer: 'stern', clue: 'The back of a boat' },
+  { answer: 'bow', clue: 'The front of a boat' },
+  { answer: 'acting', clue: 'Performing on stage' },
+  { answer: 'strawberry', clue: 'A sweet red fruit' },
+  {
+    answer: 'orange',
+    clue: 'Round fruit which is also the name of a colour'
+  },
+  { answer: 'pineapple', clue: 'Large sweet tropical fruit' },
+  {
+    answer: 'guitar',
+    clue: 'Stringed instrument played by strumming or plucking'
+  },
+  { answer: 'gadget', clue: 'Small device' },
+  {
+    answer: 'football',
+    clue: 'A sport where you kick a ball to score a goal'
+  },
+  { answer: 'tennis', clue: 'A popular sport played with a racket' },
+  { answer: 'alaska', clue: 'Most northern US state' },
+  { answer: 'palette', clue: 'An artist\'s mixing board' },
+  { answer: 'checkmate', clue: 'The winning move in a game of chess' },
+  { answer: 'rasher', clue: 'Slice of bacon' },
+  { answer: 'cider', clue: 'Alcoholic drink made from apples' },
+  { answer: 'keepsake', clue: 'Souvenir' },
+  { answer: 'decibel', clue: 'Measure of noise intensity' },
+  { answer: 'everest', clue: 'Highest mountain in the world' },
+  { answer: 'cobra', clue: 'A type of venomous snake' },
+  { answer: 'choir', clue: 'Group of singers' },
+  { answer: 'carols', clue: 'Christmas songs' },
+  { answer: 'vanilla', clue: 'Popular ice cream flavour' },
+  { answer: 'train', clue: 'A type of rail transport' }
 ];
 
 var directions = {
@@ -46,13 +162,11 @@ var directions = {
   DOWN: 'down'
 };
 
-function selectRandomEntriesFrom(array, amount) {
-  var from = array.slice();
-  var selected = [];
-  for (var i = 0; i < amount; i++) {
-    selected.push(from.splice(Math.floor(Math.random() * from.length), 1)[0]);
-  }
-  return selected
+function extractRandomValueFrom(array) {
+  var index = Math.floor(Math.random() * array.length);
+  var value = array[index];
+  array.splice(index, 1);
+  return value;
 }
 
 function WordGrid(listOfWords) {
@@ -315,30 +429,27 @@ function WordGrid(listOfWords) {
   }
 
   function addWords(wordList) {
+
+    wordList = wordList.slice();
+
     sortWords(wordList);
-    addFirstWord(wordList.shift());
+    addFirstWord(extractRandomValueFrom(wordList));
 
-    var wordsChecked = 0;
-    while (wordList.length) {
-      if (wordsChecked === wordList.length) {
-        break;
-      }
+    var wordsChecked = 1;
+    while (wordList.length && wordsChecked < NUMBER_OF_WORDS) {
 
-      if (wordList[0].answer.length < 2) {
-        wordList.shift();
+      var entry = extractRandomValueFrom(wordList);
+
+      if (!entry.answer || entry.answer.length === 0) {
         continue;
       }
 
-      if (!addWord(wordList[0])) {
-        wordList.splice(1, 0, wordList.shift());
+      if (addWord(entry)) {
         wordsChecked++;
-      } else {
-        wordList.shift();
-        wordsChecked = 0;
       }
     }
 
-    if (wordList.length) {
+    if (wordsChecked < NUMBER_OF_WORDS) {
       console.warn('Crossword: Unable to place all words');
     }
   }
@@ -625,9 +736,10 @@ function CrosswordGame(wordGrid) {
     for (var i = 0; i < words.length; i++) {
       var word = words[i];
       var startOfWord = findCellAtPosition(word.column, word.row);
-      number = startOfWord.find('input').data(word.direction);
+      var cellInput = startOfWord.find('input');
+      number = cellInput.data(word.direction);
       addLabelTo(startOfWord, number);
-      startOfWord.off('click').on('click', createInputClickHandler(number, word));
+      cellInput.off('click').on('click', createInputClickHandler(number, word));
     }
 
     // render down clues
@@ -651,7 +763,7 @@ function CrosswordGame(wordGrid) {
     });
     $('#crossword-new-game').on('click', function (e) {
       e.preventDefault();
-      var wg = new WordGrid(selectRandomEntriesFrom(WORD_LIST, NUMBER_OF_WORDS));
+      var wg = new WordGrid(WORD_LIST);
       grid = wg.getGrid();
       words = wg.getWords();
       render();
@@ -661,7 +773,7 @@ function CrosswordGame(wordGrid) {
 }
 
 (function () {
-  var wg = new WordGrid(selectRandomEntriesFrom(WORD_LIST, NUMBER_OF_WORDS));
+  var wg = new WordGrid(WORD_LIST);
   var game = new CrosswordGame(wg);
   game.render();
   game.setupControls();
