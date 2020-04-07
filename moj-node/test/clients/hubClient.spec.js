@@ -56,9 +56,7 @@ describe('HubClient', () => {
     });
 
     it('returns an null when the request fails', async () => {
-      nock('https://hub-api.com')
-        .get(/bar/)
-        .reply(404, ['SOME_DATA']);
+      nock('https://hub-api.com').get(/bar/).reply(404, ['SOME_DATA']);
 
       const client = new HubClient();
       const result = await client.get('https://hub-api.com/bar');

@@ -32,7 +32,7 @@ function createHubContentService({
     if (content.description) {
       videoMatches = Array.from(
         content.description.raw.matchAll(videoDataRegExp),
-        function(m) {
+        function (m) {
           return m[0];
         },
       );

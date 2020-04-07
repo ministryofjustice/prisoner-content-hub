@@ -1,5 +1,5 @@
 /* eslint-env browser */
-(function() {
+(function () {
   var navMenu = document.getElementById('nav-menu');
   var todaysDate = document.querySelector('[data-target-id="todays-date"]');
   var todaysTime = document.querySelector('[data-target-id="todays-time"]');
@@ -30,7 +30,7 @@
 
   // Navigation menu
   if (navMenu) {
-    document.body.addEventListener('click', function(event) {
+    document.body.addEventListener('click', function (event) {
       // handle navigation hide
       if (matchesSelectorAll(event.target, '#nav-hide')) {
         event.preventDefault();
@@ -61,7 +61,7 @@
 
   // update the time
   if (todaysTime) {
-    setInterval(function() {
+    setInterval(function () {
       var date = new Date();
       var currentTime = todaysTime.textContent.trim();
       var minutes = ('0' + date.getMinutes()).slice(-2);
@@ -75,7 +75,7 @@
 
   // update the date
   if (todaysDate) {
-    setInterval(function() {
+    setInterval(function () {
       var date = new Date();
       var currentDate = todaysDate.textContent.trim();
       var nextDate =

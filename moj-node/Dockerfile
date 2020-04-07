@@ -1,5 +1,7 @@
 FROM node:12-alpine
 
+RUN apk add --no-cache git
+
 ARG BUILD_NUMBER
 ARG GIT_REF
 ARG GIT_DATE
@@ -31,6 +33,8 @@ RUN npm run verify
 
 # Record build number
 RUN BUILD_NUMBER=${BUILD_NUMBER} GIT_REF=${GIT_REF} GIT_DATE=${GIT_DATE} npm run record-build-info
+
+RUN apk del git
 
 EXPOSE 3000
 CMD [ "npm", "start" ]

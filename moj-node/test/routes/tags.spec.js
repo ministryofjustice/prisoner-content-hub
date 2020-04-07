@@ -19,9 +19,7 @@ describe('GET /tags', () => {
 
         app.use('/tags', router);
 
-        return request(app)
-          .get('/tags/1')
-          .expect(500);
+        return request(app).get('/tags/1').expect(500);
       });
     });
 
