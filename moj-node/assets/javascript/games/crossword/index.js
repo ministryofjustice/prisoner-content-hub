@@ -248,49 +248,29 @@ function WordGrid(listOfWords) {
 
   function hasRowAbove(y, offset) {
     offset = offset || 1;
-    if (grid[y - offset]) {
-      return true;
-    } else {
-      return false;
-    }
+    return (grid[y - offset]);
   }
 
   function hasRowBelow(y, offset) {
     offset = offset || 1;
-    if (grid[y + offset]) {
-      return true;
-    } else {
-      return false;
-    }
+    return (grid[y + offset]);
   }
 
   function rowExists(y, yOffset) {
     yOffset = yOffset || 0;
-    if (grid[y + yOffset]) {
-      return true;
-    } else {
-      return false;
-    }
+    return (grid[y + yOffset]);
   }
 
   function isEmptyAtPosition(x, y, xOffset, yOffset) {
     xOffset = xOffset || 0;
     yOffset = yOffset || 0;
-    if (grid[y + yOffset][x + xOffset] === '') {
-      return true;
-    } else {
-      return false;
-    }
+    return (grid[y + yOffset][x + xOffset] === '');
   }
 
   function hasLetterAtPosition(x, y, xOffset, yOffset, letter) {
     xOffset = xOffset || 0;
     yOffset = yOffset || 0;
-    if (grid[y + yOffset][x + xOffset] === letter) {
-      return true;
-    } else {
-      return false;
-    }
+    return (grid[y + yOffset][x + xOffset] === letter);
   }
 
 
@@ -337,10 +317,7 @@ function WordGrid(listOfWords) {
       }
     }
 
-    if (position) {
-      return position;
-    }
-    return false;
+    return position || false;
   }
 
   function fitWordByLetterPositionH(index, word, x, y) {
@@ -366,10 +343,7 @@ function WordGrid(listOfWords) {
       }
     }
 
-    if (position) {
-      return position;
-    }
-    return false;
+    return position || false;
   }
 
   function findLetterInRow(index, word, y) {
@@ -420,7 +394,6 @@ function WordGrid(listOfWords) {
       return true;
     }
 
-    // console.warn('Crossword: could not place word "' + word.answer + '"');
     return false;
   }
 
