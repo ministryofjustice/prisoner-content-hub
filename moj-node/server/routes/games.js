@@ -129,13 +129,16 @@ const createGamesRouter = ({ analyticsService, logger }) => {
     config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
-
-    return res.render('pages/games/crossword', {
+    analyticsService.sendPageTrack({
       hostname: req.hostname,
       page: '/games/crossword',
       title: 'Crossword',
-      config,
       sessionId,
+    });
+
+    return res.render('pages/games/crossword', {
+      title: 'Crossword',
+      config,
     });
   });
 
