@@ -15,7 +15,7 @@ var WORD_LIST = [
   { answer: 'kiwi', clue: 'Fruity bird' },
   { answer: 'treason', clue: 'Crime against the state' },
   { answer: 'twist', clue: 'Late, unexpected change in a story' },
-  { answer: 'dragon', clue: 'Mythical beast' },
+  { answer: 'dragon', clue: 'Mythical fire-breathing beast' },
   { answer: 'llama', clue: 'Four legged animal from Peru' },
   { answer: 'mouse', clue: 'As quiet as a _____' },
   { answer: 'mars', clue: 'Planet - A tasty treat' },
@@ -154,7 +154,50 @@ var WORD_LIST = [
   { answer: 'choir', clue: 'Group of singers' },
   { answer: 'carols', clue: 'Christmas songs' },
   { answer: 'vanilla', clue: 'Popular ice cream flavour' },
-  { answer: 'train', clue: 'A type of rail transport' }
+  { answer: 'train', clue: 'A type of rail transport' },
+  { answer: 'mercury', clue: 'The planet closest to the sun' },
+  { answer: 'yacht', clue: 'A sailing boat' },
+  { answer: 'exhale', clue: 'Breathe out' },
+  { answer: 'campus', clue: 'University grounds' },
+  { answer: 'soup', clue: 'A liquid food' },
+  { answer: 'breeze', clue: 'Gentle wind' },
+  { answer: 'bracelet', clue: 'A type of jewellery worn around the wrist' },
+  { answer: 'chapter', clue: 'Section of a book' },
+  { answer: 'forest', clue: 'Trees in a large densely wooded area' },
+  { answer: 'marathon', clue: 'Long distance running race' },
+  { answer: 'hedgehog', clue: 'A small prickly animal' },
+  { answer: 'august', clue: 'Month after July' },
+  { answer: 'robin', clue: 'Small red-coloured songbird' },
+  { answer: 'submarine', clue: 'Underwater vessel' },
+  { answer: 'eagle', clue: 'Large bird of prey' },
+  { answer: 'knot', clue: 'Nautical unit of speed' },
+  { answer: 'wine', clue: 'Drink made from grapes' },
+  { answer: 'river', clue: 'A large natural stream of water' },
+  { answer: 'cinema', clue: 'A theater where films are shown' },
+  { answer: 'octopus', clue: 'Sea creature with eight tentacles' },
+  {
+    answer: 'keyboard',
+    clue: 'Device that allows you to type on a computer'
+  },
+  { answer: 'gondola', clue: 'Venetian canal boat' },
+  {
+    answer: 'postcard',
+    clue: 'A card for sending messages by post without an envelope'
+  },
+  { answer: 'car', clue: 'Motor vehicle with four wheel' },
+  { answer: 'bike', clue: 'Mode of transport with two wheels' },
+  { answer: 'kitten', clue: 'Young cat' },
+  { answer: 'puppy', clue: 'Young dog' },
+  { answer: 'hamster', clue: 'Small furry pet with large cheek pouches' },
+  { answer: 'shell', clue: 'Something you can collect at the beach' },
+  { answer: 'rainbow', clue: 'Colourful arc in the sky' },
+  { answer: 'queue', clue: 'Waiting in line' },
+  { answer: 'farewell', clue: 'Polite way to say goodbye' },
+  { answer: 'toothbrush', clue: 'Small brush used to clean teeth' },
+  {
+    answer: 'rabbit',
+    clue: 'A pet with long ears normally kept in a hutch'
+  }
 ];
 
 var directions = {
@@ -164,9 +207,11 @@ var directions = {
 
 function extractRandomValueFrom(array) {
   var index = Math.floor(Math.random() * array.length);
-  var value = array[index];
-  array.splice(index, 1);
-  return value;
+  var clue = array[index];
+  return {
+    index: index,
+    clue: clue
+  };
 }
 
 function WordGrid(listOfWords) {
@@ -376,8 +421,8 @@ function WordGrid(listOfWords) {
     }
 
     for (var i = 0; i < rows.length; i++) {
-      for (var j = 0; j < letters.length; j++) {
-        var position = findLetterInRow(letters[j].index, word, rows[i]);
+      for (var j = 1; j < letters.length; j++) {
+        var position = findLetterInRow(j, word, rows[i]);
         if (position) {
           return position;
         }
@@ -406,23 +451,28 @@ function WordGrid(listOfWords) {
     wordList = wordList.slice();
 
     sortWords(wordList);
-    addFirstWord(extractRandomValueFrom(wordList));
+    var firstWord = extractRandomValueFrom(wordList)
+    addFirstWord(firstWord.clue);
+    wordList.splice(firstWord.index, 1);
 
-    var wordsChecked = 1;
-    while (wordList.length && wordsChecked < NUMBER_OF_WORDS) {
+    var wordsPlaced = 1;
+    var iterations = 0;
+    while (wordsPlaced < NUMBER_OF_WORDS && iterations < NUMBER_OF_WORDS * 3) {
 
       var entry = extractRandomValueFrom(wordList);
 
-      if (!entry.answer || entry.answer.length === 0) {
+      if (!entry.clue.answer || entry.clue.answer.length === 0) {
         continue;
       }
 
-      if (addWord(entry)) {
-        wordsChecked++;
+      if (addWord(entry.clue)) {
+        wordList.splice(entry.index, 1);
+        wordsPlaced++;
       }
+      iterations++;
     }
 
-    if (wordsChecked < NUMBER_OF_WORDS) {
+    if (wordsPlaced < NUMBER_OF_WORDS) {
       console.warn('Crossword: Unable to place all words');
     }
   }
@@ -737,6 +787,9 @@ function CrosswordGame(wordGrid) {
     $('#crossword-new-game').on('click', function (e) {
       e.preventDefault();
       var wg = new WordGrid(WORD_LIST);
+      while (wg.getWords().length !== NUMBER_OF_WORDS) {
+        wg = new WordGrid(WORD_LIST);
+      }
       grid = wg.getGrid();
       words = wg.getWords();
       render();
@@ -747,6 +800,9 @@ function CrosswordGame(wordGrid) {
 
 (function () {
   var wg = new WordGrid(WORD_LIST);
+  while (wg.getWords().length !== NUMBER_OF_WORDS) {
+    wg = new WordGrid(WORD_LIST);
+  }
   var game = new CrosswordGame(wg);
   game.render();
   game.setupControls();
