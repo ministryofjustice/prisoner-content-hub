@@ -248,7 +248,7 @@ function render(table, playedCards) {
     function(e) {
       e.preventDefault();
       document.location.reload();
-    },
+    }
   );
 
   // check for played cards
@@ -543,7 +543,7 @@ function play(table) {
     '#stock .card:first-child,' +
       '#waste .card:first-child,' +
       '#fnd .card:first-child,' +
-      '#tab .card[data-played="true"]',
+      '#tab .card[data-played="true"]'
   );
   // bind dbl click events
   bindClick('#waste .card:first-child,' + '#tab .card:last-child', 'double');
@@ -906,7 +906,7 @@ function makeMove() {
         table['tab'][source],
         table['tab'][dest],
         true,
-        selectedCards.length,
+        selectedCards.length
       );
     }
   }
@@ -921,7 +921,7 @@ function makeMove() {
       '#fnd #diamonds.pile[data-empty="true"],' +
       '#fnd #clubs.pile[data-empty="true"],' +
       '#tab .card[data-played="true"],' +
-      '#tab .pile[data-empty="true"]',
+      '#tab .pile[data-empty="true"]'
   );
   // unbind double click events
   unbindClick('#waste .card:first-child' + '#tab .card:last-child', 'double');
@@ -1032,7 +1032,7 @@ function timer(action) {
         'click',
         (pauseTimer = function() {
           timer('pause');
-        }),
+        })
       );
       break;
     // pause timer
@@ -1048,7 +1048,7 @@ function timer(action) {
         'click',
         (playTimer = function() {
           timer('start');
-        }),
+        })
       );
       break;
     // stop timer
@@ -1168,7 +1168,7 @@ function autoWin() {
       '#fnd #diamonds.pile[data-empty="true"],' +
       '#fnd #clubs.pile[data-empty="true"],' +
       '#tab .card[data-played="true"],' +
-      '#tab .pile[data-empty="true"]',
+      '#tab .pile[data-empty="true"]'
   );
   // unbind double click events
   unbindClick('#waste .card:first-child' + '#tab .card:last-child', 'double');
@@ -1268,7 +1268,7 @@ function throwConfetti() {
     [255, 144, 0],
     [255, 255, 255],
     [255, 144, 0],
-    [0, 277, 235],
+    [0, 277, 235]
   ];
 
   PI_2 = 2 * Math.PI;
@@ -1384,19 +1384,19 @@ function throwConfetti() {
         ~~this.x,
         ~~this.y,
         this.r,
-        this.rgb + ',' + this.opacity + ')',
+        this.rgb + ',' + this.opacity + ')'
       );
       drawCircle3(
         ~~this.x * 0.5,
         ~~this.y,
         this.r,
-        this.rgb + ',' + this.opacity + ')',
+        this.rgb + ',' + this.opacity + ')'
       );
       return drawCircle2(
         ~~this.x * 1.5,
         ~~this.y * 1.5,
         this.r,
-        this.rgb + ',' + this.opacity + ')',
+        this.rgb + ',' + this.opacity + ')'
       );
     };
 
