@@ -98,6 +98,9 @@
   border-left: 4px solid #fff;
   font-size: 10px;
 }
+#restart {
+  color: #fff;
+}
 [data-gameplay="active"] #score .timer button,
 [data-gameplay="paused"] #score .timer button {
   display: inline-block;

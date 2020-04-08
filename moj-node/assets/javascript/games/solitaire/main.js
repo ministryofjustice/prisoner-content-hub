@@ -131,6 +131,7 @@ var $waste = d.querySelector('#waste');
 var $fnd = d.querySelector('#fnd');
 var $tab = d.querySelector('#tab');
 var $autoWin = d.querySelector('#auto-win');
+var $restart = d.querySelector('#restart');
 
 // other global vars
 var clock = 0;
@@ -242,6 +243,13 @@ function move(source, dest, pop, selectedCardsIn) {
 // render table
 function render(table, playedCards) {
   // console.log('Rendering Table...');
+  $restart.addEventListener(
+    'click',
+    function(e) {
+      e.preventDefault();
+      document.location.reload();
+    },
+  );
 
   // check for played cards
   playedCards = checkForPlayedCards(playedCards);
