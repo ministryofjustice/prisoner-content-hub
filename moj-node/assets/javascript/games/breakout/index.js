@@ -1,7 +1,9 @@
-var gameCanvas = document.getElementById("gameCanvas");
-var ctx = gameCanvas.getContext("2d");
-var x = gameCanvas.width/2;
-var y = gameCanvas.height-20;
+var gameCanvas;
+var ctx;
+var x;
+var y;
+var paddleWidth;
+var paddleX;
 var dx = 0;
 var dy = 0;
 var ballStatic = true;
@@ -9,8 +11,6 @@ var ballRadius = 10;
 var randomColor = getRandomColor();
 var blockColor = ["#d4351c", 	"#ffdd00", "#00703c", "#1d70b8", "#003078",  "#5694ca", "#4c2c92"];
 var paddleHeight = 10;
-var paddleWidth = 100;
-var paddleX = (gameCanvas.width-paddleWidth) / 2;
 var rightPressed = false;
 var leftPressed = false;
 var spaceBarPressed = false;
@@ -159,9 +159,6 @@ function draw() {
 
     requestAnimationFrame(draw);
 }
-
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
 
 function keyDownHandler(e) {
     if(e.key == "Right" || e.key == "ArrowRight") {
@@ -364,4 +361,15 @@ function level3() {
   draw();
 }
 
-draw();
+window.onload = function () {
+  gameCanvas = document.getElementById("gameCanvas");
+  ctx = gameCanvas.getContext("2d");
+  x = gameCanvas.width/2;
+  y = gameCanvas.height-20;
+  paddleWidth = 100;
+  paddleX = (gameCanvas.width-paddleWidth) / 2;
+  document.addEventListener("keydown", keyDownHandler, false);
+  document.addEventListener("keyup", keyUpHandler, false);
+
+  draw();
+}
