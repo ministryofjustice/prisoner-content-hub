@@ -113,25 +113,21 @@ table['clubs'] = clubs;
 table['tab'] = t;
 
 // initial face up cards
-var playedCards = '#waste .card,' + '#fnd .card,' + '#tab .card:last-child';
+var playedCards = '#waste .card,#fnd .card,#tab .card:last-child';
 
 // cache selectors
-var $timer = d.querySelector('#score .timer');
-var $timerSpan = d.querySelector('#score .timer span');
-var $moveCount = d.querySelector('#score .move-count');
-var $moveCountSpan = d.querySelector('#score .move-count span');
-var $score = d.querySelector('#score .score');
-var $scoreSpan = d.querySelector('#score .score span');
-var $playPause = d.querySelector('#play-pause');
+var $timer = $('#score .timer');
+var $timerSpan = $('#score .timer span');
+var $autoWin = $('#auto-win');
+var $score = $('#score .score');
+var $scoreContainer = $('#score');
+var $scoreSpan = $('#score .score span');
+var $playPause = $('#play-pause');
+var $moveCount = $('#score .move-count');
+var $moveCountSpan = $('#score .move-count span');
+var $tab = $('#tab');
+
 var $table = d.querySelector('#table');
-var $upper = d.querySelector('#table .upper-row');
-var $lower = d.querySelector('#table .lower-row');
-var $stock = d.querySelector('#stock');
-var $waste = d.querySelector('#waste');
-var $fnd = d.querySelector('#fnd');
-var $tab = d.querySelector('#tab');
-var $autoWin = d.querySelector('#auto-win');
-var $restart = d.querySelector('#restart');
 
 // other global vars
 var clock = 0;
@@ -156,11 +152,6 @@ render(table, playedCards);
 
 // 5. START GAMEPLAY
 play(table);
-
-// ### EVENT HANDLERS ###
-window.onresize = function(event) {
-  sizeCards();
-};
 
 // ### FUNCTIONS ###
 
@@ -243,7 +234,7 @@ function move(source, dest, pop, selectedCardsIn) {
 // render table
 function render(table, playedCards) {
   // console.log('Rendering Table...');
-  $restart.addEventListener(
+  $('#restart').on(
     'click',
     function(e) {
       e.preventDefault();
@@ -333,11 +324,10 @@ function getTemplate(card) {
   var r = card[0]; // get rank
   var s = card[1]; // get suit
   // get html template
-  var html = d.querySelector('.template li[data-rank="' + r + '"]').innerHTML;
+  var html = $('.template li[data-rank="' + r + '"]').html();
   // search and replace suit variable
   // console.log(html)
-  html = html.replace('??suit??', s);
-  return html;
+  return html.replace('??suit??', s);
 }
 
 // create card in pile
@@ -399,19 +389,19 @@ function checkForEmptyPiles(table) {
   var emptyPiles = '#fake.pile';
   // check spades pile
   if (table['spades'].length === 0) {
-    emptyPiles += ', #fnd #spades.pile';
+    emptyPiles += ',#fnd #spades.pile';
   }
   // check hearts pile
   if (table['hearts'].length === 0) {
-    emptyPiles += ', #fnd #hearts.pile';
+    emptyPiles += ',#fnd #hearts.pile';
   }
   // check diamonds pile
   if (table['diamonds'].length === 0) {
-    emptyPiles += ', #fnd #diamonds.pile';
+    emptyPiles += ',#fnd #diamonds.pile';
   }
   // check clubs pile
   if (table['clubs'].length === 0) {
-    emptyPiles += ', #fnd #clubs.pile';
+    emptyPiles += ',#fnd #clubs.pile';
   }
   // check tableau piles
   var tabs = table['tab'];
@@ -419,7 +409,7 @@ function checkForEmptyPiles(table) {
   for (var i = 1; i <= 7; i++) {
     // check tabeau pile
     if (tabs[i].length === 0) {
-      emptyPiles += ', #tab li:nth-child(' + i + ').pile';
+      emptyPiles += ',#tab li:nth-child(' + i + ').pile';
     }
   }
   // mark piles as empty
@@ -515,21 +505,16 @@ function getUnplayedTabCards() {
 }
 
 // size cards
-function sizeCards(selector, ratio) {
-  var s = selector || '.pile';
-  var r = ratio || 1.4;
-  var e = d.querySelector(s); // query element
-  var h = e.offsetWidth * r; // get height of element
+function sizeCards() {
+  var s = '.pile';
+  var h = $(s).width() * 1.4;
+
   // set row heights
-  $upper.style.height = h + 10 + 'px';
-  $lower.style.height = h + 120 + 'px';
+  $('#table .upper-row').css('height', h + 10 + 'px');
+  $('#table .lower-row').css('height', h + 120 + 'px');
+
   // set height of elements
-  var els = d.querySelectorAll(s); // query all elements
-  for (var e in els) {
-    // loop through elements
-    e = els[e];
-    if (e.nodeType) e.style.height = h + 'px'; // set height in css
-  }
+  $(s).height(h + 'px');
 }
 
 // gameplay
@@ -553,32 +538,14 @@ function play(table) {
 
 // bind click events
 function bindClick(selectors, double) {
-  var elements = d.querySelectorAll(selectors); // query all elements
-  // loop through elements
-  for (var e in elements) {
-    e = elements[e];
-    // add event listener
-    if (e.nodeType) {
-      if (!double) e.addEventListener('click', select);
-      else e.addEventListener('dblclick', select);
-    }
-  }
-  return;
+  var eventType = double ? 'dblclick' : 'click';
+  $(selectors).on(eventType, select);
 }
 
 // unbind click events
 function unbindClick(selectors, double) {
-  var elements = d.querySelectorAll(selectors); // query all elements
-  // loop through elements
-  for (var e in elements) {
-    e = elements[e];
-    // remove event listener
-    if (e.nodeType) {
-      if (!double) e.removeEventListener('click', select);
-      else e.removeEventListener('dblclick', select);
-    }
-  }
-  return;
+  var eventType = double ? 'dblclick' : 'click';
+  $(selectors).off(eventType, select);
 }
 
 // on click handler: select
@@ -590,7 +557,7 @@ function select(event) {
   event.preventDefault();
 
   // start timer
-  if ($timer.dataset.action !== 'start') {
+  if ($timer.data('action') !== 'start') {
     timer('start');
   }
 
@@ -605,7 +572,6 @@ function select(event) {
 
   // get variables
   var e = event.target; // get element
-  var isSelected = e.dataset.selected; // get selected attribute
   var rank = e.dataset.rank; // get rank attribute
   var suit = e.dataset.suit; // get suit attribute
   var pile = e.dataset.pile; // get pile attribute
@@ -895,7 +861,7 @@ function makeMove() {
     else {
       // console.log('Moving To Tableau Pile');
       // get selected card
-      var selected = d.querySelector('.card[data-selected="true"');
+      var selected = d.querySelector('.card[data-selected="true"]');
       // get cards under selected card
       var selectedCards = [selected];
       while ((selected = selected['nextSibling'])) {
@@ -988,10 +954,10 @@ function reset(table) {
   delete $table.dataset.selected;
   delete $table.dataset.source;
   delete $table.dataset.dest;
-  delete $fnd.dataset.played;
-  delete $fnd.dataset.unplayed;
-  delete $tab.dataset.played;
-  delete $tab.dataset.unplayed;
+  jQuery.removeData('#fnd', 'played');
+  jQuery.removeData('#fnd', 'unplayed');
+  jQuery.removeData('#tab', 'played');
+  jQuery.removeData('#tab', 'unplayed');
   // console.log('Table reset');
 }
 
@@ -1000,9 +966,9 @@ function timer(action) {
   // declare timer vars
   var minutes = 0;
   var seconds = 0;
-  var gameplay = d.body.dataset.gameplay;
+  var gameplay = $('body').data('gameplay');
   // set timer attribute
-  $timer.dataset.action = action;
+  $timer.data('action', action);
   // switch case
   switch (action) {
     // start timer
@@ -1018,17 +984,18 @@ function timer(action) {
         minutes = minutes < 10 ? '0' + minutes : minutes;
         seconds = seconds < 10 ? '0' + seconds : seconds;
         // output to display
-        $timerSpan.textContent = minutes + ':' + seconds;
+        $timerSpan.text(minutes + ':' + seconds);
         // if 10 seconds has passed decrement score by 2 pts
         if (time % 10 === 0) updateScore(-2);
       }, 1000);
       // add dataset to body
-      d.body.dataset.gameplay = 'active';
+      $('body').data('gameplay', 'active');
+      $scoreContainer.removeClass('paused').removeClass('active').addClass('active');
       // unbind click to play button
       if (gameplay === 'paused')
-        $playPause.removeEventListener('click', playTimer);
+        $playPause.off('click', playTimer);
       // bind click to pause button
-      $playPause.addEventListener(
+      $playPause.on(
         'click',
         (pauseTimer = function() {
           timer('pause');
@@ -1039,12 +1006,13 @@ function timer(action) {
     case 'pause':
       // console.log('Pausing Timer...');
       clearInterval(clock);
-      d.body.dataset.gameplay = 'paused';
+      $('body').data('gameplay', 'paused');
+      $scoreContainer.removeClass('paused').removeClass('active').addClass('paused');
       // unbind click to pause button
       if (gameplay === 'active')
-        $playPause.removeEventListener('click', pauseTimer);
+        $playPause.off('click', pauseTimer);
       // bind click tp play button
-      $playPause.addEventListener(
+      $playPause.on(
         'click',
         (playTimer = function() {
           timer('start');
@@ -1055,7 +1023,8 @@ function timer(action) {
     case 'stop':
       // console.log('Stoping Timer...');
       clearInterval(clock);
-      d.body.dataset.gameplay = 'over';
+      $('body').data('gameplay', 'over');
+      $scoreContainer.removeClass('paused').removeClass('active');
       break;
     // default
     default:
@@ -1068,11 +1037,11 @@ function timer(action) {
 // move counter
 function countMove(moves) {
   // console.log('Move Counter', moves);
+  moves++;
   // set move attribute
-  $moveCount.dataset.moves = moves + 1;
+  $moveCount.data('moves', moves);
   // output to display
-  $moveCountSpan.textContent = moves + 1;
-  return;
+  $moveCountSpan.text(moves);
 }
 
 // scoring function
@@ -1093,15 +1062,15 @@ function countMove(moves) {
 function updateScore(points) {
   // console.log('Updating Score', points);
   // get score
-  score = parseInt($score.dataset.score) + points;
+  score = parseInt($score.data('score')) + points;
   // set minimum score to 0
   score = score < 0 ? 0 : score;
   // parse as integer
   score = parseInt(score);
   // set score attribute
-  $score.dataset.score = score;
+  $score.data('score', score);
   // output to display
-  $score.children[1].textContent = score;
+  $scoreSpan.text(score);
   return score;
 }
 
@@ -1131,22 +1100,24 @@ function checkForWin(table) {
     throwConfetti();
     // return true
     return true;
-  } else return false;
+  }
+
+  return false;
 }
 
 // check for auto win
 function checkForAutoWin(table) {
   // if all tableau cards are played and stock is empty
   if (
-    parseInt($tab.dataset.unplayed) +
+    parseInt($tab.data('unplayed')) +
       table['stock'].length +
       table['waste'].length ===
     0
   ) {
     // show auto win button
-    $autoWin.style.display = 'block';
+    $autoWin.show();
     // bind click to auto win button
-    $autoWin.addEventListener('click', autoWin);
+    $autoWin.on('click', autoWin);
   }
   return;
 }
@@ -1155,9 +1126,9 @@ function checkForAutoWin(table) {
 function autoWin() {
   // console.log('Huzzah!');
   // hide auto win button
-  $autoWin.style.display = 'none';
+  $autoWin.hide();
   // unbind click to auto win button
-  $autoWin.removeEventListener('click', autoWin);
+  $autoWin.off('click', autoWin);
   // unbind click events
   unbindClick(
     '#stock .card:first-child,' +
@@ -1186,7 +1157,7 @@ function autoWin() {
 // auto win animation
 function autoWinAnimation(table) {
   // set number of iterations
-  var i = parseInt($tab.dataset.played);
+  var i = parseInt($tab.data('played'));
   // create animation loop
   function animation_loop() {
     // get lowest ranking card

@@ -25,14 +25,6 @@
 .navbar a {
   color: #fff;
 }
-.navbar li[data-active="false"] {
-  opacity: 0.5;
-  pointer-events: none;
-}
-.navbar li[data-active="true"] {
-  opacity: 1;
-  pointer-events: auto;
-}
 .template {
   display: none;
 }
@@ -103,16 +95,16 @@
 #restart {
   color: #fff;
 }
-[data-gameplay="active"] #score .timer button,
-[data-gameplay="paused"] #score .timer button {
+#score.active .timer button,
+#score.paused .timer button {
   display: inline-block;
 }
-[data-gameplay="active"] #score .timer button i#pause::before,
-[data-gameplay="paused"] #score .timer button i#play::before {
+#score.active .timer button i#pause::before,
+#score.paused .timer button i#play::before {
   content: '';
 }
-[data-gameplay="active"] #score,
-[data-gameplay="paused"] #score {
+#score.active,
+#score.paused {
   padding-left: 3em;
 }
 #auto-win {
