@@ -18,7 +18,7 @@ var WORD_LIST = [
   { answer: 'dragon', clue: 'Mythical fire-breathing beast' },
   { answer: 'llama', clue: 'Four legged animal from Peru' },
   { answer: 'mouse', clue: 'As quiet as a _____' },
-  { answer: 'mars', clue: 'Planet - A tasty treat' },
+  { answer: 'mars', clue: 'A planet and a tasty treat' },
   { answer: 'parrot', clue: 'Feathered mimic' },
   { answer: 'tattoo', clue: 'Design marked on the skin' },
   { answer: 'tapes', clue: 'Cassettes' },
@@ -197,7 +197,96 @@ var WORD_LIST = [
   {
     answer: 'rabbit',
     clue: 'A pet with long ears normally kept in a hutch'
-  }
+  },
+  {
+    answer: 'gloves',
+    clue: 'Item of clothing worn on the hands when it\'s cold'
+  },
+  { answer: 'hat', clue: 'Item of clothing worn on the head' },
+  { answer: 'scarf', clue: 'Item of clothing worn around the neck' },
+  { answer: 'north', clue: 'Opposite direction to South' },
+  { answer: 'west', clue: 'Opposite direction to East' },
+  { answer: 'elbow', clue: 'Arm joint' },
+  { answer: 'sink', clue: 'A place to wash your hands' },
+  { answer: 'babysit', clue: 'To look after children' },
+  { answer: 'swan', clue: 'White aquatic bird with very long neck' },
+  { answer: 'village', clue: 'Settlement smaller than a town' },
+  { answer: 'tiny', clue: 'Very small' },
+  { answer: 'honey', clue: 'Sweet yellow liquid produced by bees' },
+  { answer: 'bee', clue: 'Insect that makes honey' },
+  { answer: 'heathrow', clue: 'Busy London airport' },
+  { answer: 'chameleon', clue: 'Colour changing lizard' },
+  { answer: 'thunder', clue: 'Noise after lightning' },
+  { answer: 'lightning', clue: 'A flash in the sky during a storm' },
+  { answer: 'flooding', clue: 'Can be caused by lots of rain' },
+  {
+    answer: 'lighthouse',
+    clue: 'Tower that shines light to warn boats of danger'
+  },
+  { answer: 'breakfast', clue: 'The first meal of the day' },
+  { answer: 'socks', clue: 'Worn inside the shoe' },
+  { answer: 'triangle', clue: 'Shape with three sides' },
+  { answer: 'book', clue: 'Something you might read' },
+  { answer: 'mirror', clue: 'You can see your reflection in this' },
+  { answer: 'bricks', clue: 'Material used to build houses' },
+  { answer: 'water', clue: 'Comes out of a tap' },
+  { answer: 'wardrobe', clue: 'A storage space for clothes' },
+  { answer: 'sibling', clue: 'A person\'s brother or sister' },
+  { answer: 'family', clue: 'People you are related to' },
+  { answer: 'school', clue: 'Learning facility' },
+  { answer: 'tea', clue: 'Hot drink' },
+  { answer: 'coffee', clue: 'Popular beverage made from ground beans' },
+  {
+    answer: 'sandwich',
+    clue: 'Slices of bread with a filling between them'
+  },
+  { answer: 'city', clue: 'A large and densely populated urban area' },
+  {
+    answer: 'restaurant',
+    clue: 'A business that prepares and serves meals'
+  },
+  { answer: 'empty', clue: 'Opposite of full' },
+  { answer: 'magician', clue: 'Someone who performs magic' },
+  { answer: 'dance', clue: 'Move in a rhythmical way, usually to music' },
+  { answer: 'shopping', clue: 'Searching for or buying goods or services' },
+  { answer: 'palace', clue: 'Royal residence' },
+  { answer: 'snail', clue: 'Small creature that has a shell on it\'s back' },
+  {
+    answer: 'koala',
+    clue: 'Australian creature with grey furry ears and coat'
+  },
+  {
+    answer: 'tiger',
+    clue: 'The largest cat in the world, has orange stripes'
+  },
+  { answer: 'elephant', clue: 'An animal that has a long trunk' },
+  { answer: 'giraffe', clue: 'Tallest animal on Earth' },
+  {
+    answer: 'penguin',
+    clue: 'Black and white flightless bird, also a chocolate covered biscuit'
+  },
+  { answer: 'ant', clue: 'A tiny but very strong insect' },
+  { answer: 'duck', clue: 'An aquatic bird with webbed feet' },
+  {
+    answer: 'paint',
+    clue: 'A coloured liquid which is used to decorate walls'
+  },
+  {
+    answer: 'audience',
+    clue: 'A group of people that you might perform a play or concert to'
+  },
+  { answer: 'biology', clue: 'The study of plants and animals' },
+  {
+    answer: 'door',
+    clue: 'Something you walk through to enter a building or room'
+  },
+  { answer: 'sun', clue: 'The star which the earth orbits' },
+  { answer: 'green', clue: 'The colour of grass, apples and turtles' },
+  { answer: 'blue', clue: 'The colour of the sky, ocean and sapphires' },
+  { answer: 'yellow', clue: 'The colour of daffodils, cheese and lemons' },
+  { answer: 'red', clue: 'The colour of tomatoes, bricks and cherries' },
+  { answer: 'fast', clue: 'Moving at high speed' },
+  { answer: 'slow', clue: 'Moving at low speed' }
 ];
 
 var directions = {
