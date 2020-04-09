@@ -142,6 +142,28 @@ const createGamesRouter = ({ analyticsService, logger }) => {
     });
   });
 
+  router.get('/solitaire', (req, res) => {
+    logger.info('GET /games/solitaire');
+    const userDetails = path(['session', 'user'], req);
+    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+    const sessionId = path(['session', 'id'], req);
+
+    config.newDesigns = newDesigns;
+    config.detailsType = 'small';
+    config.userName = path(['name'], userDetails);
+    analyticsService.sendPageTrack({
+      hostname: req.hostname,
+      page: '/games/solitaire',
+      title: 'Solitaire',
+      sessionId,
+    });
+
+    return res.render('pages/games/solitaire', {
+      title: 'Solitaire',
+      config,
+    });
+  });
+
   return router;
 };
 
