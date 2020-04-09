@@ -1,10 +1,10 @@
 var gameCanvas = document.getElementById("gameCanvas");
 var ctx = gameCanvas.getContext("2d");
 var x = gameCanvas.width/2;
-var y = gameCanvas.height-30;
-var dx = 5;
-var dy = -5;
-var ballStatic = false;
+var y = gameCanvas.height-20;
+var dx = 0;
+var dy = 0;
+var ballStatic = true;
 var ballRadius = 10;
 var randomColor = getRandomColor();
 var blockColor = ["#d4351c", 	"#ffdd00", "#00703c", "#1d70b8", "#003078",  "#5694ca", "#4c2c92"];
@@ -14,7 +14,7 @@ var paddleX = (gameCanvas.width-paddleWidth) / 2;
 var rightPressed = false;
 var leftPressed = false;
 var spaceBarPressed = false;
-var brickRowCount = 1;
+var brickRowCount = 4;
 var brickColumnCount = 4;
 var brickWidth = 80;
 var brickHeight = 40;
@@ -91,7 +91,7 @@ function draw() {
       return
     }
 
-    if(gameScore === 24) {
+    if(gameScore === 48) {
       winGame();
       return
     }
@@ -272,9 +272,10 @@ function winGame() {
   ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
   ctx.fillStyle = "white";
   ctx.font = "30px GDS Transport";
-  ctx.fillText("Smash it!" , 330 , 250);
+  ctx.fillText("Smashed it!" , 320 , 250);
   ctx.fillText("YOU WIN   :)" , 315 , 290);
-  ctx.fillText("Press ENTER to start a new game" , 180, 330);
+  ctx.fillText("More levels coming soon" , 240, 330);
+  ctx.fillText("Press ENTER to start a new game" , 180, 370);
 
   document.addEventListener('keyup', function(e){
     if(e.keyCode === 13 || e.key === "Enter")
@@ -286,10 +287,10 @@ function level2() {
   gameCanvas = document.getElementById("gameCanvas");
   ctx = gameCanvas.getContext("2d");
   x = gameCanvas.width/2;
-  y = gameCanvas.height-30;
-  dx = 6;
-  dy = -6;
-  ballStatic = false;
+  y = gameCanvas.height-20;
+  dx = 0;
+  dy = 0;
+  ballStatic = true;
   ballRadius = 10;
   randomColor = getRandomColor();
   blockColor = ["#d4351c", 	"#ffdd00", "#00703c", "#1d70b8", "#003078",  "#5694ca", "#4c2c92"];
@@ -299,7 +300,7 @@ function level2() {
   rightPressed = false;
   leftPressed = false;
   spaceBarPressed = false;
-  brickRowCount = 2;
+  brickRowCount = 4;
   brickColumnCount = 4;
   brickWidth = 70;
   brickHeight = 40;
@@ -317,7 +318,7 @@ function level2() {
       }
   }
 
-  if(gameScore  === 12) {
+  if(gameScore  === 32) {
     level3();
     return
   }
@@ -329,10 +330,10 @@ function level3() {
   gameCanvas = document.getElementById("gameCanvas");
   ctx = gameCanvas.getContext("2d");
   x = gameCanvas.width/2;
-  y = gameCanvas.height-30;
-  dx = 7;
-  dy = -7;
-  ballStatic = false;
+  y = gameCanvas.height-20;
+  dx = 0;
+  dy = 0;
+  ballStatic = true;
   ballRadius = 10;
   randomColor = getRandomColor();
   blockColor = ["#d4351c", 	"#ffdd00", "#00703c", "#1d70b8", "#003078",  "#5694ca", "#4c2c92"];
@@ -342,7 +343,7 @@ function level3() {
   rightPressed = false;
   leftPressed = false;
   spaceBarPressed = false;
-  brickRowCount = 3;
+  brickRowCount = 4;
   brickColumnCount = 4;
   brickWidth = 60;
   brickHeight = 40;
