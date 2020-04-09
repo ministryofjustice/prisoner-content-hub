@@ -1,4 +1,4 @@
-const { prop, filter, not, equals, map } = require('ramda');
+const { prop, filter, not, equals, map, path } = require('ramda');
 const { fixUrlForProduction } = require('../utils/index');
 
 function createHubContentService({
@@ -29,7 +29,9 @@ function createHubContentService({
     const videoDataRegExp = new RegExp('<p>VIDEO\\|[^|<]+\\|[^|<]+<', 'g');
     let videoMatches = [];
     /* eslint-disable func-names */
-    if (content.description) {
+    const rawContent = path(['description', 'raw'], content);
+
+    if (rawContent) {
       videoMatches = Array.from(
         content.description.raw.matchAll(videoDataRegExp),
         function (m) {
