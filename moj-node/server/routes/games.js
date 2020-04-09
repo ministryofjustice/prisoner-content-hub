@@ -164,6 +164,28 @@ const createGamesRouter = ({ analyticsService, logger }) => {
     });
   });
 
+  router.get('/smashout', (req, res) => {
+    logger.info('GET /games/smashout');
+    const userDetails = path(['session', 'user'], req);
+    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
+    const sessionId = path(['session', 'id'], req);
+
+    config.newDesigns = newDesigns;
+    config.detailsType = 'small';
+    config.userName = path(['name'], userDetails);
+    analyticsService.sendPageTrack({
+      hostname: req.hostname,
+      page: '/games/smashout',
+      title: 'Smashout',
+      sessionId,
+    });
+
+    return res.render('pages/games/smashout', {
+      title: 'Smashout',
+      config,
+    });
+  });
+
   return router;
 };
 

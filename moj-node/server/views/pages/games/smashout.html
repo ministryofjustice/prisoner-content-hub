@@ -1,0 +1,76 @@
+{% from "../../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "../../components/page-navigation/macro.njk" import pageNavigation %}
+{% from "../../components/user-details/macro.njk" import userDetails %}
+{% extends "../../components/template.njk" %}
+
+{% block pageTitle %}
+  {{ data.title }}
+{% endblock %}
+
+{% block head %}
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
+  <link href="/public/javascript/games/sudoku/sudokuJS.css" rel="stylesheet" type="text/css"/>
+  <style type="text/css">
+  canvas {
+    background-color: #f3f2f1;
+  }
+  </style>
+{% endblock %}
+
+{% block pageNavigation %}
+  {{ pageNavigation({ title: title }) }}
+{% endblock %}
+
+{% block topBar %}
+  {{ topBar({
+    establishmentName: establishmentName,
+    showBar: false
+  }) }}
+{% endblock %}
+
+{% block userDetails %}
+  {{ userDetails({
+    detailsType: config.detailsType,
+    userName: config.userName,
+    newDesigns: config.newDesigns
+  }) }}
+{% endblock %}
+
+{% block header %}{% endblock %}
+{% block homeNavigation %}{% endblock %}
+{% block search %}{% endblock %}
+
+{% block main %}
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+      <div class="govuk-grid-row govuk-!-margin-bottom-6">
+      </div>
+      <div class="govuk-grid-row govuk-!-margin-bottom-6">
+        <div class="govuk-grid-column-two-thirds">
+          <canvas id="gameCanvas" width="780" height="620"></canvas>
+        </div>
+        <div class="govuk-grid-column-one-third">
+            <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">{{title}}</h1>
+          <p class="govuk-body"><b>How to play:</b></p>
+          <p class="govuk-body">
+            Arrow keys = Move left and right
+            <br>Spacebar = Release ball</p>
+        </div>
+      </div>
+
+      <div class="govuk-hub-article-feedback">
+        <p class="govuk-body">Tell us what you think:</p>
+        {{ hubFeedbackWidget({
+          title: title,
+          contentType: "game",
+          feedbackId: feedbackId
+        })}}
+      </div>
+    </main>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  <script src="/public/javascript/games/breakout/index.js"></script>
+{% endblock %}
