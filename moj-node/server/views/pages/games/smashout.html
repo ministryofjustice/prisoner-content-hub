@@ -51,7 +51,7 @@
           <canvas id="gameCanvas" width="780" height="620"></canvas>
         </div>
         <div class="govuk-grid-column-one-third">
-            <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">Breakout</h1>
+            <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">{{title}}</h1>
           <p class="govuk-body"><b>How to play:</b></p>
           <p class="govuk-body">
             Arrow keys = Move left and right
@@ -62,11 +62,10 @@
       <div class="govuk-hub-article-feedback">
         <p class="govuk-body">Tell us what you think:</p>
         {{ hubFeedbackWidget({
-          title: "Breakout",
+          title: title,
           contentType: "game",
-          series: null,
-          establishment: establishmentName
-      })}}
+          feedbackId: feedbackId
+        })}}
       </div>
     </main>
   </div>
