@@ -3,7 +3,7 @@ $(document).ready(function() {
   var programmeCode = audio.data().programmeCode;
   var title = audio.data().title;
   var extendConfig = audio.data().config || {};
-  var name = title + '|' + programmeCode;
+  var name = programmeCode + '|' + title;
 
   var evt25 = once(analyticsAudioEvent({ label: '25%', action: name }));
   var evt50 = once(analyticsAudioEvent({ label: '50%', action: name }));
