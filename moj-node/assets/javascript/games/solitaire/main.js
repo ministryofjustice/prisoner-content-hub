@@ -125,9 +125,9 @@ var $scoreSpan = $('#score .score span');
 var $playPause = $('#play-pause');
 var $moveCount = $('#score .move-count');
 var $moveCountSpan = $('#score .move-count span');
+var $fnd = $('#fnd');
 var $tab = $('#tab');
-
-var $table = d.querySelector('#table');
+var $table = $('#table');
 
 // other global vars
 var clock = 0;
@@ -157,7 +157,7 @@ play(table);
 
 // create deck
 function create(deck, suits) {
-  // console.log('Creating Deck...');
+  console.log('Creating Deck...');
   // loop through each suit
   for (var suit in suits) {
     suit = suits[suit];
@@ -172,7 +172,7 @@ function create(deck, suits) {
 
 // shuffle deck
 function shuffle(deck) {
-  // console.log('Shuffling Deck...');
+  console.log('Shuffling Deck...');
   // declare vars
   var i = deck.length,
     temp,
@@ -192,7 +192,7 @@ function shuffle(deck) {
 
 // deal deck
 function deal(deck, table) {
-  // console.log('Dealing Deck...');
+  console.log('Dealing Deck...');
   // move all cards to stock
   table['stock'] = deck;
   // build tableau
@@ -233,7 +233,7 @@ function move(source, dest, pop, selectedCardsIn) {
 
 // render table
 function render(table, playedCards) {
-  // console.log('Rendering Table...');
+  console.log('Rendering Table...');
   $('#restart').on(
     'click',
     function(e) {
@@ -275,19 +275,24 @@ function render(table, playedCards) {
   sizeCards();
 
   // show table
-  $table.style.opacity = '100';
+  $table.css('opacity', '100%');
 
-  // console.log('Table Rendered:', table);
+  console.log('Table Rendered:', table);
   return;
 }
 
 // update piles
 function update(pile, selector, playedCards, append) {
-  var e = d.querySelector(selector);
-  var children = e.children; // get children
-  var grandParent = e.parentElement.parentElement; // get grand parent
+  // var e = d.querySelector(selector);
+  var $e = $(selector);
+  // var children = e.children; // get children
+  var $children = $e.children();
+  // var grandParent = e.parentElement.parentElement; // get grand parent
+  var $parent = $e.parent();
+  var $grandParent = $parent.parent();
   // reset pile
-  e.innerHTML = '';
+  // e.innerHTML = '';
+  $e.html('');
   // loop through cards in pile
   for (var card in pile) {
     card = pile[card];
@@ -299,22 +304,29 @@ function update(pile, selector, playedCards, append) {
   // turn cards face up
   flipCards(playedCards, 'up');
   // count played cards
-  var played = countPlayedCards(children);
-  e.parentElement.dataset.played = played;
+  var played = countPlayedCards($children);
+  // e.parentElement.dataset.played = played;
+  $parent.data('played', played);
   // count all played cards for #tab and #fnd piles
-  if (grandParent.id === 'tab' || grandParent.id === 'fnd') {
-    var playedAll = parseInt(grandParent.dataset.played);
+  if ($grandParent.attr('id') === 'tab' || $grandParent.attr('id') === 'fnd') {
+  //   var playedAll = parseInt(grandParent.dataset.played);
+    var playedAll = parseInt($grandParent.data('played'));
     if (isNaN(playedAll)) playedAll = 0;
-    grandParent.dataset.played = playedAll + played;
+    // grandParent.dataset.played = playedAll + played;
+    $grandParent.data('played', playedAll + played);
   }
   // count unplayed cards
-  var unplayed = countUnplayedCards(children);
-  e.parentElement.dataset.unplayed = unplayed;
+  var unplayed = countUnplayedCards($children);
+  // e.parentElement.dataset.unplayed = unplayed;
+  $parent.data('unplayed', unplayed);
   // count all unplayed cards for #tab and #fnd piles
-  if (grandParent.id === 'tab' || grandParent.id === 'fnd') {
-    var unplayedAll = parseInt(grandParent.dataset.unplayed);
+  if ($grandParent.attr('id') === 'tab' || $grandParent.attr('id') === 'fnd') {
+    // var unplayedAll = parseInt(grandParent.dataset.unplayed);
+    var $unplayedAll = parseInt($grandParent.data('unplayed'));
+    // console.log('unplayed', unplayedAll, $unplayedAll)
     if (isNaN(unplayedAll)) unplayedAll = 0;
-    grandParent.dataset.unplayed = unplayedAll + unplayed;
+    // grandParent.dataset.unplayed = unplayedAll + unplayed;
+    $grandParent.data('unplayed', unplayedAll + unplayed);
   }
   return pile;
 }
@@ -593,25 +605,25 @@ function select(event) {
 
       // if same card is clicked
       if (e.dataset.selected === 'true') {
-        // console.log('Status: Same Card Clicked');
+        console.log('Status: Same Card Clicked');
         // deselect card
         delete e.dataset.selected;
-        delete $table.dataset.move;
-        delete $table.dataset.selected;
-        delete $table.dataset.source;
+        $table.data('move', null);
+        $table.data('selected', null);
+        $table.data('source', null);
         // console.log('Card Deselected', card, e);
       }
 
       // if move is in progress
-      else if ($table.dataset.move) {
-        // console.log('Status: A Move Is In Progess');
+      else if ($table.data('move')) {
+        console.log('Status: A Move Is In Progess');
         // get selected
-        var selected = $table.dataset.selected.split(',');
+        var selected = $table.data('selected').join().split(',');
         // update table dataset with destination pile
-        $table.dataset.dest = e.closest('.pile').dataset.pile;
+        $table.data('dest', e.closest('.pile').dataset.pile);
         // get destination card or pile
         if (card) var dest = card;
-        else var dest = $table.dataset.dest;
+        else var dest = $table.data('dest');
         // validate move
         if (validateMove(selected, dest)) {
           // make move
@@ -620,17 +632,17 @@ function select(event) {
           render(table, playedCards);
           play(table);
         } else {
-          // console.log('Move is Invalid. Try again...');
+          console.log('Move is Invalid. Try again...');
           reset(table);
           render(table, playedCards);
           play(table);
-          // console.log('Card Deselected', card, e);
+          console.log('Card Deselected', card, e);
         }
       }
 
       // if stock is clicked
       else if (pile === 'stock') {
-        // console.log('Status: Stock Pile Clicked');
+        console.log('Status: Stock Pile Clicked');
         // if stock isn't empty
         if (table['stock'].length) {
           // move card from stock to waste
@@ -648,7 +660,7 @@ function select(event) {
 
       // if stock reload icon is clicked
       else if (action === 'reload') {
-        // console.log('Reloading Stock Pile');
+        console.log('Reloading Stock Pile');
         // remove event listener
         unbindClick('#stock .reload-icon');
         // reload stock pile
@@ -670,16 +682,16 @@ function select(event) {
       else {
         // select card
         e.dataset.selected = 'true';
-        $table.dataset.move = 'true';
-        $table.dataset.selected = card;
-        $table.dataset.source = e.closest('.pile').dataset.pile;
+        $table.data('move', 'true');
+        $table.data('selected', card);
+        $table.data('source', e.closest('.pile').dataset.pile);
         // if ace is selected
         if (rank === 'A') {
-          // console.log('Ace Is Selected');
+          console.log('Ace Is Selected');
           bindClick('#fnd #' + suit + 's.pile[data-empty="true"]');
         }
         if (rank === 'K') {
-          // console.log('King Is Selected');
+          console.log('King Is Selected');
           bindClick('#tab .pile[data-empty="true"]');
         }
       }
@@ -693,13 +705,13 @@ function select(event) {
     clicks = 0; // reset click counter
     // select card
     e.dataset.selected = 'true';
-    $table.dataset.move = 'true';
-    $table.dataset.selected = card;
-    $table.dataset.source = e.closest('.pile').dataset.pile;
+    $table.data('move', 'true');
+    $table.data('selected', card);
+    $table.data('source', e.closest('.pile').dataset.pile);
     // get destination pile
     if (card) var dest = card[1] + 's';
     // update table dataset with destination
-    $table.dataset.dest = dest;
+    $table.data('dest', dest);
     // validate move
     if (validateMove(card, dest)) {
       // make move
@@ -732,7 +744,7 @@ function validateMove(selected, dest) {
     // console.log('Desitination appears to be a card');
     var dRank = parseRankAsInt(dest[0]);
     var dSuit = dest[1];
-    var dPile = $table.dataset.dest;
+    var dPile = $table.data('dest');
     // if destination pile is foundation
     if (['spades', 'hearts', 'diamonds', 'clubs'].indexOf(dPile) >= 0) {
       // if rank isn't in sequence then return false
@@ -797,14 +809,14 @@ function validateMove(selected, dest) {
     }
     // else return true
     else {
-      // console.log('Valid move');
+      console.log('Valid move');
       return true;
     }
   }
 
   // if destination is empty tableau pile
   if (dest >= 1 && dest <= 7) {
-    // console.log('Destination appears tp be empty tableau');
+    console.log('Destination appears to be empty tableau');
     return true;
   }
 }
@@ -814,9 +826,9 @@ function makeMove() {
   // console.log('Making Move...');
 
   // get source and dest
-  var source = $table.dataset.source;
-  var dest = $table.dataset.dest;
-  // console.log('From '+source+' pile to '+dest+' pile');
+  var source = $table.data('source');
+  var dest = $table.data('dest');
+  console.log('From '+source+' pile to '+dest+' pile');
 
   // if pulling card from waste pile
   if (source === 'waste') {
@@ -950,15 +962,15 @@ function parseIntAsRank(int) {
 
 // reset table
 function reset(table) {
-  delete $table.dataset.move;
-  delete $table.dataset.selected;
-  delete $table.dataset.source;
-  delete $table.dataset.dest;
-  jQuery.removeData('#fnd', 'played');
-  jQuery.removeData('#fnd', 'unplayed');
-  jQuery.removeData('#tab', 'played');
-  jQuery.removeData('#tab', 'unplayed');
-  // console.log('Table reset');
+  $table.data('move', null);
+  $table.data('selected', null);
+  $table.data('source', null);
+  $table.data('dest', null);
+  $fnd.data('played', null);
+  $fnd.data('unplayed', null);
+  $tab.data('played', null);
+  $tab.data('unplayed', null);
+  console.log('Table reset');
 }
 
 // timer funcion
@@ -1084,6 +1096,7 @@ function getBonus() {
 // check for win
 function checkForWin(table) {
   // if all foundation piles are full
+  console.log('checkForWin', table['spades'].length, table['hearts'].length, table['diamonds'].length, table['clubs'].length)
   if (
     table['spades'].length +
       table['hearts'].length +
@@ -1091,7 +1104,7 @@ function checkForWin(table) {
       table['clubs'].length ===
     52
   ) {
-    // console.log('Game Has Been Won');
+    console.log('Game Has Been Won');
     // stop timer
     timer('stop');
     // bonus points for time
@@ -1108,6 +1121,9 @@ function checkForWin(table) {
 // check for auto win
 function checkForAutoWin(table) {
   // if all tableau cards are played and stock is empty
+
+  console.log('checkForAutoWin')
+  console.log($tab.data('unplayed'), table['stock'].length, table['waste'].length)
   if (
     parseInt($tab.data('unplayed')) +
       table['stock'].length +
@@ -1187,9 +1203,9 @@ function autoWinAnimation(table) {
     if (validateMove(card, dest)) {
       // set source pile
       var pile = e.parentElement.parentElement;
-      $table.dataset.source = pile.dataset.pile;
+      $table.data('source', pile.dataset.pile);
       // set dest pile
-      $table.dataset.dest = dest;
+      $table.data('dest', dest);
       // make move
       makeMove();
       reset(table);

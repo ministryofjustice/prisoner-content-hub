@@ -229,6 +229,7 @@
   height: 100%;
   border-radius: 5px;
 }
+.card.selected::before,
 .card[data-selected="true"]::before {
   box-shadow: 0 0 6px 3px #FCDB1A;
 }
