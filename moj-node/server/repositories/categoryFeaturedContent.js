@@ -1,7 +1,7 @@
 const R = require('ramda');
 const qs = require('querystring');
 
-const { logger } = require('../../logger');
+const { logger } = require('../utils/logger');
 const config = require('../config');
 
 const { featuredContentResponseFrom } = require('../utils/adapters');

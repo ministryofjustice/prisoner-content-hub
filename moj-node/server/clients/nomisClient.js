@@ -2,7 +2,7 @@ const retryAxios = require('retry-axios');
 const { path } = require('ramda');
 const { baseClient } = require('./baseClient');
 const config = require('../config');
-const { logger } = require('../../logger');
+const { logger } = require('../utils/logger');
 
 function responseCodeFor(request) {
   return path(['response', 'status'], request);

@@ -28,6 +28,7 @@ const logger = {
   error: sinon.stub(),
   debug: sinon.stub(),
   warn: sinon.stub(),
+  requestLogger: () => (req, res, next) => next(),
 };
 
 function createFeaturedItem() {

@@ -1,6 +1,6 @@
 const qs = require('querystring');
 const { baseClient } = require('./baseClient');
-const { logger } = require('../../logger');
+const { logger } = require('../utils/logger');
 
 class StandardClient {
   constructor(client = baseClient) {
