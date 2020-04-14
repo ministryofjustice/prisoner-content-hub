@@ -1,5 +1,5 @@
 const { createApp } = require('./app');
-const { logger } = require('../logger');
+const { logger } = require('./utils/logger');
 const config = require('./config');
 
 const { HubClient } = require('./clients/hub');

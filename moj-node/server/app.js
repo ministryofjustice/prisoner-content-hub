@@ -5,7 +5,6 @@ const express = require('express');
 const addRequestId = require('express-request-id')();
 const compression = require('compression');
 const helmet = require('helmet');
-const log = require('bunyan-request-logger')({ name: config.appName });
 const nunjucks = require('nunjucks');
 const path = require('path');
 const sassMiddleware = require('node-sass-middleware');
@@ -81,8 +80,6 @@ const createApp = ({
 
   app.use(addRequestId);
 
-  app.use(log.requestLogger());
-
   // Resource Delivery Configuration
   app.use(compression());
 
@@ -153,6 +150,8 @@ const createApp = ({
 
   // Don't cache dynamic resources
   app.use(helmet.noCache());
+
+  app.use(logger.requestLogger());
 
   // feature toggles
   app.use(featureToggleMiddleware(config.features));
