@@ -229,8 +229,7 @@
   height: 100%;
   border-radius: 5px;
 }
-.card.selected::before,
-.card[data-selected="true"]::before {
+.card.selected::before {
   box-shadow: 0 0 6px 3px #FCDB1A;
 }
 @media screen and (min-width: 768px) {
@@ -645,149 +644,27 @@
   margin-bottom: 10em;
 }
 /* face up */
-.tab .card:nth-child(2) { top: 6em; left: 0; }
-.tab .card:nth-child(3) { top: 12em; left: 0; }
-.tab .card:nth-child(4) { top: 18em; left: 0; }
-.tab .card:nth-child(5) { top: 24em; left: 0; }
-.tab .card:nth-child(6) { top: 30em; left: 0; }
-.tab .card:nth-child(7) { top: 36em;  left: 0; }
-.tab .card:nth-child(8) { top: 42em;  left: 0; }
-.tab .card:nth-child(9) { top: 48em;  left: 0; }
-.tab .card:nth-child(10) { top: 54em;  left: 0; }
-.tab .card:nth-child(11) { top: 60em;  left: 0; }
-.tab .card:nth-child(12) { top: 66em;  left: 0; }
-.tab .card:nth-child(13) { top: 72em;  left: 0; }
-.tab .card:nth-child(14) { top: 78em;  left: 0; }
-.tab .card:nth-child(15) { top: 84em;  left: 0; }
-.tab .card:nth-child(16) { top: 90em;  left: 0; }
-.tab .card:nth-child(17) { top: 96em;  left: 0; }
-.tab .card:nth-child(18) { top: 102em;  left: 0; }
-.tab .card:nth-child(19) { top: 108em;  left: 0; }
-.tab .card:nth-child(20) { top: 114em;  left: 0; }
-.tab .card:nth-child(21) { top: 120em;  left: 0; }
-/* face down */
-.tab .pile[data-unplayed='1'] .card:nth-child(2),
-.tab .pile[data-unplayed='2'] .card:nth-child(2),
-.tab .pile[data-unplayed='3'] .card:nth-child(2),
-.tab .pile[data-unplayed='4'] .card:nth-child(2),
-.tab .pile[data-unplayed='5'] .card:nth-child(2),
-.tab .pile[data-unplayed='6'] .card:nth-child(2) { top: 3em; }
-.tab .pile[data-unplayed='2'] .card:nth-child(3),
-.tab .pile[data-unplayed='3'] .card:nth-child(3),
-.tab .pile[data-unplayed='4'] .card:nth-child(3),
-.tab .pile[data-unplayed='5'] .card:nth-child(3),
-.tab .pile[data-unplayed='6'] .card:nth-child(3) { top: 6em; }
-.tab .pile[data-unplayed='3'] .card:nth-child(4),
-.tab .pile[data-unplayed='4'] .card:nth-child(4),
-.tab .pile[data-unplayed='5'] .card:nth-child(4),
-.tab .pile[data-unplayed='6'] .card:nth-child(4) { top: 9em; }
-.tab .pile[data-unplayed='4'] .card:nth-child(5),
-.tab .pile[data-unplayed='5'] .card:nth-child(5),
-.tab .pile[data-unplayed='6'] .card:nth-child(5) { top: 12em; }
-.tab .pile[data-unplayed='5'] .card:nth-child(6),
-.tab .pile[data-unplayed='6'] .card:nth-child(6) { top: 15em; }
-.tab .pile[data-unplayed='6'] .card:nth-child(7) { top: 18em; }
-/* piles with odd # of face down cards */
-.tab .pile[data-unplayed='1'] .card:nth-child(3) { top: 9em; left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(4),
-.tab .pile[data-unplayed='3'] .card:nth-child(5) { top: 15em; left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(5),
-.tab .pile[data-unplayed='3'] .card:nth-child(6),
-.tab .pile[data-unplayed='5'] .card:nth-child(7) { top: 21em; left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(6),
-.tab .pile[data-unplayed='3'] .card:nth-child(7),
-.tab .pile[data-unplayed='5'] .card:nth-child(8) { top: 27em; left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(7),
-.tab .pile[data-unplayed='3'] .card:nth-child(8),
-.tab .pile[data-unplayed='5'] .card:nth-child(9) { top: 33em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(8),
-.tab .pile[data-unplayed='3'] .card:nth-child(9),
-.tab .pile[data-unplayed='5'] .card:nth-child(10) { top: 39em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(9),
-.tab .pile[data-unplayed='3'] .card:nth-child(10),
-.tab .pile[data-unplayed='5'] .card:nth-child(11) { top: 45em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(10),
-.tab .pile[data-unplayed='3'] .card:nth-child(11),
-.tab .pile[data-unplayed='5'] .card:nth-child(12) { top: 51em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(11),
-.tab .pile[data-unplayed='3'] .card:nth-child(12),
-.tab .pile[data-unplayed='5'] .card:nth-child(13) { top: 57em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(12),
-.tab .pile[data-unplayed='3'] .card:nth-child(13),
-.tab .pile[data-unplayed='5'] .card:nth-child(14) { top: 63em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(13),
-.tab .pile[data-unplayed='3'] .card:nth-child(14),
-.tab .pile[data-unplayed='5'] .card:nth-child(15) { top: 69em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(14),
-.tab .pile[data-unplayed='3'] .card:nth-child(15),
-.tab .pile[data-unplayed='5'] .card:nth-child(16) { top: 75em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(15),
-.tab .pile[data-unplayed='3'] .card:nth-child(16),
-.tab .pile[data-unplayed='5'] .card:nth-child(17) { top: 81em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(16),
-.tab .pile[data-unplayed='3'] .card:nth-child(17),
-.tab .pile[data-unplayed='5'] .card:nth-child(18) { top: 87em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(17),
-.tab .pile[data-unplayed='3'] .card:nth-child(18),
-.tab .pile[data-unplayed='5'] .card:nth-child(19) { top: 93em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(18),
-.tab .pile[data-unplayed='3'] .card:nth-child(19),
-.tab .pile[data-unplayed='5'] .card:nth-child(20) { top: 99em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(19),
-.tab .pile[data-unplayed='3'] .card:nth-child(20),
-.tab .pile[data-unplayed='5'] .card:nth-child(21) { top: 105em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(20),
-.tab .pile[data-unplayed='3'] .card:nth-child(21) { top: 111em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(21) { top: 117em;  left: 0; }
-/* piles with even # of face down cards */
-.tab .pile[data-unplayed='2'] .card:nth-child(4) { top: 12em; left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(5),
-.tab .pile[data-unplayed='4'] .card:nth-child(6) { top: 18em; left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(6),
-.tab .pile[data-unplayed='4'] .card:nth-child(7),
-.tab .pile[data-unplayed='6'] .card:nth-child(8) { top: 24em; left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(7),
-.tab .pile[data-unplayed='4'] .card:nth-child(8),
-.tab .pile[data-unplayed='6'] .card:nth-child(9) { top: 30em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(8),
-.tab .pile[data-unplayed='4'] .card:nth-child(9),
-.tab .pile[data-unplayed='6'] .card:nth-child(10) { top: 36em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(9),
-.tab .pile[data-unplayed='4'] .card:nth-child(10),
-.tab .pile[data-unplayed='6'] .card:nth-child(11) { top: 42em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(10),
-.tab .pile[data-unplayed='4'] .card:nth-child(11),
-.tab .pile[data-unplayed='6'] .card:nth-child(12) { top: 48em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(11),
-.tab .pile[data-unplayed='4'] .card:nth-child(12),
-.tab .pile[data-unplayed='6'] .card:nth-child(13) { top: 54em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(12),
-.tab .pile[data-unplayed='4'] .card:nth-child(13),
-.tab .pile[data-unplayed='6'] .card:nth-child(14) { top: 60em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(13),
-.tab .pile[data-unplayed='4'] .card:nth-child(14),
-.tab .pile[data-unplayed='6'] .card:nth-child(15) { top: 66em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(14),
-.tab .pile[data-unplayed='4'] .card:nth-child(15),
-.tab .pile[data-unplayed='6'] .card:nth-child(16) { top: 72em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(15),
-.tab .pile[data-unplayed='4'] .card:nth-child(16),
-.tab .pile[data-unplayed='6'] .card:nth-child(17) { top: 78em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(16),
-.tab .pile[data-unplayed='4'] .card:nth-child(17),
-.tab .pile[data-unplayed='6'] .card:nth-child(18) { top: 84em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(17),
-.tab .pile[data-unplayed='4'] .card:nth-child(18),
-.tab .pile[data-unplayed='6'] .card:nth-child(19) { top: 90em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(18),
-.tab .pile[data-unplayed='4'] .card:nth-child(19),
-.tab .pile[data-unplayed='6'] .card:nth-child(20) { top: 96em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(19),
-.tab .pile[data-unplayed='4'] .card:nth-child(20),
-.tab .pile[data-unplayed='6'] .card:nth-child(21) { top: 102em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(20),
-.tab .pile[data-unplayed='4'] .card:nth-child(21) { top: 108em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(21) { top: 114em;  left: 0; }
+.tab .card:nth-child(2) { top: 4em; left: 0; }
+.tab .card:nth-child(3) { top: 8em; left: 0; }
+.tab .card:nth-child(4) { top: 12em; left: 0; }
+.tab .card:nth-child(5) { top: 16em; left: 0; }
+.tab .card:nth-child(6) { top: 20em; left: 0; }
+.tab .card:nth-child(7) { top: 24em;  left: 0; }
+.tab .card:nth-child(8) { top: 28em;  left: 0; }
+.tab .card:nth-child(9) { top: 32em;  left: 0; }
+.tab .card:nth-child(10) { top: 36em;  left: 0; }
+.tab .card:nth-child(11) { top: 40em;  left: 0; }
+.tab .card:nth-child(12) { top: 44em;  left: 0; }
+.tab .card:nth-child(13) { top: 48em;  left: 0; }
+.tab .card:nth-child(14) { top: 52em;  left: 0; }
+.tab .card:nth-child(15) { top: 56em;  left: 0; }
+.tab .card:nth-child(16) { top: 60em;  left: 0; }
+.tab .card:nth-child(17) { top: 64em;  left: 0; }
+.tab .card:nth-child(18) { top: 68em;  left: 0; }
+.tab .card:nth-child(19) { top: 72em;  left: 0; }
+.tab .card:nth-child(20) { top: 76em;  left: 0; }
+.tab .card:nth-child(21) { top: 80em;  left: 0; }
+
 /* Confetti */
 #confetti {
   position: absolute;

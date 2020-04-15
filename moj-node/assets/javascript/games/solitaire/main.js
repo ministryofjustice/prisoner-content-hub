@@ -157,7 +157,7 @@ play(table);
 
 // create deck
 function create(deck, suits) {
-  console.log('Creating Deck...');
+  // console.log('Creating Deck...');
   // loop through each suit
   for (var suit in suits) {
     suit = suits[suit];
@@ -172,7 +172,7 @@ function create(deck, suits) {
 
 // shuffle deck
 function shuffle(deck) {
-  console.log('Shuffling Deck...');
+  // console.log('Shuffling Deck...');
   // declare vars
   var i = deck.length,
     temp,
@@ -192,7 +192,7 @@ function shuffle(deck) {
 
 // deal deck
 function deal(deck, table) {
-  console.log('Dealing Deck...');
+  // console.log('Dealing Deck...');
   // move all cards to stock
   table['stock'] = deck;
   // build tableau
@@ -233,7 +233,7 @@ function move(source, dest, pop, selectedCardsIn) {
 
 // render table
 function render(table, playedCards) {
-  console.log('Rendering Table...');
+  // console.log('Rendering Table...');
   $('#restart').on(
     'click',
     function(e) {
@@ -275,14 +275,14 @@ function render(table, playedCards) {
   sizeCards();
 
   // show table
-  $table.css('opacity', '100%');
+  $table.css('opacity', 100);
 
-  console.log('Table Rendered:', table);
+  // console.log('Table Rendered:', table);
 }
 
 // update piles
 function update(pile, selector, playedCards, append) {
-  console.log('update', selector)
+  // console.log('update', selector)
   var e = $(selector);
   var children = e.children();
   var parent = e.parent();
@@ -522,8 +522,8 @@ function play(table) {
   );
   // bind dbl click events
   bindClick('#waste .card:first-child,' + '#tab .card:last-child', 'double');
-  // console.log('Make Your Move...');
-  // console.log('......');
+  // // console.log('Make Your Move...');
+  // // console.log('......');
 }
 
 // bind click events
@@ -554,7 +554,7 @@ function select(event) {
   // if timestamp matches then return false
   var time = event.timeStamp; // get timestamp
   if (time === lastEventTime) {
-    // console.log('Status: Timestamp Matches, False Click');
+    // // console.log('Status: Timestamp Matches, False Click');
     return false;
   } else {
     lastEventTime = time; // cache timestamp
@@ -573,28 +573,30 @@ function select(event) {
   // count clicks
   clicks++;
 
+  var $e = $(this);
+
   // single click
   if (clicks === 1 && event.type === 'click') {
     clickTimer = setTimeout(function() {
-      // console.log('Single Click Detected', event);
+      // // console.log('Single Click Detected', event);
 
       // reset click counter
       clicks = 0;
 
       // if same card is clicked
-      if (e.dataset.selected === 'true') {
-        console.log('Status: Same Card Clicked');
+      if ($e.hasClass('selected')) {
+        // console.log('Status: Same Card Clicked');
         // deselect card
-        delete e.dataset.selected;
         $table.data('move', null);
         $table.data('selected', null);
         $table.data('source', null);
+        $e.removeClass('selected');
         // console.log('Card Deselected', card, e);
       }
 
       // if move is in progress
       else if ($table.data('move')) {
-        console.log('Status: A Move Is In Progess');
+        // console.log('Status: A Move Is In Progess');
         // get selected
         var selected = $table.data('selected').join().split(',');
         // update table dataset with destination pile
@@ -610,17 +612,17 @@ function select(event) {
           render(table, playedCards);
           play(table);
         } else {
-          console.log('Move is Invalid. Try again...');
+          // console.log('Move is Invalid. Try again...');
           reset(table);
           render(table, playedCards);
           play(table);
-          console.log('Card Deselected', card, e);
+          // console.log('Card Deselected', card, e);
         }
       }
 
       // if stock is clicked
       else if (pile === 'stock') {
-        console.log('Status: Stock Pile Clicked');
+        // console.log('Status: Stock Pile Clicked');
         // if stock isn't empty
         if (table['stock'].length) {
           // move card from stock to waste
@@ -638,7 +640,7 @@ function select(event) {
 
       // if stock reload icon is clicked
       else if (action === 'reload') {
-        console.log('Reloading Stock Pile');
+        // console.log('Reloading Stock Pile');
         // remove event listener
         unbindClick('#stock .reload-icon');
         // reload stock pile
@@ -659,17 +661,17 @@ function select(event) {
       // if no move is in progress
       else {
         // select card
-        e.dataset.selected = 'true';
+        $e.addClass('selected');
         $table.data('move', 'true');
         $table.data('selected', card);
         $table.data('source', e.closest('.pile').dataset.pile);
         // if ace is selected
         if (rank === 'A') {
-          console.log('Ace Is Selected');
+          // console.log('Ace Is Selected');
           bindClick('#fnd #' + suit + 's.pile[data-empty="true"]');
         }
         if (rank === 'K') {
-          console.log('King Is Selected');
+          // console.log('King Is Selected');
           bindClick('#tab .pile[data-empty="true"]');
         }
       }
@@ -682,7 +684,7 @@ function select(event) {
     clearTimeout(clickTimer); // prevent single click
     clicks = 0; // reset click counter
     // select card
-    e.dataset.selected = 'true';
+    $e.addClass('selected');
     $table.data('move', 'true');
     $table.data('selected', card);
     $table.data('source', e.closest('.pile').dataset.pile);
@@ -709,7 +711,7 @@ function select(event) {
 
 // validate move
 function validateMove(selected, dest) {
-  // console.log ('Validating Move...', selected, dest);
+  // // console.log ('Validating Move...', selected, dest);
 
   // if selected card exists
   if (selected) {
@@ -719,7 +721,7 @@ function validateMove(selected, dest) {
 
   // if destination is another card
   if (dest.constructor === Array) {
-    // console.log('Desitination appears to be a card');
+    // // console.log('Desitination appears to be a card');
     var dRank = parseRankAsInt(dest[0]);
     var dSuit = dest[1];
     var dPile = $table.data('dest');
@@ -727,13 +729,13 @@ function validateMove(selected, dest) {
     if (['spades', 'hearts', 'diamonds', 'clubs'].indexOf(dPile) >= 0) {
       // if rank isn't in sequence then return false
       if (dRank - sRank !== -1) {
-        // console.log('Rank sequence invalid');
-        // console.log(dRank - sRank)
+        // // console.log('Rank sequence invalid');
+        // // console.log(dRank - sRank)
         return false;
       }
       // if suit isn't in sequence then return false
       if (sSuit !== dSuit) {
-        // console.log('Suit sequence invalid');
+        // // console.log('Suit sequence invalid');
         return false;
       }
     }
@@ -741,7 +743,7 @@ function validateMove(selected, dest) {
     else {
       // if rank isn't in sequence then return false
       if (dRank - sRank !== 1) {
-        // console.log('Rank sequence invalid');
+        // // console.log('Rank sequence invalid');
         return false;
       }
       // if suit isn't in sequence then return false
@@ -751,18 +753,18 @@ function validateMove(selected, dest) {
         ((sSuit === 'heart' || sSuit === 'diamond') &&
           (dSuit === 'heart' || dSuit === 'diamond'))
       ) {
-        // console.log('Suit sequence invalid');
+        // // console.log('Suit sequence invalid');
         return false;
       }
     }
     // else return true
-    // console.log('Valid move');
+    // // console.log('Valid move');
     return true;
   }
 
   // if destination is foundation pile
   if (['spades', 'hearts', 'diamonds', 'clubs'].indexOf(dest) >= 0) {
-    // console.log('Destination appears to be empty foundation');
+    // // console.log('Destination appears to be empty foundation');
 
     // get last card in destination pile
     var lastCard = d.querySelector('#' + dest + ' .card:first-child');
@@ -772,53 +774,53 @@ function validateMove(selected, dest) {
     }
     // if suit doesn't match pile then return false
     if (sSuit + 's' !== dest) {
-      // console.log('Suit sequence invalid');
+      // // console.log('Suit sequence invalid');
       return false;
     }
     // if rank is ace then return true
     else if (sRank === 1) {
-      // console.log('Valid Move');
+      // // console.log('Valid Move');
       return true;
     }
     // if rank isn't in sequence then return false
     else if (sRank - dRank !== 1) {
-      // console.log('Rank sequence invalid');
+      // // console.log('Rank sequence invalid');
       return false;
     }
     // else return true
     else {
-      console.log('Valid move');
+      // console.log('Valid move');
       return true;
     }
   }
 
   // if destination is empty tableau pile
   if (dest >= 1 && dest <= 7) {
-    console.log('Destination appears to be empty tableau');
+    // console.log('Destination appears to be empty tableau');
     return true;
   }
 }
 
 // make move
 function makeMove() {
-  // console.log('Making Move...');
+  // // console.log('Making Move...');
 
   // get source and dest
   var source = $table.data('source');
   var dest = $table.data('dest');
-  console.log('From '+source+' pile to '+dest+' pile');
+  // console.log('From '+source+' pile to '+dest+' pile');
 
   // if pulling card from waste pile
   if (source === 'waste') {
     // if moving card to foundation pile
     if (isNaN(dest)) {
-      // console.log('Moving To Foundation Pile');
+      // // console.log('Moving To Foundation Pile');
       move(table[source], table[dest], true);
       updateScore(10); // score 10 pts
     }
     // if moving card to tableau pile
     else {
-      // console.log('Moving To Tableau Pile');
+      // // console.log('Moving To Tableau Pile');
       move(table[source], table['tab'][dest], true);
       updateScore(5); // score 5 pts
     }
@@ -828,12 +830,12 @@ function makeMove() {
   else if (['spades', 'hearts', 'diamonds', 'clubs'].indexOf(source) >= 0) {
     // only allow moves to tableau piles
     if (isNaN(dest)) {
-      // console.log('That move is not allowed');
+      // // console.log('That move is not allowed');
       return false;
     }
     // if moving card to tableau pile
     else {
-      // console.log('Moving To Tableau Pile');
+      // // console.log('Moving To Tableau Pile');
       move(table[source], table['tab'][dest], true);
       updateScore(-15); // score -15 pts
     }
@@ -843,15 +845,16 @@ function makeMove() {
   else {
     // if moving card to foundation pile
     if (isNaN(dest)) {
-      // console.log('Moving To Foundation Pile');
+      // // console.log('Moving To Foundation Pile');
       move(table['tab'][source], table[dest], true);
       updateScore(10); // score 10 pts
     }
     // if moving card to tableau pile
     else {
-      // console.log('Moving To Tableau Pile');
+      // // console.log('Moving To Tableau Pile');
       // get selected card
-      var selected = d.querySelector('.card[data-selected="true"]');
+      // var selected = d.querySelector('.card[data-selected="true"]');
+      var selected = d.querySelector('.card.selected');
       // get cards under selected card
       var selectedCards = [selected];
       while ((selected = selected['nextSibling'])) {
@@ -886,7 +889,7 @@ function makeMove() {
   countMove(moves++);
 
   // reset table
-  // console.log('Ending Move...');
+  // // console.log('Ending Move...');
 
   return;
 }
@@ -948,7 +951,7 @@ function reset(table) {
   $fnd.data('unplayed', null);
   $tab.data('played', null);
   $tab.data('unplayed', null);
-  console.log('Table reset');
+  // console.log('Table reset');
 }
 
 // timer funcion
@@ -963,7 +966,7 @@ function timer(action) {
   switch (action) {
     // start timer
     case 'start':
-      // console.log('Starting Timer...');
+      // // console.log('Starting Timer...');
       // looping function
       clock = setInterval(function() {
         // increment
@@ -994,7 +997,7 @@ function timer(action) {
       break;
     // pause timer
     case 'pause':
-      // console.log('Pausing Timer...');
+      // // console.log('Pausing Timer...');
       clearInterval(clock);
       $('body').data('gameplay', 'paused');
       $scoreContainer.removeClass('paused').removeClass('active').addClass('paused');
@@ -1011,7 +1014,7 @@ function timer(action) {
       break;
     // stop timer
     case 'stop':
-      // console.log('Stoping Timer...');
+      // // console.log('Stoping Timer...');
       clearInterval(clock);
       $('body').data('gameplay', 'over');
       $scoreContainer.removeClass('paused').removeClass('active');
@@ -1020,13 +1023,13 @@ function timer(action) {
     default:
       break;
   }
-  // console.log(time);
+  // // console.log(time);
   return;
 }
 
 // move counter
 function countMove(moves) {
-  // console.log('Move Counter', moves);
+  // // console.log('Move Counter', moves);
   moves++;
   // set move attribute
   $moveCount.data('moves', moves);
@@ -1050,7 +1053,7 @@ function countMove(moves) {
       For every 10 seconds of play, 2 points are taken away. Bonus points are calculated with the formula of 700,000 / (seconds to finish) if the game takes more than 30 seconds. If the game takes less than 30 seconds, no bonus points are awarded.
   */
 function updateScore(points) {
-  // console.log('Updating Score', points);
+  // // console.log('Updating Score', points);
   // get score
   score = parseInt($score.data('score')) + points;
   // set minimum score to 0
@@ -1067,14 +1070,14 @@ function updateScore(points) {
 // calculate bonus points
 function getBonus() {
   if (time >= 30) bonus = parseInt(700000 / time);
-  // console.log(bonus);
+  // // console.log(bonus);
   return bonus;
 }
 
 // check for win
 function checkForWin(table) {
   // if all foundation piles are full
-  console.log('checkForWin', table['spades'].length, table['hearts'].length, table['diamonds'].length, table['clubs'].length)
+  // console.log('checkForWin', table['spades'].length, table['hearts'].length, table['diamonds'].length, table['clubs'].length)
   if (
     table['spades'].length +
       table['hearts'].length +
@@ -1082,7 +1085,7 @@ function checkForWin(table) {
       table['clubs'].length ===
     52
   ) {
-    console.log('Game Has Been Won');
+    // console.log('Game Has Been Won');
     // stop timer
     timer('stop');
     // bonus points for time
@@ -1100,8 +1103,8 @@ function checkForWin(table) {
 function checkForAutoWin(table) {
   // if all tableau cards are played and stock is empty
 
-  console.log('checkForAutoWin')
-  console.log($tab.data('unplayed'), table['stock'].length, table['waste'].length)
+  // console.log('checkForAutoWin')
+  // console.log($tab.data('unplayed'), table['stock'].length, table['waste'].length)
   if (
     parseInt($tab.data('unplayed')) +
       table['stock'].length +
@@ -1118,7 +1121,7 @@ function checkForAutoWin(table) {
 
 // auto win
 function autoWin() {
-  // console.log('Huzzah!');
+  // // console.log('Huzzah!');
   // hide auto win button
   $autoWin.hide();
   // unbind click to auto win button
@@ -1189,7 +1192,7 @@ function autoWinAnimation(table) {
       reset(table);
       render(table, playedCards);
     } else {
-      // console.log('Move is Invalid. Try again...');
+      // // console.log('Move is Invalid. Try again...');
       reset(table);
       render(table, playedCards);
     }
@@ -1210,7 +1213,7 @@ function autoWinAnimation(table) {
       https://codepen.io/gamanox/pen/FkEbH
   */
 function throwConfetti() {
-  // console.log('Confetti!');
+  // // console.log('Confetti!');
 
   var COLORS,
     Confetti,
