@@ -219,16 +219,16 @@ function move(source, dest, pop, selectedCardsIn) {
   } else {
     while (selectedCards) {
       // take card from the top of selection
-      var card = source[source.length - selectedCards];
+      var reducedCardsLength = source.length - selectedCards;
+      var card = source[reducedCardsLength];
       // remove it from the selected pile
-      source.splice(source.length - selectedCards, 1);
+      source.splice(reducedCardsLength, 1);
       // put it in the destination pile
       dest.push(card);
       // decrement
       selectedCards--;
     }
   }
-  return;
 }
 
 // render table
@@ -278,21 +278,17 @@ function render(table, playedCards) {
   $table.css('opacity', '100%');
 
   console.log('Table Rendered:', table);
-  return;
 }
 
 // update piles
 function update(pile, selector, playedCards, append) {
-  // var e = d.querySelector(selector);
-  var $e = $(selector);
-  // var children = e.children; // get children
-  var $children = $e.children();
-  // var grandParent = e.parentElement.parentElement; // get grand parent
-  var $parent = $e.parent();
-  var $grandParent = $parent.parent();
+  console.log('update', selector)
+  var e = $(selector);
+  var children = e.children();
+  var parent = e.parent();
+  var grandParent = parent.parent();
   // reset pile
-  // e.innerHTML = '';
-  $e.html('');
+  e.html('');
   // loop through cards in pile
   for (var card in pile) {
     card = pile[card];
@@ -304,30 +300,24 @@ function update(pile, selector, playedCards, append) {
   // turn cards face up
   flipCards(playedCards, 'up');
   // count played cards
-  var played = countPlayedCards($children);
-  // e.parentElement.dataset.played = played;
-  $parent.data('played', played);
+  var played = countPlayedCards(children);
+  parent.data('played', played);
   // count all played cards for #tab and #fnd piles
-  if ($grandParent.attr('id') === 'tab' || $grandParent.attr('id') === 'fnd') {
-  //   var playedAll = parseInt(grandParent.dataset.played);
-    var playedAll = parseInt($grandParent.data('played'));
+  if (grandParent.attr('id') === 'tab' || grandParent.attr('id') === 'fnd') {
+    var playedAll = parseInt(grandParent.data('played'));
     if (isNaN(playedAll)) playedAll = 0;
-    // grandParent.dataset.played = playedAll + played;
-    $grandParent.data('played', playedAll + played);
+    grandParent.data('played', playedAll + played);
   }
   // count unplayed cards
-  var unplayed = countUnplayedCards($children);
-  // e.parentElement.dataset.unplayed = unplayed;
-  $parent.data('unplayed', unplayed);
+  var unplayed = countUnplayedCards(children);
+  parent.data('unplayed', unplayed);
   // count all unplayed cards for #tab and #fnd piles
-  if ($grandParent.attr('id') === 'tab' || $grandParent.attr('id') === 'fnd') {
-    // var unplayedAll = parseInt(grandParent.dataset.unplayed);
-    var $unplayedAll = parseInt($grandParent.data('unplayed'));
-    // console.log('unplayed', unplayedAll, $unplayedAll)
+  if (grandParent.attr('id') === 'tab' || grandParent.attr('id') === 'fnd') {
+    var unplayedAll = parseInt(grandParent.data('unplayed'));
     if (isNaN(unplayedAll)) unplayedAll = 0;
-    // grandParent.dataset.unplayed = unplayedAll + unplayed;
-    $grandParent.data('unplayed', unplayedAll + unplayed);
+    grandParent.data('unplayed', unplayedAll + unplayed);
   }
+
   return pile;
 }
 
@@ -338,7 +328,6 @@ function getTemplate(card) {
   // get html template
   var html = $('.template li[data-rank="' + r + '"]').html();
   // search and replace suit variable
-  // console.log(html)
   return html.replace('??suit??', s);
 }
 
@@ -347,27 +336,20 @@ function createCard(card, selector, html, append) {
   var r = card[0]; // get rank
   var s = card[1]; // get suit
   // get pile based on selector
-  if (selector.includes('#stock')) var p = 'stock';
-  if (selector.includes('#waste')) var p = 'waste';
-  if (selector.includes('#spades')) var p = 'spades';
-  if (selector.includes('#hearts')) var p = 'hearts';
-  if (selector.includes('#diamonds')) var p = 'diamonds';
-  if (selector.includes('#clubs')) var p = 'clubs';
-  if (selector.includes('#tab')) var p = 'tab';
-  var e = d.createElement('li'); // create li element
-  e.className = 'card'; // add .card class to element
-  e.dataset.rank = r; // set rank atribute
-  e.dataset.suit = s; // set suit attribute
-  e.dataset.pile = p; // set pile attribute;
-  e.dataset.selected = 'false'; // set selected attribute
-  e.innerHTML = html; // insert html to element
+  var p;
+  if (selector.includes('#stock')) p = 'stock';
+  if (selector.includes('#waste')) p = 'waste';
+  if (selector.includes('#spades')) p = 'spades';
+  if (selector.includes('#hearts')) p = 'hearts';
+  if (selector.includes('#diamonds')) p = 'diamonds';
+  if (selector.includes('#clubs')) p = 'clubs';
+  if (selector.includes('#tab')) p = 'tab';
+
+  var li = '<li class="card" data-rank="' + r + '" data-suit="' + s + '" data-pile="' + p + '" data-selected="false">' + html + '</li>';
   // query for pile
-  var pile = d.querySelector(selector);
+  var pile = $(selector);
   // append to pile
-  if (append) pile.appendChild(e);
-  // or prepend to pile
-  else pile.insertBefore(e, pile.firstChild);
-  return;
+  append ? pile.append(li) : pile.prepend(li);
 }
 
 // check for played cards
@@ -440,13 +422,11 @@ function checkForEmptyPiles(table) {
 function countPlayedCards(cards) {
   var played = 0;
   // loop through cards
-  for (var card in cards) {
-    card = cards[card];
-    if (card.nodeType) {
-      // check if card has been played
-      if (card.dataset.played === 'true') played++;
-    }
-  }
+  cards.each(function(i) {
+    // check if card has been played
+    if ($(this).data('played') === 'true') played++;
+  })
+
   return played;
 }
 
@@ -454,13 +434,11 @@ function countPlayedCards(cards) {
 function countUnplayedCards(cards) {
   var unplayed = 0;
   // loop through cards
-  for (var card in cards) {
-    card = cards[card];
-    if (card.nodeType) {
-      // check if card has been played
-      if (card.dataset.played !== 'true') unplayed++;
-    }
-  }
+  cards.each(function(i) {
+    // check if card has been played
+    if ($(this).data('played') !== 'true') unplayed++;
+  })
+
   return unplayed;
 }
 
