@@ -47,6 +47,10 @@
       $('[data-feedback-form]').removeClass('govuk-u-hidden');
     }
 
+    function hideFeedbackForm() {
+      $('[data-feedback-form]').addClass('govuk-u-hidden');
+    }
+
     function updateCharacterCount(characterCount) {
       var characterCount = characterCount || 0;
       $('[data-feedback-comment-counter]').text(CHARACTER_LIMIT - characterCount);
@@ -108,6 +112,12 @@
         .val();
       sendFeedback(window._feedback);
       disableFormSubmit();
+
+      setTimeout(function() {
+        hideFeedbackForm();
+        enableFormSubmit();
+        $('[data-feedback-comment]').val('');
+      }, 1500);
     });
   }
 
