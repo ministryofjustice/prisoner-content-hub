@@ -113,25 +113,21 @@ table['clubs'] = clubs;
 table['tab'] = t;
 
 // initial face up cards
-var playedCards = '#waste .card,' + '#fnd .card,' + '#tab .card:last-child';
+var playedCards = '#waste .card,#fnd .card,#tab .card:last-child';
 
 // cache selectors
-var $timer = d.querySelector('#score .timer');
-var $timerSpan = d.querySelector('#score .timer span');
-var $moveCount = d.querySelector('#score .move-count');
-var $moveCountSpan = d.querySelector('#score .move-count span');
-var $score = d.querySelector('#score .score');
-var $scoreSpan = d.querySelector('#score .score span');
-var $playPause = d.querySelector('#play-pause');
-var $table = d.querySelector('#table');
-var $upper = d.querySelector('#table .upper-row');
-var $lower = d.querySelector('#table .lower-row');
-var $stock = d.querySelector('#stock');
-var $waste = d.querySelector('#waste');
-var $fnd = d.querySelector('#fnd');
-var $tab = d.querySelector('#tab');
-var $autoWin = d.querySelector('#auto-win');
-var $restart = d.querySelector('#restart');
+var $timer = $('#score .timer');
+var $timerSpan = $('#score .timer span');
+var $autoWin = $('#auto-win');
+var $score = $('#score .score');
+var $scoreContainer = $('#score');
+var $scoreSpan = $('#score .score span');
+var $playPause = $('#play-pause');
+var $moveCount = $('#score .move-count');
+var $moveCountSpan = $('#score .move-count span');
+var $fnd = $('#fnd');
+var $tab = $('#tab');
+var $table = $('#table');
 
 // other global vars
 var clock = 0;
@@ -156,11 +152,6 @@ render(table, playedCards);
 
 // 5. START GAMEPLAY
 play(table);
-
-// ### EVENT HANDLERS ###
-window.onresize = function(event) {
-  sizeCards();
-};
 
 // ### FUNCTIONS ###
 
@@ -228,22 +219,22 @@ function move(source, dest, pop, selectedCardsIn) {
   } else {
     while (selectedCards) {
       // take card from the top of selection
-      var card = source[source.length - selectedCards];
+      var reducedCardsLength = source.length - selectedCards;
+      var card = source[reducedCardsLength];
       // remove it from the selected pile
-      source.splice(source.length - selectedCards, 1);
+      source.splice(reducedCardsLength, 1);
       // put it in the destination pile
       dest.push(card);
       // decrement
       selectedCards--;
     }
   }
-  return;
 }
 
 // render table
 function render(table, playedCards) {
   // console.log('Rendering Table...');
-  $restart.addEventListener(
+  $('#restart').on(
     'click',
     function(e) {
       e.preventDefault();
@@ -284,19 +275,20 @@ function render(table, playedCards) {
   sizeCards();
 
   // show table
-  $table.style.opacity = '100';
+  $table.css('opacity', 100);
 
   // console.log('Table Rendered:', table);
-  return;
 }
 
 // update piles
 function update(pile, selector, playedCards, append) {
-  var e = d.querySelector(selector);
-  var children = e.children; // get children
-  var grandParent = e.parentElement.parentElement; // get grand parent
+  // console.log('update', selector)
+  var e = $(selector);
+  var children = e.children();
+  var parent = e.parent();
+  var grandParent = parent.parent();
   // reset pile
-  e.innerHTML = '';
+  e.html('');
   // loop through cards in pile
   for (var card in pile) {
     card = pile[card];
@@ -309,22 +301,24 @@ function update(pile, selector, playedCards, append) {
   flipCards(playedCards, 'up');
   // count played cards
   var played = countPlayedCards(children);
-  e.parentElement.dataset.played = played;
+  parent.data('played', played);
   // count all played cards for #tab and #fnd piles
-  if (grandParent.id === 'tab' || grandParent.id === 'fnd') {
-    var playedAll = parseInt(grandParent.dataset.played);
+  // console.log('ID', grandParent.attr("id"))
+  if (grandParent.attr('id') === 'tab' || grandParent.attr('id') === 'fnd') {
+    var playedAll = parseInt(grandParent.data('played'));
     if (isNaN(playedAll)) playedAll = 0;
-    grandParent.dataset.played = playedAll + played;
+    grandParent.data('played', playedAll + played);
   }
   // count unplayed cards
   var unplayed = countUnplayedCards(children);
-  e.parentElement.dataset.unplayed = unplayed;
+  parent.data('unplayed', unplayed);
   // count all unplayed cards for #tab and #fnd piles
-  if (grandParent.id === 'tab' || grandParent.id === 'fnd') {
-    var unplayedAll = parseInt(grandParent.dataset.unplayed);
+  if (grandParent.attr('id') === 'tab' || grandParent.attr('id') === 'fnd') {
+    var unplayedAll = parseInt(grandParent.data('unplayed'));
     if (isNaN(unplayedAll)) unplayedAll = 0;
-    grandParent.dataset.unplayed = unplayedAll + unplayed;
+    grandParent.data('unplayed', unplayedAll + unplayed);
   }
+
   return pile;
 }
 
@@ -333,11 +327,9 @@ function getTemplate(card) {
   var r = card[0]; // get rank
   var s = card[1]; // get suit
   // get html template
-  var html = d.querySelector('.template li[data-rank="' + r + '"]').innerHTML;
+  var html = $('.template li[data-rank="' + r + '"]').html();
   // search and replace suit variable
-  // console.log(html)
-  html = html.replace('??suit??', s);
-  return html;
+  return html.replace('??suit??', s);
 }
 
 // create card in pile
@@ -345,27 +337,20 @@ function createCard(card, selector, html, append) {
   var r = card[0]; // get rank
   var s = card[1]; // get suit
   // get pile based on selector
-  if (selector.includes('#stock')) var p = 'stock';
-  if (selector.includes('#waste')) var p = 'waste';
-  if (selector.includes('#spades')) var p = 'spades';
-  if (selector.includes('#hearts')) var p = 'hearts';
-  if (selector.includes('#diamonds')) var p = 'diamonds';
-  if (selector.includes('#clubs')) var p = 'clubs';
-  if (selector.includes('#tab')) var p = 'tab';
-  var e = d.createElement('li'); // create li element
-  e.className = 'card'; // add .card class to element
-  e.dataset.rank = r; // set rank atribute
-  e.dataset.suit = s; // set suit attribute
-  e.dataset.pile = p; // set pile attribute;
-  e.dataset.selected = 'false'; // set selected attribute
-  e.innerHTML = html; // insert html to element
+  var p;
+  if (selector.includes('#stock')) p = 'stock';
+  if (selector.includes('#waste')) p = 'waste';
+  if (selector.includes('#spades')) p = 'spades';
+  if (selector.includes('#hearts')) p = 'hearts';
+  if (selector.includes('#diamonds')) p = 'diamonds';
+  if (selector.includes('#clubs')) p = 'clubs';
+  if (selector.includes('#tab')) p = 'tab';
+
+  var li = '<li class="card" data-rank="' + r + '" data-suit="' + s + '" data-pile="' + p + '">' + html + '</li>';
   // query for pile
-  var pile = d.querySelector(selector);
+  var pile = $(selector);
   // append to pile
-  if (append) pile.appendChild(e);
-  // or prepend to pile
-  else pile.insertBefore(e, pile.firstChild);
-  return;
+  append ? pile.append(li) : pile.prepend(li);
 }
 
 // check for played cards
@@ -378,7 +363,7 @@ function checkForPlayedCards(playedCards) {
     if (e.nodeType) {
       var r = e.dataset.rank;
       var s = e.dataset.suit;
-      playedCards += ', .card[data-rank="' + r + '"][data-suit="' + s + '"]';
+      playedCards += ',.card[data-rank="' + r + '"][data-suit="' + s + '"]';
     }
   }
   return playedCards;
@@ -387,31 +372,24 @@ function checkForPlayedCards(playedCards) {
 // check for empty piles
 function checkForEmptyPiles(table) {
   // reset empty data on all piles
-  var els = d.querySelectorAll('.pile'); // query elements
-  for (var e in els) {
-    // loop through elements
-    e = els[e];
-    if (e.nodeType) {
-      delete e.dataset.empty;
-    }
-  }
+  $('.pile').removeAttr('data-empty');
   // declare var with fake pile so we always have one
   var emptyPiles = '#fake.pile';
   // check spades pile
   if (table['spades'].length === 0) {
-    emptyPiles += ', #fnd #spades.pile';
+    emptyPiles += ',#spades.pile';
   }
   // check hearts pile
   if (table['hearts'].length === 0) {
-    emptyPiles += ', #fnd #hearts.pile';
+    emptyPiles += ',#hearts.pile';
   }
   // check diamonds pile
   if (table['diamonds'].length === 0) {
-    emptyPiles += ', #fnd #diamonds.pile';
+    emptyPiles += ',#diamonds.pile';
   }
   // check clubs pile
   if (table['clubs'].length === 0) {
-    emptyPiles += ', #fnd #clubs.pile';
+    emptyPiles += ',#clubs.pile';
   }
   // check tableau piles
   var tabs = table['tab'];
@@ -419,18 +397,13 @@ function checkForEmptyPiles(table) {
   for (var i = 1; i <= 7; i++) {
     // check tabeau pile
     if (tabs[i].length === 0) {
-      emptyPiles += ', #tab li:nth-child(' + i + ').pile';
+      emptyPiles += ',#tab li:nth-child(' + i + ').pile';
     }
   }
   // mark piles as empty
-  els = d.querySelectorAll(emptyPiles); // query elements
-  for (var e in els) {
-    // loop through elements
-    e = els[e];
-    if (e.nodeType) {
-      e.dataset.empty = 'true'; // mark as empty
-    }
-  }
+  $(emptyPiles).each(function() {
+    $(this).attr('data-empty', 'true');
+  });
   return emptyPiles;
 }
 
@@ -438,13 +411,11 @@ function checkForEmptyPiles(table) {
 function countPlayedCards(cards) {
   var played = 0;
   // loop through cards
-  for (var card in cards) {
-    card = cards[card];
-    if (card.nodeType) {
-      // check if card has been played
-      if (card.dataset.played === 'true') played++;
-    }
-  }
+  cards.each(function(i) {
+    // check if card has been played
+    if ($(this).data('played')) played++;
+  })
+
   return played;
 }
 
@@ -452,50 +423,43 @@ function countPlayedCards(cards) {
 function countUnplayedCards(cards) {
   var unplayed = 0;
   // loop through cards
-  for (var card in cards) {
-    card = cards[card];
-    if (card.nodeType) {
-      // check if card has been played
-      if (card.dataset.played !== 'true') unplayed++;
-    }
-  }
+  cards.each(function(i) {
+    // check if card has been played
+    if (!$(this).data('played')) unplayed++;
+  })
+
   return unplayed;
 }
 
 // flip cards
 function flipCards(selectors, direction) {
-  var els = d.querySelectorAll(selectors); // query all elements
-  for (var e in els) {
+  $(selectors).each(function() {
     // loop through elements
-    e = els[e];
-    if (e.nodeType) {
-      switch (direction) {
-        case 'up':
-          if (e.dataset.played !== 'true') {
-            // if flipping over tableau card
-            if (e.dataset.pile === 'tab') {
-              // loop through unplayed cards
-              for (var card in unplayedTabCards) {
-                card = unplayedTabCards[card];
-                // if rank and suit matches
-                if (e.dataset.rank === card[0] && e.dataset.suit === card[1])
-                  // score 5 points
-                  updateScore(5);
-              }
+    switch (direction) {
+      case 'up':
+        if ($(this).data('played') !== 'true') {
+          // if flipping over tableau card
+          if ($(this).attr('data-pile') === 'tab') {
+            // loop through unplayed cards
+            for (var card in unplayedTabCards) {
+              card = unplayedTabCards[card];
+              // if rank and suit matches
+              if ($(this).attr('data-rank') === card[0] && $(this).attr('data-suit') === card[1])
+                // score 5 points
+                updateScore(5);
             }
-            e.className += ' up'; // add class
-            e.dataset.played = 'true'; // mark as played
           }
-          break;
-        case 'down':
-          e.className = 'card'; // reset class
-          delete e.dataset.played; // reset played data attribute
-        default:
-          break;
-      }
+
+          $(this).addClass('up').attr('data-played', 'true').data('played', 'true');
+        }
+
+        break;
+      case 'down':
+        $(this).removeClass().addClass('card').removeAttr('data-played').data('played', null);
+      default:
+        break;
     }
-  }
-  return;
+  });
 }
 
 // get face down cards in tableau pile
@@ -503,33 +467,26 @@ function getUnplayedTabCards() {
   // reset array
   unplayedTabCards = [];
   // get all face down card elements
-  var els = d.querySelectorAll('#tab .card:not([data-played="true"])');
-  for (var e in els) {
-    // loop through elements
-    e = els[e];
-    if (e.nodeType) {
-      unplayedTabCards.push([e.dataset.rank, e.dataset.suit]);
+  $('#tab .card').each(function() {
+    if ($(this).data('played') !== 'true') {
+      unplayedTabCards.push([$(this).attr('data-rank'), $(this).attr('data-suit')]);
     }
-  }
+  });
+
   return unplayedTabCards;
 }
 
 // size cards
-function sizeCards(selector, ratio) {
-  var s = selector || '.pile';
-  var r = ratio || 1.4;
-  var e = d.querySelector(s); // query element
-  var h = e.offsetWidth * r; // get height of element
+function sizeCards() {
+  var s = '.pile';
+  var h = $(s).width() * 1.4;
+
   // set row heights
-  $upper.style.height = h + 10 + 'px';
-  $lower.style.height = h + 120 + 'px';
+  $('#table .upper-row').css('height', h + 10 + 'px');
+  $('#table .lower-row').css('height', h + 120 + 'px');
+
   // set height of elements
-  var els = d.querySelectorAll(s); // query all elements
-  for (var e in els) {
-    // loop through elements
-    e = els[e];
-    if (e.nodeType) e.style.height = h + 'px'; // set height in css
-  }
+  $(s).height(h + 'px');
 }
 
 // gameplay
@@ -541,44 +498,76 @@ function play(table) {
   // bind click events
   bindClick(
     '#stock .card:first-child,' +
-      '#waste .card:first-child,' +
-      '#fnd .card:first-child,' +
-      '#tab .card[data-played="true"]'
+    '#waste .card:first-child,' +
+    '#fnd .card:first-child,' +
+    '#tab .card[data-played="true"]'
   );
   // bind dbl click events
-  bindClick('#waste .card:first-child,' + '#tab .card:last-child', 'double');
-  // console.log('Make Your Move...');
-  // console.log('......');
+  bindClick('#waste .card:first-child,#tab .card:last-child', 'double');
+  // // console.log('Make Your Move...');
+  // // console.log('......');
 }
 
 // bind click events
 function bindClick(selectors, double) {
-  var elements = d.querySelectorAll(selectors); // query all elements
-  // loop through elements
-  for (var e in elements) {
-    e = elements[e];
-    // add event listener
-    if (e.nodeType) {
-      if (!double) e.addEventListener('click', select);
-      else e.addEventListener('dblclick', select);
+  var eventType = double ? 'dblclick' : 'click';
+  var replaceNonAlpha = /[^a-zA-Z]/g;
+
+  selectors.split(',').forEach(function(selector) {
+    var doBind = true;
+
+    if (selector.indexOf('[data') >= 0) {
+      var splitSelector = selector.split('[');
+      var actualSelector = splitSelector[0];
+      var dataParts = splitSelector[1].slice(5).split('=');
+      var dataName = dataParts[0];
+      var dataValue = dataParts[1].replace(replaceNonAlpha, '');
+
+      if (dataName === 'played') {
+        $(actualSelector).each(function() {
+          if ($(this).data(dataName) === dataValue) {
+            $(selector).on(eventType, select);
+            doBind = false;
+            return false;
+          }
+        })
+      }
     }
-  }
-  return;
+    if (doBind) {
+      $(selector).on(eventType, select);
+    }
+  });
 }
 
 // unbind click events
 function unbindClick(selectors, double) {
-  var elements = d.querySelectorAll(selectors); // query all elements
-  // loop through elements
-  for (var e in elements) {
-    e = elements[e];
-    // remove event listener
-    if (e.nodeType) {
-      if (!double) e.removeEventListener('click', select);
-      else e.removeEventListener('dblclick', select);
+  var eventType = double ? 'dblclick' : 'click';
+  var replaceNonAlpha = /[^a-zA-Z]/g;
+
+  selectors.split(',').forEach(function(selector) {
+    var doBind = true;
+
+    if (selector.indexOf('[data') >= 0) {
+      var splitSelector = selector.split('[');
+      var actualSelector = splitSelector[0];
+      var dataParts = splitSelector[1].slice(5).split('=');
+      var dataName = dataParts[0];
+      var dataValue = dataParts[1].replace(replaceNonAlpha, '');
+
+      if (dataName === 'played') {
+        $(actualSelector).each(function() {
+          if ($(this).data(dataName) === dataValue) {
+            $(selector).off(eventType, select);
+            doBind = false;
+            return false;
+          }
+        })
+      }
     }
-  }
-  return;
+    if (doBind) {
+      $(selector).off(eventType, select);
+    }
+  });
 }
 
 // on click handler: select
@@ -590,26 +579,25 @@ function select(event) {
   event.preventDefault();
 
   // start timer
-  if ($timer.dataset.action !== 'start') {
+  if ($timer.data('action') !== 'start') {
     timer('start');
   }
 
   // if timestamp matches then return false
   var time = event.timeStamp; // get timestamp
   if (time === lastEventTime) {
-    // console.log('Status: Timestamp Matches, False Click');
+    // // console.log('Status: Timestamp Matches, False Click');
     return false;
   } else {
     lastEventTime = time; // cache timestamp
   }
 
   // get variables
-  var e = event.target; // get element
-  var isSelected = e.dataset.selected; // get selected attribute
-  var rank = e.dataset.rank; // get rank attribute
-  var suit = e.dataset.suit; // get suit attribute
-  var pile = e.dataset.pile; // get pile attribute
-  var action = e.dataset.action; // get action attribute
+  var $e = $(this);
+  var rank = $e.attr('data-rank');//e.dataset.rank; // get rank attribute
+  var suit = $e.attr('data-suit');//e.dataset.suit; // get suit attribute
+  var pile = $e.attr('data-pile');//e.dataset.pile; // get pile attribute
+  var action = $e.attr('data-action');//e.dataset.action; // get action attribute
 
   // create card array
   if (rank && suit) var card = [rank, suit];
@@ -620,32 +608,32 @@ function select(event) {
   // single click
   if (clicks === 1 && event.type === 'click') {
     clickTimer = setTimeout(function() {
-      // console.log('Single Click Detected', event);
+      // // console.log('Single Click Detected', event);
 
       // reset click counter
       clicks = 0;
 
       // if same card is clicked
-      if (e.dataset.selected === 'true') {
+      if ($e.hasClass('selected')) {
         // console.log('Status: Same Card Clicked');
         // deselect card
-        delete e.dataset.selected;
-        delete $table.dataset.move;
-        delete $table.dataset.selected;
-        delete $table.dataset.source;
+        $table.data('move', null);
+        $table.data('selected', null);
+        $table.data('source', null);
+        $e.removeClass('selected');
         // console.log('Card Deselected', card, e);
       }
 
       // if move is in progress
-      else if ($table.dataset.move) {
+      else if ($table.data('move')) {
         // console.log('Status: A Move Is In Progess');
         // get selected
-        var selected = $table.dataset.selected.split(',');
+        var selected = $table.data('selected').join().split(',');
         // update table dataset with destination pile
-        $table.dataset.dest = e.closest('.pile').dataset.pile;
+        $table.data('dest', $e.closest('.pile').attr('data-pile'));
         // get destination card or pile
         if (card) var dest = card;
-        else var dest = $table.dataset.dest;
+        else var dest = $table.data('dest');
         // validate move
         if (validateMove(selected, dest)) {
           // make move
@@ -703,14 +691,14 @@ function select(event) {
       // if no move is in progress
       else {
         // select card
-        e.dataset.selected = 'true';
-        $table.dataset.move = 'true';
-        $table.dataset.selected = card;
-        $table.dataset.source = e.closest('.pile').dataset.pile;
+        $e.addClass('selected');
+        $table.data('move', 'true');
+        $table.data('selected', card);
+        $table.data('source', $e.closest('.pile').attr('data-pile'));
         // if ace is selected
         if (rank === 'A') {
           // console.log('Ace Is Selected');
-          bindClick('#fnd #' + suit + 's.pile[data-empty="true"]');
+          bindClick('#' + suit + 's.pile[data-empty="true"]');
         }
         if (rank === 'K') {
           // console.log('King Is Selected');
@@ -726,14 +714,14 @@ function select(event) {
     clearTimeout(clickTimer); // prevent single click
     clicks = 0; // reset click counter
     // select card
-    e.dataset.selected = 'true';
-    $table.dataset.move = 'true';
-    $table.dataset.selected = card;
-    $table.dataset.source = e.closest('.pile').dataset.pile;
+    $e.addClass('selected');
+    $table.data('move', 'true');
+    $table.data('selected', card);
+    $table.data('source', $e.closest('.pile').attr('data-pile'));
     // get destination pile
     if (card) var dest = card[1] + 's';
     // update table dataset with destination
-    $table.dataset.dest = dest;
+    $table.data('dest', dest);
     // validate move
     if (validateMove(card, dest)) {
       // make move
@@ -753,7 +741,7 @@ function select(event) {
 
 // validate move
 function validateMove(selected, dest) {
-  // console.log ('Validating Move...', selected, dest);
+  // // console.log ('Validating Move...', selected, dest);
 
   // if selected card exists
   if (selected) {
@@ -763,21 +751,21 @@ function validateMove(selected, dest) {
 
   // if destination is another card
   if (dest.constructor === Array) {
-    // console.log('Desitination appears to be a card');
+    // // console.log('Desitination appears to be a card');
     var dRank = parseRankAsInt(dest[0]);
     var dSuit = dest[1];
-    var dPile = $table.dataset.dest;
+    var dPile = $table.data('dest');
     // if destination pile is foundation
     if (['spades', 'hearts', 'diamonds', 'clubs'].indexOf(dPile) >= 0) {
       // if rank isn't in sequence then return false
       if (dRank - sRank !== -1) {
-        // console.log('Rank sequence invalid');
-        // console.log(dRank - sRank)
+        // // console.log('Rank sequence invalid');
+        // // console.log(dRank - sRank)
         return false;
       }
       // if suit isn't in sequence then return false
       if (sSuit !== dSuit) {
-        // console.log('Suit sequence invalid');
+        // // console.log('Suit sequence invalid');
         return false;
       }
     }
@@ -785,7 +773,7 @@ function validateMove(selected, dest) {
     else {
       // if rank isn't in sequence then return false
       if (dRank - sRank !== 1) {
-        // console.log('Rank sequence invalid');
+        // // console.log('Rank sequence invalid');
         return false;
       }
       // if suit isn't in sequence then return false
@@ -795,38 +783,38 @@ function validateMove(selected, dest) {
         ((sSuit === 'heart' || sSuit === 'diamond') &&
           (dSuit === 'heart' || dSuit === 'diamond'))
       ) {
-        // console.log('Suit sequence invalid');
+        // // console.log('Suit sequence invalid');
         return false;
       }
     }
     // else return true
-    // console.log('Valid move');
+    // // console.log('Valid move');
     return true;
   }
 
   // if destination is foundation pile
   if (['spades', 'hearts', 'diamonds', 'clubs'].indexOf(dest) >= 0) {
-    // console.log('Destination appears to be empty foundation');
+    // // console.log('Destination appears to be empty foundation');
 
     // get last card in destination pile
-    var lastCard = d.querySelector('#' + dest + ' .card:first-child');
-    if (lastCard) {
-      var dRank = parseRankAsInt(lastCard.dataset.rank);
-      var dSuit = lastCard.dataset.suit;
+    var lastCard = $('#' + dest + ' .card:first-child');
+    if (lastCard.length > 0) {
+      var dRank = parseRankAsInt(lastCard.attr('data-rank'));
+      var dSuit = lastCard.attr('data-suit');
     }
     // if suit doesn't match pile then return false
     if (sSuit + 's' !== dest) {
-      // console.log('Suit sequence invalid');
+      // // console.log('Suit sequence invalid');
       return false;
     }
     // if rank is ace then return true
     else if (sRank === 1) {
-      // console.log('Valid Move');
+      // // console.log('Valid Move');
       return true;
     }
     // if rank isn't in sequence then return false
     else if (sRank - dRank !== 1) {
-      // console.log('Rank sequence invalid');
+      // // console.log('Rank sequence invalid');
       return false;
     }
     // else return true
@@ -838,31 +826,31 @@ function validateMove(selected, dest) {
 
   // if destination is empty tableau pile
   if (dest >= 1 && dest <= 7) {
-    // console.log('Destination appears tp be empty tableau');
+    // console.log('Destination appears to be empty tableau');
     return true;
   }
 }
 
 // make move
 function makeMove() {
-  // console.log('Making Move...');
+  // // console.log('Making Move...');
 
   // get source and dest
-  var source = $table.dataset.source;
-  var dest = $table.dataset.dest;
+  var source = $table.data('source');
+  var dest = $table.data('dest');
   // console.log('From '+source+' pile to '+dest+' pile');
 
   // if pulling card from waste pile
   if (source === 'waste') {
     // if moving card to foundation pile
     if (isNaN(dest)) {
-      // console.log('Moving To Foundation Pile');
+      // // console.log('Moving To Foundation Pile');
       move(table[source], table[dest], true);
       updateScore(10); // score 10 pts
     }
     // if moving card to tableau pile
     else {
-      // console.log('Moving To Tableau Pile');
+      // // console.log('Moving To Tableau Pile');
       move(table[source], table['tab'][dest], true);
       updateScore(5); // score 5 pts
     }
@@ -872,12 +860,12 @@ function makeMove() {
   else if (['spades', 'hearts', 'diamonds', 'clubs'].indexOf(source) >= 0) {
     // only allow moves to tableau piles
     if (isNaN(dest)) {
-      // console.log('That move is not allowed');
+      // // console.log('That move is not allowed');
       return false;
     }
     // if moving card to tableau pile
     else {
-      // console.log('Moving To Tableau Pile');
+      // // console.log('Moving To Tableau Pile');
       move(table[source], table['tab'][dest], true);
       updateScore(-15); // score -15 pts
     }
@@ -887,15 +875,15 @@ function makeMove() {
   else {
     // if moving card to foundation pile
     if (isNaN(dest)) {
-      // console.log('Moving To Foundation Pile');
+      // // console.log('Moving To Foundation Pile');
       move(table['tab'][source], table[dest], true);
       updateScore(10); // score 10 pts
     }
     // if moving card to tableau pile
     else {
-      // console.log('Moving To Tableau Pile');
+      // // console.log('Moving To Tableau Pile');
       // get selected card
-      var selected = d.querySelector('.card[data-selected="true"');
+      var selected = d.querySelector('.card.selected');
       // get cards under selected card
       var selectedCards = [selected];
       while ((selected = selected['nextSibling'])) {
@@ -914,25 +902,23 @@ function makeMove() {
   // unbind click events
   unbindClick(
     '#stock .card:first-child,' +
-      '#waste .card:first-child,' +
-      '#fnd .card:first-child,' +
-      '#fnd #spades.pile[data-empty="true"],' +
-      '#fnd #hearts.pile[data-empty="true"],' +
-      '#fnd #diamonds.pile[data-empty="true"],' +
-      '#fnd #clubs.pile[data-empty="true"],' +
-      '#tab .card[data-played="true"],' +
-      '#tab .pile[data-empty="true"]'
+    '#waste .card:first-child,' +
+    '#fnd .card:first-child,' +
+    '#spades.pile[data-empty="true"],' +
+    '#hearts.pile[data-empty="true"],' +
+    '#diamonds.pile[data-empty="true"],' +
+    '#clubs.pile[data-empty="true"],' +
+    '#tab .card[data-played="true"],' +
+    '#tab .pile[data-empty="true"]'
   );
   // unbind double click events
-  unbindClick('#waste .card:first-child' + '#tab .card:last-child', 'double');
+  unbindClick('#waste .card:first-child,#tab .card:last-child', 'double');
 
   // count move
   countMove(moves++);
 
   // reset table
-  // console.log('Ending Move...');
-
-  return;
+  // // console.log('Ending Move...');
 }
 
 // parse rank as integer
@@ -984,14 +970,14 @@ function parseIntAsRank(int) {
 
 // reset table
 function reset(table) {
-  delete $table.dataset.move;
-  delete $table.dataset.selected;
-  delete $table.dataset.source;
-  delete $table.dataset.dest;
-  delete $fnd.dataset.played;
-  delete $fnd.dataset.unplayed;
-  delete $tab.dataset.played;
-  delete $tab.dataset.unplayed;
+  $table.data('move', null);
+  $table.data('selected', null);
+  $table.data('source', null);
+  $table.data('dest', null);
+  $fnd.data('played', null);
+  $fnd.data('unplayed', null);
+  $tab.data('played', null);
+  $tab.data('unplayed', null);
   // console.log('Table reset');
 }
 
@@ -1000,14 +986,14 @@ function timer(action) {
   // declare timer vars
   var minutes = 0;
   var seconds = 0;
-  var gameplay = d.body.dataset.gameplay;
+  var gameplay = $('body').data('gameplay');
   // set timer attribute
-  $timer.dataset.action = action;
+  $timer.data('action', action);
   // switch case
   switch (action) {
     // start timer
     case 'start':
-      // console.log('Starting Timer...');
+      // // console.log('Starting Timer...');
       // looping function
       clock = setInterval(function() {
         // increment
@@ -1018,17 +1004,18 @@ function timer(action) {
         minutes = minutes < 10 ? '0' + minutes : minutes;
         seconds = seconds < 10 ? '0' + seconds : seconds;
         // output to display
-        $timerSpan.textContent = minutes + ':' + seconds;
+        $timerSpan.text(minutes + ':' + seconds);
         // if 10 seconds has passed decrement score by 2 pts
         if (time % 10 === 0) updateScore(-2);
       }, 1000);
       // add dataset to body
-      d.body.dataset.gameplay = 'active';
+      $('body').data('gameplay', 'active');
+      $scoreContainer.removeClass('paused active').addClass('active');
       // unbind click to play button
       if (gameplay === 'paused')
-        $playPause.removeEventListener('click', playTimer);
+        $playPause.off('click', playTimer);
       // bind click to pause button
-      $playPause.addEventListener(
+      $playPause.on(
         'click',
         (pauseTimer = function() {
           timer('pause');
@@ -1037,14 +1024,15 @@ function timer(action) {
       break;
     // pause timer
     case 'pause':
-      // console.log('Pausing Timer...');
+      // // console.log('Pausing Timer...');
       clearInterval(clock);
-      d.body.dataset.gameplay = 'paused';
+      $('body').data('gameplay', 'paused');
+      $scoreContainer.removeClass('paused active').addClass('paused');
       // unbind click to pause button
       if (gameplay === 'active')
-        $playPause.removeEventListener('click', pauseTimer);
+        $playPause.off('click', pauseTimer);
       // bind click tp play button
-      $playPause.addEventListener(
+      $playPause.on(
         'click',
         (playTimer = function() {
           timer('start');
@@ -1053,26 +1041,27 @@ function timer(action) {
       break;
     // stop timer
     case 'stop':
-      // console.log('Stoping Timer...');
+      // // console.log('Stoping Timer...');
       clearInterval(clock);
-      d.body.dataset.gameplay = 'over';
+      $('body').data('gameplay', 'over');
+      $scoreContainer.removeClass('paused active');
       break;
     // default
     default:
       break;
   }
-  // console.log(time);
+  // // console.log(time);
   return;
 }
 
 // move counter
 function countMove(moves) {
-  // console.log('Move Counter', moves);
+  // // console.log('Move Counter', moves);
+  moves++;
   // set move attribute
-  $moveCount.dataset.moves = moves + 1;
+  $moveCount.data('moves', moves);
   // output to display
-  $moveCountSpan.textContent = moves + 1;
-  return;
+  $moveCountSpan.text(moves);
 }
 
 // scoring function
@@ -1091,24 +1080,24 @@ function countMove(moves) {
       For every 10 seconds of play, 2 points are taken away. Bonus points are calculated with the formula of 700,000 / (seconds to finish) if the game takes more than 30 seconds. If the game takes less than 30 seconds, no bonus points are awarded.
   */
 function updateScore(points) {
-  // console.log('Updating Score', points);
+  // // console.log('Updating Score', points);
   // get score
-  score = parseInt($score.dataset.score) + points;
+  score = parseInt($score.data('score')) + points;
   // set minimum score to 0
   score = score < 0 ? 0 : score;
   // parse as integer
   score = parseInt(score);
   // set score attribute
-  $score.dataset.score = score;
+  $score.data('score', score);
   // output to display
-  $score.children[1].textContent = score;
+  $scoreSpan.text(score);
   return score;
 }
 
 // calculate bonus points
 function getBonus() {
   if (time >= 30) bonus = parseInt(700000 / time);
-  // console.log(bonus);
+  // // console.log(bonus);
   return bonus;
 }
 
@@ -1131,44 +1120,46 @@ function checkForWin(table) {
     throwConfetti();
     // return true
     return true;
-  } else return false;
+  }
+
+  return false;
 }
 
 // check for auto win
 function checkForAutoWin(table) {
   // if all tableau cards are played and stock is empty
   if (
-    parseInt($tab.dataset.unplayed) +
+    parseInt($tab.data('unplayed')) +
       table['stock'].length +
       table['waste'].length ===
     0
   ) {
     // show auto win button
-    $autoWin.style.display = 'block';
+    $autoWin.show();
     // bind click to auto win button
-    $autoWin.addEventListener('click', autoWin);
+    $autoWin.on('click', autoWin);
   }
   return;
 }
 
 // auto win
 function autoWin() {
-  // console.log('Huzzah!');
+  // // console.log('Huzzah!');
   // hide auto win button
-  $autoWin.style.display = 'none';
+  $autoWin.hide();
   // unbind click to auto win button
-  $autoWin.removeEventListener('click', autoWin);
+  $autoWin.off('click', autoWin);
   // unbind click events
   unbindClick(
     '#stock .card:first-child,' +
-      '#waste .card:first-child,' +
-      '#fnd .card:first-child,' +
-      '#fnd #spades.pile[data-empty="true"],' +
-      '#fnd #hearts.pile[data-empty="true"],' +
-      '#fnd #diamonds.pile[data-empty="true"],' +
-      '#fnd #clubs.pile[data-empty="true"],' +
-      '#tab .card[data-played="true"],' +
-      '#tab .pile[data-empty="true"]'
+    '#waste .card:first-child,' +
+    '#fnd .card:first-child,' +
+    '#spades.pile[data-empty="true"],' +
+    '#hearts.pile[data-empty="true"],' +
+    '#diamonds.pile[data-empty="true"],' +
+    '#clubs.pile[data-empty="true"],' +
+    '#tab .card[data-played="true"],' +
+    '#tab .pile[data-empty="true"]'
   );
   // unbind double click events
   unbindClick('#waste .card:first-child' + '#tab .card:last-child', 'double');
@@ -1186,7 +1177,7 @@ function autoWin() {
 // auto win animation
 function autoWinAnimation(table) {
   // set number of iterations
-  var i = parseInt($tab.dataset.played);
+  var i = parseInt($tab.data('played'));
   // create animation loop
   function animation_loop() {
     // get lowest ranking card
@@ -1216,15 +1207,15 @@ function autoWinAnimation(table) {
     if (validateMove(card, dest)) {
       // set source pile
       var pile = e.parentElement.parentElement;
-      $table.dataset.source = pile.dataset.pile;
+      $table.data('source', pile.dataset.pile);
       // set dest pile
-      $table.dataset.dest = dest;
+      $table.data('dest', dest);
       // make move
       makeMove();
       reset(table);
       render(table, playedCards);
     } else {
-      // console.log('Move is Invalid. Try again...');
+      // // console.log('Move is Invalid. Try again...');
       reset(table);
       render(table, playedCards);
     }
@@ -1245,7 +1236,7 @@ function autoWinAnimation(table) {
       https://codepen.io/gamanox/pen/FkEbH
   */
 function throwConfetti() {
-  // console.log('Confetti!');
+  // // console.log('Confetti!');
 
   var COLORS,
     Confetti,

@@ -25,14 +25,6 @@
 .navbar a {
   color: #fff;
 }
-.navbar li[data-active="false"] {
-  opacity: 0.5;
-  pointer-events: none;
-}
-.navbar li[data-active="true"] {
-  opacity: 1;
-  pointer-events: auto;
-}
 .template {
   display: none;
 }
@@ -103,16 +95,16 @@
 #restart {
   color: #fff;
 }
-[data-gameplay="active"] #score .timer button,
-[data-gameplay="paused"] #score .timer button {
+#score.active .timer button,
+#score.paused .timer button {
   display: inline-block;
 }
-[data-gameplay="active"] #score .timer button i#pause::before,
-[data-gameplay="paused"] #score .timer button i#play::before {
+#score.active .timer button i#pause::before,
+#score.paused .timer button i#play::before {
   content: '';
 }
-[data-gameplay="active"] #score,
-[data-gameplay="paused"] #score {
+#score.active,
+#score.paused {
   padding-left: 3em;
 }
 #auto-win {
@@ -237,7 +229,7 @@
   height: 100%;
   border-radius: 5px;
 }
-.card[data-selected="true"]::before {
+.card.selected::before {
   box-shadow: 0 0 6px 3px #FCDB1A;
 }
 @media screen and (min-width: 768px) {
@@ -504,10 +496,10 @@
 .card:nth-child(5) { top: 8px; z-index: 1; }
 
 /* stock */
-.stock {
+#stock {
   z-index: 1;
 }
-.stock .reload-icon {
+#stock .reload-icon {
   position: absolute;
   top: 0;
   left: 0;
@@ -520,11 +512,11 @@
   z-index: 1;
 }
 @media screen and (max-width: 767px) {
-  .stock .reload-icon {
+  #stock .reload-icon {
     font-size: 5vw;
   }
 }
-.stock .reload-icon span {
+#stock .reload-icon span {
   display: block;
   position: absolute;
   top: 50%;
@@ -535,13 +527,13 @@
   margin-top: -0.75em;
   pointer-events: none;
 }
-.stock .reload-icon span::before,
-.stock .reload-icon span::after {
+#stock .reload-icon span::before,
+#stock .reload-icon span::after {
   content: '';
   display: inline-block;
   border-style: solid;
 }
-.stock .reload-icon span::before {
+#stock .reload-icon span::before {
   width: 1.25em;
   height: 1.25em;
   border-color: transparent black black black;
@@ -550,7 +542,7 @@
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-.stock .reload-icon span::after {
+#stock .reload-icon span::after {
   position: absolute;
   top: 0;
   left: 50%;
@@ -560,32 +552,31 @@
   border-width: .3125em 0 .3125em .5em;
 }
 
-
 /* waste */
-.waste {
+#waste {
   z-index: 1;
 }
 
 /* foundation */
-.fnd .pile {
+#fnd .pile {
   left: 43.5%;
 }
 @media screen and (min-width: 768px) {
-  .fnd .pile::before {
+  #fnd .pile::before {
     font-size: 6em;
   }
 }
 @media screen and (min-width: 992px) {
-  .fnd .pile::before {
+  #fnd .pile::before {
     font-size: 7em;
   }
 }
 @media screen and (min-width: 1200px) {
-  .fnd .pile::before {
+  #fnd .pile::before {
     font-size: 8em;
   }
 }
-.fnd .pile.spades::before {
+#spades.pile::before {
   content: '♠';
   position: absolute;
   top: 50%;
@@ -599,7 +590,7 @@
   text-align: center;
   opacity: 0.25;
 }
-.fnd .pile.hearts::before {
+#hearts.pile::before {
   content: '♥';
   position: absolute;
   top: 50%;
@@ -613,7 +604,7 @@
   text-align: center;
   opacity: 0.25;
 }
-.fnd .pile.diamonds::before {
+#diamonds.pile::before {
   content: '♦';
   position: absolute;
   top: 50%;
@@ -627,7 +618,7 @@
   text-align: center;
   opacity: 0.25;
 }
-.fnd .pile.clubs::before {
+#clubs.pile::before {
   content: '♣';
   position: absolute;
   top: 50%;
@@ -643,158 +634,36 @@
 }
 
 /* tableau */
-#table > div > ul.tab {
+#table > div > ul#tab {
   margin-top: 30px;
 }
-.tab .card {
+#tab .card {
   box-shadow: 0 0 5px rgba(0,0,0,.5);
   z-index: 1;
   margin-bottom: 10em;
 }
 /* face up */
-.tab .card:nth-child(2) { top: 6em; left: 0; }
-.tab .card:nth-child(3) { top: 12em; left: 0; }
-.tab .card:nth-child(4) { top: 18em; left: 0; }
-.tab .card:nth-child(5) { top: 24em; left: 0; }
-.tab .card:nth-child(6) { top: 30em; left: 0; }
-.tab .card:nth-child(7) { top: 36em;  left: 0; }
-.tab .card:nth-child(8) { top: 42em;  left: 0; }
-.tab .card:nth-child(9) { top: 48em;  left: 0; }
-.tab .card:nth-child(10) { top: 54em;  left: 0; }
-.tab .card:nth-child(11) { top: 60em;  left: 0; }
-.tab .card:nth-child(12) { top: 66em;  left: 0; }
-.tab .card:nth-child(13) { top: 72em;  left: 0; }
-.tab .card:nth-child(14) { top: 78em;  left: 0; }
-.tab .card:nth-child(15) { top: 84em;  left: 0; }
-.tab .card:nth-child(16) { top: 90em;  left: 0; }
-.tab .card:nth-child(17) { top: 96em;  left: 0; }
-.tab .card:nth-child(18) { top: 102em;  left: 0; }
-.tab .card:nth-child(19) { top: 108em;  left: 0; }
-.tab .card:nth-child(20) { top: 114em;  left: 0; }
-.tab .card:nth-child(21) { top: 120em;  left: 0; }
-/* face down */
-.tab .pile[data-unplayed='1'] .card:nth-child(2),
-.tab .pile[data-unplayed='2'] .card:nth-child(2),
-.tab .pile[data-unplayed='3'] .card:nth-child(2),
-.tab .pile[data-unplayed='4'] .card:nth-child(2),
-.tab .pile[data-unplayed='5'] .card:nth-child(2),
-.tab .pile[data-unplayed='6'] .card:nth-child(2) { top: 3em; }
-.tab .pile[data-unplayed='2'] .card:nth-child(3),
-.tab .pile[data-unplayed='3'] .card:nth-child(3),
-.tab .pile[data-unplayed='4'] .card:nth-child(3),
-.tab .pile[data-unplayed='5'] .card:nth-child(3),
-.tab .pile[data-unplayed='6'] .card:nth-child(3) { top: 6em; }
-.tab .pile[data-unplayed='3'] .card:nth-child(4),
-.tab .pile[data-unplayed='4'] .card:nth-child(4),
-.tab .pile[data-unplayed='5'] .card:nth-child(4),
-.tab .pile[data-unplayed='6'] .card:nth-child(4) { top: 9em; }
-.tab .pile[data-unplayed='4'] .card:nth-child(5),
-.tab .pile[data-unplayed='5'] .card:nth-child(5),
-.tab .pile[data-unplayed='6'] .card:nth-child(5) { top: 12em; }
-.tab .pile[data-unplayed='5'] .card:nth-child(6),
-.tab .pile[data-unplayed='6'] .card:nth-child(6) { top: 15em; }
-.tab .pile[data-unplayed='6'] .card:nth-child(7) { top: 18em; }
-/* piles with odd # of face down cards */
-.tab .pile[data-unplayed='1'] .card:nth-child(3) { top: 9em; left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(4),
-.tab .pile[data-unplayed='3'] .card:nth-child(5) { top: 15em; left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(5),
-.tab .pile[data-unplayed='3'] .card:nth-child(6),
-.tab .pile[data-unplayed='5'] .card:nth-child(7) { top: 21em; left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(6),
-.tab .pile[data-unplayed='3'] .card:nth-child(7),
-.tab .pile[data-unplayed='5'] .card:nth-child(8) { top: 27em; left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(7),
-.tab .pile[data-unplayed='3'] .card:nth-child(8),
-.tab .pile[data-unplayed='5'] .card:nth-child(9) { top: 33em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(8),
-.tab .pile[data-unplayed='3'] .card:nth-child(9),
-.tab .pile[data-unplayed='5'] .card:nth-child(10) { top: 39em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(9),
-.tab .pile[data-unplayed='3'] .card:nth-child(10),
-.tab .pile[data-unplayed='5'] .card:nth-child(11) { top: 45em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(10),
-.tab .pile[data-unplayed='3'] .card:nth-child(11),
-.tab .pile[data-unplayed='5'] .card:nth-child(12) { top: 51em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(11),
-.tab .pile[data-unplayed='3'] .card:nth-child(12),
-.tab .pile[data-unplayed='5'] .card:nth-child(13) { top: 57em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(12),
-.tab .pile[data-unplayed='3'] .card:nth-child(13),
-.tab .pile[data-unplayed='5'] .card:nth-child(14) { top: 63em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(13),
-.tab .pile[data-unplayed='3'] .card:nth-child(14),
-.tab .pile[data-unplayed='5'] .card:nth-child(15) { top: 69em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(14),
-.tab .pile[data-unplayed='3'] .card:nth-child(15),
-.tab .pile[data-unplayed='5'] .card:nth-child(16) { top: 75em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(15),
-.tab .pile[data-unplayed='3'] .card:nth-child(16),
-.tab .pile[data-unplayed='5'] .card:nth-child(17) { top: 81em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(16),
-.tab .pile[data-unplayed='3'] .card:nth-child(17),
-.tab .pile[data-unplayed='5'] .card:nth-child(18) { top: 87em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(17),
-.tab .pile[data-unplayed='3'] .card:nth-child(18),
-.tab .pile[data-unplayed='5'] .card:nth-child(19) { top: 93em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(18),
-.tab .pile[data-unplayed='3'] .card:nth-child(19),
-.tab .pile[data-unplayed='5'] .card:nth-child(20) { top: 99em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(19),
-.tab .pile[data-unplayed='3'] .card:nth-child(20),
-.tab .pile[data-unplayed='5'] .card:nth-child(21) { top: 105em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(20),
-.tab .pile[data-unplayed='3'] .card:nth-child(21) { top: 111em;  left: 0; }
-.tab .pile[data-unplayed='1'] .card:nth-child(21) { top: 117em;  left: 0; }
-/* piles with even # of face down cards */
-.tab .pile[data-unplayed='2'] .card:nth-child(4) { top: 12em; left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(5),
-.tab .pile[data-unplayed='4'] .card:nth-child(6) { top: 18em; left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(6),
-.tab .pile[data-unplayed='4'] .card:nth-child(7),
-.tab .pile[data-unplayed='6'] .card:nth-child(8) { top: 24em; left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(7),
-.tab .pile[data-unplayed='4'] .card:nth-child(8),
-.tab .pile[data-unplayed='6'] .card:nth-child(9) { top: 30em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(8),
-.tab .pile[data-unplayed='4'] .card:nth-child(9),
-.tab .pile[data-unplayed='6'] .card:nth-child(10) { top: 36em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(9),
-.tab .pile[data-unplayed='4'] .card:nth-child(10),
-.tab .pile[data-unplayed='6'] .card:nth-child(11) { top: 42em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(10),
-.tab .pile[data-unplayed='4'] .card:nth-child(11),
-.tab .pile[data-unplayed='6'] .card:nth-child(12) { top: 48em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(11),
-.tab .pile[data-unplayed='4'] .card:nth-child(12),
-.tab .pile[data-unplayed='6'] .card:nth-child(13) { top: 54em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(12),
-.tab .pile[data-unplayed='4'] .card:nth-child(13),
-.tab .pile[data-unplayed='6'] .card:nth-child(14) { top: 60em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(13),
-.tab .pile[data-unplayed='4'] .card:nth-child(14),
-.tab .pile[data-unplayed='6'] .card:nth-child(15) { top: 66em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(14),
-.tab .pile[data-unplayed='4'] .card:nth-child(15),
-.tab .pile[data-unplayed='6'] .card:nth-child(16) { top: 72em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(15),
-.tab .pile[data-unplayed='4'] .card:nth-child(16),
-.tab .pile[data-unplayed='6'] .card:nth-child(17) { top: 78em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(16),
-.tab .pile[data-unplayed='4'] .card:nth-child(17),
-.tab .pile[data-unplayed='6'] .card:nth-child(18) { top: 84em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(17),
-.tab .pile[data-unplayed='4'] .card:nth-child(18),
-.tab .pile[data-unplayed='6'] .card:nth-child(19) { top: 90em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(18),
-.tab .pile[data-unplayed='4'] .card:nth-child(19),
-.tab .pile[data-unplayed='6'] .card:nth-child(20) { top: 96em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(19),
-.tab .pile[data-unplayed='4'] .card:nth-child(20),
-.tab .pile[data-unplayed='6'] .card:nth-child(21) { top: 102em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(20),
-.tab .pile[data-unplayed='4'] .card:nth-child(21) { top: 108em;  left: 0; }
-.tab .pile[data-unplayed='2'] .card:nth-child(21) { top: 114em;  left: 0; }
+#tab .card:nth-child(2) { top: 4em; left: 0; }
+#tab .card:nth-child(3) { top: 8em; left: 0; }
+#tab .card:nth-child(4) { top: 12em; left: 0; }
+#tab .card:nth-child(5) { top: 16em; left: 0; }
+#tab .card:nth-child(6) { top: 20em; left: 0; }
+#tab .card:nth-child(7) { top: 24em;  left: 0; }
+#tab .card:nth-child(8) { top: 28em;  left: 0; }
+#tab .card:nth-child(9) { top: 32em;  left: 0; }
+#tab .card:nth-child(10) { top: 36em;  left: 0; }
+#tab .card:nth-child(11) { top: 40em;  left: 0; }
+#tab .card:nth-child(12) { top: 44em;  left: 0; }
+#tab .card:nth-child(13) { top: 48em;  left: 0; }
+#tab .card:nth-child(14) { top: 52em;  left: 0; }
+#tab .card:nth-child(15) { top: 56em;  left: 0; }
+#tab .card:nth-child(16) { top: 60em;  left: 0; }
+#tab .card:nth-child(17) { top: 64em;  left: 0; }
+#tab .card:nth-child(18) { top: 68em;  left: 0; }
+#tab .card:nth-child(19) { top: 72em;  left: 0; }
+#tab .card:nth-child(20) { top: 76em;  left: 0; }
+#tab .card:nth-child(21) { top: 80em;  left: 0; }
+
 /* Confetti */
 #confetti {
   position: absolute;

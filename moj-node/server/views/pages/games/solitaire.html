@@ -47,14 +47,13 @@
           <div id="app" class="govuk-body"></div>
         </div>
 
-        <div class="govuk-grid-column-full">
+        <div class="govuk-grid-column-full" style="position: relative;">
           <h1 id="title" class="govuk-heading-xl govuk-!-margin-bottom-6">{{ title }}</h1>
           <p class="govuk-body">You’ve told us that the solitaire game is not working as you can’t drag a card to where you want it.</p>
           <p class="govuk-body">Here’s how to make a move in this version of the game:</p>
           <p class="govuk-body">To move a card click on the card you want to move. The edges will turn yellow. Next click on the space where you want it to go.</p>
           <p class="govuk-body">The game can be a little slow to register a move so give it time for the move to happen.</p>
           <p class="govuk-body">Click on the pile in the top left of the game to reveal new cards.</p>
-          <p class="govuk-body">Double-clicking a card will place it on the relevant stack if possible, for example, if you double-click on an Ace it will automatically move it across to the completed stack.</p>
           <div class="container">
             <div id="score" class="govuk-body">
               <div class="timer">
@@ -79,24 +78,24 @@
             </div>
             <div id="table">
               <div class="upper-row">
-                <div id="stock" class="stock pile" data-pile="stock">
+                <div id="stock" class="pile" data-pile="stock">
                   <i class="reload-icon" data-action="reload">
                     <span></span>
                   </i>
                   <ul></ul>
                 </div>
-                <div id="waste" class="waste pile" data-pile="waste">
+                <div id="waste" class="pile" data-pile="waste">
                   <ul></ul>
                 </div>
-                <ul id="fnd" class="fnd">
-                  <li id="spades" class="spades pile" data-pile="spades" data-empty="true"><ul></ul></li>
-                  <li id="hearts" class="hearts pile" data-pile="hearts" data-empty="true"><ul></ul></li>
-                  <li id="diamonds" class="diamonds pile" data-pile="diamonds" data-empty="true"><ul></ul></li>
-                  <li id="clubs" class="clubs pile" data-pile="clubs" data-empty="true"><ul></ul></li>
+                <ul id="fnd">
+                  <li id="spades" class="pile" data-pile="spades" data-empty="true"><ul></ul></li>
+                  <li id="hearts" class="pile" data-pile="hearts" data-empty="true"><ul></ul></li>
+                  <li id="diamonds" class="pile" data-pile="diamonds" data-empty="true"><ul></ul></li>
+                  <li id="clubs" class="pile" data-pile="clubs" data-empty="true"><ul></ul></li>
                 </ul>
               </div>
               <div class="lower-row">
-                <ul id="tab" class="tab">
+                <ul id="tab">
                   <li class="pile" data-pile="1"><ul></ul></li>
                   <li class="pile" data-pile="2"><ul></ul></li>
                   <li class="pile" data-pile="3"><ul></ul></li>
