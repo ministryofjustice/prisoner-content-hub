@@ -35,6 +35,8 @@ const createTagRouter = ({ logger, hubTagsService, analyticsService }) => {
         sessionId,
       });
 
+      data.secondaryTags = data.id;
+
       return res.render('pages/tags', {
         title: data.name,
         tagId: id,

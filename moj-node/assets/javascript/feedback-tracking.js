@@ -32,10 +32,14 @@
   function feedbackTracker(rootElementId) {
     var widget = $('#' + rootElementId);
     var contentType = widget.data('item-type');
+    var secondaryTags = widget.data('item-tags');
+    var categories = widget.data('item-categories');
 
     window._feedback.title = widget.data('item-title');
     window._feedback.url = window.location.pathname;
     window._feedback.contentType = types[contentType] || contentType;
+    window._feedback.categories = categories ? ('' + categories).split(',') : [];
+    window._feedback.secondaryTags = secondaryTags ? ('' + secondaryTags).split(',') : [];
     window._feedback.id = widget.data('item-feedback-id');
 
     var series = widget.data('item-series');
@@ -113,7 +117,7 @@
       sendFeedback(window._feedback);
       disableFormSubmit();
 
-      setTimeout(function() {
+      setTimeout(function () {
         hideFeedbackForm();
         enableFormSubmit();
         $('[data-feedback-comment]').val('');

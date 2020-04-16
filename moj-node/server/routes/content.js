@@ -1,4 +1,4 @@
-const { prop, path } = require('ramda');
+const { prop, path, pathOr } = require('ramda');
 const express = require('express');
 const { relativeUrlFrom } = require('../utils');
 
@@ -37,6 +37,8 @@ const createContentRouter = ({
       const data = await hubContentService.contentFor(id, establishmentId);
       const contentType = prop('contentType', data);
       const sessionId = path(['session', 'id'], req);
+      data.categories = pathOr([], 'categories', data).join(',');
+      data.secondaryTags = pathOr([], 'secondaryTags', data).join(',');
 
       switch (contentType) {
         case 'radio':
@@ -87,6 +89,8 @@ const createContentRouter = ({
             title: `${data.title}`,
             sessionId,
           });
+
+          data.categories = data.categoryId;
 
           return res.render('pages/category', {
             title: data.title,
