@@ -278,6 +278,7 @@ const createApp = ({
   app.use(
     '/npr',
     createNprRouter({
+      analyticsService,
       logger,
     }),
   );

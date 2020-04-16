@@ -58,11 +58,12 @@
       </div>
 
       {{ hubFeedbackWidget({
-      title: data.title,
-      contentType: data.contentType,
-      series: data.seriesName,
-      establishment: establishmentName
-    }) }}
+        contentId: data.id,
+        title: data.title,
+        contentType: data.contentType,
+        series: data.seriesName,
+        feedbackId: feedbackId
+      }) }}
 
       <div class="govuk-hub-media-player__description">
         <div id="body" class="govuk-body">{{ data.description.sanitized | safe }}</div>
