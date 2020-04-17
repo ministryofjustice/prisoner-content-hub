@@ -1,4 +1,4 @@
-const { prop, path, pathOr } = require('ramda');
+const { prop, path, propOr } = require('ramda');
 const express = require('express');
 const { relativeUrlFrom } = require('../utils');
 
@@ -37,8 +37,8 @@ const createContentRouter = ({
       const data = await hubContentService.contentFor(id, establishmentId);
       const contentType = prop('contentType', data);
       const sessionId = path(['session', 'id'], req);
-      data.categories = pathOr([], 'categories', data).join(',');
-      data.secondaryTags = pathOr([], 'secondaryTags', data).join(',');
+      const getCategoriesFrom = propOr([], 'categories');
+      const getSecondaryTagsFrom = propOr([], 'secondaryTags');
 
       switch (contentType) {
         case 'radio':
@@ -52,7 +52,11 @@ const createContentRouter = ({
           return res.render('pages/audio', {
             title: data.title,
             config,
-            data,
+            data: {
+              ...data,
+              categories: getCategoriesFrom(data).join(','),
+              secondaryTags: getSecondaryTagsFrom(data).join(','),
+            },
           });
         case 'video':
           analyticsService.sendPageTrack({
@@ -65,7 +69,11 @@ const createContentRouter = ({
           return res.render('pages/video', {
             title: data.title,
             config,
-            data,
+            data: {
+              ...data,
+              categories: getCategoriesFrom(data).join(','),
+              secondaryTags: getSecondaryTagsFrom(data).join(','),
+            },
           });
         case 'page':
           config.content = false;
@@ -79,7 +87,11 @@ const createContentRouter = ({
           return res.render('pages/flat-content', {
             title: data.title,
             config,
-            data,
+            data: {
+              ...data,
+              categories: getCategoriesFrom(data).join(','),
+              secondaryTags: getSecondaryTagsFrom(data).join(','),
+            },
           });
         case 'landing-page':
           config.postscript = true;
@@ -90,12 +102,13 @@ const createContentRouter = ({
             sessionId,
           });
 
-          data.categories = data.categoryId;
-
           return res.render('pages/category', {
             title: data.title,
             config,
-            data,
+            data: {
+              ...data,
+              categories: propOr('', 'categoryId', data),
+            },
             notification,
           });
         case 'pdf': {

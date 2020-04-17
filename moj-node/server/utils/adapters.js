@@ -197,11 +197,6 @@ function landingResponseFrom(data) {
     },
     image: imageFor(data.image),
     categoryId: data.category_id,
-    categories: R.map(R.prop('target_id'), R.propOr([], 'categories', data)),
-    secondaryTags: R.map(
-      R.prop('target_id'),
-      R.propOr([], 'secondary_tags', data),
-    ),
   };
 }
 

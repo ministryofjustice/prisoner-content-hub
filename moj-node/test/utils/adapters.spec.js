@@ -293,8 +293,6 @@ function landingPageContent() {
       url: 'http://foo.bar/image/foo.jpg',
       alt: 'foo image',
     },
-    secondaryTags: [],
-    categories: [],
   };
 }
 
