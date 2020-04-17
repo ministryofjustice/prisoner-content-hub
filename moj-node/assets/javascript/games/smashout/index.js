@@ -158,7 +158,7 @@ function drawPaddle() {
     paddleX,
     gameCanvas.height - paddleHeight,
     paddleWidth,
-    paddleHeight,
+    paddleHeight
   );
   ctx.fillStyle = '#1d70b8';
   ctx.fill();
