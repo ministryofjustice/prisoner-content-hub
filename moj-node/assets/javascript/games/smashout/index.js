@@ -71,7 +71,42 @@ Ball.prototype.isStatic = function () {
   return this.velocity.x === 0 && this.velocity.y === 0;
 }
 
+function Paddle(options) {
+  options = options || {};
+  this.position = options.position || new Vector2d();
+  this.width = options.width || 100;
+  this.height = options.width || 10;
+  this.speed = 7;
+  this.colour = options.colour || '#1d70b8';
+}
+
+Paddle.prototype.setPosition = function (v) {
+  this.position = v;
+}
+
+Paddle.prototype.moveLeft = function () {
+  this.position.x = this.position.x - this.speed;
+}
+
+Paddle.prototype.moveRight = function () {
+  this.position.x = this.position.x + this.speed;
+}
+
+Paddle.prototype.draw = function (ctx) {
+  ctx.beginPath();
+  ctx.rect(
+    this.position.x,
+    this.position.y,
+    this.width,
+    this.height
+  );
+  ctx.fillStyle = this.colour;
+  ctx.fill();
+  ctx.closePath();
+}
+
 var ball = new Ball();
+var paddle = new Paddle();
 
 var blockColor = [
   '#d4351c',
@@ -94,9 +129,6 @@ var gameCanvas;
 var gameContainer;
 var ctx;
 var paddleWidth;
-var paddleX;
-var ballRadius;
-var paddleHeight;
 var rightPressed;
 var leftPressed;
 var spaceBarPressed;
@@ -119,7 +151,7 @@ var levels = [
     winningScore: 16,
     brickOffsetLeft: 155,
     bricks: initializeBricks(4, 4),
-    initialVelocity: new Vector2d(-5, 5),
+    initialVelocity: 5,
     paddleSpeed: 7
   },
   {
@@ -133,7 +165,7 @@ var levels = [
     winningScore: 16,
     brickOffsetLeft: 175,
     bricks: initializeBricks(4, 4),
-    initialVelocity: new Vector2d(-6, 6),
+    initialVelocity: 6,
     paddleSpeed: 7
   },
   {
@@ -147,7 +179,7 @@ var levels = [
     winningScore: 16,
     brickOffsetLeft: 195,
     bricks: initializeBricks(4, 4),
-    initialVelocity: new Vector2d(-6, 6),
+    initialVelocity: 6,
     paddleSpeed: 7
   },
   {
@@ -161,7 +193,7 @@ var levels = [
     winningScore: 16,
     brickOffsetLeft: 195,
     bricks: initializeBricks(4, 4),
-    initialVelocity: new Vector2d(-6, 6),
+    initialVelocity: 6,
     paddleSpeed: 7
   },
   {
@@ -175,7 +207,7 @@ var levels = [
     winningScore: 16,
     brickOffsetLeft: 195,
     bricks: initializeBricks(4, 4),
-    initialVelocity: new Vector2d(-7, 7),
+    initialVelocity: 7,
     paddleSpeed: 7
   }
 
@@ -207,27 +239,6 @@ function getRandomColor() {
   return color;
 }
 
-function drawBall() {
-  ctx.beginPath();
-  ctx.arc(ball.position.x, ball.position.y, ball.radius, 0, Math.PI * 2);
-  ctx.fillStyle = ball.colour;
-  ctx.fill();
-  ctx.closePath();
-}
-
-function drawPaddle() {
-  ctx.beginPath();
-  ctx.rect(
-    paddleX,
-    gameCanvas.height - paddleHeight,
-    paddleWidth,
-    paddleHeight
-  );
-  ctx.fillStyle = '#1d70b8';
-  ctx.fill();
-  ctx.closePath();
-}
-
 function drawBricks() {
   for (var c = 0; c < brickColumnCount; c++) {
     for (var r = 0; r < brickRowCount; r++) {
@@ -254,8 +265,8 @@ function draw() {
 
   ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
   ball.draw(ctx);
+  paddle.draw(ctx);
   drawBricks();
-  drawPaddle();
   drawScore();
   drawLevel();
   drawLives();
@@ -272,8 +283,8 @@ function draw() {
 
   if (ball.position.y + ball.velocity.y < ball.radius) {
     ball.velocity.y = -ball.velocity.y;
-  } else if (ball.position.y + ball.velocity.y > gameCanvas.height - ball.radius - paddleHeight) {
-    if (ball.position.x > paddleX - ball.radius && ball.position.x < paddleX + paddleWidth + ball.radius) {
+  } else if (ball.position.y + ball.velocity.y > gameCanvas.height - ball.radius - paddle.height) {
+    if (ball.position.x > paddle.position.x - ball.radius && ball.position.x < paddle.position.x + paddle.width + ball.radius) {
       ball.velocity.y = -ball.velocity.y;
     } else {
       lives--;
@@ -283,35 +294,35 @@ function draw() {
         return;
       }
 
-      ball.position.x = paddleX + paddleWidth / 2;
-      ball.position.y = gameCanvas.height - paddleHeight - ballRadius;
+      ball.position.x = paddle.position.x + paddle.width / 2;
+      ball.position.y = gameCanvas.height - paddle.height - ball.radius;
       ball.stop();
-      ball.setPosition(new Vector2d(paddleX + paddleWidth / 2, gameCanvas.height - ball.radius - paddleHeight));
+      ball.setPosition(new Vector2d(paddle.position.x + paddle.width / 2, gameCanvas.height - ball.radius - paddle.height));
     }
   }
 
   if (rightPressed && ball.isStatic()) {
-    paddleX += paddleSpeed;
-    ball.position.x = paddleX + paddleWidth / 2;
+    paddle.moveRight();
+    ball.position.x = paddle.position.x + paddle.width / 2;
   }
 
   if (rightPressed && !ball.isStatic()) {
-    paddleX += paddleSpeed;
+    paddle.moveRight();
   }
 
-  if (paddleX + paddleWidth > gameCanvas.width) {
-    paddleX = gameCanvas.width - paddleWidth;
+  if (paddle.position.x + paddle.width > gameCanvas.width) {
+    paddle.position.x = gameCanvas.width - paddle.width;
   } else if (leftPressed && ball.isStatic()) {
-    paddleX -= paddleSpeed;
-    ball.position.x = paddleX + paddleWidth / 2;
+    paddle.moveLeft();
+    ball.position.x = paddle.position.x + paddle.width / 2;
   }
 
   if (leftPressed && !ball.isStatic()) {
-    paddleX -= paddleSpeed;
+    paddle.moveLeft();
   }
 
-  if (paddleX < 0) {
-    paddleX = 0;
+  if (paddle.position.x < 0) {
+    paddle.position.x = 0;
   }
 
   ball.update();
@@ -332,7 +343,9 @@ function keyDownHandler(e) {
     e.preventDefault();
 
     if (ball.isStatic()) {
-      ball.setVelocity(initialVelocity);
+      var velocity = paddle.position.x < gameCanvas.width / 2 ? new Vector2d(1, 1) : new Vector2d(-1, 1);
+      velocity.multiply(ball.initialVelocity);
+      ball.setVelocity(velocity);
     }
   }
 }
@@ -421,12 +434,11 @@ function winGame() {
 function loadLevel(levelToLoad) {
   var levelData = levels[levelToLoad - 1];
   ball.setPosition(new Vector2d(gameCanvas.width / 2, gameCanvas.height - 20));
-  initialVelocity = levelData.initialVelocity;
-  x = gameCanvas.width / 2;
-  y = gameCanvas.height - 20;
-  paddleHeight = levelData.paddleHeight;
-  paddleWidth = levelData.paddleWidth;
-  paddleX = (gameCanvas.width - paddleWidth) / 2;
+  ball.initialVelocity = levelData.initialVelocity;
+  paddle.height = levelData.paddleHeight;
+  paddle.width = levelData.paddleWidth;
+  paddle.speed = levelData.paddleSpeed;
+  paddle.setPosition(new Vector2d((gameCanvas.width - paddle.width) / 2, gameCanvas.height - paddle.height));
   rightPressed = false;
   leftPressed = false;
   spaceBarPressed = false;
@@ -439,7 +451,6 @@ function loadLevel(levelToLoad) {
   level = levelToLoad;
   winningScore = levelData.winningScore;
   bricks = initializeBricks(brickColumnCount, brickRowCount);
-  paddleSpeed = levelData.paddleSpeed;
 }
 
 window.onload = function () {
