@@ -184,16 +184,17 @@ function draw() {
       dy = -dy;
     } else {
       lives--;
+
       if (!lives) {
         loseGame();
         return;
-      } else {
-        x = paddleX + paddleWidth / 2;
-        y = gameCanvas.height - paddleHeight - ballRadius - 0;
-        dx = 0;
-        dy = 0;
-        ballStatic = true;
       }
+
+      x = paddleX + paddleWidth / 2;
+      y = gameCanvas.height - paddleHeight - ballRadius;
+      dx = 0;
+      dy = 0;
+      ballStatic = true;
     }
   }
 
