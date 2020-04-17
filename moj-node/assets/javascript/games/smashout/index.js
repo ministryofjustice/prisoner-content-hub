@@ -39,12 +39,36 @@ function Ball(options) {
   this.colour = options.colour || '#000000';
 }
 
+Ball.prototype.update = function () {
+  this.position.add(this.velocity);
+}
+
+Ball.prototype.draw = function (ctx) {
+  ctx.beginPath();
+  ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
+  ctx.fillStyle = this.colour;
+  ctx.fill();
+  ctx.closePath();
+}
+
 Ball.prototype.setPosition = function (v) {
   this.position = v;
 }
 
+Ball.prototype.setVelocity = function (v) {
+  this.velocity = v;
+}
+
+Ball.prototype.stop = function () {
+  this.velocity = new Vector2d();
+}
+
 Ball.prototype.setAcceleration = function (v) {
   this.position = v;
+}
+
+Ball.prototype.isStatic = function () {
+  return this.velocity.x === 0 && this.velocity.y === 0;
 }
 
 var ball = new Ball();
@@ -69,15 +93,9 @@ var paddleSpeed;
 var gameCanvas;
 var gameContainer;
 var ctx;
-var x;
-var y;
 var paddleWidth;
 var paddleX;
-var dx;
-var dy;
-var ballStatic;
 var ballRadius;
-var randomColor;
 var paddleHeight;
 var rightPressed;
 var leftPressed;
@@ -88,8 +106,7 @@ var brickWidth;
 var brickHeight;
 var winningScore;
 var bricks;
-var speedX;
-var speedY;
+var initialVelocity;
 var levels = [
   {
     ballRadius: 10,
@@ -102,8 +119,7 @@ var levels = [
     winningScore: 16,
     brickOffsetLeft: 155,
     bricks: initializeBricks(4, 4),
-    speedX: -5,
-    speedY: 5,
+    initialVelocity: new Vector2d(-5, 5),
     paddleSpeed: 7
   },
   {
@@ -117,8 +133,7 @@ var levels = [
     winningScore: 16,
     brickOffsetLeft: 175,
     bricks: initializeBricks(4, 4),
-    speedX: -6,
-    speedY: 6,
+    initialVelocity: new Vector2d(-6, 6),
     paddleSpeed: 7
   },
   {
@@ -132,8 +147,7 @@ var levels = [
     winningScore: 16,
     brickOffsetLeft: 195,
     bricks: initializeBricks(4, 4),
-    speedX: -6,
-    speedY: 6,
+    initialVelocity: new Vector2d(-6, 6),
     paddleSpeed: 7
   },
   {
@@ -147,8 +161,7 @@ var levels = [
     winningScore: 16,
     brickOffsetLeft: 195,
     bricks: initializeBricks(4, 4),
-    speedX: -6,
-    speedY: 6,
+    initialVelocity: new Vector2d(-6, 6),
     paddleSpeed: 7
   },
   {
@@ -162,8 +175,7 @@ var levels = [
     winningScore: 16,
     brickOffsetLeft: 195,
     bricks: initializeBricks(4, 4),
-    speedX: -7,
-    speedY: 7,
+    initialVelocity: new Vector2d(-7, 7),
     paddleSpeed: 7
   }
 
@@ -197,8 +209,8 @@ function getRandomColor() {
 
 function drawBall() {
   ctx.beginPath();
-  ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-  ctx.fillStyle = randomColor;
+  ctx.arc(ball.position.x, ball.position.y, ball.radius, 0, Math.PI * 2);
+  ctx.fillStyle = ball.colour;
   ctx.fill();
   ctx.closePath();
 }
@@ -236,12 +248,13 @@ function drawBricks() {
 
 function draw() {
   if (score === winningScore) {
+    ball.stop();
     loadLevel(level + 1);
   }
 
   ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+  ball.draw(ctx);
   drawBricks();
-  drawBall();
   drawPaddle();
   drawScore();
   drawLevel();
@@ -253,17 +266,15 @@ function draw() {
     return;
   }
 
-  if (x + dx > gameCanvas.width - ballRadius || x + dx < ballRadius) {
-    dx = -dx;
-    randomColor = getRandomColor();
+  if (ball.position.x + ball.velocity.x > gameCanvas.width - ball.radius || ball.position.x + ball.velocity.x < ball.radius) {
+    ball.velocity.x = -ball.velocity.x;
   }
 
-  if (y + dy < ballRadius) {
-    dy = -dy;
-    randomColor = getRandomColor();
-  } else if (y + dy > gameCanvas.height - ballRadius - paddleHeight) {
-    if (x > paddleX - ballRadius && x < paddleX + paddleWidth + ballRadius) {
-      dy = -dy;
+  if (ball.position.y + ball.velocity.y < ball.radius) {
+    ball.velocity.y = -ball.velocity.y;
+  } else if (ball.position.y + ball.velocity.y > gameCanvas.height - ball.radius - paddleHeight) {
+    if (ball.position.x > paddleX - ball.radius && ball.position.x < paddleX + paddleWidth + ball.radius) {
+      ball.velocity.y = -ball.velocity.y;
     } else {
       lives--;
 
@@ -272,31 +283,30 @@ function draw() {
         return;
       }
 
-      x = paddleX + paddleWidth / 2;
-      y = gameCanvas.height - paddleHeight - ballRadius;
-      dx = 0;
-      dy = 0;
-      ballStatic = true;
+      ball.position.x = paddleX + paddleWidth / 2;
+      ball.position.y = gameCanvas.height - paddleHeight - ballRadius;
+      ball.stop();
+      ball.setPosition(new Vector2d(paddleX + paddleWidth / 2, gameCanvas.height - ball.radius - paddleHeight));
     }
   }
 
-  if (rightPressed && ballStatic) {
+  if (rightPressed && ball.isStatic()) {
     paddleX += paddleSpeed;
-    x = paddleX + paddleWidth / 2;
+    ball.position.x = paddleX + paddleWidth / 2;
   }
 
-  if (rightPressed && !ballStatic) {
+  if (rightPressed && !ball.isStatic()) {
     paddleX += paddleSpeed;
   }
 
   if (paddleX + paddleWidth > gameCanvas.width) {
     paddleX = gameCanvas.width - paddleWidth;
-  } else if (leftPressed && ballStatic) {
+  } else if (leftPressed && ball.isStatic()) {
     paddleX -= paddleSpeed;
-    x = paddleX + paddleWidth / 2;
+    ball.position.x = paddleX + paddleWidth / 2;
   }
 
-  if (leftPressed && !ballStatic) {
+  if (leftPressed && !ball.isStatic()) {
     paddleX -= paddleSpeed;
   }
 
@@ -304,8 +314,7 @@ function draw() {
     paddleX = 0;
   }
 
-  x += dx;
-  y += dy;
+  ball.update();
 
   window.requestAnimationFrame(draw);
 }
@@ -322,10 +331,8 @@ function keyDownHandler(e) {
   } else if (key == ' ' || key == 'Spacebar') {
     e.preventDefault();
 
-    if (ballStatic) {
-      ballStatic = false;
-      dx = speedX;
-      dy = speedY;
+    if (ball.isStatic()) {
+      ball.setVelocity(initialVelocity);
     }
   }
 }
@@ -348,12 +355,12 @@ function collisionDetection() {
       var brick = bricks[c][r];
       if (brick.visible) {
         if (
-          x > brick.x &&
-          x < brick.x + brickWidth &&
-          y > brick.y &&
-          y < brick.y + brickHeight
+          ball.position.x > brick.x &&
+          ball.position.x < brick.x + brickWidth &&
+          ball.position.y > brick.y &&
+          ball.position.y < brick.y + brickHeight
         ) {
-          dy = -dy;
+          ball.velocity.y = -ball.velocity.y;
           brick.visible = false;
           score++;
           gameScore++;
@@ -413,14 +420,10 @@ function winGame() {
 
 function loadLevel(levelToLoad) {
   var levelData = levels[levelToLoad - 1];
-
+  ball.setPosition(new Vector2d(gameCanvas.width / 2, gameCanvas.height - 20));
+  initialVelocity = levelData.initialVelocity;
   x = gameCanvas.width / 2;
   y = gameCanvas.height - 20;
-  dx = 0;
-  dy = 0;
-  ballStatic = true;
-  ballRadius = levelData.ballRadius;
-  randomColor = getRandomColor();
   paddleHeight = levelData.paddleHeight;
   paddleWidth = levelData.paddleWidth;
   paddleX = (gameCanvas.width - paddleWidth) / 2;
@@ -436,8 +439,6 @@ function loadLevel(levelToLoad) {
   level = levelToLoad;
   winningScore = levelData.winningScore;
   bricks = initializeBricks(brickColumnCount, brickRowCount);
-  speedX = levelData.speedX;
-  speedY = levelData.speedY;
   paddleSpeed = levelData.paddleSpeed;
 }
 
