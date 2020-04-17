@@ -58,13 +58,43 @@ var levels = [
   {
     ballRadius: 10,
     paddleHeight: 10,
-    paddleWidth: 80,
+    paddleWidth: 90,
     brickRowCount: 4,
     brickColumnCount: 4,
     brickWidth: 70,
     brickHeight: 40,
     winningScore: 16,
     brickOffsetLeft: 175,
+    bricks: initializeBricks(4, 4),
+    speedX: -6,
+    speedY: 6,
+    paddleSpeed: 7
+  },
+  {
+    ballRadius: 10,
+    paddleHeight: 10,
+    paddleWidth: 80,
+    brickRowCount: 4,
+    brickColumnCount: 4,
+    brickWidth: 60,
+    brickHeight: 40,
+    winningScore: 16,
+    brickOffsetLeft: 195,
+    bricks: initializeBricks(4, 4),
+    speedX: -6,
+    speedY: 6,
+    paddleSpeed: 7
+  },
+  {
+    ballRadius: 10,
+    paddleHeight: 10,
+    paddleWidth: 70,
+    brickRowCount: 4,
+    brickColumnCount: 4,
+    brickWidth: 60,
+    brickHeight: 40,
+    winningScore: 16,
+    brickOffsetLeft: 195,
     bricks: initializeBricks(4, 4),
     speedX: -6,
     speedY: 6,
@@ -85,6 +115,7 @@ var levels = [
     speedY: 7,
     paddleSpeed: 7
   }
+
 ];
 var scoreToWin = levels.reduce(function(total, levelData) {
   return levelData.winningScore + total;
