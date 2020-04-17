@@ -1,3 +1,54 @@
+function Vector2d(x, y) {
+  this.x = x || 0;
+  this.y = y || 0;
+}
+
+Vector2d.prototype.add = function (v) {
+  this.x = this.x + v.x;
+  this.y = this.y + v.y;
+}
+
+Vector2d.prototype.subtract = function (v) {
+  this.x = this.x - v.x;
+  this.y = this.y - v.y;
+}
+
+Vector2d.prototype.multiply = function (s) {
+  this.x = this.x * s;
+  this.y = this.y * s;
+}
+
+Vector2d.prototype.magnitude = function () {
+  return Math.sqrt((this.x * this.x) + (this.y * this.y));
+}
+
+Vector2d.prototype.normalize = function () {
+  return this.multiply(1 / this.magnitude());
+}
+
+Vector2d.prototype.dot = function (v) {
+  return (this.x * v.x) + (this.y * v.y);
+}
+
+function Ball(options) {
+  options = options || {};
+  this.position = options.position || new Vector2d();
+  this.velocity = options.velocity || new Vector2d();
+  this.acceleration = options.acceleration || new Vector2d();
+  this.radius = options.radius || 10;
+  this.colour = options.colour || '#000000';
+}
+
+Ball.prototype.setPosition = function (v) {
+  this.position = v;
+}
+
+Ball.prototype.setAcceleration = function (v) {
+  this.position = v;
+}
+
+var ball = new Ball();
+
 var blockColor = [
   '#d4351c',
   '#ffdd00',
@@ -117,7 +168,7 @@ var levels = [
   }
 
 ];
-var scoreToWin = levels.reduce(function(total, levelData) {
+var scoreToWin = levels.reduce(function (total, levelData) {
   return levelData.winningScore + total;
 }, 0);
 
