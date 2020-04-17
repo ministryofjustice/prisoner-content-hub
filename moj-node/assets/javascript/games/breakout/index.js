@@ -1,4 +1,5 @@
 var gameCanvas;
+var gameContainer;
 var ctx;
 var x;
 var y;
@@ -33,12 +34,59 @@ var score = 0;
 var gameScore = 0;
 var lives = 3;
 var level = 1;
-var bricks = [];
-for (var c = 0; c < brickColumnCount; c++) {
-  bricks[c] = [];
-  for (var r = 0; r < brickRowCount; r++) {
-    bricks[c][r] = { x: 0, y: 0, status: 1 };
+var winningScore = 16;
+var bricks = initializeBricks(brickColumnCount, brickRowCount);
+
+var levels = [
+  {
+    ballRadius: 10,
+    paddleHeight: 10,
+    paddleWidth: 100,
+    brickRowCount: 4,
+    brickColumnCount: 4,
+    brickWidth: 80,
+    brickHeight: 40,
+    winningScore: 16,
+    brickOffsetLeft: 155,
+    bricks: initializeBricks(4, 4)
+  },
+  {
+    ballRadius: 10,
+    paddleHeight: 10,
+    paddleWidth: 80,
+    brickRowCount: 4,
+    brickColumnCount: 4,
+    brickWidth: 70,
+    brickHeight: 40,
+    winningScore: 16,
+    brickOffsetLeft: 175,
+    bricks: initializeBricks(4, 4)
+  },
+  {
+    ballRadius: 10,
+    paddleHeight: 10,
+    paddleWidth: 60,
+    brickRowCount: 4,
+    brickColumnCount: 4,
+    brickWidth: 60,
+    brickHeight: 40,
+    winningScore: 16,
+    brickOffsetLeft: 195,
+    bricks: initializeBricks(4, 4)
   }
+];
+
+function initializeBricks(columns, rows) {
+  var bricks = [];
+
+  for (var c = 0; c < columns; c++) {
+    bricks[c] = [];
+    for (var r = 0; r < rows; r++) {
+      bricks[c][r] = { x: 0, y: 0, status: 1 };
+    }
+  }
+
+  return bricks;
 }
 
 function getRandomColor() {
@@ -90,6 +138,10 @@ function drawBricks() {
 }
 
 function draw() {
+  if (score === winningScore) {
+    loadLevel(level + 1);
+  }
+
   ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
   drawBricks();
   drawBall();
@@ -98,11 +150,6 @@ function draw() {
   drawLevel();
   drawLives();
   collisionDetection();
-
-  if (score === brickRowCount * brickColumnCount) {
-    level2();
-    return;
-  }
 
   if (gameScore === 48) {
     winGame();
@@ -162,38 +209,36 @@ function draw() {
   x += dx;
   y += dy;
 
-  requestAnimationFrame(draw);
+  window.requestAnimationFrame(draw);
 }
 
 function keyDownHandler(e) {
   if (e.key == 'Right' || e.key == 'ArrowRight') {
+    e.preventDefault();
     rightPressed = true;
   } else if (e.key == 'Left' || e.key == 'ArrowLeft') {
+    e.preventDefault();
     leftPressed = true;
-  } else if (ballStatic === true && level === 1) {
-    if (e.key == ' ' || e.key == 'Spacebar') {
-      dx = -5;
-      dy = 5;
+  } else if (e.key == ' ' || e.key == 'Spacebar') {
+    e.preventDefault();
+
+    if (ballStatic) {
       ballStatic = false;
-      e.preventDefault();
-    }
-  } else if (ballStatic === true && level === 2) {
-    if (e.key == ' ' || e.key == 'Spacebar') {
-      dx = -6;
-      dy = 6;
-      ballStatic = false;
-      e.preventDefault();
-    }
-  } else if (ballStatic === true && level === 3) {
-    if (e.key == ' ' || e.key == 'Spacebar') {
-      dx = -7;
-      dy = 7;
-      ballStatic = false;
-      e.preventDefault();
-    }
-  } else if (ballStatic == false) {
-    if (e.key == ' ' || e.key == 'Spacebar') {
-      e.preventDefault();
+
+      if (level === 1) {
+        dx = -5;
+        dy = 5;
+      }
+
+      if (level === 2) {
+        dx = -6;
+        dy = 6;
+      }
+
+      if (level === 3) {
+        dx = -7;
+        dy = 7;
+      }
     }
   }
 }
@@ -257,7 +302,6 @@ function loseGame() {
 
   document.addEventListener('keyup', function (e) {
     if (e.keyCode === 13 || e.key === 'Enter') document.location.reload();
-    requestAnimationFrame();
   });
 }
 
@@ -276,112 +320,39 @@ function winGame() {
   });
 }
 
-function level2() {
-  gameCanvas = document.getElementById('gameCanvas');
-  ctx = gameCanvas.getContext('2d');
+function loadLevel(levelToLoad) {
+  var levelData = levels[levelToLoad - 1];
+
   x = gameCanvas.width / 2;
   y = gameCanvas.height - 20;
   dx = 0;
   dy = 0;
   ballStatic = true;
-  ballRadius = 10;
+  ballRadius = levelData.ballRadius;
   randomColor = getRandomColor();
-  blockColor = [
-    '#d4351c',
-    '#ffdd00',
-    '#00703c',
-    '#1d70b8',
-    '#003078',
-    '#5694ca',
-    '#4c2c92',
-  ];
-  paddleHeight = 10;
-  paddleWidth = 80;
+  paddleHeight = levelData.paddleHeight;
+  paddleWidth = levelData.paddleWidth;
   paddleX = (gameCanvas.width - paddleWidth) / 2;
   rightPressed = false;
   leftPressed = false;
   spaceBarPressed = false;
-  brickRowCount = 4;
-  brickColumnCount = 4;
-  brickWidth = 70;
-  brickHeight = 40;
-  brickPadding = 50;
-  brickOffsetTop = 60;
-  brickOffsetLeft = 175;
+  brickRowCount = levelData.brickRowCount;
+  brickColumnCount = levelData.brickColumnCount;
+  brickWidth = levelData.brickWidth;
+  brickHeight = levelData.brickHeight;
+  brickOffsetLeft = levelData.brickOffsetLeft;
   score = 0;
-  lives = 3;
-  level = 2;
-  bricks = [];
-  for (var c = 0; c < brickColumnCount; c++) {
-    bricks[c] = [];
-    for (var r = 0; r < brickRowCount; r++) {
-      bricks[c][r] = { x: 0, y: 0, status: 1 };
-    }
-  }
-
-  if (gameScore === 32) {
-    level3();
-    return;
-  }
-
-  draw();
-}
-
-function level3() {
-  gameCanvas = document.getElementById('gameCanvas');
-  ctx = gameCanvas.getContext('2d');
-  x = gameCanvas.width / 2;
-  y = gameCanvas.height - 20;
-  dx = 0;
-  dy = 0;
-  ballStatic = true;
-  ballRadius = 10;
-  randomColor = getRandomColor();
-  blockColor = [
-    '#d4351c',
-    '#ffdd00',
-    '#00703c',
-    '#1d70b8',
-    '#003078',
-    '#5694ca',
-    '#4c2c92',
-  ];
-  paddleHeight = 10;
-  paddleWidth = 60;
-  paddleX = (gameCanvas.width - paddleWidth) / 2;
-  rightPressed = false;
-  leftPressed = false;
-  spaceBarPressed = false;
-  brickRowCount = 4;
-  brickColumnCount = 4;
-  brickWidth = 60;
-  brickHeight = 40;
-  brickPadding = 50;
-  brickOffsetTop = 60;
-  brickOffsetLeft = 195;
-  score = 0;
-  lives = 3;
-  level = 3;
-  bricks = [];
-  for (var c = 0; c < brickColumnCount; c++) {
-    bricks[c] = [];
-    for (var r = 0; r < brickRowCount; r++) {
-      bricks[c][r] = { x: 0, y: 0, status: 1 };
-    }
-  }
-
-  draw();
+  level = levelToLoad;
+  winningScore = levelData.winningScore;
+  bricks = initializeBricks(brickColumnCount, brickRowCount);
 }
 
 window.onload = function () {
   gameCanvas = document.getElementById('gameCanvas');
   ctx = gameCanvas.getContext('2d');
-  x = gameCanvas.width / 2;
-  y = gameCanvas.height - 20;
-  paddleWidth = 100;
-  paddleX = (gameCanvas.width - paddleWidth) / 2;
   document.addEventListener('keydown', keyDownHandler, false);
   document.addEventListener('keyup', keyUpHandler, false);
 
-  draw();
+  loadLevel(1);
+  window.requestAnimationFrame(draw);
 };
