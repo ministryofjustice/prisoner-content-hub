@@ -34,7 +34,7 @@ describe('#hubContentService', () => {
             contentType,
             seriesId: 'seriesId',
             episodeId: 'episodeId',
-            tagsId: [12],
+            secondaryTags: [12],
             description: { raw: '' },
           }),
           suggestedContentFor: sinon
@@ -68,7 +68,7 @@ describe('#hubContentService', () => {
             raw: '',
           },
           episodeId: 'episodeId',
-          tagsId: [12],
+          secondaryTags: [12],
           season: [{ id: 2, title: 'bar episode' }], // hides the current episode from season
           tags: [{ name: 'foo series name', id: 'foo' }],
         });

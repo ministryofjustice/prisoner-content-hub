@@ -15,6 +15,8 @@ const createFeedbackRouter = ({ feedbackService, logger }) => {
       contentType: path(['body', 'contentType'], req),
       feedbackId: path(['params', 'feedbackId'], req),
       series: path(['body', 'series'], req),
+      categories: path(['body', 'categories'], req),
+      secondaryTags: path(['body', 'secondaryTags'], req),
       sentiment: path(['body', 'sentiment'], req),
       comment: path(['body', 'comment'], req),
       date: new Date().toISOString(),

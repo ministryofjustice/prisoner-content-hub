@@ -32,7 +32,8 @@ describe('contentRepository', () => {
         'season',
         'seriesId',
         'image',
-        'tagsId',
+        'categories',
+        'secondaryTags',
         'establishmentId',
         'contentUrl',
       ];

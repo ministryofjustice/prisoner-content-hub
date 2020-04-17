@@ -104,6 +104,11 @@ function contentResponseFrom(data = []) {
       image: imageFor(item.image),
       duration: item.duration,
       contentUrl: `/content/${item.id}`,
+      categories: R.map(R.prop('target_id'), R.propOr([], 'categories', item)),
+      secondaryTags: R.map(
+        R.prop('target_id'),
+        R.propOr([], 'secondary_tags', item),
+      ),
     };
   });
 }
@@ -126,9 +131,13 @@ function mediaResponseFrom(data) {
     episode: data.episode,
     season: data.season,
     seriesId: data.series_id,
-    tagsId: R.map(R.prop('target_id'), R.propOr([], 'secondary_tags', data)),
     establishmentId: R.view(R.lensPath(['prisons', 0, 'target_id']))(data),
     contentUrl: `/content/${data.id}`,
+    categories: R.map(R.prop('target_id'), R.propOr([], 'categories', data)),
+    secondaryTags: R.map(
+      R.prop('target_id'),
+      R.propOr([], 'secondary_tags', data),
+    ),
   };
 }
 
@@ -146,6 +155,11 @@ function flatPageContentFrom(data) {
     image: imageOrDefaultFor(data.image),
     establishmentId: R.view(R.lensPath(['prisons', 0, 'target_id']))(data),
     contentUrl: `/content/${data.id}`,
+    categories: R.map(R.prop('target_id'), R.propOr([], 'categories', data)),
+    secondaryTags: R.map(
+      R.prop('target_id'),
+      R.propOr([], 'secondary_tags', data),
+    ),
   };
 }
 

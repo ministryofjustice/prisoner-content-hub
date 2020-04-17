@@ -78,11 +78,11 @@ function createHubContentService({
     const id = prop('id', data);
     const seriesId = prop('seriesId', data);
     const episodeId = prop('episodeId', data);
-    const tagsId = prop('tagsId', data);
+    const secondaryTags = prop('secondaryTags', data);
     const filterOutCurrentEpisode = filter(item =>
       not(equals(prop('id', item), id)),
     );
-    const tagsPromises = map(contentRepository.termFor, tagsId);
+    const tagsPromises = map(contentRepository.termFor, secondaryTags);
 
     const [series, seasons] = await Promise.all([
       contentRepository.termFor(seriesId),

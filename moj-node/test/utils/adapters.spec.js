@@ -164,7 +164,8 @@ function radioContent() {
       alt: 'Foo Bar',
       url: 'http://foo.bar.com/image.png',
     },
-    tagsId: [646],
+    secondaryTags: [646],
+    categories: [646],
     establishmentId: 792,
     contentUrl: '/content/3546',
     programmeCode: 'foo code',
@@ -191,7 +192,8 @@ function videoContent() {
       alt: 'Foo Bar',
       url: 'http://foo.bar.com/image.png',
     },
-    tagsId: [],
+    secondaryTags: [],
+    categories: [],
     establishmentId: 792,
     contentUrl: '/content/3546',
     programmeCode: 'foo code',
@@ -215,6 +217,8 @@ function flatPageContent() {
     standFirst: 'foo stand first',
     establishmentId: undefined,
     contentUrl: '/content/3456',
+    secondaryTags: [],
+    categories: [644],
   };
 }
 
@@ -239,7 +243,8 @@ function seasonContent() {
       media: 'http://foo.bar/audio/foo.mp3',
       season: '1',
       seriesId: 660,
-      tagsId: [646],
+      secondaryTags: [646],
+      categories: [646],
       title: 'Radio Item 1',
       establishmentId: undefined,
       programmeCode: undefined,
@@ -263,7 +268,8 @@ function seasonContent() {
       media: 'http://foo.bar/audio/bar.mp3',
       season: '1',
       seriesId: 660,
-      tagsId: [761],
+      secondaryTags: [761],
+      categories: [785],
       title: 'Radio Item 2',
       establishmentId: undefined,
       programmeCode: undefined,
@@ -303,6 +309,8 @@ function relatedContent() {
       },
       duration: '12:34',
       contentUrl: '/content/3456',
+      secondaryTags: [],
+      categories: [],
     },
     {
       id: '3457',
@@ -315,6 +323,8 @@ function relatedContent() {
       },
       duration: '45:12',
       contentUrl: '/content/3457',
+      secondaryTags: [],
+      categories: [],
     },
   ];
 }
