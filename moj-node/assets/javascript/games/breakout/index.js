@@ -1,15 +1,3 @@
-var gameCanvas;
-var gameContainer;
-var ctx;
-var x;
-var y;
-var paddleWidth;
-var paddleX;
-var dx = 0;
-var dy = 0;
-var ballStatic = true;
-var ballRadius = 10;
-var randomColor = getRandomColor();
 var blockColor = [
   '#d4351c',
   '#ffdd00',
@@ -19,14 +7,6 @@ var blockColor = [
   '#5694ca',
   '#4c2c92',
 ];
-var paddleHeight = 10;
-var rightPressed = false;
-var leftPressed = false;
-var spaceBarPressed = false;
-var brickRowCount = 4;
-var brickColumnCount = 4;
-var brickWidth = 80;
-var brickHeight = 40;
 var brickPadding = 50;
 var brickOffsetTop = 60;
 var brickOffsetLeft = 155;
@@ -34,9 +14,31 @@ var score = 0;
 var gameScore = 0;
 var lives = 3;
 var level = 1;
-var winningScore = 16;
-var bricks = initializeBricks(brickColumnCount, brickRowCount);
-
+var paddleSpeed;
+var gameCanvas;
+var gameContainer;
+var ctx;
+var x;
+var y;
+var paddleWidth;
+var paddleX;
+var dx;
+var dy;
+var ballStatic;
+var ballRadius;
+var randomColor;
+var paddleHeight;
+var rightPressed;
+var leftPressed;
+var spaceBarPressed;
+var brickRowCount;
+var brickColumnCount;
+var brickWidth;
+var brickHeight;
+var winningScore;
+var bricks;
+var speedX;
+var speedY;
 var levels = [
   {
     ballRadius: 10,
@@ -48,7 +50,10 @@ var levels = [
     brickHeight: 40,
     winningScore: 16,
     brickOffsetLeft: 155,
-    bricks: initializeBricks(4, 4)
+    bricks: initializeBricks(4, 4),
+    speedX: -5,
+    speedY: 5,
+    paddleSpeed: 7
   },
   {
     ballRadius: 10,
@@ -60,7 +65,10 @@ var levels = [
     brickHeight: 40,
     winningScore: 16,
     brickOffsetLeft: 175,
-    bricks: initializeBricks(4, 4)
+    bricks: initializeBricks(4, 4),
+    speedX: -6,
+    speedY: 6,
+    paddleSpeed: 7
   },
   {
     ballRadius: 10,
@@ -72,10 +80,12 @@ var levels = [
     brickHeight: 40,
     winningScore: 16,
     brickOffsetLeft: 195,
-    bricks: initializeBricks(4, 4)
+    bricks: initializeBricks(4, 4),
+    speedX: -7,
+    speedY: 7,
+    paddleSpeed: 7
   }
 ];
-
 var scoreToWin = levels.reduce(function(total, levelData) {
   return levelData.winningScore + total;
 }, 0);
@@ -85,8 +95,9 @@ function initializeBricks(columns, rows) {
 
   for (var c = 0; c < columns; c++) {
     bricks[c] = [];
+
     for (var r = 0; r < rows; r++) {
-      bricks[c][r] = { x: 0, y: 0, status: 1 };
+      bricks[c].push({ x: 0, y: 0, visible: true });
     }
   }
 
@@ -97,7 +108,7 @@ function getRandomColor() {
   var letters = '0123456789ABCDEF';
   var color = '#';
   for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
+    color += '' + letters[Math.floor(Math.random() * 16)];
   }
   return color;
 }
@@ -126,7 +137,7 @@ function drawPaddle() {
 function drawBricks() {
   for (var c = 0; c < brickColumnCount; c++) {
     for (var r = 0; r < brickRowCount; r++) {
-      if (bricks[c][r].status == 1) {
+      if (bricks[c][r].visible) {
         var brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
         var brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
         bricks[c][r].x = brickX;
@@ -187,23 +198,23 @@ function draw() {
   }
 
   if (rightPressed && ballStatic) {
-    paddleX += 7;
+    paddleX += paddleSpeed;
     x = paddleX + paddleWidth / 2;
   }
 
   if (rightPressed && !ballStatic) {
-    paddleX += 7;
+    paddleX += paddleSpeed;
   }
 
   if (paddleX + paddleWidth > gameCanvas.width) {
     paddleX = gameCanvas.width - paddleWidth;
   } else if (leftPressed && ballStatic) {
-    paddleX -= 7;
+    paddleX -= paddleSpeed;
     x = paddleX + paddleWidth / 2;
   }
 
   if (leftPressed && !ballStatic) {
-    paddleX -= 7;
+    paddleX -= paddleSpeed;
   }
 
   if (paddleX < 0) {
@@ -217,41 +228,32 @@ function draw() {
 }
 
 function keyDownHandler(e) {
-  if (e.key == 'Right' || e.key == 'ArrowRight') {
+  var key = e.key;
+
+  if (key == 'Right' || key == 'ArrowRight') {
     e.preventDefault();
     rightPressed = true;
-  } else if (e.key == 'Left' || e.key == 'ArrowLeft') {
+  } else if (key == 'Left' || key == 'ArrowLeft') {
     e.preventDefault();
     leftPressed = true;
-  } else if (e.key == ' ' || e.key == 'Spacebar') {
+  } else if (key == ' ' || key == 'Spacebar') {
     e.preventDefault();
 
     if (ballStatic) {
       ballStatic = false;
-
-      if (level === 1) {
-        dx = -5;
-        dy = 5;
-      }
-
-      if (level === 2) {
-        dx = -6;
-        dy = 6;
-      }
-
-      if (level === 3) {
-        dx = -7;
-        dy = 7;
-      }
+      dx = speedX;
+      dy = speedY;
     }
   }
 }
 
 function keyUpHandler(e) {
-  if (e.key == 'Right' || e.key == 'ArrowRight') {
+  var key = e.key;
+
+  if (key == 'Right' || key == 'ArrowRight') {
     e.preventDefault();
     rightPressed = false;
-  } else if (e.key == 'Left' || e.key == 'ArrowLeft') {
+  } else if (key == 'Left' || key == 'ArrowLeft') {
     e.preventDefault();
     leftPressed = false;
   }
@@ -260,16 +262,16 @@ function keyUpHandler(e) {
 function collisionDetection() {
   for (var c = 0; c < brickColumnCount; c++) {
     for (var r = 0; r < brickRowCount; r++) {
-      var b = bricks[c][r];
-      if (b.status == 1) {
+      var brick = bricks[c][r];
+      if (brick.visible) {
         if (
-          x > b.x &&
-          x < b.x + brickWidth &&
-          y > b.y &&
-          y < b.y + brickHeight
+          x > brick.x &&
+          x < brick.x + brickWidth &&
+          y > brick.y &&
+          y < brick.y + brickHeight
         ) {
           dy = -dy;
-          b.status = 0;
+          brick.visible = false;
           score++;
           gameScore++;
         }
@@ -351,6 +353,9 @@ function loadLevel(levelToLoad) {
   level = levelToLoad;
   winningScore = levelData.winningScore;
   bricks = initializeBricks(brickColumnCount, brickRowCount);
+  speedX = levelData.speedX;
+  speedY = levelData.speedY;
+  paddleSpeed = levelData.paddleSpeed;
 }
 
 window.onload = function () {
