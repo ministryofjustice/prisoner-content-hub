@@ -76,6 +76,10 @@ var levels = [
   }
 ];
 
+var scoreToWin = levels.reduce(function(total, levelData) {
+  return levelData.winningScore + total;
+}, 0);
+
 function initializeBricks(columns, rows) {
   var bricks = [];
 
@@ -151,7 +155,7 @@ function draw() {
   drawLives();
   collisionDetection();
 
-  if (gameScore === 48) {
+  if (gameScore === scoreToWin) {
     winGame();
     return;
   }
@@ -245,8 +249,10 @@ function keyDownHandler(e) {
 
 function keyUpHandler(e) {
   if (e.key == 'Right' || e.key == 'ArrowRight') {
+    e.preventDefault();
     rightPressed = false;
   } else if (e.key == 'Left' || e.key == 'ArrowLeft') {
+    e.preventDefault();
     leftPressed = false;
   }
 }
