@@ -1,3 +1,16 @@
+var DEFAULT_BRICK_COLUMN_COUNT = 8;
+var DEFAULT_BRICK_ROW_COUNT = 4;
+var DEFAULT_BRICK_PADDING = 10;
+var DEFAULT_BRICK_HEIGHT = 40;
+var DEFAULT_BRICK_OFFSET_TOP = 40;
+var DEFAULT_BRICK_HEALTH = 1;
+var DEFAULT_PADDLE_WIDTH = 100;
+var DEFAULT_PADDLE_HEIGHT = 10;
+var DEFAULT_PADDLE_SPEED = 7;
+var DEFAULT_BALL_RADIUS = 10;
+var DEFAULT_BALL_COLOUR = '#ff0000';
+var DEFAULT_BALL_VELOCITY = 7;
+
 function Vector2d(x, y) {
   this.x = x || 0;
   this.y = y || 0;
@@ -35,8 +48,9 @@ function Ball(options) {
   this.position = options.position || new Vector2d();
   this.velocity = options.velocity || new Vector2d();
   this.acceleration = options.acceleration || new Vector2d();
-  this.radius = options.radius || 10;
-  this.colour = options.colour || '#000000';
+  this.radius = options.radius || DEFAULT_BALL_RADIUS;
+  this.colour = options.colour || DEFAULT_BALL_COLOUR;
+  this.initialVelocity = options.initialVelocity || DEFAULT_BALL_VELOCITY;
 }
 
 Ball.prototype.update = function () {
@@ -74,9 +88,9 @@ Ball.prototype.isStatic = function () {
 function Paddle(options) {
   options = options || {};
   this.position = options.position || new Vector2d();
-  this.width = options.width || 100;
-  this.height = options.width || 10;
-  this.speed = 7;
+  this.width = options.width || DEFAULT_PADDLE_WIDTH;
+  this.height = options.height || DEFAULT_PADDLE_HEIGHT;
+  this.speed = options.speed || DEFAULT_PADDLE_SPEED;
   this.colour = options.colour || '#1d70b8';
 }
 
@@ -105,10 +119,70 @@ Paddle.prototype.draw = function (ctx) {
   ctx.closePath();
 }
 
-var ball = new Ball();
-var paddle = new Paddle();
+function Grid(options) {
+  options = options || {};
+  this.rows = options.rows || DEFAULT_BRICK_ROW_COUNT;
+  this.columns = options.columns || DEFAULT_BRICK_COLUMN_COUNT;
+  this.padding = options.padding || DEFAULT_BRICK_PADDING;
+  this.width = options.width || 0;
+  this.brickHeight = options.brickHeight || DEFAULT_BRICK_HEIGHT;
+  this.initialBrickHealth = options.initialBrickHealth || DEFAULT_BRICK_HEALTH;
+  this.bricks = [];
+  this.yOffset = options.yOffset || DEFAULT_BRICK_OFFSET_TOP;
+  var totalPadding = (this.columns * this.padding) + this.padding;
+  this.brickWidth = (this.width - totalPadding) / this.columns;
 
-var blockColor = [
+  for (var r = 0; r < this.rows; r++) {
+    var yOffset = (r * (this.padding + this.brickHeight)) + this.yOffset;
+    var xOffset = this.padding;
+    for (var c = 0; c < this.columns; c++) {
+      var position = new Vector2d(xOffset, yOffset);
+      this.bricks.push(new Brick({ position: position, initialHealth: this.initialBrickHealth }));
+      xOffset = xOffset + this.brickWidth + this.padding;
+    }
+  }
+}
+
+Grid.prototype.draw = function (ctx) {
+  for (var i = 0; i < this.bricks.length; i++) {
+    var brick = this.bricks[i];
+    if (brick.health > 0) {
+      ctx.beginPath();
+      ctx.rect(brick.position.x, brick.position.y, grid.brickWidth, grid.brickHeight);
+      ctx.fillStyle = brick.colour;
+      ctx.fill();
+      ctx.closePath();
+    }
+  }
+}
+
+Grid.prototype.checkCollisions = function (ball) {
+  for (var i = 0; i < this.bricks.length; i++) {
+    var brick = this.bricks[i];
+    if (brick.health > 0) {
+      if (
+        ball.position.x + ball.radius > brick.position.x &&
+        ball.position.x - ball.radius < brick.position.x + this.brickWidth &&
+        ball.position.y + ball.radius > brick.position.y &&
+        ball.position.y - ball.radius < brick.position.y + this.brickHeight
+      ) {
+        ball.velocity.y = -ball.velocity.y;
+        brick.hit();
+        score++;
+        gameScore++;
+      }
+    }
+  }
+}
+
+function Brick(options) {
+  options = options || {};
+  this.position = options.position || new Vector2d();
+  this.health = options.initialHealth || 1;
+  this.colour = options.colour || Brick.colours[this.health];
+}
+
+Brick.colours = [
   '#d4351c',
   '#ffdd00',
   '#00703c',
@@ -117,118 +191,66 @@ var blockColor = [
   '#5694ca',
   '#4c2c92',
 ];
-var brickPadding = 50;
-var brickOffsetTop = 60;
-var brickOffsetLeft = 155;
+
+Brick.prototype.setPosition = function (v) {
+  this.position = v;
+}
+
+Brick.prototype.hit = function () {
+  this.health = this.health > 0 ? this.health - 1 : 0;
+  this.colour = Brick.colours[this.health];
+}
+
+var ball;
+var paddle;
+var grid;
+
 var score = 0;
 var gameScore = 0;
 var lives = 3;
 var level = 1;
-var paddleSpeed;
 var gameCanvas;
 var gameContainer;
 var ctx;
-var paddleWidth;
 var rightPressed;
 var leftPressed;
 var spaceBarPressed;
-var brickRowCount;
-var brickColumnCount;
-var brickWidth;
-var brickHeight;
 var winningScore;
-var bricks;
-var initialVelocity;
 var levels = [
   {
     ballRadius: 10,
-    paddleHeight: 10,
-    paddleWidth: 100,
-    brickRowCount: 4,
-    brickColumnCount: 4,
-    brickWidth: 80,
-    brickHeight: 40,
-    winningScore: 16,
-    brickOffsetLeft: 155,
-    bricks: initializeBricks(4, 4),
+    rows: 2,
     initialVelocity: 5,
-    paddleSpeed: 7
+    initialBrickHealth: 1
   },
   {
     ballRadius: 10,
-    paddleHeight: 10,
-    paddleWidth: 90,
-    brickRowCount: 4,
-    brickColumnCount: 4,
-    brickWidth: 70,
-    brickHeight: 40,
-    winningScore: 16,
-    brickOffsetLeft: 175,
-    bricks: initializeBricks(4, 4),
+    rows: 3,
     initialVelocity: 6,
-    paddleSpeed: 7
+    initialBrickHealth: 2
   },
   {
     ballRadius: 10,
-    paddleHeight: 10,
-    paddleWidth: 80,
-    brickRowCount: 4,
-    brickColumnCount: 4,
-    brickWidth: 60,
-    brickHeight: 40,
-    winningScore: 16,
-    brickOffsetLeft: 195,
-    bricks: initializeBricks(4, 4),
+    rows: 5,
     initialVelocity: 6,
-    paddleSpeed: 7
+    initialBrickHealth: 2
   },
   {
     ballRadius: 10,
-    paddleHeight: 10,
-    paddleWidth: 70,
-    brickRowCount: 4,
-    brickColumnCount: 4,
-    brickWidth: 60,
-    brickHeight: 40,
-    winningScore: 16,
-    brickOffsetLeft: 195,
-    bricks: initializeBricks(4, 4),
+    rows: 5,
     initialVelocity: 6,
-    paddleSpeed: 7
+    initialBrickHealth: 3
   },
   {
     ballRadius: 10,
-    paddleHeight: 10,
-    paddleWidth: 60,
-    brickRowCount: 4,
-    brickColumnCount: 4,
-    brickWidth: 60,
-    brickHeight: 40,
-    winningScore: 16,
-    brickOffsetLeft: 195,
-    bricks: initializeBricks(4, 4),
+    rows: 6,
     initialVelocity: 7,
-    paddleSpeed: 7
+    initialBrickHealthL: 3
   }
-
 ];
 var scoreToWin = levels.reduce(function (total, levelData) {
   return levelData.winningScore + total;
 }, 0);
-
-function initializeBricks(columns, rows) {
-  var bricks = [];
-
-  for (var c = 0; c < columns; c++) {
-    bricks[c] = [];
-
-    for (var r = 0; r < rows; r++) {
-      bricks[c].push({ x: 0, y: 0, visible: true });
-    }
-  }
-
-  return bricks;
-}
 
 function getRandomColor() {
   var letters = '0123456789ABCDEF';
@@ -237,24 +259,6 @@ function getRandomColor() {
     color += '' + letters[Math.floor(Math.random() * 16)];
   }
   return color;
-}
-
-function drawBricks() {
-  for (var c = 0; c < brickColumnCount; c++) {
-    for (var r = 0; r < brickRowCount; r++) {
-      if (bricks[c][r].visible) {
-        var brickX = c * (brickWidth + brickPadding) + brickOffsetLeft;
-        var brickY = r * (brickHeight + brickPadding) + brickOffsetTop;
-        bricks[c][r].x = brickX;
-        bricks[c][r].y = brickY;
-        ctx.beginPath();
-        ctx.rect(brickX, brickY, brickWidth, brickHeight);
-        ctx.fillStyle = blockColor[c];
-        ctx.fill();
-        ctx.closePath();
-      }
-    }
-  }
 }
 
 function draw() {
@@ -266,11 +270,11 @@ function draw() {
   ctx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
   ball.draw(ctx);
   paddle.draw(ctx);
-  drawBricks();
+  grid.draw(ctx);
   drawScore();
   drawLevel();
   drawLives();
-  collisionDetection();
+  grid.checkCollisions(ball);
 
   if (gameScore === scoreToWin) {
     winGame();
@@ -362,27 +366,6 @@ function keyUpHandler(e) {
   }
 }
 
-function collisionDetection() {
-  for (var c = 0; c < brickColumnCount; c++) {
-    for (var r = 0; r < brickRowCount; r++) {
-      var brick = bricks[c][r];
-      if (brick.visible) {
-        if (
-          ball.position.x > brick.x &&
-          ball.position.x < brick.x + brickWidth &&
-          ball.position.y > brick.y &&
-          ball.position.y < brick.y + brickHeight
-        ) {
-          ball.velocity.y = -ball.velocity.y;
-          brick.visible = false;
-          score++;
-          gameScore++;
-        }
-      }
-    }
-  }
-}
-
 function drawScore() {
   ctx.font = '19 px GDS Transport';
   ctx.fillStyle = '	#0b0c0c';
@@ -433,24 +416,27 @@ function winGame() {
 
 function loadLevel(levelToLoad) {
   var levelData = levels[levelToLoad - 1];
-  ball.setPosition(new Vector2d(gameCanvas.width / 2, gameCanvas.height - 20));
-  ball.initialVelocity = levelData.initialVelocity;
-  paddle.height = levelData.paddleHeight;
-  paddle.width = levelData.paddleWidth;
-  paddle.speed = levelData.paddleSpeed;
+  paddle = new Paddle({
+    height: levelData.paddleHeight,
+    width: levelData.paddleWidth,
+    speed: levelData.paddleSpeed
+  });
   paddle.setPosition(new Vector2d((gameCanvas.width - paddle.width) / 2, gameCanvas.height - paddle.height));
+  ball = new Ball({
+    initialVelocity: levelData.initialVelocity
+  });
+  ball.setPosition(new Vector2d(gameCanvas.width / 2, gameCanvas.height - paddle.height - ball.radius));
+  grid = new Grid({
+    rows: levelData.rows,
+    width: gameCanvas.width,
+    initialBrickHealth: levelData.initialBrickHealth
+  });
   rightPressed = false;
   leftPressed = false;
   spaceBarPressed = false;
-  brickRowCount = levelData.brickRowCount;
-  brickColumnCount = levelData.brickColumnCount;
-  brickWidth = levelData.brickWidth;
-  brickHeight = levelData.brickHeight;
-  brickOffsetLeft = levelData.brickOffsetLeft;
   score = 0;
   level = levelToLoad;
-  winningScore = levelData.winningScore;
-  bricks = initializeBricks(brickColumnCount, brickRowCount);
+  winningScore = grid.rows * grid.columns;
 }
 
 window.onload = function () {
