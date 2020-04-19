@@ -1,15 +1,16 @@
 var DEFAULT_LIVES = 3;
 var DEFAULT_BRICK_COLUMN_COUNT = 8;
 var DEFAULT_BRICK_ROW_COUNT = 4;
-var DEFAULT_BRICK_PADDING = 10;
-var DEFAULT_BRICK_HEIGHT = 40;
+var DEFAULT_BRICK_PADDING = 7;
+var DEFAULT_BRICK_HEIGHT = 35;
 var DEFAULT_BRICK_OFFSET_TOP = 40;
 var DEFAULT_BRICK_HEALTH = 1;
 var DEFAULT_PADDLE_WIDTH = 100;
-var DEFAULT_PADDLE_HEIGHT = 10;
+var DEFAULT_PADDLE_HEIGHT = 15;
 var DEFAULT_PADDLE_SPEED = 7;
+var DEFAULT_PADDLE_COLOUR = '#803cb5';
 var DEFAULT_BALL_RADIUS = 10;
-var DEFAULT_BALL_COLOUR = '#ff0000';
+var DEFAULT_BALL_COLOUR = '#e32b6e';
 var DEFAULT_BALL_VELOCITY = 7;
 var SCORE_MULTIPLIER = 50;
 var SCORE_BAR_HEIGHT = 40;
@@ -42,26 +43,26 @@ var levels = [
   {
     ballRadius: 10,
     rows: 6,
-    initialVelocity: 7,
-    initialBrickHealthL: 3
+    initialVelocity: 6,
+    initialBrickHealth: 3
   },
   {
     ballRadius: 10,
     rows: 4,
-    initialVelocity: 7,
-    initialBrickHealthL: 4
+    initialVelocity: 6,
+    initialBrickHealth: 4
   },
   {
     ballRadius: 10,
     rows: 5,
-    initialVelocity: 7,
-    initialBrickHealthL: 4
+    initialVelocity: 6,
+    initialBrickHealth: 4
   },
   {
     ballRadius: 10,
     rows: 6,
-    initialVelocity: 7,
-    initialBrickHealthL: 4
+    initialVelocity: 6,
+    initialBrickHealth: 7
   }
 ];
 
@@ -167,7 +168,7 @@ function Paddle(options) {
   this.height = options.height || DEFAULT_PADDLE_HEIGHT;
   this.range = options.range;
   this.speed = options.speed || DEFAULT_PADDLE_SPEED;
-  this.colour = options.colour || '#1d70b8';
+  this.colour = options.colour || DEFAULT_PADDLE_COLOUR;
   this.normal = new Vector2d(0, 1);
 }
 
@@ -295,19 +296,19 @@ function Brick(options) {
   options = options || {};
   this.position = options.position || new Vector2d();
   this.health = options.initialHealth || 1;
-  this.colour = options.colour || Brick.colours[this.health];
+  this.colour = options.colour || Brick.colours[this.health - 1];
   this.width = options.width;
   this.height = options.height;
 }
 
 Brick.colours = [
-  '#d4351c',
-  '#ffdd00',
-  '#00703c',
-  '#1d70b8',
-  '#003078',
-  '#5694ca',
-  '#4c2c92',
+  '#c72626',
+  '#d46515',
+  '#edcd1a',
+  '#1aed67',
+  '#1ac3ed',
+  '#801aed',
+  '#c31aed',
 ];
 
 Brick.prototype.setPosition = function (v) {
@@ -316,7 +317,7 @@ Brick.prototype.setPosition = function (v) {
 
 Brick.prototype.hit = function () {
   this.health = this.health > 0 ? this.health - 1 : 0;
-  this.colour = Brick.colours[this.health];
+  this.colour = Brick.colours[this.health - 1];
 }
 
 function InputHandler(context) {
@@ -326,13 +327,29 @@ function InputHandler(context) {
   this.handleRight = this.defaultHandler;
   this.handleEnter = this.defaultHandler;
   this.keys = [];
+  this.konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+  this.konamiCodeIndex = 0;
+  this.cheats = { lives: function () { } };
   var _this = this;
+
 
   context.addEventListener('keyup', function (e) {
     _this.keys[e.keyCode] = false;
   });
 
   context.addEventListener('keydown', function (e) {
+    if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40 || e.keyCode === 65 || e.keyCode === 66) {
+      e.preventDefault();
+      if (_this.konamiCode[_this.konamiCodeIndex] === e.keyCode) {
+        _this.konamiCodeIndex++;
+      } else {
+        _this.konamiCodeIndex = 0;
+      }
+      if (_this.konamiCodeIndex === _this.konamiCode.length) {
+        _this.cheats.lives(9999);
+        _this.konamiCodeIndex = 0
+      }
+    }
     if (e.keyCode === 32) {
       e.preventDefault();
     }
@@ -387,6 +404,7 @@ function Game(options) {
   this.ball = null;
   this.grid = null;
   this.inputHandler = options.inputHandler;
+  this.inputHandler.cheats.lives = this.setLives.bind(this);
   this.loadLevel();
 }
 
@@ -454,7 +472,7 @@ Game.prototype.drawLevel = function () {
 Game.prototype.drawLives = function () {
   this.ctx.font = '19px GDS Transport';
   this.ctx.fillStyle = '#0b0c0c';
-  this.ctx.fillText('Lives: ' + this.lives, this.canvas.width - 70, 20);
+  this.ctx.fillText('Lives: ' + this.lives, this.canvas.width - 100, 20);
 }
 
 Game.prototype.drawWinScreen = function () {
@@ -491,6 +509,10 @@ Game.prototype.update = function () {
   this.paddle.checkCollisions(this.ball);
   this.ball.update();
   this.checkWallCollisions();
+}
+
+Game.prototype.setLives = function (lives) {
+  this.lives = lives;
 }
 
 Game.prototype.draw = function () {
