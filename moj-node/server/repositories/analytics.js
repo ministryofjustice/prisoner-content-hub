@@ -13,7 +13,7 @@ function analyticsRepository(httpClient) {
     };
 
     if (value !== undefined) {
-      postData.value = value;
+      postData.ev = value;
     }
 
     return httpClient.postFormData(config.analytics.endpoint, postData);
