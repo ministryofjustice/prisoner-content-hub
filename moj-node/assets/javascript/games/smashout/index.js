@@ -424,6 +424,9 @@ Game.prototype.loadLevel = function () {
   this.paddle.attachBall(this.ball);
   this.grid = new Grid({
     rows: level.rows,
+    columns: level.columns,
+    brickHeight: level.brickHeight,
+    padding: level.padding,
     width: this.canvas.width,
     initialBrickHealth: level.initialBrickHealth
   });
