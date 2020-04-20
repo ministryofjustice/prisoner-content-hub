@@ -233,6 +233,7 @@ Paddle.prototype.draw = function (ctx) {
 
 Paddle.prototype.checkCollisions = function (ball) {
   if (ball.hasCollidedWith(this)) {
+    ball.setPosition(new Vector2d(ball.position.x, this.position.y - ball.radius));
     ball.bounce(new Vector2d(0, 1));
   }
 }
