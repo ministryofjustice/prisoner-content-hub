@@ -377,6 +377,9 @@ if (!Array.prototype.filter){
 	};
 
 	GameView.prototype.handleKeyDown = function(e) {
+    if (e.target.matches('textarea') || e.target.matches('input') || e.target.matches('button')) {
+      return;
+    }
 	  if (e.keyCode === 37) {
       this.leftPressed = true;
       e.preventDefault();
@@ -392,6 +395,9 @@ if (!Array.prototype.filter){
 	};
 
 	GameView.prototype.handleKeyUp = function(e) {
+    if (e.target.matches('textarea') || e.target.matches('input') || e.target.matches('button')) {
+      return;
+    }
 	  if (e.keyCode === 37) {
 	    this.leftPressed = false;
 	  } else if (e.keyCode === 39) {

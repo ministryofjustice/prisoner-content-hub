@@ -339,6 +339,9 @@ function InputHandler(context) {
   });
 
   context.addEventListener('keydown', function (e) {
+    if (e.target.matches('textarea') || e.target.matches('input') || e.target.matches('button')) {
+      return;
+    }
     if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40 || e.keyCode === 65 || e.keyCode === 66) {
       e.preventDefault();
       if (_this.konamiCode[_this.konamiCodeIndex] === e.keyCode) {
