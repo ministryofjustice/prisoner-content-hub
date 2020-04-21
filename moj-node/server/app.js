@@ -225,46 +225,44 @@ const createApp = ({
     }),
   );
 
-  if (config.features.newDesigns) {
-    app.use(
-      '/timetable',
-      createTimetableRouter({
-        logger,
-        offenderService,
-        analyticsService,
-      }),
-    );
+  app.use(
+    '/timetable',
+    createTimetableRouter({
+      logger,
+      offenderService,
+      analyticsService,
+    }),
+  );
 
-    app.use(
-      '/visits',
-      createVisitsRouter({
-        hubContentService,
-        offenderService,
-        analyticsService,
-        logger,
-      }),
-    );
+  app.use(
+    '/visits',
+    createVisitsRouter({
+      hubContentService,
+      offenderService,
+      analyticsService,
+      logger,
+    }),
+  );
 
-    app.use(
-      '/iep',
-      createIepRouter({
-        hubContentService,
-        offenderService,
-        analyticsService,
-        logger,
-      }),
-    );
+  app.use(
+    '/iep',
+    createIepRouter({
+      hubContentService,
+      offenderService,
+      analyticsService,
+      logger,
+    }),
+  );
 
-    app.use(
-      '/money',
-      createMoneyRouter({
-        hubContentService,
-        offenderService,
-        analyticsService,
-        logger,
-      }),
-    );
-  }
+  app.use(
+    '/money',
+    createMoneyRouter({
+      hubContentService,
+      offenderService,
+      analyticsService,
+      logger,
+    }),
+  );
 
   app.use(
     '/content',
