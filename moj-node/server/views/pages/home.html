@@ -56,9 +56,7 @@
         </ul>
       </div>
     </div>
-    {% if config.newDesigns %}
-      {{personalScheduleToday({events: todaysEvents, isTomorrow: isTomorrow, establishmentId: config.establishmentId}, config.userName)}}
-    {% endif %}
+    {{personalScheduleToday({events: todaysEvents, isTomorrow: isTomorrow, establishmentId: config.establishmentId}, config.userName)}}
   </div>
 {% endblock %}
 
