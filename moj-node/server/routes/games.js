@@ -13,10 +13,8 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/chess', (req, res) => {
     logger.info('GET /games/chess');
     const userDetails = path(['session', 'user'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const sessionId = path(['session', 'id'], req);
 
-    config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
     analyticsService.sendPageTrack({
@@ -35,10 +33,8 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/sudoku', (req, res) => {
     logger.info('GET /games/sudoku');
     const userDetails = path(['session', 'user'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const sessionId = path(['session', 'id'], req);
 
-    config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
     analyticsService.sendPageTrack({
@@ -57,10 +53,8 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/neontroids', (req, res) => {
     logger.info('GET /games/neontroids');
     const userDetails = path(['session', 'user'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const sessionId = path(['session', 'id'], req);
 
-    config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
     analyticsService.sendPageTrack({
@@ -79,10 +73,8 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/mimstris', (req, res) => {
     logger.info('GET /games/mimstris');
     const userDetails = path(['session', 'user'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const sessionId = path(['session', 'id'], req);
 
-    config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
     analyticsService.sendPageTrack({
@@ -101,10 +93,8 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/invadersfromspace', (req, res) => {
     logger.info('GET /games/invadersfromspace');
     const userDetails = path(['session', 'user'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const sessionId = path(['session', 'id'], req);
 
-    config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
     analyticsService.sendPageTrack({
@@ -123,10 +113,8 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/crossword', (req, res) => {
     logger.info('GET /games/crossword');
     const userDetails = path(['session', 'user'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const sessionId = path(['session', 'id'], req);
 
-    config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
     analyticsService.sendPageTrack({
@@ -145,10 +133,8 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/solitaire', (req, res) => {
     logger.info('GET /games/solitaire');
     const userDetails = path(['session', 'user'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const sessionId = path(['session', 'id'], req);
 
-    config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
     analyticsService.sendPageTrack({
@@ -167,10 +153,8 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/smashout', (req, res) => {
     logger.info('GET /games/smashout');
     const userDetails = path(['session', 'user'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const sessionId = path(['session', 'id'], req);
 
-    config.newDesigns = newDesigns;
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
     analyticsService.sendPageTrack({

@@ -60,6 +60,7 @@ module.exports = {
     search: `${elasticSearchEndpoint}/elasticsearch_index_hubdb_content_index/_search`,
   },
   features: {
+    newDesigns: getEnv('FEATURE_NEW_DESIGNS', false),
     prisonSwitch: getEnv('ENABLE_PRISON_SWITCH', false),
   },
   mockAuth: getEnv('MOCK_AUTH', 'false') === 'true',
