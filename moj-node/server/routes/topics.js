@@ -20,7 +20,6 @@ const createTopicsRouter = ({ logger, hubMenuService, analyticsService }) => {
       logger.info('GET index');
 
       const userName = path(['session', 'user', 'name'], req);
-      const newDesigns = path(['locals', 'features', 'newDesigns'], res);
       const establishmentId = path(['locals', 'establishmentId'], res);
       const sessionId = path(['session', 'id'], req);
       const topics = await hubMenuService.allTopics(establishmentId);
@@ -31,7 +30,6 @@ const createTopicsRouter = ({ logger, hubMenuService, analyticsService }) => {
         postscript: true,
         detailsType: 'small',
         userName,
-        newDesigns,
         returnUrl: req.originalUrl,
       };
       analyticsService.sendPageTrack({

@@ -19,13 +19,11 @@ const createContentRouter = ({
     }
 
     const userName = path(['session', 'user', 'name'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
     const config = {
       content: true,
       header: false,
       postscript: false,
-      newDesigns,
       userName,
       returnUrl: req.originalUrl,
     };

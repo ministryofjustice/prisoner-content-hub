@@ -16,13 +16,11 @@ const createTagRouter = ({ logger, hubTagsService, analyticsService }) => {
 
       const userName = path(['session', 'user', 'name'], req);
       const establishmentId = path(['locals', 'establishmentId'], res);
-      const newDesigns = path(['locals', 'features', 'newDesigns'], res);
       const config = {
         content: true,
         header: false,
         postscript: false,
         detailsType: 'small',
-        newDesigns,
         userName,
         returnUrl: req.originalUrl,
       };
