@@ -1,13 +1,13 @@
 const express = require('express');
 const { path, pathOr } = require('ramda');
 
-module.exports = function Login({
+const createAuthRouter = ({
   logger,
   formParser,
   authenticateUser,
   createUserSession,
   analyticsService,
-}) {
+}) => {
   const router = express.Router();
 
   router.post(
@@ -79,4 +79,8 @@ module.exports = function Login({
   });
 
   return router;
+};
+
+module.exports = {
+  createAuthRouter,
 };
