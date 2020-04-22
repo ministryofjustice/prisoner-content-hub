@@ -27,7 +27,7 @@ const { createAnalyticsRouter } = require('./routes/analytics');
 const { createFeedbackRouter } = require('./routes/feedback');
 const { createGettingAJobRouter } = require('./routes/gettingAJob');
 const { createSearchRouter } = require('./routes/search');
-const createAuthRouter = require('./routes/auth');
+const { createAuthRouter } = require('./routes/auth');
 const { featureToggleMiddleware } = require('./middleware/featureToggle');
 const {
   configureEstablishment,
