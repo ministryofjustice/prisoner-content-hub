@@ -14,7 +14,6 @@ const createMoneyRouter = ({
 
     logger.info('GET /money');
 
-    const notification = path(['session', 'notification'], req);
     const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
@@ -27,6 +26,7 @@ const createMoneyRouter = ({
       category: 'money',
       newDesigns,
       userName,
+      returnUrl: req.originalUrl,
     };
 
     const establishmentId = path(['locals', 'establishmentId'], res);
@@ -47,7 +47,6 @@ const createMoneyRouter = ({
         title: 'Money and Debt',
         config,
         data,
-        notification,
       });
     } catch (exp) {
       return next(exp);

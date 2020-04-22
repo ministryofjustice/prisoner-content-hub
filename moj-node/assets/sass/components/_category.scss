@@ -1,7 +1,3 @@
-@import 'node_modules/govuk-frontend/govuk/settings/all';
-@import 'node_modules/govuk-frontend/govuk/tools/all';
-@import 'node_modules/govuk-frontend/govuk/helpers/all';
-
 .feedback-tablet {
   display: block;
   background-color: #e9f2f9;
@@ -265,9 +261,9 @@
     margin-right: govuk-spacing(2);
     color: govuk-colour('white');
     font-weight: bold;
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
+    width: govuk-spacing(5);
+    height: govuk-spacing(5);
+    line-height: govuk-spacing(5);
     padding: govuk-spacing(1);
     text-align: center;
   }

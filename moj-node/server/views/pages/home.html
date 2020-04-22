@@ -14,23 +14,12 @@
   <link href="/public/stylesheets/application.css" rel="stylesheet"/>
 {% endblock %}
 
-{% block notification %}
-  {% if notification %}
-    <div class="govuk-width-container">
-      <div class="notification">
-        {{ govukWarningText({
-          text: notification.text,
-          iconFallbackText: "Warning"
-        }) }}
-      </div>
-    </div>
-  {% endif %}
-{% endblock %}
-
 {% block topBar %}
   {{ topBar({
     establishmentName: establishmentName,
-    showBar: true
+    showBar: true,
+    userName: config.userName,
+    returnUrl: config.returnUrl
   }) }}
 {% endblock %}
 
@@ -68,7 +57,9 @@
         </ul>
       </div>
     </div>
-    {{personalScheduleToday({events: todaysEvents, isTomorrow: isTomorrow, establishmentId: config.establishmentId})}}
+    {% if config.newDesigns %}
+      {{personalScheduleToday({events: todaysEvents, isTomorrow: isTomorrow, establishmentId: config.establishmentId}, config.userName)}}
+    {% endif %}
   </div>
 {% endblock %}
 

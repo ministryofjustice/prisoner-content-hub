@@ -1,48 +1,76 @@
-@import 'node_modules/govuk-frontend/govuk/settings/all';
-@import 'node_modules/govuk-frontend/govuk/tools/all';
-@import 'node_modules/govuk-frontend/govuk/helpers/all';
-@import 'node_modules/govuk-frontend/govuk/helpers/typography';
-
 .top-bar-container {
   border: 0;
 }
 
 .top-bar {
-  font-size: 24px;
+  @include govuk-font(24, 'regular');
   display: flex;
   color: govuk-colour('white');
   align-items: center;
   padding: govuk-spacing(1) 0;
+
+  & > * {
+    flex: 1;
+  }
+
+  & > :last-child {
+    text-align: right;
+  }
+
+  & h1 {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+
+    & a {
+      color: govuk-colour('white');
+      text-decoration: none;
+      flex: 1 0 auto;
+    }
+
+    & img {
+      flex: 0 1 auto;
+    }
+
+    & span {
+      font-weight: 400;
+    }
+  }
 }
 
-.top-bar > * {
-  flex: 1;
+.timeLogout {
+  padding: govuk-spacing(1) 0;
+
+  & a {
+    color: govuk-colour('white');
+    font-weight: 700;
+
+    &:link,
+    &:hover,
+    &:visited {
+      color: govuk-colour('white');
+    }
+
+    &:active,
+    &:focus {
+      color: $govuk-focus-text-colour;
+      background-color: $govuk-focus-colour;
+      outline: 3px solid transparent;
+      box-shadow: 0 -2px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
+      text-decoration: none;
+    }
+  }
 }
 
-.top-bar > :last-child {
-  text-align: right;
-}
+.top-bar-time {
+  & :last-child {
+    font-weight: 700;
+  }
+  &.loggedIn {
+    @include govuk-font(19, 'regular');
 
-.top-bar h1 {
-  margin-bottom: 0;
-  display: flex;
-  align-items: center;
-}
-
-.top-bar h1 a {
-  color: govuk-colour('white');
-  text-decoration: none;
-  flex: 1 0 auto;
-}
-
-.top-bar h1 img {
-  flex: 0 1 auto;
-}
-
-.top-bar h1 span {
-  font-weight: 400;
-}
-
-.top-bar-time :last-child {
-  font-weight: 700;
+    & :last-child {
+      font-weight: 400;
+    }
+  }
 }

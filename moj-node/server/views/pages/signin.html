@@ -1,0 +1,130 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "../components/topics/macro.njk" import hubTopics %}
+{% from "../components/page-navigation/macro.njk" import pageNavigation %}
+{% from "../components/user-details/macro.njk" import userDetails %}
+
+{% extends "../components/template.njk" %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block head %}
+  <link href="/public/stylesheets/application.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block notification %}
+  {% if notification %}
+    <div class="govuk-width-container">
+      <div class="notification">
+        {{ govukWarningText({
+          text: notification.text,
+          iconFallbackText: "Warning"
+        }) }}
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block pageNavigation %}
+  {{ pageNavigation({ title: title }) }}
+{% endblock %}
+
+{% block topBar %}
+  {{ topBar({
+    establishmentName: establishmentName,
+    showBar: false,
+    userName: config.userName,
+    returnUrl: config.returnUrl
+  }) }}
+{% endblock %}
+
+{% block userDetails %}
+  {{ userDetails({
+    detailsType: config.detailsType,
+    userName: config.userName,
+    newDesigns: config.newDesigns,
+    hideBar: config.hideBar
+  }) }}
+{% endblock %}
+
+{% block header %}
+  <div class="govuk-width-container govuk-body">
+    <h1>{{ title }}</h1>
+  </div>
+{% endblock %}
+
+{% block homeNavigation %}{% endblock %}
+{% block search %}{% endblock %}
+
+{% block main %}
+  <div class="govuk-width-container signin">
+    {% if config.userName %}
+      <p class="govuk-body signin-width">You are already logged in</p>
+    {% else %}
+      {% if form.errorList | length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: form.errorList
+        }) }}
+      {% endif %}
+      <p class="govuk-body signin-width">Your username and password are the same ones you use to sign in to your laptop</p>
+      <form method="post" action="/auth/signin" id="signin-form">
+        <input type="hidden" name="returnUrl" value="{{ config.returnUrl }}"/>
+        {{ govukInput({
+          label: {
+            text: "Username"
+          },
+          hint: {
+            text: 'This is your prisoner number, for example A1234BC'
+          },
+          classes: "govuk-!-width-one-half",
+          id: "username",
+          name: "username",
+          value: form.data.username,
+          errorMessage: form.errors.username
+        }) }}
+        <div class="signin-fields">
+          <div>
+            {{ govukInput({
+              label: {
+                text: "Password"
+              },
+              type: "password",
+              id: "password",
+              name: "password",
+              value: form.data.password,
+              errorMessage: form.errors.password
+            }) }}
+          </div>
+          <div>
+            {{ govukButton({
+              text: "Show",
+              classes: "govuk-button--secondary toggle-password",
+              type: "button"
+            }) }}
+          </div>
+        </div>
+        {{ govukButton({
+          text: "Sign in",
+          isStartButton: true,
+          type: "submit"
+        }) }}
+      </form>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  <script src="/public/jquery.min.js"></script>
+  <script src="/public/all.js"></script>
+  <script src="/public/javascript/signin.js"></script>
+  <script>
+    window
+      .GOVUKFrontend
+      .initAll();
+  </script>
+{% endblock %}

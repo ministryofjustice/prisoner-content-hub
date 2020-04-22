@@ -329,48 +329,50 @@ const createOffenderService = repository => {
       const startDateObj = new Date(startDate);
       const endDateObj = new Date(endDate);
 
-      if (!bookingId || !isValid(startDateObj) || !isValid(endDateObj)) {
-        throw new Error('Invalid data supplied');
+      if (!isValid(startDateObj) || !isValid(endDateObj)) {
+        throw new Error('Invalid dates supplied');
       }
 
       if (!isBefore(startDateObj, endDateObj)) {
         throw new Error('Start date is after end date');
       }
 
-      const eventsData = await repository.getEventsFor(
-        bookingId,
-        startDate,
-        endDate,
-      );
-
-      if (!Array.isArray(eventsData)) {
-        throw new Error('Invalid data returned from API');
-      }
-
       const events = getInitialEvents(startDate, endDate);
 
-      eventsData.forEach(event => {
-        const startTime = prettyTime(prop('startTime', event));
-        const endTime = prettyTime(prop('endTime', event));
-        const dateString = isoDate(prop('startTime', event));
-        const timeOfDay = getTimeOfDay(prop('startTime', event));
+      if (bookingId) {
+        const eventsData = await repository.getEventsFor(
+          bookingId,
+          startDate,
+          endDate,
+        );
 
-        events[dateString][timeOfDay].events.push({
-          description: event.eventSourceDesc,
-          startTime,
-          endTime,
-          location: capitalize(event.eventLocation),
-          timeString: getTimetableEventTime(startTime, endTime),
-          eventType: event.eventType,
-          finished: event.eventStatus !== 'SCH',
-          status: event.eventStatus,
-          paid: event.paid,
-        });
-
-        if (event.eventStatus === 'SCH') {
-          events[dateString][timeOfDay].finished = false;
+        if (!Array.isArray(eventsData)) {
+          throw new Error('Invalid data returned from API');
         }
-      });
+
+        eventsData.forEach(event => {
+          const startTime = prettyTime(prop('startTime', event));
+          const endTime = prettyTime(prop('endTime', event));
+          const dateString = isoDate(prop('startTime', event));
+          const timeOfDay = getTimeOfDay(prop('startTime', event));
+
+          events[dateString][timeOfDay].events.push({
+            description: event.eventSourceDesc,
+            startTime,
+            endTime,
+            location: capitalize(event.eventLocation),
+            timeString: getTimetableEventTime(startTime, endTime),
+            eventType: event.eventType,
+            finished: event.eventStatus !== 'SCH',
+            status: event.eventStatus,
+            paid: event.paid,
+          });
+
+          if (event.eventStatus === 'SCH') {
+            events[dateString][timeOfDay].finished = false;
+          }
+        });
+      }
 
       return setDayBlocks(events);
     } catch {

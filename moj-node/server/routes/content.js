@@ -18,7 +18,6 @@ const createContentRouter = ({
       return next();
     }
 
-    const notification = path(['session', 'notification'], req);
     const userName = path(['session', 'user', 'name'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
@@ -28,6 +27,7 @@ const createContentRouter = ({
       postscript: false,
       newDesigns,
       userName,
+      returnUrl: req.originalUrl,
     };
 
     const establishmentId = path(['locals', 'establishmentId'], res);
@@ -109,7 +109,6 @@ const createContentRouter = ({
               ...data,
               categories: propOr('', 'categoryId', data),
             },
-            notification,
           });
         case 'pdf': {
           const url = relativeUrlFrom(data.url, backendUrl);

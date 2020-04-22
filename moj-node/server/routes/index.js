@@ -20,7 +20,6 @@ const createIndexRouter = ({
     try {
       logger.info('GET index');
 
-      const notification = path(['session', 'notification'], req);
       const userName = path(['session', 'user', 'name'], req);
       const establishmentId = path(['locals', 'establishmentId'], res);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
@@ -36,8 +35,9 @@ const createIndexRouter = ({
         postscript: true,
         detailsType: 'large',
         newDesigns,
-        userName,
+        userName: userName ? `Hi, ${userName}` : null,
         establishmentId,
+        returnUrl: req.originalUrl,
       };
 
       const popularTopics = {
@@ -61,7 +61,6 @@ const createIndexRouter = ({
       });
 
       res.render('pages/home', {
-        notification,
         config,
         popularTopics,
         featuredContent: featuredContent.featured[0],

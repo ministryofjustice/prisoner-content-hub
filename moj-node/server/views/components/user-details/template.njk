@@ -1,10 +1,10 @@
 <div class="govuk-width-container{% if params.detailsType !== 'large' %} user-details{% endif %}">
   <div>
-    {% if params.userName and params.newDesigns %}
+    {% if params.userName %}
       <h2 class="govuk-body user-details-{{ params.detailsType }}">{{ params.userName }}</h2>
     {% endif %}
   </div>
-  {% if params.detailsType !== 'large' %}
+  {% if params.detailsType !== 'large' and not params.hideBar %}
     <hr class="govuk-section-break govuk-search-section-break--visible">
   {% endif %}
 </div>

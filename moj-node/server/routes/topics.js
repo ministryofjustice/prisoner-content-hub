@@ -19,7 +19,6 @@ const createTopicsRouter = ({ logger, hubMenuService, analyticsService }) => {
     try {
       logger.info('GET index');
 
-      const notification = path(['session', 'notification'], req);
       const userName = path(['session', 'user', 'name'], req);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
       const establishmentId = path(['locals', 'establishmentId'], res);
@@ -33,6 +32,7 @@ const createTopicsRouter = ({ logger, hubMenuService, analyticsService }) => {
         detailsType: 'small',
         userName,
         newDesigns,
+        returnUrl: req.originalUrl,
       };
       analyticsService.sendPageTrack({
         hostname: req.hostname,
@@ -43,7 +43,6 @@ const createTopicsRouter = ({ logger, hubMenuService, analyticsService }) => {
 
       res.render('pages/topics', {
         title: 'Browse the Content Hub',
-        notification,
         allTopics: topics.map(fixUrls),
         config,
       });

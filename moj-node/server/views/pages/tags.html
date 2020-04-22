@@ -1,4 +1,4 @@
-{% from "../components/secondary-tag-page-header/macro.njk" import secondaryTagPageHeader %}
+{% from "../components/tag-page-header/macro.njk" import tagPageHeader %}
 {% from "../components/related-content/macro.njk" import hubRelatedContent %}
 {% from "../components/feedback-widget/macro.njk" import hubFeedbackWidget %}
 {% from "../components/page-navigation/macro.njk" import pageNavigation %}
@@ -13,7 +13,9 @@
 {% block topBar %}
   {{ topBar({
     establishmentName: establishmentName,
-    showBar: false
+    showBar: false,
+    userName: config.userName,
+    returnUrl: config.returnUrl
   }) }}
 {% endblock %}
 
@@ -34,7 +36,7 @@
 {% endblock %}
 
 {% block main %}
-  {{ secondaryTagPageHeader({
+  {{ tagPageHeader({
       title: data.name,
       summary: data.summary,
       description: data.description,

@@ -1,8 +1,3 @@
-@import 'node_modules/govuk-frontend/govuk/settings/all';
-@import 'node_modules/govuk-frontend/govuk/tools/all';
-@import 'node_modules/govuk-frontend/govuk/helpers/all';
-@import 'node_modules/govuk-frontend/govuk/helpers/typography';
-
 .govuk-hub-header__container {
   position: relative;
 }
@@ -35,9 +30,8 @@
   display: inline-block;
   padding: govuk-spacing(2) govuk-spacing(1);
   margin-bottom: 0;
-  font-size: 24px;
+  @include govuk-font(24, 'bold');
   line-height: 1;
-  font-weight: bold;
 }
 
 .govuk-hub-header__date {
@@ -62,7 +56,7 @@
 
   vertical-align: baseline;
   margin: 0;
-  padding: govuk-spacing(3) govuk-spacing(4) govuk-spacing(2) govuk-spacing(4);
+  padding: govuk-spacing(3) govuk-spacing(4) govuk-spacing(2);
   box-shadow: none;
   -webkit-box-shadow: none;
   margin-top: -3px;
@@ -176,7 +170,7 @@
 img.hub-logo {
   max-height: 50px;
   max-width: 50px;
-  margin-right: 5px;
+  margin-right: govuk-spacing(1);
 }
 
 .hub-header {

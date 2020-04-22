@@ -1,8 +1,3 @@
-@import 'node_modules/govuk-frontend/govuk/settings/all';
-@import 'node_modules/govuk-frontend/govuk/tools/all';
-@import 'node_modules/govuk-frontend/govuk/helpers/all';
-@import 'node_modules/govuk-frontend/govuk/helpers/typography';
-
 .notification {
   border: govuk-spacing(1) solid govuk-colour('blue');
   background: govuk-colour('white');
@@ -10,7 +5,7 @@
   box-sizing: border-box;
   display: block;
   padding: 0 govuk-spacing(4);
-  margin: govuk-spacing(3) 0;
+  margin: govuk-spacing(9) 0;
   & .govuk-warning-text {
     margin: 0;
   }

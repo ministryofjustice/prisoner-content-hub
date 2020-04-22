@@ -7,6 +7,7 @@ const compression = require('compression');
 const helmet = require('helmet');
 const nunjucks = require('nunjucks');
 const path = require('path');
+const fs = require('fs');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('cookie-session');
 const bodyParser = require('body-parser');
@@ -26,11 +27,13 @@ const { createAnalyticsRouter } = require('./routes/analytics');
 const { createFeedbackRouter } = require('./routes/feedback');
 const { createGettingAJobRouter } = require('./routes/gettingAJob');
 const { createSearchRouter } = require('./routes/search');
-
+const createAuthRouter = require('./routes/auth');
 const { featureToggleMiddleware } = require('./middleware/featureToggle');
 const {
   configureEstablishment,
 } = require('./middleware/configureEstablishment');
+
+const { authenticateUser, createUserSession } = require('./middleware/auth');
 
 const { getEstablishmentId, getGoogleAnalyticsId } = require('./utils');
 
@@ -173,6 +176,7 @@ const createApp = ({
     res.locals.feedbackId = uuid();
     next();
   });
+  // Routing
 
   app.use(
     '/',
@@ -192,46 +196,73 @@ const createApp = ({
     }),
   );
 
-  if (config.features.newDesigns) {
-    app.use(
-      '/timetable',
-      createTimetableRouter({
-        logger,
-        offenderService,
-        analyticsService,
-      }),
-    );
+  const getCert = certPath => {
+    try {
+      const cert = fs.readFileSync(certPath);
+      return { ca: [cert] };
+    } catch (error) {
+      logger.error(error.message);
+      return null;
+    }
+  };
 
-    app.use(
-      '/visits',
-      createVisitsRouter({
-        hubContentService,
-        offenderService,
-        analyticsService,
-        logger,
-      }),
-    );
+  const ldapConfig = {
+    ...config.ldap,
+    tlsOptions: getCert(config.ldap.certPath),
+  };
 
-    app.use(
-      '/iep',
-      createIepRouter({
-        hubContentService,
-        offenderService,
-        analyticsService,
-        logger,
+  app.use(
+    '/auth',
+    createAuthRouter({
+      logger,
+      formParser: bodyParser.urlencoded(),
+      authenticateUser: authenticateUser({
+        config: ldapConfig,
+        mockAuth: config.mockAuth,
       }),
-    );
+      createUserSession: createUserSession({ offenderService }),
+      analyticsService,
+    }),
+  );
 
-    app.use(
-      '/money',
-      createMoneyRouter({
-        hubContentService,
-        offenderService,
-        analyticsService,
-        logger,
-      }),
-    );
-  }
+  app.use(
+    '/timetable',
+    createTimetableRouter({
+      logger,
+      offenderService,
+      analyticsService,
+    }),
+  );
+
+  app.use(
+    '/visits',
+    createVisitsRouter({
+      hubContentService,
+      offenderService,
+      analyticsService,
+      logger,
+    }),
+  );
+
+  app.use(
+    '/iep',
+    createIepRouter({
+      hubContentService,
+      offenderService,
+      analyticsService,
+      logger,
+    }),
+  );
+
+  app.use(
+    '/money',
+    createMoneyRouter({
+      hubContentService,
+      offenderService,
+      analyticsService,
+      logger,
+    }),
+  );
 
   app.use(
     '/content',

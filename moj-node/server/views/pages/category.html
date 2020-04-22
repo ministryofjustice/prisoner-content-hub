@@ -19,19 +19,6 @@
   <link href="/public/stylesheets/application.css" rel="stylesheet"/>
 {% endblock %}
 
-{% block notification %}
-  {% if notification %}
-    <div class="govuk-width-container">
-      <div class="notification">
-        {{ govukWarningText({
-          text: notification.text,
-          iconFallbackText: "Warning"
-        }) }}
-      </div>
-    </div>
-  {% endif %}
-{% endblock %}
-
 {% block pageNavigation %}
   {{ pageNavigation({ title: title }) }}
 {% endblock %}
@@ -39,7 +26,9 @@
 {% block topBar %}
   {{ topBar({
     establishmentName: establishmentName,
-    showBar: false
+    showBar: false,
+    userName: config.userName,
+    returnUrl: config.returnUrl
   }) }}
 {% endblock %}
 

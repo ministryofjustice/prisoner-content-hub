@@ -1,75 +1,31 @@
-@import 'node_modules/govuk-frontend/govuk/settings/all';
-@import 'node_modules/govuk-frontend/govuk/tools/all';
-@import 'node_modules/govuk-frontend/govuk/helpers/all';
+.timetable-day {
+  & > h3 {
+    @include govuk-font(36, 'bold');
+    margin: 0;
+  }
 
-.timetable-day > h3 {
-  @include govuk-font(36, 'bold');
-  margin: 0;
-}
+  & > div {
+    display: flex;
+  }
 
-.timetable-day > div {
-  display: flex;
-}
+  & > :last-child {
+    align-content: space-between;
+    align-items: stretch;
+  }
 
-.timetable-day > :last-child {
-  align-content: space-between;
-  align-items: stretch;
-}
+  & h4 {
+    flex: 1 0 32.5%;
+    margin: govuk-spacing(2) 0 govuk-spacing(2) 0.5%;
+    @include govuk-font(24, 'bold');
 
-.timetable-day h4 {
-  flex: 1 0 32.5%;
-  margin: govuk-spacing(2) 0 govuk-spacing(2) 0.5%;
-  @include govuk-font(24, 'bold');
-}
+    &:first-of-type {
+      margin-left: 0;
+    }
 
-.timetable-day h4:first-of-type {
-  margin-left: 0;
-}
-
-.timetable-day h4.day-block-finished {
-  opacity: 0.7;
-}
-
-.timetable-day-blocks > div {
-  flex: 1 0 32.5%;
-  margin-left: 0.5%;
-  background-color: #d5e8f4;
-}
-
-.timetable-day-blocks > :first-child {
-  background-color: #e9f3fa;
-  margin-left: 0;
-}
-
-.timetable-day-blocks > :last-child {
-  background-color: #bddcef;
-}
-
-.timetable-day-blocks > .day-block-finished {
-  background-color: #f7f7f8;
-  opacity: 0.7;
-}
-
-.timetable-day-blocks > div > div {
-  margin: govuk-spacing(4);
-}
-
-.timetable-day-blocks > div > .event-finished {
-  opacity: 0.7;
-}
-
-.timetable-day-blocks > .day-block-finished > .event-finished {
-  opacity: 1;
-}
-
-.timetable-day-blocks .event-appt {
-  border: govuk-spacing(1) solid govuk-colour('blue');
-  background-color: white;
-  padding: govuk-spacing(2);
-}
-
-.timetable-day-blocks > .day-block-finished > .event-appt {
-  border-color: #dee0e2;
+    &.day-block-finished {
+      opacity: 0.7;
+    }
+  }
 }
 
 .timetable-day-blocks {
@@ -77,5 +33,47 @@
   .timetable-time,
   .timetable-desc {
     @include govuk-font(24);
+  }
+
+  & > div {
+    flex: 1 0 32.5%;
+    margin-left: 0.5%;
+    background-color: #d5e8f4;
+  }
+
+  & > :first-child {
+    background-color: #e9f3fa;
+    margin-left: 0;
+  }
+
+  & > :last-child {
+    background-color: #bddcef;
+  }
+
+  & > .day-block-finished {
+    background-color: #f7f7f8;
+    opacity: 0.7;
+  }
+
+  & > div > div {
+    margin: govuk-spacing(4);
+  }
+
+  & > div > .event-finished {
+    opacity: 0.7;
+  }
+
+  & > .day-block-finished > .event-finished {
+    opacity: 1;
+  }
+
+  & .event-appt {
+    border: govuk-spacing(1) solid govuk-colour('blue');
+    background-color: white;
+    padding: govuk-spacing(2);
+  }
+
+  & > .day-block-finished > .event-appt {
+    border-color: #dee0e2;
   }
 }

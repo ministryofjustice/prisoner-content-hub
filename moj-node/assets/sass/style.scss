@@ -20,7 +20,7 @@ $real-dark-grey: #232425;
 @import 'components/promoted-content';
 @import 'components/topics';
 @import 'components/navigation-menu';
-@import 'components/landing-page-header';
+@import 'components/tag-page-header';
 @import 'components/utils';
 @import 'components/related-content';
 @import 'components/media-player';
@@ -35,6 +35,7 @@ $real-dark-grey: #232425;
 @import 'components/timetable-one-day';
 @import 'components/category';
 @import 'components/personalised';
+@import 'components/signin';
 
 @import 'pages/flat-content';
 @import 'pages/step-by-step';

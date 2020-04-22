@@ -1,21 +1,36 @@
-{% if params.establishmentId === 792 and params.events.length > 0 %}
-  <div class="todays-events">
-    <div>
-      <h3 class="govuk-heading-m">
+<div class="todays-events">
+  <div>
+    <h3 class="govuk-heading-m">
       {% if params.isTomorrow %}Tomorrow{% else %}Today{% endif %}'s appointments</h3>
+    {% if not isLoggedIn %}
+      <span class="govuk-body">
+        <a href="/auth/signin?returnUrl=/" class="govuk-link see-timetable">Sign in</a> to see your timetable</span>
+    {% else %}
       <a href="/timetable" class="govuk-link see-timetable">See your timetable</a>
-    </div>
-    <div class="govuk-body">
-      {% if params.error %}
-        <p>Unavailable</p>
-      {% else %}
-        {% for event in params.events %}
+    {% endif %}
+  </div>
+  <div class="govuk-body">
+    {% if params.error %}
+      <p>Unavailable</p>
+    {% else %}
+      {% for event in params.events %}
         <div>
           <span class="timetable-time">{{event.timeString}}</span>
-          <span><strong>{{event.title}}</strong> {{event.location}}</span>
+          <span>
+            <strong>{{event.title}}</strong>
+            {{event.location}}</span>
         </div>
-        {% endfor %}
-      {% endif %}
-    </div>
+      {% else %}
+        {% if isLoggedIn %}
+          Nothing scheduled for today
+        {% else %}
+          <div class="todays-events__placeholder">
+            <div></div>
+            <div></div>
+          </div>
+        {% endif %}
+
+      {% endfor %}
+    {% endif %}
   </div>
-{% endif %}
+</div>

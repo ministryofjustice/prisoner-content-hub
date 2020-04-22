@@ -21,6 +21,7 @@ const createSearchRouter = ({ searchService, analyticsService, logger }) => {
       detailsType: 'small',
       newDesigns,
       userName,
+      returnUrl: req.originalUrl,
     };
 
     try {
