@@ -14,7 +14,9 @@ function minutesAndSecondsFrom(milliseconds) {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = Math.floor(seconds % 60);
   return seconds > 60
-    ? `${pluralize('minute', minutes)} ${pluralize('second', remainingSeconds)}`
+    ? `${pluralize('minute', minutes)} ${
+        remainingSeconds > 0 ? pluralize('second', remainingSeconds) : ''
+      }`
     : pluralize('second', seconds);
 }
 
