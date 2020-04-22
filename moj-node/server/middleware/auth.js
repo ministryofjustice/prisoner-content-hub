@@ -186,7 +186,7 @@ const authenticateUser = function authenticateUser({
 const createUserSession = function createUserSession({ offenderService }) {
   function deleteUserSessionAndRedirect(req, res) {
     delete req.session.user;
-    return res.redirect('/auth/login');
+    return res.redirect('/auth/signin');
   }
 
   return async (req, res, next) => {
