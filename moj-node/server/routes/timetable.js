@@ -18,7 +18,6 @@ const createTimetableRouter = ({
       const endDate = format(addDays(today, 6), 'yyyy-MM-dd');
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
-      const newDesigns = path(['locals', 'features', 'newDesigns'], res);
       const sessionId = path(['session', 'id'], req);
 
       const events = await Promise.all([
@@ -33,7 +32,6 @@ const createTimetableRouter = ({
         lastWeek: false,
         nextWeek: false,
         userName,
-        newDesigns,
         returnUrl: req.originalUrl,
       };
       analyticsService.sendPageTrack({
@@ -63,7 +61,6 @@ const createTimetableRouter = ({
       const endDate = format(yesterday, 'yyyy-MM-dd');
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
-      const newDesigns = path(['locals', 'features', 'newDesigns'], res);
       const sessionId = path(['session', 'id'], req);
 
       const events = await Promise.all([
@@ -78,7 +75,6 @@ const createTimetableRouter = ({
         lastWeek: true,
         nextWeek: false,
         userName,
-        newDesigns,
         returnUrl: req.originalUrl,
       };
       analyticsService.sendPageTrack({
@@ -108,7 +104,6 @@ const createTimetableRouter = ({
       const endDate = format(addDays(nextWeekStart, 6), 'yyyy-MM-dd');
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
-      const newDesigns = path(['locals', 'features', 'newDesigns'], res);
       const sessionId = path(['session', 'id'], req);
 
       const events = await Promise.all([
@@ -123,7 +118,6 @@ const createTimetableRouter = ({
         lastWeek: false,
         nextWeek: true,
         userName,
-        newDesigns,
         returnUrl: req.originalUrl,
       };
       analyticsService.sendPageTrack({

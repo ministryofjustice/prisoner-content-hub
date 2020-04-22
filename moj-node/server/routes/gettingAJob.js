@@ -34,7 +34,6 @@ const createGettingAJobRouter = ({
       792: 'What you need to do to get or change your job in Berwyn.',
       793: 'How to do to get, or change, a job in this prison.',
     };
-    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const userName = path(['session', 'user', 'name'], req);
     const sessionId = path(['session', 'id'], req);
 
@@ -52,7 +51,6 @@ const createGettingAJobRouter = ({
       content: true,
       header: true,
       postscript: true,
-      newDesigns,
       detailsType: 'small',
       userName,
       establishmentId,
@@ -86,7 +84,6 @@ const createGettingAJobRouter = ({
     const establishmentId = path(['locals', 'establishmentId'], res);
     const establishmentName = establishments[establishmentId];
     const menu = hubMenuService.gettingAJobMenu(establishmentId);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const userName = path(['session', 'user', 'name'], req);
     const sessionId = path(['session', 'id'], req);
 
@@ -94,7 +91,6 @@ const createGettingAJobRouter = ({
       content: true,
       header: true,
       postscript: true,
-      newDesigns,
       detailsType: 'small',
       userName,
       establishmentId,

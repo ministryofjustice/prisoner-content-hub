@@ -27,7 +27,6 @@ module.exports = function Login({
       const notification = path(['session', 'notification'], req);
       const userName = path(['session', 'user', 'name'], req);
       const form = pathOr({}, ['session', 'form'], req);
-      const newDesigns = path(['locals', 'features', 'newDesigns'], res);
       const sessionId = path(['session', 'id'], req);
 
       const config = {
@@ -36,7 +35,6 @@ module.exports = function Login({
         postscript: true,
         detailsType: 'small',
         userName,
-        newDesigns,
         returnUrl: req.query.returnUrl || '/',
         hideBar: true,
       };

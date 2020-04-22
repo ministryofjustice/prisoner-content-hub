@@ -16,7 +16,6 @@ const createMoneyRouter = ({
 
     const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
 
     const config = {
       content: true,
@@ -24,7 +23,6 @@ const createMoneyRouter = ({
       postscript: true,
       detailsType: 'small',
       category: 'money',
-      newDesigns,
       userName,
       returnUrl: req.originalUrl,
     };

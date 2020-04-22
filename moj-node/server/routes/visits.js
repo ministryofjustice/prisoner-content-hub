@@ -16,7 +16,6 @@ const createVisitsRouter = ({
 
     const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
-    const newDesigns = path(['locals', 'features', 'newDesigns'], res);
     const sessionId = path(['session', 'id'], req);
     const config = {
       content: true,
@@ -24,7 +23,6 @@ const createVisitsRouter = ({
       postscript: true,
       detailsType: 'small',
       category: 'visits',
-      newDesigns,
       userName,
       returnUrl: req.originalUrl,
     };
