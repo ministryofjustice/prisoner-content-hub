@@ -16,13 +16,14 @@
   </div>
   <div class="balances">
     {{ personalBalanceSingle({
+      type: 'phone',
+      error: params.data.error,
+      amount: params.data.phone
+    })}}
+    {{ personalBalanceSingle({
       type: 'savings',
       error: params.data.error,
       amount: params.data.savings
     })}}
-    <p>&nbsp;</p>
-    <div>
-      &nbsp;
-    </div>
   </div>
 </div>

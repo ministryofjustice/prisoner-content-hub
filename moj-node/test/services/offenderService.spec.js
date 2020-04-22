@@ -65,6 +65,7 @@ describe('Offender Service', () => {
           savings: '0',
           currency: 'GBP',
         }),
+        getPhoneCreditFor: sinon.stub().returns('0'),
       };
       const service = createNomisOffenderService(repository);
       const data = await service.getBalancesFor('FOO_ID');
@@ -75,6 +76,7 @@ describe('Offender Service', () => {
         cash: '£100.00',
         savings: '£0.00',
         currency: 'GBP',
+        phone: '£0.00',
       });
     });
   });

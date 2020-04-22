@@ -57,6 +57,7 @@
     "elastic-builder": "^2.6.0",
     "express": "~4.17.1",
     "express-request-id": "^1.4.1",
+    "fast-xml-parser": "^3.16.0",
     "govuk-frontend": "^3.6.0",
     "helmet": "^3.22.0",
     "jplayer": "^2.9.2",
