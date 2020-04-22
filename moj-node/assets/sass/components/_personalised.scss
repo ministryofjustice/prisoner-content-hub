@@ -147,6 +147,13 @@
       outline: 1px solid grey;
       text-align: right;
       padding: 4px govuk-spacing(1) 4px 0;
+
+      &.unavailable {
+        @include govuk-font(19, 'regular');
+        outline: none;
+        text-align: center;
+        background: rgba(177, 180, 182, 0.5);
+      }
     }
   }
 }
