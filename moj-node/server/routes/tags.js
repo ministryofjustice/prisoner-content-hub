@@ -16,6 +16,8 @@ const createTagRouter = ({ logger, hubTagsService, analyticsService }) => {
 
       const userName = path(['session', 'user', 'name'], req);
       const establishmentId = path(['locals', 'establishmentId'], res);
+      const sessionId = path(['session', 'id'], req);
+      const userAgent = path(['headers', 'user-agent'], req);
       const config = {
         content: true,
         header: false,
@@ -24,7 +26,6 @@ const createTagRouter = ({ logger, hubTagsService, analyticsService }) => {
         userName,
         returnUrl: req.originalUrl,
       };
-      const sessionId = path(['session', 'id'], req);
 
       const data = await hubTagsService.termFor(id, establishmentId);
       analyticsService.sendPageTrack({
@@ -32,6 +33,7 @@ const createTagRouter = ({ logger, hubTagsService, analyticsService }) => {
         page: `/tags/${id}`,
         title: data.name,
         sessionId,
+        userAgent,
       });
 
       data.secondaryTags = data.id;

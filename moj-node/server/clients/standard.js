@@ -1,4 +1,5 @@
 const qs = require('querystring');
+const { path } = require('ramda');
 const { baseClient } = require('./baseClient');
 const { logger } = require('../utils/logger');
 
@@ -47,11 +48,18 @@ class StandardClient {
       .map(key => `${key}=${encodeURIComponent(data[key])}`)
       .join('&');
 
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+    };
+    const userAgent = path(['userAgent'], data);
+
+    if (userAgent) {
+      headers['User-Agent'] = userAgent;
+    }
+
     return this.client
       .post(endpoint, querystring, {
-        headers: {
-          'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-        },
+        headers,
       })
       .then(res => {
         logger.info(

@@ -16,6 +16,7 @@ const createMoneyRouter = ({
 
     const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
 
     const config = {
       content: true,
@@ -39,6 +40,7 @@ const createMoneyRouter = ({
         page: '/money',
         title: 'Money and Debt',
         sessionId,
+        userAgent,
       });
 
       return res.render('pages/category', {

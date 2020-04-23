@@ -15,6 +15,7 @@ const createAnalyticsRouter = ({ analyticsService, logger }) => {
       label: path(['body', 'label'], req),
       value: path(['body', 'value'], req),
       sessionId,
+      userAgent: path(['body', 'userAgent'], req),
     });
 
     return res.send('OK');
@@ -30,6 +31,7 @@ const createAnalyticsRouter = ({ analyticsService, logger }) => {
       page: path(['body', 'page'], req),
       title: path(['body', 'title'], req),
       sessionId,
+      userAgent: path(['body', 'userAgent'], req),
     });
 
     return res.send('OK');

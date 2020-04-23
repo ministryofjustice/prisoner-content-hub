@@ -36,6 +36,7 @@ const createGettingAJobRouter = ({
     };
     const userName = path(['session', 'user', 'name'], req);
     const sessionId = path(['session', 'id'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
 
     const breadcrumbs = [
       {
@@ -62,6 +63,7 @@ const createGettingAJobRouter = ({
       page: req.originalUrl,
       title,
       sessionId,
+      userAgent,
     });
 
     return res.render('pages/getting-a-job', {
@@ -86,6 +88,7 @@ const createGettingAJobRouter = ({
     const menu = hubMenuService.gettingAJobMenu(establishmentId);
     const userName = path(['session', 'user', 'name'], req);
     const sessionId = path(['session', 'id'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
 
     const config = {
       content: true,
@@ -131,6 +134,7 @@ const createGettingAJobRouter = ({
         page: req.originalUrl,
         title: data.title,
         sessionId,
+        userAgent,
       });
 
       return res.render('pages/getting-a-job-content', {

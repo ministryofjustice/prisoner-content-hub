@@ -29,6 +29,7 @@ const createIepRouter = ({
 
     const establishmentId = path(['locals', 'establishmentId'], res);
     const sessionId = path(['session', 'id'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
 
     try {
       const iep = await offenderService.getIEPSummaryFor(bookingId);
@@ -39,6 +40,7 @@ const createIepRouter = ({
         page: `/iep`,
         title: 'Incentives',
         sessionId,
+        userAgent,
       });
 
       return res.render('pages/category', {

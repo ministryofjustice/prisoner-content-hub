@@ -44,7 +44,8 @@ $(document).ready(function() {
         category: 'Radio',
         action: config.action,
         label: config.label,
-        value: 1
+        value: 1,
+        userAgent: navigator.userAgent
       });
     };
   }
