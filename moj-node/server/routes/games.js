@@ -1,7 +1,7 @@
 const { path } = require('ramda');
 const express = require('express');
 
-const createGamesRouter = ({ analyticsService, logger }) => {
+const createGamesRouter = ({ logger }) => {
   const router = express.Router();
 
   const config = {
@@ -13,18 +13,9 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/chess', (req, res) => {
     logger.info('GET /games/chess');
     const userDetails = path(['session', 'user'], req);
-    const sessionId = path(['session', 'id'], req);
-    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
-    analyticsService.sendPageTrack({
-      hostname: req.hostname,
-      page: '/games/chess',
-      title: 'Chess',
-      sessionId,
-      userAgent,
-    });
 
     return res.render('pages/games/chess', {
       title: 'Chess',
@@ -35,18 +26,9 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/sudoku', (req, res) => {
     logger.info('GET /games/sudoku');
     const userDetails = path(['session', 'user'], req);
-    const sessionId = path(['session', 'id'], req);
-    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
-    analyticsService.sendPageTrack({
-      hostname: req.hostname,
-      page: '/games/sudoku',
-      title: 'Sudoku',
-      sessionId,
-      userAgent,
-    });
 
     return res.render('pages/games/sudoku', {
       title: 'Sudoku',
@@ -57,18 +39,9 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/neontroids', (req, res) => {
     logger.info('GET /games/neontroids');
     const userDetails = path(['session', 'user'], req);
-    const sessionId = path(['session', 'id'], req);
-    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
-    analyticsService.sendPageTrack({
-      hostname: req.hostname,
-      page: '/games/neontroids',
-      title: 'Neontroids',
-      sessionId,
-      userAgent,
-    });
 
     return res.render('pages/games/neontroids', {
       title: 'Neontroids',
@@ -79,18 +52,9 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/mimstris', (req, res) => {
     logger.info('GET /games/mimstris');
     const userDetails = path(['session', 'user'], req);
-    const sessionId = path(['session', 'id'], req);
-    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
-    analyticsService.sendPageTrack({
-      hostname: req.hostname,
-      page: '/games/mimstris',
-      title: 'Mimstris',
-      sessionId,
-      userAgent,
-    });
 
     return res.render('pages/games/mimstris', {
       title: 'Mimstris',
@@ -101,18 +65,9 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/invadersfromspace', (req, res) => {
     logger.info('GET /games/invadersfromspace');
     const userDetails = path(['session', 'user'], req);
-    const sessionId = path(['session', 'id'], req);
-    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
-    analyticsService.sendPageTrack({
-      hostname: req.hostname,
-      page: '/games/invadersfromspace',
-      title: 'Invaders from Space',
-      sessionId,
-      userAgent,
-    });
 
     return res.render('pages/games/invadersfromspace', {
       title: 'Invaders from Space',
@@ -123,18 +78,9 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/crossword', (req, res) => {
     logger.info('GET /games/crossword');
     const userDetails = path(['session', 'user'], req);
-    const sessionId = path(['session', 'id'], req);
-    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
-    analyticsService.sendPageTrack({
-      hostname: req.hostname,
-      page: '/games/crossword',
-      title: 'Crossword',
-      sessionId,
-      userAgent,
-    });
 
     return res.render('pages/games/crossword', {
       title: 'Crossword',
@@ -145,18 +91,9 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/solitaire', (req, res) => {
     logger.info('GET /games/solitaire');
     const userDetails = path(['session', 'user'], req);
-    const sessionId = path(['session', 'id'], req);
-    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
-    analyticsService.sendPageTrack({
-      hostname: req.hostname,
-      page: '/games/solitaire',
-      title: 'Solitaire',
-      sessionId,
-      userAgent,
-    });
 
     return res.render('pages/games/solitaire', {
       title: 'Solitaire',
@@ -167,18 +104,9 @@ const createGamesRouter = ({ analyticsService, logger }) => {
   router.get('/smashout', (req, res) => {
     logger.info('GET /games/smashout');
     const userDetails = path(['session', 'user'], req);
-    const sessionId = path(['session', 'id'], req);
-    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
-    analyticsService.sendPageTrack({
-      hostname: req.hostname,
-      page: '/games/smashout',
-      title: 'Smashout',
-      sessionId,
-      userAgent,
-    });
 
     return res.render('pages/games/smashout', {
       title: 'Smashout',

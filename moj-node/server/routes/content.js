@@ -41,14 +41,6 @@ const createContentRouter = ({
 
       switch (contentType) {
         case 'radio':
-          analyticsService.sendPageTrack({
-            hostname: req.hostname,
-            page: `/content/${id}`,
-            title: `${data.title}`,
-            sessionId,
-            userAgent,
-          });
-
           return res.render('pages/audio', {
             title: data.title,
             config,
@@ -59,14 +51,6 @@ const createContentRouter = ({
             },
           });
         case 'video':
-          analyticsService.sendPageTrack({
-            hostname: req.hostname,
-            page: `/content/${id}`,
-            title: `${data.title}`,
-            sessionId,
-            userAgent,
-          });
-
           return res.render('pages/video', {
             title: data.title,
             config,
@@ -78,13 +62,6 @@ const createContentRouter = ({
           });
         case 'page':
           config.content = false;
-          analyticsService.sendPageTrack({
-            hostname: req.hostname,
-            page: `/content/${id}`,
-            title: `${data.title}`,
-            sessionId,
-            userAgent,
-          });
 
           return res.render('pages/flat-content', {
             title: data.title,
@@ -97,13 +74,6 @@ const createContentRouter = ({
           });
         case 'landing-page':
           config.postscript = true;
-          analyticsService.sendPageTrack({
-            hostname: req.hostname,
-            page: `/content/${id}`,
-            title: `${data.title}`,
-            sessionId,
-            userAgent,
-          });
 
           return res.render('pages/category', {
             title: data.title,

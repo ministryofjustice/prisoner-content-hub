@@ -6,7 +6,6 @@ const createAuthRouter = ({
   formParser,
   authenticateUser,
   createUserSession,
-  analyticsService,
 }) => {
   const router = express.Router();
 
@@ -27,8 +26,6 @@ const createAuthRouter = ({
       const notification = path(['session', 'notification'], req);
       const userName = path(['session', 'user', 'name'], req);
       const form = pathOr({}, ['session', 'form'], req);
-      const sessionId = path(['session', 'id'], req);
-      const userAgent = path(['headers', 'user-agent'], req);
 
       const config = {
         content: false,
@@ -39,14 +36,6 @@ const createAuthRouter = ({
         returnUrl: req.query.returnUrl || '/',
         hideBar: true,
       };
-
-      analyticsService.sendPageTrack({
-        hostname: req.hostname,
-        page: '/auth/signin',
-        title: 'Sign in',
-        sessionId,
-        userAgent,
-      });
 
       res.render('pages/signin', {
         title: 'Sign in',

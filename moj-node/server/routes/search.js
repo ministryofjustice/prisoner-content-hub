@@ -33,13 +33,6 @@ const createSearchRouter = ({ searchService, analyticsService, logger }) => {
         sessionId,
         userAgent,
       });
-      analyticsService.sendPageTrack({
-        hostname: req.hostname,
-        page: `/search?query=${query}`,
-        title: 'Search',
-        sessionId,
-        userAgent,
-      });
 
       return res.render('pages/search', {
         title: 'Search',

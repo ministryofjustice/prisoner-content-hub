@@ -27,7 +27,7 @@ const createAnalyticsRouter = ({ analyticsService, logger }) => {
     const sessionId = path(['session', 'id'], req);
 
     analyticsService.sendPageTrack({
-      hostname: path(['body', 'host'], req),
+      hostname: path(['body', 'hostname'], req),
       page: path(['body', 'page'], req),
       title: path(['body', 'title'], req),
       sessionId,

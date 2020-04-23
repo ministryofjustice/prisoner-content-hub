@@ -1,7 +1,7 @@
 const express = require('express');
 const { path } = require('ramda');
 
-const createTagRouter = ({ logger, hubTagsService, analyticsService }) => {
+const createTagRouter = ({ logger, hubTagsService }) => {
   const router = express.Router();
 
   router.get('/:id', async (req, res, next) => {
@@ -16,8 +16,6 @@ const createTagRouter = ({ logger, hubTagsService, analyticsService }) => {
 
       const userName = path(['session', 'user', 'name'], req);
       const establishmentId = path(['locals', 'establishmentId'], res);
-      const sessionId = path(['session', 'id'], req);
-      const userAgent = path(['headers', 'user-agent'], req);
       const config = {
         content: true,
         header: false,
@@ -28,13 +26,6 @@ const createTagRouter = ({ logger, hubTagsService, analyticsService }) => {
       };
 
       const data = await hubTagsService.termFor(id, establishmentId);
-      analyticsService.sendPageTrack({
-        hostname: req.hostname,
-        page: `/tags/${id}`,
-        title: data.name,
-        sessionId,
-        userAgent,
-      });
 
       data.secondaryTags = data.id;
 

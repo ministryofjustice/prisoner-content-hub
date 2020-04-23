@@ -18,7 +18,6 @@ const createGettingAJobRouter = ({
   logger,
   hubContentService,
   hubMenuService,
-  analyticsService,
 }) => {
   const router = express.Router();
 
@@ -26,7 +25,6 @@ const createGettingAJobRouter = ({
     logger.info(`GET ${req.originalUrl}`);
 
     const establishmentId = path(['locals', 'establishmentId'], res);
-
     const establishmentName = establishments[establishmentId];
     const title = `Working in ${establishmentName}`;
     const menu = hubMenuService.gettingAJobMenu(establishmentId);
@@ -35,8 +33,6 @@ const createGettingAJobRouter = ({
       793: 'How to do to get, or change, a job in this prison.',
     };
     const userName = path(['session', 'user', 'name'], req);
-    const sessionId = path(['session', 'id'], req);
-    const userAgent = path(['headers', 'user-agent'], req);
 
     const breadcrumbs = [
       {
@@ -57,14 +53,6 @@ const createGettingAJobRouter = ({
       establishmentId,
       returnUrl: req.originalUrl,
     };
-
-    analyticsService.sendPageTrack({
-      hostname: req.hostname,
-      page: req.originalUrl,
-      title,
-      sessionId,
-      userAgent,
-    });
 
     return res.render('pages/getting-a-job', {
       breadcrumbs,
@@ -87,8 +75,6 @@ const createGettingAJobRouter = ({
     const establishmentName = establishments[establishmentId];
     const menu = hubMenuService.gettingAJobMenu(establishmentId);
     const userName = path(['session', 'user', 'name'], req);
-    const sessionId = path(['session', 'id'], req);
-    const userAgent = path(['headers', 'user-agent'], req);
 
     const config = {
       content: true,
@@ -128,14 +114,6 @@ const createGettingAJobRouter = ({
           text: data.title,
         },
       ];
-
-      analyticsService.sendPageTrack({
-        hostname: req.hostname,
-        page: req.originalUrl,
-        title: data.title,
-        sessionId,
-        userAgent,
-      });
 
       return res.render('pages/getting-a-job-content', {
         config,

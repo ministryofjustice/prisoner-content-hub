@@ -2,11 +2,7 @@ const express = require('express');
 const { path } = require('ramda');
 const { format, addDays, subDays } = require('date-fns');
 
-const createTimetableRouter = ({
-  logger,
-  offenderService,
-  analyticsService,
-}) => {
+const createTimetableRouter = ({ logger, offenderService }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -18,8 +14,6 @@ const createTimetableRouter = ({
       const endDate = format(addDays(today, 6), 'yyyy-MM-dd');
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
-      const sessionId = path(['session', 'id'], req);
-      const userAgent = path(['headers', 'user-agent'], req);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -35,13 +29,6 @@ const createTimetableRouter = ({
         userName,
         returnUrl: req.originalUrl,
       };
-      analyticsService.sendPageTrack({
-        hostname: req.hostname,
-        page: '/timetable',
-        title: 'Timetable',
-        sessionId,
-        userAgent,
-      });
 
       res.render('pages/timetable', {
         title: 'Timetable',
@@ -63,8 +50,6 @@ const createTimetableRouter = ({
       const endDate = format(yesterday, 'yyyy-MM-dd');
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
-      const sessionId = path(['session', 'id'], req);
-      const userAgent = path(['headers', 'user-agent'], req);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -80,13 +65,6 @@ const createTimetableRouter = ({
         userName,
         returnUrl: req.originalUrl,
       };
-      analyticsService.sendPageTrack({
-        hostname: req.hostname,
-        page: '/timetable/lastweek',
-        title: 'Timetable',
-        sessionId,
-        userAgent,
-      });
 
       res.render('pages/timetable', {
         title: 'Timetable',
@@ -108,8 +86,6 @@ const createTimetableRouter = ({
       const endDate = format(addDays(nextWeekStart, 6), 'yyyy-MM-dd');
       const userName = path(['session', 'user', 'name'], req);
       const bookingId = path(['session', 'user', 'bookingId'], req);
-      const sessionId = path(['session', 'id'], req);
-      const userAgent = path(['headers', 'user-agent'], req);
 
       const events = await Promise.all([
         offenderService.getEventsFor(bookingId, startDate, endDate),
@@ -125,13 +101,6 @@ const createTimetableRouter = ({
         userName,
         returnUrl: req.originalUrl,
       };
-      analyticsService.sendPageTrack({
-        hostname: req.hostname,
-        page: '/timetable/nextweek',
-        title: 'Timetable',
-        sessionId,
-        userAgent,
-      });
 
       res.render('pages/timetable', {
         title: 'Timetable',

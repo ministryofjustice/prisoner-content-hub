@@ -103,6 +103,16 @@
     <script src="/public/javascript/search.js"></script>
 
     {% block bodyEnd %}{% endblock %}
+    {% block analytics %}
+    <script>
+      sendPageTrack({
+        hostname: document.location.hostname,
+        page: document.location.pathname,
+        title: "{{title}}",
+        userAgent: navigator.userAgent
+      });
+    </script>
+    {% endblock %}
 
   </body>
 </html>
