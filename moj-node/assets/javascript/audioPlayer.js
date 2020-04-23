@@ -5,6 +5,7 @@ $(document).ready(function() {
   var extendConfig = audio.data().config || {};
   var name = programmeCode + '|' + title;
 
+  var evt0 = once(analyticsAudioEvent({ label: '0%', action: name }));
   var evt25 = once(analyticsAudioEvent({ label: '25%', action: name }));
   var evt50 = once(analyticsAudioEvent({ label: '50%', action: name }));
   var evt75 = once(analyticsAudioEvent({ label: '75%', action: name }));
@@ -23,8 +24,11 @@ $(document).ready(function() {
     },
     timeupdate: function(event) {
       var percentage = Math.round(event.jPlayer.status.currentPercentAbsolute);
+      var currentTime = parseInt(event.jPlayer.status.currentTime);
 
-      if (percentage >= 25 && percentage < 50) {
+      if (currentTime >= 1 && currentTime < 10) {
+        evt0();
+      } else if (percentage >= 25 && percentage < 50) {
         evt25();
       } else if (percentage >= 50 && percentage < 75) {
         evt50();
