@@ -1,12 +1,7 @@
 const { path } = require('ramda');
 const express = require('express');
 
-const createIepRouter = ({
-  hubContentService,
-  offenderService,
-  analyticsService,
-  logger,
-}) => {
+const createIepRouter = ({ hubContentService, offenderService, logger }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -16,7 +11,7 @@ const createIepRouter = ({
 
     const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
-
+    const establishmentId = path(['locals', 'establishmentId'], res);
     const config = {
       content: true,
       header: false,
@@ -27,21 +22,10 @@ const createIepRouter = ({
       returnUrl: req.originalUrl,
     };
 
-    const establishmentId = path(['locals', 'establishmentId'], res);
-    const sessionId = path(['session', 'id'], req);
-    const userAgent = path(['headers', 'user-agent'], req);
-
     try {
       const iep = await offenderService.getIEPSummaryFor(bookingId);
       const data = await hubContentService.contentFor(id, establishmentId);
       data.personalisedData = iep;
-      analyticsService.sendPageTrack({
-        hostname: req.hostname,
-        page: `/iep`,
-        title: 'Incentives',
-        sessionId,
-        userAgent,
-      });
 
       return res.render('pages/category', {
         title: 'Incentives',

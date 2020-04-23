@@ -9,11 +9,7 @@ const getFacilitiesListFor = id =>
     ? facilitiesList[id]
     : '/404';
 
-const createIndexRouter = ({
-  logger,
-  hubFeaturedContentService,
-  analyticsService,
-}) => {
+const createIndexRouter = ({ logger, hubFeaturedContentService }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -23,8 +19,6 @@ const createIndexRouter = ({
       const userName = path(['session', 'user', 'name'], req);
       const establishmentId = path(['locals', 'establishmentId'], res);
       const newDesigns = path(['locals', 'features', 'newDesigns'], res);
-      const sessionId = path(['session', 'id'], req);
-      const userAgent = path(['headers', 'user-agent'], req);
 
       const featuredContent = await hubFeaturedContentService.hubFeaturedContent(
         { establishmentId },
@@ -54,16 +48,10 @@ const createIndexRouter = ({
         // 'Money & debt': '/content/4201',
         Chaplaincy: '/tags/901',
       };
-      analyticsService.sendPageTrack({
-        hostname: req.hostname,
-        page: '/',
-        title: 'Home',
-        sessionId,
-        userAgent,
-      });
 
       res.render('pages/home', {
         config,
+        title: 'Home',
         popularTopics,
         featuredContent: featuredContent.featured[0],
       });

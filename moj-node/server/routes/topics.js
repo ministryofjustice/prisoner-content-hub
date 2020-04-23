@@ -12,7 +12,7 @@ const fixUrls = element => {
   }
 };
 
-const createTopicsRouter = ({ logger, hubMenuService, analyticsService }) => {
+const createTopicsRouter = ({ logger, hubMenuService }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -21,8 +21,6 @@ const createTopicsRouter = ({ logger, hubMenuService, analyticsService }) => {
 
       const userName = path(['session', 'user', 'name'], req);
       const establishmentId = path(['locals', 'establishmentId'], res);
-      const sessionId = path(['session', 'id'], req);
-      const userAgent = path(['headers', 'user-agent'], req);
       const topics = await hubMenuService.allTopics(establishmentId);
 
       const config = {
@@ -33,13 +31,6 @@ const createTopicsRouter = ({ logger, hubMenuService, analyticsService }) => {
         userName,
         returnUrl: req.originalUrl,
       };
-      analyticsService.sendPageTrack({
-        hostname: req.hostname,
-        page: '/topics',
-        title: 'Browse the Content Hub',
-        sessionId,
-        userAgent,
-      });
 
       res.render('pages/topics', {
         title: 'Browse the Content Hub',

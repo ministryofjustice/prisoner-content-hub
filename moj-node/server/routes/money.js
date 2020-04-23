@@ -1,12 +1,7 @@
 const { path } = require('ramda');
 const express = require('express');
 
-const createMoneyRouter = ({
-  hubContentService,
-  offenderService,
-  analyticsService,
-  logger,
-}) => {
+const createMoneyRouter = ({ hubContentService, offenderService, logger }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -16,8 +11,7 @@ const createMoneyRouter = ({
 
     const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
-    const userAgent = path(['headers', 'user-agent'], req);
-
+    const establishmentId = path(['locals', 'establishmentId'], res);
     const config = {
       content: true,
       header: false,
@@ -28,20 +22,10 @@ const createMoneyRouter = ({
       returnUrl: req.originalUrl,
     };
 
-    const establishmentId = path(['locals', 'establishmentId'], res);
-    const sessionId = path(['session', 'id'], req);
-
     try {
       const balances = await offenderService.getBalancesFor(bookingId);
       const data = await hubContentService.contentFor(id, establishmentId);
       data.personalisedData = balances;
-      analyticsService.sendPageTrack({
-        hostname: req.hostname,
-        page: '/money',
-        title: 'Money and Debt',
-        sessionId,
-        userAgent,
-      });
 
       return res.render('pages/category', {
         title: 'Money and Debt',

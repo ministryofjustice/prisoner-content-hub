@@ -1,12 +1,7 @@
 const { path } = require('ramda');
 const express = require('express');
 
-const createVisitsRouter = ({
-  hubContentService,
-  offenderService,
-  analyticsService,
-  logger,
-}) => {
+const createVisitsRouter = ({ hubContentService, offenderService, logger }) => {
   const router = express.Router();
 
   router.get('/', async (req, res, next) => {
@@ -16,8 +11,6 @@ const createVisitsRouter = ({
 
     const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
-    const sessionId = path(['session', 'id'], req);
-    const userAgent = path(['headers', 'user-agent'], req);
     const establishmentId = path(['locals', 'establishmentId'], res);
     const config = {
       content: true,
@@ -33,13 +26,6 @@ const createVisitsRouter = ({
       const visits = await offenderService.getVisitsFor(bookingId);
       const data = await hubContentService.contentFor(id, establishmentId);
       data.personalisedData = visits;
-      analyticsService.sendPageTrack({
-        hostname: req.hostname,
-        page: '/visits',
-        title: 'Visits',
-        sessionId,
-        userAgent,
-      });
 
       return res.render('pages/category', {
         title: 'Visits',
