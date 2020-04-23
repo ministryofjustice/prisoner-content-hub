@@ -17,6 +17,8 @@ const createVisitsRouter = ({
     const userName = path(['session', 'user', 'name'], req);
     const bookingId = path(['session', 'user', 'bookingId'], req);
     const sessionId = path(['session', 'id'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
+    const establishmentId = path(['locals', 'establishmentId'], res);
     const config = {
       content: true,
       header: false,
@@ -27,8 +29,6 @@ const createVisitsRouter = ({
       returnUrl: req.originalUrl,
     };
 
-    const establishmentId = path(['locals', 'establishmentId'], res);
-
     try {
       const visits = await offenderService.getVisitsFor(bookingId);
       const data = await hubContentService.contentFor(id, establishmentId);
@@ -38,6 +38,7 @@ const createVisitsRouter = ({
         page: '/visits',
         title: 'Visits',
         sessionId,
+        userAgent,
       });
 
       return res.render('pages/category', {

@@ -13,6 +13,7 @@ const createSearchRouter = ({ searchService, analyticsService, logger }) => {
     const query = path(['query', 'query'], req);
     const userName = path(['session', 'user', 'name'], req);
     const sessionId = path(['session', 'id'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
     const config = {
       content: false,
       header: false,
@@ -30,12 +31,14 @@ const createSearchRouter = ({ searchService, analyticsService, logger }) => {
         label: JSON.stringify(results),
         value: results.length,
         sessionId,
+        userAgent,
       });
       analyticsService.sendPageTrack({
         hostname: req.hostname,
         page: `/search?query=${query}`,
         title: 'Search',
         sessionId,
+        userAgent,
       });
 
       return res.render('pages/search', {

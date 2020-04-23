@@ -30,6 +30,7 @@ const createContentRouter = ({
 
     const establishmentId = path(['locals', 'establishmentId'], res);
     const backendUrl = path(['app', 'locals', 'config', 'backendUrl'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
 
     try {
       const data = await hubContentService.contentFor(id, establishmentId);
@@ -45,6 +46,7 @@ const createContentRouter = ({
             page: `/content/${id}`,
             title: `${data.title}`,
             sessionId,
+            userAgent,
           });
 
           return res.render('pages/audio', {
@@ -62,6 +64,7 @@ const createContentRouter = ({
             page: `/content/${id}`,
             title: `${data.title}`,
             sessionId,
+            userAgent,
           });
 
           return res.render('pages/video', {
@@ -80,6 +83,7 @@ const createContentRouter = ({
             page: `/content/${id}`,
             title: `${data.title}`,
             sessionId,
+            userAgent,
           });
 
           return res.render('pages/flat-content', {
@@ -98,6 +102,7 @@ const createContentRouter = ({
             page: `/content/${id}`,
             title: `${data.title}`,
             sessionId,
+            userAgent,
           });
 
           return res.render('pages/category', {
@@ -118,6 +123,7 @@ const createContentRouter = ({
             label: 'Downloads',
             sessionId,
             value: 1,
+            userAgent,
           });
 
           const stream = await hubContentService.streamFor(url);

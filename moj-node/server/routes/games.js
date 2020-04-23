@@ -14,6 +14,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
     logger.info('GET /games/chess');
     const userDetails = path(['session', 'user'], req);
     const sessionId = path(['session', 'id'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
@@ -22,6 +23,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
       page: '/games/chess',
       title: 'Chess',
       sessionId,
+      userAgent,
     });
 
     return res.render('pages/games/chess', {
@@ -34,6 +36,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
     logger.info('GET /games/sudoku');
     const userDetails = path(['session', 'user'], req);
     const sessionId = path(['session', 'id'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
@@ -42,6 +45,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
       page: '/games/sudoku',
       title: 'Sudoku',
       sessionId,
+      userAgent,
     });
 
     return res.render('pages/games/sudoku', {
@@ -54,6 +58,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
     logger.info('GET /games/neontroids');
     const userDetails = path(['session', 'user'], req);
     const sessionId = path(['session', 'id'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
@@ -62,6 +67,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
       page: '/games/neontroids',
       title: 'Neontroids',
       sessionId,
+      userAgent,
     });
 
     return res.render('pages/games/neontroids', {
@@ -74,6 +80,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
     logger.info('GET /games/mimstris');
     const userDetails = path(['session', 'user'], req);
     const sessionId = path(['session', 'id'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
@@ -82,6 +89,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
       page: '/games/mimstris',
       title: 'Mimstris',
       sessionId,
+      userAgent,
     });
 
     return res.render('pages/games/mimstris', {
@@ -94,6 +102,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
     logger.info('GET /games/invadersfromspace');
     const userDetails = path(['session', 'user'], req);
     const sessionId = path(['session', 'id'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
@@ -102,6 +111,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
       page: '/games/invadersfromspace',
       title: 'Invaders from Space',
       sessionId,
+      userAgent,
     });
 
     return res.render('pages/games/invadersfromspace', {
@@ -114,6 +124,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
     logger.info('GET /games/crossword');
     const userDetails = path(['session', 'user'], req);
     const sessionId = path(['session', 'id'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
@@ -122,6 +133,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
       page: '/games/crossword',
       title: 'Crossword',
       sessionId,
+      userAgent,
     });
 
     return res.render('pages/games/crossword', {
@@ -134,6 +146,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
     logger.info('GET /games/solitaire');
     const userDetails = path(['session', 'user'], req);
     const sessionId = path(['session', 'id'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
@@ -142,6 +155,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
       page: '/games/solitaire',
       title: 'Solitaire',
       sessionId,
+      userAgent,
     });
 
     return res.render('pages/games/solitaire', {
@@ -154,6 +168,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
     logger.info('GET /games/smashout');
     const userDetails = path(['session', 'user'], req);
     const sessionId = path(['session', 'id'], req);
+    const userAgent = path(['headers', 'user-agent'], req);
 
     config.detailsType = 'small';
     config.userName = path(['name'], userDetails);
@@ -162,6 +177,7 @@ const createGamesRouter = ({ analyticsService, logger }) => {
       page: '/games/smashout',
       title: 'Smashout',
       sessionId,
+      userAgent,
     });
 
     return res.render('pages/games/smashout', {

@@ -1,7 +1,7 @@
 const config = require('../config');
 
 function analyticsRepository(httpClient) {
-  function sendEvent({ category, action, label, value, sessionId }) {
+  function sendEvent({ category, action, label, value, sessionId, userAgent }) {
     const postData = {
       v: '1',
       tid: config.analytics.siteId,
@@ -16,9 +16,13 @@ function analyticsRepository(httpClient) {
       postData.ev = value;
     }
 
+    if (userAgent !== undefined) {
+      postData.ua = userAgent;
+    }
+
     return httpClient.postFormData(config.analytics.endpoint, postData);
   }
-  function sendPageTrack({ hostname, page, title, sessionId }) {
+  function sendPageTrack({ hostname, page, title, sessionId, userAgent }) {
     const postData = {
       v: '1',
       tid: config.analytics.siteId,
@@ -28,6 +32,10 @@ function analyticsRepository(httpClient) {
       dp: page,
       dt: title,
     };
+
+    if (userAgent !== undefined) {
+      postData.ua = userAgent;
+    }
 
     return httpClient.postFormData(config.analytics.endpoint, postData);
   }
