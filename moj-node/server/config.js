@@ -90,4 +90,7 @@ module.exports = {
       { requireInProduction: true },
     ),
   },
+  npr: {
+    stream: getEnv('NPR_STREAM', '/npr-stream'),
+  },
 };

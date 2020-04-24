@@ -1,7 +1,7 @@
 const { path } = require('ramda');
 const express = require('express');
 
-const createNprRouter = ({ analyticsService, logger }) => {
+const createNprRouter = ({ logger }) => {
   const router = express.Router();
 
   router.get('/', async (req, res) => {
@@ -9,7 +9,7 @@ const createNprRouter = ({ analyticsService, logger }) => {
 
     const userName = path(['session', 'user', 'name'], req);
     const newDesigns = path(['locals', 'features', 'newDesigns'], res);
-    const sessionId = path(['session', 'id'], req);
+    const nprStream = path(['app', 'locals', 'config', 'npr', 'stream'], req);
 
     const config = {
       content: true,
@@ -19,13 +19,6 @@ const createNprRouter = ({ analyticsService, logger }) => {
       newDesigns,
       userName,
     };
-
-    analyticsService.sendPageTrack({
-      hostname: req.hostname,
-      page: '/npr',
-      title: 'NPR Live Stream',
-      sessionId,
-    });
 
     return res.render('pages/npr', {
       title: 'NPR Live Stream',
@@ -37,7 +30,7 @@ const createNprRouter = ({ analyticsService, logger }) => {
         description: {
           sanitized: 'Blah',
         },
-        media: '/npr-stream',
+        media: nprStream,
       },
     });
   });
