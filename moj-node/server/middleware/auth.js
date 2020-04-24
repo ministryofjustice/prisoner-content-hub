@@ -155,7 +155,9 @@ const authenticateUser = function authenticateUser({
         const { signInAttemptsRemaining = retryAttempts } = req.session;
         const updatedAttemptsRemaining = signInAttemptsRemaining - 1;
         if (updatedAttemptsRemaining === 0) {
-          logger.error(`AUTH_DISABLE_SIGN_IN: ${username}, ${error.message}`);
+          logger.error(
+            `LDAP: AUTH_DISABLE_SIGN_IN: ${username}, ${error.message}`,
+          );
           const retryPeriodFromNow = currentTime + retryCoolDownPeriod;
           req.session.signInAttemptsRemaining = retryAttempts;
           req.session.signInDisabledUntilTime = retryPeriodFromNow;
@@ -168,13 +170,15 @@ const authenticateUser = function authenticateUser({
           );
         }
       } else if (error.name === 'LdapAuthenticationError') {
-        logger.error(`AUTH_ACCOUNT_ERROR: ${username}, ${error.message}`);
+        logger.error(`LDAP: AUTH_ACCOUNT_ERROR: ${username}, ${error.message}`);
         form.errors.ldap = createFormError(
           'username',
           formErrors.accountProblem,
         );
       } else {
-        logger.error(error.message);
+        logger.error(
+          `LDAP: UNHANDLED_AUTH_ERROR: ${username}, ${error.message}`,
+        );
         form.errors.ldap = createFormError(
           'username',
           formErrors.unhandledFailure,
