@@ -73,7 +73,7 @@ const authenticateUser = function authenticateUser({
       adminDn: config.adminDn,
       adminPassword: config.adminPassword,
       userSearchBase: config.userSearchBase,
-      usernameAttribute: 'cn',
+      usernameAttribute: config.usernameAttribute,
       username,
       userPassword: password,
     };
