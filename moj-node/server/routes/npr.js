@@ -37,7 +37,7 @@ const createNprRouter = ({ analyticsService, logger }) => {
         description: {
           sanitized: 'Blah',
         },
-        media: 'http://185.14.84.101:8000/stream.ogg',
+        media: '/npr-stream',
       },
     });
   });
