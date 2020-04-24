@@ -33,6 +33,7 @@ module.exports = {
     userSearchBase: getEnv('LDAP_USER_SEARCH_BASE', 'keyboard cat'),
     starttls: getEnv('LDAP_START_TLS', true),
     certPath: getEnv('LDAP_CERT_PATH', '/etc/ssl/ca-certificates.crt'),
+    usernameAttribute: getEnv('LDAP_USERNAME_ATTRIBUTE', 'cn'),
   },
   api: {
     hubHealth: `${hubEndpoint}/api/health`,
