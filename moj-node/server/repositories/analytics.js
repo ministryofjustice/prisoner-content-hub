@@ -22,7 +22,15 @@ function analyticsRepository(httpClient) {
 
     return httpClient.postFormData(config.analytics.endpoint, postData);
   }
-  function sendPageTrack({ hostname, page, title, sessionId, userAgent }) {
+  function sendPageTrack({
+    hostname,
+    page,
+    title,
+    sessionId,
+    userAgent,
+    screen,
+    viewport,
+  }) {
     const postData = {
       v: '1',
       tid: config.analytics.siteId,
@@ -31,6 +39,8 @@ function analyticsRepository(httpClient) {
       dh: hostname,
       dp: page,
       dt: title,
+      sr: screen,
+      vp: viewport,
     };
 
     if (userAgent !== undefined) {
