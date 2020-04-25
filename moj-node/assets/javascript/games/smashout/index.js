@@ -505,9 +505,10 @@ Game.prototype.drawLoseScreen = function () {
 }
 
 Game.prototype.update = function () {
-  if (this.grid.bricks.length === 0) {
-    this.level = this.level + 1;
-    this.loadLevel(this.level);
+  if (this.grid.bricks.length === 0 && this.level < this.levels.length) {
+    var nextLevel = this.level + 1;
+    this.loadLevel(nextLevel);
+    this.level = nextLevel;
   }
 
   this.inputHandler.listen();
