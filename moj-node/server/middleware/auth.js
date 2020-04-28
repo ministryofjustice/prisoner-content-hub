@@ -152,12 +152,13 @@ const authenticateUser = function authenticateUser({
       return next();
     } catch (error) {
       if (error.name === 'InvalidCredentialsError') {
+        logger.error(
+          `LDAP: INVALID_CREDENTIALS: ${username}, ${error.message}`,
+        );
         const { signInAttemptsRemaining = retryAttempts } = req.session;
         const updatedAttemptsRemaining = signInAttemptsRemaining - 1;
         if (updatedAttemptsRemaining === 0) {
-          logger.error(
-            `LDAP: AUTH_DISABLE_SIGN_IN: ${username}, ${error.message}`,
-          );
+          logger.error(`LDAP: AUTH_DISABLE_SIGN_IN: ${username}`);
           const retryPeriodFromNow = currentTime + retryCoolDownPeriod;
           req.session.signInAttemptsRemaining = retryAttempts;
           req.session.signInDisabledUntilTime = retryPeriodFromNow;
