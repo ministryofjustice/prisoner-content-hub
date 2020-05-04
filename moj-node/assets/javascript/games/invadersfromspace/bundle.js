@@ -99,6 +99,7 @@ if (!Array.prototype.filter){
 	  const mainLogo           = document.getElementById('main-logo');
 	  const playGameButton     = document.getElementById('play-game');
 	  const gameOverImage      = document.getElementById('game-over');
+	  const finalScoreText     = document.getElementById('final-score');
 	  const menuButton         = document.getElementById('menu-button');
 	  const menuContainer      = document.getElementById('menu-container');
 	  const aboutButton        = document.getElementById('about-button');
@@ -146,7 +147,8 @@ if (!Array.prototype.filter){
 	    menuButton.className        =     '';
 	    playGameButton.className    = 'hide';
 	    mainLogo.className          = 'hide';
-	    gameOverImage.className     = 'hide';
+      gameOverImage.className     = 'hide';
+      finalScoreText.className    = 'hide';
 	    grunt.className             = 'hide';
 	    soldier.className           = 'hide';
 	    invader.className           = 'hide';
@@ -265,7 +267,8 @@ if (!Array.prototype.filter){
 	  this.leftPressed = false;
 	  this.spacePressed = false;
 
-	  this.isMuted = false;
+    this.isMuted = false;
+    this.finalScore = 0;
 	};
 
 	GameView.prototype.toggleAudio = function() {
@@ -302,7 +305,8 @@ if (!Array.prototype.filter){
 	  this.rightPressed = false;
 	  this.leftPressed  = false;
 	  this.spacePressed = false;
-	  this.isPaused     = false;
+    this.isPaused     = false;
+    this.finalScore   = this.game.score;
 
 	  this.game = new Game({
 	    canvasSize: this.canvasSize,
@@ -341,11 +345,15 @@ if (!Array.prototype.filter){
 	  setTimeout(function() {
 	    that.ctx.clearRect(0, 0, that.DIM_X, that.DIM_Y);
 	    that.ctx.fillStyle = '#000';
-	    that.ctx.fillRect(0, 0, that.game.DIM_X, that.game.DIM_Y);
-	    let gameOverImage  = document.getElementById('game-over'),
+      that.ctx.fillRect(0, 0, that.game.DIM_X, that.game.DIM_Y);
+
+      let gameOverImage  = document.getElementById('game-over'),
+          finalScoreText  = document.getElementById('final-score'),
 	        playGameButton = document.getElementById('play-game');
 	    playGameButton.className = '';
-	    gameOverImage.className = '';
+      gameOverImage.className = '';
+      finalScoreText.innerHTML = 'Congratulations!! You scored ' + that.finalScore + ' points!';
+      finalScoreText.className = '';
 	  }, 600);
 
 	};

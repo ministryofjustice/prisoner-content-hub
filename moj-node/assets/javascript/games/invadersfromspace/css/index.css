@@ -328,3 +328,14 @@
   bottom: 150px;
   left: 180px;
 }
+
+#final-score {
+  position: absolute;
+  z-index: 6;
+  bottom: 100px;
+  left: 280px;
+
+  font-family: 'GDS Transport', Arial, sans-serif;
+  font-size: 20px;
+  color: #fff;
+}
