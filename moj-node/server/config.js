@@ -49,6 +49,17 @@ module.exports = {
   apiV2: {
     hubContent: `${hubEndpoint}/v2/api/content`,
   },
+  phone: {
+    server: getEnv('PHONE_SERVER', { requireInProduction: true }),
+    port: parseInt(getEnv('PHONE_PORT', { requireInProduction: true }), 10),
+    passPhrase: getEnv('PHONE_PASSPHRASE', { requireInProduction: true }),
+    iterations: parseInt(
+      getEnv('PHONE_ITERATIONS', { requireInProduction: true }),
+      10,
+    ),
+    salt: getEnv('PHONE_SALT', { requireInProduction: true }),
+    initialisationVector: getEnv('PHONE_IV', { requireInProduction: true }),
+  },
   nomis: {
     clientToken: getEnv('NOMIS_API_TOKEN', 'ADD_ME'),
     api: {

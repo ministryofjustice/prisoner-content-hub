@@ -1,3 +1,12 @@
+const net = require('net');
+const xmlParser = require('fast-xml-parser');
+const { path } = require('ramda');
+const {
+  phoneBalanceEnquiry,
+  phoneEncrypt,
+  phoneDecrypt,
+  generateKey,
+} = require('../utils/index');
 const config = require('../config');
 
 function validateOffenderNumberFor(offenderNo) {
@@ -69,6 +78,55 @@ function offenderRepository(httpClient) {
     return httpClient.get(`${endpoint}?${query.join('&')}`);
   }
 
+  function getPhoneBalance(xmlString) {
+    const parsedData = xmlParser.parse(xmlString);
+    const resultCode = path(
+      ['SSTIResponse', 'balanceEnquiry', 'resultCode'],
+      parsedData,
+    );
+
+    return resultCode !== 0
+      ? 0
+      : path(['SSTIResponse', 'balanceEnquiry', 'balance'], parsedData);
+  }
+
+  function getPhoneCreditFor(offenderNo) {
+    return new Promise(resolve => {
+      const xmlData = phoneBalanceEnquiry(offenderNo);
+      const key = generateKey(config.phone);
+      const iv = config.phone.initialisationVector;
+      const encryptedString = phoneEncrypt(key, xmlData, iv);
+      const dataLength = Buffer.alloc(4);
+      dataLength.writeUInt32BE(encryptedString.length, 0);
+
+      const connectionConfig = {
+        port: config.phone.port,
+        host: config.phone.server,
+      };
+      const client = new net.Socket();
+
+      client.setTimeout(10000, () => {});
+      client.connect(connectionConfig, () => {
+        client.write(dataLength);
+        client.write(encryptedString);
+      });
+      client.on('data', data => {
+        if (data.length === 4) {
+          const dataBuffer = Buffer.from(data);
+          dataBuffer.readUInt32BE(0);
+        }
+        if (data.length > 4) {
+          const decryptedString = phoneDecrypt(key, Buffer.from(data), iv);
+          const balance = getPhoneBalance(decryptedString);
+          resolve(balance);
+        }
+      });
+      client.on('error', () => {
+        resolve(0);
+      });
+    });
+  }
+
   return {
     getOffenderDetailsFor,
     getIEPSummaryFor,
@@ -80,6 +138,7 @@ function offenderRepository(httpClient) {
     sentenceDetailsFor,
     getEventsForToday,
     getEventsFor,
+    getPhoneCreditFor,
   };
 }
 

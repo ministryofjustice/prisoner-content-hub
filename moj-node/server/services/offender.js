@@ -106,9 +106,10 @@ const createOffenderService = repository => {
     }
   }
 
-  async function getBalancesFor(bookingId) {
+  async function getBalancesFor(bookingId, offenderNo) {
     try {
       const balances = await repository.getBalancesFor(bookingId);
+      const phone = await repository.getPhoneCreditFor(offenderNo);
       const defaultValue = 'Unavailable';
       const getOrDefault = propOr(defaultValue);
       const getOrCurrency = propOr('GBP');
@@ -121,6 +122,7 @@ const createOffenderService = repository => {
         cash: getOrDefault('cash', balances),
         savings: getOrDefault('savings', balances),
         currency: getOrCurrency('currency', balances),
+        phone,
       };
 
       return {
@@ -137,6 +139,10 @@ const createOffenderService = repository => {
             ? formatBalance(balanceData.savings, balanceData.currency)
             : balanceData.savings,
         currency: balanceData.currency,
+        phone:
+          balanceData.phone !== defaultValue
+            ? formatBalance(balanceData.phone, balanceData.currency)
+            : balanceData.phone,
       };
     } catch {
       return {
