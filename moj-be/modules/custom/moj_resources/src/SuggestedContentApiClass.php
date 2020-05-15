@@ -44,6 +44,10 @@ class SuggestedContentApiClass
    * Instance of querfactory
    */
   protected $entity_query;
+
+  private $berwyn_prison_id = 792;
+  private $wayland_prison_id = 793;
+  private $cookhamwood_prison_id = 794;
   /**
    * Class Constructor
    *
@@ -198,11 +202,12 @@ class SuggestedContentApiClass
    *
    * @return array
    */
-  private function getInitialQuery($prison_id = 0)
+  private function getInitialQuery($prison = 0)
   {
     $prison_ids = [
-      '792' => 'berwyn',
-      '793' => 'wayland'
+      $this->berwyn_prison_id,
+      $this->wayland_prison_id,
+      $this->cookhamwood_prison_id,
     ];
 
     $types = array('page', 'moj_pdf_item', 'moj_radio_item', 'moj_video_item',);
@@ -211,10 +216,11 @@ class SuggestedContentApiClass
       ->condition('type', $types, 'IN')
       ->accessCheck(false);
 
-    if (array_key_exists($prison_id, $prison_ids)) {
+    if (in_array($prison, $prison_ids, true)) {
       $prison_results = $results
         ->orConditionGroup()
-        ->condition('field_moj_prisons', $prison_id, '=')
+        ->condition('field_moj_prisons', $prison, '=')
+        ->condition('field_moj_prisons', '', '=')
         ->notExists('field_moj_prisons');
       $results->condition($prison_results);
     }

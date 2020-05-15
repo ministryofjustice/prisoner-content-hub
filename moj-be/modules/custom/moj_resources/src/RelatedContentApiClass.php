@@ -44,6 +44,10 @@ class RelatedContentApiClass
    * Instance of querfactory
    */
   protected $entity_query;
+
+  private $berwyn_prison_id = 792;
+  private $wayland_prison_id = 793;
+  private $cookhamwood_prison_id = 794;
   /**
    * Class Constructor
    *
@@ -90,8 +94,11 @@ class RelatedContentApiClass
    */
   private function getRelatedContentNodeIds($category, $number, $offset, $prison, $sort_order = 'ASC')
   {
-    $berwyn_prison_id = 792;
-    $wayland_prison_id = 793;
+    $prison_ids = [
+      $this->berwyn_prison_id,
+      $this->wayland_prison_id,
+      $this->cookhamwood_prison_id,
+    ];
 
     $bundle = array('page', 'moj_pdf_item', 'moj_radio_item', 'moj_video_item',);
     $results = $this->entity_query->get('node')
@@ -109,20 +116,13 @@ class RelatedContentApiClass
       $results->condition($group);
     }
 
-    if ($prison == $berwyn_prison_id) {
-      $berwyn = $results
+    if (in_array($prison, $prison_ids, true)) {
+      $prison_results = $results
         ->orConditionGroup()
         ->condition('field_moj_prisons', $prison, '=')
+        ->condition('field_moj_prisons', '', '=')
         ->notExists('field_moj_prisons');
-      $results->condition($berwyn);
-    }
-
-    if ($prison == $wayland_prison_id) {
-      $wayland = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $prison, '=')
-        ->notExists('field_moj_prisons');
-      $results->condition($wayland);
+      $results->condition($prison_results);
     }
 
     $relatedContent = $results

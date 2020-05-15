@@ -1,0 +1,58 @@
+version: "3"
+
+services:
+  hub-be:
+    environment:
+      HUB_DB_ENV_MYSQL_DATABASE: hubdb
+      HUB_DB_ENV_MYSQL_USER: hubdb_user_2y478gt
+      HUB_DB_PORT_3306_TCP_ADDR: hub-db
+      HUB_EXT_FILE_URL: https://digital-hub.cwi.dpn.gov.uk/sites/default/files
+      PHP_MEMORY_LIMIT: 256M
+      PHP_UPLOAD_MAX_FILE_SIZE: 500M
+      PHP_POST_MAX_SIZE: 500M
+      PIWIK_URI: //digital-hub.cwi.dpn.gov.uk:12001
+
+    volumes:
+      - /content/moj_dhub_prod001_app/usr/share/nginx/html/moj_be/sites/default/files:/var/www/html/sites/default/files
+
+  hub-db:
+    volumes:
+      - /data/hub-db:/var/lib/mysql:rw
+
+  hub-elasticsearch:
+    volumes:
+      - /data/esdata:/usr/share/elasticsearch/data:rw
+
+  hub-matomo:
+    volumes:
+      - /data/moj_dhub_matomo_config:/var/www/html/config:rw
+
+  hub-matomo-db:
+    volumes:
+      - /data/moj_dhub_matomo_db/var/lib/mysql/:/var/lib/mysql/
+
+  hub-node:
+    environment:
+      - "APP_NAME=HMP Cookham Wood"
+      - "ESTABLISHMENT_NAME=cookhamwood"
+      - "MATOMO_TOKEN"
+      - "NODE_ENV=production"      
+      - "MATOMO_API_URI=http://hub-matomo"
+      - "MATOMO_URL=digital-hub.cwi.dpn.gov.uk/matomo"
+      - "FQDN=cwi.dpn.gov.uk"
+      - "NOMIS_API_TOKEN"
+      - "NOMIS_API_ENDPOINT=https://gateway.nomis-api.service.justice.gov.uk"
+
+  nginx:
+    image: nginx:latest
+    container_name: production_nginx
+    volumes:
+      - /etc/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - /etc/nginx/public.crt:/etc/letsencrypt/live/localhost/public.crt
+      - /etc/nginx/private.rsa:/etc/letsencrypt/live/localhost/private.rsa
+      - /data/nginx/logs:/var/log/nginx:rw
+    ports:
+      - 443:443
+    depends_on:
+      - hub-node
+      - hub-be

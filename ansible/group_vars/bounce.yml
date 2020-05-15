@@ -10,6 +10,10 @@ nginx_upstreams:
     servers: {
       "wayland.mycloudgateway.co.uk:10001"
     }
+  - name: cookhamwood_hub
+    servers: {
+      "cookhamwood.mycloudgateway.co.uk:10001"
+    }
 
 nginx_vhosts:
   - listen: "80"
@@ -31,6 +35,18 @@ nginx_vhosts:
       ignore_invalid_headers off;
       location /health {
         proxy_pass http://wayland_hub;
+        proxy_set_header   Host              $host;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+      }
+  - listen: "80"
+    server_name: "cwi.prod.admin.hub.service.hmpps.dsd.io"
+    state: "present"
+    extra_parameters: |
+      ignore_invalid_headers off;
+      location /health {
+        proxy_pass http://cookhamwood_hub;
         proxy_set_header   Host              $host;
         proxy_set_header   X-Real-IP         $remote_addr;
         proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;

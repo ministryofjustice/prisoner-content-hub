@@ -47,6 +47,7 @@ class CategoryFeaturedContentApiClass
 
   private $berwyn_prison_id = 792;
   private $wayland_prison_id = 793;
+  private $cookhamwood_prison_id = 794;
 
   /**
    * Class Constructor
@@ -150,26 +151,26 @@ class CategoryFeaturedContentApiClass
 
   private function promotedNodes($category, $number, $prison)
   {
+    $prison_ids = [
+      $this->berwyn_prison_id,
+      $this->wayland_prison_id,
+      $this->cookhamwood_prison_id,
+    ];
+
     $results = $this->entity_query->get('node')
       ->condition('status', 1)
       ->condition('field_moj_category_featured_item', 1)
       ->accessCheck(false);
 
-    if ($prison == $this->berwyn_prison_id) {
-      $berwyn = $results
+    if (in_array($prison, $prison_ids, true)) {
+      $prison_results = $results
         ->orConditionGroup()
-        ->condition('field_moj_prisons', $this->wayland_prison_id, '!=')
+        ->condition('field_moj_prisons', $prison, '=')
+        ->condition('field_moj_prisons', '', '=')
         ->notExists('field_moj_prisons');
-      $results->condition($berwyn);
+      $results->condition($prison_results);
     }
 
-    if ($prison == $this->wayland_prison_id) {
-      $wayland = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $this->berwyn_prison_id, '!=')
-        ->notExists('field_moj_prisons');
-      $results->condition($wayland);
-    }
     if ($category !== 0) {
       $results->condition('field_moj_top_level_categories', $category);
     };

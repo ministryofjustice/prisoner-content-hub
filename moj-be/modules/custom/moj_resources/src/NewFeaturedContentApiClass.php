@@ -132,7 +132,8 @@ class NewFeaturedContentApiClass
   {
     $prison_ids = [
       'berwyn' => 792,
-      'wayland' => 793
+      'wayland' => 793,
+      'cookhamwood' => 794
     ];
 
     $results = $this->entity_query->get('node')
