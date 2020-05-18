@@ -108,8 +108,10 @@ function hubMenuRepository(httpClient, jsonClient) {
     const prisonUids = {
       792: 'fd1e1db7-d0be-424a-a3a6-3b0f49e33293', // berwyn
       793: 'b73767ea-2cbb-4ad5-ba22-09379cc07241', // wayland
-      959: 'b73767ea-2cbb-4ad5-ba22-09379cc07241', // cookhamwood ????XXXXXXX
+      959: '4ad37a15-0a06-45f0-bdb3-9a0428675fda', // cookhamwood ????XXXXXXX
     };
+
+    // console.log(JSON.stringify(data))
 
     const items = Object.keys(data.data)
       .filter(key => {
