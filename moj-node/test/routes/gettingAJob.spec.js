@@ -89,7 +89,7 @@ describe('GET /working-in-(berwyn|wayland|cookhamwood)', () => {
       it('renders the correct heading', () => {
         const app = setupBasicApp();
 
-        app.use(setPrisonMiddleware(794));
+        app.use(setPrisonMiddleware(959));
         app.use('/working-in-cookhamwood', router);
 
         return request(app)
@@ -191,7 +191,7 @@ describe('GET /working-in-(berwyn|wayland|cookhamwood)', () => {
       it('renders a sidebar navigation', () => {
         const app = setupBasicApp();
 
-        app.use(setPrisonMiddleware(794));
+        app.use(setPrisonMiddleware(959));
         app.use('/', router);
 
         return request(app)

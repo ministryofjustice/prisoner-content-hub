@@ -62,7 +62,7 @@ function hubMenuRepository(httpClient, jsonClient) {
         return berwynNav;
       case 793:
         return waylandNav;
-      case 794:
+      case 959:
         return cookhamWoodNav;
       default:
         return [];
@@ -85,7 +85,7 @@ function hubMenuRepository(httpClient, jsonClient) {
         return berwynGAJMenu;
       case 793:
         return waylandGAJMenu;
-      case 794:
+      case 959:
         return cookhamWoodGAJMenu;
       default:
         return [];
@@ -108,7 +108,7 @@ function hubMenuRepository(httpClient, jsonClient) {
     const prisonUids = {
       792: 'fd1e1db7-d0be-424a-a3a6-3b0f49e33293', // berwyn
       793: 'b73767ea-2cbb-4ad5-ba22-09379cc07241', // wayland
-      794: 'b73767ea-2cbb-4ad5-ba22-09379cc07241', // cookhamwood ????XXXXXXX
+      959: 'b73767ea-2cbb-4ad5-ba22-09379cc07241', // cookhamwood ????XXXXXXX
     };
 
     const items = Object.keys(data.data)
@@ -177,7 +177,7 @@ function hubMenuRepository(httpClient, jsonClient) {
 
         return [link, ...series];
       }
-      if (Number(prisonId) === 794) {
+      if (Number(prisonId) === 959) {
         const link = {
           id: 'working-in-cookhamwood',
           linkText: 'Working in Cookham Wood',

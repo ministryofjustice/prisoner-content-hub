@@ -10,7 +10,7 @@ function getEstablishmentId(name) {
   const prisons = {
     berwyn: 792,
     wayland: 793,
-    cookhamwood: 794,
+    cookhamwood: 959,
   };
 
   return prisons[name] || 0;
@@ -20,7 +20,7 @@ function getEstablishmentName(id) {
   const establishmentName = {
     792: 'berwyn',
     793: 'wayland',
-    794: 'cookhamwood',
+    959: 'cookhamwood',
   };
   return establishmentName[id];
 }
@@ -30,7 +30,7 @@ function getGoogleAnalyticsId(id) {
     0: 'UA-152065860-4',
     792: 'UA-152065860-1',
     793: 'UA-152065860-2',
-    794: 'UA-152065860-5',
+    959: 'UA-152065860-5',
   };
   return googleAnalyticsId[id];
 }
