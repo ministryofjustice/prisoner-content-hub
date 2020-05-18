@@ -6,7 +6,7 @@ function getPrisonResults($prison_id, $results) {
     959  // cookham wood
   ];
 
-  if (in_array($prison_id, $prison_ids, true)) {
+  if (in_array($prison_id, $prison_ids)) {
     $prison_results = $results
       ->orConditionGroup()
       ->condition('field_moj_prisons', $prison_id, '=')
