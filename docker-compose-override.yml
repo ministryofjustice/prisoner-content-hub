@@ -19,9 +19,3 @@ services:
   hub-elasticsearch:
     volumes:
       - ./esdata:/usr/share/elasticsearch/data
-
-  hub-matomo:
-    volumes:
-      - ./moj-reporting/config:/var/www/html/config:rw
-      - ./moj-reporting/digital-hub-matmomo-db/var/lib/mysql/data:/var/lib/mysql/data
-      - ./logs:/var/www/html/logs
