@@ -1,0 +1,97 @@
+version: "3"
+
+services:
+  hub-db:
+    container_name: hub-db
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE="hubdb"
+      - MYSQL_USER="hubdb_user"
+      - MYSQL_PASSWORD
+
+  hub-memcache:
+    image: memcached
+
+  hub-node:
+    container_name: hub-node
+    image: mojdigitalstudio/digital-hub-node
+    user: "node"
+    working_dir: /home/node/app
+    depends_on:
+      - hub-be
+      - hub-matomo
+    environment:
+      HUB_API_ENDPOINT: http://hub-be
+      APP_TIMEOUT: 60.0
+      PORT: 3000
+      APP_NAME: HMP Dev
+      MATOMO_URL: //hub-matomo/
+      ELASTICSEARCH_ENDPOINT: http://hub-elasticsearch:9200
+      BACKEND_URL: http://hub-be
+    ports:
+      - 10001:3000
+
+  hub-be:
+    container_name: hub-be
+    image: mojdigitalstudio/digital-hub-be
+    depends_on:
+      - hub-db
+      - hub-elasticsearch
+    environment:
+      - HUB_DB_ENV_MYSQL_DATABASE=hubdb
+      - HUB_DB_ENV_MYSQL_USER=hubdb_user
+      - HUB_DB_ENV_MYSQL_PASSWORD
+      - HUB_DB_PORT_3306_TCP_ADDR=hub-db
+      - HUB_EXT_FILE_URL=http://localhost:11001/sites/default/files
+      - PHP_MEMORY_LIMIT=256M
+      - PHP_UPLOAD_MAX_FILE_SIZE=500M
+      - PHP_POST_MAX_SIZE=500M
+      - XDEBUG_IP=127.0.0.1 # Replace with your machines IP: $ ipconfig getifaddr en0
+    ports:
+      - 11001:80
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 15s
+      timeout: 30s
+      retries: 1
+
+  hub-elasticsearch:
+    container_name: hub-elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.0
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "discovery.type=single-node"
+      - xpack.security.enabled=false
+    ulimits:
+     memlock:
+       soft: -1
+       hard: -1
+
+  hub-matomo:
+    container_name: hub-matomo
+    image: pfshubdev.azurecr.io/digital-hub-matomo
+    depends_on:
+      - hub-matomo-db
+    environment:
+      - MATOMO_DATABASE_HOST=hub-matomo-db
+      - MATOMO_DATABASE_TABLES_PREFIX=matomo_
+      - MATOMO_DATABASE_USERNAME=${HUB_MATOMO_MYSQL_USER_USERNAME}
+      - MATOMO_DATABASE_PASSWORD=${HUB_MATOMO_MYSQL_USER_PASSWORD}
+      - MATOMO_DATABASE_DBNAME=matomo
+      - MATOMO_GENERAL_ENABLE_INTERNET_FEATURES=0
+      - MATOMO_GENERAL_ENABLE_MARKETPLACE=0
+      - MATOMO_GENERAL_ENABLE_PLUGIN_UPLOAD=1
+    ports:
+      - 12001:80
+    links:
+      - hub-matomo-db
+
+  hub-matomo-db:
+    container_name: hub-matomo-db
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=${HUB_MATOMO_MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=matomo
+      - MYSQL_USER=${HUB_MATOMO_MYSQL_USER_USERNAME}
+      - MYSQL_PASSWORD=${HUB_MATOMO_MYSQL_USER_PASSWORD}

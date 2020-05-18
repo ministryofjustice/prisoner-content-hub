@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  hub-node:
+    environment:
+      MOCK_AUTH: 'true'
+    volumes:
+      - ./moj-node/server:/home/node/app/server
+      - ./moj-node/test:/home/node/app/test
+      - ./moj-node/assets:/home/node/app/assets
+
+  hub-be:
+    volumes:
+      - ./moj-be/modules/custom:/var/www/html/modules/custom
+      - ./moj-be/profiles:/var/www/html/profiles
+      - ./moj-be/themes:/var/www/html/themes
+      - ./moj-be/sites:/var/www/html/sites
+
+  hub-elasticsearch:
+    volumes:
+      - ./esdata:/usr/share/elasticsearch/data
+
+  hub-matomo:
+    volumes:
+      - ./moj-reporting/config:/var/www/html/config:rw
+      - ./moj-reporting/digital-hub-matmomo-db/var/lib/mysql/data:/var/lib/mysql/data
+      - ./logs:/var/www/html/logs
