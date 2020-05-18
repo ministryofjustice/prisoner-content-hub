@@ -3,7 +3,7 @@ function getPrisonResults($prison_id, $results) {
   $prison_ids = [
     792, // berwyn
     793, // wayland
-    794  // cookham wood
+    959  // cookham wood
   ];
 
   if (in_array($prison_id, $prison_ids, true)) {
