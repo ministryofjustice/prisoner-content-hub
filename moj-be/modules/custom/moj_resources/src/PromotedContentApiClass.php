@@ -6,6 +6,8 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
+require_once('./Utils.php');
+
 /**
  * PromotedContentApiClass
  */
@@ -45,10 +47,6 @@ class PromotedContentApiClass
    * Instance of queryFactory
    */
   protected $entity_query;
-
-  private $berwyn_prison_id = 792;
-  private $wayland_prison_id = 793;
-  private $cookhamwood_prison_id = 794;
   /**
    * Class Constructor
    *
@@ -127,25 +125,12 @@ class PromotedContentApiClass
 
   private function promotedNodes($prison)
   {
-    $prison_ids = [
-      $this->berwyn_prison_id,
-      $this->wayland_prison_id,
-      $this->cookhamwood_prison_id,
-    ];
-
     $results = $this->entity_query->get('node')
       ->condition('status', 1)
       ->condition('sticky', 1)
       ->sort('changed', 'DESC');
 
-    if (in_array($prison, $prison_ids, true)) {
-      $prison_results = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $prison, '=')
-        ->condition('field_moj_prisons', '', '=')
-        ->notExists('field_moj_prisons');
-      $results->condition($prison_results);
-    }
+    $results = getPrisonResults($prison, $results);
 
     $results
       ->range(0, 1)

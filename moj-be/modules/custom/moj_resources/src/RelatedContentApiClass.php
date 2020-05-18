@@ -6,6 +6,8 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
+require_once('./Utils.php');
+
 /**
  * RelatedContentApiClass
  */
@@ -44,10 +46,6 @@ class RelatedContentApiClass
    * Instance of querfactory
    */
   protected $entity_query;
-
-  private $berwyn_prison_id = 792;
-  private $wayland_prison_id = 793;
-  private $cookhamwood_prison_id = 794;
   /**
    * Class Constructor
    *
@@ -94,12 +92,6 @@ class RelatedContentApiClass
    */
   private function getRelatedContentNodeIds($category, $number, $offset, $prison, $sort_order = 'ASC')
   {
-    $prison_ids = [
-      $this->berwyn_prison_id,
-      $this->wayland_prison_id,
-      $this->cookhamwood_prison_id,
-    ];
-
     $bundle = array('page', 'moj_pdf_item', 'moj_radio_item', 'moj_video_item',);
     $results = $this->entity_query->get('node')
       ->condition('status', 1)
@@ -116,14 +108,7 @@ class RelatedContentApiClass
       $results->condition($group);
     }
 
-    if (in_array($prison, $prison_ids, true)) {
-      $prison_results = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $prison, '=')
-        ->condition('field_moj_prisons', '', '=')
-        ->notExists('field_moj_prisons');
-      $results->condition($prison_results);
-    }
+    $results = getPrisonResults($prison, $results);
 
     $relatedContent = $results
       ->sort('nid', $sort_order)
