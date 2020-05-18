@@ -1,4 +1,0 @@
-ssh_key_and_password: false
-sudo_groups: admin
-system_users: []
-extra_disks: []
