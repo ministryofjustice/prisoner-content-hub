@@ -111,8 +111,6 @@ function hubMenuRepository(httpClient, jsonClient) {
       959: 'f663bd36-ded4-4d4a-82f5-f3a41ef1a4e8', // cookhamwood ????XXXXXXX
     };
 
-    // console.log(JSON.stringify(data))
-
     const items = Object.keys(data.data)
       .filter(key => {
         const { relationships } = data.data[key];
