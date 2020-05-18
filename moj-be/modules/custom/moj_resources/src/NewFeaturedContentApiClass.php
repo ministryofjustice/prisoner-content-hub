@@ -132,24 +132,12 @@ class NewFeaturedContentApiClass
 
   private function featuredNodes($category, $prison)
   {
-    $prison_ids = [
-      'berwyn' => 792,
-      'wayland' => 793,
-      'cookhamwood' => 794
-    ];
-
     $results = $this->entity_query->get('node')
       ->condition('type', 'featured_articles')
       ->condition('status', 1)
       ->accessCheck(false);
 
-    if (in_array($prison, $prison_ids, true)) {
-      $prison_results = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $prison, '=')
-        ->notExists('field_moj_prisons');
-      $results->condition($prison_results);
-    }
+    $results = getPrisonResults($prison, $results);
 
     $nodes = $results->execute();
 
