@@ -6,7 +6,7 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
-require_once('./Utils.php');
+require_once('Utils.php');
 
 /**
  * NewFeaturedContentApiClass
