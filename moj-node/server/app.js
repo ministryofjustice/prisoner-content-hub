@@ -5,6 +5,7 @@ const express = require('express');
 const addRequestId = require('express-request-id')();
 const compression = require('compression');
 const helmet = require('helmet');
+const noCache = require('nocache');
 const nunjucks = require('nunjucks');
 const path = require('path');
 const fs = require('fs');
@@ -152,7 +153,7 @@ const createApp = ({
   };
 
   // Don't cache dynamic resources
-  app.use(helmet.noCache());
+  app.use(noCache());
 
   app.use(logger.requestLogger());
 

@@ -171,7 +171,9 @@ describe('Offender Service', () => {
         }),
       };
       const service = createNomisOffenderService(repository);
-      await service.getEventsForToday('FOO_ID');
+      const dateBeforeCutOff = new Date();
+      dateBeforeCutOff.setHours(7);
+      await service.getEventsForToday('FOO_ID', dateBeforeCutOff);
 
       expect(repository.getEventsForToday.lastCall.args[0]).to.equal('FOO_ID');
     });
@@ -182,7 +184,12 @@ describe('Offender Service', () => {
           getEventsForToday: sinon.stub().returns(singleTestData.repo),
         };
         const service = createNomisOffenderService(repository);
-        const data = await service.getEventsForToday('FOO_ID');
+        const dateBeforeCutOff = new Date();
+        dateBeforeCutOff.setHours(7);
+        const data = await service.getEventsForToday(
+          'FOO_ID',
+          dateBeforeCutOff,
+        );
 
         expect(data).to.eql(singleTestData.data);
       });
