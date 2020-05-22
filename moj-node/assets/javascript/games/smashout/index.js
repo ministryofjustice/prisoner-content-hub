@@ -62,7 +62,32 @@ var levels = [
     ballRadius: 10,
     rows: 6,
     initialVelocity: 6,
-    initialBrickHealth: 7
+    initialBrickHealth: 5
+  },
+  {
+    ballRadius: 10,
+    rows: 4,
+    initialVelocity: 7,
+    initialBrickHealth: 3
+  },
+  {
+    start: function() {this.lives += 1;},
+    ballRadius: 10,
+    rows: 5,
+    initialVelocity: 7,
+    initialBrickHealth: 4
+  },
+  {
+    ballRadius: 10,
+    rows: 5,
+    initialVelocity: 7,
+    initialBrickHealth: 6
+  },
+  {
+    ballRadius: 10,
+    rows: 6,
+    initialVelocity: 7,
+    initialBrickHealth: 7,
   }
 ];
 
@@ -414,6 +439,8 @@ function Game(options) {
 
 Game.prototype.loadLevel = function () {
   var level = this.levels[this.level];
+  var levelStart = level.start || function() {};
+    levelStart.call(this);
   this.paddle = new Paddle({
     height: level.paddleHeight,
     width: level.paddleWidth,
@@ -547,7 +574,6 @@ window.onload = function () {
   var gameCanvas = document.getElementById('gameCanvas');
   var inputHandler = new InputHandler(document);
   var game = new Game({ canvas: gameCanvas, levels: levels, inputHandler: inputHandler });
-  game.loadLevel();
   var gameLoop = function () {
     game.update();
     game.draw();
