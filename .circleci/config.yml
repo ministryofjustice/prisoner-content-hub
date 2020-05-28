@@ -210,7 +210,7 @@ jobs:
             export VERSION_TO_DEPLOY="$(cat /tmp/workspace/docker-build/version-to-deploy.txt)" && \
             ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-wayland-prod.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v ${VERSION_TO_DEPLOY}" && \
             ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-berwyn-prod.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v ${VERSION_TO_DEPLOY}" && \
-            ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-cookhamwood-prod.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v ${VERSION_TO_DEPLOY}"
+            # ssh -t ciuser@pfs-management-bastion-1.uksouth.cloudapp.azure.com ssh -t ciuser@hub-cookhamwood-prod.pfs-management.com "sudo /etc/docker-decomposed-secrets.sh -v ${VERSION_TO_DEPLOY}"
 
 workflows:
   version: 2
