@@ -287,7 +287,7 @@ const createApp = ({
   app.use('/analytics', createAnalyticsRouter({ analyticsService, logger }));
   app.use('/feedback', createFeedbackRouter({ feedbackService, logger }));
   app.use(
-    ['/working-in-wayland', '/working-in-berwyn'],
+    ['/working-in-wayland', '/working-in-berwyn', '/working-in-cookhamwood'],
     createGettingAJobRouter({
       logger,
       hubContentService,

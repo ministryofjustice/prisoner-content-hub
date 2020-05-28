@@ -2,7 +2,7 @@ const { prop } = require('ramda');
 
 const createHubTagsService = repository => {
   async function termFor(id, establishmentId) {
-    const content = await repository.termFor(id);
+    const content = await repository.termFor(id, establishmentId);
 
     if (!prop('contentType', content)) return null;
 

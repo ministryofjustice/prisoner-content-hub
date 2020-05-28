@@ -8,8 +8,10 @@ const {
 
 const berwynNav = require('../data/berwyn-homepage-nav.json');
 const waylandNav = require('../data/wayland-homepage-nav.json');
+const cookhamWoodNav = require('../data/cookhamwood-homepage-nav.json');
 const berwynGAJMenu = require('../data/berwyn-step-by-step.json');
 const waylandGAJMenu = require('../data/wayland-step-by-step.json');
+const cookhamWoodGAJMenu = require('../data/cookhamwood-step-by-step.json');
 
 function hubMenuRepository(httpClient, jsonClient) {
   const sortAlphabetically = (a, b) => {
@@ -60,6 +62,8 @@ function hubMenuRepository(httpClient, jsonClient) {
         return berwynNav;
       case 793:
         return waylandNav;
+      case 959:
+        return cookhamWoodNav;
       default:
         return [];
     }
@@ -81,6 +85,8 @@ function hubMenuRepository(httpClient, jsonClient) {
         return berwynGAJMenu;
       case 793:
         return waylandGAJMenu;
+      case 959:
+        return cookhamWoodGAJMenu;
       default:
         return [];
     }
@@ -102,6 +108,7 @@ function hubMenuRepository(httpClient, jsonClient) {
     const prisonUids = {
       792: 'fd1e1db7-d0be-424a-a3a6-3b0f49e33293', // berwyn
       793: 'b73767ea-2cbb-4ad5-ba22-09379cc07241', // wayland
+      959: '9969cd5a-90fa-476c-9f14-3f85b26d23bc', // cookhamwood
     };
 
     const items = Object.keys(data.data)
@@ -166,6 +173,15 @@ function hubMenuRepository(httpClient, jsonClient) {
           id: 'working-in-wayland',
           linkText: 'Working in Wayland',
           href: '/working-in-wayland',
+        };
+
+        return [link, ...series];
+      }
+      if (Number(prisonId) === 959) {
+        const link = {
+          id: 'working-in-cookhamwood',
+          linkText: 'Working in Cookham Wood',
+          href: '/working-in-cookhamwood',
         };
 
         return [link, ...series];

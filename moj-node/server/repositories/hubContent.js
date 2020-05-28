@@ -34,21 +34,19 @@ const hubContentRepository = httpClient => {
     return parseResponse(response);
   }
 
-  async function termFor(id) {
+  async function termFor(id, establishmentId) {
     const endpoint = `${config.api.hubTerm}/${id}`;
-
     if (!id) {
       logger.error(`Requested ${endpoint}`);
       return null;
     }
-
-    const response = await httpClient.get(endpoint);
-
+    const response = await httpClient.get(endpoint, {
+      _prison: establishmentId,
+    });
     if (isEmpty(response)) {
       logger.error(`Requested ${endpoint}`);
       return null;
     }
-
     return termResponseFrom(response);
   }
 

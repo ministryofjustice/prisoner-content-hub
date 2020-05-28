@@ -34,7 +34,7 @@ const setPrisonMiddleware = establishmentId => (req, res, next) => {
   next();
 };
 
-describe('GET /working-in-(berwyn|wayland)', () => {
+describe('GET /working-in-(berwyn|wayland|cookhamwood)', () => {
   const router = createGettingAJobRouter({
     logger,
     hubContentService,
@@ -79,6 +79,27 @@ describe('GET /working-in-(berwyn|wayland)', () => {
 
             expect($('h1').text()).to.include(
               'Working in Wayland',
+              'Correct title rendered',
+            );
+          });
+      });
+    });
+
+    describe('When in cookhamwood', () => {
+      it('renders the correct heading', () => {
+        const app = setupBasicApp();
+
+        app.use(setPrisonMiddleware(959));
+        app.use('/working-in-cookhamwood', router);
+
+        return request(app)
+          .get('/working-in-cookhamwood')
+          .expect(200)
+          .then(response => {
+            const $ = cheerio.load(response.text);
+
+            expect($('h1').text()).to.include(
+              'Working in Cookham Wood',
               'Correct title rendered',
             );
           });
@@ -160,6 +181,27 @@ describe('GET /working-in-(berwyn|wayland)', () => {
 
             const sidebar = $('#side-bar').text();
             expect(sidebar).to.include('Working in Wayland');
+            expect(sidebar).to.include('foo-title');
+            expect(sidebar).to.include('foo-description');
+            expect(sidebar).to.include('foo-link');
+          });
+      });
+    });
+    describe('when in cookhamwood', () => {
+      it('renders a sidebar navigation', () => {
+        const app = setupBasicApp();
+
+        app.use(setPrisonMiddleware(959));
+        app.use('/', router);
+
+        return request(app)
+          .get('/some-content-id')
+          .expect(200)
+          .then(response => {
+            const $ = cheerio.load(response.text);
+
+            const sidebar = $('#side-bar').text();
+            expect(sidebar).to.include('Working in Cookham Wood');
             expect(sidebar).to.include('foo-title');
             expect(sidebar).to.include('foo-description');
             expect(sidebar).to.include('foo-link');
