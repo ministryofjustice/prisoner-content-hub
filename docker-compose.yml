@@ -20,13 +20,11 @@ services:
     working_dir: /home/node/app
     depends_on:
       - hub-be
-      - hub-matomo
     environment:
       HUB_API_ENDPOINT: http://hub-be
       APP_TIMEOUT: 60.0
       PORT: 3000
       APP_NAME: HMP Dev
-      MATOMO_URL: //hub-matomo/
       ELASTICSEARCH_ENDPOINT: http://hub-elasticsearch:9200
       BACKEND_URL: http://hub-be
     ports:
@@ -67,31 +65,3 @@ services:
      memlock:
        soft: -1
        hard: -1
-
-  hub-matomo:
-    container_name: hub-matomo
-    image: pfshubdev.azurecr.io/digital-hub-matomo
-    depends_on:
-      - hub-matomo-db
-    environment:
-      - MATOMO_DATABASE_HOST=hub-matomo-db
-      - MATOMO_DATABASE_TABLES_PREFIX=matomo_
-      - MATOMO_DATABASE_USERNAME=${HUB_MATOMO_MYSQL_USER_USERNAME}
-      - MATOMO_DATABASE_PASSWORD=${HUB_MATOMO_MYSQL_USER_PASSWORD}
-      - MATOMO_DATABASE_DBNAME=matomo
-      - MATOMO_GENERAL_ENABLE_INTERNET_FEATURES=0
-      - MATOMO_GENERAL_ENABLE_MARKETPLACE=0
-      - MATOMO_GENERAL_ENABLE_PLUGIN_UPLOAD=1
-    ports:
-      - 12001:80
-    links:
-      - hub-matomo-db
-
-  hub-matomo-db:
-    container_name: hub-matomo-db
-    image: mariadb
-    environment:
-      - MYSQL_ROOT_PASSWORD=${HUB_MATOMO_MYSQL_ROOT_PASSWORD}
-      - MYSQL_DATABASE=matomo
-      - MYSQL_USER=${HUB_MATOMO_MYSQL_USER_USERNAME}
-      - MYSQL_PASSWORD=${HUB_MATOMO_MYSQL_USER_PASSWORD}

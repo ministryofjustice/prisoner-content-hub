@@ -1,5 +1,0 @@
-[hub]
-digital-hub-stage.hmpps.dsd.io
-
-[stage:children]
-hub

@@ -6,6 +6,8 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
+require_once('Utils.php');
+
 /**
  * PromotedContentApiClass
  */
@@ -44,10 +46,6 @@ class SeriesContentApiClass
    * Instance of querfactory
    */
   protected $entity_query;
-
-
-  private $berwyn_prison_id = 792;
-  private $wayland_prison_id = 793;
 
   /**
    * Class Constructor
@@ -211,21 +209,7 @@ class SeriesContentApiClass
       $results->condition('field_moj_series', $series_id);
     }
 
-    if ($prison == $this->berwyn_prison_id) {
-      $berwyn = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $prison, '=')
-        ->notExists('field_moj_prisons');
-      $results->condition($berwyn);
-    }
-
-    if ($prison == $this->wayland_prison_id) {
-      $wayland = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $prison, '=')
-        ->notExists('field_moj_prisons');
-      $results->condition($wayland);
-    }
+    $results = getPrisonResults($prison, $results);
 
     if ($number) {
       $results->range($offset, $number);

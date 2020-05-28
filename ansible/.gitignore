@@ -1,7 +1,0 @@
-Gemfile.lock
-Ansiblefile.lock
-.librarian
-librarian_roles/
-tmp/
-*.retry
-.vagrant/

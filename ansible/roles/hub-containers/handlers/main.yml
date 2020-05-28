@@ -1,7 +1,0 @@
-- name: redeploy containers
-  shell: /usr/local/bin/hub-deploy.sh
-
-- name: reload docker
-  service:
-    name: docker
-    state: reloaded

@@ -6,6 +6,8 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
+require_once('Utils.php');
+
 /**
  * SuggestedContentApiClass
  */
@@ -200,24 +202,13 @@ class SuggestedContentApiClass
    */
   private function getInitialQuery($prison_id = 0)
   {
-    $prison_ids = [
-      '792' => 'berwyn',
-      '793' => 'wayland'
-    ];
-
     $types = array('page', 'moj_pdf_item', 'moj_radio_item', 'moj_video_item',);
     $results = $this->entity_query->get('node')
       ->condition('status', 1)
       ->condition('type', $types, 'IN')
       ->accessCheck(false);
 
-    if (array_key_exists($prison_id, $prison_ids)) {
-      $prison_results = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $prison_id, '=')
-        ->notExists('field_moj_prisons');
-      $results->condition($prison_results);
-    }
+    $results = getPrisonResults($prison_id, $results);
 
     return $results;
   }

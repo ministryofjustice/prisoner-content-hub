@@ -6,6 +6,8 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
+require_once('Utils.php');
+
 /**
  * RelatedContentApiClass
  */
@@ -90,9 +92,6 @@ class RelatedContentApiClass
    */
   private function getRelatedContentNodeIds($category, $number, $offset, $prison, $sort_order = 'ASC')
   {
-    $berwyn_prison_id = 792;
-    $wayland_prison_id = 793;
-
     $bundle = array('page', 'moj_pdf_item', 'moj_radio_item', 'moj_video_item',);
     $results = $this->entity_query->get('node')
       ->condition('status', 1)
@@ -109,21 +108,7 @@ class RelatedContentApiClass
       $results->condition($group);
     }
 
-    if ($prison == $berwyn_prison_id) {
-      $berwyn = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $prison, '=')
-        ->notExists('field_moj_prisons');
-      $results->condition($berwyn);
-    }
-
-    if ($prison == $wayland_prison_id) {
-      $wayland = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $prison, '=')
-        ->notExists('field_moj_prisons');
-      $results->condition($wayland);
-    }
+    $results = getPrisonResults($prison, $results);
 
     $relatedContent = $results
       ->sort('nid', $sort_order)

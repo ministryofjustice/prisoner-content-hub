@@ -6,6 +6,8 @@ use Drupal\node\NodeInterface;
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 
+require_once('Utils.php');
+
 /**
  * CategoryFeaturedContentApiClass
  */
@@ -44,9 +46,6 @@ class CategoryFeaturedContentApiClass
    * Instance of querfactory
    */
   protected $entity_query;
-
-  private $berwyn_prison_id = 792;
-  private $wayland_prison_id = 793;
 
   /**
    * Class Constructor
@@ -155,21 +154,8 @@ class CategoryFeaturedContentApiClass
       ->condition('field_moj_category_featured_item', 1)
       ->accessCheck(false);
 
-    if ($prison == $this->berwyn_prison_id) {
-      $berwyn = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $this->wayland_prison_id, '!=')
-        ->notExists('field_moj_prisons');
-      $results->condition($berwyn);
-    }
+    $results = getPrisonResults($prison, $results);
 
-    if ($prison == $this->wayland_prison_id) {
-      $wayland = $results
-        ->orConditionGroup()
-        ->condition('field_moj_prisons', $this->berwyn_prison_id, '!=')
-        ->notExists('field_moj_prisons');
-      $results->condition($wayland);
-    }
     if ($category !== 0) {
       $results->condition('field_moj_top_level_categories', $category);
     };
