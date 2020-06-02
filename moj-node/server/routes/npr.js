@@ -21,14 +21,14 @@ const createNprRouter = ({ logger }) => {
     };
 
     return res.render('pages/npr', {
-      title: 'NPR Live Stream',
+      title: 'NPR Listen Live',
       config,
       data: {
-        title: 'NPR Live Stream',
+        title: 'NPR Listen Live',
         contentType: 'audio',
         series: 'none',
         description: {
-          sanitized: 'Blah',
+          sanitized: '',
         },
         media: nprStream,
       },
