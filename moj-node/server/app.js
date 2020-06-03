@@ -29,6 +29,7 @@ const { createFeedbackRouter } = require('./routes/feedback');
 const { createGettingAJobRouter } = require('./routes/gettingAJob');
 const { createSearchRouter } = require('./routes/search');
 const { createAuthRouter } = require('./routes/auth');
+const { createNprRouter } = require('./routes/npr');
 const { featureToggleMiddleware } = require('./middleware/featureToggle');
 const {
   configureEstablishment,
@@ -271,6 +272,14 @@ const createApp = ({
       logger,
       hubContentService,
       analyticsService,
+    }),
+  );
+
+  app.use(
+    '/npr',
+    createNprRouter({
+      analyticsService,
+      logger,
     }),
   );
 
