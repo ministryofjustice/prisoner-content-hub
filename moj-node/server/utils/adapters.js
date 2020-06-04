@@ -1,7 +1,15 @@
 const R = require('ramda');
-
-const { HUB_CONTENT_TYPES } = require('../constants/hub');
 const { fixUrlForProduction } = require('./index');
+
+const HUB_CONTENT_TYPES = {
+  moj_radio_item: 'radio',
+  moj_pdf_item: 'pdf',
+  moj_video_item: 'video',
+  landing_page: 'landing-page',
+  page: 'page',
+  series: 'series',
+  tags: 'tags',
+};
 
 const defaultThumbs = type => {
   const thumbs = {
