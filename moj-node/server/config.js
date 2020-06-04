@@ -2,7 +2,6 @@ const { getEnv, isProduction, isTest } = require('../utils/index');
 
 const berwynGAJMenu = require('./data/berwyn-step-by-step.json');
 const waylandGAJMenu = require('./data/wayland-step-by-step.json');
-const cookhamWoodGAJMenu = require('./data/cookhamwood-step-by-step.json');
 
 const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
 const backendUrl = getEnv('BACKEND_URL', 'http://hub-be:80');
@@ -38,7 +37,7 @@ const establishments = {
     formattedName: 'Cookham Wood',
     uuId: '9969cd5a-90fa-476c-9f14-3f85b26d23bc',
     facilitiesList: '/content/1234',
-    workingIn: cookhamWoodGAJMenu,
+    workingIn: [],
   },
 };
 
