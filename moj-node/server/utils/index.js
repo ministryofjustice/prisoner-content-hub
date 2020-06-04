@@ -6,12 +6,12 @@ const isEmpty = val => R.isEmpty(val) || R.isNil(val);
 
 function getEstablishmentId(name) {
   return Object.keys(config.establishments).reduce(
-    (matchingPrisonId, establishmentId) => {
+    (matchingEstablishmentId, establishmentId) => {
       if (config.establishments[establishmentId].name === name) {
-        return establishmentId;
+        return parseInt(establishmentId, 10);
       }
 
-      return matchingPrisonId;
+      return matchingEstablishmentId;
     },
     0,
   );
@@ -19,6 +19,10 @@ function getEstablishmentId(name) {
 
 function getEstablishmentName(id) {
   return R.path(['establishments', id, 'name'], config);
+}
+
+function getEstablishmentStandFirst(id) {
+  return R.pathOr('', ['establishments', id, 'standFirst'], config);
 }
 
 function getFormattedEstablishmentName(id) {
@@ -158,6 +162,7 @@ module.exports = {
   getEstablishmentName,
   getFormattedEstablishmentName,
   getEstablishmentUiId,
+  getEstablishmentStandFirst,
   getWorkingInUrls,
   getFacilitiesList,
   isEmpty,

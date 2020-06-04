@@ -19,6 +19,7 @@ const establishments = {
     uuId: 'fd1e1db7-d0be-424a-a3a6-3b0f49e33293',
     gaId: 'UA-152065860-1',
     facilitiesList: '/content/3990',
+    standFirst: 'What you need to do to get or change your job in Berwyn.',
   },
   793: {
     name: 'wayland',
@@ -26,6 +27,7 @@ const establishments = {
     uuId: 'b73767ea-2cbb-4ad5-ba22-09379cc07241',
     gaId: 'UA-152065860-2',
     facilitiesList: '/content/4539',
+    standFirst: 'How to do to get, or change, a job in this prison.',
   },
   959: {
     name: 'cookhamwood',

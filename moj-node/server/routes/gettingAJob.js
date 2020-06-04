@@ -1,6 +1,10 @@
 const express = require('express');
 const { isEmpty, path } = require('ramda');
-const { getFormattedEstablishmentName } = require('../utils');
+const {
+  getFormattedEstablishmentName,
+  getEstablishmentStandFirst,
+  getEstablishmentName,
+} = require('../utils');
 
 function addCurrentPageToMenu(url, menu) {
   return menu.map(menuItem => {
@@ -28,10 +32,6 @@ const createGettingAJobRouter = ({
     const establishmentName = getFormattedEstablishmentName(establishmentId);
     const title = `Working in ${establishmentName}`;
     const menu = hubMenuService.gettingAJobMenu(establishmentId);
-    const standFirst = {
-      792: 'What you need to do to get or change your job in Berwyn.',
-      793: 'How to do to get, or change, a job in this prison.',
-    };
     const userName = path(['session', 'user', 'name'], req);
 
     const breadcrumbs = [
@@ -60,17 +60,13 @@ const createGettingAJobRouter = ({
       data: {
         title,
         menu,
-        standFirst: standFirst[establishmentId],
+        standFirst: getEstablishmentStandFirst(establishmentId),
       },
     });
   });
 
   router.get('/:id', async (req, res, next) => {
     logger.info(`GET ${req.originalUrl}`);
-    const urlMap = {
-      792: '/working-in-berwyn',
-      793: '/working-in-wayland',
-    };
     const establishmentId = path(['locals', 'establishmentId'], res);
     const establishmentName = getFormattedEstablishmentName(establishmentId);
     const menu = hubMenuService.gettingAJobMenu(establishmentId);
@@ -98,7 +94,7 @@ const createGettingAJobRouter = ({
 
       const rootPath = {
         title: `Working in ${establishmentName}`,
-        href: urlMap[establishmentId],
+        href: `/working-in-${getEstablishmentName(establishmentId)}`,
       };
 
       const breadcrumbs = [
