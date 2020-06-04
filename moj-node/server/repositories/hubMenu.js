@@ -8,6 +8,7 @@ const {
 const {
   getEstablishmentName,
   getFormattedEstablishmentName,
+  getEstablishmentUiId,
 } = require('../utils');
 
 const berwynGAJMenu = require('../data/berwyn-step-by-step.json');
@@ -98,8 +99,7 @@ function hubMenuRepository(httpClient, jsonClient) {
         const { relationships } = data.data[key];
         const prisons = R.path(['field_moj_prisons', 'data'], relationships);
         const matchingPrison = prisons.some(
-          prison =>
-            prison.id === R.path(['establishments', prisonId, 'uuId'], config),
+          prison => prison.id === getEstablishmentUiId(prisonId),
         );
 
         return prisons.length === 0 || matchingPrison;

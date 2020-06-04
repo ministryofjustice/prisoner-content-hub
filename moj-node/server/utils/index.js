@@ -29,6 +29,10 @@ function getGoogleAnalyticsId(id) {
   return R.path(['establishments', id, 'gaId'], config);
 }
 
+function getEstablishmentUiId(id) {
+  return R.path(['establishments', id, 'uuId'], config);
+}
+
 function getFacilitiesList(id) {
   return R.pathOr('/404', ['establishments', id, 'facilitiesList'], config);
 }
@@ -153,6 +157,7 @@ module.exports = {
   getEstablishmentId,
   getEstablishmentName,
   getFormattedEstablishmentName,
+  getEstablishmentUiId,
   getWorkingInUrls,
   getFacilitiesList,
   isEmpty,
