@@ -1,7 +1,7 @@
 const express = require('express');
 const { isEmpty, path } = require('ramda');
 const {
-  getFormattedEstablishmentName,
+  getEstablishmentFormattedName,
   getEstablishmentStandFirst,
   getEstablishmentName,
 } = require('../utils');
@@ -29,7 +29,7 @@ const createGettingAJobRouter = ({
     logger.info(`GET ${req.originalUrl}`);
 
     const establishmentId = path(['locals', 'establishmentId'], res);
-    const establishmentName = getFormattedEstablishmentName(establishmentId);
+    const establishmentName = getEstablishmentFormattedName(establishmentId);
     const title = `Working in ${establishmentName}`;
     const menu = hubMenuService.gettingAJobMenu(establishmentId);
     const userName = path(['session', 'user', 'name'], req);
@@ -68,7 +68,7 @@ const createGettingAJobRouter = ({
   router.get('/:id', async (req, res, next) => {
     logger.info(`GET ${req.originalUrl}`);
     const establishmentId = path(['locals', 'establishmentId'], res);
-    const establishmentName = getFormattedEstablishmentName(establishmentId);
+    const establishmentName = getEstablishmentFormattedName(establishmentId);
     const menu = hubMenuService.gettingAJobMenu(establishmentId);
     const userName = path(['session', 'user', 'name'], req);
 

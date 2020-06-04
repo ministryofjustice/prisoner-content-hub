@@ -40,7 +40,7 @@ const { authenticateUser, createUserSession } = require('./middleware/auth');
 const {
   getEstablishmentId,
   getGoogleAnalyticsId,
-  getWorkingInUrls,
+  getEstablishmentWorkingInUrls,
 } = require('./utils');
 
 const version = Date.now().toString();
@@ -301,7 +301,7 @@ const createApp = ({
   app.use('/feedback', createFeedbackRouter({ feedbackService, logger }));
 
   app.use(
-    getWorkingInUrls(),
+    getEstablishmentWorkingInUrls(),
     createGettingAJobRouter({
       logger,
       hubContentService,

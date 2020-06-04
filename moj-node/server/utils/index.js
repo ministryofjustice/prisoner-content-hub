@@ -25,7 +25,7 @@ function getEstablishmentStandFirst(id) {
   return R.pathOr('', ['establishments', id, 'standFirst'], config);
 }
 
-function getFormattedEstablishmentName(id) {
+function getEstablishmentFormattedName(id) {
   return R.path(['establishments', id, 'formattedName'], config);
 }
 
@@ -37,11 +37,15 @@ function getEstablishmentUiId(id) {
   return R.path(['establishments', id, 'uuId'], config);
 }
 
-function getFacilitiesList(id) {
+function getEstablishmentFacilitiesList(id) {
   return R.pathOr('/404', ['establishments', id, 'facilitiesList'], config);
 }
 
-function getWorkingInUrls() {
+function getEstablishmentWorkingIn(id) {
+  return R.pathOr([], ['establishments', id, 'workingIn'], config);
+}
+
+function getEstablishmentWorkingInUrls() {
   return Object.keys(config.establishments)
     .reduce((urls, establishmentId) => {
       return `/working-in-${config.establishments[establishmentId].name},${urls}`;
@@ -160,11 +164,12 @@ module.exports = {
   fixUrlForProduction,
   getEstablishmentId,
   getEstablishmentName,
-  getFormattedEstablishmentName,
+  getEstablishmentFormattedName,
   getEstablishmentUiId,
   getEstablishmentStandFirst,
-  getWorkingInUrls,
-  getFacilitiesList,
+  getEstablishmentWorkingIn,
+  getEstablishmentWorkingInUrls,
+  getEstablishmentFacilitiesList,
   isEmpty,
   capitalize,
   capitalizeAll,

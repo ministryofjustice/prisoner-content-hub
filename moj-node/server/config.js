@@ -1,5 +1,9 @@
 const { getEnv, isProduction, isTest } = require('../utils/index');
 
+const berwynGAJMenu = require('./data/berwyn-step-by-step.json');
+const waylandGAJMenu = require('./data/wayland-step-by-step.json');
+const cookhamWoodGAJMenu = require('./data/cookhamwood-step-by-step.json');
+
 const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
 const backendUrl = getEnv('BACKEND_URL', 'http://hub-be:80');
 const nomisEndpoint = getEnv('NOMIS_API_ENDPOINT', 'https://api.nomis', {
@@ -20,6 +24,7 @@ const establishments = {
     gaId: 'UA-152065860-1',
     facilitiesList: '/content/3990',
     standFirst: 'What you need to do to get or change your job in Berwyn.',
+    workingIn: berwynGAJMenu,
   },
   793: {
     name: 'wayland',
@@ -28,6 +33,7 @@ const establishments = {
     gaId: 'UA-152065860-2',
     facilitiesList: '/content/4539',
     standFirst: 'How to do to get, or change, a job in this prison.',
+    workingIn: waylandGAJMenu,
   },
   959: {
     name: 'cookhamwood',
@@ -35,6 +41,7 @@ const establishments = {
     uuId: '9969cd5a-90fa-476c-9f14-3f85b26d23bc',
     gaId: 'UA-152065860-5',
     facilitiesList: '/content/1234',
+    workingIn: cookhamWoodGAJMenu,
   },
 };
 

@@ -7,13 +7,10 @@ const {
 } = require('../selectors/hub');
 const {
   getEstablishmentName,
-  getFormattedEstablishmentName,
+  getEstablishmentFormattedName,
   getEstablishmentUiId,
+  getEstablishmentWorkingIn,
 } = require('../utils');
-
-const berwynGAJMenu = require('../data/berwyn-step-by-step.json');
-const waylandGAJMenu = require('../data/wayland-step-by-step.json');
-const cookhamWoodGAJMenu = require('../data/cookhamwood-step-by-step.json');
 
 function hubMenuRepository(httpClient, jsonClient) {
   const sortAlphabetically = (a, b) => {
@@ -59,16 +56,7 @@ function hubMenuRepository(httpClient, jsonClient) {
   }
 
   function gettingAJobMenu(prisonId) {
-    switch (prisonId) {
-      case 792:
-        return berwynGAJMenu;
-      case 793:
-        return waylandGAJMenu;
-      case 959:
-        return cookhamWoodGAJMenu;
-      default:
-        return [];
-    }
+    return getEstablishmentWorkingIn(prisonId);
   }
 
   async function categoryMenu({ categoryId, prisonId }) {
@@ -145,7 +133,7 @@ function hubMenuRepository(httpClient, jsonClient) {
       const establishmentName = getEstablishmentName(prisonId);
       const link = {
         id: `working-in-${establishmentName}`,
-        linkText: `Working in ${getFormattedEstablishmentName(prisonId)}`,
+        linkText: `Working in ${getEstablishmentFormattedName(prisonId)}`,
         href: `/working-in-${establishmentName}`,
       };
 
