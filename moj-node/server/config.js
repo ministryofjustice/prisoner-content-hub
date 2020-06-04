@@ -63,7 +63,7 @@ module.exports = {
     adminDn: getEnv('LDAP_ADMIN_DN', 'keyboard cat'),
     adminPassword: getEnv('LDAP_ADMIN_PWD', 'keyboard cat'),
     userSearchBase: getEnv('LDAP_USER_SEARCH_BASE', 'keyboard cat'),
-    starttls: getEnv('LDAP_START_TLS', true),
+    starttls: getEnv('LDAP_START_TLS', 'true') === 'true',
     certPath: getEnv('LDAP_CERT_PATH', '/etc/ssl/ca-certificates.crt'),
     usernameAttribute: getEnv('LDAP_USERNAME_ATTRIBUTE', 'cn'),
   },
@@ -104,8 +104,8 @@ module.exports = {
     search: `${elasticSearchEndpoint}/elasticsearch_index_hubdb_content_index/_search`,
   },
   features: {
-    newDesigns: getEnv('FEATURE_NEW_DESIGNS', false),
-    prisonSwitch: getEnv('ENABLE_PRISON_SWITCH', false),
+    newDesigns: getEnv('FEATURE_NEW_DESIGNS', 'false') === 'true',
+    prisonSwitch: getEnv('ENABLE_PRISON_SWITCH', 'false') === 'true',
   },
   mockAuth: getEnv('MOCK_AUTH', 'false') === 'true',
   analytics: {

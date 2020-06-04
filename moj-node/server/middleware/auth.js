@@ -69,7 +69,7 @@ const authenticateUser = function authenticateUser({
         url: config.url,
         tlsOptions: config.tlsOptions,
       },
-      starttls: config.starttls === 'true',
+      starttls: config.starttls,
       adminDn: config.adminDn,
       adminPassword: config.adminPassword,
       userSearchBase: config.userSearchBase,
