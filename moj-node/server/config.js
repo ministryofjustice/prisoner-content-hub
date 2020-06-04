@@ -12,6 +12,29 @@ const elasticSearchEndpoint = getEnv(
     requireInProduction: true,
   },
 );
+const establishments = {
+  792: {
+    name: 'berwyn',
+    formattedName: 'Berwyn',
+    uuId: 'fd1e1db7-d0be-424a-a3a6-3b0f49e33293',
+    gaId: 'UA-152065860-1',
+    facilitiesList: '/content/3990',
+  },
+  793: {
+    name: 'wayland',
+    formattedName: 'Wayland',
+    uuId: 'b73767ea-2cbb-4ad5-ba22-09379cc07241',
+    gaId: 'UA-152065860-2',
+    facilitiesList: '/content/4539',
+  },
+  959: {
+    name: 'cookhamwood',
+    formattedName: 'Cookham Wood',
+    uuId: '9969cd5a-90fa-476c-9f14-3f85b26d23bc',
+    gaId: 'UA-152065860-5',
+    facilitiesList: '/content/1234',
+  },
+};
 
 module.exports = {
   appName: getEnv('APP_NAME', `digital-hub-frontend`, {
@@ -22,6 +45,7 @@ module.exports = {
   production: isProduction,
   backendUrl,
   cookieSecret: getEnv('COOKIE_SECRET', 'keyboard cat'),
+  establishments,
   establishmentName: getEnv('ESTABLISHMENT_NAME', 'berwyn', {
     requireInProduction: true,
   }),

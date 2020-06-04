@@ -5,34 +5,41 @@ const config = require('../config');
 const isEmpty = val => R.isEmpty(val) || R.isNil(val);
 
 function getEstablishmentId(name) {
-  if (typeof name === 'number') return name;
+  return Object.keys(config.establishments).reduce(
+    (matchingPrisonId, establishmentId) => {
+      if (config.establishments[establishmentId].name === name) {
+        return establishmentId;
+      }
 
-  const prisons = {
-    berwyn: 792,
-    wayland: 793,
-    cookhamwood: 959,
-  };
-
-  return prisons[name] || 0;
+      return matchingPrisonId;
+    },
+    0,
+  );
 }
 
 function getEstablishmentName(id) {
-  const establishmentName = {
-    792: 'berwyn',
-    793: 'wayland',
-    959: 'cookhamwood',
-  };
-  return establishmentName[id];
+  return R.path(['establishments', id, 'name'], config);
+}
+
+function getFormattedEstablishmentName(id) {
+  return R.path(['establishments', id, 'formattedName'], config);
 }
 
 function getGoogleAnalyticsId(id) {
-  const googleAnalyticsId = {
-    0: 'UA-152065860-4',
-    792: 'UA-152065860-1',
-    793: 'UA-152065860-2',
-    959: 'UA-152065860-5',
-  };
-  return googleAnalyticsId[id];
+  return R.path(['establishments', id, 'gaId'], config);
+}
+
+function getFacilitiesList(id) {
+  return R.pathOr('/404', ['establishments', id, 'facilitiesList'], config);
+}
+
+function getWorkingInUrls() {
+  return Object.keys(config.establishments)
+    .reduce((urls, establishmentId) => {
+      return `/working-in-${config.establishments[establishmentId].name},${urls}`;
+    }, '')
+    .slice(0, -1)
+    .split(',');
 }
 
 const capitalize = (str = '') => {
@@ -145,6 +152,9 @@ module.exports = {
   fixUrlForProduction,
   getEstablishmentId,
   getEstablishmentName,
+  getFormattedEstablishmentName,
+  getWorkingInUrls,
+  getFacilitiesList,
   isEmpty,
   capitalize,
   capitalizeAll,
