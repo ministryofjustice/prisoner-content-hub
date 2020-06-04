@@ -25,6 +25,10 @@ function getEstablishmentStandFirst(id) {
   return R.pathOr('', ['establishments', id, 'standFirst'], config);
 }
 
+function getEstablishmentPrefix(id) {
+  return R.pathOr('HMP', ['establishments', id, 'prefix'], config);
+}
+
 function getEstablishmentFormattedName(id) {
   return R.path(['establishments', id, 'formattedName'], config);
 }
@@ -166,6 +170,7 @@ module.exports = {
   getEstablishmentWorkingIn,
   getEstablishmentWorkingInUrls,
   getEstablishmentFacilitiesList,
+  getEstablishmentPrefix,
   isEmpty,
   capitalize,
   capitalizeAll,

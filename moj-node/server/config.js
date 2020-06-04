@@ -19,6 +19,7 @@ const establishments = {
   792: {
     name: 'berwyn',
     formattedName: 'Berwyn',
+    prefix: 'HMP',
     uuId: 'fd1e1db7-d0be-424a-a3a6-3b0f49e33293',
     facilitiesList: '/content/3990',
     standFirst: 'What you need to do to get or change your job in Berwyn.',
@@ -27,6 +28,7 @@ const establishments = {
   793: {
     name: 'wayland',
     formattedName: 'Wayland',
+    prefix: 'HMP',
     uuId: 'b73767ea-2cbb-4ad5-ba22-09379cc07241',
     facilitiesList: '/content/4539',
     standFirst: 'How to do to get, or change, a job in this prison.',
@@ -35,6 +37,7 @@ const establishments = {
   959: {
     name: 'cookhamwood',
     formattedName: 'Cookham Wood',
+    prefix: 'YCS',
     uuId: '9969cd5a-90fa-476c-9f14-3f85b26d23bc',
     facilitiesList: '/content/1234',
     workingIn: [],
