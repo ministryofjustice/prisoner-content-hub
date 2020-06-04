@@ -1,5 +1,8 @@
 const { getEnv, isProduction, isTest } = require('../utils/index');
 
+const berwynGAJMenu = require('./data/berwyn-step-by-step.json');
+const waylandGAJMenu = require('./data/wayland-step-by-step.json');
+
 const hubEndpoint = getEnv('HUB_API_ENDPOINT', { requireInProduction: true });
 const backendUrl = getEnv('BACKEND_URL', 'http://hub-be:80');
 const nomisEndpoint = getEnv('NOMIS_API_ENDPOINT', 'https://api.nomis', {
@@ -12,6 +15,34 @@ const elasticSearchEndpoint = getEnv(
     requireInProduction: true,
   },
 );
+const establishments = {
+  792: {
+    name: 'berwyn',
+    formattedName: 'Berwyn',
+    prefix: 'HMP',
+    uuId: 'fd1e1db7-d0be-424a-a3a6-3b0f49e33293',
+    facilitiesList: '/content/3990',
+    standFirst: 'What you need to do to get or change your job in Berwyn.',
+    workingIn: berwynGAJMenu,
+  },
+  793: {
+    name: 'wayland',
+    formattedName: 'Wayland',
+    prefix: 'HMP',
+    uuId: 'b73767ea-2cbb-4ad5-ba22-09379cc07241',
+    facilitiesList: '/content/4539',
+    standFirst: 'How to do to get, or change, a job in this prison.',
+    workingIn: waylandGAJMenu,
+  },
+  959: {
+    name: 'cookhamwood',
+    formattedName: 'Cookham Wood',
+    prefix: 'YCS',
+    uuId: '9969cd5a-90fa-476c-9f14-3f85b26d23bc',
+    facilitiesList: '/content/1234',
+    workingIn: [],
+  },
+};
 
 module.exports = {
   appName: getEnv('APP_NAME', `digital-hub-frontend`, {
@@ -22,6 +53,7 @@ module.exports = {
   production: isProduction,
   backendUrl,
   cookieSecret: getEnv('COOKIE_SECRET', 'keyboard cat'),
+  establishments,
   establishmentName: getEnv('ESTABLISHMENT_NAME', 'berwyn', {
     requireInProduction: true,
   }),

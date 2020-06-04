@@ -5,13 +5,12 @@ const {
   nameFrom,
   termDescriptionValueFrom,
 } = require('../selectors/hub');
-
-const berwynNav = require('../data/berwyn-homepage-nav.json');
-const waylandNav = require('../data/wayland-homepage-nav.json');
-const cookhamWoodNav = require('../data/cookhamwood-homepage-nav.json');
-const berwynGAJMenu = require('../data/berwyn-step-by-step.json');
-const waylandGAJMenu = require('../data/wayland-step-by-step.json');
-const cookhamWoodGAJMenu = require('../data/cookhamwood-step-by-step.json');
+const {
+  getEstablishmentName,
+  getEstablishmentFormattedName,
+  getEstablishmentUiId,
+  getEstablishmentWorkingIn,
+} = require('../utils');
 
 function hubMenuRepository(httpClient, jsonClient) {
   const sortAlphabetically = (a, b) => {
@@ -56,17 +55,8 @@ function hubMenuRepository(httpClient, jsonClient) {
     return parseMenuResponse(response);
   }
 
-  function homepageMenu(prisonId) {
-    switch (prisonId) {
-      case 792:
-        return berwynNav;
-      case 793:
-        return waylandNav;
-      case 959:
-        return cookhamWoodNav;
-      default:
-        return [];
-    }
+  function gettingAJobMenu(prisonId) {
+    return getEstablishmentWorkingIn(prisonId);
   }
 
   async function categoryMenu({ categoryId, prisonId }) {
@@ -77,19 +67,6 @@ function hubMenuRepository(httpClient, jsonClient) {
     const response = await httpClient.get(config.api.categoryMenu, { query });
 
     return parseCategoryMenu(response, prisonId, categoryId);
-  }
-
-  function gettingAJobMenu(prisonId) {
-    switch (prisonId) {
-      case 792:
-        return berwynGAJMenu;
-      case 793:
-        return waylandGAJMenu;
-      case 959:
-        return cookhamWoodGAJMenu;
-      default:
-        return [];
-    }
   }
 
   function parseMenuResponse(data = []) {
@@ -105,18 +82,12 @@ function hubMenuRepository(httpClient, jsonClient) {
   function parseJsonResponse(data, prisonId) {
     if (data === null) return [];
 
-    const prisonUids = {
-      792: 'fd1e1db7-d0be-424a-a3a6-3b0f49e33293', // berwyn
-      793: 'b73767ea-2cbb-4ad5-ba22-09379cc07241', // wayland
-      959: '9969cd5a-90fa-476c-9f14-3f85b26d23bc', // cookhamwood
-    };
-
     const items = Object.keys(data.data)
       .filter(key => {
         const { relationships } = data.data[key];
         const prisons = R.path(['field_moj_prisons', 'data'], relationships);
         const matchingPrison = prisons.some(
-          prison => prison.id === prisonUids[prisonId],
+          prison => prison.id === getEstablishmentUiId(prisonId),
         );
 
         return prisons.length === 0 || matchingPrison;
@@ -159,33 +130,14 @@ function hubMenuRepository(httpClient, jsonClient) {
 
     // inject extra link
     if (Number(categoryId) === 645) {
-      if (Number(prisonId) === 792) {
-        const link = {
-          id: 'working-in-berwyn',
-          linkText: 'Working in Berwyn',
-          href: '/working-in-berwyn',
-        };
+      const establishmentName = getEstablishmentName(prisonId);
+      const link = {
+        id: `working-in-${establishmentName}`,
+        linkText: `Working in ${getEstablishmentFormattedName(prisonId)}`,
+        href: `/working-in-${establishmentName}`,
+      };
 
-        return [link, ...series];
-      }
-      if (Number(prisonId) === 793) {
-        const link = {
-          id: 'working-in-wayland',
-          linkText: 'Working in Wayland',
-          href: '/working-in-wayland',
-        };
-
-        return [link, ...series];
-      }
-      if (Number(prisonId) === 959) {
-        const link = {
-          id: 'working-in-cookhamwood',
-          linkText: 'Working in Cookham Wood',
-          href: '/working-in-cookhamwood',
-        };
-
-        return [link, ...series];
-      }
+      return [link, ...series];
     }
 
     return series;
@@ -196,7 +148,6 @@ function hubMenuRepository(httpClient, jsonClient) {
     tagsMenu,
     primaryMenu,
     seriesMenu,
-    homepageMenu,
     gettingAJobMenu,
     categoryMenu,
     allTopics,

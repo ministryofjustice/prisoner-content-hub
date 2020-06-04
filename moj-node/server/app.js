@@ -37,7 +37,10 @@ const {
 
 const { authenticateUser, createUserSession } = require('./middleware/auth');
 
-const { getEstablishmentId, getGoogleAnalyticsId } = require('./utils');
+const {
+  getEstablishmentId,
+  getEstablishmentWorkingInUrls,
+} = require('./utils');
 
 const version = Date.now().toString();
 
@@ -150,7 +153,6 @@ const createApp = ({
   app.locals.config = {
     ...config,
     establishmentId,
-    gaId: getGoogleAnalyticsId(establishmentId),
   };
 
   // Don't cache dynamic resources
@@ -295,8 +297,9 @@ const createApp = ({
   app.use('/games', createGamesRouter({ analyticsService, logger }));
   app.use('/analytics', createAnalyticsRouter({ analyticsService, logger }));
   app.use('/feedback', createFeedbackRouter({ feedbackService, logger }));
+
   app.use(
-    ['/working-in-wayland', '/working-in-berwyn', '/working-in-cookhamwood'],
+    getEstablishmentWorkingInUrls(),
     createGettingAJobRouter({
       logger,
       hubContentService,

@@ -1,7 +1,10 @@
 const { path, pathOr } = require('ramda');
 
-const { getEstablishmentId: establishmentIdFor } = require('../utils');
-const { ESTABLISHMENTS } = require('../constants/hub');
+const {
+  getEstablishmentId: establishmentIdFor,
+  getEstablishmentFormattedName,
+  getEstablishmentPrefix,
+} = require('../utils');
 
 const defaults = { shouldAllowSwitch: false };
 
@@ -24,7 +27,9 @@ const configureEstablishment = ({ shouldAllowSwitch } = defaults) => (
   const establishmentId = establishmentIdFor(req.session.prison);
 
   res.locals.establishmentId = establishmentId;
-  res.locals.establishmentName = `HMP ${ESTABLISHMENTS[establishmentId]}`;
+  res.locals.establishmentName = `${getEstablishmentPrefix(
+    establishmentId,
+  )} ${getEstablishmentFormattedName(establishmentId)}`;
 
   next();
 };

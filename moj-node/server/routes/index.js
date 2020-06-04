@@ -1,13 +1,6 @@
 const express = require('express');
 const { path } = require('ramda');
-const {
-  FACILITY_LIST_CONTENT_IDS: facilitiesList,
-} = require('../constants/hub');
-
-const getFacilitiesListFor = id =>
-  Object.prototype.hasOwnProperty.call(facilitiesList, id)
-    ? facilitiesList[id]
-    : '/404';
+const { getEstablishmentFacilitiesList } = require('../utils');
 
 const createIndexRouter = ({ logger, hubFeaturedContentService }) => {
   const router = express.Router();
@@ -43,7 +36,9 @@ const createIndexRouter = ({ logger, hubFeaturedContentService }) => {
         Inspiration: '/content/3659',
         'Music & talk': '/content/3662',
         'PSIs & PSOs': '/tags/796',
-        'Facilities list & catalogues': getFacilitiesListFor(establishmentId),
+        'Facilities list & catalogues': getEstablishmentFacilitiesList(
+          establishmentId,
+        ),
         'Healthy mind & body': '/content/3657',
         // 'Money & debt': '/content/4201',
         Chaplaincy: '/tags/901',

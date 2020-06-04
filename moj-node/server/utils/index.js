@@ -5,34 +5,53 @@ const config = require('../config');
 const isEmpty = val => R.isEmpty(val) || R.isNil(val);
 
 function getEstablishmentId(name) {
-  if (typeof name === 'number') return name;
+  return Object.keys(config.establishments).reduce(
+    (matchingEstablishmentId, establishmentId) => {
+      if (config.establishments[establishmentId].name === name) {
+        return parseInt(establishmentId, 10);
+      }
 
-  const prisons = {
-    berwyn: 792,
-    wayland: 793,
-    cookhamwood: 959,
-  };
-
-  return prisons[name] || 0;
+      return matchingEstablishmentId;
+    },
+    0,
+  );
 }
 
 function getEstablishmentName(id) {
-  const establishmentName = {
-    792: 'berwyn',
-    793: 'wayland',
-    959: 'cookhamwood',
-  };
-  return establishmentName[id];
+  return R.path(['establishments', id, 'name'], config);
 }
 
-function getGoogleAnalyticsId(id) {
-  const googleAnalyticsId = {
-    0: 'UA-152065860-4',
-    792: 'UA-152065860-1',
-    793: 'UA-152065860-2',
-    959: 'UA-152065860-5',
-  };
-  return googleAnalyticsId[id];
+function getEstablishmentStandFirst(id) {
+  return R.pathOr('', ['establishments', id, 'standFirst'], config);
+}
+
+function getEstablishmentPrefix(id) {
+  return R.pathOr('HMP', ['establishments', id, 'prefix'], config);
+}
+
+function getEstablishmentFormattedName(id) {
+  return R.path(['establishments', id, 'formattedName'], config);
+}
+
+function getEstablishmentUiId(id) {
+  return R.path(['establishments', id, 'uuId'], config);
+}
+
+function getEstablishmentFacilitiesList(id) {
+  return R.pathOr('/404', ['establishments', id, 'facilitiesList'], config);
+}
+
+function getEstablishmentWorkingIn(id) {
+  return R.pathOr([], ['establishments', id, 'workingIn'], config);
+}
+
+function getEstablishmentWorkingInUrls() {
+  return Object.keys(config.establishments)
+    .reduce((urls, establishmentId) => {
+      return `/working-in-${config.establishments[establishmentId].name},${urls}`;
+    }, '')
+    .slice(0, -1)
+    .split(',');
 }
 
 const capitalize = (str = '') => {
@@ -145,10 +164,16 @@ module.exports = {
   fixUrlForProduction,
   getEstablishmentId,
   getEstablishmentName,
+  getEstablishmentFormattedName,
+  getEstablishmentUiId,
+  getEstablishmentStandFirst,
+  getEstablishmentWorkingIn,
+  getEstablishmentWorkingInUrls,
+  getEstablishmentFacilitiesList,
+  getEstablishmentPrefix,
   isEmpty,
   capitalize,
   capitalizeAll,
-  getGoogleAnalyticsId,
   capitalizePersonName,
   fillContentItems,
   getBytesFromHexString,
