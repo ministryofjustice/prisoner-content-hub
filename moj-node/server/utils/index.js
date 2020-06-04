@@ -29,10 +29,6 @@ function getEstablishmentFormattedName(id) {
   return R.path(['establishments', id, 'formattedName'], config);
 }
 
-function getGoogleAnalyticsId(id) {
-  return R.path(['establishments', id, 'gaId'], config);
-}
-
 function getEstablishmentUiId(id) {
   return R.path(['establishments', id, 'uuId'], config);
 }
@@ -173,7 +169,6 @@ module.exports = {
   isEmpty,
   capitalize,
   capitalizeAll,
-  getGoogleAnalyticsId,
   capitalizePersonName,
   fillContentItems,
   getBytesFromHexString,

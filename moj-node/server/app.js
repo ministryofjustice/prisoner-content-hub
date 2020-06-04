@@ -39,7 +39,6 @@ const { authenticateUser, createUserSession } = require('./middleware/auth');
 
 const {
   getEstablishmentId,
-  getGoogleAnalyticsId,
   getEstablishmentWorkingInUrls,
 } = require('./utils');
 
@@ -154,7 +153,6 @@ const createApp = ({
   app.locals.config = {
     ...config,
     establishmentId,
-    gaId: getGoogleAnalyticsId(establishmentId),
   };
 
   // Don't cache dynamic resources
