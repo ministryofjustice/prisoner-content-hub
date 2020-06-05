@@ -166,7 +166,7 @@ const createApp = ({
   // establishment toggle
   app.use(
     configureEstablishment({
-      shouldAllowSwitch: config.features.prisonSwitch === 'true',
+      shouldAllowSwitch: config.features.prisonSwitch,
     }),
   );
 
