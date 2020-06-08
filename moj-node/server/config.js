@@ -37,7 +37,7 @@ const establishments = {
   959: {
     name: 'cookhamwood',
     formattedName: 'Cookham Wood',
-    prefix: 'YCS',
+    prefix: 'HMPYOI',
     uuId: '9969cd5a-90fa-476c-9f14-3f85b26d23bc',
     facilitiesList: '/content/1234',
     workingIn: [],
