@@ -12,9 +12,9 @@ function createHubContentService({
     }
 
     const content = await contentRepository.contentFor(id);
-    const prisonId = prop('establishmentId', content);
+    const prisonIds = prop('establishmentIds', content);
 
-    if (!canAccessContent(establishmentId, prisonId)) {
+    if (!canAccessContent(establishmentId, prisonIds)) {
       return {};
     }
 
@@ -141,14 +141,11 @@ function createHubContentService({
   };
 }
 
-function canAccessContent(establishmentId, prisonId) {
-  if (!prisonId || !establishmentId) return true;
-
-  if (establishmentId === prisonId) {
+function canAccessContent(establishmentId, prisonIds) {
+  if (!prisonIds || (prisonIds && prisonIds.length === 0) || !establishmentId)
     return true;
-  }
 
-  return false;
+  return prisonIds.includes(establishmentId);
 }
 
 module.exports = {
