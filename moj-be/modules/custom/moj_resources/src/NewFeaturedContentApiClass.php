@@ -162,8 +162,10 @@ class NewFeaturedContentApiClass
     return array_filter(
       $nodes,
       function ($item) {
-        if ($item->field_moj_prisons[0]->target_id === $prisonId) {
-          return $item;
+        foreach($item->field_moj_prisons as $prison) {
+          if ($prison->target_id === $prisonId) {
+            return $item;
+          }
         }
       }
     );
