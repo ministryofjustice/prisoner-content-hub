@@ -22,7 +22,7 @@
       "target_id": 646
     }
   ],
-  "prisons": [{ "target_id": 792 }],
+  "prisons": [{ "target_id": 792 }, { "target_id": 793 }],
   "media": {
     "url": "http://foo.bar.com/audio.mp3"
   },

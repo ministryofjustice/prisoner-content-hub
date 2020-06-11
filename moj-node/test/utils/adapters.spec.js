@@ -166,7 +166,7 @@ function radioContent() {
     },
     secondaryTags: [646],
     categories: [646],
-    establishmentIds: [792],
+    establishmentIds: [792, 793],
     contentUrl: '/content/3546',
     programmeCode: 'foo code',
   };
