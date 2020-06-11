@@ -21,8 +21,11 @@
         "drupal/token": "^1.5",
         "drupal/video": "^1.4",
         "drupal/videojs": "^1.0",
-        "drupal/elasticsearch_connector": "^6.0"
+        "drupal/elasticsearch_connector": "^6.0",
+        "drupal/flysystem": "~1.0",
+        "drupal/flysystem_s3": "~1.0"
     },
+
     "replace": {
         "drupal/core": "^8.7.8"
     },
