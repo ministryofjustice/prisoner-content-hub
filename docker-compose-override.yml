@@ -8,6 +8,8 @@ services:
       - mariadb_data:/var/lib/mysql
 
   hub-node:
+    build:
+      context: ./moj-node
     environment:
       MOCK_AUTH: 'true'
 
@@ -17,6 +19,8 @@ services:
       - ./moj-node/assets:/home/node/app/assets
 
   hub-be:
+    build:
+      context: ./moj-be
     env_file:
       - hub-be.env
     volumes:
