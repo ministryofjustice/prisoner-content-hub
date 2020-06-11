@@ -1,6 +1,10 @@
 version: "3"
 
 services:
+  hub-db:
+    env_file:
+      - hub-db.env
+
   hub-node:
     environment:
       MOCK_AUTH: 'true'
@@ -10,6 +14,8 @@ services:
       - ./moj-node/assets:/home/node/app/assets
 
   hub-be:
+    env_file:
+      - hub-be.env
     volumes:
       - ./moj-be/modules/custom:/var/www/html/modules/custom
       - ./moj-be/profiles:/var/www/html/profiles

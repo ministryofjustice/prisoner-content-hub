@@ -19,7 +19,18 @@ The following software is required
     CMake
     Node v12
     Composer
- 
+
+## Initial config
+
+Local database credentials can be configured using environment files. On the first run, the database will be created with the master password, user credentials and database set in environment variables. After this point the environment variables must reflect the state of the database (i.e. changing the password here will not update the MariaDB container)
+
+Copy the following files and update anything you'd like to customise:
+
+```
+cp hub-be.env.sample hub-be.env
+cp hub-db.env.sample hub-db.env
+```
+
 ## Starting the service
 
 Pull the latest version of the service
