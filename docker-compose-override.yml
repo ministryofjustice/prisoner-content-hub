@@ -11,6 +11,8 @@ services:
 
   hub-be:
     volumes:
+      - ./moj-be/composer.json:/var/www/html/composer.json
+      - ./moj-be/composer.lock:/var/www/html/composer.lock
       - ./moj-be/modules/custom:/var/www/html/modules/custom
       - ./moj-be/profiles:/var/www/html/profiles
       - ./moj-be/themes:/var/www/html/themes
