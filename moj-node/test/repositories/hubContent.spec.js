@@ -34,7 +34,7 @@ describe('contentRepository', () => {
         'image',
         'categories',
         'secondaryTags',
-        'establishmentId',
+        'establishmentIds',
         'contentUrl',
       ];
       const keys = Object.keys(result);

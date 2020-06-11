@@ -157,18 +157,6 @@ class NewFeaturedContentApiClass
     return $this->node_storage->loadMultiple($nids);
   }
 
-  protected function filterPrison(array $nodes, $prisonId)
-  {
-    return array_filter(
-      $nodes,
-      function ($item) {
-        if ($item->field_moj_prisons[0]->target_id === $prisonId) {
-          return $item;
-        }
-      }
-    );
-  }
-
   /**
    * Sanitise node
    *
