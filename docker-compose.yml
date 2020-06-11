@@ -4,11 +4,6 @@ services:
   hub-db:
     container_name: hub-db
     image: mariadb
-    environment:
-      - MYSQL_ROOT_PASSWORD
-      - MYSQL_DATABASE="hubdb"
-      - MYSQL_USER="hubdb_user"
-      - MYSQL_PASSWORD
 
   hub-memcache:
     image: memcached
@@ -36,16 +31,6 @@ services:
     depends_on:
       - hub-db
       - hub-elasticsearch
-    environment:
-      - HUB_DB_ENV_MYSQL_DATABASE=hubdb
-      - HUB_DB_ENV_MYSQL_USER=hubdb_user
-      - HUB_DB_ENV_MYSQL_PASSWORD
-      - HUB_DB_PORT_3306_TCP_ADDR=hub-db
-      - HUB_EXT_FILE_URL=http://localhost:11001/sites/default/files
-      - PHP_MEMORY_LIMIT=256M
-      - PHP_UPLOAD_MAX_FILE_SIZE=500M
-      - PHP_POST_MAX_SIZE=500M
-      - XDEBUG_IP=127.0.0.1 # Replace with your machines IP: $ ipconfig getifaddr en0
     ports:
       - 11001:80
     healthcheck:
