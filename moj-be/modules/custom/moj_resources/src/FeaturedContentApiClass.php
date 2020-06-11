@@ -201,7 +201,6 @@ class FeaturedContentApiClass
     return array_map(array($this, 'decorateTerm'), $promotedTerms);
   }
 
-
   /**
    * Load full node details
    *
@@ -218,25 +217,6 @@ class FeaturedContentApiClass
     );
   }
 
-  protected function filterPrison(array $nodes, $prisonId)
-  {
-    return array_filter(
-      $nodes,
-      function ($item) {
-        if ($item->field_moj_prisons[0]->target_id === $prisonId) {
-          return $item;
-        }
-      }
-    );
-  }
-  /**
-   * sortByWeight
-   *
-   */
-  protected function sortByWeightDescending($a, $b)
-  {
-    return (int)$a->field_moj_weight->value > (int)$b->field_moj_weight->value;
-  }
   /**
    * Sanitise node
    *

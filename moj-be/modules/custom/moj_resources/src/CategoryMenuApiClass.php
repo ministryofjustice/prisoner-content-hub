@@ -196,12 +196,4 @@ class CategoryMenuApiClass
   {
     return $this->term_storage->loadMultiple($nids);
   }
-  /**
-     * sortByWeight
-     *
-     */
-  protected function sortByWeightDescending($a, $b)
-  {
-    return (int)$a->field_moj_weight->value > (int)$b->field_moj_weight->value;
-  }
 }
