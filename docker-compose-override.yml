@@ -4,10 +4,13 @@ services:
   hub-db:
     env_file:
       - hub-db.env
+    volumes:
+      - mariadb_data:/var/lib/mysql
 
   hub-node:
     environment:
       MOCK_AUTH: 'true'
+
     volumes:
       - ./moj-node/server:/home/node/app/server
       - ./moj-node/test:/home/node/app/test
@@ -25,3 +28,6 @@ services:
   hub-elasticsearch:
     volumes:
       - ./esdata:/usr/share/elasticsearch/data
+
+volumes:
+  mariadb_data:
