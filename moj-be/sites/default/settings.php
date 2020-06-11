@@ -104,6 +104,80 @@ $config_directories['sync'] = 'sites/default/files/config/sync';
 
 
 /**
+ * Flysystem S3 filesystem configuration
+ */
+$flysystem_schemes = [
+
+  'local-files' => [
+
+    'driver' => 'local',
+
+    'config' => [
+      'root' => 'sites/default/files',
+      'public' => TRUE,                          // In order for the public setting to work,
+                                                 // the path must be relative to the root
+                                                 // of the Drupal install.
+    ],
+
+    // Optional settings that apply to all adapters.
+
+    'name' => 'Local Drupal files',
+    'description' => 'Local Drupal files. This is a Flysystem reference to the Drupal "files" directory.',
+
+    // We don't need to cache local files
+    'cache' => FALSE
+  ],
+
+  's3' => [
+    'driver' => 's3',
+    'config' => [
+      'key'    => getenv('FLYSYSTEM_S3_KEY', true),
+      'secret' => getenv('FLYSYSTEM_S3_SECRET', true),
+      'region' => getenv('FLYSYSTEM_S3_REGION', true),
+      'bucket' => getenv('FLYSYSTEM_S3_BUCKET', true),
+
+      // Optional configuration settings.
+
+      // 'options' => [
+      //   'ACL' => 'public-read',
+      //   'StorageClass' => 'REDUCED_REDUNDANCY',
+      // ],
+
+      // 'protocol' => 'https',                   // Autodetected based on the
+                                                  // current request if not
+                                                  // provided.
+
+      // 'prefix' => 'an/optional/prefix',        // Directory prefix for all
+                                                  // uploaded/viewed files.
+
+      // 'cname' => 'static.example.com',         // A CNAME that resolves to
+                                                  // your bucket. Used for URL
+                                                  // generation.
+
+      // 'cname_is_bucket' => TRUE,               // Set to FALSE if the CNAME
+                                                  // does not resolve to a
+                                                  // bucket and the bucuket
+                                                  // should be included in the
+                                                  // path.
+
+      // 'endpoint' => 'https://api.example.com', // An alternative API endpoint
+                                                  // for 3rd party S3 providers.
+
+      // 'public' => TRUE,                        // Set to TRUE to link to files
+                                                  // using direct links.
+
+      // 'cors' => TRUE,                          // Set to TRUE if CORS upload
+                                                  // support is enabled for the
+                                                  // bucket.
+    ],
+
+    'cache' => TRUE, // Creates a metadata cache to speed up lookups.
+  ],
+];
+
+$settings['flysystem'] = $flysystem_schemes;
+
+/**
  * Customizing database settings.
  *
  * Many of the values of the $databases array can be customized for your
