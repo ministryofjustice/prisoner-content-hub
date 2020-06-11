@@ -6,6 +6,7 @@ services:
       - hub-db.env
     volumes:
       - mariadb_data:/var/lib/mysql
+      - ./hub-db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 
   hub-node:
     build:
