@@ -1,7 +1,0 @@
-{
-  "_id": "/foo/bar/1234",
-  "_source": {
-    "title": ["Foo Content"],
-    "summary": ["Foo Summary"]
-  }
-}

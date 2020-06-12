@@ -1,5 +1,0 @@
-#!/bin/bash
-
-./node_modules/node-sass/bin/node-sass $@ \
-    assets/sass/style.scss \
-    assets/stylesheets/application.css
