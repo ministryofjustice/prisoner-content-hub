@@ -1,9 +1,0 @@
-uuid: 6baabcd8-63d7-4335-8f02-cabd778d47c6
-langcode: en
-status: true
-dependencies: {  }
-id: prisoner
-label: Prisoner
-weight: -8
-is_admin: null
-permissions: {  }

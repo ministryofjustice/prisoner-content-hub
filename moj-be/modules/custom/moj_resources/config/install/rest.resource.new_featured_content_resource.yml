@@ -1,9 +1,0 @@
-id: new_featured_content_resource
-plugin_id: new_featured_content_resource
-granularity: method
-configuration:
-  GET:
-    supported_formats:
-      - json
-    supported_auth:
-      - cookie

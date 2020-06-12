@@ -1,5 +1,0 @@
-name: MoJ New Content
-description: Adds new content API endpoint.
-package: MoJ Self Service
-type: module
-core: 8.x

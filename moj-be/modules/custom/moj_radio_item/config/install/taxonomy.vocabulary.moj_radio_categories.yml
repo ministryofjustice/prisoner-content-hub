@@ -1,9 +1,0 @@
-uuid: cca9d56b-f2fe-4e59-99a5-adbda6cc501a
-langcode: en
-status: true
-dependencies: {  }
-name: 'Radio categories'
-vid: moj_radio_categories
-description: ''
-hierarchy: 0
-weight: 0

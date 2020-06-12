@@ -1,7 +1,0 @@
-moj.admin_config_moj:
-  path: '/admin/config/moj'
-  defaults:
-    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
-    _title: 'Ministry of Justice'
-  requirements:
-    _permission: 'access administration pages'

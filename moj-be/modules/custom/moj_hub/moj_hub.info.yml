@@ -1,5 +1,0 @@
-name: MoJ Hub
-description: Handles the creation of Hub links and APIs
-package: MoJ Self Service
-type: module
-core: 8.x
