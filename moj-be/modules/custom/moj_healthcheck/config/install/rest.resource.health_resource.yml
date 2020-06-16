@@ -1,9 +1,0 @@
-id: health_resource
-plugin_id: health_resource
-granularity: method
-configuration:
-  GET:
-    supported_formats:
-      - json
-    supported_auth:
-      - cookie

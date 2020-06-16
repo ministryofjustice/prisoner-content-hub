@@ -1,6 +1,0 @@
-moj_news.landing_page:
-  path: '/api/news/landing'
-  defaults:
-    _controller: '\Drupal\moj_news\Controller\NewsApiController::landingPage'
-  requirements:
-    _permission: 'access content'

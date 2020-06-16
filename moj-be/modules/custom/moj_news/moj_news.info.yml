@@ -1,5 +1,0 @@
-name: Prison News
-description: Handles the news section of the site
-package: MoJ Self Service
-type: module
-core: 8.x

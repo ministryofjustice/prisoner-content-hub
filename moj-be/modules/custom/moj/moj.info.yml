@@ -1,5 +1,0 @@
-name: Ministry of Justice
-type: module
-description: "Provides general functionality and features for MoJ modules"
-package: Ministry of Justice
-core: '8.x'
