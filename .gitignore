@@ -2,14 +2,11 @@ db_dump/
 .idea/**
 .idea
 .DS_Store
-modules/contrib/backup_migrate/vendor/psr/
 *.swp
 .vscode
 .vscode/**
 .project
 .settings
-moj-be/sites/default/settings.local.php
-moj-reporting
-esdata
 .cache
 *.env
+drupal-db/docker-entrypoint-initdb.d/*

@@ -1,81 +1,122 @@
-# Digital Hub for Prisons
+# Prisoner Content Hub
 
-[![CircleCI](https://circleci.com/gh/ministryofjustice/digital-hub/tree/master.svg?style=svg)](https://circleci.com/gh/ministryofjustice/digital-hub/tree/master)
+The Prisoner Content Hub is a platform for prisoners to access data, content and services supporting individual progression and freeing up staff time.
 
-This is a mono-repo of the following projects
+This repository contains shared modules & utility scripts for the Prisoner Content Hub. Related projects are tagged with the `prisoner-content-hub` topic, which populates [this list](https://github.com/topics/prisoner-content-hub).
 
-    moj-be/ - Backend service using a customized Drupal instance
-    moj-node/ - Frontend NodeJS service
-    moj-matomo/ - Matomo analytics
+In particular, this repo supports development of two major components of the Prisoner Content Hub:
 
-Together these make the Digital Hub for prisons service.
-
-# Run the Digital Hub locally
+- [Prisoner Content Hub Drupal CMS](https://github.com/ministryofjustice/prisoner-content-hub-backend)
+- [Prisoner Content Hub frontend](https://github.com/ministryofjustice/prisoner-content-hub-frontend)
 
 ## Prerequisites
-The following software is required
 
-    Docker
-    CMake
-    Node v12
-    Composer
+- Docker
+- Docker Compose
 
-## Initial config
+You can get both of these dependencies on OSX with [Docker for Mac](https://docs.docker.com/docker-for-mac/). 
+
+To develop the Node [frontend](https://github.com/ministryofjustice/prisoner-content-hub-frontend) locally you might also want:
+
+- NVM
+
+If you're using Homebrew, install all dependencies with our `Brewfile`:
+
+```
+brew bundle
+```
+
+## Getting started
+
+The Docker Compose scripts tie together the CMS and frontend components. To do this, it assumes they exist alongside this repository, i.e.
+
+```
+  │
+  ├── digital-hub (this repository)
+  ├── prisoner-content-hub-backend
+  └── prisoner-content-hub-frontend
+```
+
+### Initial configuration
 
 Local database credentials can be configured using environment files. On the first run, the database will be created with the master password, user credentials and database set in environment variables. After this point the environment variables must reflect the state of the database (i.e. changing the password here will not update the MariaDB container)
 
 Copy the following files and update anything you'd like to customise:
 
 ```
-cp hub-be.env.sample hub-be.env
-cp hub-db.env.sample hub-db.env
+cp drupal.env.sample drupal.env
+cp drupal-db.env.sample drupal-db.env
+cp hub-frontend.env.sample hub-frontend.env
 ```
 
-## Starting the service
+### Running the services:
 
-Pull the latest version of the service
+Start all the services with:
 
-    docker-compose pull
+>`-d` starts the services up in the background
 
-To start the service
+```
+docker-compose up -d 
+```
 
-    docker-compose up hub-be hub-fe
+Once all the services have started, you can access them at:
 
-You can then visit the service locally on http://localhost:10001, with the Drupal backend exposed on http://localhost:11001
+- Drupal CMS: http://localhost:11001
+- Content Hub frontend: http://localhost:10001
+
 
 ## Using Docker-Compose for development
 
-The development version of the Digital-Hub makes use of additional Docker-Compose configuration that mounts volumes on the host machine.
+The Docker Compose setup has a default override which:
 
-Pull the dependencies for both the frontend and backend projects
+1. Mounts local files into the containers to enable local development changes to be reflected in the running containers.
+2. Sets the build context, so local Docker containers can be built and used in the Docker Compose setup.
 
-    cd moj-node && make build-deps && cd ..
-    cd moj-be && make build-deps && cd ..
+These overrides are specified in [docker-compose.override.yml](docker-compose.override.yml).
 
-Start the service
+To run the services _without_ the default overrides, you can explicitly load _just_ the `docker-compose.yml` using `-f docker-compose.yml`, e.g.:
 
-    docker-compose -f docker-compose.yml -f docker-compose-override.yml up hub-be hub-fe
+```
+docker-compose -f docker-compose.yml up -d
+```
 
-## Notes
+### Seeding the database
 
-All Docker Images are pushed to the Docker Hub organisation here https://hub.docker.com/u/mojdigitalstudio/ with the exception of Matomo which is pushed to a private registry in Azure
+When starting from a clean environment, you can seed the database automagically by placing scripts in [drupal-db/docker-entrypoint-initdb.d/](drupal-db/docker-entrypoint-initdb.d/).
 
-If you have Homebrew installed you can run the following in the root of the repository
+> Scripts in `drupal-db/docker-entrypoint-initdb.d/` will only be run when the database hasn't been initialised, so it won't overwrite an existing setup.
 
-    brew bundle
+As an example, you could create two files:
 
-This will install all of the packages you will need to do development on the project or you can inspect the Brewfile in the root and see what packages you will need
+1. `drupal-db/docker-entrypoint-initdb.d/01_hub_export-05-14-2020.sql`. This is a standard DB dump of one of our environments.
+2. `drupal-db/docker-entrypoint-initdb.d/02_update_hubdb_user_password.sql`. This could be something like:
+
+```sql
+USE hubdb;
+
+# This is only used in dev. Set the admin user's password to samplePassw0rd
+UPDATE users_field_data SET pass = '$S$5hl6lkBI2ScuUML4W0uvqL0gZ4hu5N7fH1xgdIc0YcXzBoyQkW3E' WHERE uid =1;
+DELETE FROM cache_entity WHERE cid = 'values:user:1';
+```
+
+If you want to pick another development password, [this page](https://www.useotools.com/drupal-password-hash-generator/output) will generate the appropriate hash. __Don't use this site with production/staging passwords__
+
+### Clearing the database
+
+The MariaDB and ElasticSearch services are backed by persistent volumes. These can be removed to give you a clean environment with:
+
+```
+docker-compose down --volumes
+```
+
+## Docker images
+
+Custom Docker images are hosted in the [MoJ Docker Hub organisation](https://hub.docker.com/u/mojdigitalstudio/).
 
 # Contributing to the project
 
-If you wish to work on the Digital Hub to provide more content types or features, contributions are welcome
+Contributions to the Prisoner Content Hub to provide more content types or features are welcome. To propose a change: 
 
-Clone the repo
-
-    git@github.com:ministryofjustice/digital-hub.git
-
-Create a feature branch
-
-    git checkout -b feature/your-new-feature
-
-Commit and push your changes and raise a Pull Request
+1. Clone the repository
+2. Create a feature branch: `git checkout -b feature/your-new-feature`
+3. Commit and push your changes and raise a Pull Request
