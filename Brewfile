@@ -1,9 +1,4 @@
-tap "homebrew/bundle"
 tap "homebrew/cask"
-tap "homebrew/core"
-brew "ansible"
+
 brew "nvm"
-brew "composer"
-brew "mysql-utilities"
-brew "mysql@5.7"
 cask "docker"
