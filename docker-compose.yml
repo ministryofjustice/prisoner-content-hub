@@ -18,7 +18,7 @@ services:
     env_file:
       - drupal.env
     ports:
-      - 11001:80
+      - 11001:8080
 
   hub-frontend:
     # TODO: rename digital-hub-be to prisoner-content-hub-frontend
@@ -31,9 +31,9 @@ services:
     ports:
       - 10001:3000
 
-  # This container nameis referenced from Drupal DB config, so it should 
+  # This container nameis referenced from Drupal DB config, so it should
   # match production
-  # TODO: add init script to set Drupal ES connector from environment variable 
+  # TODO: add init script to set Drupal ES connector from environment variable
   hub-elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.1
     environment:
@@ -43,9 +43,9 @@ services:
 
     # TODO: do we need these for local dev?
     ulimits:
-     memlock:
-       soft: -1
-       hard: -1
+      memlock:
+        soft: -1
+        hard: -1
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
 
