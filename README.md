@@ -32,7 +32,7 @@ The Docker Compose scripts tie together the CMS and frontend components. To do t
 
 ```
   │
-  ├── digital-hub (this repository)
+  ├── prisoner-content-hub (this repository)
   ├── prisoner-content-hub-backend
   └── prisoner-content-hub-frontend
 ```
