@@ -21,8 +21,7 @@ services:
       - 11001:8080
 
   hub-frontend:
-    # TODO: rename digital-hub-be to prisoner-content-hub-frontend
-    image: mojdigitalstudio/digital-hub-node
+    image: mojdigitalstudio/prisoner-content-hub-frontend
     depends_on:
       - drupal
       - hub-elasticsearch
