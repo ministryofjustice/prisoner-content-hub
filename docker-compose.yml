@@ -11,7 +11,7 @@ services:
 
   drupal:
     # TODO: rename digital-hub-be to prisoner-content-hub-drupal
-    image: mojdigitalstudio/digital-hub-be
+    image: mojdigitalstudio/prisoner-content-hub-backend
     depends_on:
       - drupal-db
       - hub-elasticsearch
