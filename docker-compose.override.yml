@@ -36,6 +36,7 @@ services:
     volumes:
       - ../prisoner-content-hub-backend/composer.json:/var/www/html/composer.json
       - ../prisoner-content-hub-backend/composer.lock:/var/www/html/composer.lock
+      - ../prisoner-content-hub-backend/patches:/var/www/html/patches
       - ../prisoner-content-hub-backend/modules/custom:/var/www/html/modules/custom
       - ../prisoner-content-hub-backend/profiles:/var/www/html/profiles
       - ../prisoner-content-hub-backend/themes:/var/www/html/themes
