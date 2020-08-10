@@ -1,0 +1,25 @@
+{{- $fullName := include "prisoner-content-hub.fullname" . -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "prisoner-content-hub.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  rules:
+  - host: {{ .Values.ingress.hostName }}
+    http:
+      paths:
+      - backend:
+          serviceName: {{ include "prisoner-content-hub.fullname" . }}-{{ .Values.npr.name }}
+          servicePort: http
+        path: /{{ .Values.npr.path }}(/|$)(.*)
+  tls:
+  - hosts:
+    - {{ .Values.ingress.hostName }}
+    secretName: {{ .Values.ingress.certSecretName }}
+    
