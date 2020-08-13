@@ -1,2 +1,3 @@
 ingress:
   hostName: proxy.content-hub.prisoner.service.justice.gov.uk
+  certSecretName: prisoner-content-hub-proxy-certificate

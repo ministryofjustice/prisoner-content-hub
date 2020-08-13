@@ -14,8 +14,7 @@ service:
   clusterIP: None
 
 ingress:
-  enabled: true
-  certSecretName: prisoner-content-hub-proxy-certificate
+  enabled: true  
   tlsEnabled: true  
   annotations:
     kubernetes.io/ingress.class: "nginx"
