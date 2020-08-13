@@ -5,8 +5,8 @@ import io.gatling.http.Predef._
 
 class BrowseAndListenSimulation extends Simulation {
 
-  val frontendUrl = "https://cookhamwood-prisoner-content-hub-production.apps.live-1.cloud-platform.service.justice.gov.uk"
-  val backendUrl = "https://cms-prisoner-content-hub-production.apps.live-1.cloud-platform.service.justice.gov.uk"
+  val frontendUrl = "https://wayland-prisoner-content-hub-staging.apps.live-1.cloud-platform.service.justice.gov.uk"
+  val backendUrl = "https://cms-prisoner-content-hub-staging.apps.live-1.cloud-platform.service.justice.gov.uk"
 
   val httpProtocol = http
     .baseUrl(frontendUrl)
@@ -25,14 +25,15 @@ class BrowseAndListenSimulation extends Simulation {
     )
     .pause(4)
     .exec(
-      http("Go to a audio page")
-        .get("/content/5920")
-        .check(status.is(200))    
+      http("Go to a video page")
+        .get("/content/3949")
+        .check(css("video source", "src").saveAs("videoLink"))
+        .check(status.is(200))
     )
     .pause(2)
     .exec(
-      http("Play the audio")
-        .get(s"${backendUrl}/_flysystem/s3/audio/2020-06/FREE05%20Free%20Flow%20200608.mp3")
+      http("Play the video")
+        .get("${videoLink}")
         // .header("Range", "bytes=0-1023") 
     )
     .pause(5)
@@ -47,6 +48,50 @@ class BrowseAndListenSimulation extends Simulation {
         .get("/topics")
         .check(status.is(200))
     )
+    .pause(2)
+    .exec(
+      http("Return to the homepage")
+        .get("/")
+        .check(status.is(200))
+    )
+    .pause(3)
+    .exec(
+      http("Search for bob")
+        .get("/search?query=bob")
+        .check(status.is(200))
+    )
+    .pause(3)
+    .exec(
+      http("Go to a audio page")
+        .get("/content/5832")
+        .check(status.is(200))
+        .check(css("audio source", "src").saveAs("audioLink"))
+    )
+    .pause(2)
+    .exec(
+      http("Play the audio")
+        .get("${audioLink}")
+        // .header("Range", "bytes=0-1023") 
+    )    
+    .pause(3)
+    .exec(
+      http("Return to the homepage")
+        .get("/")
+        .check(status.is(200))
+    )
+    .pause(2)
+    .exec(
+      http("Go to PSI/PSO page")
+        .get("/tags/796")
+        .check(status.is(200))
+    )
+    .pause(3)
+    .exec(
+      http("View a PDF")
+        .get("/content/3857")
+        // .header("Range", "bytes=0-1023") 
+    )
+    .pause(5)
 
 
   setUp(
