@@ -14,6 +14,5 @@ spec:
       restartPolicy: Never
       containers:
       - name: post-deploy-job
-        image: "byrnedo/alpine-curl"
-        # Has an entrypoint of curl ENTRYPOINT ["/usr/bin/curl"]
-        command: ["{{ .Values.ingress.hostName }}/{{ .Values.npr.path }}/npr-stream"]
+        image: "curlimages/curl"
+        command: ["-l", "{{ .Values.ingress.hostName }}/{{ .Values.npr.path }}/npr-stream"]
