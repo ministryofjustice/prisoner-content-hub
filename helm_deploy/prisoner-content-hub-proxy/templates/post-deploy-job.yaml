@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "prisoner-content-hub.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-deploy
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: post-deploy-job
+        image: "byrnedo/alpine-curl"
+        # Has an entrypoint of curl ENTRYPOINT ["/usr/bin/curl"]
+        command: ["{{ .Values.ingress.hostName }}/{{ .Values.npr.path }}/npr-stream"]
