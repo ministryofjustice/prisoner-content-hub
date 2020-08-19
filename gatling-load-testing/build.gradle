@@ -2,6 +2,13 @@ plugins {
   id "com.github.lkishalmi.gatling" version "3.3.4"
 }
 
+gatling {
+  toolVersion = '3.3.1'
+  scalaVersion = '2.12'
+  jvmArgs = [ '-server', '-Xms512M', '-Xmx512M' ]
+  systemProperties = ['file.encoding': 'UTF-8']
+}
+
 repositories {
   jcenter()
 }
