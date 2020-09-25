@@ -9,13 +9,16 @@ npr:
   servicePort: 80
   remotePort: 8000
 
+slack:
+  secretName: slack-webhook
+
 service:
   type: ClusterIP
   clusterIP: None
 
 ingress:
-  enabled: true  
-  tlsEnabled: true  
+  enabled: true
+  tlsEnabled: true
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
@@ -25,5 +28,4 @@ ingress:
     # Allow traffic coming from: Primary DP Egress, Secondary DP Egress, Studio (Sheffield), DSD VPN, Quantum (x3 ranges), Lucas Cairns (Home), ARK (x5 ranges)
     nginx.ingress.kubernetes.io/whitelist-source-range: 18.130.83.42/32,52.56.168.163/32,217.33.148.210/29,81.134.202.29/32,212.137.36.230/32,62.25.109.197/32,195.92.38.16/28,188.210.212.86/32,195.59.75.0/24,194.33.192.0/25,194.33.193.0/25,194.33.196.0/25,194.33.197.0/25
     nginx.ingress.kubernetes.io/server-snippet: |
-       add_header X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
-
+      add_header X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
