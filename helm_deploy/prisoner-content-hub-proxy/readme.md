@@ -27,7 +27,6 @@ There are three tiers of yaml files containing configuration values. These are:
 helm upgrade [Release Name] . \
 --install --dry-run --debug \
 --namespace [Kubernetes Namespace] \
---values values.establishment-[establishment name].yaml \
 --values values.[environment].yaml \
 --values secrets.yaml
 ```
@@ -42,7 +41,6 @@ Once tested and verified the release can be performed using the following
 helm upgrade [Release Name] . \
 --install --wait \
 --namespace [Kubernetes Namespace] \
---values values.establishment-[establishment name].yaml \
 --values values.[environment].yaml \
 --values secrets.yaml
 ```
