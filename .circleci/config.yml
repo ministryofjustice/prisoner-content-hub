@@ -1,0 +1,125 @@
+defaults: &defaults
+  working_directory: ~/workspace
+  docker:
+    - image: mojdigitalstudio/circleci-build-container
+
+main_branch: &main_branch
+  filters:
+    branches:
+      only: main
+feature_branch: &feature_branch
+  filters:
+    branches:
+      ignore: main
+
+version: 2.1
+
+orbs:
+  kubernetes: circleci/kubernetes@0.3.0
+  helm: circleci/helm@1.0.0
+
+commands:
+  set_up_helm:
+    description: "Set up Kubernetes/Helm"
+    steps:
+      - kubernetes/install
+      - helm/install-helm-client:
+          version: v3.2.1
+
+  release_to_namespace:
+    description: "Release with Helm"
+    parameters:
+      environment:
+        type: string
+      releaseName:
+        type: string
+    steps:
+      - attach_workspace:
+          at: /tmp/build-info
+      - run:
+          name: Configure git crypt
+          command: |
+            sudo apt-get install git-crypt
+            echo -e "$GIT_CRYPT_GPG_PRIVATE_KEY" | base64 -d | gpg --import
+            git-crypt unlock
+      - run:
+          name: Configure kubectl context
+          command: |
+            echo -n ${KUBE_CLUSTER_CERT} | base64 -d > /tmp/cluster-ca.crt
+            kubectl config set-cluster ${KUBE_CLUSTER_NAME} \
+              --certificate-authority=/tmp/cluster-ca.crt \
+              --server="https://api.${KUBE_CLUSTER_NAME}"
+            kubectl config set-credentials circleci \
+              --token=${KUBE_TOKEN}
+            kubectl config set-context ${KUBE_CLUSTER_NAME} \
+              --cluster=${KUBE_CLUSTER_NAME} \
+              --user=circleci \
+              --namespace=${KUBE_NAMESPACE}
+            kubectl config use-context ${KUBE_CLUSTER_NAME}
+      - run:
+          name: Release to << parameters.environment >>
+          command: |
+            helm upgrade << parameters.releaseName >> ./helm_deploy/prisoner-content-hub-proxy \
+              --install --wait --force --reset-values --timeout 360s \
+              --namespace=${KUBE_NAMESPACE} \
+              --values ./helm_deploy/prisoner-content-hub-proxy/values.<< parameters.environment >>.yaml \
+              --values ./helm_deploy/prisoner-content-hub-proxy/secrets.yaml
+
+jobs:
+  deploy_development:
+    <<: *defaults
+    steps:
+      - checkout
+      - set_up_helm
+      - release_to_namespace:
+          environment: "development"
+          releaseName: "prisoner-content-hub-proxy"
+
+  deploy_staging:
+    <<: *defaults
+    steps:
+      - checkout
+      - set_up_helm
+      - release_to_namespace:
+          environment: "staging"
+          releaseName: "prisoner-content-hub-proxy"
+
+  deploy_production:
+    <<: *defaults
+    steps:
+      - checkout
+      - set_up_helm
+      - release_to_namespace:
+          environment: "production"
+          releaseName: "prisoner-content-hub-proxy"
+
+workflows:
+  version: 2
+  build-test-deploy:
+    jobs:
+
+      - approve_preview_build:
+          <<: *feature_branch
+          type: approval
+
+      - deploy_development:
+          <<: *feature_branch
+          context: prisoner-content-hub-development
+          requires:
+            - approve_preview_build
+
+      - deploy_staging:
+          <<: *main_branch
+          context: prisoner-content-hub-staging
+
+      - approve_deploy_production:
+          <<: *main_branch
+          type: approval
+          requires:
+            - deploy_staging
+
+      - deploy_production:
+          <<: *main_branch
+          context: prisoner-content-hub-prod
+          requires:
+            - approve_deploy_production
