@@ -37,6 +37,12 @@ commands:
       - attach_workspace:
           at: /tmp/build-info
       - run:
+          name: Configure git crypt
+          command: |
+            sudo apt-get install git-crypt
+            echo -e "$GPG_KEY" | gpg --import
+            git-crypt unlock
+      - run:
           name: Configure kubectl context
           command: |
             echo -n ${KUBE_CLUSTER_CERT} | base64 -d > /tmp/cluster-ca.crt
@@ -57,7 +63,7 @@ commands:
               --install --wait --force --reset-values --timeout 360s \
               --namespace=${KUBE_NAMESPACE} \
               --values ./helm_deploy/prisoner-content-hub-proxy/values.<< parameters.environment >>.yaml \
-         
+              --values ./helm_deploy/prisoner-content-hub-proxy/secrets.yaml
 
 jobs:
   deploy_development:
