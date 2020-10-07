@@ -40,7 +40,7 @@ commands:
           name: Configure git crypt
           command: |
             sudo apt-get install git-crypt
-            echo -e "$GIT_CRYPT_GPG_PRIVATE_KEY" | gpg --import
+            echo -e "$GIT_CRYPT_GPG_PRIVATE_KEY" | base64 -d | gpg --import
             git-crypt unlock
       - run:
           name: Configure kubectl context
