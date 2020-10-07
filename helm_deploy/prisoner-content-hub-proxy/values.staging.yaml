@@ -1,4 +1,4 @@
 ingress:
   annotations:
-    kubernetes.io/ingress.class: prisoner-content-hub-staging
+    kubernetes.io/ingress.class: nginx
   hostName: proxy-prisoner-content-hub-staging.apps.live-1.cloud-platform.service.justice.gov.uk
