@@ -4,7 +4,7 @@ RUN apk add --no-cache icecast;
 
 EXPOSE 8000
 
-# VOLUME ["/config", "/var/log/icecast", "/etc/icecast"]
+VOLUME ["/config", "/var/log/icecast", "/etc/icecast"]
 
 COPY icecast.xml /etc/
 
