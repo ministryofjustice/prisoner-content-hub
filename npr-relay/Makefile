@@ -1,8 +1,5 @@
 build:
-	docker build -t prisoner-content-hub-nprrelay . \
-		--build-arg BUILD_NUMBER="$(BUILD_NUMBER)" \
-		--build-arg GIT_REF="$(GIT_REF)" \
-		--build-arg GIT_DATE="$(GIT_DATE)"
+	docker build -t prisoner-content-hub-nprrelay .
 
 push:
 	@docker login -u $(DOCKER_USERNAME) -p $(DOCKER_PASSWORD)

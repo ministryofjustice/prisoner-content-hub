@@ -59,11 +59,11 @@ commands:
       - run:
           name: Release to << parameters.environment >>
           command: |
-            helm upgrade << parameters.releaseName >> ./helm_deploy/prisoner-content-hub-proxy \
+            helm upgrade << parameters.releaseName >> ./helm_deploy/<< parameters.releaseName >> \
               --install --wait --force --reset-values --timeout 360s \
               --namespace=${KUBE_NAMESPACE} \
-              --values ./helm_deploy/prisoner-content-hub-proxy/values.<< parameters.environment >>.yaml \
-              --values ./helm_deploy/prisoner-content-hub-proxy/secrets.yaml
+              --values ./helm_deploy/<< parameters.releaseName >>/values.<< parameters.environment >>.yaml \
+              --values ./helm_deploy/<< parameters.releaseName >>/secrets.yaml
 
 jobs:
   deploy_development:
@@ -73,7 +73,7 @@ jobs:
       - set_up_helm
       - release_to_namespace:
           environment: "development"
-          releaseName: "prisoner-content-hub-proxy"
+          releaseName: "prisoner-content-hub-<< parameters.appName >>"
 
   deploy_staging:
     <<: *defaults
@@ -82,7 +82,7 @@ jobs:
       - set_up_helm
       - release_to_namespace:
           environment: "staging"
-          releaseName: "prisoner-content-hub-proxy"
+          releaseName: "prisoner-content-hub-<< parameters.appName >>"
 
   deploy_production:
     <<: *defaults
@@ -91,7 +91,7 @@ jobs:
       - set_up_helm
       - release_to_namespace:
           environment: "production"
-          releaseName: "prisoner-content-hub-proxy"
+          releaseName: "prisoner-content-hub-<< parameters.appName >>"
 
 workflows:
   version: 2
@@ -105,12 +105,16 @@ workflows:
       - deploy_development:
           <<: *feature_branch
           context: prisoner-content-hub-development
+          parameters:
+            appName: "proxy"
           requires:
             - approve_preview_build
 
       - deploy_staging:
           <<: *main_branch
           context: prisoner-content-hub-staging
+          parameters:
+            appName: "proxy"
 
       - approve_deploy_production:
           <<: *main_branch
@@ -121,5 +125,7 @@ workflows:
       - deploy_production:
           <<: *main_branch
           context: prisoner-content-hub-prod
+          parameters:
+            appName: "proxy"
           requires:
             - approve_deploy_production
