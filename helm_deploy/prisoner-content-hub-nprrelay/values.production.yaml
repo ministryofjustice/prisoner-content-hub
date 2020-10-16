@@ -1,5 +1,0 @@
-ingress:
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-  hostName: nprrelay.content-hub.prisoner.service.justice.gov.uk
-  certSecretName: prisoner-content-hub-nprrelay-certificate

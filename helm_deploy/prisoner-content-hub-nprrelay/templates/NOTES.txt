@@ -1,6 +1,0 @@
-{{- if not .Values.ingress.enabled }}
-Ingress not enabled
-{{ else }}
-Relay configured for:
-  NPR Live Stream @ {{ include "prisoner-content-hub.externalHost" . }}/stream.ogg
-{{- end }}
