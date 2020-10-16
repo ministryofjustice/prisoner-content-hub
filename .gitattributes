@@ -1,5 +1,5 @@
 .gitattributes !filter !diff
 
 helm_deploy/prisoner-content-hub-proxy/secrets.yaml filter=git-crypt diff=git-crypt
-helm_deploy/prisoner-content-hub-nprrelay/secrets.yaml filter=git-crypt diff=git-crypt
+helm_deploy/prisoner-content-hub-infra/secrets.yaml filter=git-crypt diff=git-crypt
 npr-relay/icecast.xml filter=git-crypt diff=git-crypt
