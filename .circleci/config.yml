@@ -68,6 +68,9 @@ commands:
 jobs:
   deploy_development:
     <<: *defaults
+    parameters:
+      appName:
+        type: string
     steps:
       - checkout
       - set_up_helm
@@ -77,6 +80,9 @@ jobs:
 
   deploy_staging:
     <<: *defaults
+    parameters:
+      appName:
+        type: string
     steps:
       - checkout
       - set_up_helm
@@ -86,6 +92,9 @@ jobs:
 
   deploy_production:
     <<: *defaults
+    parameters:
+      appName:
+        type: string
     steps:
       - checkout
       - set_up_helm
