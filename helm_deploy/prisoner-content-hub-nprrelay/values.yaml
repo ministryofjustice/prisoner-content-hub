@@ -5,7 +5,7 @@ tier: frontend
 
 npr:
   name: nprrelay
-  servicePort: 8000
+  servicePort: 80
   remotePort: 8000
 
 slack:
