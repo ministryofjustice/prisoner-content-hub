@@ -168,6 +168,11 @@ workflows:
           <<: *feature_branch
           type: approval
 
+      - build_nprrelay_preview:
+          <<: *feature_branch
+          requires:
+            - approve_preview_build
+
       - deploy_development:
           <<: *feature_branch
           context: prisoner-content-hub-development
@@ -175,7 +180,7 @@ workflows:
             parameters:
               appName: ["proxy"]
           requires:
-            - approve_preview_build
+            - build_nprrelay_preview
 
       - deploy_staging:
           <<: *main_branch
