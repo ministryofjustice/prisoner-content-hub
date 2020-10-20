@@ -59,11 +59,13 @@ commands:
       - run:
           name: Release to << parameters.environment >>
           command: |
+            VERSION_TO_DEPLOY=$(cat /tmp/build-info/version-to-deploy.txt)
             helm upgrade << parameters.releaseName >> ./helm_deploy/<< parameters.releaseName >> \
               --install --wait --force --reset-values --timeout 360s \
               --namespace=${KUBE_NAMESPACE} \
               --values ./helm_deploy/<< parameters.releaseName >>/values.<< parameters.environment >>.yaml \
-              --values ./helm_deploy/<< parameters.releaseName >>/secrets.yaml
+              --values ./helm_deploy/<< parameters.releaseName >>/secrets.yaml \
+              --set image.tag=${VERSION_TO_DEPLOY}
 
 jobs:
   build_nprrelay_preview:
