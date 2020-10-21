@@ -71,10 +71,10 @@ spec:
             initialDelaySeconds: {{ .Values.application.readiness.delaySeconds }}
             timeoutSeconds: {{ .Values.application.readiness.timeoutSeconds }}
           volumeMounts:
-            - name: icecastConfig
+            - name: icecast-config
               mountPath: "/etc/icecast"
               readOnly: true
       volumes:
-      - name: icecastConfig
+      - name: icecast-config
         secret:
           secretName: {{ .Values.nprrelay.secretName }}
