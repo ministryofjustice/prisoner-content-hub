@@ -172,9 +172,14 @@ workflows:
           requires:
             - build_nprrelay_preview
 
+      - build_nprrelay_production:
+          <<: *main_branch
+
       - deploy_staging:
           <<: *main_branch
           context: prisoner-content-hub-staging
+          requires:
+            - build_nprrelay_production
 
       - approve_deploy_production:
           <<: *main_branch
