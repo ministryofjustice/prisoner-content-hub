@@ -1,6 +1,0 @@
-{{- if not .Values.ingress.enabled }}
-Ingress not enabled
-{{ else }}
-Proxy connections configured for:
-  NPR Live Stream @ {{ include "prisoner-content-hub.externalHost" . }}/{{ .Values.nprrelay.path }}/stream.ogg
-{{- end }}

@@ -3,6 +3,29 @@ fullnameOverride: ""
 
 tier: frontend
 
+image:
+  repository: mojdigitalstudio/prisoner-content-hub-nprrelay
+  pullPolicy: IfNotPresent
+  tag: latest
+
+application:
+  port: 8000
+  liveness:
+    endpoint: /status-json.xsl
+    delaySeconds: 10
+    timeoutSeconds: 5
+  readiness:
+    endpoint: /status-json.xsl
+    delaySeconds: 10
+    timeoutSeconds: 5
+
+nprrelay:
+  name: nprrelay
+  servicePort: 80
+  path: nprrelay
+  replicaCount: 2
+  maxReplicaCount: 3
+
 npr:
   name: npr-live
   path: npr-live

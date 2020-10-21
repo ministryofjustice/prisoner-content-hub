@@ -18,6 +18,10 @@ spec:
           serviceName: {{ include "prisoner-content-hub.fullname" . }}-{{ .Values.npr.name }}
           servicePort: http
         path: /{{ .Values.npr.path }}(/|$)(.*)
+      - backend:
+          serviceName: {{ include "prisoner-content-hub.fullname" . }}-{{ .Values.nprrelay.name }}
+          servicePort: http
+        path: /{{ .Values.nprrelay.path }}(/|$)(.*)
   tls:
   - hosts:
     - {{ .Values.ingress.hostName }}

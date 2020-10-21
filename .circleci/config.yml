@@ -127,39 +127,30 @@ jobs:
 
   deploy_development:
     <<: *defaults
-    parameters:
-      appName:
-        type: string
     steps:
       - checkout
       - set_up_helm
       - release_to_namespace:
           environment: "development"
-          releaseName: "prisoner-content-hub-<< parameters.appName >>"
+          releaseName: "prisoner-content-hub-proxy"
 
   deploy_staging:
     <<: *defaults
-    parameters:
-      appName:
-        type: string
     steps:
       - checkout
       - set_up_helm
       - release_to_namespace:
           environment: "staging"
-          releaseName: "prisoner-content-hub-<< parameters.appName >>"
+          releaseName: "prisoner-content-hub-proxy"
 
   deploy_production:
     <<: *defaults
-    parameters:
-      appName:
-        type: string
     steps:
       - checkout
       - set_up_helm
       - release_to_namespace:
           environment: "production"
-          releaseName: "prisoner-content-hub-<< parameters.appName >>"
+          releaseName: "prisoner-content-hub-proxy"
 
 workflows:
   version: 2
@@ -178,18 +169,12 @@ workflows:
       - deploy_development:
           <<: *feature_branch
           context: prisoner-content-hub-development
-          matrix:
-            parameters:
-              appName: ["proxy","infra"]
           requires:
             - build_nprrelay_preview
 
       - deploy_staging:
           <<: *main_branch
           context: prisoner-content-hub-staging
-          matrix:
-            parameters:
-              appName: ["proxy"]
 
       - approve_deploy_production:
           <<: *main_branch
@@ -200,8 +185,5 @@ workflows:
       - deploy_production:
           <<: *main_branch
           context: prisoner-content-hub-prod
-          matrix:
-            parameters:
-              appName: ["proxy"]
           requires:
             - approve_deploy_production
