@@ -2,5 +2,5 @@
 Ingress not enabled
 {{ else }}
 Proxy connections configured for:
-  NPR Live Stream @ {{ include "prisoner-content-hub.externalHost" . }}/{{ .Values.npr.path }}/stream.ogg
+  NPR Live Stream @ {{ include "prisoner-content-hub.externalHost" . }}/{{ .Values.nprrelay.path }}/stream.ogg
 {{- end }}
