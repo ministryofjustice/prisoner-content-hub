@@ -20,18 +20,12 @@ application:
     timeoutSeconds: 5
 
 nprrelay:
-  name: nprrelay
+  name: npr-live
   servicePort: 80
-  path: nprrelay
+  path: npr-live
   replicaCount: 2
   maxReplicaCount: 3
   secretName: icecast.xml
-
-npr:
-  name: npr-live
-  path: npr-live
-  servicePort: 80
-  remotePort: 8000
 
 slack:
   secretName: slack-webhook

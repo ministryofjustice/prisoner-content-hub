@@ -78,3 +78,12 @@ spec:
       - name: icecast-config
         secret:
           secretName: {{ .Values.nprrelay.secretName }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.nprrelay.configMapName }}
+  labels:
+    {{- include "prisoner-content-hub.labels" . | nindent 4 }}
+data:  
+  externalUrl: {{ include "prisoner-content-hub.externalHost" . }}/{{ .Values.nprrelay.path }}/stream.ogg

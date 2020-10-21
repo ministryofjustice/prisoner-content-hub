@@ -103,7 +103,7 @@ Icecast Config
         <server>{{ .Values.nprrelay.remoteServer }}</server>
         <port>{{ .Values.nprrelay.remotePort }}</port>
         <mount>{{ .Values.nprrelay.remoteMount }}</mount>
-        <local-mount>/npr.ogg</local-mount>
+        <local-mount>/stream.ogg</local-mount>
         <on-demand>1</on-demand>
         <relay-shoutcast-metadata>0</relay-shoutcast-metadata>
     </relay>
