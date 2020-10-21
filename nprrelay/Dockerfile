@@ -6,7 +6,7 @@ EXPOSE 8000
 
 # VOLUME ["/config", "/var/log/icecast", "/etc/icecast"]
 
-COPY ./icecast.xml /etc/
+COPY icecast.xml /etc/
 
 RUN chown -R 1001:1001 /var/log/icecast
 
