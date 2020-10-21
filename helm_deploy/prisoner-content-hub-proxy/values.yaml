@@ -25,6 +25,7 @@ nprrelay:
   path: nprrelay
   replicaCount: 2
   maxReplicaCount: 3
+  secretName: icecast.xml
 
 npr:
   name: npr-live

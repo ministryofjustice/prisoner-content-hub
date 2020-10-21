@@ -70,3 +70,11 @@ spec:
               port: http
             initialDelaySeconds: {{ .Values.application.readiness.delaySeconds }}
             timeoutSeconds: {{ .Values.application.readiness.timeoutSeconds }}
+          volumeMounts:
+            - name: icecastConfig
+              mountPath: "/etc/icecast"
+              readOnly: true
+      volumes:
+      - name: icecastConfig
+        secret:
+          secretName: {{ .Values.nprrelay.secretName }}

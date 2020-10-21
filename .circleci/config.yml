@@ -72,12 +72,6 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - run:
-          name: Configure git crypt
-          command: |
-            sudo apt-get install git-crypt
-            echo -e "$GIT_CRYPT_GPG_PRIVATE_KEY" | base64 -d | gpg --import
-            git-crypt unlock
       - setup_remote_docker:
           docker_layer_caching: true
       - run:
