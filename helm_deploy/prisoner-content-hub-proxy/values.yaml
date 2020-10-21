@@ -3,11 +3,29 @@ fullnameOverride: ""
 
 tier: frontend
 
-npr:
+image:
+  repository: mojdigitalstudio/prisoner-content-hub-nprrelay
+  pullPolicy: IfNotPresent
+  tag: latest
+
+application:
+  port: 8000
+  liveness:
+    endpoint: /status-json.xsl
+    delaySeconds: 10
+    timeoutSeconds: 5
+  readiness:
+    endpoint: /status-json.xsl
+    delaySeconds: 10
+    timeoutSeconds: 5
+
+nprrelay:
   name: npr-live
-  path: npr-live
   servicePort: 80
-  remotePort: 8000
+  path: npr-live
+  replicaCount: 2
+  maxReplicaCount: 3
+  secretName: icecast.xml
 
 slack:
   secretName: slack-webhook

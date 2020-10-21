@@ -59,13 +59,72 @@ commands:
       - run:
           name: Release to << parameters.environment >>
           command: |
+            VERSION_TO_DEPLOY=$(cat /tmp/build-info/version-to-deploy.txt)
             helm upgrade << parameters.releaseName >> ./helm_deploy/prisoner-content-hub-proxy \
               --install --wait --force --reset-values --timeout 360s \
               --namespace=${KUBE_NAMESPACE} \
               --values ./helm_deploy/prisoner-content-hub-proxy/values.<< parameters.environment >>.yaml \
-              --values ./helm_deploy/prisoner-content-hub-proxy/secrets.yaml
+              --values ./helm_deploy/prisoner-content-hub-proxy/secrets.yaml \
+              --set image.tag=${VERSION_TO_DEPLOY}
 
 jobs:
+  build_nprrelay_preview:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build frontend Docker image
+          command: cd nprrelay && make build
+      - run:
+          name: Push frontend Docker image
+          command: cd nprrelay && make push-preview
+      - add_ssh_keys:
+          fingerprints:
+            - "0a:04:a1:27:17:3e:3d:8a:20:91:79:a1:9e:af:85:6c"
+      - run:
+          name: Save build number (for deployment)
+          command: |
+            mkdir -p /tmp/build-info
+            echo preview > /tmp/build-info/version-to-deploy.txt
+      - persist_to_workspace:
+          root: /tmp/build-info
+          paths:
+            - version-to-deploy.txt
+
+  build_nprrelay_production:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Build frontend Docker image
+          command: cd nprrelay && make build
+      - run:
+          name: Push frontend Docker image
+          command: cd nprrelay && make push
+      - add_ssh_keys:
+          fingerprints:
+            - "0a:04:a1:27:17:3e:3d:8a:20:91:79:a1:9e:af:85:6c"
+      - run:
+          name: Create Git Tag
+          command: |
+            git config user.name "Circle CI"
+            git config user.email "circle@circleci.com"
+            git tag -a "$(date '+%d-%m-%Y')-$CIRCLE_BUILD_NUM" $CIRCLE_SHA1 -m "$(git log $(git describe --tags --abbrev=0)..HEAD --pretty=%B)"
+            git push origin "$(date '+%d-%m-%Y')-$CIRCLE_BUILD_NUM"
+      - run:
+          name: Save build number (for deployment)
+          command: |
+            mkdir -p /tmp/build-info
+            echo build-${CIRCLE_BUILD_NUM} > /tmp/build-info/version-to-deploy.txt
+      - persist_to_workspace:
+          root: /tmp/build-info
+          paths:
+            - version-to-deploy.txt
+
   deploy_development:
     <<: *defaults
     steps:
@@ -102,11 +161,16 @@ workflows:
           <<: *feature_branch
           type: approval
 
+      - build_nprrelay_preview:
+          <<: *feature_branch
+          requires:
+            - approve_preview_build
+
       - deploy_development:
           <<: *feature_branch
           context: prisoner-content-hub-development
           requires:
-            - approve_preview_build
+            - build_nprrelay_preview
 
       - deploy_staging:
           <<: *main_branch
