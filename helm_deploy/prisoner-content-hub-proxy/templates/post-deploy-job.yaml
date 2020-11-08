@@ -15,4 +15,4 @@ spec:
       containers:
       - name: post-deploy-job
         image: "curlimages/curl"
-        command: ["--head", "{{ .Values.ingress.hostName }}/{{ .Values.npr.path }}/npr-stream"]
+        command: ["--head", "{{ .Values.ingress.hostName }}/{{ .Values.nprrelay.path }}/stream.ogg"]
