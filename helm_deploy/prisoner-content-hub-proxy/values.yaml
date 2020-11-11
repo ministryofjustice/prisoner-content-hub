@@ -37,9 +37,31 @@ service:
 ingress:
   enabled: true
   tlsEnabled: true
+  allowed:
+    sheffieldoffice: "217.33.148.210/29"
+    mojvpn: "81.134.202.29/32"
+    mojvpn-sheffield-egress: "212.137.36.230/32"
+    health-kick: "35.177.252.195/32"
+    cloudplatform-live1-1: "35.178.209.113/32"
+    cloudplatform-live1-2: "3.8.51.207/32"
+    cloudplatform-live1-3: "35.177.252.54/32"
+    lucas-cairns-home: "188.210.212.86/32"
+    ark-data-center-1: "62.25.109.197/32"
+    ark-data-center-2: "195.92.38.16/28"
+    ark-data-center-3: "195.59.75.0/24"
+    ark-data-center-4: "194.33.192.0/25"
+    ark-data-center-5: "194.33.193.0/25"
+    ark-data-center-6: "194.33.196.0/25"
+    ark-data-center-7: "194.33.197.0/25"
+    pfs-egress-dp-primary: "18.130.83.42/32"
+    pfs-egress-dp-secondary: "52.56.168.163/32"
+    pfs-egress-public-ip-1: "51.132.208.67/32"
+    pfs-egress-public-ip-2: "51.132.208.80/32"
+    pfs-egress-public-ip-3: "51.132.208.113/32"
+    pfs-egress-public-ip-4: "51.132.208.122/32"
+    blocka: "51.143.132.235/32" # mnop let rd know when removed
+    andrew-npr-home: "86.182.221.243/32"
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
-    # Allow traffic coming from: Primary DP Egress, Secondary DP Egress, Studio (Sheffield), DSD VPN, Quantum (x3 ranges), Lucas Cairns (Home), ARK (x5 ranges), Andrew NPR
-    nginx.ingress.kubernetes.io/whitelist-source-range: 18.130.83.42/32,52.56.168.163/32,217.33.148.210/29,81.134.202.29/32,212.137.36.230/32,62.25.109.197/32,195.92.38.16/28,188.210.212.86/32,195.59.75.0/24,194.33.192.0/25,194.33.193.0/25,194.33.196.0/25,194.33.197.0/25,86.182.221.243/32
     nginx.ingress.kubernetes.io/server-snippet: |
       add_header X-Robots-Tag "noindex, nofollow, nosnippet, noarchive";
