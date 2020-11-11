@@ -56,6 +56,14 @@ Create external Kubernetes hostname
 {{- end }}
 
 {{/*
+Create a string from a list of values joined by a comma
+*/}}
+{{- define "app.joinListWithComma" -}}
+{{- $local := dict "first" true -}}
+{{- range $k, $v := . -}}{{- if not $local.first -}},{{- end -}}{{- $v -}}{{- $_ := set $local "first" false -}}{{- end -}}
+{{- end -}}
+
+{{/*
 Icecast Config
 */}}
 {{- define "prisoner-content-hub.icecastConfig" -}}
