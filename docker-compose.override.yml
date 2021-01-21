@@ -21,6 +21,10 @@
 # If you've renamed or moved these, update or comment-out the relevant bits below
 version: "3"
 
+volumes: 
+  # Composer settings such as auth tokens for composer updates are stored in here
+  composer_settings: 
+
 services:
   hub-frontend:
     build:
@@ -28,7 +32,10 @@ services:
     volumes:
       - ../prisoner-content-hub-frontend/server:/home/node/app/server
       - ../prisoner-content-hub-frontend/test:/home/node/app/test
-      - ../prisoner-content-hub-frontend/assets:/home/node/app/assets
+      - ../prisoner-content-hub-frontend/assets/fonts:/home/node/app/assets/fonts
+      - ../prisoner-content-hub-frontend/assets/images:/home/node/app/assets/images
+      - ../prisoner-content-hub-frontend/assets/javascript:/home/node/app/assets/javascript
+      - ../prisoner-content-hub-frontend/assets/sass:/home/node/app/assets/sass
 
   drupal:
     build:
@@ -41,5 +48,40 @@ services:
       - ../prisoner-content-hub-backend/profiles:/var/www/html/profiles
       - ../prisoner-content-hub-backend/themes:/var/www/html/themes
       - ../prisoner-content-hub-backend/sites:/var/www/html/sites
+      - composer_settings:/var/www/.composer
 
+  drupal-admin:
+    build:
+      context: ../prisoner-content-hub-backend
+      target: base
+    depends_on:
+      - drupal-db
+      - hub-elasticsearch
+    env_file:
+      - drupal.env
+    volumes:
+      - ../prisoner-content-hub-backend/composer.json:/var/www/html/composer.json
+      - ../prisoner-content-hub-backend/composer.lock:/var/www/html/composer.lock
+      - ../prisoner-content-hub-backend/patches:/var/www/html/patches
+      - ../prisoner-content-hub-backend/modules/custom:/var/www/html/modules/custom
+      - ../prisoner-content-hub-backend/profiles:/var/www/html/profiles
+      - ../prisoner-content-hub-backend/themes:/var/www/html/themes
+      - ../prisoner-content-hub-backend/sites:/var/www/html/sites
 
+  drupal-test:
+    build:
+      context: ../prisoner-content-hub-backend
+      target: test
+    depends_on:
+      - drupal-db
+      - hub-elasticsearch
+    env_file:
+      - drupal.env
+    volumes:
+      - ../prisoner-content-hub-backend/composer.json:/var/www/html/composer.json
+      - ../prisoner-content-hub-backend/composer.lock:/var/www/html/composer.lock
+      - ../prisoner-content-hub-backend/patches:/var/www/html/patches
+      - ../prisoner-content-hub-backend/modules/custom:/var/www/html/modules/custom
+      - ../prisoner-content-hub-backend/profiles:/var/www/html/profiles
+      - ../prisoner-content-hub-backend/themes:/var/www/html/themes
+      - ../prisoner-content-hub-backend/sites:/var/www/html/sites
