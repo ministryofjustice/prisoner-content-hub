@@ -28,7 +28,10 @@ services:
     volumes:
       - ../prisoner-content-hub-frontend/server:/home/node/app/server
       - ../prisoner-content-hub-frontend/test:/home/node/app/test
-      - ../prisoner-content-hub-frontend/assets:/home/node/app/assets
+      - ../prisoner-content-hub-frontend/assets/fonts:/home/node/app/assets/fonts
+      - ../prisoner-content-hub-frontend/assets/images:/home/node/app/assets/images
+      - ../prisoner-content-hub-frontend/assets/javascript:/home/node/app/assets/javascript
+      - ../prisoner-content-hub-frontend/assets/sass:/home/node/app/assets/sass
 
   drupal:
     build:

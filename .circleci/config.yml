@@ -15,8 +15,8 @@ feature_branch: &feature_branch
 version: 2.1
 
 orbs:
-  kubernetes: circleci/kubernetes@0.3.0
-  helm: circleci/helm@1.0.0
+  kubernetes: circleci/kubernetes@0.11.2
+  helm: circleci/helm@1.2.0
 
 commands:
   set_up_helm:
@@ -82,7 +82,7 @@ jobs:
           command: cd nprrelay && make push-preview
       - add_ssh_keys:
           fingerprints:
-            - "0a:04:a1:27:17:3e:3d:8a:20:91:79:a1:9e:af:85:6c"
+            - "ee:34:9e:b9:c0:98:8b:47:02:1d:eb:74:de:92:2b:93"
       - run:
           name: Save build number (for deployment)
           command: |
@@ -107,7 +107,7 @@ jobs:
           command: cd nprrelay && make push
       - add_ssh_keys:
           fingerprints:
-            - "0a:04:a1:27:17:3e:3d:8a:20:91:79:a1:9e:af:85:6c"
+            - "ee:34:9e:b9:c0:98:8b:47:02:1d:eb:74:de:92:2b:93"
       - run:
           name: Create Git Tag
           command: |
