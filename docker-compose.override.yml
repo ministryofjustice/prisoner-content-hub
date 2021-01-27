@@ -33,6 +33,7 @@ services:
   drupal:
     build:
       context: ../prisoner-content-hub-backend
+      target: local
     volumes:
       - ../prisoner-content-hub-backend/composer.json:/var/www/html/composer.json
       - ../prisoner-content-hub-backend/composer.lock:/var/www/html/composer.lock
@@ -41,5 +42,6 @@ services:
       - ../prisoner-content-hub-backend/profiles:/var/www/html/profiles
       - ../prisoner-content-hub-backend/themes:/var/www/html/themes
       - ../prisoner-content-hub-backend/sites:/var/www/html/sites
+      - ../prisoner-content-hub-backend/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
 
 
