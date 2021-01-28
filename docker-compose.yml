@@ -8,6 +8,8 @@ services:
     volumes:
       - drupal_db_data:/var/lib/mysql
       - ./drupal-db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
 
   drupal:
     # TODO: rename digital-hub-be to prisoner-content-hub-drupal
@@ -47,6 +49,8 @@ services:
         hard: -1
     volumes:
       - elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
 
 volumes:
   drupal_db_data:
