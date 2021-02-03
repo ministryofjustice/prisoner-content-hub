@@ -1,48 +1,55 @@
 version: "3"
 
 services:
-  drupal-db:
+  prisoner-content-hub-backend-db:
     image: mariadb
     env_file:
       - drupal-db.env
     volumes:
-      - drupal_db_data:/var/lib/mysql
-      - ./drupal-db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - drupal_db_data:/var/lib/mysql/
+      - ./drupal-db/:/docker-entrypoint-initdb.d/
     ports:
       - 3306:3306
+    networks:
+      - prisoner_content_hub
 
-  drupal:
-    # TODO: rename digital-hub-be to prisoner-content-hub-drupal
+  prisoner-content-hub-backend:
     image: mojdigitalstudio/prisoner-content-hub-backend
     depends_on:
-      - drupal-db
-      - hub-elasticsearch
+      - prisoner-content-hub-backend-db
+      - prisoner-content-hub-elasticsearch
     env_file:
       - drupal.env
     ports:
       - 11001:8080
+    networks:
+      - prisoner_content_hub
 
-  hub-frontend:
+  prisoner-content-hub-frontend:
     image: mojdigitalstudio/prisoner-content-hub-frontend
     depends_on:
-      - drupal
-      - hub-elasticsearch
+      - prisoner-content-hub-backend
+      - prisoner-content-hub-elasticsearch
     env_file:
       - hub-frontend.env
     ports:
-      - 10001:3000
+      - 3000:3000
+    networks:
+      prisoner_content_hub:
+        aliases:
+          - wayland.prisoner-content-hub.local
+          - berwyn.prisoner-content-hub.local
+          - cookhamwood.prisoner-content-hub.local
 
   # This container nameis referenced from Drupal DB config, so it should
   # match production
   # TODO: add init script to set Drupal ES connector from environment variable
-  hub-elasticsearch:
+  prisoner-content-hub-elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.1
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
       - "discovery.type=single-node"
       - xpack.security.enabled=false
-
-    # TODO: do we need these for local dev?
     ulimits:
       memlock:
         soft: -1
@@ -51,7 +58,12 @@ services:
       - elasticsearch_data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+    networks:
+      - prisoner_content_hub
 
 volumes:
   drupal_db_data:
   elasticsearch_data:
+
+networks:
+  prisoner_content_hub:

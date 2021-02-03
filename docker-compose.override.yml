@@ -1,28 +1,28 @@
 #
 # This override file contains build contexts and local mount points
 # to enable local development.
-# 
+#
 # docker-compose.yml _AND_ docker-compose.override.yml are loaded by default
 # so you don't need to specify this file manually.
 #
 # To explicitly ignore these overrides (e.g. to test the setup with no local mounts)
 # use:
-# 
+#
 #   $ docker-compose -f docker-compose.yml <command>
 #
 # IMPORTANT ⚠️
-# 
+#
 # This override file assumes (and requires) that you have checked out the following
 # repositories alongside this one :
-# 
+#
 #   - prisoner-content-hub-backend
 #   - prisoner-content-hub-frontend
-#   
+#
 # If you've renamed or moved these, update or comment-out the relevant bits below
 version: "3"
 
 services:
-  hub-frontend:
+  prisoner-content-hub-frontend:
     build:
       context: ../prisoner-content-hub-frontend
     volumes:
@@ -33,12 +33,10 @@ services:
       - ../prisoner-content-hub-frontend/assets/javascript:/home/node/app/assets/javascript
       - ../prisoner-content-hub-frontend/assets/sass:/home/node/app/assets/sass
 
-  drupal:
+  prisoner-content-hub-backend:
     build:
       context: ../prisoner-content-hub-backend
       target: local
     volumes:
       - ../prisoner-content-hub-backend:/var/www/html
       - ../prisoner-content-hub-backend/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
-
-
