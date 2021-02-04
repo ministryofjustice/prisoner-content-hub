@@ -82,14 +82,14 @@ docker-compose -f docker-compose.yml up -d
 
 ### Seeding the database
 
-When starting from a clean environment, you can seed the database automagically by placing scripts in [drupal-db/docker-entrypoint-initdb.d/](drupal-db/docker-entrypoint-initdb.d/).
+When starting from a clean environment, you can seed the database automagically by placing scripts in [drupal-db/](drupal-db/docker-entrypoint-initdb.d/).
 
-> Scripts in `drupal-db/docker-entrypoint-initdb.d/` will only be run when the database hasn't been initialised, so it won't overwrite an existing setup.
+> Scripts in `drupal-db/` will only be run when the database hasn't been initialised, so it won't overwrite an existing setup.
 
 As an example, you could create two files:
 
-1. `drupal-db/docker-entrypoint-initdb.d/01_hub_export-05-14-2020.sql`. This is a standard DB dump of one of our environments.
-2. `drupal-db/docker-entrypoint-initdb.d/02_update_hubdb_user_password.sql`. This could be something like:
+1. `drupal-db/01_hub_export-05-14-2020.sql`. This is a standard DB dump of one of our environments.
+2. `drupal-db/02_update_hubdb_user_password.sql`. This could be something like:
 
 ```sql
 USE hubdb;
@@ -108,6 +108,20 @@ The MariaDB and ElasticSearch services are backed by persistent volumes. These c
 ```
 docker-compose down --volumes
 ```
+
+## Running the E2E tests
+
+Spin up the backing services
+
+`FRONTEND_IMAGE_VERSION=latest BACKEND_IMAGE_VERSION=latest docker-compose -f docker-compose.yml -f docker-compose.e2e.yml up -d prisoner-content-hub-backend-db prisoner-content-hub-elasticsearch prisoner-content-hub-backend prisoner-content-hub-frontend`
+
+Launch the Cypress E2E tests
+
+`FRONTEND_IMAGE_VERSION=latest BACKEND_IMAGE_VERSION=latest docker-compose -f docker-compose.yml -f docker-compose.e2e.yml up cypress`
+
+Bring down the Docker-Compose and clear down volumes
+
+`FRONTEND_IMAGE_VERSION=latest BACKEND_IMAGE_VERSION=latest docker-compose -f docker-compose.yml -f docker-compose.e2e.yml down --volumes`
 
 ## Docker images
 
