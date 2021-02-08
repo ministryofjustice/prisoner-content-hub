@@ -5,6 +5,11 @@ services:
     image: cypress/included:6.3.0
     depends_on:
       - prisoner-content-hub-frontend
+    entrypoint: |
+      /bin/bash  -c "\
+        npm init -y  && \
+        npm install --save-dev cypress-cucumber-preprocessor && \
+        cypress run"
     working_dir: /test
     volumes:
       - ../prisoner-content-hub-frontend/cypress/:/test/cypress/
