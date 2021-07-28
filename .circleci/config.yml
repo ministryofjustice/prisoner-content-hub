@@ -82,7 +82,7 @@ jobs:
           command: cd nprrelay && make push-preview
       - add_ssh_keys:
           fingerprints:
-            - "ee:34:9e:b9:c0:98:8b:47:02:1d:eb:74:de:92:2b:93"
+            - "c3:1c:b5:1b:b8:4c:97:a3:6b:c3:53:54:c5:94:63:87"
       - run:
           name: Save build number (for deployment)
           command: |
@@ -107,7 +107,7 @@ jobs:
           command: cd nprrelay && make push
       - add_ssh_keys:
           fingerprints:
-            - "ee:34:9e:b9:c0:98:8b:47:02:1d:eb:74:de:92:2b:93"
+            - "c3:1c:b5:1b:b8:4c:97:a3:6b:c3:53:54:c5:94:63:87"
       - run:
           name: Create Git Tag
           command: |
