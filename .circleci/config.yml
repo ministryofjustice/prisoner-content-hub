@@ -68,7 +68,8 @@ commands:
 
 jobs:
   build_nprrelay_preview:
-    executor: hmpps/node
+    executor:
+      name: hmpps/node
     steps:
       - checkout
       - setup_remote_docker:
@@ -93,7 +94,8 @@ jobs:
             - version-to-deploy.txt
 
   build_nprrelay_production:
-    executor: hmpps/node
+    executor:
+      name: hmpps/node
     steps:
       - checkout
       - setup_remote_docker:
@@ -125,7 +127,8 @@ jobs:
             - version-to-deploy.txt
 
   deploy_development:
-    executor: hmpps/node~
+    executor:
+      name: hmpps/node~
     steps:
       - checkout
       - set_up_helm
@@ -134,7 +137,8 @@ jobs:
           releaseName: "prisoner-content-hub-proxy"
 
   deploy_staging:
-    executor: hmpps/node
+    executor:
+      name: hmpps/node
     steps:
       - checkout
       - set_up_helm
@@ -143,7 +147,8 @@ jobs:
           releaseName: "prisoner-content-hub-proxy"
 
   deploy_production:
-    executor: hmpps/node
+    executor:
+      name: hmpps/node
     steps:
       - checkout
       - set_up_helm
