@@ -1,3 +1,8 @@
+defaults: &defaults
+  working_directory: ~/workspace
+  docker:
+    - image: mojdigitalstudio/circleci-build-container
+
 main_branch: &main_branch
   filters:
     branches:
@@ -12,7 +17,6 @@ version: 2.1
 orbs:
   kubernetes: circleci/kubernetes@0.11.2
   helm: circleci/helm@1.2.0
-  hmpps: ministryofjustice/hmpps@3.8
 
 commands:
   set_up_helm:
@@ -35,7 +39,7 @@ commands:
       - run:
           name: Configure git crypt
           command: |
-            sudo apt-get install git-crypt
+            sudo apt-get install git-crypt jq
             echo -e "$GIT_CRYPT_GPG_PRIVATE_KEY" | base64 -d | gpg --import
             git-crypt unlock
       - run:
@@ -68,7 +72,7 @@ commands:
 
 jobs:
   build_nprrelay_preview:
-    executor: hmpps/node
+    <<: *defaults
     steps:
       - checkout
       - setup_remote_docker:
@@ -93,7 +97,7 @@ jobs:
             - version-to-deploy.txt
 
   build_nprrelay_production:
-    executor: hmpps/node
+    <<: *defaults
     steps:
       - checkout
       - setup_remote_docker:
@@ -125,7 +129,7 @@ jobs:
             - version-to-deploy.txt
 
   deploy_development:
-    executor: hmpps/node
+    <<: *defaults
     steps:
       - checkout
       - set_up_helm
@@ -134,7 +138,7 @@ jobs:
           releaseName: "prisoner-content-hub-proxy"
 
   deploy_staging:
-    executor: hmpps/node
+    <<: *defaults
     steps:
       - checkout
       - set_up_helm
@@ -143,7 +147,7 @@ jobs:
           releaseName: "prisoner-content-hub-proxy"
 
   deploy_production:
-    executor: hmpps/node
+    <<: *defaults
     steps:
       - checkout
       - set_up_helm
