@@ -60,10 +60,12 @@ commands:
           name: Release to << parameters.environment >>
           command: |
             VERSION_TO_DEPLOY=$(cat /tmp/build-info/version-to-deploy.txt)
+            kubectl -n ${KUBE_NAMESPACE} get secret ip-allowlist -o json | jq '{ ingress: { allowed: .data |  map_values(@base64d) } } ' | \
             helm upgrade << parameters.releaseName >> ./helm_deploy/prisoner-content-hub-proxy \
               --install --wait --force --reset-values --timeout 360s \
               --namespace=${KUBE_NAMESPACE} \
               --values ./helm_deploy/prisoner-content-hub-proxy/values.<< parameters.environment >>.yaml \
+              --values - \
               --values ./helm_deploy/prisoner-content-hub-proxy/secrets.yaml \
               --set image.tag=${VERSION_TO_DEPLOY}
 
