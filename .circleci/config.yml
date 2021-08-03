@@ -67,7 +67,6 @@ commands:
               --values ./helm_deploy/prisoner-content-hub-proxy/values.<< parameters.environment >>.yaml \
               --values - \
               --values ./helm_deploy/prisoner-content-hub-proxy/secrets.yaml \
-              --values - \
               --set image.tag=${VERSION_TO_DEPLOY}
 
 jobs:
