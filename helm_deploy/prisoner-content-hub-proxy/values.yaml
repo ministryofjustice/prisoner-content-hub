@@ -10,29 +10,12 @@ image:
 
 application:
   port: 8000
-  liveness:
-    endpoint: /status-json.xsl
-    delaySeconds: 10
-    timeoutSeconds: 5
-  readiness:
-    endpoint: /status-json.xsl
-    delaySeconds: 10
-    timeoutSeconds: 5
 
 nprrelay:
   name: npr-live
-  servicePort: 80
   path: npr-live
   replicaCount: 2
   maxReplicaCount: 3
-  secretName: icecast.xml
-
-slack:
-  secretName: slack-webhook
-
-service:
-  type: ClusterIP
-  clusterIP: None
 
 ingress:
   enabled: true
