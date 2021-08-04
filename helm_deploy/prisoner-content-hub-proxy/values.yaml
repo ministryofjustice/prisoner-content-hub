@@ -16,6 +16,7 @@ nprrelay:
   path: npr-live
   replicaCount: 2
   maxReplicaCount: 3
+  configMapName: npr-live
 
 ingress:
   enabled: true
