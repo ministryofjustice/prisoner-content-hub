@@ -1,3 +1,0 @@
-.gitattributes !filter !diff
-
-helm_deploy/prisoner-content-hub-proxy/secrets.yaml filter=git-crypt diff=git-crypt
