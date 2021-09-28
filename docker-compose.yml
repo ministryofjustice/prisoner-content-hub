@@ -61,6 +61,14 @@ services:
     networks:
       - prisoner_content_hub
 
+  prisoner-content-hub-redis:
+    image: redis:5.0.6
+    ports:
+      - 6379:6379
+    networks:
+      - prisoner_content_hub
+
+
 volumes:
   drupal_db_data:
   elasticsearch_data:
