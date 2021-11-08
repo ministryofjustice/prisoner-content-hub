@@ -1,5 +1,6 @@
 ingress:
   annotations:
     kubernetes.io/ingress.class: "nginx"
+    external-dns.alpha.kubernetes.io/set-identifier: prisoner-content-hub-proxy-prisoner-content-hub-production-blue
   hostName: proxy.content-hub.prisoner.service.justice.gov.uk
   certSecretName: prisoner-content-hub-proxy-certificate
