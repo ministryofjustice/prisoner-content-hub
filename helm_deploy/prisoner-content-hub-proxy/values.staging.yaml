@@ -2,4 +2,4 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
     external-dns.alpha.kubernetes.io/set-identifier: prisoner-content-hub-proxy-prisoner-content-hub-staging-green
-  hostName: proxy-prisoner-content-hub-staging.apps.live-1.cloud-platform.service.justice.gov.uk
+  hostName: proxy-prisoner-content-hub-staging.apps.live.cloud-platform.service.justice.gov.uk
