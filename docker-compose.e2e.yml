@@ -18,7 +18,7 @@ services:
       - prisoner_content_hub
 
   prisoner-content-hub-backend:
-    image: "mojdigitalstudio/prisoner-content-hub-backend:${BACKEND_IMAGE_VERSION}"
+    image: "quay.io/hmpps/prisoner-content-hub-backend:${BACKEND_IMAGE_VERSION}"
 
   prisoner-content-hub-frontend:
-    image: "mojdigitalstudio/prisoner-content-hub-frontend:${FRONTEND_IMAGE_VERSION}"
+    image: "quay.io/hmpps/prisoner-content-hub-frontend:${FRONTEND_IMAGE_VERSION}"
