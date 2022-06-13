@@ -4,7 +4,7 @@ fullnameOverride: ""
 tier: frontend
 
 image:
-  repository: mojdigitalstudio/prisoner-content-hub-nprrelay
+  repository: quay.io/hmpps/prisoner-content-hub-nprrelay
   pullPolicy: IfNotPresent
   tag: latest
 

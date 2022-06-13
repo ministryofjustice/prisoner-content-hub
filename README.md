@@ -125,7 +125,7 @@ Bring down the Docker-Compose and clear down volumes
 
 ## Docker images
 
-Custom Docker images are hosted in the [MoJ Docker Hub organisation](https://hub.docker.com/u/mojdigitalstudio/).
+Custom Docker images are hosted in the [HMPPS Quay.io organisation](https://quay.io/organization/hmpps).
 
 # Contributing to the project
 
