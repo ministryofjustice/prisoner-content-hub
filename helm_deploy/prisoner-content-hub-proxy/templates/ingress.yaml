@@ -11,6 +11,7 @@ metadata:
   {{- end }}
     nginx.ingress.kubernetes.io/whitelist-source-range: {{ include "app.joinListWithComma" .Values.ingress.allowed | quote }}
 spec:
+  ingressClassName: default
   rules:
   - host: {{ .Values.ingress.hostName }}
     http:
