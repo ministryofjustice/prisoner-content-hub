@@ -20,7 +20,7 @@ spec:
         pathType: Exact
         backend:
           service:
-            name: { { include "prisoner-content-hub.fullname" . } }-{{ .Values.nprrelay.name }}
+            name: {{ include "prisoner-content-hub.fullname" . }}-{{ .Values.nprrelay.name }}
             port:
               number: 80
   tls:
