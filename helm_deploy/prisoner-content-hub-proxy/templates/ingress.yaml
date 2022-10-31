@@ -1,5 +1,5 @@
 {{- $fullName := include "prisoner-content-hub.fullname" . -}}
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
@@ -11,14 +11,18 @@ metadata:
   {{- end }}
     nginx.ingress.kubernetes.io/whitelist-source-range: {{ include "app.joinListWithComma" .Values.ingress.allowed | quote }}
 spec:
+  ingressClassName: default
   rules:
   - host: {{ .Values.ingress.hostName }}
     http:
       paths:
-      - backend:
-          serviceName: {{ include "prisoner-content-hub.fullname" . }}-{{ .Values.nprrelay.name }}
-          servicePort: http
-        path: /{{ .Values.nprrelay.path }}(/|$)(.*)
+        - path: /{{ .Values.nprrelay.path }}(/|$)(.*)
+          pathType: Exact
+          backend:
+            service:
+              name: {{ include "prisoner-content-hub.fullname" . }}-{{ .Values.nprrelay.name }}
+              port:
+                number: 80
   tls:
   - hosts:
     - {{ .Values.ingress.hostName }}
