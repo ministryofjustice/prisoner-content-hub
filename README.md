@@ -9,7 +9,7 @@ The stream is powered by icecast, and is available at https://proxy.content-hub.
 TODO: Rename this repo (to `prisoner-content-hub-npr-proxy`).
 SEE: https://trello.com/c/f3b1ifH5/826-rename-prisoner-content-hub-repo-to-prisoner-content-hub-npr-proxyå
 NOTE: This repo used to contain the docker compose local environment setup.  This has now been removed to their
-own repos:
+own repos
 
 - [Prisoner Content Hub Drupal CMS](https://github.com/ministryofjustice/prisoner-content-hub-backend)
 - [Prisoner Content Hub frontend](https://github.com/ministryofjustice/prisoner-content-hub-frontend)
