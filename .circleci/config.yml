@@ -10,8 +10,13 @@ feature_branch: &feature_branch
 version: 2.1
 
 orbs:
-  helm: circleci/helm@1.2.0
-  hmpps: ministryofjustice/hmpps@3.11
+  helm: circleci/helm@3.0.0
+  hmpps: ministryofjustice/hmpps@7
+
+parameters:
+  node-version:
+    type: string
+    default: 20.9-browsers
 
 commands:
   release_to_namespace:
@@ -40,7 +45,9 @@ commands:
 
 jobs:
   build_nprrelay_preview:
-    executor: hmpps/node
+    executor:
+      name: hmpps/node
+      tag: << pipeline.parameters.node-version >>
     steps:
       - checkout
       - setup_remote_docker:
@@ -65,7 +72,9 @@ jobs:
             - version-to-deploy.txt
 
   build_nprrelay_production:
-    executor: hmpps/node
+    executor:
+      name: hmpps/node
+      tag: << pipeline.parameters.node-version >>
     steps:
       - checkout
       - setup_remote_docker:
@@ -97,7 +106,9 @@ jobs:
             - version-to-deploy.txt
 
   deploy_development:
-    executor: hmpps/node
+    executor:
+      name: hmpps/node
+      tag: << pipeline.parameters.node-version >>
     steps:
       - checkout
       - release_to_namespace:
@@ -105,7 +116,9 @@ jobs:
           releaseName: "prisoner-content-hub-proxy"
 
   deploy_staging:
-    executor: hmpps/node
+    executor:
+      name: hmpps/node
+      tag: << pipeline.parameters.node-version >>
     steps:
       - checkout
       - release_to_namespace:
@@ -113,7 +126,9 @@ jobs:
           releaseName: "prisoner-content-hub-proxy"
 
   deploy_production:
-    executor: hmpps/node
+    executor:
+      name: hmpps/node
+      tag: << pipeline.parameters.node-version >>
     steps:
       - checkout
       - release_to_namespace:
