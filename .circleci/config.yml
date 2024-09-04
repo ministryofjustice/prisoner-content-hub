@@ -140,10 +140,6 @@ workflows:
   build-test-deploy:
     jobs:
 
-      - approve_preview_build:
-          <<: *feature_branch
-          type: approval
-
       - build_nprrelay_preview:
           <<: *feature_branch
           requires:
