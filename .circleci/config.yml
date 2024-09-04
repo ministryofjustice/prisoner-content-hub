@@ -142,8 +142,6 @@ workflows:
 
       - build_nprrelay_preview:
           <<: *feature_branch
-          requires:
-            - approve_preview_build
 
       - deploy_development:
           <<: *feature_branch
