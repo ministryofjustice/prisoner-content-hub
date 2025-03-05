@@ -10,13 +10,13 @@ feature_branch: &feature_branch
 version: 2.1
 
 orbs:
-  helm: circleci/helm@3.0.2
-  hmpps: ministryofjustice/hmpps@8
+  helm: circleci/helm@3.1.0
+  hmpps: ministryofjustice/hmpps@10
 
 parameters:
   node-version:
     type: string
-    default: 20.17-browsers
+    default: 22.14-browsers
 
 commands:
   release_to_namespace:
