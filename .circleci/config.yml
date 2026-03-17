@@ -11,7 +11,7 @@ version: 2.1
 
 orbs:
   helm: circleci/helm@3.1.0
-  hmpps: ministryofjustice/hmpps@11
+  hmpps: ministryofjustice/hmpps@11.3.0
 
 parameters:
   node-version:
